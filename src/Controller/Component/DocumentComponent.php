@@ -215,7 +215,7 @@ class DocumentComponent extends Component{
                     //$controller->Flash->success('Document submitted successfully');
                     }
                 $arr['sub_doc_id'] = $_POST['sub_doc_id'];
-                if (isset($_POST['uploaded_for']))
+                if (isset($_POST['uploaded_for'])&& $_POST['uploaded_for']!='')
                     $arr['uploaded_for'] = $_POST['uploaded_for'];
 
                 $arr['client_id'] = $cid;
@@ -244,18 +244,26 @@ class DocumentComponent extends Component{
                        
                         if($assignedProfile)
                         {
-                            if(!isset($_GET['draft']) && !($_GET['draft']))
+                           
+                            if(!isset($_GET['draft'])|| (isset($_GET['draft']) && $_GET['draft']=='0'))
                             {
+                                
                                 $profile = $this->getProfilePermission($assignedProfile->profile_id, 'document');
                                 if($profile)
                                 {
+                                    
                                     foreach($profile as $p)
                                     {
+                                         
                                         $pro_query = TableRegistry::get('Profiles');
                                         $email_query = $pro_query->find()->where(['super' => 1])->first();
                                         $em = $email_query->email;
-                                        $user_id = $controller->request->session()->read('Profile.id');
-                                        $uq = $pro_query->find('all')->where(['id' => $user_id])->first();
+                                        if($controller->request->params['controller']=='ClientApplication')                                        
+                                            $user_id = $_POST['user_id'];
+                                        else
+                                            $user_id = $controller->request->session()->read('Profile.id');
+                                                                                                                                                                            
+                                        if($uq = $pro_query->find('all')->where(['id' => $user_id])->first())
                                         if (isset($uq->profile_type))
                                           {
                                             $u = $uq->profile_type;
