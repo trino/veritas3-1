@@ -193,6 +193,10 @@
 
 
         public function addorder($cid = 0, $did = 0, $table = null) {
+            if($cid)
+            {
+                $this->set('client',TableRegistry::get('clients')->find()->where(['id'=>$cid])->first());
+            }
             $this->set('doc_comp', $this->Document);
             $meedocs = TableRegistry::get('mee_attachments_more');
             $this->set('meedocs',$meedocs);
