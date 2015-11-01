@@ -65,8 +65,8 @@ function makerow($profile, $Fields){
 
     <?= makerow($profile, array("Title" => "title", "Gender" => "gender", "Email" => "email", "Country of Birth" => "placeofbirth", "Date of Birth" => "dob")); ?>
 
-        <div>
-            <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="col-md-6" style="padding-left:0!important; padding-right: 0!important;">
              <div class="row"> 
                     <label class="control-label col-md-3">Name: </label>
                     <div class="col-md-3">              
@@ -357,7 +357,7 @@ function makerow($profile, $Fields){
             </div>
             </div>
 
-            <div class="col-md-12 nothuron">
+            <div class="col-md-12 nothuron" style="padding-left:0!important; padding-right: 0!important;">
              <div class="row"> 
                     <div class="col-md-12">
                         <label class="control-label col-md-2">Job(s) Applied for: </label> 
