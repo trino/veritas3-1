@@ -1,0 +1,487 @@
+
+.secondary_logo{
+    display: block;
+    padding: 10px 20px 0 20px;
+    width:100%;
+    opacity:0.8;
+
+
+}
+
+.whiteCorner {
+    z-index: 2;
+    width: 25px;
+    height: 25px;
+    background-image: url("../img/WhiteCorner.png") !important;
+    float: right;
+}
+
+.dusk {
+    z-index: 2;
+    width: 90%;
+    height: 7%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 100% 8px;
+    position: absolute;
+    margin:-25px 0 0 0;
+    opacity: 0.75;
+    background-image: url("../img/dusk.png") !important;
+    background-repeat: no-repeat !important;
+
+
+}
+.jobimg{max-width:100%;}
+.floatright{float:right;}
+.portlet .form .form-actions{padding:10px;}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor: not-allowed;
+    background-color: #fff ;
+    border: 1px solid #efefef;
+
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor: not-allowed;
+    background-color: #fff;
+    opacity: 1;
+    border: 1px solid #efefef;
+
+}
+
+
+.secondary_logo{
+    display: block;
+    padding: 10px 20px 0 20px;
+    width:100%;
+  opacity:0.8;
+
+
+}
+
+
+.whitecenterdiv {
+  padding-top: 30px;
+  color:#c9dae9; width:100%; text-align: center;
+}
+
+.whiteCorner {
+    z-index: 2;
+    width: 25px;
+    height: 25px;
+    background-image: url("../img/WhiteCorner.png") !important;
+float: right;
+}
+
+.dusk {
+    z-index: 2;
+    width: 90%;
+    height: 7%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 100% 8px;
+    position: absolute;
+    margin:-25px 0 0 0;
+    opacity: 0.75;
+    background-image: url("../img/dusk.png") !important;
+    background-repeat: no-repeat !important;
+
+
+}
+.jobimg{max-width:100%;}
+.floatright{float:right;}
+
+
+
+/***
+Red Pricing table
+***/
+.pricing-red {
+    position: relative;
+    margin-bottom: 15px;
+    border: 3px solid #eee;
+}
+
+.pricing-red-active {
+    margin-top: -10px;
+    box-shadow: 7px 7px rgba(255, 0, 0, 0.2);
+}
+
+
+.pricing-red:hover {
+    border: 3px solid #d84a38 ;
+}
+
+.pricing-red:hover h4 {
+    color: #d84a38 ;
+}
+
+.pricing-red-head {
+    text-align: center;
+}
+
+.pricing-red-head h3,
+.pricing-red-head h4 {
+    margin: 0;
+    line-height: normal;
+}
+
+.pricing-red-head h3 span,
+.pricing-red-head h4 span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.pricing-red-head h3 {
+    font-weight: 300;
+    color: #fafafa;
+    padding: 12px 0;
+    font-size: 27px;
+    background: #d84a38 ;
+    border-bottom: solid 1px #8A0B11;
+}
+
+.pricing-red-head h4 {
+    color: #bac39f;
+    padding: 5px 0;
+    font-size: 54px;
+    font-weight: 300;
+    background: #fbfef2;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-red-head-active h4 {
+    color: #d84a38 ;
+}
+
+.pricing-red-head h4 i {
+    top: -8px;
+    font-size: 28px;
+    font-style: normal;
+    position: relative;
+}
+
+.pricing-red-head h4 span {
+    top: -10px;
+    font-size: 14px;
+    font-style: normal;
+    position: relative;
+}
+
+/*Pricing Content*/
+.pricing-red-content li {
+    color: #888;
+    font-size: 12px;
+    padding: 7px 15px;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-red-content li i {
+    top: 2px;
+    color: #d84a38 ;
+    font-size: 16px;
+    margin-right: 5px;
+    position: relative;
+}
+
+/*Priceing Active*/
+.pricing-red:hover {
+    z-index: 9;
+}
+
+
+
+
+
+
+
+
+/***
+blue Pricing table
+***/
+.pricing-blue {
+    position: relative;
+    margin-bottom: 15px;
+    border: 3px solid #eee;
+}
+
+.pricing-blue-active {
+    margin-top: -10px;
+    box-shadow: 7px 7px rgba(0, 0, 255, 0.2);
+}
+
+
+.pricing-blue:hover {
+    border: 3px solid #4B8DF8 ;
+}
+
+.pricing-blue:hover h4 {
+    color: #4B8DF8 ;
+}
+
+.pricing-blue-head {
+    text-align: center;
+}
+
+.pricing-blue-head h3,
+.pricing-blue-head h4 {
+    margin: 0;
+    line-height: normal;
+}
+
+.pricing-blue-head h3 span,
+.pricing-blue-head h4 span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.pricing-blue-head h3 {
+    font-weight: 300;
+    color: #fafafa;
+    padding: 12px 0;
+    font-size: 27px;
+    background: #4B8DF8 ;
+    border-bottom: solid 1px #3c6385;
+}
+
+.pricing-blue-head h4 {
+    color: #bac39f;
+    padding: 5px 0;
+    font-size: 54px;
+    font-weight: 300;
+    background: #fbfef2;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-blue-head-active h4 {
+    color: #4B8DF8 ;
+}
+
+.pricing-blue-head h4 i {
+    top: -8px;
+    font-size: 28px;
+    font-style: normal;
+    position: relative;
+}
+
+.pricing-blue-head h4 span {
+    top: -10px;
+    font-size: 14px;
+    font-style: normal;
+    position: relative;
+}
+
+/*Pricing Content*/
+.pricing-blue-content li {
+    color: #888;
+    font-size: 12px;
+    padding: 7px 15px;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-blue-content li i {
+    top: 2px;
+    color: #4B8DF8 ;
+    font-size: 16px;
+    margin-right: 5px;
+    position: relative;
+}
+
+/*Priceing Active*/
+.pricing-blue:hover {
+    z-index: 9;
+}
+
+
+
+
+
+
+
+
+
+/***
+orange Pricing table
+***/
+.pricing-orange {
+    position: relative;
+    margin-bottom: 15px;
+    border: 3px solid #eee;
+}
+
+.pricing-orange-active {
+    margin-top: -10px;
+    box-shadow: 7px 7px rgba(255, 0, 0, 0.2);
+}
+
+
+.pricing-orange:hover {
+    border: 3px solid orange;
+}
+
+.pricing-orange:hover h4 {
+    color: orange;
+}
+
+.pricing-orange-head {
+    text-align: center;
+}
+
+.pricing-orange-head h3,
+.pricing-orange-head h4 {
+    margin: 0;
+    line-height: normal;
+}
+
+.pricing-orange-head h3 span,
+.pricing-orange-head h4 span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.pricing-orange-head h3 {
+    font-weight: 300;
+    color: #fafafa;
+    padding: 12px 0;
+    font-size: 27px;
+    background: orange;
+    border-bottom: solid 1px #8A0B11;
+}
+
+.pricing-orange-head h4 {
+    color: #bac39f;
+    padding: 5px 0;
+    font-size: 54px;
+    font-weight: 300;
+    background: #fbfef2;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-orange-head-active h4 {
+    color: orange;
+}
+
+.pricing-orange-head h4 i {
+    top: -8px;
+    font-size: 28px;
+    font-style: normal;
+    position: relative;
+}
+
+.pricing-orange-head h4 span {
+    top: -10px;
+    font-size: 14px;
+    font-style: normal;
+    position: relative;
+}
+
+/*Pricing Content*/
+.pricing-orange-content li {
+    color: #888;
+    font-size: 12px;
+    padding: 7px 15px;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-orange-content li i {
+    top: 2px;
+    color: orange;
+    font-size: 16px;
+    margin-right: 5px;
+    position: relative;
+}
+
+/*Pricing Active*/
+.pricing-orange:hover {
+    z-index: 9;
+}
+
+.btnspc{
+    margin-right: 5px;
+}
+
+.dashboard-stat{
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+    canvas {
+        width:100%;
+    }
+}
+
+#more_div .col-md-3, #more_div .col-md-9, #more_div .col-md-6 {
+    padding-left: 0 !important;
+    padding-right: 15px !important;
+}
+
+#more_div .col-md-12 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.overlay-wrapper {
+    background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+    display: none;
+}
+
+.overlay {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+}
+
+#driverform .form-control, .pricing .divisionsel .form-control, .pricing .clientsel .form-control, .select2-search input, .select2-drop {
+    border: 1px solid #36d7ac;
+}
+
+.pricing .table-bordered > thead > tr > th, .pricing .table-bordered > tbody > tr > th, .pricing .table-bordered > tfoot > tr > th, .pricing .table-bordered > thead > tr > td, .pricing .table-bordered > tbody > tr > td, .pricing .table-bordered > tfoot > tr > td {
+     border: 1px solid #36d7ac !important;
+}
+.pricing .clientsel .select2-dropdown-open .select2-choice, .pricing .clientsel .form-control .select2-choice, .pricing .form-control .select2-choice {
+    border: none !important;
+}
+
+.pricing .form-control {
+    margin-bottom: 2px;
+}
+
+.select2-result-label:hover, .pricing table td:hover  {
+  background: #36d7ac;
+  color: #fff;
+   	transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+}
+
+#form_tab18 div.radio input {
+  opacity: 1 !important;
+}
+
+.other_informations canvas {
+  width: 100% !important;
+}
+
+.steps div.radio input, .steps div.checker input {
+  opacity: 1 !important;
+}
+
+body.login .content {
+    width: 100% !important;
+}

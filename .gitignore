@@ -1,13 +1,86 @@
-CakePHP 3
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-/vendor/*
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+src/Controller/logs/**
+bin/**
+[Cc]onfig/**
+logs/**
+plugins/**
+tests/**
+tmp/**
+tmp/cache/**
+tmp/cache/models/**
+vendor/**
+webroot/subpages/soap/**
+webroot/attachments/**
+webroot/orders/**
+webroot/img/certificates/*.pdf
+webroot/img/jobs/**
+webroot/img/logos/**
+webroot/img/profile/**
+webroot/canvas/*.png
+webroot/canvas/*.jpg
+webroot/canvas/*.jpeg
+webroot/canvas/*.gif
+webroot/canvas/*.bmp
+webroot/order_submitted/*
+!empty
+*.tar.gz
+*.tar
+.idea/**
+*.log
+*.idea
+/vendor/**
 /config/app.php
-/tmp/*
-/logs/*
-
-CakePHP 2
-
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
+/tmp/**
+/logs/**
+*.xml
+.idea/misc.xml
+*.xml
+*.pdf
+myapp_cake_*
+tmp/cache/**
+tmp/debug_kit.sqlite
+webroot/royslog.txt
+src/Controller/logs/debug.log
+*.log

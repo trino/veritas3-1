@@ -1,0 +1,1 @@
+<?php include('subpages/inbox_view.php');?>
