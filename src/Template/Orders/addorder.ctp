@@ -1,4 +1,5 @@
 <?php
+
 use Cake\ORM\TableRegistry;
 include_once 'subpages/filelist.php';
 $param = $this->request->params['action'];
@@ -200,6 +201,8 @@ printCSS($this);
                 <!--<form action="#" class="form-horizontal" id="submit_form" method="POST"> -->
                 <div class="form-wizard">
                     <div class="form-body" style="position: relative;">
+                    <input type="hidden" id="orderid" value="" />
+                    <input type="hidden" id="user_id" value="" />
                         <?php
 
                         if ($param != 'view') {

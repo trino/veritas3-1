@@ -71,12 +71,28 @@ class ClientApplicationController extends AppController {
             return $this->response;
             
         }
-    function saveDriver()
+    function saveDriver($id=0)
     {
+        
         $model = TableRegistry::get('profiles');
+        if($id==0){
         $profile = $model->newEntity($_POST);
         $model->save($profile);
         echo $pid = $profile->id;
+        }
+        else
+        {
+            $arrs = $_POST;
+            unset($arrs['client_id']);
+            unset($arrs['c_id']);
+            unset($arrs['document_type']);
+            $model->query()->update()
+                ->set($_POST)
+                ->where(['id' => $id])
+                ->execute();
+                echo $pid = $id;
+        }
+        
         $cid = $_POST['c_id'];
         $client = TableRegistry::get('clients');
         $profile_ids = $client->find()->select('profile_id')->where('id',$cid)->first();

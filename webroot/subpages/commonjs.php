@@ -1,5 +1,6 @@
 <script>
 $(function(){
+    
    function save_driver(par,webroot)
 {
     var driver_id = '';
@@ -7,15 +8,17 @@ $(function(){
     var fields = par.find('input').serialize();
     var fields = fields+'&'+par.find('select').serialize();
     $.ajax({
-        url:webroot+'clientApplication/saveDriver',
+        url:webroot+'clientApplication/saveDriver/<?php if(isset($_GET['driver']))echo $_GET['driver'];?>',
         data:fields,
         type:'post',
         success:function(res){
             $('#user_id').val(res);
+            
             $('.overlay-wrapper').hide();
             
+            
         }
-    })
+    });
     
 }
  
@@ -86,6 +89,8 @@ $(function(){
             }
             else
             {
+                
+               
                  var uploaded_for1 = $('#user_id').val();
                  var data = {
                     uploaded_for: uploaded_for1,
@@ -101,7 +106,7 @@ $(function(){
                     data: data,
                     type: 'post',
                     beforeSend: function(){$('.overlay-wrapper').show()},
-                    url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/0/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
+                    url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/<?php if(isset($did))echo $did;else echo '0';?>/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
                     success: function (res) {
     
                         $('#did').val(res);
