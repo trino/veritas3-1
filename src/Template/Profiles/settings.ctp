@@ -79,6 +79,11 @@ function makedropdownoption($Key, $Value, $TheValue){
     echo '>' . $Value . '</option>';
 }
 
+if (isset($_GET["includeonly"])){
+    include('subpages/' . $_GET["includeonly"]);
+    return;
+}
+
 ?>
 
 <div class="clearfix"></div>

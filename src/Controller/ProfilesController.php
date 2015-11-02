@@ -351,7 +351,7 @@
                         $this->newstring($_POST);
                         break;
                     case "searchstrings":
-                        $this->searchstrings($_POST["string"], $_POST["language"], $_POST["languages"]);
+                        $this->searchstrings($_POST["string"], $_POST["language"], $_POST["languages"], $_POST["start"], $_POST["limit"]);
                         break;
                     case "sendtoroy":
                         $this->sendtoroy();
@@ -387,10 +387,16 @@
                 echo  $POST["Name"] . " was created";
             }
         }
-        function searchstrings($string, $language, $languages){
+        function searchstrings($string, $language, $languages, $Start = 0, $Limit = 20){
             $table =  TableRegistry::get('strings');
-            $query = "Name LIKE '%" . $string . "%' OR " . $language . " LIKE '%" . $string . "%'";
-            $results = $table->find()->where(["(" . $query . ")"])->all();
+            if ($string == "*"){
+                $results = $table->find('all', array('limit'=>$Limit, 'offset'=>$Start))->all();
+                $Total = $table->find()->count();
+            } else {
+                $query = "Name LIKE '%" . $string . "%' OR " . $language . " LIKE '%" . $string . "%'";
+                $results = $table->find('all', array('limit'=>$Limit, 'offset'=>$Start))->where(["(" . $query . ")"])->all();
+                $Total = $table->find()->where(["(" . $query . ")"])->count();
+            }
             $languages = explode(",", $languages);
             if($results){
                 echo '<THEAD><TH>Name</TH><TH>' . $language . '</TH></THEAD>';
@@ -403,8 +409,30 @@
                     }// . "', " . json_encode($data) .
                     echo '<TR id="item' . $result->Name . '" onclick="itemclick(' . "'" . $result->Name . "'" . ');"' . $data2 . '><TD>' . $result->Name . '</TD><TD>' . $result->$language . '</TD></TR>';
                 }
+                $this->mypaginate($Start, $Limit, $results->count(), $Total);
             } else {
                 echo '<TR><TD>No results found</TD></TR>';
+            }
+        }
+        function mypaginate($Start, $Limit, $ThisPage, $Total){
+            echo '<TR><TD COLSPAN="2">Results: ' . $ThisPage . '/' . $Total . '</TD></TR>';
+            echo '<TR><TD COLSPAN="2"><div class="dataTables_paginate paging_simple_numbers" align="right"><ul class="pagination">';
+                $this->mypage($Start, $Start-$Limit, $Total, "&lt; Previous", "prev");
+                $Temp = $Start - ($Limit*4);
+                if($Temp < 0){$Temp = 0;}
+                $End= $Temp + ($Limit*9);
+                if($End > $Total){$End = $Total;}
+                for($Number = $Temp; $Number < $End; $Number+=$Limit){
+                    $this->mypage($Start, $Number, $Total, ($Number/$Limit)+1);
+                }
+                $this->mypage($Start, $Start+$Limit, $Total, "Next &gt;", "next");
+            echo '</DIV></TD></TR>';
+        }
+        function mypage($Start, $Number, $Total, $Label, $Class = ""){
+            if ($Start == $Number || $Number < 1 || $Number > $Total){
+                echo '<li class="' . $Class . ' disabled"><a>' . $Label . '</a></li>';
+            } else {
+                echo '<li class="' . $Class . '"><a onclick="test(' . $Number . '); return false;">' . $Label . '</a></li>';
             }
         }
 
