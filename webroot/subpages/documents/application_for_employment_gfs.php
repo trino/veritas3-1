@@ -963,11 +963,13 @@ through 7 inclusive, and acknowledge that with my signature below.
         
         <div class="col-md-12 margin-bottom-10">
          <div class="other_informations"> 
-        <div class="col-md-6">
+        <div class="col-md-3">
         <div class="row"> 
             <label class="col-md-6">Dated</label>
             <input type="text" name="dated" class="form-control date-picker" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->dated;?>" />
         </div>
+        </div>
+        <div class="col-md-3">
         </div>
         <div class="col-md-6">
         <div class="row"> 
