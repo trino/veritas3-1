@@ -470,22 +470,16 @@ orange Pricing table
 	-webkit-transition: all 0.5s ease;
 }
 
-#form_tab18 div.radio input {
-  opacity: 1 !important;
-}
 
 .other_informations canvas {
   width: 100% !important;
 }
 
-.steps div.radio input, .steps div.checker input {
-  opacity: 1 !important;
-}
 
 body.login .content {
     width: 100% !important;
 }
 
-body.login .content .steps .col-md-4 {
-    height: auto !important;
+.form-horizontal .moredocxs .control-label {
+    text-align: left !important;
 }

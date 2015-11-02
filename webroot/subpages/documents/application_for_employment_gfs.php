@@ -36,7 +36,7 @@ function makerow($profile, $Fields){
                // echo '<div class="col-md-6"><div class="col-md-6"></div></div>';
             }
             ?>
-<p>&nbsp;</p>
+
             <div class="clearfix"></div>
     <?php
     }
@@ -48,7 +48,7 @@ function makerow($profile, $Fields){
         
         <div class="clearfix"></div>
         <hr/>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
         <div class="row"> 
             <div class="col-md-6"><img src="<?php
                 if ($ClientID == 26) {
@@ -57,7 +57,6 @@ function makerow($profile, $Fields){
                     echo clientimage($this->request->webroot, $settings, $Client);
                 }
                 ?>" style="width: 120px;" /></div>
-                <p>&nbsp;</p>
             <div class="clearfix"></div>
         </div>
         </div>
@@ -66,7 +65,7 @@ function makerow($profile, $Fields){
 
     <?= makerow($profile, array("Title" => "title", "Gender" => "gender", "Email" => "email", "Country of Birth" => "placeofbirth", "Date of Birth" => "dob")); ?>
 
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
             <div class="col-md-6" style="padding-left:0!important; padding-right: 0!important;">
              <div class="row"> 
                     <label class="control-label col-md-3">Name: </label>
@@ -93,8 +92,8 @@ function makerow($profile, $Fields){
             </div> 
             </div>
         </div>
-        <p>&nbsp;</p>
-            <div class="col-md-12">
+        
+            <div class="col-md-12 margin-bottom-10">
              <div class="row"> 
                     <label class="control-label col-md-4">Current Address: </label>  
                     <div class="col-md-8">              
@@ -102,8 +101,8 @@ function makerow($profile, $Fields){
                     </div>  
             </div>
             </div>
-            <p>&nbsp;</p>
-            <div class="col-md-12 ever_applied_work">
+     
+            <div class="col-md-12 ever_applied_work margin-bottom-10">
              <div class="row"> 
                     <label class="control-label col-md-4">Have you ever applied for work with us before? </label>  
                     <div class="col-md-2 radio-list yesNoCheck">
@@ -149,8 +148,8 @@ function makerow($profile, $Fields){
                     </div> 
             </div>
             </div>
-           <p>&nbsp;</p>
-            <div class="col-md-12 nothuron">
+           
+            <div class="col-md-12 nothuron margin-bottom-10">
              <div class="row"> 
                     <label class="control-label col-md-4">List anyone you know who woks for us: </label>
                     <div class="col-md-8">
@@ -158,8 +157,7 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
-            <p>&nbsp;</p>
-            <div class="col-md-12 nothuron">
+            <div class="col-md-12 nothuron margin-bottom-10">
              <div class="row"> 
                     <label class="control-label col-md-4">Did anyone refer you? </label>
                     <div class="col-md-8">
@@ -167,8 +165,7 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
-            <p>&nbsp;</p>
-            <div class="col-md-6">
+            <div class="col-md-6 margin-bottom-10">
              <div class="row"> 
                     <label class="control-label col-md-8">Are you 18 years of age or older? </label>  
                     <div class="col-md-4 radio-list">
@@ -207,7 +204,7 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 margin-bottom-10">
              <div class="row"> 
                     <label class="control-label col-md-8">Are you legally eligible to work in Canada? </label>  
                     <div class="col-md-4 radio-list">
@@ -246,7 +243,6 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
-            <p>&nbsp;</p>
         <div class="clearfix"></div>
        
 
@@ -291,7 +287,7 @@ function makerow($profile, $Fields){
     <div class="col-md-12">
          <div class="row"> 
         <div class="col-md-4 nothuron">
-            <div class="form-group">
+            <div class="">
                 <label class="control-label required">SIN:</label>
                 <input name="sin" type="text" required class="form-control <?php if($ClientID==26) { echo "required"; } ?> req_driver" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->sin;?>" >
                 <span class="error"></span>
@@ -616,39 +612,36 @@ function makerow($profile, $Fields){
         </div-->
                 
         
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <label class="col-md-6">Show special courses or training that will help you as as driver</label>
             <div class="col-md-6"><textarea class="form-control" name="special_course"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->special_course;?></textarea></div>
-            <p>&nbsp;</p>
         </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <label class="col-md-6">Which safe driving awaards do you hold and from whom?</label>
             <div class="col-md-6"><textarea class="form-control" name="which_safe_driving"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->which_safe_driving;?></textarea></div>
-            <p>&nbsp;</p>
         </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <label class="col-md-6">Show any trucking, transportation or other experiences that may help in your work for this company:</label>
             <div class="col-md-6"><textarea class="form-control" name="show_any_trucking"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->show_any_trucking;?></textarea></div>
-            <p>&nbsp;</p>
         </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <label class="col-md-6">List courses and training other than shown elsewhere in this application</label>
             <div class="col-md-6"><textarea class="form-control" name="list_courses_training"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->list_courses_training;?></textarea></div>
-            <p>&nbsp;</p>
+
         </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <label class="col-md-6">List special equipment or technical materials you can work with (other than those already shown)</label>
             <div class="col-md-6"><textarea class="form-control" name="list_special_equipment"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->list_special_equipment;?></textarea></div>
-            <p>&nbsp;</p>
+
         </div>
         </div>
         
@@ -866,14 +859,13 @@ function makerow($profile, $Fields){
              </div>
         </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <label class="col-md-6">Which of your former positions did you like best and why?</label>
             <div class="col-md-12"><textarea class="form-control" name="best_former_positions"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->best_former_posotions;?></textarea></div>
         </div>
         </div>
-        <p>&nbsp;</p>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
         
              <h3>OTHER INFORMATION</h3>
              <p>
@@ -883,8 +875,7 @@ function makerow($profile, $Fields){
              </p>
              <textarea name="other_information" class="form-control" placeholder="OTHER INFORMATION"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->other_information;?></textarea>
         </div>
-        <p>&nbsp;</p>
-        <div class="col-md-12 nothuron">
+        <div class="col-md-12 nothuron margin-bottom-10">
              <h3>BUSINESS REFERENCES</h3>
              <table class="table table-bordered">
                 <thead>
@@ -908,9 +899,8 @@ function makerow($profile, $Fields){
                 </tbody>
              </table>
         </div>
-        
-        <p>&nbsp;</p>
-        <div class="col-md-12 nothuron">
+
+        <div class="col-md-12 nothuron margin-bottom-10">
             <h3>APPLICANT’S CERTIFICATION AND AGREEMENT</h3>   
             <strong>PLEASE READ EACH SECTION CAREFULLY AND CHECK THE BOX:</strong> 
             <p>&nbsp;</p>  
@@ -970,9 +960,8 @@ through 7 inclusive, and acknowledge that with my signature below.
             </LABEL></p>
         </div>
         <div class="clearfix"></div>
-        <p>&nbsp;</p>
         
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="other_informations"> 
         <div class="col-md-6">
         <div class="row"> 
@@ -989,12 +978,11 @@ through 7 inclusive, and acknowledge that with my signature below.
         </div>
         </div>
         
-        <p>&nbsp;</p>
         
         <div class="col-md-12" style="margin-bottom: 20px;">
             <h3 style="color: #FFF;background: #5B5A5A;padding:5px;">Process Record - For Use by <?= $Client->company_name; ?> Representatives ONLY!</h3>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <div class="col-md-4">
             <div class="row"> 
@@ -1016,8 +1004,7 @@ through 7 inclusive, and acknowledge that with my signature below.
             </div>
         </div>
         </div>
-        <p>&nbsp;</p>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <div class="col-md-8">
             <div class="row"> 
@@ -1034,8 +1021,7 @@ through 7 inclusive, and acknowledge that with my signature below.
             
         </div>
         </div>
-        <p>&nbsp;</p>
-        <div class="col-md-12">
+        <div class="col-md-12 margin-bottom-10">
          <div class="row"> 
             <div class="col-md-12">
             <div class="row"> 
@@ -1056,7 +1042,6 @@ through 7 inclusive, and acknowledge that with my signature below.
         <div class="addattachment<?php echo $dx->id;?> form-group col-md-12"></div> 
         <?php }?>
         <div class="clearfix"></div>
-        <p>&nbsp;</p>
     
 
 </form>
