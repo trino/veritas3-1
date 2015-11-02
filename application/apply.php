@@ -272,7 +272,7 @@
             </div>
         </div>
 
-        <br>&nbsp;</br>
+        <br />
 
         <?php
             if (isset($profile->dob)) {
