@@ -87,7 +87,7 @@ class ClientApplicationController extends AppController {
             unset($arrs['c_id']);
             unset($arrs['document_type']);
             $model->query()->update()
-                ->set($_POST)
+                ->set($arrs)
                 ->where(['id' => $id])
                 ->execute();
                 echo $pid = $id;

@@ -96,7 +96,15 @@ $(function(){
                     uploaded_for: uploaded_for1,
                     type: type,
                     sub_doc_id: sid,
-                    user_id: uploaded_for1
+                    user_id: uploaded_for1,
+                    <?php
+                    if($this->request->params['action']=='addorder')
+                    {
+                        ?>
+                        division: $('#division').val()
+                        <?php
+                    }
+                    ?>
                     //division: $('#division').val(),
                     //attach_doc: attach_docs
                 };
@@ -106,7 +114,7 @@ $(function(){
                     data: data,
                     type: 'post',
                     beforeSend: function(){$('.overlay-wrapper').show()},
-                    url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/<?php if(isset($did))echo $did;else echo '0';?>/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
+                    url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/<?php if(isset($did))echo $did;else echo '0';?>/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
                     success: function (res) {
     
                         $('#did').val(res);

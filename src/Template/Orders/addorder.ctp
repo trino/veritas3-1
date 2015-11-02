@@ -203,6 +203,7 @@ printCSS($this);
                     <div class="form-body" style="position: relative;">
                     <input type="hidden" id="orderid" value="" />
                     <input type="hidden" id="user_id" value="" />
+                    <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
 
                         if ($param != 'view') {
