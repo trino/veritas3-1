@@ -1662,7 +1662,7 @@
                 data: data,
                 type: 'post',
                 beforeSend:saveSignature,
-                url: '<?php echo $this->request->webroot;?>documents/savedoc/<?php echo $cid;?>/' + doc_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
+                url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/' + doc_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
                 success: function (res) {
 
                     $('#did').val(res);
@@ -1670,7 +1670,7 @@
                     //alert(type);return false;
                     if (sid == "1") {
                         var forms = $(".tab-pane.active").prev('.tab-pane').find(':input'),
-                            url = '<?php echo $this->request->webroot;?>documents/savePrescreening/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
+                            url = '<?php echo $this->request->webroot;?>clientApplication/savePrescreening/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
                             order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>';
                         savePrescreen(url, order_id, cid, draft);
@@ -1678,12 +1678,12 @@
                     } else if (sid == "2") {
                         var order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>',
-                            url = '<?php echo $this->request->webroot;?>documents/savedDriverApp/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                            url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverApp/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
                         savedDriverApp(url, order_id, cid,draft);
                     } else if (sid == "3") {
                         var order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>',
-                            url = '<?php echo $this->request->webroot;?>documents/savedDriverEvaluation/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                            url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
                         savedDriverEvaluation(url, order_id, cid,draft);
                     } else if (sid == "4") {
                         save_signature('3');
@@ -1692,7 +1692,7 @@
                         save_signature('6');
                         var order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>',
-                            url = '<?php echo $this->request->webroot;?>documents/savedMeeOrder/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                            url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
                         setTimeout(function(){
                             savedMeeOrder(url, order_id, cid, type,draft);
                         },1000);
@@ -1703,7 +1703,7 @@
                         //alert(type);
                         var order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>',
-                            url = '<?php echo $this->request->webroot;?>documents/saveEmployment/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                            url = '<?php echo $this->request->webroot;?>clientApplication/saveEmployment/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
                         saveEmployment(url, order_id, cid, type,draft);
                     }
                     else if (sid == "10") {
@@ -1711,7 +1711,7 @@
                         //alert(type);
                         var order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>',
-                            url = '<?php echo $this->request->webroot;?>documents/saveEducation/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                            url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
                         saveEducation(url, order_id, cid, type,draft);
                     }
                     else if (sid == "6") {
@@ -1793,7 +1793,7 @@
                         //alert('test');return;
                         var order_id = $('#did').val(),
                             cid = '<?php echo $cid;?>',
-                            url = '<?php echo $this->request->webroot;?>documents/mee_attach/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                            url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
                         var param = $('#form_tab15').serialize();
                         $.ajax({
                             url: url,
