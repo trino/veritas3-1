@@ -569,11 +569,13 @@
     }
 
     function save_signature(numb) {
+         var d = $.Deferred();
         $("#test"+numb).data("jqScribble").save(function(imageData)
         {
             //alert($('#signature_company_witness2').parent().find('.touched').val());
             if((numb=='1' && $('#recruiter_signature').parent().find('.touched').val()==1) || (numb=='3' && $('#criminal_signature_applicant').parent().find('.touched').val()==1) || (numb=='4' && $('#signature_company_witness').parent().find('.touched').val()==1) || (numb=='5' && $('#criminal_signature_applicant2').parent().find('.touched').val()==1) || (numb=='6' && $('#signature_company_witness2').parent().find('.touched').val()==1) || (numb=='8' && $('#gfs_signature').parent().find('.touched').val()==1)){
                 $.post('<?php echo $this->request->webroot; ?>canvas/image_save.php', {imagedata: imageData}, function(response) {
+                     d.resolve(response);
                     if(numb=='1') {
                         $('#recruiter_signature').val(response);
                     }
@@ -599,6 +601,7 @@
 
 
         });
+        return d.promise();
     }
     //showforms(doc_type);
     function showforms(form_type) {
@@ -1808,6 +1811,52 @@
                         });
 
                     }
+                      else
+                        if (sid == "18") {
+                            if($('#test8').parent().parent().find('.touched').val()=='1'){
+                            $.when(save_signature('8')).done(function(d1){
+                                $('#gfs_signature').val(d1);
+                                var order_id = $('#did').val();
+                                    cid = '<?php echo $cid;?>';
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id=<?php echo $this->request->session()->read('Profile.id');?>&uploaded_for='+$('#selecting_driver').val();
+                                var param = $('#form_tab18').serialize();
+                                 $.ajax({
+                                    url: url,
+                                    data: param,
+                                    type: 'POST',
+                                    success: function (res) {
+                                            $('.overlay-wrapper').hide();
+                                             
+                                                    window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+
+                                         }
+        
+        
+                                });
+                            });
+                           }
+                           else
+                           {
+                                var order_id = $('#did').val();
+                                    cid = '<?php echo $cid;?>';
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id=<?php echo $this->request->session()->read('Profile.id');?>&uploaded_for='+$('#selecting_driver').val();
+                                var param = $('#form_tab18').serialize();
+                                 $.ajax({
+                                    url: url,
+                                    data: param,
+                                    type: 'POST',
+                                    success: function (res) {
+                                            $('.overlay-wrapper').hide();
+                                             
+                                                    window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+
+                                         }
+        
+        
+                                });
+                           } 
+    
+                        }
                     else{
                         <?php foreach($doc as $dx)
                                 {

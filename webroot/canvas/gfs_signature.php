@@ -32,13 +32,15 @@ if ($this->request->session()->read('debug')) {
 		</style>
 	
 		<?php //var_dump($application_for_employment_gfs);?>
-        <div class="col-sm-12" id="sig8" style="padding-right: 0;">
+        <div class="col-sm-10" id="sig8" style="padding-right: 0;">
             <input type="hidden" name="gfs_signature" id="gfs_signature" value="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->gfs_signature)echo $application_for_employment_gfs->gfs_signature;?>" />
             <input type="hidden" class="touched" value="0" />
             <input type="hidden" class="touched_edit8" value="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->gfs_signature){?>1<?php }else{?>0<?php }?>" />
             
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
-    		<canvas id="test8" style="border: 1px solid silver;border-radius: 5px;"></canvas>
+    		<div style="width: 400px; height:250px">
+                <canvas id="test8" style="border: 1px solid silver;border-radius: 5px;"></canvas>
+            </div>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
     			<strong style="display: none;">OPTIONS:</strong>

@@ -47,7 +47,11 @@
             </div>
 
             <div class="col-md-4 margin-bottom-10"><label class="control-label"><?= $strings["forms_gender"]; ?>: </label>
-                <input type="text" class="form-control" name="sex" value="<?php if (isset($consent_detail))echo $consent_detail->sex;?>"/>
+            <select name="sex" class="form-control">
+                <option value="Male" <?php if (isset($consent_detail)&& $consent_detail->sex=='Male')echo "selected:selected";?>>Male</option>
+                <option value="Female" <?php if (isset($consent_detail)&& $consent_detail->sex=='Female')echo "selected:selected";?>>Female</option>
+            </select>
+                
             </div>
 
             <div class="col-md-4 margin-bottom-10"><label class="control-label"><?= $strings["forms_phone"]; ?>: </label>
@@ -489,11 +493,11 @@
         $("#test4").jqScribble();
         $("#test5").jqScribble();
         $("#test6").jqScribble();
-        /*
+        
         $('#test3,#test6,#test4,#test5').click(function(){
-            $(this).parent().find('.touched').val('1');
+            $(this).parent().parent().find('.touched').val('1');
         });
-        */
+        
         <?php }?>
 
         <?php

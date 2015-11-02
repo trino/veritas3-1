@@ -38,7 +38,9 @@ if ($this->request->session()->read('debug')) {
             <input type="hidden" class="touched_edit3" value="<?php if(isset($consent_detail) && $consent_detail->signature_company_witness){?>1<?php }else{?>0<?php }?>" />
             <label class="control-label "><?= $strings2["consent_sigwitness"]; ?></label><br>
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
-                <canvas id="test4" style="border: 1px solid silver;border-radius: 5px;width:400px !important;"></canvas>
+                <div style="width:400px;">
+                    <canvas id="test4" style="border: 1px solid silver;border-radius: 5px;"></canvas>
+                </div>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
     			<strong style="display: none;">OPTIONS:</strong>

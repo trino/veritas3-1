@@ -252,7 +252,7 @@ $(function(){
                         }
                         else
                         if (sid == "18") {
-                            if($('#test8').parent().find('.touched').val()=='1'){
+                            if($('#test8').parent().parent().find('.touched').val()=='1'){
                             $.when(save_signature('8')).done(function(d1){
                                 $('#gfs_signature').val(d1);
                                 var order_id = res,

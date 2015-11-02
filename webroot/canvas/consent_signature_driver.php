@@ -35,7 +35,7 @@ if ($this->request->session()->read('debug')) {
     <input type="hidden" class="touched_edit1" value="<?php if(isset($consent_detail) && $consent_detail->criminal_signature_applicant){ echo 1;} else{ echo 0; }?>" />
     <label class="control-label"><?= $strings2["consent_sigapplica"]; ?></label><br>
     <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){
-        echo '<canvas id="test3" style="border: 1px solid silver;border-radius: 5px;width:400px !important;"></canvas>';
+        echo '<div style="width:400px;"><canvas id="test3" style="border: 1px solid silver;border-radius: 5px;"></canvas></div>';
     }?>
     <div class="links" style="margin-top: 5px;">
         <strong style="display: none;">OPTIONS:</strong>

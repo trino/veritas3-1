@@ -775,11 +775,11 @@ function makerow($profile, $Fields){
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             if(isset($application_for_employment_gfs) && $application_for_employment_gfs->physical_exam=='1') {
                                 ?>
-                                echo '&#10004;';
+                                &#10004;
                                 <?php
                             } else {
                                 ?>
-                                echo '&#10006;';
+                                 &#10006;
                                 <?php
                             } 
                         } else {
@@ -1061,6 +1061,10 @@ through 7 inclusive, and acknowledge that with my signature below.
 $(function(){
     <?php if($this->request->params['action'] != 'vieworder'  && $this->request->params['action']!= 'view'){?>
         $("#test8").jqScribble();
+        $('#test8').data("jqScribble").update({width: 400}); 
+        $('#test8').click(function(){
+            $(this).parent().parent().find('.touched').val('1');
+        });       
         <?php }?>
             $('#yesCheck').click(function(){
               $("#yesDiv").show();  

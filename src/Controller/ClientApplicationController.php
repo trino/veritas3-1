@@ -201,7 +201,10 @@ class ClientApplicationController extends AppController {
                 if (!$did || $did == '0') {
                     
                     $arr['user_id'] = $_GET['user_id'];
-                    $arr['uploaded_for'] = $_GET['user_id'];
+                    if(isset($_GET['uploaded_for']))
+                        $arr['uploaded_for']= $_GET['uploaded_for'];
+                    else
+                        $arr['uploaded_for'] = $_GET['user_id'];
                     $arr['created'] = date('Y-m-d H:i:s');
                     $docs = TableRegistry::get('Documents');
                     $doc = $docs->newEntity($arr);
