@@ -747,7 +747,7 @@
                                                                                 </label>
                                                                             </td>
                                                                             <td>
-                                                                                <input <?php if ($csubdoc['display_order'] == 1) { ?> checked="checked" <?php } ?>
+                                                                                <input class="ordercheck" <?php if ($csubdoc['display_order'] == 1) { ?> checked="checked" <?php } ?>
                                                                                     type="checkbox" id="check<?= $u ?>"
                                                                                     onclick="if($(this).is(':checked')){$(this).closest('td').find('.fororder').val('1');}else {$(this).closest('td').find('.fororder').val('0');}"/>
                                                                                 <label
@@ -941,7 +941,7 @@
 
                     $('#save_display1').click(function () {
                         $('#save_display1').text('Saving..');
-                        var str = $('#displayform1 input:not(.inputapp)').serialize();
+                        var str = $('#displayform1 input.fororder').serialize();
                         $.ajax({
                             url: '<?php echo $this->request->webroot;?>clients/displaySubdocs/<?php echo $id;?>',
                             data: str,
