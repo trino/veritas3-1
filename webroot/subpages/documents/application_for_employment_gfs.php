@@ -36,7 +36,7 @@ function makerow($profile, $Fields){
                // echo '<div class="col-md-6"><div class="col-md-6"></div></div>';
             }
             ?>
-
+<p>&nbsp;</p>
             <div class="clearfix"></div>
     <?php
     }
@@ -57,6 +57,7 @@ function makerow($profile, $Fields){
                     echo clientimage($this->request->webroot, $settings, $Client);
                 }
                 ?>" style="width: 120px;" /></div>
+                <p>&nbsp;</p>
             <div class="clearfix"></div>
         </div>
         </div>
@@ -92,7 +93,7 @@ function makerow($profile, $Fields){
             </div> 
             </div>
         </div>
-        
+        <p>&nbsp;</p>
             <div class="col-md-12">
              <div class="row"> 
                     <label class="control-label col-md-4">Current Address: </label>  
@@ -101,7 +102,7 @@ function makerow($profile, $Fields){
                     </div>  
             </div>
             </div>
-     
+            <p>&nbsp;</p>
             <div class="col-md-12 ever_applied_work">
              <div class="row"> 
                     <label class="control-label col-md-4">Have you ever applied for work with us before? </label>  
@@ -148,7 +149,7 @@ function makerow($profile, $Fields){
                     </div> 
             </div>
             </div>
-           
+           <p>&nbsp;</p>
             <div class="col-md-12 nothuron">
              <div class="row"> 
                     <label class="control-label col-md-4">List anyone you know who woks for us: </label>
@@ -157,6 +158,7 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
+            <p>&nbsp;</p>
             <div class="col-md-12 nothuron">
              <div class="row"> 
                     <label class="control-label col-md-4">Did anyone refer you? </label>
@@ -165,6 +167,7 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
+            <p>&nbsp;</p>
             <div class="col-md-6">
              <div class="row"> 
                     <label class="control-label col-md-8">Are you 18 years of age or older? </label>  
@@ -243,6 +246,7 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
+            <p>&nbsp;</p>
         <div class="clearfix"></div>
        
 

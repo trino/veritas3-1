@@ -485,3 +485,7 @@ orange Pricing table
 body.login .content {
     width: 100% !important;
 }
+
+body.login .content .steps .col-md-4 {
+    height: auto !important;
+}
