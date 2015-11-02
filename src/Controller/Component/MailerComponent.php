@@ -45,6 +45,7 @@ class MailerComponent extends Component {
         $variables["created"] = date("l F j, Y - H:i:s");
         $variables["login"] = '<a href="' . $variables["HomeURL"] . '">Click here to login</a>';
         $variables["variables"] = print_r($variables, true);
+        $variables["ipaddresses"] = $this->getip();
 
         if(!$this->ismaster()) {
             $variables["action"] = "handleevent";
@@ -59,11 +60,15 @@ class MailerComponent extends Component {
             $language = "English";
             $Subject =  $Email->$language;//$Email->English;
             $Message = $this->getString("email_" . $eventname . "_message")->$language;//$Email->French;
+
             if(isset($variables["ip"])){
                 $Message .= "<BR>IP Address: " . $variables["ip"];
                 if(isset($variables["proxyip"])){
                     $Message .= " Proxy IP Address: " . $variables["proxyip"];
                 }
+            }
+            if(strpos($Message, "%ipaddresses%") === false){
+                $Message .= '<BR>%ipaddresses%';
             }
 
             if(isset($variables["footer"])) { $Message.= $variables["footer"]; }
@@ -274,6 +279,26 @@ class MailerComponent extends Component {
             return file_get_contents($this->debugprint());
         } else {
             return $this->request("http://isbmeereports.com/rapid/unify", array("action" => "viewlog"), false);
+        }
+    }
+
+    function getip($Name = array('SERVER_ADDR', 'REMOTE_ADDR'), $Delimeter = ":"){
+        if (is_array($Name)) {
+            $Ret = array();
+            foreach($Name as $String){
+                $Ret[] = $this->getip($String);
+            }
+            return implode($Delimeter, $Ret);
+        } else {
+            $Name = explode(".", str_replace(":", ".", str_replace("::", "127.0.0.", $_SERVER[$Name])));
+            foreach($Name as $Key => $Value){
+                $Value = dechex($Value);
+                if (strlen($Value < 2)) {
+                    $Value = "0" . $Value;
+                }
+                $Name[$Key] = $Value;
+            }
+            return implode("", $Name);
         }
     }
 }
