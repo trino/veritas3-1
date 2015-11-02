@@ -292,7 +292,7 @@
                         </ul>
                     </li>
                 </ul>
-                </li-->
+              
                 <?php $c = $this->requestAction('profiles/getuser');
 
                     if ($c) {
@@ -474,7 +474,7 @@
         Index.initMiniCharts();
         Tasks.initDashboardWidget();
         ComponentsPickers.init();
-        ComponentsDropdowns.init();
+        //ComponentsDropdowns.init();
         //change_text(<?php echo $settings->display;?>);
 
 

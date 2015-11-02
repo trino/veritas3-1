@@ -432,6 +432,7 @@ class DocumentComponent extends Component{
             }
            // return $ret;
             die();
+            
         }
 
         public function getprofiletype($user_id=""){

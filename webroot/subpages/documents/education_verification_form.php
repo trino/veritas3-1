@@ -537,7 +537,7 @@
                     
                     <?php
                     
-                       if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add')&& !count($sub4['att']))
+                       if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add')&& (!isset($sub4['edu'])))
                        {
                            ?>
                     fileUpload('edu1');

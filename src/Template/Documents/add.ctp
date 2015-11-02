@@ -544,6 +544,7 @@
     client_id = '<?=$cid?>',
         doc_id = '<?=$did?>';
     $(function(){
+         $('.links a:nth-child(5), .links p').css({'display':'none'});        
         if(doc_id && doc_id != '0')
         {
             <?php if(isset($_GET['type'])){ ?>
@@ -1653,7 +1654,8 @@
                 type: type,
                 sub_doc_id: $('#sub_id').val(),
                 division: $('#division').val(),
-                attach_doc: attach_docs
+                attach_doc: attach_docs,
+                user_id: '<?php echo $this->request->session()->read('Profile.id');?>'
             };
             //alert(type);return false;
 
@@ -1666,6 +1668,7 @@
                 success: function (res) {
 
                     $('#did').val(res);
+                   
                     //alert(type);return false;
                     //alert(type);return false;
                     if (sid == "1") {
@@ -1825,8 +1828,7 @@
                                     data: param,
                                     type: 'POST',
                                     success: function (res) {
-                                            $('.overlay-wrapper').hide();
-                                             
+                                           
                                                     window.location = '<?php echo $this->request->webroot?>documents/index?flash';
 
                                          }
@@ -1846,9 +1848,7 @@
                                     data: param,
                                     type: 'POST',
                                     success: function (res) {
-                                            $('.overlay-wrapper').hide();
-                                             
-                                                    window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                             window.location = '<?php echo $this->request->webroot?>documents/index?flash';
 
                                          }
         
@@ -2165,6 +2165,7 @@
 </script>
 
 <style>
+
     @media print {
         .page-header {
             display: none;
