@@ -26,8 +26,10 @@
 }
     .listclient{display:block;padding:5px 10px;background:#f5f5f5;margin:5px 0;font-size: 14px;color:#555;text-decoration:none;}
     .listclient:hover{text-decoration:none!important;background:#F4FCFD;font-weight:bold;}
-    .steps .col-md-4{height:90px;}
+    .steps .col-md-4{margin-bottom:10px;}
+    .steps .col-md-12{margin-bottom:10px;}
     .steps span.error{color:red;}
+    
 
     @media print {
         .content{
