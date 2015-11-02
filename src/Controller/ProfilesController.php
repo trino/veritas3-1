@@ -415,7 +415,7 @@
             }
         }
         function mypaginate($Start, $Limit, $ThisPage, $Total){
-            echo '<TR><TD COLSPAN="2">Results: ' . $ThisPage . '/' . $Total . '</TD></TR>';
+            //echo '<TR><TD COLSPAN="2">Results: ' . $ThisPage . '/' . $Total . '</TD></TR>';
             echo '<TR><TD COLSPAN="2"><div class="dataTables_paginate paging_simple_numbers" align="right"><ul class="pagination">';
                 $this->mypage($Start, $Start-$Limit, $Total, "&lt; Previous", "prev");
                 $Temp = $Start - ($Limit*4);
