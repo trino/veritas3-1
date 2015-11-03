@@ -161,7 +161,7 @@ $(function(){
                             //alert(type);
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/saveEmployment/' + order_id + '/' + cid<?php if($this->request->params['action']=='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>clientApplication/saveEmployment/' + order_id + '/' + cid+'/?user_id='+user_id<?php if($this->request->params['action']=='addorder'){?> + '&document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                             saveEmployment(url, order_id, cid, type,draft);
                         }
                         else if (sid == "10") {
@@ -521,7 +521,7 @@ function savePrescreen(url, order_id, cid,draft) {
             success: function (res) {
                  <?php if($this->request->controller=='Documents')
                     {?>
-                        //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
                         $('.overlay-wrapper').hide();
                  <?php }?>

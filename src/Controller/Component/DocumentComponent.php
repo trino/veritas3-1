@@ -869,10 +869,10 @@ class DocumentComponent extends Component{
             $employment = TableRegistry::get('employment_verification');
             
             $arr['client_id'] = $cid;
-            $arr['user_id'] = $controller->request->session()->read('Profile.id');
+            $arr['user_id'] = $_GET['user_id'];
             
             
-            if (!isset($_GET['document']) || isset($_GET['order_id'])) {
+            if (!isset($_GET['document']) && isset($_GET['order_id'])) {
                 if(!isset($_GET['order_id']))
                 $arr['order_id'] = $document_id;
                 else
@@ -909,7 +909,7 @@ class DocumentComponent extends Component{
                 }
             else
                 $del->delete()->where(['document_id' => $document_id])->execute();*/
-            if (!isset($_GET['document']) || isset($_GET['order_id'])){
+            if (!isset($_GET['document']) && isset($_GET['order_id'])){
                 if(isset($_GET['order_id']))
                 $document_id = $_GET['order_id'];
                 $del->delete()->where(['order_id' => $document_id])->execute();
@@ -937,7 +937,7 @@ class DocumentComponent extends Component{
                 }
             }
             for ($i = 0; $i < $_POST['count_past_emp']; $i++) {
-                if (!isset($_GET['document']) || isset($_GET['order_id'])) {
+                if (!isset($_GET['document']) && isset($_GET['order_id'])) {
                     if(!isset($_GET['order_id']))
                     $arr2['order_id'] = $document_id;
                     else
