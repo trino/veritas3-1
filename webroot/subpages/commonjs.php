@@ -169,13 +169,13 @@ $(function(){
                             //alert(type);
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid<?php if($this->request->params['action']=='addorder'){?>+'/?user_id='+user_id + '&document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?>+'/?user_id='+user_id + '&document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                             saveEducation(url, order_id, cid, type,draft);
                         }
                         else if (sid == "6") {
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>feedbacks/add/' + order_id + '/' + cid<?php if($this->request->params['action']=='addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>feedbacks/add/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
                             var param = $('#form_tab6').serialize()<?php if($this->request->params['action'] == 'addorder'){?>+'&order_id='+order_id<?php }?>;
                             $.ajax({
                                 url: url,
@@ -199,7 +199,7 @@ $(function(){
                         else if (sid == "5") {
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>feedbacks/addsurvey/' + order_id + '/' + cid<?php if($this->request->params['action'] == 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>feedbacks/addsurvey/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
                             var param = $('#form_tab5').serialize()<?php if($this->request->params['action'] == 'addorder'){?>+'&order_id='+order_id<?php }?>;
                             $.ajax({
                                 url: url,
@@ -256,12 +256,13 @@ $(function(){
                             //alert('test');return;
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?>+'&order_id=<?php echo $_GET['order_id'];?>'<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?>+'&order_id=<?php echo $_GET['order_id'];?>'<?php }}else{?>'?draft='+draft<?php }?>;
                             var param = $('#form_tab15').serialize();
                             $.ajax({
                                 url: url,
                                 data: param,
                                 type: 'POST',
+                                <?php if($this->request->params['action']!='addorder'){?>
                                 success: function (res) {
                                     <?php if($this->request->controller=='Documents')
                                         {?>
@@ -270,6 +271,7 @@ $(function(){
                                             $('.overlay-wrapper').hide();
                                      <?php }?>
                                      }
+                                     <?php }?>
     
     
                             });
@@ -291,7 +293,7 @@ $(function(){
                                     success: function (res) {
                                          <?php if($this->request->controller=='Documents')
                                         {?>
-                                            //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                      <?php }else{?>
                                             $('.overlay-wrapper').hide();
                                      <?php }?>
@@ -314,7 +316,7 @@ $(function(){
                                     success: function (res) {
                                          <?php if($this->request->controller=='Documents')
                                         {?>
-                                            //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                      <?php }else{?>
                                             $('.overlay-wrapper').hide();
                                      <?php }?>
