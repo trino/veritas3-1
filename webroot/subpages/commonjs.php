@@ -274,7 +274,13 @@ $(function(){
                                             $('.overlay-wrapper').hide();
                                      <?php }?>
                                      }
-                                     <?php }?>
+                                     <?php }
+                                     else{
+                                        ?>
+                                        $('.overlay-wrapper').hide();
+                                        <?php
+                                     }
+                                     ?>
     
     
                             });
