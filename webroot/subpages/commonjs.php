@@ -128,7 +128,7 @@ $(function(){
                         //alert(type);return false;
                         if (sid == "1") {
                             var forms = $(".tab-pane.active").prev('.tab-pane').find(':input'),
-                                url = '<?php echo $this->request->webroot;?>clientApplication/savePrescreening/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>',
+                                url = '<?php echo $this->request->webroot;?>clientApplication/savePrescreening<?php if($this->request->params['action']!='addorder'){?>/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?><?php }?>',
                                 order_id = res,
                                 cid = '<?php echo $cid;?>';
                             savePrescreen(url, order_id, cid, draft);
@@ -136,12 +136,12 @@ $(function(){
                         } else if (sid == "2") {
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverApp/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                                url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverApp/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                             savedDriverApp(url, order_id, cid,draft);
                         } else if (sid == "3") {
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                                url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                             savedDriverEvaluation(url, order_id, cid,draft);
                         } else if (sid == "4") {
                             save_signature('3');
@@ -150,7 +150,7 @@ $(function(){
                             save_signature('6');
                                 var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid  <?php if($this->request->params['action']!='addorder'){?> +'/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
+                                url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> +'/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
                                 setTimeout(function(){
                                 savedMeeOrder(url, order_id, cid, type,draft);}, 1000);
                            
@@ -175,12 +175,13 @@ $(function(){
                         else if (sid == "6") {
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>feedbacks/add/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft;
-                            var param = $('#form_tab6').serialize();
+                                url = '<?php echo $this->request->webroot;?>feedbacks/add/' + order_id + '/' + cid<?php if($this->request->params['action']=='addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
+                            var param = $('#form_tab6').serialize()<?php if($this->request->params['action'] == 'addorder'){?>+'&order_id='+order_id<?php }?>;
                             $.ajax({
                                 url: url,
                                 data: param,
                                 type: 'POST',
+                                <?php if($this->request->params['action']!='addorder'){?>
                                 success: function (res) {
                                     if (res == 'OK'){
                                        <?php if($this->request->controller=='Documents')
@@ -191,18 +192,20 @@ $(function(){
                                      <?php }?>
                                     }
                                 }
+                                <?php  }?>
                             });
     
                         }
                         else if (sid == "5") {
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>feedbacks/addsurvey/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft;
-                            var param = $('#form_tab5').serialize();
+                                url = '<?php echo $this->request->webroot;?>feedbacks/addsurvey/' + order_id + '/' + cid<?php if($this->request->params['action'] == 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
+                            var param = $('#form_tab5').serialize()<?php if($this->request->params['action'] == 'addorder'){?>+'&order_id='+order_id<?php }?>;
                             $.ajax({
                                 url: url,
                                 data: param,
                                 type: 'POST',
+                                <?php if($this->request->params['action']!='addorder'){?>
                                 success: function (res) {
                                     if (res == 'OK'){
                                        <?php if($this->request->controller=='Documents')
@@ -213,6 +216,7 @@ $(function(){
                                      <?php }?>
                                     }
                                 }
+                                <?php }?>
                             });
     
                         }
@@ -252,7 +256,7 @@ $(function(){
                             //alert('test');return;
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>';
+                                url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?>+'&order_id=<?php echo $_GET['order_id'];?>'<?php }?>;
                             var param = $('#form_tab15').serialize();
                             $.ajax({
                                 url: url,
