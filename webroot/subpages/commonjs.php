@@ -1,5 +1,7 @@
 <script>
 $(function(){
+    var did = '<?php if(isset($did))echo $did;else echo '0';?>';
+    
     
    function save_driver(par,webroot)
     {
@@ -120,10 +122,11 @@ $(function(){
                     data: data,
                     type: 'post',
                     beforeSend: function(){$('.overlay-wrapper').show()},
-                    url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/<?php if(isset($did))echo $did;else echo '0';?>/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
+                    url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/'+did+'/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
                     success: function (res) {
     
                         $('#did').val(res);
+                        did = res;
                         //alert(type);return false;
                         //alert(type);return false;
                         if (sid == "1") {
@@ -256,7 +259,7 @@ $(function(){
                             //alert('test');return;
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?>+'&order_id=<?php echo $_GET['order_id'];?>'<?php }}else{?>'?draft='+draft<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?>+'&order_id=<?php echo $_GET['order_id'];?>'<?php }}else{?> + '?draft='+draft<?php }?>;
                             var param = $('#form_tab15').serialize();
                             $.ajax({
                                 url: url,
