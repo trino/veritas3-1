@@ -2,7 +2,7 @@
 $(function(){
     
    function save_driver(par,webroot)
-{
+    {
     var driver_id = '';
     $('.overlay-wrapper').show();
     var fields = par.find('input').serialize();
@@ -20,7 +20,7 @@ $(function(){
         }
     });
     
-}
+    }
  
    $('.notonclient').each(function(){
     $(this).removeClass('required');
@@ -37,7 +37,7 @@ $(function(){
     $(this).parent().find('.error').html('');
    }); 
    $('.buttons').click(function(){
-        
+       
         var par = $(this).closest('.steps');
         var draft = 0;
         checker = 0;
@@ -90,13 +90,19 @@ $(function(){
             else
             {
                 
-               
-                 var uploaded_for1 = $('#user_id').val();
+               <?php if($this->request->controller=='Documents')
+                    {?>
+                      var uploaded_for1 = $('#selecting_driver').val();
+                      var user_id = '<?php echo $this->request->session()->read('Profile.id');?>';  
+               <?php }else{?>
+                        var uploaded_for1 = $('#user_id').val();
+                        var user_id = uploaded_for1
+                <?php }?> 
                  var data = {
                     uploaded_for: uploaded_for1,
                     type: type,
                     sub_doc_id: sid,
-                    user_id: uploaded_for1,
+                    user_id: user_id,
                     <?php
                     if($this->request->params['action']=='addorder')
                     {
@@ -144,7 +150,7 @@ $(function(){
                             save_signature('6');
                                 var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid<?php if($this->request->params['action']=='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}}?>';
+                                url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid  <?php if($this->request->params['action']=='addorder'){?> +'/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
                                 setTimeout(function(){
                                 savedMeeOrder(url, order_id, cid, type,draft);}, 1000);
                            
@@ -163,7 +169,7 @@ $(function(){
                             //alert(type);
                             var order_id = res,
                                 cid = '<?php echo $cid;?>',
-                                url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid<?php if($this->request->params['action']=='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid+'/?user_id='+user_id<?php if($this->request->params['action']=='addorder'){?> + '&document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                             saveEducation(url, order_id, cid, type,draft);
                         }
                         else if (sid == "6") {
@@ -177,7 +183,12 @@ $(function(){
                                 type: 'POST',
                                 success: function (res) {
                                     if (res == 'OK'){
-                                        $('.overlay-wrapper').hide();
+                                       <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
+                                            $('.overlay-wrapper').hide();
+                                     <?php }?>
                                     }
                                 }
                             });
@@ -194,7 +205,12 @@ $(function(){
                                 type: 'POST',
                                 success: function (res) {
                                     if (res == 'OK'){
-                                       $('.overlay-wrapper').hide();
+                                       <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
+                                            $('.overlay-wrapper').hide();
+                                     <?php }?>
                                     }
                                 }
                             });
@@ -243,7 +259,12 @@ $(function(){
                                 data: param,
                                 type: 'POST',
                                 success: function (res) {
-                                        $('.overlay-wrapper').hide();
+                                    <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
+                                            $('.overlay-wrapper').hide();
+                                     <?php }?>
                                      }
     
     
@@ -257,14 +278,19 @@ $(function(){
                                 $('#gfs_signature').val(d1);
                                 var order_id = res,
                                     cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+uploaded_for1;
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
                                 var param = $('#form_tab18').serialize();
                                  $.ajax({
                                     url: url,
                                     data: param,
                                     type: 'POST',
                                     success: function (res) {
+                                         <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
                                             $('.overlay-wrapper').hide();
+                                     <?php }?>
                                          }
         
         
@@ -275,14 +301,19 @@ $(function(){
                            {
                                 var order_id = res,
                                     cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+uploaded_for1;
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
                                 var param = $('#form_tab18').serialize();
                                  $.ajax({
                                     url: url,
                                     data: param,
                                     type: 'POST',
                                     success: function (res) {
+                                         <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
                                             $('.overlay-wrapper').hide();
+                                     <?php }?>
                                          }
         
         
@@ -291,7 +322,9 @@ $(function(){
     
                         }
                         else{
-                            <?php foreach($doc as $dx)
+                           <?php 
+                             if(isset($doc))
+                                foreach($doc as $dx)
                                     {
                                         if($dx->id >11)
                                         {
@@ -378,7 +411,12 @@ function savePrescreen(url, order_id, cid,draft) {
             data: param,
             type: 'POST',
             success: function (res) {
-               $('.overlay-wrapper').hide();
+                 <?php if($this->request->controller=='Documents')
+                    {?>
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                 <?php }else{?>
+                        $('.overlay-wrapper').hide();
+                 <?php }?>
                     
             }
         });
@@ -395,7 +433,12 @@ function savePrescreen(url, order_id, cid,draft) {
             data: param,
             type: 'POST',
             success: function (res) {
-               $('.overlay-wrapper').hide();
+               <?php if($this->request->controller=='Documents')
+                    {?>
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                 <?php }else{?>
+                        $('.overlay-wrapper').hide();
+                 <?php }?>
             }
         });
     }
@@ -409,7 +452,12 @@ function savePrescreen(url, order_id, cid,draft) {
             data: param,
             type: 'POST',
             success: function (res) {
-               $('.overlay-wrapper').hide();
+                <?php if($this->request->controller=='Documents')
+                    {?>
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                 <?php }else{?>
+                        $('.overlay-wrapper').hide();
+                 <?php }?>
             }
         });
     }
@@ -425,8 +473,12 @@ function savePrescreen(url, order_id, cid,draft) {
             data: param,
             type: 'POST',
             success: function (res) {
-                
-                $('.overlay-wrapper').hide();
+                 <?php if($this->request->controller=='Documents')
+                    {?>
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                 <?php }else{?>
+                        $('.overlay-wrapper').hide();
+                 <?php }?>
             }
         });
     }
@@ -443,7 +495,12 @@ function savePrescreen(url, order_id, cid,draft) {
             data: param,
             type: 'POST',
             success: function (rea) {
-                $('.overlay-wrapper').hide();
+                 <?php if($this->request->controller=='Documents')
+                    {?>
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                 <?php }else{?>
+                        $('.overlay-wrapper').hide();
+                 <?php }?>
                 
             }
         });
@@ -462,7 +519,12 @@ function savePrescreen(url, order_id, cid,draft) {
             data: param,
             type: 'POST',
             success: function (res) {
-                $('.overlay-wrapper').hide();
+                 <?php if($this->request->controller=='Documents')
+                    {?>
+                        //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                 <?php }else{?>
+                        $('.overlay-wrapper').hide();
+                 <?php }?>
             }
         });
     }
@@ -474,7 +536,7 @@ function fileUpload(ID) {
                 type: 'order',
                 doc_type: $type,
                 order_id: '0',
-                cid: '<?php echo $client->id;?>'
+                cid: '<?php echo $cid;?>'
             };
         if ($type == "Consent Form") {
             //get sub content tab active

@@ -37,6 +37,7 @@
     printCSS($this);
 
     loadreasons($action, $strings, true);
+    
 ?>
 <h3 class="page-title">
     <?= $title; ?>
@@ -107,7 +108,7 @@
             $tab = 'nodisplay';
         ?>
         <div class="form">
-            <div class="form-horizontal">
+            <div class="form-horizontal steps">
                 <div class="">
                     <?php
 
@@ -127,8 +128,7 @@
                         else
                             $driver=0;
                     ?>
-                    <div class="col-md-4" style="padding-right: 0;
-  padding-left: 0;">
+                    <div class="col-md-4" style="padding-right: 0;  padding-left: 0;">
                         <div class="portlet box blue no-print" style="border:0;">
                             <div class="portlet-title">
                                 <div class="caption"> <?= $strings["documents_docoptions"]; ?> </div>
@@ -221,12 +221,7 @@
                                             <input type="hidden" name="sub_doc_id" value="<?php echo $sid; ?>" id="sub_id"/>
 
                                         </div>
-
-
-
-
-
-                                        <div class="clearfix"></div>
+                                     <div class="clearfix"></div>
                                         <?php
                                     }
                                 ?>
@@ -505,7 +500,7 @@
                             <div class="col-md-offset-3 col-md-9 btndocs" <?php if(!isset($_GET['type'])){?>style="display: none;"<?php }?>>
 
 
-                                <a href="javascript:void(0)" class="btn green cont"><?= $strings["forms_save"]; ?></a>
+                                <a href="javascript:void(0)" class="btn green cont buttons" id="button1"><?= $strings["forms_save"]; ?></a>
 
                                 <?php
                                     if(!isset($_GET['order_id']))
@@ -568,7 +563,7 @@
             }
         }
     }
-
+/*
     function save_signature(numb) {
          var d = $.Deferred();
         $("#test"+numb).data("jqScribble").save(function(imageData)
@@ -604,6 +599,7 @@
         });
         return d.promise();
     }
+    */
     //showforms(doc_type);
     function showforms(form_type) {
 
@@ -1658,7 +1654,7 @@
                 user_id: '<?php echo $this->request->session()->read('Profile.id');?>'
             };
             //alert(type);return false;
-
+            /*
             $.ajax({
                 //data:'uploaded_for='+$('#uploaded_for').val(),
                 data: data,
@@ -1880,15 +1876,16 @@
 
                     }
                 }
-            });
+            });*/
         });
+        
         $('#addfiles').click(function () {
             //alert("ssss");
             $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-success">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();"><?= addslashes($strings["dashboard_delete"]); ?></a><br/></div>');
         });
         $('.nohide').show();
     });
-
+    /*
     function savePrescreen(url, order_id, cid,draft) {
 
         inputs = $('#form_tab1').serialize();
@@ -2029,6 +2026,7 @@
             }
         });
     }
+      
 
 
 
@@ -2074,6 +2072,7 @@
 
         });
     }
+    */
 </script>
 <?php //includejavascript($strings);?>
 <script>
@@ -2185,3 +2184,4 @@
 
     }
 </style>
+<?php include_once('subpages/commonjs.php');    ?>

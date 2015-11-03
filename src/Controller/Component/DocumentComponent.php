@@ -262,8 +262,8 @@ class DocumentComponent extends Component{
                                             $user_id = $_POST['user_id'];
                                         else
                                             $user_id = $controller->request->session()->read('Profile.id');
-                                                                                                                                                                            
-                                        if($uq = $pro_query->find('all')->where(['id' => $user_id])->first())
+                                                                                                                                                                     
+                                        if($uq = $pro_query->find()->where(['id' => $user_id])->first())
                                         if (isset($uq->profile_type))
                                           {
                                             $u = $uq->profile_type;
@@ -772,20 +772,20 @@ class DocumentComponent extends Component{
             $consentForm = TableRegistry::get('consent_form');
             
             $arr['client_id'] = $cid;
-            $arr['user_id'] = $controller->request->session()->read('Profile.id');
             
-            if (!isset($_GET['document']) || isset($_GET['order_id'])) {
+            //$arr['user_id'] = $controller->request->session()->read('Profile.id');
+            
+            if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+                
+                $doc= TableRegistry::get('orders')->find()->where(['id'=>$document_id])->first();
+                $arr['user_id'] = $doc->user_id;
                 if(!isset($_GET['order_id']))
-                $arr['order_id'] = $document_id;
+                    $arr['order_id'] = $document_id;
                 else
-                $arr['order_id'] = $_GET['order_id'];
+                    $arr['order_id'] = $_GET['order_id'];
                 $arr['document_id'] = 0;
-                
-                
-                if (isset($_POST['uploaded_for']))
-                    $uploaded_for = $_POST['uploaded_for'];
-                else
-                    $uploaded_for = '';
+                $arr['uloaded_for']= $doc->uploaded_for;
+                $uploaded_for = $arr['uploaded_for'];
                 $for_doc = array('document_type'=>'Consent Form','sub_doc_id'=>4,'order_id'=>$arr['order_id'],'user_id'=>$arr['user_id'],'uploaded_for'=>$uploaded_for);
                 $this->saveDocForOrder($for_doc);
                 
@@ -794,15 +794,18 @@ class DocumentComponent extends Component{
             } else {
                 $arr['document_id'] = $document_id;
                 $arr['order_id'] = 0;
+                $doc= TableRegistry::get('documents')->find()->where(['id'=>$document_id])->first();
+                $arr['user_id'] = $doc->user_id;
+                
             }
             
 
             $del = $consentForm->query();
             if (!isset($_GET['document']) || isset($_GET['order_id'])){
                 if(!isset($_GET['order_id']))
-                $del->delete()->where(['order_id' => $document_id])->execute();
+                    $del->delete()->where(['order_id' => $document_id])->execute();
                 else
-                $del->delete()->where(['order_id' => $_GET['order_id']])->execute();
+                    $del->delete()->where(['order_id' => $_GET['order_id']])->execute();
                 }
             else
                 $del->delete()->where(['document_id' => $document_id])->execute();
@@ -1060,17 +1063,14 @@ class DocumentComponent extends Component{
             //education
             $controller = $this->_registry->getController();
             $education = TableRegistry::get('education_verification');
-            
-            
-            
             $arr['client_id'] = $cid;
-            if($controller->request->session()->read('Profile.id'))
-                $arr['user_id'] = $controller->request->session()->read('Profile.id');
+            if(isset($_GET['user_id']))
+                $arr['user_id'] = $_GET['user_id'];
             else
                 $arr['user_id'] = 0;
             
-            
-            if (!isset($_GET['document']) || isset($_GET['order_id'])) {
+            if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+                
                 if(!isset($_GET['order_id']))
                 $arr['order_id'] = $document_id;
                 else
@@ -1089,6 +1089,7 @@ class DocumentComponent extends Component{
                 
                 
             } else {
+                
                 $arr['document_id'] = $document_id;
                 $arr['order_id'] = 0;
             }
@@ -1107,10 +1108,10 @@ class DocumentComponent extends Component{
                 }
             else
                 $del->delete()->where(['document_id' => $document_id])->execute();*/
-            if (!isset($_GET['document']) || isset($_GET['order_id'])){
+            if (!isset($_GET['document']) && isset($_GET['order_id'])){
                 if(isset($_GET['order_id']))
-                $document_id = $_GET['order_id'];
-                $del->delete()->where(['order_id' => $document_id])->execute();
+                    $document_id = $_GET['order_id'];
+                    $del->delete()->where(['order_id' => $document_id])->execute();
                 }
             else
                 $del->delete()->where(['document_id' => $document_id])->execute();
@@ -1137,15 +1138,17 @@ class DocumentComponent extends Component{
             }
             $_POST['count_more_edu']++;
             for ($i = 0; $i < $_POST['count_more_edu']; $i++) {
-                if (!isset($_GET['document']) || isset($_GET['order_id'])) {
+                if (!isset($_GET['document']) && isset($_GET['order_id'])) {
                     if(!isset($_GET['order_id']))
-                    $arr2['order_id'] = $document_id;
+                        $arr2['order_id'] = $document_id;
                     else
-                    $arr2['order_id'] = $_GET['order_id'];
+                        $arr2['order_id'] = $_GET['order_id'];
                     $arr2['document_id'] = 0;
-                } else {
-                    $arr2['document_id'] = $document_id;
-                    $arr2['order_id'] = 0;
+                }
+                else 
+                {
+                        $arr2['document_id'] = $document_id;
+                        $arr2['order_id'] = 0;
                 }
                 $arr2['client_id'] = $cid;
                 if($controller->request->session()->read('Profile.id'))
