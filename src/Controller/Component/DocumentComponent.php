@@ -775,7 +775,7 @@ class DocumentComponent extends Component{
             
             //$arr['user_id'] = $controller->request->session()->read('Profile.id');
             
-            if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+            if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                 
                 $doc= TableRegistry::get('orders')->find()->where(['id'=>$document_id])->first();
                 $arr['user_id'] = $doc->user_id;
@@ -872,7 +872,8 @@ class DocumentComponent extends Component{
             $arr['user_id'] = $_GET['user_id'];
             
             
-            if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+            if (!isset($_GET['document']) || isset($_GET['order_id'])) {
+                //echo 'testing';
                 if(!isset($_GET['order_id']))
                 $arr['order_id'] = $document_id;
                 else
@@ -890,6 +891,7 @@ class DocumentComponent extends Component{
                 
                 
             } else {
+                //echo 'testomg2';
                 $arr['document_id'] = $document_id;
                 $arr['order_id'] = 0;
             }
@@ -909,7 +911,7 @@ class DocumentComponent extends Component{
                 }
             else
                 $del->delete()->where(['document_id' => $document_id])->execute();*/
-            if (!isset($_GET['document']) && isset($_GET['order_id'])){
+            if (!isset($_GET['document']) || isset($_GET['order_id'])){
                 if(isset($_GET['order_id']))
                 $document_id = $_GET['order_id'];
                 $del->delete()->where(['order_id' => $document_id])->execute();
@@ -937,7 +939,7 @@ class DocumentComponent extends Component{
                 }
             }
             for ($i = 0; $i < $_POST['count_past_emp']; $i++) {
-                if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+                if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                     if(!isset($_GET['order_id']))
                     $arr2['order_id'] = $document_id;
                     else
@@ -1069,7 +1071,7 @@ class DocumentComponent extends Component{
             else
                 $arr['user_id'] = 0;
             
-            if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+            if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                 
                 if(!isset($_GET['order_id']))
                 $arr['order_id'] = $document_id;
@@ -1108,7 +1110,7 @@ class DocumentComponent extends Component{
                 }
             else
                 $del->delete()->where(['document_id' => $document_id])->execute();*/
-            if (!isset($_GET['document']) && isset($_GET['order_id'])){
+            if (!isset($_GET['document']) || isset($_GET['order_id'])){
                 if(isset($_GET['order_id']))
                     $document_id = $_GET['order_id'];
                     $del->delete()->where(['order_id' => $document_id])->execute();
@@ -1138,7 +1140,7 @@ class DocumentComponent extends Component{
             }
             $_POST['count_more_edu']++;
             for ($i = 0; $i < $_POST['count_more_edu']; $i++) {
-                if (!isset($_GET['document']) && isset($_GET['order_id'])) {
+                if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                     if(!isset($_GET['order_id']))
                         $arr2['order_id'] = $document_id;
                     else

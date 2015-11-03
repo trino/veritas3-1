@@ -817,11 +817,12 @@
 
 
             $doc_ids= $product->doc_ids;
+            //echo $doc_ids;die()
             //die($doc_ids);
             if($doc_ids!="" && $product->Bypass==0) {
                 $doc = TableRegistry::get('client_sub_order');
                 $query = $doc->find();
-                $q= $query->select()->where(['client_id' => $cid,'sub_id IN('.$doc_ids.')']);
+                $q= $query->select()->where(['client_id' => $cid,'sub_id IN('.$doc_ids.')','sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE display_order = 1 AND client_id = '.$cid.')']);
             } else {
                 $q = null;
             }

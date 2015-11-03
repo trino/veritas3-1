@@ -235,9 +235,11 @@ printCSS($this);
                                 $doc = $doc_comp->getDocument('orders');
                                 $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
                                 if(is_iterable($doc_ids)) {
+                                    //die('here');
                                     $subdoccli = $doc_ids;
                                     if($debugging) {echo "Source: orders_doc";}
                                 } else {
+                                    //die('there');
                                     $subdoccli = $this->requestAction('/clients/getSubCli2/' . $cid);
                                     if($debugging) {echo "Source: getSubCli2";}
                                 }
@@ -255,17 +257,20 @@ printCSS($this);
                                 $Fieldname = getFieldname("title", $language);
                                 $jj=0;
                                 foreach ($subdoccli as $sd) {
+                                    //var_dump($sd);
                                     $index+=1;
                                     $d = $this->requestAction('/clients/getFirstSub/'.$sd->sub_id);
 
                                     if($debugging) {
+                                        //die('here');
                                         echo "<BR>Displayform: " . displayform2($DriverProvince, $thedocuments, $d->title, $theproduct,$d->id,$_this);
                                         $thedocuments[strtolower($d->title)]["IsSet"] = true;
                                         debug($d);
                                     }
-
+                                    
+                                    
                                     if (displayform2($DriverProvince,$thedocuments,$d->title, $theproduct,$d->id,$_this)){//(displayform($DriverProvince, $provinces, $forms, $d->title,$_this)){
-
+                                        
                                         $index+=1;
                                         $act = 0;
                                         if ($d->table_name == $table) {
@@ -289,7 +294,8 @@ printCSS($this);
                                             
                                             
                                             <?php
-                                            $dx = $this->requestAction('/clientApplication/getSub/'.$sd->sub_id);
+                                            //$d = $this->requestAction('/clients/getFirstSub/'.$sd->sub_id);
+                                            $dx = $this->requestAction('/orders/getSubDetail/'.$sd->sub_id);
                                             //var_dump($s);
                                             $jj++;
                                             ?>
