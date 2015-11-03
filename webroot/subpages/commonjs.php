@@ -265,22 +265,24 @@ $(function(){
                                 url: url,
                                 data: param,
                                 type: 'POST',
-                                <?php if($this->request->params['action']!='addorder'){?>
+                                
                                 success: function (res) {
+                                    <?php if($this->request->params['action']!='addorder'){?>
                                     <?php if($this->request->controller=='Documents')
                                         {?>
                                             window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                      <?php }else{?>
                                             $('.overlay-wrapper').hide();
                                      <?php }?>
-                                     }
-                                     <?php }
+                                      <?php }
                                      else{
                                         ?>
                                         $('.overlay-wrapper').hide();
                                         <?php
                                      }
                                      ?>
+                                     }
+                                    
     
     
                             });
