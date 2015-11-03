@@ -536,7 +536,7 @@ function savePrescreen(url, order_id, cid,draft) {
             success: function (res) {
                  <?php if($this->request->controller=='Documents')
                     {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                        //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
                         $('.overlay-wrapper').hide();
                  <?php }?>
