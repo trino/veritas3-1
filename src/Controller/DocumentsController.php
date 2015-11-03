@@ -529,7 +529,6 @@ class DocumentsController extends AppController{
         } else {
 
             if ($did != 0) {
-
                 $doc = TableRegistry::get('orders');
                 $query = $doc->find()->where(['id' => $did])->first();
                 $this->set('document', $query);
@@ -676,6 +675,12 @@ class DocumentsController extends AppController{
                 $sub4['att'] = $edu_att->find()->where(['document_id' => $did])->all();
             }else {
                 $sub4['att'] = $edu_att->find()->where(['order_id' => $_GET['order_id'], 'sub_id' => 42])->all();
+            }
+             $edu = TableRegistry::get('education_verification');
+            if(!isset($_GET['order_id'])) {
+                $sub4['edu'] = $edu->find()->where(['document_id' => $did])->all();
+            }else {
+                $sub4['edu'] = $edu->find()->where(['order_id' => $_GET['order_id']])->all();
             }
             $this->set('sub4', $sub4);
 
