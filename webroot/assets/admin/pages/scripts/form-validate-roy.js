@@ -239,7 +239,11 @@ function alertfail(Reason){
          text = replaceAll("%name%", Reason["Element"], text);
          text = replaceAll("%value%", Reason["Value"], text);
          text = replaceAll("%type%", reasons[Reason["Reason"]], text);
-         alert(text);
+         //alert(text);
+         text = text.replace('all','');
+         text = text.replace('the','this');
+         text = text.replace('fields','field');
+         return text;
          //alert(Reason["Element"]);
          //alert("Name: " + Reason["Element"] + "\r\n (" + Reason["Value"] + ") is not valid (" + Reason['Reason'] + ")");
      }
@@ -262,8 +266,14 @@ function scrollto(Reason, element){
     alert(name + " = " + value);
     */
     //element.scrollIntoView();
-    alertfail(Reason);
-    $('html,body').animate({ scrollTop: $(element).offset().top}, 'slow');
+    //$(element).parent().find('span').remove();
+    var rsn = alertfail(Reason);
+    //alert(rsn);
+    //if($(element).parent().find('.error'))
+    //    $(element).parent().find('.error').text(rsn);
+    //else
+         $(element).parent().append('<span class="error" style="position:absolute; font-size:12px;">'+rsn+'</span>');
+    $('html,body').animate({ scrollTop: ($(element).offset().top)-80}, 'slow');
     
     //alert($(element).attr('name'));
     //if(Reason["Type"] == "checkbox"){element = findLableForControl(element);}

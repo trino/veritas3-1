@@ -1568,6 +1568,8 @@
                     return false;
                 }
             }
+            // need to cut
+            /*
             if($('.subform4 #subtab_2_1').attr('class')=='tab-pane active' && $('.subform4').attr('style')!='display: none;'){
                 //alert('tes');
                 var er = 0;
@@ -1634,7 +1636,7 @@
 
                     $('.cont').removeAttr('disabled');
                 }
-            }
+            }*/
             if ($(this).attr('id') == 'draft') {
                 draft = 1;
             } else {

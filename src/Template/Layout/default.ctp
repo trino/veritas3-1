@@ -218,6 +218,10 @@
     <script src="<?php echo $this->request->webroot; ?>assets/admin/pages/scripts/components-dropdowns.js"></script>
 
     <style>
+    .required:after {
+        content: " *";
+        color: #e32;
+    }
         .page-logo a {
             max-width: 100%;
             max-height: 100%;
