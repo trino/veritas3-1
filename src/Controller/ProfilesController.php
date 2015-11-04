@@ -415,11 +415,12 @@
         }
         function mypaginate($Start, $Limit, $ThisPage, $Total){
             //echo '<TR><TD COLSPAN="2">Results: ' . $ThisPage . '/' . $Total . '</TD></TR>';
+            $NumberBeforeAfter = 4;
             echo '<TR><TD COLSPAN="2"><div class="dataTables_paginate paging_simple_numbers" align="right"><ul class="pagination">';
                 $this->mypage($Start, $Start-$Limit, $Total, "&lt; Previous", "prev");
-                $Temp = $Start - ($Limit*4);
+                $Temp = $Start - ($Limit*$NumberBeforeAfter);
                 if($Temp < 0){$Temp = 0;}
-                $End= $Temp + ($Limit*9);
+                $End= $Temp + ($Limit*($NumberBeforeAfter*2+1));
                 if($End > $Total){$End = $Total;}
                 for($Number = $Temp; $Number < $End; $Number+=$Limit){
                     $this->mypage($Start, $Number, $Total, ($Number/$Limit)+1);
@@ -428,7 +429,7 @@
             echo '</DIV></TD></TR>';
         }
         function mypage($Start, $Number, $Total, $Label, $Class = ""){
-            if ($Start == $Number || $Number < 1 || $Number > $Total){
+            if ($Start == $Number || $Number < 0 || $Number > $Total){
                 echo '<li class="' . $Class . ' disabled"><a>' . $Label . '</a></li>';
             } else {
                 echo '<li class="' . $Class . '"><a onclick="test(' . $Number . '); return false;">' . $Label . '</a></li>';
