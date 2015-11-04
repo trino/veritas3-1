@@ -87,11 +87,11 @@
             $i = 0;
             if($counting==1) {
                 $fulllist = "";
-                foreach ($profiles as $r) {
+                foreach ($profiles as $profile) {
                     //echo $r->username;continue;
                     //if ($i % 2 == 0) {
-                    if (isset($pType[$r->profile_type])){
-                        $profiletype = "(" . $pType[$r->profile_type] . ")";
+                    if (isset($pType[$profile->profile_type])){
+                        $profiletype = "(" . $pType[$profile->profile_type] . ")";
                     }else{
                         $profiletype = "";
                     }
@@ -99,12 +99,12 @@
                         $profiletype = "(Draft)";
                     }
                     if ($fulllist) {
-                        $fulllist .= "," . $r->id;
+                        $fulllist .= "," . $profile->id;
                     } else {
-                        $fulllist = $r->id;
+                        $fulllist = $profile->id;
                     }
                     //}
-                    print1profile($i, $r, $profiletype);
+                    print1profile($i, $profile, $profiletype);
 
                     $i++;
                 }
@@ -340,8 +340,6 @@
             </option>
         <?php
         }
-        ?>
-        <?php
         $counting = 0;
         $drcl_d = $dr_cl['driver'];
         foreach ($drcl_d as $drcld) {
@@ -349,11 +347,12 @@
         }
 
         foreach ($dr_cl['driver'] as $dr) {
-
             $driver_id = $dr->id;
             ?>
             <option value="<?php echo $dr->id; ?>"
-                    <?php if ($dr->id == $driver || $counting == 1 && $driver != '0'){ ?>selected="selected"<?php } ?>><?php echo $dr->fname . ' ' . $dr->mname . ' ' . $dr->lname ?></option>
+                    <?php
+                    if(!$dr->iscomplete){echo " DISABLED";}
+                    if ($dr->id == $driver || $counting == 1 && $driver != '0'){ ?>selected="selected"<?php } ?>><?php echo $dr->fname . ' ' . $dr->mname . ' ' . $dr->lname ?></option>
         <?php
         }
         ?>
@@ -414,8 +413,8 @@
         });
         return tempstr;
     }
+
     function getdrivers(){
-        
         return document.getElementById("selecting_driver").value;
     }
 
@@ -441,27 +440,18 @@
             checker++;
         });
         if (checker > 0) {
-
             if (!$('.divisionsel select').val()) {
                 $('.divisionsel select').attr('style', 'border:1px solid red;');
                 return false;
             }
-            return true;
         }
-        else
-            return true;
-
+        return true;
     }
     $(function () {
-        <?php
-        if($driver)
-        {
-            ?>
+        <?php if($driver) { ?>
         check_driver_abstract(<?php echo $driver;?>);
         check_cvor(<?php echo $driver;?>);
-        <?php
-    }
-    ?>
+        <?php } ?>
 
         $('#qua_btn').click(function () {
             if (!check_div()){ return false;}
@@ -480,8 +470,7 @@
                     if (Driver.length == 0){
                         alert('Please select at least one driver');
                         return;
-                    }
-                    else{
+                    } else {
                         $('.overlay-wrapper').show();
                         $('#qua_btn').html('Saving..');
                         $('#qua_btn').attr('disabled','disabled');
@@ -497,8 +486,7 @@
                             //alert(response['order_id']);
                             var ord = response['order_id'].split(',');
                             var check = 0;
-                            for(var k=0;k<driv.length;k++)
-                            {
+                            for(var k=0;k<driv.length;k++) {
                                 //check = k;
                                 $.ajax({
                                     url:'<?php echo $this->request->webroot;?>orders/webservice/BUL/'+response['forms']+'/'+driv[k]+'/'+ord[k]
@@ -525,10 +513,8 @@
                 <?php } else {?>
                 var tempstr = getcheckboxes();
                 window.location = '<?php echo $this->request->webroot; ?>orders/addorder/' + $('.selecting_client').val() + '/?driver=<?php echo $_GET['profiles'];?>&division=' + division + '&order_type=<?php echo urlencode($o_type);?>&forms=' + tempstr;
-                <?php
-                }?>
-            }
-            else {
+                <?php } ?>
+            } else {
                 $('#s2id_selecting_client .select2-choice').attr('style', 'border:1px solid red;');
                 $('html,body').animate({scrollTop: $('#s2id_selecting_client .select2-choice').offset().top}, 'slow');
             }
@@ -615,9 +601,9 @@
                     var div = $('#divisionsel').val();
                     if (!isNaN(parseFloat(div)) && isFinite(div)) {
                         var division = div;
-                    }
-                    else
+                    } else {
                         var division = '0';
+                    }
                     $('#selecting_driver').html(res);
                     $('.selecting_client').val($('#selecting_client').val());
                 }

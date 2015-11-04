@@ -128,12 +128,13 @@ class TasksController extends AppController {
             }
             if(!$found) $temp_array = array_merge($temp_array, array($key => $val));
         }
-
-        if(is_array($temp_array)) {
-            if ($sort_ascending) {
-                $array = array_reverse($temp_array);
-            } else {
-                $array = $temp_array;
+        if(isset($temp_array)){
+            if (is_array($temp_array)) {
+                if ($sort_ascending) {
+                    $array = array_reverse($temp_array);
+                } else {
+                    $array = $temp_array;
+                }
             }
         }
     }

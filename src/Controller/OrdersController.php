@@ -1064,7 +1064,16 @@
             echo "<option value='' title='Orderscontroller.getDriverByClient'>" . $this->Trans->getString("forms_selectdriver") . "</option>";
             if ($profile) {
                 foreach ($profile as $p) {
-                    echo "<option value='" . $p->id . "'>" . $p->fname . ' ' . $p->mname . ' ' . $p->lname . "</option>";
+                    echo "<option value='" . $p->id . "'";
+                    if($this->Manager->requiredfields($p, "profile2order") || !$p->iscomplete){
+                        echo ' DISABLED';
+                    }
+                    $username="";
+                    if($p->username){
+                        $username = " (" . $p->username . ")";
+                    }
+                    $username = trim($p->fname . ' ' . $p->mname . ' ' . $p->lname . $username);
+                    echo ">" . $username . "</option>";
                 }
             }
 
