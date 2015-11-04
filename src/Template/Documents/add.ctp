@@ -1481,6 +1481,8 @@
 
 
         });
+        //old validation
+        /*
         $('.email1').live('keyup',function(){
             //alert($('.email1').val());
             if($(this).val()!='' && ($(this).val().replace('@','')== $(this).val() || $(this).val().replace('.','')== $(this).val() || $(this).val().length<5)){
@@ -1504,6 +1506,7 @@
 
 
         });
+        */
         <?php
         if($this->request->params['action']=='view')
         {
@@ -1529,8 +1532,8 @@
     ?>
         var draft = 0;
         $(document.body).on('click', '.cont', function () {
-            var isvalid = checkalltags("tab0");
-            if(!isvalid){return false;}
+            //var isvalid = checkalltags("tab0");
+            //if(!isvalid){return false;}
 
             var sid = $('#sub_id').val();
             var type = <?php if(!isset($_GET['doc'])) {
