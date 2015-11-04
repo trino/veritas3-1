@@ -23,7 +23,7 @@ function makepage($webroot, $tabIndex, $name, $cms, $active){
         <div class="form-group last">
             <label class="col-md-2"></label>
             <label class="col-md-5" align="CENTER">English</label>
-            <label class="col-md-5" align="CENTER">français</label>
+            <label class="col-md-5" align="CENTER">Français</label>
         </div>
     </div>
 

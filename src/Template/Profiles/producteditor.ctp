@@ -89,7 +89,7 @@
                 if ($selected){$selectedproduct = $producttype; $class="selected";}
                 echo '<TR class="' . $class . '" onclick="productclick(' . "'" . $producttype->Acronym . "'" . ')">';
                     td($producttype->ID);
-                    if ($producttype->Icon == "icon-basket"){
+                    if ($producttype->Icon == "icon-docs"){
                         td('<i class="' . $producttype->Icon . '"></i>');
                     } else {
                         $img = str_replace("fa icon-", "", $producttype->Icon);
