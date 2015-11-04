@@ -751,7 +751,6 @@
                     $data["form"][] = $Form;
 
 
-
                     $Form = array();
                     $Form['type'] = '10';
                     $Form['college_school_name'] = 'Mohawk';
@@ -780,10 +779,16 @@
             $data["username"] = "revolution_user";
             $data["password"] = md5("Pass34533!z4");
 
-            //echo $this->placerapidorder($data);//fast way
-            $data = $this->array_flatten($data);//your URL: 'http://isbmee.ca/mee/rapid/placerapidorder'
-            //echo $this->Manager->cURL(LOGIN . 'rapid/placerapidorder', $data, "multipart/form-data");//hard way (the same way they'll be doing it)
-            echo $this->Manager->cURL('http://isbmee.ca/mee/rapid/placerapidorder', $data, "multipart/form-data");//hard way (the same way they'll be doing it)
+            $JSON = true;
+            if ($JSON) {
+                $data = json_encode($data);
+                echo $this->Manager->cURL(LOGIN . 'rapid/placerapidorder', $data);//hard way (LOCAL-JSON) (the same way they'll be doing it)
+            } else {
+                //echo $this->placerapidorder($data);//fast way
+                $data = $this->array_flatten($data);//your URL: 'http://isbmee.ca/mee/rapid/placerapidorder'
+                //echo $this->Manager->cURL(LOGIN . 'rapid/placerapidorder', $data, "multipart/form-data");//hard way (LOCAL) (the same way they'll be doing it)
+                echo $this->Manager->cURL('http://isbmee.ca/mee/rapid/placerapidorder', $data, "multipart/form-data");//hard way (REMOTE) (the same way they'll be doing it)
+            }
             die();
         }
 
@@ -805,10 +810,13 @@
         }
 
         function placerapidorder($GETPOST = "") {
-            //  var_dump($GETPOST);die();
             if (!$GETPOST) {
                 $GETPOST = array_merge($_POST, $_GET);
             }
+            if(!count($GETPOST)){
+                $GETPOST = $this->request->input('json_decode', true);//JSON handler/backup
+            }
+
             //login requirements
             if (!isset($GETPOST["username"])) {
                 $this->Status(False, "Username not specified");
