@@ -857,7 +857,7 @@ loadreasons($param, $strings, true);
                                                                 <td width="1" <?php if($b==1){?>style="border-top:none;"<?php }?>>
                                                                     <input
                                                                         <?php if ($this->request->session()->read('Profile.profile_type') == 2 && $this->request->session()->read('Profile.id') == $id){ ?>disabled=""<?php } ?>
-                                                                        id="c_<?= $count ?>"
+                                                                        id="c_<?= $count ?>" onclick="clientclick(<?= $count ?>);"
                                                                         type="checkbox" value="<?php echo $o->id; ?>"
                                                                         class="addclientz" name="client_idss[]" <?php if ($isassigned) {
                                                                         echo "checked";
@@ -1284,7 +1284,6 @@ loadreasons($param, $strings, true);
                                                     }
                                             }
                                         } else {
-
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
                                             });
@@ -1348,32 +1347,26 @@ loadreasons($param, $strings, true);
                                                 //  $(this).hide();
                                             });
                                             if(mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type=='9' || mem_type=='12'){
-
-
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
                                                     $('#driver_div').show();
                                                     //$('#driver_div select').attr('required','required');
                                                     $('.driver_license input').each(function(){
                                                         $(this).attr('required','required');
                                                     });
-                                                    }
-                                                    else
-                                                    {
-                                                        $('#driver_div').hide();
-                                                       $('#driver_div select').removeAttr('required');
+                                                } else {
+                                                    $('#driver_div').hide();
+                                                    $('#driver_div select').removeAttr('required');
                                                     $('.driver_license input').each(function(){
                                                         $(this).removeAttr('required');
                                                     });
-                                                    if($('.member_type').val()=='12')
-                                                    {
+                                                    if($('.member_type').val()=='12'){
                                                        $('.driver_license input').each(function(){
-                                                        if($(this).attr('name')=='driver_license_no'){
-                                                         //$(this).attr('required','required');
-                                                         }
+                                                            if($(this).attr('name')=='driver_license_no'){
+                                                                //$(this).attr('required','required');
+                                                            }
                                                         });
-
                                                     }
-                                                    }
+                                                }
                                             } else {
                                                 $('#driver_div select').removeAttr('required');
                                                 $('.member_type').removeAttr('required');
@@ -1416,9 +1409,7 @@ loadreasons($param, $strings, true);
                                                     }
                                             }
 
-                                        }
-
-                                        else {
+                                        }  else {
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
                                             });
@@ -1450,13 +1441,11 @@ loadreasons($param, $strings, true);
                                             $('.req_rec').prop('required', "required");
                                         }
                                     }
-                                    if($('.passwords').attr('style') == 'display: none;'|| $('.passwords').attr('style') == 'display:none;')
-                                    {
+                                    if($('.passwords').attr('style') == 'display: none;'|| $('.passwords').attr('style') == 'display:none;') {
                                         $('#retype_password').removeAttr('required');
                                         $('#password').removeAttr('required');
                                     }
-                                    if($('.hideusername').attr('style') == 'display:none;' || $('.hideusername').attr('style') == 'display: none;')
-                                    {
+                                    if($('.hideusername').attr('style') == 'display:none;' || $('.hideusername').attr('style') == 'display: none;') {
                                         $('.hideusername input').each(function(){
                                             $(this).removeAttr('required');
                                         });
@@ -1517,6 +1506,29 @@ loadreasons($param, $strings, true);
                 }
             });
         }
+
+    function clientclick(Index){
+        //var ProfileType = $('#nProfileType').val();
+        <?php if(!isset($p) || ! ($p->admin || $p->super)){?>
+        var elements = document.getElementsByClassName('addclientz');
+        var element = document.getElementById("c_" + Index), id, checked = element.checked;
+        for (var i = 0; i < elements.length; ++i) {
+            element = elements[i];
+            id = element.getAttribute('id').substr(2);
+            if(id != Index) {
+                element.disabled = checked;
+                element = element.parentNode;
+                if(checked) {
+                    element.classList.add("disabled");
+                    element.parentNode.classList.add("disabled");
+                } else {
+                    element.classList.remove("disabled");
+                    element.parentNode.classList.remove("disabled");
+                }
+            }
+        }
+        <?php } ?>
+    }
 </script>
 
 </div>
