@@ -133,7 +133,11 @@ function enumdata($variable, $daysbackwards, $date = -1, $strings){ //* [10, 1],
 
 	return $tempstr;
 }
+
+$Dir = "assets/global/plugins/flot/jquery.flot.";
+JSinclude($this, array($Dir . "min.js", $Dir . "resize.min.js", $Dir . "pie.min.js", $Dir . "stack.min.js", $Dir . "crosshair.min.js", $Dir . "categories.min.js", "assets/admin/pages/scripts/charts-flotcharts.js"));//time.js
 ?>
+
 <h3 class="page-title">
 			<?= $strings["analytics_title"] ?> <small><?= $strings["analytics_description"];?></small>
 			</h3>
@@ -175,17 +179,9 @@ function enumdata($variable, $daysbackwards, $date = -1, $strings){ //* [10, 1],
     </div>
 </div>
 
-<!--<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.time.js"></script>-->
-<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.min.js"></script>
-<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.resize.min.js"></script>
-<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.pie.min.js"></script>
-<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.stack.min.js"></script>
-<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.crosshair.min.js"></script>
-<script src="<?php echo $this->request->webroot;?>assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-<script src="<?php echo $this->request->webroot;?>assets/admin/pages/scripts/charts-flotcharts.js"></script>
 <script>
 jQuery(document).ready(function() {
 

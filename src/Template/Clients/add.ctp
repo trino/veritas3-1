@@ -1,8 +1,3 @@
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link href="<?php echo $this->request->webroot;?>assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
-<link href="<?php echo $this->request->webroot;?>assets/admin/pages/css/portfolio.css" rel="stylesheet" type="text/css"/>
-<!-- END PAGE LEVEL STYLES -->
-
 <?php
     include_once('subpages/api.php');
     $settings = $this->requestAction('settings/get_settings');
@@ -40,6 +35,8 @@
     $title = $strings["clients_" . strtolower($action) . "client"];
     //includejavascript($strings);
     loadreasons($action, $strings, true);
+
+    JSinclude($this, array("assets/global/plugins/fancybox/source/jquery.fancybox.css", "assets/admin/pages/css/portfolio.css" ), "PAGE LEVEL STYLES");
 ?>
 
 <h3 class="page-title">

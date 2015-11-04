@@ -77,7 +77,7 @@ function printCSS($_this = ""){
             <?php
          }
     }
-    echo '</STYLE>';
+    echo '</STYLE>' . "\r\n";
 }
 
 function updatetable($Table, $PrimaryKey, $Value, $Data){
@@ -109,12 +109,50 @@ if (file_exists($SQLfile)) {//Check for translation update in veritsa3-0/webroot
     }
 }
 
-function JSinclude($_this, $File){
-    $URL = $_this->request->webroot . $File;
-    $File = getcwd() . "/" . $File;
-    echo '<script src="' . $URL . '?' . filemtime($File) . '" type="text/javascript"></script>';
+function JSinclude($_this, $File, $Title = false, $Dir = "", $ID = ""){
+    if($Title) { echo '<!-- BEGIN ' . $Title . ' -->' . "\r\n";}
+    if(is_array($File)){
+        $Dir = "";
+        foreach($File as $Key => $Afile){
+            if(is_numeric($Key)){
+                $Dir = JSinclude($_this, $Afile, "", $Dir);
+            } else {
+                $Dir = JSinclude($_this, $Key, "", $Dir, $Afile);
+            }
+        }
+    } else if(!$File) {
+        $Dir = "";
+    } else {
+        if(!getextension($File)){$Dir = "";}
+        $URL = $_this->request->webroot . $Dir . $File;
+        $OldFile=$File;
+        $File = getcwd() . "/" . $Dir . $File;
+        if (is_dir($File)){
+            $Dir = $OldFile;
+            if (substr($Dir,-1) != "/"){$Dir.="/";}
+        } else if (file_exists($File)) {
+            if($ID){
+                $ID = ' ID="' . $ID . '"';
+            }
+            switch (getextension($File)){
+                case "js":
+                    echo '<script src="' . $URL . '?' . filemtime($File) . '"' . $ID . ' type="text/javascript"></script>' . "\r\n";
+                    break;
+                case "css":
+                    echo '<link href="' . $URL . '?' . filemtime($File) . '"' . $ID . ' rel="stylesheet" type="text/css"/>' . "\r\n";
+                    break;
+            }
+        } else {
+            echo '<!--' . $URL . ' NOT FOUND!-->' . "\r\n";
+        }
+    }
+    if($Title) { echo '<!-- END ' . $Title . ' -->' . "\r\n";}
+    return $Dir;
 }
 
+function getextension($path, $value = PATHINFO_EXTENSION) {
+        return strtolower(pathinfo($path, $value));
+    }
 
 function getSQL($Filename){
     $File = file_get_contents($Filename);

@@ -11,9 +11,6 @@
     $GLOBALS["strings"] = CacheTranslations($language, array("file_%", "orders_ordertype", "documents_submittedby", "documents_submittedfor", "settings_client", "dashboard_delete", "forms_attachedfiles"), $settings, False);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
 
 //other values PATHINFO_DIRNAME (/mnt/files) | PATHINFO_BASENAME (??????.mp3) | PATHINFO_FILENAME (??????)
-    function getextension($path, $value = PATHINFO_EXTENSION) {
-        return strtolower(pathinfo($path, $value));
-    }
 
     function getattachments($OrderID) {
         $all_attachments = TableRegistry::get('doc_attachments');

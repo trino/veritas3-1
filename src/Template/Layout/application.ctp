@@ -121,6 +121,11 @@
             <meta content="" name="description"/>
             <meta content="" name="author"/>
             <!-- BEGIN GLOBAL MANDATORY STYLES -->
+            <?php
+                //include_once('subpages/api.php');
+                //JSinclude($this, "application/assets" );die("HERE");
+            ?>
+
             <link href="<?php echo $this->request->webroot;?>application/assets/opensans.css" rel="stylesheet"
                   type="text/css"/>
             <link href="<?php echo $this->request->webroot;?>assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"

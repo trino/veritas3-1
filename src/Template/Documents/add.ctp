@@ -1,4 +1,3 @@
-<script src="<?php echo $this->request->webroot; ?>js/jquery.easyui.min.js" type="text/javascript"></script>
 <?php
     $param = $this->request->params['action'];
     include_once 'subpages/filelist.php';
@@ -35,7 +34,7 @@
     if($language == "Debug") { $Trans = " [Trans]";} else { $Trans = ""; }
     $title = $strings["index_" . strtolower($action) . "document"];
     printCSS($this);
-
+    JSinclude($this, "js/jquery.easyui.min.js");
     loadreasons($action, $strings, true);
     
 ?>

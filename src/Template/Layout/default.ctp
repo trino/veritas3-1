@@ -7,7 +7,6 @@
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, "langswitch", $settings);//,$registry);
 ?>
-
 <!--[if IE 8]>
 <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]>
@@ -25,197 +24,134 @@
     <meta content="" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-          type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/global/plugins/font-awesome/css/font-awesome.min.css"
-          rel="stylesheet" type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css"
-          rel="stylesheet" type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap/css/bootstrap.min.css"
-          rel="stylesheet" type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/global/plugins/uniform/css/uniform.default.css"
-          rel="stylesheet" type="text/css"/>
-    <link
-        href="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"
-        rel="stylesheet" type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+    <?php
+        JSinclude($this, array(
+            "css/jquery-ui.css",
 
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- WARNING ABOUT TEST REMOVALS: The PHP question mark has been removed and would need to be replaced to un-comment the CSS -->
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo $this->request->webroot; ?>assets/global/plugins/select2/select2.css"/>
-    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-    <link
-        href="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"
-        rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/global/plugins/fullcalendar/fullcalendar.css"
-          rel="stylesheet" type="text/css"/>
+            "assets/global/plugins",
+                "font-awesome/css/font-awesome.min.css",
+                "simple-line-icons/simple-line-icons.min.css",
+                "bootstrap/css/bootstrap.min.css",
+                "uniform/css/uniform.default.css",
+                "bootstrap-switch/css/bootstrap-switch.min.css",
+                "select2/select2.css",
+                "bootstrap-daterangepicker/daterangepicker-bs3.css",
+                "bootstrap-timepicker/css/bootstrap-timepicker.min.css",
+                "fullcalendar/fullcalendar.css", //fullcalendar/fullcalendar.print.css
+                "jqvmap/jqvmap/jqvmap.css",
 
-    <!--<link href="<?php echo $this->request->webroot; ?>assets/global/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css"/>-->
-    <link href="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet"
-          type="text/css"/>
+            "assets/admin/pages/css",
+                "profile.css",
+                "pricing-table.css",
+                "pricing-tables.css",
+                "todo.css",//profile-old.css
+                "tasks.css",
 
-    <link href="<?php echo $this->request->webroot; ?>assets/admin/pages/css/profile.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/admin/pages/css/pricing-table.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/admin/pages/css/pricing-tables.css" rel="stylesheet"
-          type="text/css"/>
+            "assets/global/css",
+                "components.css" => "style_components",//To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css'
+                "plugins.css",
 
-    <link href="<?php echo $this->request->webroot; ?>assets/admin/pages/css/todo.css" rel="stylesheet"
-          type="text/css"/>
-    <!--<link href="<?php echo $this->request->webroot; ?>assets/admin/pages/css/profile-old.css" rel="stylesheet" type="text/css"/>-->
+            "assets/admin/layout/css",
+                "layout.css",
+                "themes/" . $settings->layout . ".css" => "style_color",
 
-    <link href="<?php echo $this->request->webroot; ?>assets/admin/pages/css/tasks.css" rel="stylesheet"
-          type="text/css"/>
+            "",
+            "css/style.css"
+        ));
 
-    <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
-    <link href="<?php echo $this->request->webroot; ?>assets/global/css/components.css" id="style_components"
-          rel="stylesheet" type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php echo $this->request->webroot; ?>assets/admin/layout/css/layout.css" rel="stylesheet"
-          type="text/css"/>
-    <link
-        href="<?php echo $this->request->webroot; ?>assets/admin/layout/css/themes/<?php echo $settings->layout; ?>.css"
-        rel="stylesheet" type="text/css" id="style_color"/>
-
-    <link href="<?php echo $this->request->webroot; ?>css/style.css" rel="stylesheet" type="text/css"/>
-
-
+    ?>
     <!-- TEST REMOVAL <link href="< php echo $this->request->webroot;?>assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/> -->
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="<?php echo WEB_ROOT ?>favicon.ico"/>
-
     <!--[if lt IE 9]>
-    <script src="<?php echo $this->request->webroot;?>assets/global/plugins/respond.min.js"></script>
-    <script src="<?php echo $this->request->webroot;?>assets/global/plugins/excanvas.min.js"></script>
+    <script src="<?= $this->request->webroot; ?>assets/global/plugins/"></script>
+    <script src="<?= $this->request->webroot; ?>assets/global/plugins/excanvas.min.js"></script>
     <![endif]-->
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery-migrate.min.js"
-            type="text/javascript"></script>
+
+    <?php
+        JSinclude($this, array(
+            "assets/global/plugins",
+                "jquery.min.js",
+                "jquery-migrate.min.js",
+                "jquery-ui/jquery-ui-1.10.3.custom.min.js",
+                "bootstrap/js/bootstrap.min.js",
+                "bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js",
+                "jquery-slimscroll/jquery.slimscroll.min.js",
+                "jquery.blockui.min.js",
+                "jquery.cokie.min.js",
+                "uniform/jquery.uniform.min.js",
+                "bootstrap-switch/js/bootstrap-switch.min.js",
+
+            "assets/global/plugins/jqvmap/jqvmap",
+                "jquery.vmap.js",
+                "maps/jquery.vmap.russia.js",
+                "maps/jquery.vmap.world.js",
+                "maps/jquery.vmap.europe.js",
+                "maps/jquery.vmap.germany.js",
+                "maps/jquery.vmap.usa.js",
+                "data/jquery.vmap.sampledata.js",
+
+            "assets/global/plugins/flot",
+                "jquery.flot.min.js",
+                "jquery.flot.resize.min.js",
+                "jquery.flot.categories.min.js",
+
+            "assets/global/plugins",
+                "jquery.pulsate.min.js",
+                "bootstrap-daterangepicker/moment.min.js",
+                "bootstrap-daterangepicker/daterangepicker.js",
+                "jquery-easypiechart/jquery.easypiechart.min.js",
+                "jquery.sparkline.min.js",
+                "bootstrap-fileinput/bootstrap-fileinput.js",
+                "ckeditor/ckeditor.js"
+        ));
+    /*
     <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap/js/bootstrap.min.js"
-            type="text/javascript"></script>
-    <script
-        src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
-        type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery.blockui.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery.cokie.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/uniform/jquery.uniform.min.js"
-            type="text/javascript"></script>
-    <script
-        src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
-        type="text/javascript"></script>
-    <!-- END CORE PLUGINS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js"
-            type="text/javascript"></script>
-    <script
-        src="<?php echo $this->request->webroot; ?>assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js"
-        type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/flot/jquery.flot.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/flot/jquery.flot.resize.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/flot/jquery.flot.categories.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery.pulsate.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-daterangepicker/moment.min.js"
-            type="text/javascript"></script>
-    <script
-        src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"
-        type="text/javascript"></script>
     <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
     <!-- TEST REMOVAL <script src="< php echo $this->request->webroot;?>assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script> -->
-    <script
-        src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js"
-        type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery.sparkline.min.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"
-            type="text/javascript"></script>
-
-
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/ckeditor/ckeditor.js"></script>
-
-
-    <?php //<script type="text/javascript" src="<?php echo $this->request->webroot; js/ajaxupload.js"></script>
+    */
+    //<script type="text/javascript" src="<?php echo $this->request->webroot; js/ajaxupload.js"></script>
         includejavascript("", $settings);
         JSinclude($this, "js/ajaxupload.js");
-    ?>
 
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/select2/select2.min.js"></script>
+        JSinclude($this, array(
+            "assets/global/plugins",
+                "jquery-validation/js/jquery.validate.min.js",
+                "jquery-validation/js/additional-methods.min.js",
+                "bootstrap-wizard/jquery.bootstrap.wizard.min.js",
+                "select2/select2.min.js",
+                "bootstrap-datepicker/js/bootstrap-datepicker.js",
+                "bootstrap-timepicker/js/bootstrap-timepicker.min.js",
+                "clockface/js/clockface.js",
+                "bootstrap-daterangepicker/moment.min.js",
+                "bootstrap-daterangepicker/daterangepicker.js",
+                "bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+                "bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
+        ));
 
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/clockface/js/clockface.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-    <script type="text/javascript"
-            src="<?php echo $this->request->webroot; ?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <?php
         translatedatepicker($language, $this);
-    ?>
-    <!-- default END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="<?php echo $this->request->webroot; ?>assets/global/scripts/metronic.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/layout/scripts/layout.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/layout/scripts/quick-sidebar.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/layout/scripts/demo.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/pages/scripts/index.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/pages/scripts/tasks.js"
-            type="text/javascript"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/pages/scripts/profile.js"
-            type="text/javascript"></script>
-
-    <?php //<script src="<?php echo $this->request->webroot; assets/admin/pages/scripts/form-wizard.js"></script>
+        //<script src="<?php echo $this->request->webroot; assets/admin/pages/scripts/form-wizard.js"></script>
         //includejavascript($strings);
-        JSinclude($this, "assets/admin/pages/scripts/form-wizard.js");
-        JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
-    ?>
+        JSinclude($this, array(
+            "assets/global/scripts/metronic.js",
 
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/pages/scripts/components-pickers.js"></script>
-    <script src="<?php echo $this->request->webroot; ?>assets/admin/pages/scripts/components-dropdowns.js"></script>
+            "assets/admin/layout/scripts",
+                "layout.js",
+                "quick-sidebar.js",
+                "demo.js",
+
+            "assets/admin/pages/scripts",
+                "index.js",
+                "tasks.js",
+                "profile.js",
+
+                "form-wizard.js",
+                "form-validate-roy.js",
+                "components-pickers.js",
+                "components-dropdowns.js"
+        ));
+    ?>
 
     <style>
     .required:after {
@@ -265,7 +201,7 @@
 
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="<?php echo $this->request->webroot; ?>">
+            <a href="<?= $this->request->webroot; ?>">
                 <?php $logo = $this->requestAction('Logos/getlogo/0', ['return']); ?>
                 <img src="<?php
                     $DIR =  $this->request->webroot . "img/logos/";
@@ -318,7 +254,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="<?php echo $this->request->webroot;?>profiles/edit/<?php echo $this->request->session()->read('Profile.id'); ?>">
+                                    <a href="<?= $this->request->webroot; ?>profiles/edit/<?php echo $this->request->session()->read('Profile.id'); ?>">
                                         <i class="icon-user"></i> <?= $strings["dashboard_mysettings"] ?> </a>
                                 </li>
                                 <?php if ($debug || true) {
@@ -496,7 +432,7 @@
     //change layout
     function change_layout(msg) {
         $.ajax({
-            url: "<?php echo $this->request->webroot;?>logos/change_layout",
+            url: "<?= $this->request->webroot; ?>logos/change_layout",
             type: "post",
             data: "layout=" + msg,
             success: function (m) {
@@ -520,7 +456,7 @@
             //alert(sidebar);
 
             $.ajax({
-                url: "<?php echo $this->request->webroot;?>settings/changebody",
+                url: "<?= $this->request->webroot; ?>settings/changebody",
                 type: "post",
                 data: "class=" + cls + '&side=' + sidebar + '&box=' + box,
                 success: function (m) {
@@ -543,7 +479,7 @@
             //alert(sidebar);
 
             $.ajax({
-                url: "<?php echo $this->request->webroot;?>settings/changebody",
+                url: "<?= $this->request->webroot; ?>settings/changebody",
                 type: "post",
                 data: "class=" + cls + '&side=' + sidebar,
                 success: function (m) {
@@ -570,7 +506,7 @@
         var n = $('#notli').html();
         $.ajax({
             type: "post",
-            url: "<?php echo $this->request->webroot;?>settings/display",
+            url: "<?= $this->request->webroot; ?>settings/display",
             data: "display=" + v,
             success: function () {
 
@@ -589,7 +525,7 @@
 </script>
 <div class="overlay-wrapper">
 <div class="overlay">
-<img src="<?php echo $this->request->webroot;?>assets/admin/layout/img/ajax-loading.gif" />
+<img src="<?= $this->request->webroot; ?>assets/admin/layout/img/ajax-loading.gif" />
 </div>
 </div>
 <!-- END JAVASCRIPTS -->
