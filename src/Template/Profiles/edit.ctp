@@ -289,6 +289,10 @@
                                         $MissingFields = $Manager->requiredfields(false, "profile2order");
                                         $MissingData = $Manager->requiredfields($profile, "profile2order");
                                         $Missing= array();
+                                        if(!is_object($sidebar)){
+                                            $sidebar = new stdClass();
+                                        }
+
                                         if(!$profile->iscomplete || $MissingData){
                                             $Debug = ' (' . $MissingData . '|' . $profile->iscomplete . ')';
                                             if(!$profile->iscomplete){
