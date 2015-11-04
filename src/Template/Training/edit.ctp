@@ -50,6 +50,10 @@ if (isset($quiz)){
         background-position: right top;
         background-repeat: no-repeat;
     }
+
+    .truncate {
+        white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;
+    }
 </STYLE>
 
     <h3 class="page-title">
@@ -183,10 +187,10 @@ if (isset($quiz)){
             <table class="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
                 <thead>
                 <tr>
-                    <th>QID</th>
-                    <th>Index</th>
+                    <th style="width: 10px;">QID</th>
+                    <th style="width: 10px;">Index</th>
                     <th>Question</th>
-                    <TH>Actions</TH>
+                    <TH style="width: 110px;">Actions</TH>
                     <!--TH>Answer 1</TH>
                     <TH>Answer 2</TH>
                     <TH>Answer 3</TH>
@@ -217,7 +221,7 @@ if (isset($quiz)){
 
                             echo '<TR><TD>' . $question->ID . '</TD>';
                             echo '<TD>' . $question->QuestionID . '</TD>';
-                            echo '<TD>' . trunc($question->Question, 75, "...") . '</TD>';
+                            echo '<TD class="truncate">' . $question->Question . '</TD>';// trunc($question->Question, 75, "...")
 
                             if (isset($_GET["answers"])){
                                 echo "<TD>" . $question->Answer . "</TD>";
