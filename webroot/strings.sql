@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2015 at 08:17 PM
+-- Generation Time: Nov 04, 2015 at 08:20 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=792 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=793 ;
 
 --
 -- Dumping data for table `strings`
@@ -805,7 +805,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (788, 'invoice_reset', 'Reset', 'Réinitialiser'),
 (789, 'invoice_invoice', 'Sales Rep', 'facture #'),
 (790, 'invoice_company', 'Registered Company', 'Société enregistrée'),
-(791, 'invoice_datecreatedcompleted', 'Date Created/Completed', 'Date Créée/Complet');
+(791, 'invoice_datecreatedcompleted', 'Date Created/Completed', 'Date Créée/Complet'),
+(792, 'orders_completed', 'Completed', 'Terminé');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
