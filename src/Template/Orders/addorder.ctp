@@ -202,6 +202,7 @@ printCSS($this);
                 <div class="form-wizard">
                     <div class="form-body" style="position: relative;">
                     <input type="hidden" id="orderid" value="" />
+                    <input type="hidden" id="did" value="" />
                     <input type="hidden" id="user_id" value="" />
                     <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
@@ -223,7 +224,7 @@ printCSS($this);
                                         <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
                                         <?php include('subpages/documents/driver_form.php');?>    
                                         <hr />
-                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed to step 1</a>
+                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
                                     </div>
                                     
                                     
@@ -302,8 +303,8 @@ printCSS($this);
                                             <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
                                                 <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                 <hr />
-                                                 
-                                                <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Proceed to step <?php echo $jj+1;?></a>
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
+                                                <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Next</a>
                                             </div>
                                             
                                             

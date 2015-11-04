@@ -1,7 +1,7 @@
 <script>
 $(function(){
     var did = '<?php if(isset($did))echo $did;else echo '0';?>';
-    
+    var checker = 0;
     
    function save_driver(par,webroot)
     {
@@ -38,6 +38,25 @@ $(function(){
    $('.steps input').change(function(){
     $(this).parent().find('.error').html('');
    }); 
+   $('.buttonprev').click(function(){
+        var par = $(this).closest('.steps');
+        var draft = 0;
+        checker = 0;
+        var ch = '';
+        var doc_id = par.find('.sub_docs_id').val();
+        var sid = doc_id;
+        
+        par.hide();
+            par.removeClass('active');
+            var id = par.find('.buttonprev').attr('id').replace('buttonprev','');
+            var type = par.find('input[name="document_type"]').val();
+            var cl = par.find('.sub_docs_id').val();
+            
+                  id = parseInt(id);
+            $('#step'+id).show();
+            $('#step'+id).addClass('active');
+            
+   });
    $('.buttons').click(function(){
        
         var par = $(this).closest('.steps');
