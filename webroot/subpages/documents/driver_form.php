@@ -4,11 +4,11 @@
     <input type="hidden" name="document_type" value="driver_form" />
     <input type="hidden" name="client_id" value="<?php if(isset($cid))echo $cid;?>" />
     <div class="col-md-4"><label class="control-label required notonclient">Your Username: </label>
-        <input type="text" class="form-control required notonclient" required name="username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php }?> />
+        <input type="text" class="form-control required notonclient"  name="username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php }?> />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label required notonclient">Your <?= $strings["forms_password"]; ?>: </label>
-        <input type="password" class="form-control required notonclient" required name="password"  />
+        <input type="password" class="form-control required notonclient"  name="password"  />
         <span class="error"></span>
     </div>
     <!--div class="col-md-4"><label class="control-label"><?= $strings["forms_retypepassword"]; ?>: </label>

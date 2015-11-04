@@ -1,4 +1,5 @@
 <script>
+
 $(function(){
     var did = '<?php if(isset($did))echo $did;else echo '0';?>';
     var checker = 0;

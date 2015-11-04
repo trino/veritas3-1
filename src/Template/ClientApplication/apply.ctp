@@ -4,7 +4,7 @@
     //$debug = $this->request->session()->read('debug');
     //include_once('subpages/api.php');
     //$language = $this->request->session()->read('Profile.language');
-    
+    $param = $this->request->params['action'];
     include_once('subpages/api.php');
     $settings = $this->requestAction('clientApplication/get_settings');
     $language = $this->request->session()->read('Profile.language');
@@ -12,8 +12,39 @@
 
 //$language = $this->request->session()->read('Profile.language');
 
+JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
 //var_dump($strings);
+if (isset($disabled)) {
+        $is_disabled = 'disabled="disabled"';
+        $view = "view";
+    }
+
+    $settings = $this->requestAction('settings/get_settings');
+    $action = ucfirst($param);
+    if ($action == "Add") {
+        $action = "Create";
+        if(isset($did) && $did) { $action = "Edit";}
+    }
+
+    if (isset($this->request->params['pass'][0])) {
+        $ClientID = $this->request->params['pass'][0];
+    }
+
+    if (isset($this->request->params['pass'][1])) {
+        $id1 = $this->request->params['pass'][1];
+        $id2="?type=".$_GET['type'];
+        if (isset($_GET['order_id'])) { $id2= '?order_id=' . $_GET['order_id']; }
+    }
+
+    $language = $this->request->session()->read('Profile.language');
+    $strings = CacheTranslations($language, array("documents_%", "forms_%", "clients_addeditimage", "infoorder_selectclient"), $settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
+    if($language == "Debug") { $Trans = " [Trans]";} else { $Trans = ""; }
+    $title = $strings["index_" . strtolower($action) . "document"];
+    printCSS($this);
+
+    loadreasons($action, $strings, true);
 ?>
+<div id="tab0">
 <h2>Application for <?php echo $client->company_name;?></h2>
 <input type="hidden" id="user_id" value=""/>
 <div class="steps" id="step0" class="active">
@@ -46,5 +77,6 @@ foreach($subd as $s)
     <p style="color: #45b6af;font-size: 24px;font-weight: 400; text-align:center;">
     Thank you. Your process is complete.
     </p>
+</div>
 </div>
 <?php include('subpages/commonjs.php');?>

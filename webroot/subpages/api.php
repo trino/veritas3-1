@@ -519,7 +519,7 @@ function changevalidation($inputtype, $message){
 function loadreasons($action, $strings, $IncludeScript = false){
     if($IncludeScript) {echo '<SCRIPT>';}
     $action = strtolower($action);
-    if($action == "create" || $action == "add" || $action == "edit"){
+    if($action == "create" || $action == "add" || $action == "edit" || $action == 'apply'){
         echo "var reasons = new Array();";
         echo "reasons['fail'] = '" . addslashes($strings["forms_failed"]) . "';";
         echo "reasons['postalcode'] = '" . addslashes($strings["forms_postalcode"]) . "';";
