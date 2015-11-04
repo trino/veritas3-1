@@ -223,9 +223,11 @@ class DocumentsController extends AppController{
                     $this->set('forms', '');
                 }
                 $profile = TableRegistry::get('profiles')->find()->where(['id' => $document->user_id])->first();
-                $this->set('DriverProvince', $profile->driver_province);
-                $this->set('profile', $profile);
 
+                if(is_object($profile)) {
+                    $this->set('DriverProvince', $profile->driver_province);
+                    $this->set('profile', $profile);
+                }
                 $att = TableRegistry::get('attach_docs');
                 $query = $att->find();
                 $attachments = $query->select()->where(['doc_id'=>$did])->all();
