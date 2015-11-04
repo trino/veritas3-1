@@ -279,10 +279,12 @@ function Sadd($Key, $language, $Value){
 }
 
 function getIterator($Objects, $Fieldname, $Value){
+    if(is_iterable($Objects)){
     foreach($Objects as $Object){
         if ($Object->$Fieldname == $Value){
             return $Object;
         }
+    }
     }
     return false;
 }

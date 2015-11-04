@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2015 at 04:09 PM
+-- Generation Time: Nov 04, 2015 at 08:17 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=776 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=792 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1446128864', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1446473595', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -789,7 +789,23 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (772, 'email_sendmessage_variables', 'message, from, email', ''),
 (773, 'email_training_enrolled_variables', 'email, path', ''),
 (774, 'profiles_certified', '%MEE% Certified', '%MEE% certifié'),
-(775, 'dashboard_possess', 'Possess', 'Possess');
+(775, 'dashboard_possess', 'Possess', 'Possess'),
+(776, 'invoice_paymentdetails', 'Payment Details', 'Détails de paiement'),
+(777, 'invoice_subtotal', 'Sub-Total amount', 'Montant dous-total'),
+(778, 'invoice_grandtotal', 'Grand Total', 'Totale finale'),
+(779, 'invoice_total', 'Total', 'Total'),
+(780, 'invoice_item', 'Item', 'Article'),
+(781, 'invoice_description', 'Description', 'Description'),
+(782, 'invoice_quantity', 'Quantity', 'Quantité'),
+(783, 'invoice_unitcost', 'Unit Cost', 'Coût unitaire'),
+(784, 'invoice_clientscsv', 'Companies (CSV)', 'Entreprises (valeurs séparées par des virgules)'),
+(785, 'invoice_datecreated', 'Date Created', 'Date Créée'),
+(786, 'invoice_datecompleted', 'Date Completed', 'Rendez-Vous Complet'),
+(787, 'invoice_export', 'Export to CSV', 'Exporter au format CSV'),
+(788, 'invoice_reset', 'Reset', 'Réinitialiser'),
+(789, 'invoice_invoice', 'Sales Rep', 'facture #'),
+(790, 'invoice_company', 'Registered Company', 'Société enregistrée'),
+(791, 'invoice_datecreatedcompleted', 'Date Created/Completed', 'Date Créée/Complet');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
