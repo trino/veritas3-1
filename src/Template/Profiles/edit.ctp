@@ -438,7 +438,7 @@
 
                                             <?php }
 
-                                            if (isset($profile->email) && $CanOrder) {?>
+                                            if (isset($profile->email) && $CanOrder && $uid <> $Manager->read("id")) {?>
                                                 <li <?php activetab($activetab, "feedback"); ?> >
                                                     <a href="#tab_1_8" data-toggle="tab">Message</a>
                                                 </li>
