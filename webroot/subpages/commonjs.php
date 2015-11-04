@@ -493,7 +493,24 @@ function savePrescreen(url, order_id, cid,draft) {
                  <?php if($this->request->controller=='Documents')
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{?>
+                 <?php }else{
+                    if($this->request->params['action']=='addorder'){?>
+                        
+                        
+                        
+                        
+                        $.ajax({
+                                    url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
+                                    success:function()
+                                    {
+                                        $('#loading5').hide();
+                                    }
+                                });
+                
+                
+                
+                
+                        <?php }?>
                         $('.overlay-wrapper').hide();
                  <?php }?>
             }
@@ -515,7 +532,19 @@ function savePrescreen(url, order_id, cid,draft) {
                  <?php if($this->request->controller=='Documents')
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{?>
+                 <?php }else{
+                    if($this->request->params['action'] == 'addorder')
+                    {
+                        ?>
+                        $.ajax({
+                            url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
+                            success: function () {
+                                $('#loading5').hide();
+                            }
+                        });
+                        <?php
+                    }
+                    ?>
                         $('.overlay-wrapper').hide();
                  <?php }?>
                 
@@ -539,7 +568,19 @@ function savePrescreen(url, order_id, cid,draft) {
                  <?php if($this->request->controller=='Documents')
                     {?>
                         //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{?>
+                 <?php }else{
+                    if($this->request->params['action']=='addorder')
+                    {
+                        ?>
+                        $.ajax({
+                            url: '<?php echo $this->request->webroot;?>orders/createPdfEducation/' + $('#did').val(),
+                            success: function () {
+                                $('#loading5').hide();
+                            }
+                        });
+                        <?php
+                    }
+                    ?>
                         $('.overlay-wrapper').hide();
                  <?php }?>
             }
