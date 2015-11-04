@@ -522,16 +522,16 @@ function savePrescreen(url, order_id, cid,draft) {
                                     url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
                                     success:function()
                                     {
-                                        $('#loading5').hide();
+                                        $('.overlay-wrapper').hide();
                                     }
                                 });
                 
                 
                 
                 
-                        <?php }?>
+                        <?php }else{?>
                         $('.overlay-wrapper').hide();
-                 <?php }?>
+                 <?php }}?>
             }
         });
     }
@@ -558,14 +558,15 @@ function savePrescreen(url, order_id, cid,draft) {
                         $.ajax({
                             url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
                             success: function () {
-                                $('#loading5').hide();
+                                 $('.overlay-wrapper').hide();
                             }
                         });
                         <?php
                     }
+                    else{
                     ?>
                         $('.overlay-wrapper').hide();
-                 <?php }?>
+                 <?php }}?>
                 
             }
         });
@@ -594,14 +595,14 @@ function savePrescreen(url, order_id, cid,draft) {
                         $.ajax({
                             url: '<?php echo $this->request->webroot;?>orders/createPdfEducation/' + $('#did').val(),
                             success: function () {
-                                $('#loading5').hide();
+                                $('.overlay-wrapper').hide();
                             }
                         });
                         <?php
-                    }
+                    }else{
                     ?>
                         $('.overlay-wrapper').hide();
-                 <?php }?>
+                 <?php }}?>
             }
         });
     }
