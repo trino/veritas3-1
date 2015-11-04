@@ -272,7 +272,7 @@ function scrollto(Reason, element){
     //if($(element).parent().find('.error'))
     //    $(element).parent().find('.error').text(rsn);
     //else
-         $(element).parent().append('<span class="error" style="position:absolute; font-size:12px;">'+rsn+'</span>');
+         $(element).parent().append('<span class="error" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+rsn+'</span>');
     $('html,body').animate({ scrollTop: ($(element).offset().top)-80}, 'slow');
     
     //alert($(element).attr('name'));
