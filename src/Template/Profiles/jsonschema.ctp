@@ -2,7 +2,7 @@
     $Action="";
     if(isset($_GET["action"])){$Action = $_GET["action"];}
     if(isset($_POST["action"])){$Action = $_POST["action"];}
-
+    if(!isset($HTML)){$HTML="";}
     function makeaction($Action, $Title, $Name, $Data, $PrimaryKey, $ValueKey){
         echo '<FORM method="get"><INPUT TYPE="hidden" name="action" value="' . $Action . '">' . $Title . ": ";
         echo '<SELECT Name="' . $Name . '" ID="' . $Name . '">';
