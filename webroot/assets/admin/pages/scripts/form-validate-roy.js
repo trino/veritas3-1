@@ -100,6 +100,7 @@ function strip(html) {
 }
 
 function checkalltags(TabID){
+    deleteall("deleteme");
     var inputs = checktags(TabID, 'input');
     if (!inputs['Status']){return false;}
     inputs = checktags(TabID, 'select');
@@ -259,6 +260,32 @@ function findLableForControl(element) {
     }
 }
 
+function getElementsByClassName(oElm, strTagName, strClassName){
+    var arrElements = (strTagName == "*" && oElm.all)? oElm.all :  oElm.getElementsByTagName(strTagName);
+    var arrReturnElements = new Array();
+    strClassName = strClassName.replace(/\-/g, "\\-");
+    var oRegExp = new RegExp("(^|\\s)" + strClassName + "(\\s|$)");
+    var oElement;
+    for(var i=0; i<arrElements.length; i++){
+        oElement = arrElements[i];
+        if(oRegExp.test(oElement.className)){
+            arrReturnElements.push(oElement);
+        }
+    }
+    return (arrReturnElements);
+}
+
+function remove(elem) {
+    return elem.parentNode.removeChild(elem);
+}
+
+function deleteall(Class) {
+    var cusid_ele = document.getElementsByClassName(Class);
+    for (var i = 0; i < cusid_ele.length; ++i) {
+        remove(cusid_ele[i]);
+    }
+}
+
 function scrollto(Reason, element){
     /*
     var value = element.value;
@@ -272,7 +299,7 @@ function scrollto(Reason, element){
     //if($(element).parent().find('.error'))
     //    $(element).parent().find('.error').text(rsn);
     //else
-         $(element).parent().append('<span class="error" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+rsn+'</span>');
+         $(element).parent().append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+rsn+'</span>');
     $('html,body').animate({ scrollTop: ($(element).offset().top)-80}, 'slow');
     
     //alert($(element).attr('name'));
