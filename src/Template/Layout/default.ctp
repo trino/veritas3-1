@@ -267,7 +267,13 @@
         <div class="page-logo">
             <a href="<?php echo $this->request->webroot; ?>">
                 <?php $logo = $this->requestAction('Logos/getlogo/0', ['return']); ?>
-                <img src="<?php echo $this->request->webroot; ?>img/logos/<?php echo $logo; ?>" alt="logo" class=""
+                <img src="<?php
+                    $DIR =  $this->request->webroot . "img/logos/";
+                    if(!file_exists($DIR . $logo)){
+                        $logo = "MEELogo.png";
+                    }
+                    echo $DIR . $logo;
+                    ?>" alt="logo" class=""
                      style="max-width:225px;"/>
             </a>
 

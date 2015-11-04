@@ -6,6 +6,11 @@ if($this->request->params['controller']!='ClientApplication'){
     }
 }
 $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_attachfile", "file_download"), $settings, False);
+
+function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
+    if($Value){echo $True;} else {echo $False;}
+}
+
 ?>
 <STYLE>
     .required:after {
@@ -30,19 +35,20 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
         <div class="form-group row">
             <h3 class="col-md-12"><?= $strings2["verifs_pastemploy"]; ?></h3>
         </div>
-        <div class="gndn">
+        <div class="GNDN">
 
                 <?php
                 $counter=0;
-                if(isset($sub3['emp']) && count($sub3['emp']))
-                {
-                    //echo count($sub3['emp']);
+                if(isset($sub3['emp']) && count($sub3['emp'])){
+                    if (count($sub3['emp']) == 1 && is_object($sub3['emp'])){
+                        $sub3['emp'] = array($sub3['emp']);
+                    }
 
                     foreach($sub3['emp'] as $emp){
                         $counter++;
                         if($counter!=1){
                             if($counter==2){
-                                echo '<div id="more_div">';
+                                echo '<div id="more_div" style="padding-left: 32px;">';
                             }
                             echo '<div id="toremove">';
                         }
@@ -117,11 +123,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                         &nbsp;&nbsp;
                         <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                            if($emp->claims_with_employer == 1) {
-                                echo '&#10004;';
-                            } else {
-                                echo '&#10006;';
-                            }
+                            ifchar($emp->claims_with_employer);
                         } else {
                             ?>
                             <input type="radio" name="claims_with_employer_<?php $rand = rand(0,100); echo $rand; ?>[]" value="1" <?php if($emp->claims_with_employer == 1){?>checked="checked"<?php }?>/>
@@ -133,11 +135,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                         </label>
                         <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                            if($emp->claims_with_employer == 0) {
-                                echo '&#10004;';
-                            } else {
-                                echo '&#10006;';
-                            }
+                            ifchar($emp->claims_with_employer);
                         } else {
                             ?>
                             <input type="radio" name="claims_with_employer_<?php echo $rand;?>[]"  value="0" <?php if($emp->claims_with_employer == 0){?>checked="checked"<?php }?>/>
@@ -183,11 +181,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                                     <div class="col-md-9">
                                         <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->equipment_vans == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->equipment_vans, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->equipment_vans == 1){?>checked="checked"<?php }?> name="equipment_vans[]" value="1"/>
@@ -197,11 +191,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                                         &nbsp;<?= $strings2["verifs_vans"]; ?>&nbsp;
                                         <?php
                                             if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                                                if($emp->equipment_reefer == 1) {
-                                                    echo '&#9745;';
-                                                } else {
-                                                    echo '&#9744;';
-                                                }
+                                                ifchar($emp->equipment_reefer, '&#9745;','&#9744;');
                                             } else {?>
                                                 <input type="checkbox" <?php if($emp->equipment_reefer == 1){?>checked="checked"<?php }?> name="equipment_reefer[]" value="1"/>
                                                 <?php
@@ -210,11 +200,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                                         &nbsp;<?= $strings2["verifs_reefers"]; ?>&nbsp;
                                         <?php
                                             if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                                                if($emp->equipment_decks == 1) {
-                                                    echo '&#9745;';
-                                                } else {
-                                                    echo '&#9744;';
-                                                }
+                                                ifchar($emp->equipment_decks, '&#9745;','&#9744;');
                                             } else {
                                                 ?>
                                                 <input type="checkbox" <?php if($emp->equipment_decks == 1){?>checked="checked"<?php }?> name="equipment_decks[]" value="1"/>
@@ -224,11 +210,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                                         &nbsp;<?= $strings2["verifs_decks"]; ?>&nbsp;
                                         <?php
                                             if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                                                if($emp->equipment_super == 1) {
-                                                    echo '&#9745;';
-                                                } else {
-                                                    echo '&#9744;';
-                                                }
+                                                ifchar($emp->equipment_super, '&#9745;','&#9744;');
                                             } else {
                                                 ?>
                                                 <input type="checkbox" <?php if($emp->equipment_super == 1){?>checked="checked"<?php }?> name="equipment_super[]" value="1"/>
@@ -238,11 +220,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                                         &nbsp;<?= $strings2["verifs_superbs"]; ?>&nbsp;
                                         <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->equipment_straight_truck == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->equipment_straight_truck, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->equipment_straight_truck == 1){?>checked="checked"<?php }?> name="equipment_straight_truck[]" value="1"/>
@@ -251,11 +229,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
              ?>&nbsp;<?= $strings2["verifs_straighttr"]; ?>&nbsp;
                                         <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->equipment_others == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->equipment_others, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->equipment_others == 1){?>checked="checked"<?php }?> name="equipment_others[]" value="1"/>
@@ -269,11 +243,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                         <div class="col-md-9">
                             <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->driving_experince_local == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->driving_experince_local, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->driving_experince_local == 1){?>checked="checked"<?php }?> name="driving_experince_local[]" value="1"/>
@@ -283,11 +253,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                             &nbsp;<?= $strings2["verifs_local"]; ?>&nbsp;
                             <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->driving_experince_canada == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->driving_experince_canada, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->driving_experince_canada == 1){?>checked="checked"<?php }?> name="driving_experince_canada[]" value="1"/>
@@ -296,11 +262,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
              ?>&nbsp;<?= $strings2["verifs_canada"]; ?>&nbsp;
                             <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->driving_experince_canada_rocky_mountains == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->driving_experince_canada_rocky_mountains, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->driving_experince_canada_rocky_mountains == 1){?>checked="checked"<?php }?> name="driving_experince_canada_rocky_mountains[]" value="1"/>
@@ -310,11 +272,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                             &nbsp;<?= $strings2["verifs_canadarock"]; ?>&nbsp;
                             <?php
                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
-                    if($emp->driving_experince_usa == 1) {
-                        echo '&#9745;';
-                    } else {
-                        echo '&#9744;';
-                    }
+                    ifchar($emp->driving_experince_usa, '&#9745;','&#9744;');
                 } else {
                     ?>
                     <input type="checkbox" <?php if($emp->driving_experince_usa == 1){?>checked="checked"<?php }?> name="driving_experince_usa[]" value="1"/>
@@ -344,7 +302,7 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
 
                     }
                     if($counter==1) {
-                        echo '<div id="more_div"></div>';
+                        echo '<div id="more_div" style="padding-left: 32px;"></div>';
                     } else {
                         if ($counter > 1) {
                             echo '</div>';
@@ -469,7 +427,8 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
                                 </div>
 
                 </div>
-                <div id="more_div"></div>
+
+                    <div id="more_div" style="padding-left: 16px;"></div>
                    <?php
                 }
                 ?>
@@ -483,8 +442,9 @@ $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_a
         <div class="allattach" class="no-print">
          <?php
 
-         if(!isset($sub3['att']))
-         $sub3['att'] = array();
+         if(!isset($sub3['att'])) {
+             $sub3['att'] = array();
+         }
                                                         if(!count($sub3['att'])) {?>
         <div class="form-group row no-print" style="display:block;margin-top:5px; margin-bottom: 5px;">
             <label class="control-label col-md-3"><?= $strings2["file_attachfile"]; ?>: </label>

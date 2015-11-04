@@ -747,12 +747,11 @@
                                                                                 </label>
                                                                             </td>
                                                                             <td>
+                                                                                <label>
                                                                                 <input class="ordercheck" <?php if ($csubdoc['display_order'] == 1) { ?> checked="checked" <?php } ?>
                                                                                     type="checkbox" id="check<?= $u ?>"
                                                                                     onclick="if($(this).is(':checked')){$(this).closest('td').find('.fororder').val('1');}else {$(this).closest('td').find('.fororder').val('0');}"/>
-                                                                                <label
-                                                                                    for="check<?= $u ?>"><? $strings["clients_show"]; ?>
-                                                                                    :</label>
+                                                                                <? $strings["clients_show"]; ?></label>
 
                                                                                 <input class="fororder" type="hidden"
                                                                                        value="<?php if ($csubdoc['display_order'] == 1) {
