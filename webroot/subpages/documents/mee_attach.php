@@ -438,8 +438,8 @@
                                      id="mee_att_<?php echo $h; ?>"><?= $strings["forms_browse"]; ?></a>&nbsp;<a style="margin-bottom:5px;"
                                                                                        class="btn btn-danger"
                                                                                        href="javascript:void(0);"
-                                                                                       onclick="$(this).parent().parent().remove();"><?= $GLOBALS["dashboard_delete"]; ?></a> <span
-                                    class="uploaded"></span></span>
+                                                                                       onclick="$(this).parent().parent().remove();"><?= $GLOBALS["dashboard_delete"]; ?></a> 
+                                    <span class="uploaded"></span></span>
                                         <input type="hidden" name="mee_attachments[]" class="mee_att_<?php echo $h; ?>"/>
                                     </div>
                                 <?php
@@ -457,9 +457,6 @@
 
 
 </form>
-
-
-
 
 <script>
     $(function(){
