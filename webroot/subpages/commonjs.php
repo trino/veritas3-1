@@ -3,6 +3,22 @@ var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
     var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
     var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
 $(function(){
+    <?php
+    if($this->request->params['action']=='vieworder')
+    {
+        ?>
+        $('input').each(function(){
+           $(this).attr('disabled','disabled'); 
+        });
+        $('select').each(function(){
+           $(this).attr('disabled','disabled'); 
+        });
+        $('textarea').each(function(){
+           $(this).attr('disabled','disabled'); 
+        });
+        <?php
+    } 
+    ?>
     var did = '<?php if(isset($did))echo $did;else echo '0';?>';
     var checker = 0;
     
@@ -61,8 +77,26 @@ $(function(){
             
    });
    $('.buttons').click(function(){
-       
-        var par = $(this).closest('.steps');
+    var par = $(this).closest('.steps');
+    <?php
+        if($this->request->params['action'] == 'vieworder'){
+            ?>
+            
+                par.hide();
+                
+                par.removeClass('active');
+                var id = par.find('.buttons').attr('id').replace('button','');
+                id = parseInt(id)+1;
+                $('#step'+id).show();
+                $('#step'+id).addClass('active');
+                    
+                
+            <?php
+            }
+            else
+            {
+       ?>
+        
         var draft = 1;
         
         var redir = 0;
@@ -518,6 +552,7 @@ $(function(){
                 
             }
         }
+        <?php }?>
    });
     
 });
