@@ -799,7 +799,7 @@ class DocumentComponent extends Component{
                 
             }
             
-
+            $app = $consentForm->find()->where(['document_id'=>$document_id])->first();
             $del = $consentForm->query();
             if (!isset($_GET['document']) || isset($_GET['order_id'])){
                 if(!isset($_GET['order_id']))
@@ -830,11 +830,20 @@ class DocumentComponent extends Component{
 
                 }
             }
+            
             foreach ($_POST as $data => $val) {
 
                 if ($data == 'offence' || $data == 'date_of_sentence' || $data == 'location' || $data == 'attach_doc') {
                     continue;
                 }
+                if($app->criminal_signature_applicant2!=''&& $_POST['criminal_signature_applicant2']!= $app->criminal_signature_applicant2)
+                     @unlink(WWW_ROOT."canvas/".$app->criminal_signature_applicant2);
+                if($app->signature_company_witness2!=''&& $_POST['signature_company_witness2']!= $app->signature_company_witness2)
+                     @unlink(WWW_ROOT."canvas/".$app->signature_company_witness2);
+                if($app->criminal_signature_applicant!=''&& $_POST['criminal_signature_applicant']!= $app->criminal_signature_applicant)
+                     @unlink(WWW_ROOT."canvas/".$app->criminal_signature_applicant);
+                if($app->signature_company_witness!=''&& $_POST['signature_company_witness']!= $app->signature_company_witness)
+                     @unlink(WWW_ROOT."canvas/".$app->signature_company_witness);
                 //echo $data." ".$val."<br />";
                 $arr[$data] = urldecode($val);
 

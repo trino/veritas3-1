@@ -1,5 +1,7 @@
 <script>
-
+var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
+    var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
+    var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
 $(function(){
     var did = '<?php if(isset($did))echo $did;else echo '0';?>';
     var checker = 0;
@@ -67,13 +69,93 @@ $(function(){
         var doc_id = par.find('.sub_docs_id').val();
         var sid = doc_id;
         var isvalid = checkalltags("tab0");
+        
         if(!isvalid)
         {
             return false;
         }
         else
         {
+            if(doc_id == 18) {
+                if (par.find('#sig8 .touched').val() != '1' && par.find('#sig8 .touched_edit8').val() != '1') {
+                    par.find('#sig8').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    //alert(giveSIG);
+                    $('html,body').animate({
+                            scrollTop: $('#sig8').offset().top},
+                        'slow');
+                    $(this).removeAttr('disabled');
+                    $('.overlay-wrapper').hide();
+                    return false;
+                }
+            }
             
+            if($('.subform4 #subtab_2_1').attr('class')=='tab-pane active' && $('.subform4').attr('style')!='display: none;'){
+                //alert('tes');
+                var er = 0;
+
+                $('.required').each(function(){
+                    if($(this).val()=='' && $(this).attr('name')!='' && $(this).attr('name')!='undefined'  && $(this).attr('name'))
+                    {
+                        $(this).addClass('myerror');
+                        $(this).attr('style','border-color:red');
+                        er = 1;
+                    }
+
+                });
+                if($('#sig2 .touched').val()!='1' && $('#sig2 .touched_edit2').val()!='1') {
+                    par.find('#sig2').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig2').offset().top},
+                        'slow');
+                    er = 2;
+                }
+                else
+                if($('#sig4 .touched').val()!='1' && $('#sig4 .touched_edit4').val()!='1') {
+                    par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig4').offset().top},
+                        'slow');
+                    er = 2;
+                } else if($('#sig1 .touched').val()!='1' && $('#sig1 .touched_edit1').val()!='1') {
+                    par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig1').offset().top},
+                        'slow');
+                    er = 2;
+                } else if($('#sig3 .touched').val()!='1' && $('#sig3 .touched_edit3').val()!='1') {
+                    par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig3').offset().top},
+                        'slow');
+                    er = 2;
+                }
+
+                $(this).removeClass('myerror');
+                //$(this).removeAttr('style');
+
+                if(er){
+                    $('.cont').removeAttr('disabled');
+                    if(er==1){
+                        alert(fillALL);
+                        $('html,body').animate({
+                                scrollTop: $('.myerror').offset().top},
+                            'slow');
+                        $('.overlay-wrapper').hide();
+                        return false;
+                    }
+                    else
+                    if(er==2){
+                        $('.overlay-wrapper').hide();
+                        return false;
+                    }
+
+                }
+                else
+                {
+
+                    $('.cont').removeAttr('disabled');
+                }
+            }   
             par.find(".required:not('label')").each(function(){
             //alert($(this).attr('class'));
             if($(this).val() == '')

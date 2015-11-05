@@ -966,7 +966,7 @@ through 7 inclusive, and acknowledge that with my signature below.
         <div class="col-md-3">
         <div class="row"> 
             <label class="col-md-6">Dated</label>
-            <input type="text" name="dated" class="form-control date-picker" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->dated;?>" />
+            <input type="text" name="dated" class="form-control date-picker datepicker" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->dated;?>" />
         </div>
         </div>
         <div class="col-md-3">

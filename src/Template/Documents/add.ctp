@@ -531,9 +531,7 @@
 
 
 <script>
-    var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
-    var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
-    var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
+    
 
     client_id = '<?=$cid?>',
         doc_id = '<?=$did?>';
@@ -1556,86 +1554,8 @@
 
             $(this).attr('disabled','disabled');
 
-            if($('.sub_docs_id').val() == 18) {
-                if ($('.touched').val() != '1' && $('.touched_edit8').val() != '1') {
-                    alert(giveSIG);
-                    $('html,body').animate({
-                            scrollTop: $('#sig8').offset().top},
-                        'slow');
-                    $(this).removeAttr('disabled');
-                    $('.overlay-wrapper').hide();
-                    return false;
-                }
-            }
-            // need to cut
-            /*
-            if($('.subform4 #subtab_2_1').attr('class')=='tab-pane active' && $('.subform4').attr('style')!='display: none;'){
-                //alert('tes');
-                var er = 0;
-
-                $('.required').each(function(){
-                    if($(this).val()=='' && $(this).attr('name')!='' && $(this).attr('name')!='undefined'  && $(this).attr('name'))
-                    {
-                        $(this).addClass('myerror');
-                        $(this).attr('style','border-color:red');
-                        er = 1;
-                    }
-
-                });
-                if($('#sig2 .touched').val()!='1' && $('#sig2 .touched_edit2').val()!='1') {
-                    alert(giveSIG);
-                    $('html,body').animate({
-                            scrollTop: $('#sig2').offset().top},
-                        'slow');
-                    er = 2;
-                }
-                else
-                if($('#sig4 .touched').val()!='1' && $('#sig4 .touched_edit4').val()!='1') {
-                    alert(giveSIG);
-                    $('html,body').animate({
-                            scrollTop: $('#sig4').offset().top},
-                        'slow');
-                    er = 2;
-                } else if($('#sig1 .touched').val()!='1' && $('#sig1 .touched_edit1').val()!='1') {
-                    alert(giveSIG);
-                    $('html,body').animate({
-                            scrollTop: $('#sig1').offset().top},
-                        'slow');
-                    er = 2;
-                } else if($('#sig3 .touched').val()!='1' && $('#sig3 .touched_edit3').val()!='1') {
-                    alert(giveSIG);
-                    $('html,body').animate({
-                            scrollTop: $('#sig3').offset().top},
-                        'slow');
-                    er = 2;
-                }
-
-                $(this).removeClass('myerror');
-                //$(this).removeAttr('style');
-
-                if(er){
-                    $('.cont').removeAttr('disabled');
-                    if(er==1){
-                        alert(fillALL);
-                        $('html,body').animate({
-                                scrollTop: $('.myerror').offset().top},
-                            'slow');
-                        $('.overlay-wrapper').hide();
-                        return false;
-                    }
-                    else
-                    if(er==2){
-                        $('.overlay-wrapper').hide();
-                        return false;
-                    }
-
-                }
-                else
-                {
-
-                    $('.cont').removeAttr('disabled');
-                }
-            }*/
+            
+            
             if ($(this).attr('id') == 'draft') {
                 draft = 1;
             } else {

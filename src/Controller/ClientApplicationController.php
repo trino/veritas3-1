@@ -217,6 +217,7 @@ class ClientApplicationController extends AppController {
                         $ds['document_id'] = $doc->id;
 
                         foreach($_POST as $k=>$v) {
+                      
                             $ds[$k]=$v;
                         }
                         $docz = $doczs->newEntity($ds);
@@ -252,8 +253,13 @@ class ClientApplicationController extends AppController {
                         ->where(['id' => $did])
                         ->execute();
                     $this->loadModel('application_for_employment_gfs');
-                    $this->application_for_employment_gfs->deleteAll(['document_id' => $did]);
                     $doczs = TableRegistry::get('application_for_employment_gfs');
+                    $app = $doczs->find()->where(['document_id'=>$did])->first();
+                    //debug($app);
+                    if($app->gfs_signature!=''&& $_POST['gfs_signature']!= $app->gfs_signature)
+                        @unlink(WWW_ROOT."canvas/".$app->gfs_signature);
+                    $this->application_for_employment_gfs->deleteAll(['document_id' => $did]);
+                    
                     $ds['document_id'] = $did;
 
                     foreach($_POST as $k=>$v) {
