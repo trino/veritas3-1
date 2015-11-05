@@ -41,6 +41,10 @@
         }
 
         public function vieworder($cid = null, $did = null, $table = null) {
+            if($cid)
+            {
+                $this->set('client',TableRegistry::get('clients')->find()->where(['id'=>$cid])->first());
+            }
             $this->LoadSubDocs($_GET["forms"]);
             $meedocs = TableRegistry::get('mee_attachments_more');
             $this->set('meedocs',$meedocs);

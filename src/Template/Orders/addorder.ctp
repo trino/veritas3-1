@@ -200,7 +200,7 @@ printCSS($this);
             <div class="portlet-body form">
                 <!--<form action="#" class="form-horizontal" id="submit_form" method="POST"> -->
                 <div class="form-wizard">
-                    <div class="form-body" style="position: relative;">
+                    <div class="form-body" style="position: relative;" id="tab0">
                     <input type="hidden" id="orderid" value="" />
                     <input type="hidden" id="did" value="" />
                     <input type="hidden" id="user_id" value="" />
@@ -257,6 +257,11 @@ printCSS($this);
                                 //http://localhost/veritas3-0/profiles/settings
                                 $Fieldname = getFieldname("title", $language);
                                 $jj=0;
+                                $doc_count = 0;
+                                foreach($subdoccli as $getcounter)
+                                {
+                                   $doc_count++; 
+                                }
                                 foreach ($subdoccli as $sd) {
                                     //var_dump($sd);
                                     $index+=1;
@@ -305,6 +310,15 @@ printCSS($this);
                                                 <hr />
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
                                                 <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Next</a>
+                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
+                                                <?php
+                                                if($jj==$doc_count)
+                                                {
+                                                    ?>
+                                                    <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
+                                                    <?php
+                                                }
+                                                ?>
                                             </div>
                                             
                                             
