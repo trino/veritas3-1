@@ -506,7 +506,7 @@
                                     {
                                         ?>
 
-                                        <a href="javascript:;" id="draft" class="btn blue cont">
+                                        <a href="javascript:;" id="button1" title="draft" class="btn blue cont buttons">
                                             <?= $strings["forms_savedraft"]; ?> <i class="m-icon-swapright m-icon-white"></i>
                                         </a>
                                         <?php
@@ -1555,13 +1555,7 @@
             $(this).attr('disabled','disabled');
 
             
-            
-            if ($(this).attr('id') == 'draft') {
-                draft = 1;
-            } else {
-                draft = 0;
-            }
-
+           
             var attach_docs = "";
             $('.moredocs').each(function(){
                 attach_docs += $(this).val()+",";

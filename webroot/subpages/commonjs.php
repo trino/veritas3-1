@@ -63,13 +63,19 @@ $(function(){
    $('.buttons').click(function(){
        
         var par = $(this).closest('.steps');
-        var draft = 0;
+        var draft;
         checker = 0;
         var ch = '';
         var doc_id = par.find('.sub_docs_id').val();
         var sid = doc_id;
         var isvalid = checkalltags("tab0");
-        
+         
+        if ($(this).attr('title') == 'draft') {
+            draft = 1;
+        } else {
+            draft = 0;
+        }
+
         if(!isvalid)
         {
             return false;
