@@ -7,7 +7,7 @@
     <TR>
         <TD VALIGN="TOP" align="left" style="width: 150px;">
             <button class="btn btn-primary" onclick="newlanguage();" style="width: 150px;">New Language</button><BR>
-            <select id="languages" name="languages" size="<?= count($languages); ?>" style="width: 150px;">
+            <select id="languages" name="languages" size="<?= count($languages); ?>" style="width: 150px;" onclick="search(0);">
                 <?php
                     foreach($languages as $language) {
                         echo '<option value="' . $language . '"';
@@ -27,7 +27,7 @@
             <button class="btn btn-warning" onclick="sendtoroy();" style="width: 150px; <?php if(!$hascache){ echo 'display: none;'; }?>" id="sendtoroy">Send To Roy</button>
         </TD>
         <TD VALIGN="TOP" align="left">
-            <INPUT TYPE="TEXT" ID="search" placeholder="Search" onkeyup="search(0);" TITLE="Type * to search for all strings">
+            <INPUT TYPE="TEXT" ID="search" placeholder="Search" onkeyup="search(0);">
             <TABLE class="table table-light table-hover" ID="searchresults" width="100%">
             </TABLE>
         </TD>
@@ -79,10 +79,11 @@
         var string = getvalue("search");
         var language = getvalue("languages");
         var Limit = 20;
+        if(string == ""){string = "*";}
         if(string.length>2 || string == "*") {
             AJAX("searchstrings", "string=" + string + "&language=" + language + "&languages=" + languages.join() + "&start=" + Start + "&limit=" + Limit);
         } else {
-            $('#searchresults').html("Search string must be * (for all) or longer than 2 digits. You have " + string.length);
+            $('#searchresults').html("Search string must be longer than 2 digits. You have " + string.length);
         }
         return false;
     }
@@ -189,4 +190,6 @@
             },
         })
     }
+
+    search(0);
 </SCRIPT>
