@@ -352,6 +352,8 @@
 
                 $emp = TableRegistry::get('employment_verification');//
                 $sub3['emp'] = $emp->find()->where(['order_id' => $did])->all();
+                
+                
 
                 //echo $con_detail->id;die();
                 $emp_att = TableRegistry::get('doc_attachments');

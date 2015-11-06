@@ -28,6 +28,14 @@ class DocumentComponent extends Component{
               $setting = $settings->find()->first();
 //         echo "<pre>";print_r($_POST);
             if (!isset($_GET['document'])) {
+                if(!isset($_POST['recruiter_signature']))
+                $_POST['recruiter_signature'] = '';
+                
+                if(!isset($_POST['conf_recruiter_name']))
+                $_POST['conf_recruiter_name'] = '';
+                
+                if(!isset($_POST['conf_date']))
+                $_POST['conf_date'] = '';
                 // saving in order table
                 $txtfile = '';
                 $orders = TableRegistry::get('orders');
