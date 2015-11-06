@@ -118,7 +118,15 @@ $(function(){
         if($(this).attr('id').replace('draft','') != $(this).attr('id'))
         redir=1;
         }
-        
+        <?php if($this->request->controller=='Documents'){?>
+        if ($(this).attr('title') == 'draft') {
+            draft = 1;
+        } else {
+            draft = 0;
+        }
+
+        <?php }?>
+
         checker = 0;
         var ch = '';
         var doc_id = par.find('.sub_docs_id').val();

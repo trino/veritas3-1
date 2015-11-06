@@ -685,6 +685,8 @@ class DocumentsController extends AppController{
                 $sub4['edu'] = $edu->find()->where(['order_id' => $_GET['order_id']])->all();
             }
             $this->set('sub4', $sub4);
+             $mee_a['attach_doc'] = $this->load_sub_doc('mee_attachments', 'mee_att', $did);
+                $this->set("mee_att", $mee_a);
 
         }
     }
