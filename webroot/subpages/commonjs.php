@@ -301,8 +301,7 @@ $(function(){
         
                             $('#did').val(res);
                             did = res;
-                            //alert(type);return false;
-                            //alert(type);return false;
+                            
                             if (sid == "1") {
                                 var forms = $(".tab-pane.active").prev('.tab-pane').find(':input'),
                                     url = '<?php echo $this->request->webroot;?>clientApplication/savePrescreening<?php if($this->request->params['action']!='addorder'){?>/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?><?php }?>',
