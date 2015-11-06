@@ -23,7 +23,8 @@ $img_ext = array('jpg', 'jpeg', 'png', 'bmp', 'gif');
 if($did) {
     $_GET['driver'] = $ooo->uploaded_for;
 }
-
+if(!isset($_GET["driver"]))
+$_GET['driver'] = 0;
 $is_disabled = '';
 if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
 $settings = $this->requestAction('settings/get_settings');
