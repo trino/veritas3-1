@@ -203,8 +203,8 @@ printCSS($this);
                 <div class="form-wizard">
                     <div class="form-body" style="position: relative;" id="tab0">
                     <input type="hidden" id="orderid" value="" />
-                    <input type="hidden" id="did" value="" />
-                    <input type="hidden" id="user_id" value="" />
+                    <input type="hidden" id="did" value="<?=$did?>" />
+                    <input type="hidden" id="user_id" value="<?php echo $_GET['driver'];?>" />
                     <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
 

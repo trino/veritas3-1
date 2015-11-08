@@ -1604,7 +1604,17 @@ function fileUpload(ID) {
             data:data,
             type:'post',
             success:function(){
-                window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                $.ajax({
+                    url: '<?php echo $this->request->webroot;?>orders/webservice/<?php echo $_GET['order_type'];?>/<?php echo $_GET['forms']; ?>/' +  $('#user_id').val() +'/' +  $('#did').val(),
+                    success:function(msg){
+                            //alert("Order saved: " + msg);
+                     window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                    },
+                    error:function(){
+                        window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                    }
+                });
+                
             }
         });
     }
