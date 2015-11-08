@@ -1,14 +1,14 @@
 <script>
 client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
-    profile_id = '<?= $_GET["driver"] ?>';
+    profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
  <?php if($did) { ?>
         showforms('company_pre_screen_question.php');
         showforms('driver_application.php');
         showforms('driver_evaluation_form.php');
         showforms('document_tab_3.php');
     <?php } ?>
-var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
+    var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
     var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
     var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
 $(function(){
