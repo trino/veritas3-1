@@ -349,5 +349,47 @@ class ClientApplicationController extends AppController {
     }
 
 
+     public function getJsonFields($driver)
+        {
+            $profiles = TableRegistry::get('Profiles')->find()->where(['id'=>$driver])->first();
+            $arr = array('username','email','password','fname','mname','lname','title','phone','gender','dob','placeofbirth','address','city','province','postal','driver_license_no','driver_province','expiry_date','sin');
+            foreach($arr as $f)
+            {
+                $arr2[$f] = $profiles->$f;
+            }            
+            $fields = TableRegistry::get('driver_fields')->find()->all();
+            foreach($fields as $f)
+            {
+                //echo $f->email;echo '<br/>';
+                //echo $f2;echo "<br/>";
+                foreach($arr as $f2)
+                {
+                    $temp = $f->$f2;
+                    if($temp){
+                    
+                    $arr3[$f2][] = $temp;
+                    }
+                    //echo '<br/>';}
+                    /*var_dump($f);die();
+                    if(!$f->f2)
+                    continue;
+                    echo $f2;echo "<br/>";
+                    echo $f->f2;echo "<br/>";die();
+                    //echo $f2;
+                    if($f->f2)
+                    $arr3[$f2][] = $f->f2; */
+                }
+                //die();
+            }
+            foreach($arr3 as $k=>$a)
+            {
+                foreach($a as $v)
+                {
+                    $final[$v] = $arr2[$k];
+                }
+            }
+            echo json_encode($final);die();
+            
+        }
 
 }
