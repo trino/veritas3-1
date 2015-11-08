@@ -1531,5 +1531,14 @@
              $this->response->file(WWW_ROOT.'orders/order_'. $id .'/test.html', array('download' => true, 'name' => 'Test'));
             die();
         }
+        
+        function saveRecruiterInfo($oid)
+        {
+            $table = TableRegistry::get('orders');
+            $table->query()->update()->set($_POST)
+                ->where(['id' => $oid])
+                ->execute();
+                die();
+        }
     }
 

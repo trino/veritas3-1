@@ -55,9 +55,11 @@
 </div>
 
 <input type="hidden" id="confirmation" value="1"/>
-
+<input class="document_type" type="hidden" name="document_type" value="Confirmation" />
+<input type="hidden" class="sub_docs_id" name="sub_doc_id" value="c1"  />
 
 <div class="row col-md-4">
+    
 
     <div class="form-group">
         <label class="control-label col-md-12"><?= $strings["documents_submittedby"]; ?>: </label>

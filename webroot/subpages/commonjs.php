@@ -322,11 +322,7 @@ $(function(){
                         if($this->request->params['action']=='addorder')
                         {
                             ?>
-                            division: $('#division').val(),
-                            conf_recruiter_name: $('#conf_recruiter_name').val(),
-                            conf_driver_name: $('#conf_driver_name').val(),
-                            conf_date: $('#conf_date').val(),
-                            recruiter_signature: $('#recruiter_signature').val(),
+                            division: $('#division').val()
                             <?php
                         }
                         ?>
@@ -338,9 +334,10 @@ $(function(){
                         //data:'uploaded_for='+$('#uploaded_for').val(),
                         data: data,
                         type: 'post',
-                        beforeSend: function(){$('.overlay-wrapper').show()},
+                        beforeSend: function(){$('.overlay-wrapper').show();},
                         url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/'+did+'/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
                         success: function (res) {
+                            
         
                             $('#did').val(res);
                             did = res;
@@ -575,6 +572,10 @@ $(function(){
                                     });
                                } 
         
+                            }
+                            else
+                            if(sid == 'c1'){
+                                save_recruiter_info(res);
                             }
                             else{
                                <?php 
@@ -1585,6 +1586,27 @@ function fileUpload(ID) {
         }
         else
             $('.subform').html("");
+    }
+    function save_recruiter_info(oid)
+    {
+        var data = {
+                       
+                        
+                            //division: $('#division').val(),
+                            conf_recruiter_name: $('#conf_recruiter_name').val(),
+                            conf_driver_name: $('#conf_driver_name').val(),
+                            conf_date: $('#conf_date').val(),
+                            recruiter_signature: $('#recruiter_signature').val(),
+                            
+                    };
+        $.ajax({
+            url:'<?php echo $this->request->webroot;?>orders/saveRecruiterInfo/'+oid,
+            data:data,
+            type:'post',
+            success:function(){
+                window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+            }
+        });
     }
 
 </script>
