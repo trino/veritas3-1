@@ -78,7 +78,7 @@ $(function(){
         type:'post',
         success:function(res){
             $('#user_id').val(res);
-            
+            getJsonFields(res);
             $('.overlay-wrapper').hide();
             
             
@@ -165,6 +165,9 @@ $(function(){
         }
 
         <?php }?>
+         <?php if($this->request->controller=='ClientApplication'){?>
+            draft=0;
+        <?php }?>
 
         checker = 0;
         var ch = '';
@@ -190,7 +193,43 @@ $(function(){
                     return false;
                 }
             }
-            
+            if(doc_id == 4)
+            {
+                var er = 0;
+                if($('#sig2 .touched').val()!='1' && $('#sig2 .touched_edit2').val()!='1') {
+                    par.find('#sig2').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig2').offset().top},
+                        'slow');
+                    er = 2;
+                }
+                else
+                if($('#sig4 .touched').val()!='1' && $('#sig4 .touched_edit4').val()!='1') {
+                    par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig4').offset().top},
+                        'slow');
+                    er = 2;
+                } else if($('#sig1 .touched').val()!='1' && $('#sig1 .touched_edit1').val()!='1') {
+                    par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig1').offset().top},
+                        'slow');
+                    er = 2;
+                } else if($('#sig3 .touched').val()!='1' && $('#sig3 .touched_edit3').val()!='1') {
+                    par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
+                    $('html,body').animate({
+                            scrollTop: $('#sig3').offset().top},
+                        'slow');
+                    er = 2;
+                }
+                
+                 if(er==2){
+                        $('.overlay-wrapper').hide();
+                        return false;
+                    }
+            }
+            /*
             if($('.subform4 #subtab_2_1').attr('class')=='tab-pane active' && $('.subform4').attr('style')!='display: none;'){
                 //alert('tes');
                 var er = 0;
@@ -257,7 +296,7 @@ $(function(){
 
                     $('.cont').removeAttr('disabled');
                 }
-            }   
+            } */ 
             par.find(".required:not('label')").each(function(){
             //alert($(this).attr('class'));
             if($(this).val() == '')
@@ -1605,7 +1644,7 @@ function fileUpload(ID) {
             type:'post',
             success:function(){
                 $.ajax({
-                    url: '<?php echo $this->request->webroot;?>orders/webservice/<?php echo $_GET['order_type'];?>/<?php echo $_GET['forms']; ?>/' +  $('#user_id').val() +'/' +  $('#did').val(),
+                    url: '<?php echo $this->request->webroot;?>orders/webservice/<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>/<?php if(isset($_GET['forms']))echo $_GET['forms']; ?>/' +  $('#user_id').val() +'/' +  $('#did').val(),
                     success:function(msg){
                             //alert("Order saved: " + msg);
                      window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
