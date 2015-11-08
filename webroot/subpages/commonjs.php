@@ -15,7 +15,7 @@ client_id = '<?=$cid?>';
     function getJsonFields(driverid)
     {
         $.ajax({
-           url:'<?php echo $this->request->webroot;?>profiles/getJsonFields/'+driverid,
+           url:'<?php echo $this->request->webroot;?>clientApplication/getJsonFields/'+driverid,
            success:function(res)
            {
             res = JSON.parse(res);
