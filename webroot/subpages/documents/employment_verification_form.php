@@ -523,6 +523,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                    url:"<?php echo $this->request->webroot;?>subpages/documents/past_employer.php?language=" + language,
                    success:function(res){
                     $("#more_div").append(res);
+                     <?php if($this->request->params['controller']=='ClientApplication'){?>
+                        $('#more_div').find('.toremove').addClass('row');
+                        $('#more_div').find('.delete').css({'padding-left':'30px'});
+                     <?php }?>
                     var c = $('#count_past_emp').val();
                     var counter = parseInt(c)+1;
                     $('#count_past_emp').attr('value',counter);
