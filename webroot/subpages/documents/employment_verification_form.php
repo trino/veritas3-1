@@ -436,7 +436,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 }
                 ?>
 
-        <div id="add_more_div" class="no-print">
+        <div id="add_more_div" class="no-print" style="padding-bottom:10px">
             <p>&nbsp;</p>
             <input type="hidden" name="count_past_emp" id="count_past_emp" value="<?php if(isset($sub3['emp'])){echo count($sub3['emp']);}else{?>1<?php }?>">
             <a href="javascript:void(0);" class="btn green no-print" id="add_more"><?= $strings["forms_addmore"]; ?></a>
