@@ -519,6 +519,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
         <?php if($this->request->params['controller']=='ClientApplication'){?>
             language = 'English';
         <?php }?>
+            $('.overlay-wrapper').show();
             $.ajax({
                    url:"<?php echo $this->request->webroot;?>subpages/documents/past_employer.php?language=" + language,
                    success:function(res){
@@ -536,14 +537,17 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                             autoclose: true,
                             format: 'yyyy-mm-dd'
                         });
+                        $('.overlay-wrapper').hide();
                    }
             });
       });
       $("#delete").live("click",function(){
+            $('.overlay-wrapper').show();
             $(this).parent().parent().remove();
             var c = $('#count_past_emp').val();
             var counter = parseInt(c)-1;
             $('#count_past_emp').attr('value',counter);
+            $('.overlay-wrapper').hide();
       });
 
 

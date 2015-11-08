@@ -546,6 +546,7 @@
                 ?>
                     //
                     $(".add_more_edu").click(function () {
+                        $('.overlay-wrapper').show();
                         $.ajax({
                             url: "<?php echo $this->request->webroot;?>subpages/documents/past_education.php",
                             success: function (res) {
@@ -560,6 +561,7 @@
                                     autoclose: true,
                                     format: 'yyyy-mm-dd'
                                 });
+                                $('.overlay-wrapper').hide();
                             }
                         });
                     });
