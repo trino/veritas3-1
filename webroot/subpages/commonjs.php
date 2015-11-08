@@ -145,6 +145,10 @@ $(function(){
         
         var redir = 0;
         if($(this).attr('id').replace('save','') != $(this).attr('id')){
+        if($('#step5 .touched').val() == '1')
+        {
+            save_signature('1');
+        }    
         draft = 0;
         redir = 1;
         }
@@ -318,7 +322,11 @@ $(function(){
                         if($this->request->params['action']=='addorder')
                         {
                             ?>
-                            division: $('#division').val()
+                            division: $('#division').val(),
+                            conf_recruiter_name: $('#conf_recruiter_name').val(),
+                            conf_driver_name: $('#conf_driver_name').val(),
+                            conf_date: $('#conf_date').val(),
+                            recruiter_signature: $('#recruiter_signature').val(),
                             <?php
                         }
                         ?>

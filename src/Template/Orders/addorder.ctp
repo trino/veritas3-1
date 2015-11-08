@@ -312,14 +312,7 @@ printCSS($this);
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
                                                 <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Next</a>
                                                 <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
-                                                <?php
-                                                if($jj==$doc_count)
-                                                {
-                                                    ?>
-                                                    <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
-                                                    <?php
-                                                }
-                                                ?>
+                                                
                                             </div>
                                             
                                             
@@ -330,6 +323,16 @@ printCSS($this);
                                             $i++;
                                         }}
                                 }
+                                ?>
+                                <div class="steps" id="step<?php echo $jj+1;?>" style="display:none;">
+                                                <?php include('subpages/documents/confirmation.php');?>
+                                                <hr />
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
+                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
+                                                <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
+                                                    
+                                            </div>
+                                <?php
                                 if($debugging) { debug($thedocuments);}
                                 if(!isset($k_cou)){ $k_cou = 1; }
                                 ?>
