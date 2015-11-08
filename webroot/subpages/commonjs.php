@@ -19,12 +19,12 @@ client_id = '<?=$cid?>';
            success:function(res)
            {
             res = JSON.parse(res);
-            alert(res['applicants_email']);
+            //alert(res['applicants_email']);
              $('#tab0 input,#tab0 textarea').each(function(){
                 //alert($(this).attr('name');
                 if(res[$(this).attr('name')])
                 {
-                    if($(this).val() == '')
+                    <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
                     $(this).val(res[$(this).attr('name')]);
                 }
              });
