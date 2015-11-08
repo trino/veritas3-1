@@ -11,7 +11,42 @@ client_id = '<?=$cid?>';
     var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
     var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
     var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
+    
+    function getJsonFields(driverid)
+    {
+        $.ajax({
+           url:'<?php echo $this->request->webroot;?>profiles/getJsonFields/'+driverid,
+           success:function(res)
+           {
+            res = JSON.parse(res);
+            alert(res['applicants_email']);
+             $('#tab0 input').each(function(){
+                //alert($(this).attr('name');
+                if(res[$(this).attr('name')])
+                {
+                    if($this).val() == '')
+                    $(this).val(res[$(this).attr('name')]);
+                }
+             });
+           } 
+        });
+    }
 $(function(){
+    <?php
+    if($this->request->params['action'] == 'addorder')
+    {
+        ?>
+        getJsonFields('<?php echo $_GET['driver']?>');
+        <?php
+    }
+    ?>
+    
+    <?php
+    if($this->request->params['action'] != 'view' && $this->request->params['action'] != 'vieworder')
+    {
+       
+    }
+    ?>
     <?php
     if($this->request->params['action']=='vieworder')
     {
