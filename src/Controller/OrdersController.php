@@ -231,7 +231,13 @@
                 }
             }
 
-            if($this->Manager->requiredfields($profiles, "profile2order") || !$profiles->iscomplete){
+            $MissingFields = $this->Manager->requiredfields($profiles, "profile2order");
+            if($MissingFields || !$profiles->iscomplete){
+                if(isset($_GET["debug"])) {
+                    debug($profiles);
+                    debug($MissingFields);
+                    die();
+                }
                 $this->Flash->error($this->Trans->getString("flash_cantorder"));
             }
 

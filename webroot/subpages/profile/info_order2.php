@@ -62,7 +62,7 @@
     $GLOBALS['settings'] = $this->requestAction('settings/get_settings');
     $GLOBALS['counting'] = $counting;
 
-    function makeBulk($strings){
+    function makeBulk($strings, $Manager){
     //    $contact = $GLOBALS['contact'];
         $pType = $GLOBALS['pType'];
         $settings = $GLOBALS['settings'];
@@ -104,7 +104,7 @@
                         $fulllist = $profile->id;
                     }
                     //}
-                    print1profile($i, $profile, $profiletype);
+                    print1profile($i, $profile, $profiletype, $Manager);
 
                     $i++;
                 }
@@ -119,15 +119,14 @@
             return "";
             }
 
-            function print1profile($index, $profile, $profiletype){//$index = $i
-                $username = "[NO NAME]";
-                if (strlen(trim($profile->username))>0) {
-                    $username = $profile->username;
-                } elseif(strlen(trim($profile->fname . $profile->lname))>0) {
-                    $username = $profile->fname . " " . $profile->lname;
+            function print1profile($index, $profile, $profiletype, $Manager){//$index = $i
+                $Disabled = "";
+                $username=formatname($profile);
+                if(!$profile->is_complete || $Manager->requiredfields($profile, "profile2order")){
+                    $Disabled = " DISABLED";
                 }
-                echo '<tr><td><span><input class="profile_client" type="checkbox" id="p_' . $index . '" name="p_' . $profile->id . '"
-                onchange="addProfile(' . $profile->id . ');"
+                echo '<tr><td><span' . $Disabled . '><input class="profile_client" type="checkbox" id="p_' . $index . '" name="p_' . $profile->id . '"' . $Disabled .
+                ' onchange="addProfile(' . $profile->id . ');"
                 value="' . $profile->id . '"/></span>
                 <span><label for="p_' .  $index . '">' . $username . '</span> ';
                 if($profile->profile_type){ echo $profiletype;}
@@ -141,7 +140,7 @@
 
 
 
-            function makeform($ordertype, $cols, $color, $Title, $Description, $products, $Disabled, $counting, $settings, $client, $dr_cl, $driver, $_this, $Otype ="", $inforequired = false, $Blocked = "", $strings){
+            function makeform($ordertype, $cols, $color, $Title, $Description, $products, $Disabled, $counting, $settings, $client, $dr_cl, $driver, $_this, $Otype ="", $inforequired = false, $Blocked = "", $strings, $Manager){
                 if (strlen($Otype)==0) { $Otype = $Title; }
                 if (strlen($color)>0){ $color = "-" . $color;}
                 $color=""; //color is disabled for now
@@ -155,7 +154,7 @@
                 echo '</div>';
 
                 if($ordertype) {
-                    printform($counting, $settings, $client, $dr_cl, $driver, true, $_this, $strings);
+                    printform($counting, $settings, $client, $dr_cl, $driver, true, $_this, $strings, $Manager);
                     echo '<ul class="pricing' . $color . '-content list-unstyled">';
                     productslist($ordertype, $products, "form", $Disabled, $Blocked);
                 }
@@ -229,7 +228,7 @@
                 }
             }
 
-            function printform($counting, $settings, $client, $dr_cl, $driver, $intable = false,$_this, $strings)
+            function printform($counting, $settings, $client, $dr_cl, $driver, $intable = false,$_this, $strings, $Manager)
             {//pass the variables exactly as given, then specifiy if it's in a table or not
             echo '<input type="hidden" name="document_type" value="add_driver"/>';
             echo '<div class="form-group clientsel">';
@@ -320,7 +319,7 @@
     if(isset($_GET["ordertype"]) && $_GET["ordertype"] == "BUL"){
         echo '<INPUT TYPE="HIDDEN" NAME="selecting_driver" id="selecting_driver" class="form-control input-' . $size . '" VALUE="">';
         echo '<textarea NAME="drivers" id="drivers" class="form-control input-' . $size . '" VALUE="" READONLY STYLE="resize:vertical;"></textarea>';
-        if($_GET['ordertype']=="BUL"){makeBulk($strings);}
+        if($_GET['ordertype']=="BUL"){makeBulk($strings, $Manager);}
         echo '</DIV></DIV>';
     } else {
         ?>
@@ -348,12 +347,10 @@
 
         foreach ($dr_cl['driver'] as $dr) {
             $driver_id = $dr->id;
-            ?>
-            <option value="<?php echo $dr->id; ?>"
-                    <?php
-                    if(!$dr->iscomplete){echo " DISABLED";}
-                    if ($dr->id == $driver || $counting == 1 && $driver != '0'){ ?>selected="selected"<?php } ?>><?php echo $dr->fname . ' ' . $dr->mname . ' ' . $dr->lname ?></option>
-        <?php
+            echo '<option value="' . $dr->id . '"';
+            if(!$dr->is_complete || $Manager->requiredfields($dr, "profile2order")){echo " DISABLED";}
+            if ($dr->id == $driver || $counting == 1 && $driver != '0'){ echo 'selected="selected"'; }
+            echo '>' . formatname($dr) . '</option>';
         }
         ?>
     </select>
@@ -380,12 +377,12 @@
 <div class="row">
     <?php
         if (!is_object($product)){//error handlin for a bad redirect
-            makeform("", $cols, '', "ERROR", "MISSING ORDER TYPE", $products, True, $counting, $settings, $client, $dr_cl, $driver, $_this, "", false, "", $strings );
+            makeform("", $cols, '', "ERROR", "MISSING ORDER TYPE", $products, True, $counting, $settings, $client, $dr_cl, $driver, $_this, "", false, "", $strings, $Manager);
         } else {
             $name_field = getFieldname("Name", $language);
             $desc_field = getFieldname("Description", $language);
 
-            $o_type = makeform($product->Acronym, $cols, '', $product->$name_field . $Trans, $product->$desc_field . $Trans, $products, $product->Checked == 1, $counting, $settings, $client, $dr_cl, $driver, $_this, $product->Alias, false, $product->Blocked, $strings);
+            $o_type = makeform($product->Acronym, $cols, '', $product->$name_field . $Trans, $product->$desc_field . $Trans, $products, $product->Checked == 1, $counting, $settings, $client, $dr_cl, $driver, $_this, $product->Alias, false, $product->Blocked, $strings, $Manager);
         }
     ?>
 </div>
