@@ -400,10 +400,14 @@ function ProcessVariables($ID, $Text, $Variables = "", $addSlashes = false){
         }
     }
     if($addSlashes) {//&apos;
-       $Text = str_replace("d&#039;", "\'", addslashes($Text));//d&#039; breaks javascript
+       $Text = addslashes2($Text);//&#039; breaks javascript
     }
     if($Text) {return $Text;}
     return $ID;
+}
+
+function addslashes2($Text){
+    return str_replace("&#039;", "\'", addslashes($Text));//&#039; breaks javascript
 }
 
 function FindIterator($ObjectArray, $FieldName, $FieldValue){

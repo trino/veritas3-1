@@ -45,7 +45,7 @@
                             <div class="item-body">
                                 <span id="desc<?php echo $n->id;?>"><?php echo $n->description; ?></span><br />
                                 <a href="javascript:void(0);" class="btn btn-small btn-primary editnote" style="padding: 0 8px;" id="note_<?php echo $n->id;?>"><?= $strings["dashboard_edit"]; ?></a>
-                                <a href="javascript:void(0);" class="btn btn-small btn-danger deletenote" style="padding: 0 8px;" id="dnote_<?= $n->id;?>" onclick="return deletenote(<?= $n->id . ", '" . ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => ucfirst(h($n->description))));?>');" ><?= $strings["dashboard_delete"]; ?></a>
+                                <a href="javascript:void(0);" class="btn btn-small btn-danger deletenote" style="padding: 0 8px;" id="dnote_<?= $n->id;?>" onclick="return deletenote(<?= $n->id . ", '" . ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => ucfirst(h($n->description))), true);?>');" ><?= $strings["dashboard_delete"]; ?></a>
                                 <br><br>
                             </div>
 

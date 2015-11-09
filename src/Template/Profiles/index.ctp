@@ -350,13 +350,13 @@
                                                         if (isset($_GET['draft'])) {
                                                             echo "?draft";
                                                         }
-                                                        echo '" onclick="return confirm(' . "'" . ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => addslashes(formatname($profile))  ));
+                                                        echo '" onclick="return confirm(' . "'" . ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => formatname($profile)), true);
                                                         echo "'" . ');" class="' . btnclass("DELETE") . '">' . $strings["dashboard_delete"] . '</a>';
                                                     }
 
                                                     if ($super && $debug) {
                                                         echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
-                                                        echo '" onclick="return confirm(' . "'Are you sure you want to possess " . addslashes(formatname($profile)) . "?'";
+                                                        echo '" onclick="return confirm(' . "'Are you sure you want to possess " . addslashes2(formatname($profile)) . "?'";
                                                         echo ');" class="' . btnclass("DELETE") . '">' . $strings["dashboard_possess"] . '</a>';
                                                     }
 
