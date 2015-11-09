@@ -324,8 +324,9 @@ printCSS($this);
                                             $i++;
                                         }}
                                 }
+                                $jj++;
                                 ?>
-                                <div class="steps" id="step<?php echo $jj+1;?>" style="display:none;">
+                                <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a>
