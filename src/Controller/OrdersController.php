@@ -1388,6 +1388,7 @@
             }
 
             $this->set('thedocuments',  $return);
+            //var_dump($return);
             return $return;
         }
 

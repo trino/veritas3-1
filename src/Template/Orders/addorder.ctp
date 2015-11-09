@@ -221,25 +221,25 @@ printCSS($this);
                             $i = 1;
                             ?>
 
-                            
+
                                 <?php if ($DriverID>0){
                                     $i++;?>
-                                    
-                                    
-                                    
+
+
+
                                     <h2>Application for <?php echo $client->company_name;?></h2>
                                     <input type="hidden" id="user_id" value=""/>
                                     <div class="steps" id="step0" class="active">
                                         <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
-                                        <?php include('subpages/documents/driver_form.php');?>    
+                                        <?php include('subpages/documents/driver_form.php');?>
                                         <hr />
                                         <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 <?php }?>
-                                
+
                                 <?php
 
                                 $doc = $doc_comp->getDocument('orders');
@@ -269,7 +269,7 @@ printCSS($this);
                                 $doc_count = 0;
                                 foreach($subdoccli as $getcounter)
                                 {
-                                   $doc_count++; 
+                                   $doc_count++;
                                 }
                                 foreach ($subdoccli as $sd) {
                                     //var_dump($sd);
@@ -282,10 +282,10 @@ printCSS($this);
                                         $thedocuments[strtolower($d->title)]["IsSet"] = true;
                                         debug($d);
                                     }
-                                    
-                                    
+
+
                                     if (displayform2($DriverProvince,$thedocuments,$d->title, $theproduct,$d->id,$_this)){//(displayform($DriverProvince, $provinces, $forms, $d->title,$_this)){
-                                        
+
                                         $index+=1;
                                         $act = 0;
                                         if ($d->table_name == $table) {
