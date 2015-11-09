@@ -215,7 +215,7 @@
                                     $EDITURL = $Manager->make_order_path($order);
 
                                     ?>
-                                    <tr class="<?= $row_color_class; ?>" role="row">
+                                    <tr class="<?= $row_color_class; ?>" role="row" ID="row<?= $order->id; ?>">
                                         <td><?= $this->Number->format($order->id);
                                                 if ($order->hasattachments) {
                                                     echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';
@@ -348,12 +348,8 @@
 
 
                                                 if ($super || (isset($_GET['draft']) || $candelete && $this->request->session()->read('Profile.id') == $order->user_id)) {
-                                                    ?><a
-                                                    href="<?php echo $this->request->webroot; ?>orders/deleteorder/<?php echo $order->id; ?><?php if (isset($_GET['draft'])) echo "?draft"; ?>"
-                                                    class="<?= btnclass("DELETE") ?>"
-                                                    onclick="return confirm('<?= ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => $order->id), true); ?>');">
-                                                        <?= $strings["dashboard_delete"];?></a>
-                                                <?php
+                                                    echo '<A ONCLICK="deleteorder(' . $order->id . ", '" . isset($_GET['draft']) . "'" . ');" CLASS="' . btnclass("DELETE") . '">';
+                                                    echo $strings["dashboard_delete"] . '</a>';
                                                 }
 
 
@@ -461,6 +457,25 @@
         }
 
     });
+
+    var Orders = <?= iterator_count($orders); ?>;
+    function deleteorder(ID, Draft){
+        var Confirm = '<?= addslashes3($strings["dashboard_confirmdelete"]); ?>';
+        Confirm = Confirm.replace("%name%", '<?= $strings["documents_orderid"]; ?> ' + ID);
+        if(confirm(Confirm)){
+            var URL = '<?= $this->request->webroot; ?>orders/deleteorder/' + ID;
+            if(Draft){URL = URL + '?draft';}
+            $.ajax({
+                type: "get",
+                url: URL,
+                success: function (msg) {
+                    $('#row'+ID).fadeOut();
+                    Orders--;
+                    if(!Orders){location.reload();}
+                }
+            });
+        }
+    }
 </script>
 <style>
     @media print {

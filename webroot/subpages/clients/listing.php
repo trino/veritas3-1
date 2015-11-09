@@ -1,7 +1,7 @@
 <div class="row">
     <?php
         if ($this->request->session()->read('debug')) {
-            echo "<span style ='color:red;'>clients/listing.php #INC113</span>";
+            echo "<span style ='color:red;'>subpages/clients/listing.php #INC113</span>";
         }
         include_once('subpages/api.php');
         if(!$GLOBALS["translated"]){die("Translation required");}
@@ -62,7 +62,7 @@
                                             ?>
 
 
-                                            <tr>
+                                            <tr ID="row<?= $clients->id; ?>">
                                                 <td><?php
                                                         echo $this->Number->format($clients->id);
                                                         if ($clients->hasattachments) {
@@ -135,12 +135,10 @@
 
 
 
-                                                        if ($sidebar->client_delete == '1') { ?>
-                                                            <a href="<?php echo $this->request->webroot; ?>clients/delete/<?php echo $clients->id; ?><?php echo (isset($_GET['draft'])) ? "?draft" : ""; ?>"
-                                                               onclick="return confirm('<?= ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" =>  h($clients->company_name)), true); ?>');"
-                                                               class="<?= btnclass("DELETE") . '">' . $strings["dashboard_delete"] ?></a>
-
-                                                        <?php }
+                                                        if ($sidebar->client_delete == '1') {
+                                                            echo '<a onclick="deleteclient(' . $clients->id . ", '" . addslashes3($clients->company_name) . "', '" . isset($_GET['draft']) . "'" . ');"';
+                                                            echo ' class="' . btnclass("DELETE") . '">' . $strings["dashboard_delete"] . '</a>';
+                                                        }
 
                                                         if ($sidebar->orders_create == '1' && !isset($_GET["draft"]) && false) {//FALSE DISABLES THIS
                                                             ?>
@@ -266,12 +264,30 @@
 <script>
     $(function () {
         $('.sorting').find('a').each(function () {
-
             <?php if(isset($_GET['draft'])){?>
-            var hrf = $(this).attr('href');
-            if (hrf != "")
-                $(this).attr('href', hrf + '&draft');
+                var hrf = $(this).attr('href');
+                if (hrf != "") {
+                    $(this).attr('href', hrf + '&draft');
+                }
             <?php } ?>
         });
     })
+
+    var Clients = <?= iterator_count($client); ?>;
+    function deleteclient(ID, Name, Draft){
+        var Confirm = '<?= addslashes3($strings["dashboard_confirmdelete"]); ?>';
+        Confirm = Confirm.replace("%name%", Name);
+        if (confirm(Confirm)){
+            if(Draft){Draft = '?draft';}
+            $.ajax({
+                type: "get",
+                url: "<?= $this->request->webroot;?>clients/delete/" + ID + Draft,
+                success: function (msg) {
+                    $('#row'+ID).fadeOut();
+                    Clients--;
+                    if(!Clients){location.reload();}
+                }
+            });
+        }
+    }
 </script>

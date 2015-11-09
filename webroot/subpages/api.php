@@ -407,7 +407,10 @@ function ProcessVariables($ID, $Text, $Variables = "", $addSlashes = false){
 }
 
 function addslashes2($Text){
-    return str_replace("&#039;", "\'", addslashes($Text));//&#039; breaks javascript
+    return str_replace("&#039;", "\'", addslashes($Text));
+}
+function addslashes3($Text){
+    return str_replace("&quot;", '"',  str_replace("&#039;", "\'", addslashes($Text)));
 }
 
 function FindIterator($ObjectArray, $FieldName, $FieldValue){

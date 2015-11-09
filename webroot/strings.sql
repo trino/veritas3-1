@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2015 at 08:20 PM
+-- Generation Time: Nov 09, 2015 at 09:29 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1446473595', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1446732862', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -245,7 +245,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (209, 'flash_productdeleted', '%Name% has been deleted', '%Name% a été supprimé'),
 (210, 'flash_productupdated', '%Name% has been updated', '%Name% a été mis à jour'),
 (211, 'flash_productcreated', '%Name% has been created', '%Name% a été créé'),
-(212, 'documents_missingclient', '%Client% deleted successfully.', '%Client% supprimé avec succès.'),
+(212, 'documents_missingclient', '%Client% deleted.', '%Client% supprimé.'),
 (213, 'documents_missingdivision', 'Division deleted successfully.', 'Division supprimé avec succès.'),
 (214, 'analytics_notspecified', 'Not specified', 'Non spécifié'),
 (215, 'analytics_hired', 'New Hiree', 'Nouvel embauchée'),
@@ -700,7 +700,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (672, 'documents_selectdocument', 'Select %Document%', 'Sélectionnez %document%'),
 (673, 'forms_credssent', 'Credentials sent', 'Pouvoirs envoyés'),
 (679, 'email_profilecreated_variables', 'username, email, path, createdby, type, password, id', ''),
-(680, 'email_documentcreated_variables', 'site, email, company_name, username, id, path, profile_type, place', ''),
+(680, 'email_documentcreated_variables', 'site, email, company_name, username, id, path, profile_type, place, document_type', ''),
 (681, 'email_ordercompleted_variables', 'email, username, profile_type, company_name, for, html, path', ''),
 (682, 'email_gfs_variables', 'email, path1, path2, site, username', ''),
 (683, 'email_newapplicant_subject', 'Application for Employment [DISABLED]', 'email_newapplicant_subject'),

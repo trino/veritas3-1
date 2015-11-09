@@ -245,7 +245,7 @@
                                     }
                                     ?>
 
-                                    <tr class="<?= $row_color_class; ?>" role="row">
+                                    <tr class="<?= $row_color_class; ?>" role="row" id="row<?= $profile->id; ?>">
                                         <td><?php echo $this->Number->format($profile->id);
                                                 if ($profile->hasattachments) {
                                                     echo '<BR><i title="Has Attachment" class="fa fa-paperclip"></i>';
@@ -346,12 +346,13 @@
                                                     }
 
                                                     if ($CanDelete) {
-                                                        echo '<a href="' . $this->request->webroot . 'profiles/delete/' . $profile->id;
+                                                        //echo '<a href="' . $this->request->webroot . 'profiles/delete/' . $profile->id;
+                                                        echo '<a onclick="deleteprofile(' . $profile->id . ", '" . addslashes3(formatname($profile)) . "'" . ');"';
                                                         if (isset($_GET['draft'])) {
                                                             echo "?draft";
                                                         }
-                                                        echo '" onclick="return confirm(' . "'" . ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => formatname($profile)), true);
-                                                        echo "'" . ');" class="' . btnclass("DELETE") . '">' . $strings["dashboard_delete"] . '</a>';
+                                                        //echo '" onclick="return confirm(' . "'" . ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => formatname($profile)), true) . "'" . ');"';
+                                                        echo ' class="' . btnclass("DELETE") . '">' . $strings["dashboard_delete"] . '</a>';
                                                     }
 
                                                     if ($super && $debug) {
@@ -483,4 +484,21 @@
             });
         }
     });
+
+    var Profiles = <?= iterator_count($profiles); ?>;
+    function deleteprofile(ID, Name){
+        var Confirm = '<?= addslashes2($strings["dashboard_confirmdelete"]); ?>';
+        Confirm = Confirm.replace("%name%", Name);
+        if (confirm(Confirm)){
+            $.ajax({
+                type: "get",
+                url: "<?= $this->request->webroot;?>profiles/delete/" + ID,
+                success: function (msg) {
+                    $('#row'+ID).fadeOut();
+                    Profiles--;
+                    if(!Profiles){location.reload();}
+                }
+            });
+        }
+    }
 </script>

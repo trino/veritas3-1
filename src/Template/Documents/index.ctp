@@ -268,9 +268,10 @@
                                 $getColorId = $this->requestAction('documents/getColorId/'.$docs->sub_doc_id);
                                 //$orderDetail = '<A HREF="'.$this->request->webroot.'orders/vieworder/'.$orderDetail->client_id.'/' . $orderID . '">' . $orderID . '</A>';
                             ?>
-                            <tr class="<?= $row_color_class; ?>" role="row">
+                            <tr ID="row<?= $docs->id; ?>" class="<?= $row_color_class; ?>" role="row">
                                 <td><?echo $this->Number->format($docs->id);
-                                    if($docs->hasattachments) { echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';} ?></td>
+                                    if($docs->hasattachments) { echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';} ?>
+                                </td>
 
                                 <td width="220" style="width: 220px; white-space: nowrap;">
                                     <?php
@@ -394,8 +395,8 @@
                             }
                             if ($dl_show) {
                                 ?>
-                                    <a href="<?php echo $this->request->webroot; ?>documents/delete/<?php echo $docs->id; if(isset($_GET['draft'])){ echo "/draft"; } ?>"
-                                       onclick="return confirm('<?= ProcessVariables($language, $strings["dashboard_confirmdelete"], array("name" => $docname), true); ?>');"
+                                    <a
+                                       onclick="deletedocument(<?=$docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname); ?>');"
                                        class="<?= btnclass("DELETE") ?>"><?= $strings["dashboard_delete"]; ?></a>
                                 <?php
                             }
@@ -598,5 +599,26 @@
                 $('.clientdivision').html(msg);
             }
         });
+    }
+
+    var Documents = <?= iterator_count($documents); ?>;
+    function deletedocument(DocID, Draft, Name){
+        var Confirm = '<?= addslashes3($strings["dashboard_confirmdelete"]); ?>';
+        Confirm = Confirm.replace("%name%", Name);
+        if (confirm(Confirm)){
+            var URL = "<?= $this->request->webroot;?>documents/delete/" + DocID;
+            if(Draft){
+                URL = URL + "/draft";
+            }
+            $.ajax({
+                type: "get",
+                url: URL,
+                success: function (msg) {
+                    $('#row'+DocID).fadeOut();
+                    Documents--;
+                    if(!Documents){location.reload();}
+                }
+            });
+        }
     }
 </script>
