@@ -40,11 +40,14 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 <?php
                 $counter=0;
                 if(isset($sub3['emp']) && count($sub3['emp'])){
+                    
+                    if($this->request->params['controller']!='Orders'){
                     if (count($sub3['emp']) == 1 && is_object($sub3['emp'])){
                         $sub3['emp'] = array($sub3['emp']);
-                    }
+                    }}
 
                     foreach($sub3['emp'] as $emp){
+                        //var_dump($emp);die();
                         $counter++;
                         if($counter!=1){
                             if($counter==2){
@@ -433,7 +436,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 }
                 ?>
 
-        <div id="add_more_div" class="no-print">
+        <div id="add_more_div" class="no-print" style="padding-bottom:10px">
             <p>&nbsp;</p>
             <input type="hidden" name="count_past_emp" id="count_past_emp" value="<?php if(isset($sub3['emp'])){echo count($sub3['emp']);}else{?>1<?php }?>">
             <a href="javascript:void(0);" class="btn green no-print" id="add_more"><?= $strings["forms_addmore"]; ?></a>
@@ -516,10 +519,15 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
         <?php if($this->request->params['controller']=='ClientApplication'){?>
             language = 'English';
         <?php }?>
+            $('.overlay-wrapper').show();
             $.ajax({
                    url:"<?php echo $this->request->webroot;?>subpages/documents/past_employer.php?language=" + language,
                    success:function(res){
                     $("#more_div").append(res);
+                     <?php if($this->request->params['controller']=='ClientApplication'){?>
+                        $('#more_div').find('.toremove').addClass('row');
+                        $('#more_div').find('.delete').css({'padding-left':'30px'});
+                     <?php }?>
                     var c = $('#count_past_emp').val();
                     var counter = parseInt(c)+1;
                     $('#count_past_emp').attr('value',counter);
@@ -529,14 +537,17 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                             autoclose: true,
                             format: 'yyyy-mm-dd'
                         });
+                        $('.overlay-wrapper').hide();
                    }
             });
       });
       $("#delete").live("click",function(){
+            $('.overlay-wrapper').show();
             $(this).parent().parent().remove();
             var c = $('#count_past_emp').val();
             var counter = parseInt(c)-1;
             $('#count_past_emp').attr('value',counter);
+            $('.overlay-wrapper').hide();
       });
 
 

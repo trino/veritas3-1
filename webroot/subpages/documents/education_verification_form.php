@@ -433,7 +433,7 @@
                         </div>
                         <div id="more_edu"></div>
                     <?php } ?>
-                <div id="add_more_edu">
+                <div id="add_more_edu" style="padding-bottom:10px">
                     <p>&nbsp;</p>
                     <input type="hidden" name="count_more_edu" id="count_more_edu" value="<?php if(isset($counter))echo $counter;?>">
                     <a href="javascript:void(0);" class="btn green add_more_edu"><?= $strings["forms_addmore"]; ?></a>
@@ -546,6 +546,7 @@
                 ?>
                     //
                     $(".add_more_edu").click(function () {
+                        $('.overlay-wrapper').show();
                         $.ajax({
                             url: "<?php echo $this->request->webroot;?>subpages/documents/past_education.php",
                             success: function (res) {
@@ -560,6 +561,7 @@
                                     autoclose: true,
                                     format: 'yyyy-mm-dd'
                                 });
+                                $('.overlay-wrapper').hide();
                             }
                         });
                     });

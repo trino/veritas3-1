@@ -536,7 +536,7 @@
     client_id = '<?=$cid?>',
         doc_id = '<?=$did?>';
     $(function(){
-         $('.links a:nth-child(5), .links p').css({'display':'none'});        
+         $('.links a:nth-child(5), .links p').css({'display':'none'});
         if(doc_id && doc_id != '0')
         {
             <?php if(isset($_GET['type'])){ ?>

@@ -17,20 +17,20 @@ $(function(){
     {
         ?>
         $('input').each(function(){
-           $(this).attr('disabled','disabled'); 
+           $(this).attr('disabled','disabled');
         });
         $('select').each(function(){
-           $(this).attr('disabled','disabled'); 
+           $(this).attr('disabled','disabled');
         });
         $('textarea').each(function(){
-           $(this).attr('disabled','disabled'); 
+           $(this).attr('disabled','disabled');
         });
         <?php
-    } 
+    }
     ?>
     var did = '<?php if(isset($did))echo $did;else echo '0';?>';
     var checker = 0;
-    
+
    function save_driver(par,webroot)
     {
     var driver_id = '';
@@ -43,15 +43,15 @@ $(function(){
         type:'post',
         success:function(res){
             $('#user_id').val(res);
-            
+
             $('.overlay-wrapper').hide();
-            
-            
+
+
         }
     });
-    
+
     }
- 
+
    $('.notonclient').each(function(){
     $(this).removeClass('required');
    })
@@ -65,7 +65,7 @@ $(function(){
     $('.links a:nth-child(5), .links p').css({'display':'none'});
    $('.steps input').change(function(){
     $(this).parent().find('.error').html('');
-   }); 
+   });
    $('.buttonprev').click(function(){
         var par = $(this).closest('.steps');
         var draft = 0;
@@ -73,41 +73,41 @@ $(function(){
         var ch = '';
         var doc_id = par.find('.sub_docs_id').val();
         var sid = doc_id;
-        
+
         par.hide();
             par.removeClass('active');
             var id = par.find('.buttonprev').attr('id').replace('buttonprev','');
             var type = par.find('input[name="document_type"]').val();
             var cl = par.find('.sub_docs_id').val();
-            
+
                   id = parseInt(id);
             $('#step'+id).show();
             $('#step'+id).addClass('active');
-            
+
    });
    $('.buttons').click(function(){
     var par = $(this).closest('.steps');
     <?php
         if($this->request->params['action'] == 'vieworder'){
             ?>
-            
+
                 par.hide();
-                
+
                 par.removeClass('active');
                 var id = par.find('.buttons').attr('id').replace('button','');
                 id = parseInt(id)+1;
                 $('#step'+id).show();
                 $('#step'+id).addClass('active');
-                    
-                
+
+
             <?php
             }
             else
             {
        ?>
-        
+
         var draft = 1;
-        
+
         var redir = 0;
         if($(this).attr('id').replace('save','') != $(this).attr('id')){
         draft = 0;
@@ -132,7 +132,7 @@ $(function(){
         var doc_id = par.find('.sub_docs_id').val();
         var sid = doc_id;
         var isvalid = checkalltags("tab0");
-        
+
         if(!isvalid)
         {
             return false;
@@ -151,7 +151,7 @@ $(function(){
                     return false;
                 }
             }
-            
+
             if($('.subform4 #subtab_2_1').attr('class')=='tab-pane active' && $('.subform4').attr('style')!='display: none;'){
                 //alert('tes');
                 var er = 0;
@@ -218,7 +218,7 @@ $(function(){
 
                     $('.cont').removeAttr('disabled');
                 }
-            }   
+            }
             par.find(".required:not('label')").each(function(){
             //alert($(this).attr('class'));
             if($(this).val() == '')
@@ -228,7 +228,7 @@ $(function(){
                 $(this).focus();
                 $('html,body').animate({ scrollTop: $(this).offset().top}, 'slow');
                 return false;
-                
+
             }
             else{
                 if($(this).attr('role')=='email' && $(this).val()!='')
@@ -245,8 +245,8 @@ $(function(){
                 }
             }
         });
-        
-       
+
+
             if(checker == 0){
                 <?php if($this->request->controller!= "Documents"){?>
                 par.hide();
@@ -261,19 +261,19 @@ $(function(){
                       id = parseInt(id)+1;
                 $('#step'+id).show();
                 $('#step'+id).addClass('active');
-                    
+
                 }
                 else
                 {
-                    
+
                    <?php if($this->request->controller=='Documents')
                         {?>
                           var uploaded_for1 = $('#selecting_driver').val();
-                          var user_id = '<?php echo $this->request->session()->read('Profile.id');?>';  
+                          var user_id = '<?php echo $this->request->session()->read('Profile.id');?>';
                    <?php }else{?>
                             var uploaded_for1 = $('#user_id').val();
                             var user_id = uploaded_for1
-                    <?php }?> 
+                    <?php }?>
                      var data = {
                         uploaded_for: uploaded_for1,
                         type: type,
@@ -290,7 +290,7 @@ $(function(){
                         //division: $('#division').val(),
                         //attach_doc: attach_docs
                     };
-                    
+
                     $.ajax({
                         //data:'uploaded_for='+$('#uploaded_for').val(),
                         data: data,
@@ -298,7 +298,7 @@ $(function(){
                         beforeSend: function(){$('.overlay-wrapper').show()},
                         url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/'+did+'/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
                         success: function (res) {
-        
+
                             $('#did').val(res);
                             did = res;
                             //alert(type);return false;
@@ -309,7 +309,7 @@ $(function(){
                                     order_id = res,
                                     cid = '<?php echo $cid;?>';
                                 savePrescreen(url, order_id, cid, draft,redir);
-        
+
                             } else if (sid == "2") {
                                 var order_id = res,
                                     cid = '<?php echo $cid;?>',
@@ -330,11 +330,11 @@ $(function(){
                                     url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> +'/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
                                     setTimeout(function(){
                                     savedMeeOrder(url, order_id, cid, type,draft,redir);}, 1000);
-                               
-        
+
+
                             }
                             else if (sid == "9") {
-        
+
                                 //alert(type);
                                 var order_id = res,
                                     cid = '<?php echo $cid;?>',
@@ -342,7 +342,7 @@ $(function(){
                                 saveEmployment(url, order_id, cid, type,draft,redir);
                             }
                             else if (sid == "10") {
-        
+
                                 //alert(type);
                                 var order_id = res,
                                     cid = '<?php echo $cid;?>',
@@ -365,7 +365,7 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{
-                                            
+
                                             ?>
                                                 if(redir == 1 )
                                                 {
@@ -377,7 +377,7 @@ $(function(){
                                     }
                                     <?php  }?>
                                 });
-        
+
                             }
                             else if (sid == "5") {
                                 var order_id = res,
@@ -405,39 +405,39 @@ $(function(){
                                     }
                                     <?php }?>
                                 });
-        
+
                             }
                             else if (sid == "7") {
                                 var act = $('#form_tab7').attr('action');
-        
+
                                 $('#form_tab7').attr('action', function (i, val) {
                                     return val + '?draft=' + draft;
                                 });
                                 $('#form_tab7').submit();
-        
-        
+
+
                             }
                             else if (sid == "8") {
                                 var act = $('#form_tab8').attr('action');
-        
+
                                 $('#form_tab8').attr('action', function (i, val) {
                                     return val + '?draft=' + draft;
                                 });
-        
+
                                 $('#form_tab8').submit();
-        
-        
+
+
                             }
                             else if(sid == '11')
                             {
                                 var act = $('#form_tab11').attr('action');
-        
+
                                 $('#form_tab11').attr('action', function (i, val) {
                                     return val + '?draft=' + draft;
                                 });
-        
+
                                 $('#form_tab11').submit();
-        
+
                             }
                             else if (sid == "15") {
                                 //alert('test');return;
@@ -449,7 +449,7 @@ $(function(){
                                     url: url,
                                     data: param,
                                     type: 'POST',
-                                    
+
                                     success: function (res) {
                                         <?php if($this->request->params['action']!='addorder'){?>
                                         <?php if($this->request->controller=='Documents')
@@ -470,11 +470,11 @@ $(function(){
                                          }
                                          ?>
                                          }
-                                        
-        
-        
+
+
+
                                 });
-        
+
                             }
                             else
                             if (sid == "18") {
@@ -501,8 +501,8 @@ $(function(){
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                              }
-            
-            
+
+
                                     });
                                 });
                                }
@@ -528,14 +528,14 @@ $(function(){
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                              }
-            
-            
+
+
                                     });
-                               } 
-        
+                               }
+
                             }
                             else{
-                               <?php 
+                               <?php
                                  if(isset($doc))
                                     foreach($doc as $dx)
                                         {
@@ -545,18 +545,18 @@ $(function(){
                                 if(type == "<?php echo addslashes($dx->title);?>")
                                 {
                                     var act = $('#form_tab<?php echo $dx->id;?>').attr('action');
-        
+
                                     $('#form_tab<?php echo $dx->id;?>').attr('action', function (i, val) {
                                         return val + '?draft=' + draft;
                                     });
-        
+
                                     $('#form_tab<?php echo $dx->id;?>').submit();
                                 }
-        
+
                                 <?php       }
                                         }
                                 ?>
-        
+
                             }
                              id = parseInt(id)+1;
                 $('#step'+id).show();
@@ -564,14 +564,14 @@ $(function(){
                         }
                     });
                 }
-               
-               
-                
+
+
+
             }
         }
         <?php }?>
    });
-    
+
 });
     function save_signature(numb) {
         var d = $.Deferred();
@@ -598,7 +598,7 @@ $(function(){
                     }
                     if(numb=='8') {
                         $('#gfs_signature').val(response);
-                        
+
                     }
                     $('.saved'+numb).html('Saved');
                 });
@@ -636,7 +636,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                                                 }
                         $('.overlay-wrapper').hide();
                  <?php }?>
-                    
+
             }
         });
     }
@@ -694,7 +694,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
         $('#form_consent :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
         });
-        
+
         $.ajax({
             url: url,
             data: param,
@@ -705,10 +705,10 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{
                     if($this->request->params['action']=='addorder'){?>
-                        
-                        
-                        
-                        
+
+
+
+
                         $.ajax({
                                     url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
                                     success:function()
@@ -720,10 +720,10 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                                         $('.overlay-wrapper').hide();
                                     }
                                 });
-                
-                
-                
-                
+
+
+
+
                         <?php }else{?>
                         $('.overlay-wrapper').hide();
                  <?php }}?>
@@ -766,7 +766,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                     ?>
                         $('.overlay-wrapper').hide();
                  <?php }}?>
-                
+
             }
         });
     }
@@ -851,7 +851,7 @@ function fileUpload(ID) {
 
         });
     }
-    
+
     function showforms(form_type)
     {
         //alert(form_type);

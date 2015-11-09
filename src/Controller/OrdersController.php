@@ -352,6 +352,8 @@
 
                 $emp = TableRegistry::get('employment_verification');//
                 $sub3['emp'] = $emp->find()->where(['order_id' => $did])->all();
+                
+                
 
                 //echo $con_detail->id;die();
                 $emp_att = TableRegistry::get('doc_attachments');
@@ -1528,6 +1530,15 @@
         {
              $this->response->file(WWW_ROOT.'orders/order_'. $id .'/test.html', array('download' => true, 'name' => 'Test'));
             die();
+        }
+        
+        function saveRecruiterInfo($oid)
+        {
+            $table = TableRegistry::get('orders');
+            $table->query()->update()->set($_POST)
+                ->where(['id' => $oid])
+                ->execute();
+                die();
         }
     }
 

@@ -18,7 +18,7 @@
  ?>
 <body onload="translate();">
 
-<div id="toremove">
+<div id="toremove" class="toremove">
 <div class="clearfix"></div>
 <hr />
 

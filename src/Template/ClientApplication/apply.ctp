@@ -80,3 +80,12 @@ foreach($subd as $s)
 </div>
 </div>
 <?php include('subpages/commonjs.php');?>
+<script>
+    $(function(){
+        $('#more_div').css({'padding':'0'});
+        $('#more_div').addClass('row');
+   
+        
+    })
+
+</script>

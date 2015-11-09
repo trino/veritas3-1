@@ -23,7 +23,8 @@ $img_ext = array('jpg', 'jpeg', 'png', 'bmp', 'gif');
 if($did) {
     $_GET['driver'] = $ooo->uploaded_for;
 }
-
+if(!isset($_GET["driver"]))
+$_GET['driver'] = 0;
 $is_disabled = '';
 if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
 $settings = $this->requestAction('settings/get_settings');
@@ -202,8 +203,8 @@ printCSS($this);
                 <div class="form-wizard">
                     <div class="form-body" style="position: relative;" id="tab0">
                     <input type="hidden" id="orderid" value="" />
-                    <input type="hidden" id="did" value="" />
-                    <input type="hidden" id="user_id" value="" />
+                    <input type="hidden" id="did" value="<?=$did?>" />
+                    <input type="hidden" id="user_id" value="<?php echo $_GET['driver'];?>" />
                     <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
 
@@ -310,15 +311,9 @@ printCSS($this);
                                                 <hr />
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
                                                 <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Next</a>
+                                                <?php if($this->request->params['action'] == 'addorder'){?>
                                                 <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
-                                                <?php
-                                                if($jj==$doc_count)
-                                                {
-                                                    ?>
-                                                    <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
-                                                    <?php
-                                                }
-                                                ?>
+                                                <?php }?>
                                             </div>
                                             
                                             
@@ -329,6 +324,18 @@ printCSS($this);
                                             $i++;
                                         }}
                                 }
+                                ?>
+                                <div class="steps" id="step<?php echo $jj+1;?>" style="display:none;">
+                                                <?php include('subpages/documents/confirmation.php');?>
+                                                <hr />
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a>
+                                                <?php if($this->request->params['action'] == 'addorder'){?> 
+                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
+                                                <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
+                                                <?php }?>
+                                                    
+                                            </div>
+                                <?php
                                 if($debugging) { debug($thedocuments);}
                                 if(!isset($k_cou)){ $k_cou = 1; }
                                 ?>
