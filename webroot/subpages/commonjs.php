@@ -445,10 +445,7 @@ $(function(){
                                          <?php }else{
                                             
                                             ?>
-                                                if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                                
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                         }
@@ -466,22 +463,19 @@ $(function(){
                                     url: url,
                                     data: param,
                                     type: 'POST',
-                                    <?php if($this->request->params['action']!='addorder'){?>
+                                    
                                     success: function (res) {
                                         if (res == 'OK'){
                                            <?php if($this->request->controller=='Documents')
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
-                                                if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                                
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                         }
                                     }
-                                    <?php }?>
+                                    
                                 });
         
                             }
@@ -539,10 +533,7 @@ $(function(){
                                           <?php }
                                          else{
                                             ?>
-                                            if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                            
                                             $('.overlay-wrapper').hide();
                                             <?php
                                          }
@@ -572,10 +563,7 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
-                                         if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                        
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                              }
@@ -599,10 +587,7 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
-                                         if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                         
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                              }
@@ -691,7 +676,7 @@ $(function(){
         });
         return d.promise();
     }
-function savePrescreen(url, order_id, cid,draft) {
+function savePrescreen(url, order_id, cid,draft,redir) {
 
         inputs = $('#form_tab1').serialize();
 
@@ -712,10 +697,7 @@ function savePrescreen(url, order_id, cid,draft) {
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
-                        if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                        
                         $('.overlay-wrapper').hide();
                  <?php }?>
                     
@@ -723,7 +705,7 @@ function savePrescreen(url, order_id, cid,draft) {
         });
     }
 
-    function savedDriverApp(url, order_id, cid,draft) {
+    function savedDriverApp(url, order_id, cid,draft,redir) {
         var param = $('#form_tab2').serialize();
         $('#form_tab2 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -738,16 +720,13 @@ function savePrescreen(url, order_id, cid,draft) {
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
-                 if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                 
                         $('.overlay-wrapper').hide();
                  <?php }?>
             }
         });
     }
-    function savedDriverEvaluation(url, order_id, cid,draft) {
+    function savedDriverEvaluation(url, order_id, cid,draft,redir) {
         var param = $('#form_tab3').serialize();
         $('#form_tab3 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -761,17 +740,14 @@ function savePrescreen(url, order_id, cid,draft) {
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
-                 if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                 
                         $('.overlay-wrapper').hide();
                  <?php }?>
             }
         });
     }
 
-    function savedMeeOrder(url, order_id, cid, type,draft) {
+    function savedMeeOrder(url, order_id, cid, type,draft,redir) {
         var param = $('#form_consent').serialize();
         $('#form_consent :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -795,10 +771,7 @@ function savePrescreen(url, order_id, cid,draft) {
                                     url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
                                     success:function()
                                     {
-                                        if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                        
                                         $('.overlay-wrapper').hide();
                                     }
                                 });
@@ -813,7 +786,7 @@ function savePrescreen(url, order_id, cid,draft) {
         });
     }
 
-    function saveEmployment(url, order_id, cid, type,draft) {
+    function saveEmployment(url, order_id, cid, type,draft,redir) {
 
         var fields = $('#form_employment').serialize();
         $(':disabled[name]', '#form_employment').each(function () {
@@ -835,10 +808,7 @@ function savePrescreen(url, order_id, cid,draft) {
                         $.ajax({
                             url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
                             success: function () {
-                                if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                
                                  $('.overlay-wrapper').hide();
                             }
                         });
@@ -853,7 +823,7 @@ function savePrescreen(url, order_id, cid,draft) {
         });
     }
 
-    function saveEducation(url, order_id, cid, type,draft) {
+    function saveEducation(url, order_id, cid, type,draft,redir) {
         //alert('test2');
         //$('#loading5').show();
         var fields = $('#form_education').serialize();
