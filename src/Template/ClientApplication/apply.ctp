@@ -53,7 +53,7 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
     <?php include('subpages/documents/driver_form.php');?>    
     <hr />
-    <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed to step 1</a>
+    <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed to step 2</a>
 </div>
 <?php 
 $cid = $client->id;
