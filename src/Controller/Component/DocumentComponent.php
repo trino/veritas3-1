@@ -279,6 +279,10 @@ class DocumentComponent extends Component{
                                             $type_q = $type_query->find()->where(['id'=>$u])->first(); 
                                             $ut = $type_q->title;
                                           }
+                                          else
+                                          {
+                                            $ut = '';
+                                          }
                                           //$path = 'https://isbmeereports.com/documents/view/'.$cid;
                                         if($emailenabled) {
                                             $ret = array("site" => $setting->mee, "email" => $p, "company_name" => $client_name, "username" => $uq->username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 3);
@@ -1282,7 +1286,8 @@ class DocumentComponent extends Component{
             }
 
             $del = $roadTest->query();
-            $mee_att = $del->find()->where(['document_id'=>$document_id])->first();
+           
+                
             
             if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                 if (isset($_GET['order_id'])) {
@@ -1290,19 +1295,23 @@ class DocumentComponent extends Component{
                 }
                 $del->delete()->where(['order_id' => $document_id])->execute();
             } else {
+                
+                if($mee_att = $roadTest->find()->where(['document_id'=>$document_id])->first())
+                {
+                    if($_POST['id_piece1']!='' && $_POST['id_piece1']!=$mee_att->id_piece1)
+                        @unlink(WWW_ROOT."attachments/".$mee_att->id_piece1);
+                    if($_POST['id_piece2']!='' && $_POST['id_piece2']!=$mee_att->id_piece2)
+                        @unlink(WWW_ROOT."attachments/".$mee_att->id_piece2);
+                    if($_POST['cvor']!='' && $_POST['cvor']!=$mee_att->cvor)
+                        @unlink(WWW_ROOT."attachments/".$mee_att->cvor);
+                    if($_POST['driver_record_abstract']!='' && $_POST['driver_record_abstract']!=$mee_att->driver_record_abstract)
+                        @unlink(WWW_ROOT."attachments/".$mee_att->driver_record_abstract);
+                    if($_POST['resume']!='' && $_POST['resume']!=$mee_att->resume)
+                        @unlink(WWW_ROOT."attachments/".$mee_att->resume);
+                    if($_POST['certification']!='' && $_POST['certification']!=$mee_att->certification)
+                        @unlink(WWW_ROOT."attachments/".$mee_att->certification);
+                }
                 $del->delete()->where(['document_id' => $document_id])->execute();
-                if($_POST['id_piece1']!='' && $_POST['id_piece1']!=$mee_att->id_piece1)
-                    @unlink(WWW_ROOT."attachments/".$mee_att->id_piece1);
-                if($_POST['id_piece2']!='' && $_POST['id_piece2']!=$mee_att->id_piece2)
-                @unlink(WWW_ROOT."attachments/".$mee_att->id_piece2);
-                if($_POST['cvor']!='' && $_POST['cvor']!=$mee_att->cvor)
-                @unlink(WWW_ROOT."attachments/".$mee_att->cvor);
-                if($_POST['driver_record_abstract']!='' && $_POST['driver_record_abstract']!=$mee_att->driver_record_abstract)
-                @unlink(WWW_ROOT."attachments/".$mee_att->driver_record_abstract);
-                if($_POST['resume']!='' && $_POST['resume']!=$mee_att->resume)
-                @unlink(WWW_ROOT."attachments/".$mee_att->resume);
-                if($_POST['certification']!='' && $_POST['certification']!=$mee_att->certification)
-                @unlink(WWW_ROOT."attachments/".$mee_att->certification);
             }
 
             $mee['order_id'] = $arr['order_id'];
