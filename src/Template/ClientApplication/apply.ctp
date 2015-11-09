@@ -14,14 +14,16 @@
 
 JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
 //var_dump($strings);
-if (isset($disabled)) {
+    if (isset($disabled)) {
         $is_disabled = 'disabled="disabled"';
         $view = "view";
+    } else {
+        $is_disabled = "";
     }
 
     $settings = $this->requestAction('settings/get_settings');
     $action = ucfirst($param);
-    if ($action == "Add") {
+    if ($action == "Add" || $action == "Apply") {
         $action = "Create";
         if(isset($did) && $did) { $action = "Edit";}
     }
