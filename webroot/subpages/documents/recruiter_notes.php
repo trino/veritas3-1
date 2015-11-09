@@ -66,8 +66,10 @@
             $.ajax({
                 url: '<?php echo $this->request->webroot;?>profiles/deleteNote/'+ID,
                 success: function (response) {
-                    $('#dnote_'+ID).parent().parent().remove();
-                    alert('<?= addslashes($strings["forms_notedeleted"]); ?>');
+                    $('#dnote_'+ID).parent().parent().html('<FONT COLOR="RED" ID="' + 'dnote_' + ID + '"><?= addslashes($strings["forms_notedeleted"]); ?></FONT>');
+                    setTimeout(function () {
+                        $('#dnote_'+ID).fadeOut();
+                    }, 1000);
                 }
             });
         }
