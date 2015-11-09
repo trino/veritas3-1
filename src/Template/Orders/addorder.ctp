@@ -1,5 +1,4 @@
 <?php
-
 use Cake\ORM\TableRegistry;
 include_once 'subpages/filelist.php';
 $param = $this->request->params['action'];
@@ -146,6 +145,7 @@ printCSS($this);
             if ($thedocuments[$name]["Display"] == 0){return false;}//checks order taker's profile setting
         }
         if(isset($_GET['order_type'])) {
+           
             switch ($theproduct->Acronym){
                 //case "SIN":
                 //    return $name == strtolower($_GET["SpecificForm"]);
@@ -159,6 +159,7 @@ printCSS($this);
             }
         }
         if(isset($theproduct->BypassForms)){
+             
             return isset($theproduct->BypassForms[$name]);
         }
         if(isset($_GET["debug"])){
@@ -166,6 +167,7 @@ printCSS($this);
         }
         //echo "Testing: " . $name . " '" . isset($thedocuments[$name][$DriverProvince]) . "'"; debug($thedocuments);
         //echo "<BR>" . $DriverProvince . " " . $name . " <BR>"; print_r($thedocuments[$name]);
+        
         return isset($thedocuments[$name][$DriverProvince]);
     }
 
@@ -264,6 +266,7 @@ printCSS($this);
                                    $doc_count++; 
                                 }
                                 foreach ($subdoccli as $sd) {
+                                    
                                     //var_dump($sd);
                                     $index+=1;
                                     $d = $this->requestAction('/clients/getFirstSub/'.$sd->sub_id);
@@ -275,9 +278,9 @@ printCSS($this);
                                         debug($d);
                                     }
                                     
-                                    
+                                    //var_dump($_this);
                                     if (displayform2($DriverProvince,$thedocuments,$d->title, $theproduct,$d->id,$_this)){//(displayform($DriverProvince, $provinces, $forms, $d->title,$_this)){
-                                        
+                                      //die('here');  
                                         $index+=1;
                                         $act = 0;
                                         if ($d->table_name == $table) {
