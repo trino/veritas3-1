@@ -144,11 +144,13 @@ class ClientApplicationController extends AppController {
         $this->Document->saveEducation($document_id,$cid);
         die();
     }
-       public function mee_attach($order_id,$cid){
+
+    public function mee_attach($order_id,$cid){
         $this->Document->mee_attach($cid,$order_id);
         die();
     }
-        function fileUpload($id = "") {
+
+    function fileUpload($id = "") {
         // print_r($_POST);die;
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $arr = explode('.', $_FILES['myfile']['name']);

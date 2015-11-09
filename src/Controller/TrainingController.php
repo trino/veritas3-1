@@ -386,15 +386,24 @@ class TrainingController extends AppController {
                     $subject = $Event . " is unhandled";
                     $message = "this event is not setup";
             }
+
             foreach($variables as $Key => $Value){
-                $subject = str_replace("%" . $Key . "%", $Value, $subject);
-                $message = str_replace("%" . $Key . "%", $Value, $message);
+                if(!is_array($Value)) {
+                    $subject = str_replace("%" . $Key . "%", $Value, $subject);
+                    $message = str_replace("%" . $Key . "%", $Value, $message);
+                }
             }
             if(is_array($variables["email"])){
                 foreach($variables["email"] as $to){
+                    if(is_numeric($to)){
+                        $to = $this->getprofile($to)->email;
+                    }
                     $this->Mailer->sendEmail('', $to, $subject, $message);
                 }
             } else {
+                if(is_numeric($variables["email"])){
+                    $to = $this->getprofile($variables["email"])->email;
+                }
                 $this->Mailer->sendEmail('', $variables["email"], $subject, $message);
             }
         }

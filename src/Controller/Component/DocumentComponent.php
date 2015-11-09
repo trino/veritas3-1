@@ -175,7 +175,7 @@ class DocumentComponent extends Component{
                                             }
 //$arr['document_type'] = urldecode($_GET['document']);
                                             $username =   $user_id = $controller->request->session()->read('Profile.username');
-                                            $ret = array("site" => $setting->mee,"email" => $em, "company_name" => $client_name, "username" => $username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 1);
+                                            $ret = array("site" => $setting->mee,"email" => $em, "company_name" => $client_name, "username" => $username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 1, "document_type" => $this->get_document_type($did));
                                             if($emailenabled) {$Mailer->handleevent("documentcreated", $ret);}
 /*
                                             $from = array('info@'.$path => $setting->mee);
@@ -193,7 +193,7 @@ class DocumentComponent extends Component{
                                     $ut = $this->getprofiletype();
                                     $username =   $user_id = $controller->request->session()->read('Profile.username');
                                     if($emailenabled) {
-                                        $ret = array("site" => $setting->mee, "email" => "super", "company_name" => $client_name, "username" => $username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 2);
+                                        $ret = array("site" => $setting->mee, "email" => "super", "company_name" => $client_name, "username" => $username, "id" => $did, "path" => $path, "profile_type" =>  $ut, "place" => 2, "document_type" => $this->get_document_type($did));
                                         $Mailer->handleevent("documentcreated", $ret);
                                     }
                                 }
@@ -281,7 +281,7 @@ class DocumentComponent extends Component{
                                           }
                                           //$path = 'https://isbmeereports.com/documents/view/'.$cid;
                                         if($emailenabled) {
-                                            $ret = array("site" => $setting->mee, "email" => $p, "company_name" => $client_name, "username" => $uq->username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 3);
+                                            $ret = array("site" => $setting->mee, "email" => $p, "company_name" => $client_name, "username" => $uq->username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 3, "document_type" => $this->get_document_type($did));
                                             $Mailer->handleevent("documentcreated", $ret);
                                         }/*
                                         $from = array('info@'.$path => $setting->mee);
@@ -386,15 +386,15 @@ class DocumentComponent extends Component{
 
                                         $user_id = $p;//shouldn't this be $p?
                                         $uq = $pro_query->find('all')->where(['id' => $user_id])->first();
-                                        if (isset($uq->profile_type))
-                                          {
+                                        $ut = '';
+                                        if (isset($uq->profile_type)) {
                                             $u = $uq->profile_type;
                                             $type_query = TableRegistry::get('profile_types');
                                             $type_q = $type_query->find()->where(['id'=>$u])->first(); 
                                             $ut = $type_q->title;
                                           }
-                                          else
-                                            $ut = '';
+
+
 
                                         //
                                           $path = 'https://isbmeereports.com/documents/view/'.$cid;
@@ -409,7 +409,7 @@ class DocumentComponent extends Component{
 */
                                         if($emailenabled) {
                                             $username = $user_id = $controller->request->session()->read('Profile.username');
-                                            $ret = array("site" => $setting->mee, "email" => $p, "company_name" => $client_name, "username" => $username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 4);
+                                            $ret = array("site" => $setting->mee, "email" => $p, "company_name" => $client_name, "username" => $username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 4, "document_type" => $this->get_document_type($did));
                                             $Mailer->handleevent("documentcreated", $ret);
                                         }
                                     }
@@ -441,6 +441,10 @@ class DocumentComponent extends Component{
            // return $ret;
             die();
             
+        }
+
+        function get_document_type($DocID){
+            return TableRegistry::get('documents')->find('all')->where(['id' => $DocID])->first()->document_type;
         }
 
         public function getprofiletype($user_id=""){
@@ -1247,7 +1251,8 @@ class DocumentComponent extends Component{
             die;
         }
         public function mee_attach($cid = 0, $document_id = 0){
-            // echo "<pre>";print_r($_POST);die;
+            //$this->debugprint($_POST);
+
             $controller = $this->_registry->getController();
             $roadTest = TableRegistry::get('mee_attachments');
 
@@ -1257,7 +1262,6 @@ class DocumentComponent extends Component{
             }
 
             $arr['user_id'] = $controller->request->session()->read('Profile.id');
-
             if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                 if (!isset($_GET['order_id'])) {
                     $arr['order_id'] = $document_id;
@@ -1266,7 +1270,6 @@ class DocumentComponent extends Component{
                 }
                 $arr['document_id'] = 0;
 
-
                 if (isset($_POST['uploaded_for'])) {
                     $uploaded_for = $_POST['uploaded_for'];
                 }else {
@@ -1274,16 +1277,14 @@ class DocumentComponent extends Component{
                 }
                 $for_doc = array('document_type' => 'MEE Attachments', 'sub_doc_id' => 15, 'order_id' => $arr['order_id'], 'user_id' => $arr['user_id'], 'uploaded_for' => $uploaded_for);
                 $this->saveDocForOrder($for_doc);
-
-
             } else {
                 $arr['document_id'] = $document_id;
                 $arr['order_id'] = 0;
             }
 
             $del = $roadTest->query();
-            $mee_att = $del->find()->where(['document_id'=>$document_id])->first();
-            
+            $mee_att = $del->find('all')->where(['document_id'=>$document_id])->first();
+
             if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                 if (isset($_GET['order_id'])) {
                     $document_id = $_GET['order_id'];
@@ -1291,20 +1292,27 @@ class DocumentComponent extends Component{
                 $del->delete()->where(['order_id' => $document_id])->execute();
             } else {
                 $del->delete()->where(['document_id' => $document_id])->execute();
-                if($_POST['id_piece1']!='' && $_POST['id_piece1']!=$mee_att->id_piece1)
-                    @unlink(WWW_ROOT."attachments/".$mee_att->id_piece1);
-                if($_POST['id_piece2']!='' && $_POST['id_piece2']!=$mee_att->id_piece2)
-                @unlink(WWW_ROOT."attachments/".$mee_att->id_piece2);
-                if($_POST['cvor']!='' && $_POST['cvor']!=$mee_att->cvor)
-                @unlink(WWW_ROOT."attachments/".$mee_att->cvor);
-                if($_POST['driver_record_abstract']!='' && $_POST['driver_record_abstract']!=$mee_att->driver_record_abstract)
-                @unlink(WWW_ROOT."attachments/".$mee_att->driver_record_abstract);
-                if($_POST['resume']!='' && $_POST['resume']!=$mee_att->resume)
-                @unlink(WWW_ROOT."attachments/".$mee_att->resume);
-                if($_POST['certification']!='' && $_POST['certification']!=$mee_att->certification)
-                @unlink(WWW_ROOT."attachments/".$mee_att->certification);
+                if($_POST['id_piece1']!='' && $_POST['id_piece1']!=$mee_att->id_piece1) {
+                    @unlink(WWW_ROOT . "attachments/" . $mee_att->id_piece1);
+                }
+                if($_POST['id_piece2']!='' && $_POST['id_piece2']!=$mee_att->id_piece2) {
+                    @unlink(WWW_ROOT . "attachments/" . $mee_att->id_piece2);
+                }
+                if($_POST['cvor']!='' && $_POST['cvor']!=$mee_att->cvor) {
+                    @unlink(WWW_ROOT . "attachments/" . $mee_att->cvor);
+                }
+                if($_POST['driver_record_abstract']!='' && $_POST['driver_record_abstract']!=$mee_att->driver_record_abstract) {
+                    @unlink(WWW_ROOT . "attachments/" . $mee_att->driver_record_abstract);
+                }
+                if($_POST['resume']!='' && $_POST['resume']!=$mee_att->resume) {
+                    @unlink(WWW_ROOT . "attachments/" . $mee_att->resume);
+                }
+                if($_POST['certification']!='' && $_POST['certification']!=$mee_att->certification) {
+                    @unlink(WWW_ROOT . "attachments/" . $mee_att->certification);
+                }
             }
 
+            $mee = array();
             $mee['order_id'] = $arr['order_id'];
             $mee['document_id'] = $arr['document_id'];
             $mee['certification'] = $_POST['certification'];
@@ -1315,7 +1323,7 @@ class DocumentComponent extends Component{
             $mee['resume'] = $_POST['resume'];
             $mee['client_id'] = $cid;
             $mee['user_id'] = $arr['user_id'];
-            
+            //$this->debugprint($mee);
 
             $save = $roadTest->newEntity($mee);
             if ($roadTest->save($save)) {
@@ -1333,6 +1341,17 @@ class DocumentComponent extends Component{
             }
             die;
         }
+
+    function debugprint($text) {
+        $path = "royslog.txt";
+        $dashes = "----------------------------------------------------------------------------------------------\r\n";
+        if (is_array($text)) {
+            $text = print_r($text, true);
+        }
+        file_put_contents($path, $dashes . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
+    }
+
+
         public function getDocument($type = ""){
             $doc = TableRegistry::get('Subdocuments');
             $query = $doc->find();
