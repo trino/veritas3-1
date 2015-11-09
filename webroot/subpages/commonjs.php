@@ -1,7 +1,7 @@
 <script>
-client_id = '<?=$cid?>';
+    client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
-    profile_id = '<?= $_GET["driver"] ?>';
+    profile_id = '<?php if(isset($_GET["driver"])) {echo $_GET["driver"];} ?>';
  <?php if($did) { ?>
         showforms('company_pre_screen_question.php');
         showforms('driver_application.php');
@@ -609,7 +609,7 @@ $(function(){
         });
         return d.promise();
     }
-function savePrescreen(url, order_id, cid,draft,redir=0) {
+function savePrescreen(url, order_id, cid,draft,redir) {
 
         inputs = $('#form_tab1').serialize();
 
@@ -641,7 +641,7 @@ function savePrescreen(url, order_id, cid,draft,redir=0) {
         });
     }
 
-    function savedDriverApp(url, order_id, cid,draft,redir=0) {
+    function savedDriverApp(url, order_id, cid,draft,redir) {
         var param = $('#form_tab2').serialize();
         $('#form_tab2 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -665,7 +665,7 @@ function savePrescreen(url, order_id, cid,draft,redir=0) {
             }
         });
     }
-    function savedDriverEvaluation(url, order_id, cid,draft,redir=0) {
+    function savedDriverEvaluation(url, order_id, cid,draft,redir) {
         var param = $('#form_tab3').serialize();
         $('#form_tab3 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -689,7 +689,7 @@ function savePrescreen(url, order_id, cid,draft,redir=0) {
         });
     }
 
-    function savedMeeOrder(url, order_id, cid, type,draft,redir=0) {
+    function savedMeeOrder(url, order_id, cid, type,draft,redir) {
         var param = $('#form_consent').serialize();
         $('#form_consent :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -731,7 +731,7 @@ function savePrescreen(url, order_id, cid,draft,redir=0) {
         });
     }
 
-    function saveEmployment(url, order_id, cid, type,draft,redir=0) {
+    function saveEmployment(url, order_id, cid, type,draft,redir) {
 
         var fields = $('#form_employment').serialize();
         $(':disabled[name]', '#form_employment').each(function () {
@@ -771,7 +771,7 @@ function savePrescreen(url, order_id, cid,draft,redir=0) {
         });
     }
 
-    function saveEducation(url, order_id, cid, type,draft,redir=0) {
+    function saveEducation(url, order_id, cid, type,draft,redir) {
         //alert('test2');
         //$('#loading5').show();
         var fields = $('#form_education').serialize();

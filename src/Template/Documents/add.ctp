@@ -1277,7 +1277,7 @@
     function fillform()
     {
         var prof_id = $('#selecting_driver').val();
-
+        profile_id = prof_id;
         if (prof_id != 0 && prof_id != '0') {
             $.ajax({
                 url: '<?php echo $this->request->webroot;?>profiles/getProfileById/' + prof_id + '/1',
