@@ -4,7 +4,7 @@
     <input type="hidden" name="document_type" value="driver_form" />
     <input type="hidden" name="client_id" value="<?php if(isset($cid))echo $cid;?>" />
     <div class="col-md-4"><label class="control-label required notonclient">Your Username: </label>
-        <input type="text" class="form-control required notonclient"  name="username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php }?> />
+        <input type="text" class="form-control required notonclient uname"  name="username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php }?> />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label required notonclient">Your <?= $strings["forms_password"]; ?>: </label>
@@ -42,7 +42,7 @@
     </div>
 
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_email"]; ?>: </label>
-        <input type="text" class="form-control required" required name="email" role="email" <?php if (isset($p->email)) { ?> value="<?php echo $p->email; ?>" <?php }?>  />
+        <input type="text" class="form-control required emailz" required name="email" role="email" <?php if (isset($p->email)) { ?> value="<?php echo $p->email; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
 

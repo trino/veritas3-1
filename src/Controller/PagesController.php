@@ -25,7 +25,7 @@ class PagesController extends AppController {
         parent::initialize();
         $this->loadComponent('Settings');
         $this->loadComponent('Trans');
-        //$this->Settings->verifylogin($this, "pages");
+        $this->Settings->verifylogin($this, "pages");
     }
 
 	public function index() {
