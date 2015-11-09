@@ -1,7 +1,8 @@
-<?php if($this->request->session()->read('debug')) {
-    echo "<span style ='color:red;'>subpages/clients/requalify.php #INC ABFFF</span><BR>";
-}
-echo $strings["clients_requalifynotice"];
+<?php
+    if($this->request->session()->read('debug')) {
+        echo "<span style ='color:red;'>subpages/clients/requalify.php #INC ABFFF</span><BR>";
+    }
+    echo $strings["clients_requalifynotice"];
 ?>
 <form action="" method="post" class="requalify_form">
 <input type="hidden" name="id" value="<?php echo $client->id; ?>" />
@@ -61,10 +62,9 @@ echo $strings["clients_requalifynotice"];
 
             $r = explode(',',$client->requalify_product);
             printproducts($r, $products, array(1, 14, 72), $language);
-        ?></td>
-    </tr>
 
-    <?php
+        echo '</td></tr>';
+
         if($Manager->read("admin")){
             echo '<TR><TD>Run CRON when you click Save Changes <i class="m-icon-swapright m-icon-black"></TD><TD><LABEL><INPUT NAME="runcron" VALUE="TRUE" TYPE="checkbox">Yes</LABEL></TD></TR>';
         }
@@ -91,13 +91,14 @@ echo $strings["clients_requalifynotice"];
             <td><?= $strings["forms_cronorders"];?></td>
         </tr>
         <?php
+            /*
             $profiles = $this->requestAction('/rapid/getcronProfiles/'.$client->profile_id);
             foreach($profiles as $p) {//this line is erroring out
         ?>
             <tr>
-                <td><?php echo $p->username;?></td>
-                <td><?php echo $p->hired_date;?></td>
-                <td><?php echo ($p->requalify=='1')? $strings["dashboard_affirmative"]: $strings["dashboard_negative"];?></td>
+                <td><?= $p->username;?></td>
+                <td><?= $p->hired_date;?></td>
+                <td><?= ($p->requalify=='1')? $strings["dashboard_affirmative"]: $strings["dashboard_negative"];?></td>
                 <td><?php $crons = $this->requestAction('/rapid/cron_client/'.$p->id."/".$client->id);
                            $show ='';
                            $cron = explode(",",$crons);
@@ -110,6 +111,7 @@ echo $strings["clients_requalifynotice"];
             </tr>
             <?php
             }
+            */
         ?>
     </table>
 </div>

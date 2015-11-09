@@ -74,7 +74,6 @@
             <?php
 
         }
-
         echo "</div>";
     ?>
 
@@ -146,7 +145,8 @@
 
                                     <?php
 
-                                } ?>
+                                }
+                                ?>
 
 
                             </UL>
@@ -155,23 +155,13 @@
                         <div class="portlet-body form">
                             <div class="form-body" style="padding-bottom: 0px;">
                                 <div class="tab-content">
-                                    <?php
-
-                                        if (!isset($_GET['activedisplay']))
-                                        {
-                                    ?>
+                                    <?php if (!isset($_GET['activedisplay'])){ ?>
                                     <div class="tab-pane active" id="tab_1_1">
                                         <div id="tab_1_1" class="tab-pane active">
-                                            <?php
-                                                }
-                                                else
-                                                {
-                                            ?>
+                                            <?php }else{ ?>
                                             <div class="tab-pane" id="tab_1_1">
                                                 <div id="tab_1_1" class="tab-pane">
-                                                    <?php
-                                                        }
-                                                    ?>
+                                                    <?php } ?>
                                                     <form role="form" action="" method="post" id="client_form"
                                                           class="save_client_all">
                                                         <input type="hidden" name="drafts" id="client_drafts"
@@ -216,6 +206,7 @@
                                                                                     <?php
                                                                                 }
                                                                             }
+
                                                                         ?>
 
                                                                     </select>
@@ -223,8 +214,7 @@
 
                                                             <?php } ?>
                                                             <div class="form-group col-md-4">
-                                                                <label
-                                                                    class="control-label"> <?php echo ($settings->client_option == 0) ? $strings["forms_companyname"] : $strings["forms_eventname"]; ?>
+                                                                <label class="control-label"> <?php echo ($settings->client_option == 0) ? $strings["forms_companyname"] : $strings["forms_eventname"]; ?>
                                                                 </label>
                                                                 <input required="required" type="text"
                                                                        class="form-control"
@@ -253,8 +243,7 @@
                                                                     class="control-label"><?= $strings["forms_provincestate"]; ?>
                                                                     :</label>
                                                                 <?php
-                                                                    function printoption($value, $selected, $option)
-                                                                    {
+                                                                    function printoption($value, $selected, $option) {
                                                                         $tempstr = "";
                                                                         if ($option == $selected or $value == $selected) {
                                                                             $tempstr = " selected";
@@ -262,8 +251,7 @@
                                                                         echo '<OPTION VALUE="' . $value . '"' . $tempstr . ">" . $option . "</OPTION>";
                                                                     }
 
-                                                                    function printoptions($name, $valuearray, $selected, $optionarray)
-                                                                    {
+                                                                    function printoptions($name, $valuearray, $selected, $optionarray) {
                                                                         echo '<SELECT name="' . $name . '" class="form-control member_type" >';
                                                                         for ($temp = 0; $temp < count($valuearray); $temp += 1) {
                                                                             printoption($valuearray[$temp], $selected, $optionarray[$temp]);
@@ -271,8 +259,7 @@
                                                                         echo '</SELECT>';
                                                                     }
 
-                                                                    function printprovinces($name, $selected, $Language = "English")
-                                                                    {
+                                                                    function printprovinces($name, $selected, $Language = "English") {
                                                                         $acronyms = getprovinces("Acronyms", True);
                                                                         $provinces = getprovinces($Language, True);
                                                                         printoptions($name, $acronyms, $selected, $provinces);
@@ -284,17 +271,13 @@
                                                             </div>
                                                             <?php if ($settings->client_option == 0) { ?>
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_postalzip"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_postalzip"]; ?>:</label>
                                                                     <input type="text" class="form-control"
                                                                            role='postalzip'
                                                                            name="postal" <?php if (isset($client->postal)) { ?> value="<?php echo $client->postal; ?>" <?php } ?>/>
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_companyphone"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_companyphone"]; ?>:</label>
                                                                     <input type="text" class="form-control"
                                                                            id="company_phone"
                                                                            name="company_phone"
@@ -303,41 +286,31 @@
                                                                 </div>
                                                             <?php } ?>
                                                             <div class="form-group col-md-4">
-                                                                <label
-                                                                    class="control-label"><?= $strings["forms_website"]; ?>
-                                                                    :</label>
+                                                                <label class="control-label"><?= $strings["forms_website"]; ?>:</label>
                                                                 <input type="text" class="form-control"
                                                                        name="site" <?php if (isset($client->site)) { ?> value="<?php echo $client->site; ?>" <?php } ?>/>
                                                             </div>
                                                             <?php if ($settings->client_option == 0) { ?>
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_divisions"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_divisions"]; ?>:</label>
                                                                     <textarea name="division" id="division"
                                                                               placeholder="<?= $strings["forms_oneperline"]; ?>"
                                                                               class="form-control"><?php if (isset($client->division)) echo $client->division; ?></textarea>
                                                                 </div>
 
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_signatoryfirstname"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_signatoryfirstname"]; ?>:</label>
                                                                     <input type="text" class="form-control"
                                                                            name="sig_fname" <?php if (isset($client->sig_fname)) { ?> value="<?php echo $client->sig_fname; ?>" <?php } ?>/>
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_signatorylastname"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_signatorylastname"]; ?>:</label>
                                                                     <input type="text" class="form-control"
                                                                            name="sig_lname" <?php if (isset($client->sig_lname)) { ?> value="<?php echo $client->sig_lname; ?>" <?php } ?>/>
                                                                 </div>
 
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_signatoryemail"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_signatoryemail"]; ?>:</label>
                                                                     <input type="email" id="sig_email"
                                                                            class="form-control" role="email"
                                                                            name="sig_email" <?php if (isset($client->sig_email)) { ?> value="<?php echo $client->sig_email; ?>" <?php } ?>/>
@@ -345,16 +318,12 @@
 
 
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_startdate"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_startdate"]; ?>:</label>
                                                                     <input type="text" class="form-control date-picker"
                                                                            name="date_start" <?php if (isset($client->date_start)) { ?> value="<?php echo $client->date_start; ?>" <?php } ?>/>
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <label
-                                                                        class="control-label"><?= $strings["forms_enddate"]; ?>
-                                                                        :</label>
+                                                                    <label class="control-label"><?= $strings["forms_enddate"]; ?>:</label>
                                                                     <input type="text" class="form-control date-picker"
                                                                            name="date_end" <?php if (isset($client->date_end)) { ?> value="<?php echo $client->date_end; ?>" <?php } ?>/>
                                                                 </div>
@@ -366,11 +335,10 @@
                                                                 </div-->
 
 
-                                                                <?php if ($settings->mee == "MEE") { ?>
+                                                                <?php
+                                                                if ($settings->mee == "MEE") { ?>
                                                                     <div class="form-group col-md-4">
-                                                                        <label
-                                                                            class="control-label"><?= $strings["forms_referredby"]; ?>
-                                                                            :</label>
+                                                                        <label class="control-label"><?= $strings["forms_referredby"]; ?>:</label>
                                                                         <select class="form-control" name="referred_by"
                                                                                 id="referred_by">
                                                                             <option
@@ -627,20 +595,13 @@
                                             echo ' class="tab-pane" id="tab_1_4">';
                                             include('subpages/clients/products.php');
                                             echo "</DIV>";
-
-                                            if ($this->request['action'] != "add" && !isset($_GET['view']))
-                                            {
-                                            if (isset($_GET['activedisplay']))
-                                            {
-                                        ?>
-                                        <div class="tab-pane active" id="tab_1_2">
-                                            <?php
+                                            if ($this->request['action'] != "add" && !isset($_GET['view'])){
+                                                if (isset($_GET['activedisplay'])){
+                                                    ECHO '<div class="tab-pane active" id="tab_1_2">';
+                                                } else {
+                                                    echo '<div class="tab-pane" id="tab_1_2">';
                                                 }
-                                                else
-                                                {
-                                            ?>
-                                            <div class="tab-pane" id="tab_1_2">
-                                                <?php } ?>
+                                                ?>
                                                 <h4 class="col-md-6">
                                                     <?= $strings["clients_enabledocs"]; ?></h4>
 
@@ -822,7 +783,7 @@
                                             <div class="tab-pane" id="tab_1_6" style="">
                                                 <?php
                                                     if ($action != "Create") {
-                                                        include('subpages/clients/requalify.php');
+                                                            include('subpages/clients/requalify.php');
                                                     }
                                                 ?>
                                             </div>
