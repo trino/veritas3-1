@@ -393,9 +393,9 @@ function ProcessVariables($ID, $Text, $Variables = "", $addSlashes = false){
             if (substr($Key, 0, 1) != "%") {$Key = "%" . $Key;}
             if (substr($Key, -1) != "%") {$Key .= "%";}
             if($ID == "Debug"){
-                $Text.= " [" . $Key . "=" . $Value . "]";
+                $Text.= " [" . $Key . "=" . trim($Value) . "]";
             } else {
-                $Text = str_replace($Key, $Value, $Text);
+                $Text = str_replace($Key, trim($Value), $Text);
             }
         }
     }
@@ -407,10 +407,10 @@ function ProcessVariables($ID, $Text, $Variables = "", $addSlashes = false){
 }
 
 function addslashes2($Text){
-    return str_replace("&#039;", "\'", addslashes($Text));
+    return str_replace("&#039;", "\'", addslashes(trim($Text)));
 }
 function addslashes3($Text){
-    return str_replace("&quot;", '"',  str_replace("&#039;", "\'", addslashes($Text)));
+    return str_replace("&quot;", '"',  str_replace("&#039;", "\'", addslashes(trim($Text))));
 }
 
 function FindIterator($ObjectArray, $FieldName, $FieldValue){

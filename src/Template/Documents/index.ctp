@@ -406,7 +406,7 @@
                         ?>
 
                     </td>
-                    <td align="right">
+                    <td align="center">
                         <?php
                             if($docs->draft == 1){
                                 $Color = "label-warning";

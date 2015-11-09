@@ -359,22 +359,15 @@
                                         </td>
 
 
-                                        <td valign="middle">
+                                        <td align="center" valign="middle">
                                             <?php
-                                            //   var_dump($order);
                                             if($order->draft == 1) {
-                                                ?>
-                                                 <span class="label label-sm label-warning"  style="float:right;padding:4px;"><?= $strings["documents_draft"]; ?></span>
-                                                <?php
-
+                                                echo '<span class="label label-sm label-warning"  style="padding:4px;">' . $strings["documents_draft"] . '</span>';
                                             }else if ($order->complete == 0) {
-                                                    ?>
-                                                    <span class="label label-sm label-primary" style="float:right;padding:4px;"><?= $strings["documents_pending"];?></span>
-                                                <?php
-
-                                            } else { ?>
-                                                <span class="label label-sm label-success"  style="float:right;padding:4px;"><?= $strings["documents_complete"];?></span>
-                                            <?php } ?>
+                                                echo '<span class="label label-sm label-primary" style="padding:4px;">' . $strings["documents_pending"] . '</span>';
+                                            } else {
+                                                echo '<span class="label label-sm label-success"  style="padding:4px;">' . $strings["documents_complete"] . '</span>';
+                                            } ?>
                                         </td>
 
                                     </tr>
