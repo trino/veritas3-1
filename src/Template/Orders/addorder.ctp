@@ -143,7 +143,10 @@ printCSS($this);
             //$checker = $_this->requestAction('/orders/checkPermisssionOrder/'.$did.'/'.$_GET['driver']);
             //if(!$checker)
             //return false; //code does not work properly
-            if ($thedocuments[$name]["Display"] == 0){return false;}//checks order taker's profile setting
+            if ($thedocuments[$name]["Display"] == 0){
+                if($debugmode){debug("CHECKING: Display setting for " . $name . " is 0");}
+                return false;
+            }//checks order taker's profile setting
         }
         if(isset($_GET['order_type'])) {
             switch ($theproduct->Acronym){
@@ -154,11 +157,15 @@ printCSS($this);
                     return true;
                     break;
                 case "GEM":
-                    if ($name == "challenger road test"){ return false;}
+                    if ($name == "challenger road test"){
+                        if($debugmode){debug("CHECKING: GEM ROAD TEST");}
+                        return false;
+                    }
                     break;
             }
         }
         if(isset($theproduct->BypassForms)){
+            if($debugmode){debug("CHECKING: BYPASS FORMS " . $name);}
             return isset($theproduct->BypassForms[$name]);
         }
         if(isset($_GET["debug"])){
@@ -166,6 +173,7 @@ printCSS($this);
         }
         //echo "Testing: " . $name . " '" . isset($thedocuments[$name][$DriverProvince]) . "'"; debug($thedocuments);
         //echo "<BR>" . $DriverProvince . " " . $name . " <BR>"; print_r($thedocuments[$name]);
+        if($debugmode){debug("CHECKING: Driver's province " . $name . " " . $DriverProvince);}
         return isset($thedocuments[$name][$DriverProvince]);
     }
 
