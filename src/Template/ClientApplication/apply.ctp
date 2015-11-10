@@ -62,6 +62,9 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     <?php include('subpages/documents/driver_form.php');?>    
     <hr />
     <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
+    <?php if($this->request->session()->read('debug')){
+        echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+    } ?>
 </div>
 <?php 
 $cid = $client->id;
@@ -94,8 +97,5 @@ foreach($subd as $s)
     $(function(){
         $('#more_div').css({'padding':'0'});
         $('#more_div').addClass('row');
-   
-        
     })
-
 </script>
