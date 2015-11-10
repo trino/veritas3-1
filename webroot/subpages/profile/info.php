@@ -46,17 +46,6 @@ if($ShouldShow || $canedit){
 }
 $getProfileType = $this->requestAction('profiles/getProfileType/' . $userID);
 
-function printoption($option, $selected, $value = ""){
-    $tempstr = "";
-    if ($option == $selected || $value == $selected) {
-        $tempstr = " selected";
-    }
-    if (strlen($value) > 0) {
-        $value = " value='" . $value . "'";
-    }
-    echo '<option' . $value . $tempstr . ">" . $option . "</option>";
-}
-
 function printoption2($value, $selected = "", $option){
     $tempstr = "";
     if ($option == $selected or $value == $selected) {
