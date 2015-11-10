@@ -314,6 +314,8 @@
                                             //echo "<BR><B>" . $strings["flash_cantorder"] . '</BR><HR>' .
                                             echo "<BR><B>" . $strings["flash_cantorder2"] . ': </B>';
                                             echo implode(", ", $Missing);
+                                        } else if (!isset($sidebar->orders_create)) {
+                                            echo "<BR>" . $strings["flash_cantorder4"];
                                         } else if ($sidebar->orders_create == 1) {
                                             $title = getFieldname("Name", $language);
                                             foreach ($products as $product) {

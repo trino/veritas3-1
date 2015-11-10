@@ -1,4 +1,10 @@
 <?php
+if (isset($consent_detail)){
+	$Filename = getcwd() . "/canvas/" . $consent_detail->signature_company_witness2;
+	if(!file_exists($Filename)){
+		$consent_detail->signature_company_witness2 = "";
+	}
+}
 
 $_GET['num']=1002;?>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>

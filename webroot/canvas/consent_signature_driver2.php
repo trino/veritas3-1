@@ -2,6 +2,15 @@
 if ($this->request->session()->read('debug')) {
     echo "<span style ='color:red;'>subpages/canvas/consent_signature_driver2.php #INC???</span>";
 }
+
+
+if (isset($consent_detail)){
+    $Filename = getcwd() . "/canvas/" . $consent_detail->criminal_signature_applicant2;
+    if(!file_exists($Filename)){
+        $consent_detail->criminal_signature_applicant2 = "";
+    }
+}
+
 ?>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>

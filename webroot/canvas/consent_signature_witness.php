@@ -2,6 +2,13 @@
 if ($this->request->session()->read('debug')) {
     echo "<span style ='color:red;'>subpages/canvas/consent_signature_witness.php #INC???</span>";
 }
+
+if (isset($consent_detail)){
+    $Filename = getcwd() . "/canvas/" . $consent_detail->signature_company_witness;
+    if(!file_exists($Filename)){
+        $consent_detail->signature_company_witness = "";
+    }
+}
 ?>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
