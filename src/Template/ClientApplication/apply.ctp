@@ -79,7 +79,7 @@ foreach($subd as $s)
         <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$s->sub_id));?>
         <hr />
         <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-primary">Previous</a> 
-        <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Proceed</a>
+        <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Proceed</a>   
     </div>
     <?php
     //echo $s->sub_id;
