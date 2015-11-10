@@ -72,7 +72,9 @@
             <a href="<?= $this->request->webroot; ?>clients/edit/<?= $client->id; ?>?view"
                class='floatright btn btn-info btnspc'><?= $strings["dashboard_view"]; ?></a>
             <?php
-
+            if($this->request->session()->read('debug')){
+                echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+            }
         }
         echo "</div>";
     ?>

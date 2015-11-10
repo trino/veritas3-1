@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2015 at 09:29 PM
+-- Generation Time: Nov 10, 2015 at 07:24 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=793 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=794 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1446732862', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447166153', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -806,7 +806,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (789, 'invoice_invoice', 'Sales Rep', 'facture #'),
 (790, 'invoice_company', 'Registered Company', 'Société enregistrée'),
 (791, 'invoice_datecreatedcompleted', 'Date Created/Completed', 'Date Créée/Complet'),
-(792, 'orders_completed', 'Completed', 'Terminé');
+(792, 'orders_completed', 'Completed', 'Terminé'),
+(793, 'dashboard_autofill', 'Autofill', 'Remplissage automatique');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

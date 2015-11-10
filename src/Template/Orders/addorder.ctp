@@ -177,16 +177,15 @@
         return isset($thedocuments[$name][$DriverProvince]);
     }
 
-    if($Debug){
-        echo '<A ONCLICK="autofill2(false);" class="floatright btn btn-warning">' . $strings["dashboard_autofill"] . '</A>';
-    }
     if (isset($disabled)) { ?>
         <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
         <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
         <a href="" class="floatright btn btn-info">Add to Task List</a-->
     <?php }
-
+    if($Debug){
+        echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+    }
     echo '</div>';
 
     if($p->iscomplete){

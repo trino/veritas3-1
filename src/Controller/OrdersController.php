@@ -248,8 +248,7 @@
                     $dr = $orde->draft;
                     if ($dr == '0' || !$dr) {
                         $dr = 0;
-                        $this->Flash->success($this->Trans->getString("flash_ordersaved"));
-                        //die();
+                        //$this->Flash->success($this->Trans->getString("flash_ordersaved")); //die();
                     } else {
                         $dr = 1;
                     }
@@ -381,7 +380,7 @@
                 $sd = $sub_doc->find()->all();
 
                 foreach($sd as $s) {
-                    if($s->id >20) {
+                    if($s->id >20 && $queryy) {
                         if ($queryy->sub_doc_id == $s->id) {
                             $mods = TableRegistry::get($s->table_name);
 
