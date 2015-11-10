@@ -119,6 +119,14 @@ $(function(){
                   id = parseInt(id);
             $('#step'+id).show();
             $('#step'+id).addClass('active');
+            <?php
+            if($this->request->params['action']=='apply')
+            {
+                ?>
+                $('.counter').text(Number($('.counter').text())-1);
+                <?php
+            }
+            ?>
             
    });
    $('.buttons').click(function(){

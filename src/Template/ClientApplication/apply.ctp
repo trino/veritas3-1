@@ -54,7 +54,7 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
     <?php include('subpages/documents/driver_form.php');?>    
     <hr />
-    <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed to step 2</a>
+    <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
 </div>
 <?php 
 $cid = $client->id;
@@ -68,8 +68,8 @@ foreach($subd as $s)
     <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
         <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$s->sub_id));?>
         <hr />
-         
-        <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Proceed to step <?php echo $jj+1;?></a>
+        <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-primary">Previous</a> 
+        <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Proceed</a>
     </div>
     <?php
     //echo $s->sub_id;
