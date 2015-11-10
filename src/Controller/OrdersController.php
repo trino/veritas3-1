@@ -433,6 +433,13 @@
                 $this->set('consent_detail', $con_detail);
             }
 
+            //mee attach
+            $con_detail = $this->getlastdocument($Profile_ID, 15, "mee_attachments");
+            if($con_detail) {
+                $mee_a['attach_doc'] = $con_detail;
+                $this->set('mee_att', $mee_a);
+            }
+
             //LETTER OF EXPERIENCE
             $con_detail = $this->getlastdocument($Profile_ID, 9, "employment_verification");
             if($con_detail) {
