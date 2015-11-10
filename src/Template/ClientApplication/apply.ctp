@@ -49,7 +49,9 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
 <div id="tab0">
 <h2>Application for <?php echo $client->company_name;?></h2>
 <input type="hidden" id="user_id" value=""/>
-<strong><p> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong>
+<div class="step_counters" style="float: right;
+    text-transform: uppercase;
+    font-size: 15px;"><strong><p style="color: #578ebe;"> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong></div>
 <div class="steps" id="step0" class="active">
     <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
     <?php include('subpages/documents/driver_form.php');?>    
