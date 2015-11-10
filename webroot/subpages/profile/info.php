@@ -1512,6 +1512,7 @@ loadreasons($param, $strings, true);
         <?php if(!isset($p) || ! ($p->admin || $p->super)){?>
         var elements = document.getElementsByClassName('addclientz');
         var element = document.getElementById("c_" + Index), id, checked = element.checked;
+        set_visible("doplaceorders", checked);
         for (var i = 0; i < elements.length; ++i) {
             element = elements[i];
             id = element.getAttribute('id').substr(2);

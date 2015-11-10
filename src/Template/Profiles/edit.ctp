@@ -272,8 +272,11 @@
                                 </div>
                             <?php }
                                 if (isset($p)) {
-
-                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder) {//driver, owner driver, owner operator, sales, employee
+                                    $ClientID = $Manager->find_client($profile->id, true);
+                                    echo '<DIV ID="doplaceorders"';
+                                    if(!$ClientID){ echo ' STYLE="visibility: hidden;"';}
+                                    echo '>';
+                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder ) {//driver, owner driver, owner operator, sales, employee
 
                                         echo '<label class="uniform-inline" style="margin-bottom:10px;">
                                                 <input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
@@ -345,6 +348,7 @@
                                             echo "This profile type cannot order";
                                         }
                                     }
+                                    echo '</DIV>';
                                 }
 
                                 //if (isset($client_docs)) {

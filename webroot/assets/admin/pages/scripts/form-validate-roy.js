@@ -157,6 +157,18 @@ function setinputvalue(element,newvalue, name) {
     }
 }
 
+function set_visible(element, status){
+    if(typeof element !== 'object'){
+        element = document.getElementById(element);
+        if(!element){return false;}
+    }
+    if(status){
+        element.style.visibility = 'visible';
+    } else{
+        element.style.visibility = 'hidden';
+    }
+}
+
 function getinputvalue(element){
     if(typeof element !== 'object'){
         element = document.getElementById(element);
