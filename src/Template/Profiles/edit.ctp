@@ -273,7 +273,7 @@
                             <?php }
                                 if (isset($p)) {
 
-                                    if ($profile->Ptype && $profile->Ptype->placesorders == 1 && $CanOrder) {//driver, owner driver, owner operator, sales, employee
+                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder) {//driver, owner driver, owner operator, sales, employee
 
                                         echo '<label class="uniform-inline" style="margin-bottom:10px;">
                                                 <input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
@@ -338,10 +338,8 @@
                                                 echo ' <i class="icon-doc m-icon-white"></i></a>';
                                             }
                                         }
-                                    } elseif (!$profile->Ptype) {
-                                        echo "Profile type: " . $profile->profile_type . " is missing";
                                     } else if($this->request->session()->read('debug')) {
-                                        if($CanOrder){
+                                        if(!$CanOrder){
                                             echo "You cannot place orders";
                                         } else {
                                             echo "This profile type cannot order";

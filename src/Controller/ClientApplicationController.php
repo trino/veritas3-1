@@ -24,17 +24,15 @@ class ClientApplicationController extends AppController {
         $this->loadComponent('Trans');
         $this->layout = 'application';
         $this->request->session()->write('Profile.language','English');
-
         //$this->Settings->verifylogin($this, "clients");
     }
     
-    public function index()
-    {
+    public function index() {
         $client = TableRegistry::get('clients')->find();
         $this->set('client',$client);
     }
-    public function apply($id)
-    {
+
+    public function apply($id) {
         $sub = TableRegistry::get('client_application_sub_order')->find()->where(['sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE client_id = '.$id.' AND display_application = 1)','client_id'=>$id])->order(['display_order'=>'ASC']);
         $client = TableRegistry::get('clients')->find()->where(['id'=>$id])->first();
         $this->set('client',$client);
@@ -42,10 +40,9 @@ class ClientApplicationController extends AppController {
         $this->set('Manager',$this->Manager);
         $this->set('did','0');
         $this->set('doc',TableRegistry::get('subdocuments')->find()->all());
-        
     }
-    public function getForm($id)
-    {
+
+    public function getForm($id) {
         //echo $id;
         $client = TableRegistry::get('subdocuments')->find()->where(['id'=>$id])->first();
         $q = $client->form;
@@ -53,8 +50,8 @@ class ClientApplicationController extends AppController {
             return $this->response;
             die();
     }
-    public function getSub($id)
-    {
+
+    public function getSub($id) {
         //echo $id;
         $client = TableRegistry::get('subdocuments')->find()->where(['id'=>$id])->first();
         $q = $client;
@@ -62,6 +59,7 @@ class ClientApplicationController extends AppController {
             return $this->response;
             die();
     }
+
     function get_settings() {
             $settings = TableRegistry::get('settings');
             $query = $settings->find();
@@ -69,19 +67,17 @@ class ClientApplicationController extends AppController {
             $q = $query->first();
             $this->response->body($q);
             return $this->response;
-            
         }
-    function saveDriver($id=0)
-    {
+
+    function saveDriver($id=0) {
         
         $model = TableRegistry::get('profiles');
         if($id==0){
-        $profile = $model->newEntity($_POST);
-        $model->save($profile);
-        echo $pid = $profile->id;
-        }
-        else
-        {
+            $_POST["profile_type"] = 0;
+            $profile = $model->newEntity($_POST);
+            $model->save($profile);
+            echo $pid = $profile->id;
+        } else {
             $arrs = $_POST;
             unset($arrs['client_id']);
             unset($arrs['c_id']);
