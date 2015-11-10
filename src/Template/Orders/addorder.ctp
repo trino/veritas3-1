@@ -28,7 +28,7 @@
     if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
     $settings = $this->requestAction('settings/get_settings');
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%"), $settings);
+    $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%", "flash_cantorder2"), $settings);
     if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}
     $title = $strings["orders_" . strtolower($action)];
     //<script src="<?php echo $this->request->webroot;  js/jquery.easyui.min.js" type="text/javascript"></script>
@@ -217,8 +217,22 @@
                     <input type="hidden" id="user_id" value="<?php echo $_GET['driver'];?>" />
                     <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
+                        $profile = $Manager->get_profile($_GET['driver']);
+                        $MissingFields = $Manager->requiredfields(false, "profile2order");
+                        $MissingData = $Manager->requiredfields($profile, "profile2order");
+                        $Missing= array();
+                        foreach($MissingFields as $Field => $String){
+                            if(!$profile->$Field){
+                                $Missing[] = $strings[$String];
+                            }
+                        }
 
-                        if ($param != 'view') {
+                        if(!$client) {
+                            echo $strings["addorder_notassigned"];
+                        } else if ($MissingData) {
+                            //echo "<BR><B>" . $strings["flash_cantorder"] . '</BR><HR>' .
+                            echo $strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing);
+                        } else if ($param != 'view') {
                             
                             $doc = $doc_comp->getDocument('orders');
                                 $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
@@ -300,7 +314,7 @@
                                         of <?php echo $doc_count+2;?>
                                         </p>
                                     </strong>
-                                        <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
+                                        <input type="hidden" name="c_id" value="<?php if($client){echo $client->id;} else { echo 0; } ?>" />
                                         <?php include('subpages/documents/driver_form.php');?>
                                         <hr />
                                         <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
