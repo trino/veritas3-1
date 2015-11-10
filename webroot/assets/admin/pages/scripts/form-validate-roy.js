@@ -28,7 +28,7 @@ function validate_data(Data, DataType){
                 var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
                 var regex = /[^\d+]/;
                 var Data2 = clean_data(Data, "number");
-                return (Data2.match(phoneRe) !== null || Data.match(regex) !== null);
+                return (Data2.match(phoneRe) !== null || Data2.length > 0);
                 break;
             case "sin":
                 Data = clean_data(Data, "number");
