@@ -1,6 +1,11 @@
 /*********************************
  METRONIC SQUARE STYLE COMPONENTS
 *********************************/
+
+.v-center{
+    vertical-align: middle !important;
+}
+
 /***
 Rounded corners reset
 ***/

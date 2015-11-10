@@ -269,7 +269,7 @@
                                 //$orderDetail = '<A HREF="'.$this->request->webroot.'orders/vieworder/'.$orderDetail->client_id.'/' . $orderID . '">' . $orderID . '</A>';
                             ?>
                             <tr ID="row<?= $docs->id; ?>" class="<?= $row_color_class; ?>" role="row">
-                                <td><?echo $this->Number->format($docs->id);
+                                <td class="v-center" align="center"><?echo $this->Number->format($docs->id);
                                     if($docs->hasattachments) { echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';} ?>
                                 </td>
 
@@ -322,7 +322,7 @@
 
                     <?php if ($settings->mee == "MEE") { ?>
 
-                    <td align=""><?php if ($orderID > 0) {
+                    <td class="v-center" align="center"><?php if ($orderID > 0) {
                             echo '<a href="'.$this->request->webroot.'orders/vieworder/'.$orderDetail->client_id.'/'.$orderDetail->id;if($orderDetail->order_type){echo '?order_type='.urlencode($orderDetail->order_type);if($orderDetail->forms)echo '&forms='.$orderDetail->forms;}echo '">'.$orderDetail->id;echo '</a>';
                         } else {
                             echo $strings["documents_na"];//needs translation
@@ -332,7 +332,7 @@
 <?}?>
 
 
-                    <td><?php
+                    <td class="v-center"><?php
                             $docname = h($docs->document_type) . " #: " . $this->Number->format($docs->id);
                             if (isset($uploaded_by->username)) {
                                 $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->user_id . '" target="_blank">' . formatname($uploaded_by);
@@ -345,7 +345,7 @@
 
                     <?php if ($settings->mee == "MEE") { ?>
 
-                    <td>
+                    <td class="v-center">
                         <?php
                         
                             if (isset($uploaded_for->username)) {
@@ -359,8 +359,8 @@
                     </td>
 
                     <?}?>
-                    <td><?= getdatecolor(h($docs->created)) ?></td>
-                    <td>
+                    <td class="v-center" align="center"><?= getdatecolor(h($docs->created)) ?></td>
+                    <td class="v-center">
                         <?php
                             $docname .=  ", " . $strings["documents_at"] . " " . h($docs->created);
                             if (is_object($getClientById)) {
@@ -371,16 +371,16 @@
                         ?>
 
                     </td>
-                    <td class="actions  util-btn-margin-bottom-5 ">
+                    <td class="actions util-btn-margin-bottom-5 v-center">
                         <?php
                         if ($sidebar->document_list == '1' && !isset($_GET["draft"])) {
                             //echo $this->Html->link(__('View'), ['action' => 'view', $docs->client_id, $docs->id], ['class' => btnclass("VIEW")]);
-                            echo '<a class="' . btnclass("VIEW") . '" href="' . $VIEWURL . '">' . $strings["dashboard_view"] . '</a>';
+                            echo '<a class="' . btnclass("VIEW") . '" href="' . $VIEWURL . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_view"] . '</a>';
                         }
 
                         if ($sidebar->document_edit == '1' &&  ($profiletype->caneditall == 1 || $this->request->session()->read('Profile.super')==1 || $this->request->session()->read('Profile.id')==$docs->user_id)) {
                             if (!$docs->order_id || $this->request->session()->read('Profile.super')) {
-                                echo '<a class="' . btnclass("EDIT") . '" href="' . $EDITURL . '">' . $strings["dashboard_edit"] . '</a>';
+                                echo '<a class="' . btnclass("EDIT") . '" href="' . $EDITURL . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_edit"] . '</a>';
                             }
                         }
 
@@ -397,7 +397,7 @@
                                 ?>
                                     <a
                                        onclick="deletedocument(<?=$docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname); ?>');"
-                                       class="<?= btnclass("DELETE") ?>"><?= $strings["dashboard_delete"]; ?></a>
+                                       class="<?= btnclass("DELETE") ?>" style="margin-bottom: 0 !important;"><?= $strings["dashboard_delete"]; ?></a>
                                 <?php
                             }
 
@@ -406,7 +406,7 @@
                         ?>
 
                     </td>
-                    <td align="center">
+                    <td align="center" class="v-center">
                         <?php
                             if($docs->draft == 1){
                                 $Color = "label-warning";

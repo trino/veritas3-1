@@ -207,9 +207,9 @@
                 foreach($qs as $k=>$q) {
                     //var_dump($q); die();
                     if(count($qs)==$k+1) {
-                        $client_ids .= "<a href='" . $controller->request->webroot . "clients/edit/" . $q->id . "?view' target ='_blank'>" . ucfirst($q->company_name) . "</a>";
+                        $client_ids .= "<a href='" . $controller->request->webroot . "clients/edit/" . $q->id . "?view' target ='_blank'>" . trim(ucfirst($q->company_name)) . "</a>";
                     }else {
-                        $client_ids .= "<a href='" . $controller->request->webroot . "clients/edit/" . $q->id . "?view' target ='_blank'>" . ucfirst($q->company_name) . "</a>, ";
+                        $client_ids .= "<a href='" . $controller->request->webroot . "clients/edit/" . $q->id . "?view' target ='_blank'>" . trim(ucfirst($q->company_name)) . "</a>, ";
                     }
                 }
             }
