@@ -10,6 +10,7 @@
     if($this->request->params['action'] == 'vieworder'){$view = 'view';}
     $action = ucfirst($param);
     if ($action == "Vieworder") { $action = "View";}
+    $Viewing = $action == "View";
     if ($action == "Addorder") {
         $action = "Create" ;
         if ($did>0){ $action = "Edit";}
@@ -228,13 +229,13 @@
                                 $Missing[] = $strings[$String];
                             }
                         }
-                        if(!isset($client)){
+                        if(!isset($client) && !$Viewing){
                             echo $strings["documents_missingclient"];
-                        } else if(!$client) {
+                        } else if(!$client && !$Viewing) {
                             echo '<A HREF="' . $EditURL . '">' . $strings["addorder_notassigned"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
-                        } else if(!$profile->is_complete){
+                        } else if(!$profile->is_complete && !$Viewing){
                             echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
-                        } else if ($MissingData) {
+                        } else if ($MissingData && !$Viewing) {
                             echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing)  . '<BR>' . $strings["flash_cantorder3"] . '</A>';
                         } else if ($param != 'view') {
                             
