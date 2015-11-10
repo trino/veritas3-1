@@ -119,7 +119,11 @@ class DocumentComponent extends Component{
                     $arr['created'] = date('Y-m-d H:i:s');
                 }
                 if (!$did || $did == '0') {
-                    $arr['user_id'] = $controller->request->session()->read('Profile.id');
+                    if(!isset($_POST['user_id']))
+                        $arr['user_id'] = $controller->request->session()->read('Profile.id');
+                    else
+                        $arr['user_id'] = $_POST['user_id'];
+                    
                     $order = $orders->newEntity($arr);
 
                     if ($orders->save($order)) {
@@ -236,9 +240,11 @@ class DocumentComponent extends Component{
                 if ((!$did || $did == '0') && ($arr['sub_doc_id'] < 7 || $arr['sub_doc_id'] == 15 || $arr['sub_doc_id'] == 9 || $arr['sub_doc_id'] == 10))
                 {
                     $arr['created'] = date('Y-m-d H:i:s');
-                    if($controller->request->session()->read('Profile.id'))
+                    if(!isset($_POST['user_id']))
                         $arr['user_id'] = $controller->request->session()->read('Profile.id');
-                   
+                    else
+                        $arr['user_id'] = $_POST['user_id'];
+                    
                    
                     $doc = $docs->newEntity($arr);
                     

@@ -166,6 +166,7 @@ $(function(){
 
         <?php }?>
          <?php if($this->request->controller=='ClientApplication'){?>
+            did = 0;
             draft=0;
         <?php }?>
 
