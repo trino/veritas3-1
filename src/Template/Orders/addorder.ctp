@@ -218,21 +218,24 @@
                     <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
                         $profile = $Manager->get_profile($_GET['driver']);
+                        //$client = $Manager->find_client($_GET['driver']);
                         $MissingFields = $Manager->requiredfields(false, "profile2order");
                         $MissingData = $Manager->requiredfields($profile, "profile2order");
                         $Missing= array();
+                        $EditURL = $this->request->webroot . 'profiles/edit/' . $_GET['driver'];
                         foreach($MissingFields as $Field => $String){
                             if(!$profile->$Field){
                                 $Missing[] = $strings[$String];
                             }
                         }
-
-                        if(!$client) {
-                            echo $strings["addorder_notassigned"];
+                        if(!isset($client)){
+                            echo $strings["documents_missingclient"];
+                        } else if(!$client) {
+                            echo '<A HREF="' . $EditURL . '">' . $strings["addorder_notassigned"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
                         } else if(!$profile->is_complete){
-                            echo $strings["flash_cantorder"];
+                            echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
                         } else if ($MissingData) {
-                            echo $strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing);
+                            echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing)  . '<BR>' . $strings["flash_cantorder3"] . '</A>';
                         } else if ($param != 'view') {
                             
                             $doc = $doc_comp->getDocument('orders');
