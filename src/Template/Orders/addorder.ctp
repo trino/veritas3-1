@@ -28,7 +28,7 @@
     if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
     $settings = $this->requestAction('settings/get_settings');
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%", "flash_cantorder2"), $settings);
+    $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%", "flash_cantorde%"), $settings);
     if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}
     $title = $strings["orders_" . strtolower($action)];
     //<script src="<?php echo $this->request->webroot;  js/jquery.easyui.min.js" type="text/javascript"></script>
@@ -229,8 +229,9 @@
 
                         if(!$client) {
                             echo $strings["addorder_notassigned"];
+                        } else if(!$profile->is_complete){
+                            echo $strings["flash_cantorder"];
                         } else if ($MissingData) {
-                            //echo "<BR><B>" . $strings["flash_cantorder"] . '</BR><HR>' .
                             echo $strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing);
                         } else if ($param != 'view') {
                             
