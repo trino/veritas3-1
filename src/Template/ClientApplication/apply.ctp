@@ -47,11 +47,12 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     loadreasons($action, $strings, true);
 ?>
 <div id="tab0">
-<h2>Application for <?php echo $client->company_name;?></h2>
+<h2 style="float: left;">Application for <?php echo $client->company_name;?></h2>
 <input type="hidden" id="user_id" value=""/>
 <div class="step_counters" style="float: right;
     text-transform: uppercase;
-    font-size: 15px;"><strong><p style="color: #578ebe;"> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong></div>
+    font-size: 15px;    margin-top: 28px;
+    margin-right: 45px;"><strong><p style="color: #578ebe;"> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong></div>
 <div class="steps" id="step0" class="active">
     <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
     <?php include('subpages/documents/driver_form.php');?>    
