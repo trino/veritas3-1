@@ -217,32 +217,36 @@ printCSS($this);
                         <?php
 
                         if ($param != 'view') {
-                            $tab = 'tab-pane';
-                            $i = 1;
-                            ?>
-
-
-                                <?php if ($DriverID>0){
-                                    $i++;?>
-
-
-
-                                    <h2>Application for <?php echo $client->company_name;?></h2>
-                                    <input type="hidden" id="user_id" value=""/>
-                                    <div class="steps" id="step0" class="active">
-                                        <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
-                                        <?php include('subpages/documents/driver_form.php');?>
-                                        <hr />
-                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
-                                    </div>
-
-
-
-                                <?php }?>
-
-                                <?php
-
-                                $doc = $doc_comp->getDocument('orders');
+                            
+                            $doc = $doc_comp->getDocument('orders');
+                                $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
+                                if(is_iterable($doc_ids)) {
+                                    //die('here');
+                                    $subdoccli = $doc_ids;
+                                    if($debugging) {echo "Source: orders_doc";}
+                                } else {
+                                    //die('there');
+                                    $subdoccli = $this->requestAction('/clients/getSubCli2/' . $cid);
+                                    if($debugging) {echo "Source: getSubCli2";}
+                                }
+                                $subdoccli2 = $subdoccli;
+                                $doc2 = $doc;
+                                $end = 0;
+                                $k_c=0;
+                                $index=0;
+                                //client permissions
+                                //http://localhost/veritas3-0/clients/edit/1
+                                //user permissions
+                                //http://localhost/veritas3-0/profiles/edit/118
+                                //product settings
+                                //http://localhost/veritas3-0/profiles/settings
+                                $Fieldname = getFieldname("title", $language);
+                                $jj=0;
+                                $doc_count = 0;
+                                foreach($subdoccli as $getcounter)
+                                {
+                                   $doc_count++;
+                                }$doc = $doc_comp->getDocument('orders');
                                 $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
                                 if(is_iterable($doc_ids)) {
                                     //die('here');
@@ -271,6 +275,42 @@ printCSS($this);
                                 {
                                    $doc_count++;
                                 }
+                            
+                            
+                            $tab = 'tab-pane';
+                            $i = 1;
+                            ?>
+
+
+                                <?php if ($DriverID>0){
+                                    $i++;?>
+
+
+
+                                    
+                                    
+                                    <input type="hidden" id="user_id" value=""/>
+                                    <div class="steps" id="step0" class="active">
+                                    <strong>
+                                        <p>
+                                        Step
+                                        <span class="counters">1</span>
+                                        of <?php echo $doc_count+2;?>
+                                        </p>
+                                    </strong>
+                                        <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
+                                        <?php include('subpages/documents/driver_form.php');?>
+                                        <hr />
+                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
+                                    </div>
+
+
+
+                                <?php }?>
+
+                                <?php
+
+                                $temp_step = 1;
                                 foreach ($subdoccli as $sd) {
                                     //var_dump($sd);
                                     $index+=1;
@@ -313,8 +353,16 @@ printCSS($this);
                                             $dx = $this->requestAction('/orders/getSubDetail/'.$sd->sub_id);
                                             //var_dump($s);
                                             $jj++;
+                                            $temp_step = $temp_step+1;
                                             ?>
                                             <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
+                                            <strong>
+                                                <p>
+                                                Step
+                                                <span class="counters"><?php echo $temp_step;?></span>
+                                                of <?php echo $doc_count+2;?>
+                                                </p>
+                                            </strong>
                                                 <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                 <hr />
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
@@ -335,6 +383,13 @@ printCSS($this);
                                 $jj++;
                                 ?>
                                 <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
+                                <strong>
+                                                <p>
+                                                Step
+                                                <span class="counters"><?php echo $doc_count+2;?></span>
+                                                of <?php echo $doc_count+2;?>
+                                                </p>
+                                            </strong>
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a>
