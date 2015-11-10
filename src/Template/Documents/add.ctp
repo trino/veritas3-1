@@ -36,7 +36,7 @@
     printCSS($this);
     JSinclude($this, "js/jquery.easyui.min.js");
     loadreasons($action, $strings, true);
-    
+    $Debug = $this->request->session()->read('debug') || $language == "Debug";
 ?>
 <h3 class="page-title">
     <?= $title; ?>
@@ -55,6 +55,9 @@
     </ul>
 
     <?php
+        if($Debug){
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+        }
         if (isset($disabled)) {
             echo ' <a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }

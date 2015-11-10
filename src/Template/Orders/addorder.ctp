@@ -1,44 +1,44 @@
 <?php
+    use Cake\ORM\TableRegistry;
+    include_once 'subpages/filelist.php';
+    $param = $this->request->params['action'];
+    include_once('subpages/api.php');
 
-use Cake\ORM\TableRegistry;
-include_once 'subpages/filelist.php';
-$param = $this->request->params['action'];
-include_once('subpages/api.php');
+    $view = 'nope';
+    $debugging=isset($_GET["debug"]);
 
-$view = 'nope';
-$debugging=isset($_GET["debug"]);
-
-if($this->request->params['action'] == 'vieworder'){$view = 'view';}
-$action = ucfirst($param);
-if ($action == "Vieworder") { $action = "View";}
-if ($action == "Addorder") {
-    $action = "Create" ;
-    if ($did>0){ $action = "Edit";}
-}
-if (isset($this->request->params['pass'][0])) {
-    $ClientID = $this->request->params['pass'][0];
-}
-$doc_ext = array('pdf', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx');
-$img_ext = array('jpg', 'jpeg', 'png', 'bmp', 'gif');
-if($did) {
-    $_GET['driver'] = $ooo->uploaded_for;
-}
-if(!isset($_GET["driver"]))
-$_GET['driver'] = 0;
-$is_disabled = '';
-if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
-$settings = $this->requestAction('settings/get_settings');
-$language = $this->request->session()->read('Profile.language');
-$strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%"), $settings);
-if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}
-$title = $strings["orders_" . strtolower($action)];
-//<script src="<?php echo $this->request->webroot;  js/jquery.easyui.min.js" type="text/javascript"></script>
-//<script src="<?php echo $this->request->webroot;  js/ajaxupload.js" type="text/javascript"></script>
-//includejavascript($strings);
-JSinclude($this,"js/jquery.easyui.min.js");
-JSinclude($this,"js/ajaxupload.js");
-printCSS($this);
-    ?>
+    if($this->request->params['action'] == 'vieworder'){$view = 'view';}
+    $action = ucfirst($param);
+    if ($action == "Vieworder") { $action = "View";}
+    if ($action == "Addorder") {
+        $action = "Create" ;
+        if ($did>0){ $action = "Edit";}
+    }
+    if (isset($this->request->params['pass'][0])) {
+        $ClientID = $this->request->params['pass'][0];
+    }
+    $doc_ext = array('pdf', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx');
+    $img_ext = array('jpg', 'jpeg', 'png', 'bmp', 'gif');
+    if($did) {
+        $_GET['driver'] = $ooo->uploaded_for;
+    }
+    if(!isset($_GET["driver"]))
+    $_GET['driver'] = 0;
+    $is_disabled = '';
+    if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
+    $settings = $this->requestAction('settings/get_settings');
+    $language = $this->request->session()->read('Profile.language');
+    $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%"), $settings);
+    if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}
+    $title = $strings["orders_" . strtolower($action)];
+    //<script src="<?php echo $this->request->webroot;  js/jquery.easyui.min.js" type="text/javascript"></script>
+    //<script src="<?php echo $this->request->webroot;  js/ajaxupload.js" type="text/javascript"></script>
+    //includejavascript($strings);
+    JSinclude($this,"js/jquery.easyui.min.js");
+    JSinclude($this,"js/ajaxupload.js");
+    printCSS($this);
+    $Debug = $this->request->session()->read('debug') || $language == "Debug";
+?>
 <style>.allattach{display:none;}</style>
 
 <script>
@@ -177,6 +177,9 @@ printCSS($this);
         return isset($thedocuments[$name][$DriverProvince]);
     }
 
+    if($Debug){
+        echo '<A ONCLICK="autofill2(false);" class="floatright btn btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+    }
     if (isset($disabled)) { ?>
         <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 

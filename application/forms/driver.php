@@ -481,6 +481,7 @@
         }
     }
 
+    /*
     function randomemail(Length){
         return makeid(Length) + "@trinoweb.com";
     }
@@ -492,6 +493,6 @@
         }
         return text;
     }
-
+    */
     document.getElementById("forms").value = '<?= $Products; ?>';
 </SCRIPT>
