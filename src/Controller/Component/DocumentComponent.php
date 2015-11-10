@@ -249,7 +249,7 @@ class DocumentComponent extends Component{
                     $doc = $docs->newEntity($arr);
                     
                     if ($docs->save($doc)) {
-                       
+                        $did = $doc->id;
                         $path = $this->getUrl();
                         $get_client = TableRegistry::get('Clients');
                         $gc = $get_client->find()->where(['id' => $cid])->first();
@@ -285,6 +285,8 @@ class DocumentComponent extends Component{
                                             $type_q = $type_query->find()->where(['id'=>$u])->first(); 
                                             $ut = $type_q->title;
                                           }
+                                        else
+                                            $ut ='';
                                           //$path = 'https://isbmeereports.com/documents/view/'.$cid;
                                         if($emailenabled) {
                                             $ret = array("site" => $setting->mee, "email" => $p, "company_name" => $client_name, "username" => $uq->username, "id" => $did, "path" => $path, "profile_type" => $ut, "place" => 3, "document_type" => $this->get_document_type($did));
@@ -450,7 +452,10 @@ class DocumentComponent extends Component{
         }
 
         function get_document_type($DocID){
-            return TableRegistry::get('documents')->find('all')->where(['id' => $DocID])->first()->document_type;
+            if($DocID!=0)
+                return TableRegistry::get('documents')->find('all')->where(['id' => $DocID])->first()->document_type;
+            else
+                return ;
         }
 
         public function getprofiletype($user_id=""){
@@ -854,14 +859,16 @@ class DocumentComponent extends Component{
                 if ($data == 'offence' || $data == 'date_of_sentence' || $data == 'location' || $data == 'attach_doc') {
                     continue;
                 }
-                if($app->criminal_signature_applicant2!=''&& $_POST['criminal_signature_applicant2']!= $app->criminal_signature_applicant2)
-                     @unlink(WWW_ROOT."canvas/".$app->criminal_signature_applicant2);
-                if($app->signature_company_witness2!=''&& $_POST['signature_company_witness2']!= $app->signature_company_witness2)
-                     @unlink(WWW_ROOT."canvas/".$app->signature_company_witness2);
-                if($app->criminal_signature_applicant!=''&& $_POST['criminal_signature_applicant']!= $app->criminal_signature_applicant)
-                     @unlink(WWW_ROOT."canvas/".$app->criminal_signature_applicant);
-                if($app->signature_company_witness!=''&& $_POST['signature_company_witness']!= $app->signature_company_witness)
-                     @unlink(WWW_ROOT."canvas/".$app->signature_company_witness);
+                if(isset($app)){
+                    if($app->criminal_signature_applicant2!=''&& $_POST['criminal_signature_applicant2']!= $app->criminal_signature_applicant2)
+                         @unlink(WWW_ROOT."canvas/".$app->criminal_signature_applicant2);
+                    if($app->signature_company_witness2!=''&& $_POST['signature_company_witness2']!= $app->signature_company_witness2)
+                         @unlink(WWW_ROOT."canvas/".$app->signature_company_witness2);
+                    if($app->criminal_signature_applicant!=''&& $_POST['criminal_signature_applicant']!= $app->criminal_signature_applicant)
+                         @unlink(WWW_ROOT."canvas/".$app->criminal_signature_applicant);
+                    if($app->signature_company_witness!=''&& $_POST['signature_company_witness']!= $app->signature_company_witness)
+                         @unlink(WWW_ROOT."canvas/".$app->signature_company_witness);
+                }
                 //echo $data." ".$val."<br />";
                 $arr[$data] = urldecode($val);
 

@@ -113,11 +113,11 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                        <div class="form-group col-md-12">
                         <label class="control-label col-md-3"><?= $strings2["verifs_employment"]; ?>: </label>
                         <div class="col-md-3">
-                        <input type="text" class="form-control date-picker" name="employment_start_date[]" value="<?php echo $emp->employment_start_date;?>"/>
+                        <input type="text" class="form-control date-picker datepicker" name="employment_start_date[]" value="<?php echo $emp->employment_start_date;?>"/>
                         </div>
                         <label class="control-label col-md-3"><?= $strings2["verifs_employment2"]; ?>: </label>
                         <div class="col-md-3">
-                        <input type="text" class="form-control date-picker" name="employment_end_date[]" value="<?php echo $emp->employment_end_date;?>"/>
+                        <input type="text" class="form-control date-picker datepicker" name="employment_end_date[]" value="<?php echo $emp->employment_end_date;?>"/>
                         </div>
                         </div>
                         <div class="form-group col-md-12">
@@ -151,7 +151,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                         </div>
                          <label class="control-label col-md-3"><?= $strings2["verifs_dateclaims"]; ?>: </label>
                          <div class="col-md-3">
-                         <input type="text" class="form-control date-picker" name="claims_recovery_date[]" value="<?php echo $emp->claims_recovery_date;?>"/>
+                         <input type="text" class="form-control date-picker datepicker" name="claims_recovery_date[]" value="<?php echo $emp->claims_recovery_date;?>"/>
                          </div>
                          </div>
 
@@ -176,7 +176,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                         <div class="form-group col-md-12">
                             <label class="control-label col-md-3"><?= $strings2["tasks_date"]; ?>: </label>
                         <div class="col-md-9">
-                        <input type="text" class="form-control date-picker" name="signature_datetime[]" value="<?php echo $emp->signature_datetime;?>"/>
+                        <input type="text" class="form-control date-picker datepicker" name="signature_datetime[]" value="<?php echo $emp->signature_datetime;?>"/>
                         </div>
                         </div>
                         <div class="form-group col-md-12">
@@ -367,11 +367,11 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                <div class="form-group row">
                                 <label class="control-label col-md-3 required"><?= $strings2["verifs_employment"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control date-picker required" required name="employment_start_date[]"/>
+                                <input type="text" class="form-control date-picker datepicker required" required name="employment_start_date[]"/>
                                 </div>
                                 <label class="control-label col-md-3 required"><?= $strings2["verifs_employment2"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control date-picker required" required name="employment_end_date[]"/>
+                                <input type="text" class="form-control date-picker datepicker required" required name="employment_end_date[]"/>
                                 </div>
                                 </div>
                                 <div class="form-group row">
@@ -382,7 +382,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                 </div>
                                  <label class="control-label col-md-3"><?= $strings2["verifs_dateclaims"]; ?>:</label>
                                  <div class="col-md-3">
-                                 <input type="text" class="form-control date-picker" name="claims_recovery_date[]"/>
+                                 <input type="text" class="form-control date-picker datepicker" name="claims_recovery_date[]"/>
                                  </div>
                                  </div>
 
@@ -406,7 +406,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                 <div class="form-group row">
                                 <label class="control-label col-md-3"><?= $strings2["tasks_date"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control date-picker" name="signature_datetime[]"/>
+                                <input type="text" class="form-control date-picker datepicker" name="signature_datetime[]"/>
                                 </div>
                                 </div>
                                 <div class="form-group row">

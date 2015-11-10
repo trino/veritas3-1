@@ -79,6 +79,7 @@ $(function(){
         success:function(res){
             $('#user_id').val(res);
             getJsonFields(res);
+            $('.counter').text(Number($('.counter').text())+1);
             $('.overlay-wrapper').hide();
             
             
@@ -230,74 +231,7 @@ $(function(){
                         return false;
                     }
             }
-            /*
-            if($('.subform4 #subtab_2_1').attr('class')=='tab-pane active' && $('.subform4').attr('style')!='display: none;'){
-                //alert('tes');
-                var er = 0;
 
-                $('.required').each(function(){
-                    if($(this).val()=='' && $(this).attr('name')!='' && $(this).attr('name')!='undefined'  && $(this).attr('name'))
-                    {
-                        $(this).addClass('myerror');
-                        $(this).attr('style','border-color:red');
-                        er = 1;
-                    }
-
-                });
-                if($('#sig2 .touched').val()!='1' && $('#sig2 .touched_edit2').val()!='1') {
-                    par.find('#sig2').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig2').offset().top},
-                        'slow');
-                    er = 2;
-                }
-                else
-                if($('#sig4 .touched').val()!='1' && $('#sig4 .touched_edit4').val()!='1') {
-                    par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig4').offset().top},
-                        'slow');
-                    er = 2;
-                } else if($('#sig1 .touched').val()!='1' && $('#sig1 .touched_edit1').val()!='1') {
-                    par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig1').offset().top},
-                        'slow');
-                    er = 2;
-                } else if($('#sig3 .touched').val()!='1' && $('#sig3 .touched_edit3').val()!='1') {
-                    par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig3').offset().top},
-                        'slow');
-                    er = 2;
-                }
-
-                $(this).removeClass('myerror');
-                //$(this).removeAttr('style');
-
-                if(er){
-                    $('.cont').removeAttr('disabled');
-                    if(er==1){
-                        alert(fillALL);
-                        $('html,body').animate({
-                                scrollTop: $('.myerror').offset().top},
-                            'slow');
-                        $('.overlay-wrapper').hide();
-                        return false;
-                    }
-                    else
-                    if(er==2){
-                        $('.overlay-wrapper').hide();
-                        return false;
-                    }
-
-                }
-                else
-                {
-
-                    $('.cont').removeAttr('disabled');
-                }
-            } */ 
             par.find(".required:not('label')").each(function(){
             //alert($(this).attr('class'));
             if($(this).val() == '')
@@ -377,8 +311,6 @@ $(function(){
                         beforeSend: function(){$('.overlay-wrapper').show();},
                         url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/'+did+'/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
                         success: function (res) {
-                            
-        
                             $('#did').val(res);
                             did = res;
                             
@@ -446,7 +378,7 @@ $(function(){
                                          <?php }else{
                                             
                                             ?>
-                                                
+                                                $('.counter').text(Number($('.counter').text())+1);
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                         }
@@ -471,7 +403,7 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
-                                                
+                                                $('.counter').text(Number($('.counter').text())+1);
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                         }
@@ -529,12 +461,13 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
+                                                $('.counter').text(Number($('.counter').text())+1);
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                           <?php }
                                          else{
                                             ?>
-                                            
+                                            $('.counter').text(Number($('.counter').text())+1);
                                             $('.overlay-wrapper').hide();
                                             <?php
                                          }
@@ -564,7 +497,7 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
-                                        
+                                                $('.counter').text(Number($('.counter').text())+1);
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                              }
@@ -588,7 +521,7 @@ $(function(){
                                             {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                          <?php }else{?>
-                                         
+                                                $('.counter').text(Number($('.counter').text())+1);
                                                 $('.overlay-wrapper').hide();
                                          <?php }?>
                                              }
@@ -698,7 +631,8 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
-                        
+                
+                        $('.counter').text(Number($('.counter').text())+1);
                         $('.overlay-wrapper').hide();
                  <?php }?>
                     
@@ -721,7 +655,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
-                 
+                 $('.counter').text(Number($('.counter').text())+1);
                         $('.overlay-wrapper').hide();
                  <?php }?>
             }
@@ -741,7 +675,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                     {?>
                         window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{?>
-                 
+                        $('.counter').text(Number($('.counter').text())+1);
                         $('.overlay-wrapper').hide();
                  <?php }?>
             }
@@ -765,14 +699,11 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                  <?php }else{
                     if($this->request->params['action']=='addorder'){?>
                         
-                        
-                        
-                        
                         $.ajax({
                                     url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
                                     success:function()
                                     {
-                                        
+                                        $('.counter').text(Number($('.counter').text())+1);
                                         $('.overlay-wrapper').hide();
                                     }
                                 });
@@ -781,8 +712,10 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                 
                 
                         <?php }else{?>
+                        $('.counter').text(Number($('.counter').text())+1);
                         $('.overlay-wrapper').hide();
-                 <?php }}?>
+                 <?php }
+                 }?>
             }
         });
     }
@@ -809,7 +742,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                         $.ajax({
                             url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
                             success: function () {
-                                
+                                 $('.counter').text(Number($('.counter').text())+1);
                                  $('.overlay-wrapper').hide();
                             }
                         });
@@ -817,6 +750,8 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                     }
                     else{
                     ?>
+                    
+                     $('.counter').text(Number($('.counter').text())+1);
                         $('.overlay-wrapper').hide();
                  <?php }}?>
                 
@@ -848,15 +783,17 @@ function savePrescreen(url, order_id, cid,draft,redir) {
                             url: '<?php echo $this->request->webroot;?>orders/createPdfEducation/' + $('#did').val(),
                             success: function () {
                                 if(redir == 1 )
-                                                {
-                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                                }
+                                {
+                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                                }
+                                 $('.counter').text(Number($('.counter').text())+1);
                                 $('.overlay-wrapper').hide();
                             }
                         });
                         <?php
                     }else{
                     ?>
+                    $('.counter').text(Number($('.counter').text())+1);
                         $('.overlay-wrapper').hide();
                  <?php }}?>
             }
