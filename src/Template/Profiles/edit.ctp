@@ -340,6 +340,12 @@
                                         }
                                     } elseif (!$profile->Ptype) {
                                         echo "Profile type: " . $profile->profile_type . " is missing";
+                                    } else if($this->request->session()->read('debug')) {
+                                        if($CanOrder){
+                                            echo "You cannot place orders";
+                                        } else {
+                                            echo "This profile type cannot order";
+                                        }
                                     }
                                 }
 
