@@ -664,6 +664,12 @@ class DocumentsController extends AppController{
             $sub3['edu'] = $this->getdoc('education_verification', $did, 'NA');
 
             //echo $con_detail->id;die();
+            $emp = TableRegistry::get('employment_verification');
+            if(!isset($_GET['order_id'])) {
+                $sub3['emp'] = $emp->find()->where(['document_id' => $did])->all();
+            }else {
+                $sub3['emp'] = $emp->find()->where(['order_id' => $_GET['order_id']])->all();
+            }
             $emp_att = TableRegistry::get('doc_attachments');
             if(!isset($_GET['order_id'])) {
                 $sub3['att'] = $emp_att->find()->where(['document_id' => $did])->all();
@@ -678,7 +684,7 @@ class DocumentsController extends AppController{
             }else {
                 $sub4['att'] = $edu_att->find()->where(['order_id' => $_GET['order_id'], 'sub_id' => 42])->all();
             }
-             $edu = TableRegistry::get('education_verification');
+            $edu = TableRegistry::get('education_verification');
             if(!isset($_GET['order_id'])) {
                 $sub4['edu'] = $edu->find()->where(['document_id' => $did])->all();
             }else {
@@ -686,7 +692,7 @@ class DocumentsController extends AppController{
             }
             $this->set('sub4', $sub4);
              $mee_a['attach_doc'] = $this->load_sub_doc('mee_attachments', 'mee_att', $did);
-                $this->set("mee_att", $mee_a);
+             $this->set("mee_att", $mee_a);
 
         }
     }

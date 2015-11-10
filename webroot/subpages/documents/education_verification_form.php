@@ -20,6 +20,7 @@
                     }
 
                     $counter = 0;
+                    
                     if (isset($sub4['edu']) && count($sub4['edu'])) {
                         foreach ($sub4['edu'] as $emp) {
                             $counter++;

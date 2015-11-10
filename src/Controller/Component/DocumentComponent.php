@@ -972,12 +972,13 @@ class DocumentComponent extends Component{
 
                 }
             }
+            //die($_POST['count_past_emp']);
             for ($i = 0; $i < $_POST['count_past_emp']; $i++) {
                 if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                     if(!isset($_GET['order_id']))
-                    $arr2['order_id'] = $document_id;
+                        $arr2['order_id'] = $document_id;
                     else
-                    $arr2['order_id'] = $_GET['order_id'];
+                        $arr2['order_id'] = $_GET['order_id'];
                     $arr2['document_id'] = 0;
                 } else {
                     $arr2['document_id'] = $document_id;
@@ -1051,35 +1052,58 @@ class DocumentComponent extends Component{
                 if (isset($_POST['equipment_vans'][$i])) {
                     $arr2['equipment_vans'] = urldecode($_POST['equipment_vans'][$i]);
                 }
+                else
+                    $arr2['equipment_vans'] = '';
+                    
                 if (isset($_POST['equipment_reefer'][$i])) {
                     $arr2['equipment_reefer'] = urldecode($_POST['equipment_reefer'][$i]);
+                }
+                else
+                {
+                    $arr2['equipment_reefer'] = '';
                 }
                 if (isset($_POST['equipment_decks'][$i])) {
                     $arr2['equipment_decks'] = urldecode($_POST['equipment_decks'][$i]);
                 }
+                else
+                    $arr2['equipment_decks'] = '';
                 if (isset($_POST['equipment_super'][$i])) {
                     $arr2['equipment_super'] = urldecode($_POST['equipment_super'][$i]);
                 }
+                else
+                    $arr2['equipment_super'] = '';
                 if (isset($_POST['equipment_straight_truck'][$i])) {
                     $arr2['equipment_straight_truck'] = urldecode($_POST['equipment_straight_truck'][$i]);
                 }
+                else
+                    $arr2['equipment_straight_truck'] = '';
                 if (isset($_POST['equipment_others'][$i])) {
                     $arr2['equipment_others'] = urldecode($_POST['equipment_others'][$i]);
                 }
+                else
+                    $arr2['equipment_others'] = '';
 
                 //driving
                 if (isset($_POST['driving_experince_local'][$i])) {
                     $arr2['driving_experince_local'] = urldecode($_POST['driving_experince_local'][$i]);
                 }
+                else
+                    $arr2['driving_experince_local'] = '';
                 if (isset($_POST['driving_experince_canada'][$i])) {
                     $arr2['driving_experince_canada'] = urldecode($_POST['driving_experince_canada'][$i]);
                 }
+                else
+                    $arr2['driving_experince_canada'] = '';
                 if (isset($_POST['driving_experince_canada_rocky_mountains'][$i])) {
                     $arr2['driving_experince_canada_rocky_mountains'] = urldecode($_POST['driving_experince_canada_rocky_mountains'][$i]);
                 }
+                else
+                    $arr2['driving_experince_canada_rocky_mountains'] = '';
                 if (isset($_POST['driving_experince_usa'][$i])) {
                     $arr2['driving_experince_usa'] = urldecode($_POST['driving_experince_usa'][$i]);
                 }
+                else
+                    $arr2['driving_experince_usa'] = '';
                 for ($l = 0; $l <= 100; $l++) {
                     if (isset($_POST['claims_with_employer_' . $l][$i])) {
                         $arr2['claims_with_employer'] = urldecode($_POST['claims_with_employer_' . $l][$i]);
@@ -1089,6 +1113,8 @@ class DocumentComponent extends Component{
 
                 $save2 = $employment->newEntity($arr2);
                 $employment->save($save2);
+                //echo $save2->id;
+                unset($save2);
             }
 
             die;
