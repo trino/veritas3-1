@@ -742,7 +742,7 @@ function savePrescreen(url, order_id, cid,draft,redir) {
             success: function (rea) {
                  <?php if($this->request->controller=='Documents')
                     {?>
-                        //window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                  <?php }else{
                     if($this->request->params['action'] == 'addorder')
                     {

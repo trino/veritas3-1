@@ -3,7 +3,7 @@ if ($this->request->session()->read('debug')) {
     echo "<span style ='color:red;'>subpages/canvas/consent_signature_driver2.php #INC???</span>";
 }
 ?>
-<meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 

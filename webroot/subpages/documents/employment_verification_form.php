@@ -444,50 +444,60 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                             <label class="control-label col-md-3"><?= $strings2["verifs_equipmento"]; ?>: </label>
                                             <div class="col-md-9">
                                                 <samp>
-                                                <input type="checkbox" name="equipment_vans[]" value="1"/>&nbsp;<?= $strings2["verifs_vans"]; ?>&nbsp;
+                                                <input type="checkbox" name="equipment_vans[]" value="1"/>
                                                 <input type="hidden" name="equipment_vans[]" value="0" class="adddisabled"/>
                                                 </samp>
+                                                &nbsp;<?= $strings2["verifs_vans"]; ?>&nbsp;
                                                 <samp>
-                                                <input type="checkbox" name="equipment_reefer[]" value="1"/>&nbsp;<?= $strings2["verifs_reefers"]; ?>&nbsp;
+                                                <input type="checkbox" name="equipment_reefer[]" value="1"/>
                                                 <input type="hidden" name="equipment_reefer[]" value="0" class="adddisabled"/>
                                                 </samp>
+                                                &nbsp;<?= $strings2["verifs_reefers"]; ?>&nbsp;
                                                 <samp>
-                                                <input type="checkbox" name="equipment_decks[]" value="1"/>&nbsp;<?= $strings2["verifs_decks"]; ?>&nbsp;
+                                                <input type="checkbox" name="equipment_decks[]" value="1"/>
                                                 <input type="hidden" name="equipment_decks[]" value="0" class="adddisabled"/>
                                                 </samp>
+                                                &nbsp;<?= $strings2["verifs_decks"]; ?>&nbsp;
                                                 <samp>
-                                                <input type="checkbox" name="equipment_super[]" value="1"/>&nbsp;<?= $strings2["verifs_superbs"]; ?>&nbsp;
+                                                <input type="checkbox" name="equipment_super[]" value="1"/>
                                                 <input type="hidden" name="equipment_super[]" value="0" class="adddisabled"/>
                                                 </samp>
+                                                &nbsp;<?= $strings2["verifs_superbs"]; ?>&nbsp;
                                                 <samp>
-                                                <input type="checkbox" name="equipment_straight_truck[]" value="1"/>&nbsp;<?= $strings2["verifs_straighttr"]; ?>&nbsp;
+                                                <input type="checkbox" name="equipment_straight_truck[]" value="1"/>
                                                 <input type="hidden" name="equipment_straight_truck[]" value="0" class="adddisabled"/>
                                                 </samp>
+                                                &nbsp;<?= $strings2["verifs_straighttr"]; ?>&nbsp;
                                                 <samp>
-                                                <input type="checkbox" name="equipment_others[]" value="1"/>&nbsp;<?= $strings2["verifs_others"]; ?>
+                                                <input type="checkbox" name="equipment_others[]" value="1"/>
                                                 <input type="hidden" name="equipment_others[]" value="0" class="adddisabled"/>
                                                 </samp>
+                                                &nbsp;<?= $strings2["verifs_others"]; ?>
                                 </div>
                                 </div>
                                 <div class="form-group row">
                                 <label class="control-label col-md-3"><?= $strings2["verifs_drivingexp"]; ?>: </label>
                                 <div class="col-md-9">
                                     <samp>
-                                    <input type="checkbox" name="driving_experince_local[]" value="1"/>&nbsp;<?= $strings2["verifs_local"]; ?>&nbsp;
+                                    <input type="checkbox" name="driving_experince_local[]" value="1"/>
                                     <input type="hidden" name="driving_experince_local[]" value="0" class="adddisabled"/>
                                     </samp>
+                                    &nbsp;<?= $strings2["verifs_local"]; ?>&nbsp;
                                     <samp>
-                                    <input type="checkbox" name="driving_experince_canada[]" value="1"/>&nbsp;<?= $strings2["verifs_canada"]; ?>&nbsp;
+                                    <input type="checkbox" name="driving_experince_canada[]" value="1"/>
                                     <input type="hidden" name="driving_experince_canada[]" value="0" class="adddisabled"/>
                                     </samp>
+                                    &nbsp;<?= $strings2["verifs_canada"]; ?>&nbsp;
                                     <samp>
-                                    <input type="checkbox" name="driving_experince_canada_rocky_mountains[]" value="1"/>&nbsp;<?= $strings2["verifs_canadarock"]; ?>&nbsp;
+                                    <input type="checkbox" name="driving_experince_canada_rocky_mountains[]" value="1"/>
                                     <input type="hidden" name="driving_experince_canada_rocky_mountains[]" value="0" class="adddisabled"/>
                                     </samp>
+                                    &nbsp;<?= $strings2["verifs_canadarock"]; ?>&nbsp;
                                     <samp>
-                                    <input type="checkbox" name="driving_experince_usa[]" value="1"/>&nbsp;<?= $strings2["verifs_usa"]; ?>&nbsp;
+                                    <input type="checkbox" name="driving_experince_usa[]" value="1"/>
                                     <input type="hidden" name="driving_experince_usa[]" value="0" class="adddisabled"/>
                                     </samp>
+                                    &nbsp;<?= $strings2["verifs_usa"]; ?>&nbsp;
                                 </div>
 
                 </div>
