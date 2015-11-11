@@ -426,13 +426,17 @@ class ClientApplicationController extends AppController {
                 
                 $fields[] = $key;
             }
-            $q = TableRegistry::get($table_name)->find()->where(['user_id'=>$driver])->order('id','DESC')->first();
+            
+            //var_dump($fields);die();
+            $q = TableRegistry::get($table_name)->find()->where(['document_id IN (SELECT id FROM documents WHERE uploaded_for = '.$driver.')'])->order('id','DESC')->first();
+            echo $q->id;
             foreach($fields as $f)
             {
-                
+                //die('here');
                 if($q)
                 $return[$f] = $q->$f;
             }
+           
             if(isset($return) && $return)
             echo json_encode($return);
             else
