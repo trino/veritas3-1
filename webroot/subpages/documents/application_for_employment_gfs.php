@@ -69,16 +69,16 @@ function makerow($profile, $Fields){
             <div class="col-md-6" style="padding-left:0!important; padding-right: 0!important;">
              <div class="row"> 
                     <label class="control-label col-md-3">Name: </label>
-                    <div class="col-md-3">              
-                        <input class="form-control" name="lname" placeholder="Last" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->lname;?>" />
-                    </div> 
-                    <div class="col-md-3">              
-                        <input class="form-control" name="mname" placeholder="Middle" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->mname;?>" />
-                    </div> 
-                    <div class="col-md-3">              
+                    <div class="col-md-3">
                         <input class="form-control" name="fname" placeholder="First" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->fname;?>" />
                     </div>
-            </div>
+                    <div class="col-md-3">              
+                        <input class="form-control" name="mname" placeholder="Middle" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->mname;?>" />
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" name="lname" placeholder="Last" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->lname;?>" />
+                    </div>
+             </div>
             </div>
             <div class="col-md-6">
              <div class="row"> 

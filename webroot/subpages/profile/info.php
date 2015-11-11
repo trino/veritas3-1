@@ -519,7 +519,7 @@ loadreasons($param, $strings, true);
 
 
                             <?php if($settings->mee== "MEE"){?>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
 
                                     <label class="control-label"><?= $strings["forms_placeofbirth"]; ?>: </label>
@@ -529,62 +529,42 @@ loadreasons($param, $strings, true);
                                 </div>
                             </div>
 
-                            <div class="col-md-9">
+                            <div class="col-md-4">
 
                                 <div class="form-group">
                                     <label class="control-label"><?= $strings["forms_dateofbirth"]; ?> (<?= $strings["forms_dateformat"]; ?>): </label><BR>
 
-                                    <div class="row">
-
-
-                                        <div class="col-md-4 no-margin">
                                             <?php
-
-
-
                                             $currentyear = "0000";
                                             $currentmonth = 0;
                                             $currentday = 0;
-
+                                            $currentdate="";
                                             if (isset($p->dob)) {
+                                                $currentdate = $p->dob;
                                                 $currentyear = substr($p->dob, 0, 4);
                                                 $currentmonth = substr($p->dob, 5, 2);
                                                 $currentday = substr($p->dob, -2);
                                             }
 
-
-                                            echo '<select class="form-control req_driver " NAME="doby" ' . $is_disabled . '>';
-
-                                            $now = date("Y");
-                                            for ($temp = $now; $temp > 1899; $temp -= 1) {
-                                                printoption($temp, $currentyear, $temp);
-                                            }
-                                            echo '</select></div><div class="col-md-4">';
-
-
-                                            echo '<select  class="form-control req_driver " NAME="dobm" ' . $is_disabled . '>';
-                                            for ($temp = 1; $temp < 13; $temp += 1) {
-                                                if ($temp < 10) {
-                                                    $temp = "0" . $temp;
-                                                }
-                                                printoption($strings["month_long" . $temp], $currentmonth, $temp);
-                                            }
-                                            echo '</select></div><div class="col-md-4">';
-
-
-                                            echo '<select class="form-control req_driver" name="dobd" ' . $is_disabled . '>';
-                                            for ($temp = 1; $temp < 32; $temp++) {
-                                                if ($temp < 10) {
-                                                    $temp = "0" . $temp;
-                                                }
-                                                printoption($temp, $currentday, $temp);
-                                            }
-
-                                            echo '</select></div>';
+                                            echo '<INPUT TYPE="TEXT" CLASS="form-control req_driver date-picker" ID="DOB" value="' . $currentdate . '" onchange="refreshdob();">';
+                                            echo '<INPUT TYPE="HIDDEN" ID="doby" NAME="doby" ' . $is_disabled . '>';
+                                            echo '<INPUT TYPE="HIDDEN" ID="dobm" NAME="dobm" ' . $is_disabled . '>';
+                                            echo '<INPUT TYPE="HIDDEN" ID="dobd" name="dobd" ' . $is_disabled . '>';
                                             ?>
-                                        </div>
-                                    </div>
+                                            <SCRIPT>
+                                                function refreshdob(){
+                                                    var date = getinputvalue("DOB").split("-");
+                                                    if(date.length>2) {
+                                                        setinputvalue("doby", date[0]);
+                                                        setinputvalue("dobm", date[1]);
+                                                        setinputvalue("dobd", date[2]);
+                                                    }
+                                                }
+                                                refreshdob();
+                                            </SCRIPT>
+
                                 </div>
+                            </div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">

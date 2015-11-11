@@ -15,12 +15,6 @@
     </div>
     <div class="gndn">
         <div class="form-group row">
-
-            <div class="col-md-4 margin-bottom-10"><label class="control-label required"><?= $strings["forms_lastname"]; ?>: </label>
-                <input type="text" class="form-control required" name="last_name" value="<?php if (isset($consent_detail))echo $consent_detail->last_name;?>"/>
-                <span class="error"></span>
-            </div>
-
             <div class="col-md-4 margin-bottom-10"><label class="control-label required"><?= $strings["forms_firstname"]; ?>: </label>
                 <input type="text" class="form-control required" name="first_name" value="<?php if (isset($consent_detail))echo $consent_detail->first_name;?>"/>
                 <span class="error"></span>
@@ -28,6 +22,11 @@
 
             <div class="col-md-4 margin-bottom-10"><label class="control-label"><?= $strings["forms_middlename"]; ?>: </label>
                 <input type="text" class="form-control "  name="mid_name" value="<?php if (isset($consent_detail))echo $consent_detail->mid_name;?>"/>
+            </div>
+
+            <div class="col-md-4 margin-bottom-10"><label class="control-label required"><?= $strings["forms_lastname"]; ?>: </label>
+                <input type="text" class="form-control required" name="last_name" value="<?php if (isset($consent_detail))echo $consent_detail->last_name;?>"/>
+                <span class="error"></span>
             </div>
 
             <div class="col-md-4 margin-bottom-10"><label class="control-label">

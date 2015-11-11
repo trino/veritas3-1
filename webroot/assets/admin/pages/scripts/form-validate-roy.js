@@ -141,7 +141,7 @@ function elementtype2(element){
     return tagtype;
 }
 
-function setinputvalue(element,newvalue, name) {
+function setinputvalue(element,newvalue) {
     if(typeof element !== 'object'){
         element = document.getElementById(element);
         if(!element){return false;}
@@ -431,7 +431,7 @@ function autofill2(Type){
                         break;
                 }
                 if (value){
-                    setinputvalue(element, value, name);
+                    setinputvalue(element, value);
                 } else {
                     //alert(name + " (" + Type + ") " + value);
                 }
