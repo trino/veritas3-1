@@ -487,7 +487,7 @@
 
     var Profiles = <?= iterator_count($profiles); ?>;
     function deleteprofile(ID, Name){
-        var Confirm = '<?= addslashes2($strings["dashboard_confirmdelete"]); ?>';
+        var Confirm = '<?= addslashes3($strings["dashboard_confirmdelete"]); ?>';
         Confirm = Confirm.replace("%name%", Name);
         if (confirm(Confirm)){
             $.ajax({
