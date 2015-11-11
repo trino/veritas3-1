@@ -375,8 +375,9 @@
                                             //var_dump($s);
                                             $jj++;
                                             $temp_step = $temp_step+1;
+                                            $arr_sd[] = $sd->sub_id;
                                             ?>
-                                            <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
+                                            <div class="steps subform_<?php echo $sd->sub_id?>" id="step<?php echo $jj;?>" style="display:none;">
                                             <strong>
                                                 <p>
                                                 Step

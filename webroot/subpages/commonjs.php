@@ -31,10 +31,37 @@ client_id = '<?=$cid?>';
            } 
         });
     }
+    function getJsonPrevious(driverid,sub_id)
+    {
+        $.ajax({
+           url:'<?php echo $this->request->webroot;?>clientApplication/getJsonPrevious/'+driverid+'/'+sub_id,
+           success:function(res)
+           {
+            res = JSON.parse(res);
+            //alert(res['applicants_email']);
+             $('.subform_'+sub_id+' input,.subform_'+sub_id+' textarea').each(function(){
+                //alert($(this).attr('name');
+                if(res[$(this).attr('name')])
+                {
+                    <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
+                    $(this).val(res[$(this).attr('name')]);
+                }
+             });
+           } 
+        });
+    }
 $(function(){
     <?php
     if($this->request->params['action'] == 'addorder')
     {
+        if(isset($arr_sd) && $arr_sd){
+        foreach($arr_sd as $asd)
+        {
+              ?>
+              getJsonPrevious(profile_id,$asd); //Need to have a parent class subform_[sub_id] in parent div of particular form
+              <?php  
+        }
+        }
         ?>
         getJsonFields('<?php echo $_GET['driver']?>');
         <?php

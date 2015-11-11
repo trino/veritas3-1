@@ -391,5 +391,42 @@ class ClientApplicationController extends AppController {
             echo json_encode($final);die();
             
         }
+        
+        public function getJsonPrevious($driver=0,$sub=0)
+        {
+            
+            
+            
+            
+            $subdoc = TableRegistry::get('subdocuments')->find()->where(['id'=>$sub])->first();
+            $table = $subdoc->table_name;
+            echo ucfirst($table);die();
+            $this->loadModel(ucfirst($table));
+            $arr = (array)$this->ucfirst($table)->schema();
+            $i=0;
+            foreach($arr as $a)
+            {
+                $i++;
+                if($i==2)
+                {
+                    $array = $a;
+                }
+                
+            }
+            foreach($array as $key=>$v)
+            {
+                
+                $fields[] = $key;
+            }
+            var_dump($fields);die();
+            
+            
+            $q = TableRegistry::get($table)->find()->where(['user_id'=>$driver])->order('id','DESC')->first();
+            
+            
+             $this->response->body($q);
+            return $this->response;
+            die();
+        }
 
 }
