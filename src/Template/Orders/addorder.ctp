@@ -384,6 +384,7 @@
                                                 <span class="counters"><?php echo $temp_step;?></span>
                                                 of <?php echo $doc_count+2;?>
                                                 </p>
+                                                <p>Document - <?php echo $dx->title;?></p>
                                             </strong>
                                                 <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                 <hr />
