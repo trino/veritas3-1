@@ -245,14 +245,7 @@
                                                                     class="control-label"><?= $strings["forms_provincestate"]; ?>
                                                                     :</label>
                                                                 <?php
-                                                                    function printoption($value, $selected, $option) {
-                                                                        $tempstr = "";
-                                                                        if ($option == $selected or $value == $selected) {
-                                                                            $tempstr = " selected";
-                                                                        }
-                                                                        echo '<OPTION VALUE="' . $value . '"' . $tempstr . ">" . $option . "</OPTION>";
-                                                                    }
-
+                                                                
                                                                     function printoptions($name, $valuearray, $selected, $optionarray) {
                                                                         echo '<SELECT name="' . $name . '" class="form-control member_type" >';
                                                                         for ($temp = 0; $temp < count($valuearray); $temp += 1) {
