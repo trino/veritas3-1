@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2015 at 09:46 PM
+-- Generation Time: Nov 11, 2015 at 04:11 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=797 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=799 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447179876', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447188384', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -810,7 +810,9 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (793, 'dashboard_autofill', 'Autofill', 'Remplissage automatique'),
 (794, 'addorder_notassigned', 'This %profile% is not assigned to a %client%', 'Ce %profile% est pas affectée à un %client%'),
 (795, 'flash_cantorder3', 'Click here to edit their %profile%', 'Cliquez ici pour modifier leur %profile%'),
-(796, 'flash_cantorder4', 'Permissions data is missing. Edit this %profile%''s permissions to restore them', 'Autorisations données est manquant. Modifier ce %profile%''s de autorisations pour les restaurer');
+(796, 'flash_cantorder4', 'Permissions data is missing. Edit this %profile%''s permissions to restore them', 'Autorisations données est manquant. Modifier ce %profile%''s de autorisations pour les restaurer'),
+(797, 'flash_cantorder5', 'You cannot place orders', 'Vous ne pouvez pas placer des commandes'),
+(798, 'flash_cantorder6', 'This %profile% type cannot place orders', 'Ce type de %profile% ne peut pas placer des commandes');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

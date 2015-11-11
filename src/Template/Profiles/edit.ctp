@@ -271,20 +271,16 @@
                                     </small>
                                 </div>
                             <?php }
+
                                 if (isset($p)) {
                                     $ClientID = $Manager->find_client($profile->id, true);
-                                    echo '<DIV ID="doplaceorders"';
-                                    if(!$ClientID){ echo ' STYLE="visibility: hidden;"';}
-                                    echo '>';
                                     if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder ) {//driver, owner driver, owner operator, sales, employee
-
-                                        echo '<label class="uniform-inline" style="margin-bottom:10px;">
-                                                <input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
+                                        echo '<label class="uniform-inline" style="margin-bottom:10px;">';
+                                        echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
                                         if ($p->is_hired == '1') {
                                             echo " checked";
                                         }
                                         echo '/> ' . $strings["profiles_washired"] . ' <span class="hired_msg"></span></label>';
-
                                         echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
                                         <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
                                         if ($p->requalify == '1') {
@@ -295,9 +291,7 @@
                                         $MissingFields = $Manager->requiredfields(false, "profile2order");
                                         $MissingData = $Manager->requiredfields($profile, "profile2order");
                                         $Missing= array();
-                                        if(!is_object($sidebar)){
-                                            $sidebar = new stdClass();
-                                        }
+                                        $sidebar = $Manager->loadpermissions(-1, "sidebar");
 
                                         if(!$profile->iscomplete || $MissingData){
                                             $Debug = ' (' . $MissingData . '|' . $profile->iscomplete . ')';
@@ -318,6 +312,9 @@
                                             echo "<BR>" . $strings["flash_cantorder4"];
                                         } else if ($sidebar->orders_create == 1) {
                                             $title = getFieldname("Name", $language);
+                                            echo '<DIV ID="doplaceorders"';
+                                            if(!$ClientID){ echo ' STYLE="visibility: hidden;"';}
+                                            echo '>';
                                             foreach ($products as $product) {
                                                 $alias = $product->Sidebar_Alias;
                                                 if ($alias && $alias != "bulk") {
@@ -334,6 +331,9 @@
                                                     }
                                                 }
                                             }
+                                            echo '</DIV>';
+                                        } else {
+                                            echo $strings["flash_cantorder5"];
                                         }
 
                                         if ($clients && isset($client) && $profile->email) {
@@ -343,14 +343,13 @@
                                                 echo ' <i class="icon-doc m-icon-white"></i></a>';
                                             }
                                         }
-                                    } else if($this->request->session()->read('debug')) {
-                                        if(!$CanOrder){
-                                            echo "You cannot place orders";
+                                    } else {
+                                        if (!$CanOrder) {
+                                            echo $strings["flash_cantorder5"];
                                         } else {
-                                            echo "This profile type cannot order";
+                                            echo $strings["flash_cantorder6"];
                                         }
                                     }
-                                    echo '</DIV>';
                                 }
 
                                 //if (isset($client_docs)) {
