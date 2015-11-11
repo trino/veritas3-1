@@ -550,8 +550,7 @@ function selecttitle($language, $strings, $name, $title, $is_disabled = ""){
 function printoption($option, $selected = "", $value = ""){
     $tempstr = "";
     if ($option == $selected || $value == $selected) {$tempstr = " SELECTED";}
-    if (strlen($value) > 0) {$value = " VALUE='" . $value . "'";}
-    echo '<OPTION' . $value . $tempstr . ">" . $option . "</OPTION>";
+    echo '<OPTION VALUE="' . $value . '"' . $tempstr . ">" . $option . "</OPTION>";
 }
 
 function changevalidation($inputtype, $message){

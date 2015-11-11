@@ -372,6 +372,7 @@ function autofill2(Type){
             element = inputs[index];
             name = element.getAttribute("name");
             value = getinputvalue(element);
+
             if (element.hasAttribute("type")) {
                 Type = element.getAttribute("type");
                 if(Type == "radio" && value){
@@ -417,11 +418,7 @@ function autofill2(Type){
                         value = "L7P6V6";
                         break;
                     case "select":
-                        switch(name){
-                            case "province": case "driver_province":
-                                value="ON";
-                                break;
-                        }
+                        value = element.options[ getRandomInt(0, element.options.length) ].value;
                         break;
                     case "date":
                         value = "10/04/" + getRandomInt(1960,2015);
