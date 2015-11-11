@@ -89,16 +89,8 @@ class ClientApplicationController extends AppController {
                 ->execute();
                 echo $pid = $id;
         }
-        
         $cid = $_POST['c_id'];
-        $client = TableRegistry::get('clients');
-        $profile_ids = $client->find()->select('profile_id')->where('id',$cid)->first();
-        $arr['profile_id'] = $profile_ids->profile_id.",".$pid;
-        $query2 = $client->query();
-                    $query2->update()
-                        ->set($arr)
-                        ->where(['id' => $cid])
-                        ->execute();
+        $this->Manager->assign_profile_to_client($pid, $cid);
         die();
     }
     public function savedoc($cid = 0, $did = 0) {

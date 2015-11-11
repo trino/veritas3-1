@@ -4,7 +4,7 @@
     include_once('subpages/api.php');
     $settings = $this->requestAction('settings/get_settings');
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, array("infoorder_%", "infoorder_selectclient"),$settings);
+    $strings = CacheTranslations($language, array("infoorder_%", "forms_saving"),$settings);
     $GLOBALS["language"] = $language;
     if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 
@@ -451,7 +451,7 @@
         <?php } ?>
 
         $('#qua_btn').click(function () {
-            if (!check_div()){ return false;}
+            if (!check_div()){return false;}
 
             var div = $('#divisionsel').val();
             if (!isNaN(parseFloat(div)) && isFinite(div)) {
@@ -465,11 +465,11 @@
                 if(typeof Driver === "undefined"){
                     Driver = Drivers();
                     if (Driver.length == 0){
-                        alert('Please select at least one driver');
+                        alert('<?= addslashes($strings["infoorder_alertselectdriver"]); ?>');
                         return;
                     } else {
                         $('.overlay-wrapper').show();
-                        $('#qua_btn').html('Saving..');
+                        $('#qua_btn').html('<?= $strings["forms_saving"]; ?>');
                         $('#qua_btn').attr('disabled','disabled');
                     }
                     //window.location = '<?php echo $this->request->webroot; ?>orders/orderslist?flash=Bulk Order bypass';
@@ -512,6 +512,7 @@
                 window.location = '<?php echo $this->request->webroot; ?>orders/addorder/' + $('.selecting_client').val() + '/?driver=<?php echo $_GET['profiles'];?>&division=' + division + '&order_type=<?php echo urlencode($o_type);?>&forms=' + tempstr;
                 <?php } ?>
             } else {
+                alert("<?= $strings["infoorder_selectclient"]; ?>");
                 $('#s2id_selecting_client .select2-choice').attr('style', 'border:1px solid red;');
                 $('html,body').animate({scrollTop: $('#s2id_selecting_client .select2-choice').offset().top}, 'slow');
             }
