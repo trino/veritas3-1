@@ -13,7 +13,7 @@ $QuizID="";
 function getextension($path, $value=PATHINFO_EXTENSION){
     return strtolower(pathinfo($path, $value));
 }
-function printoption($value, $selected="", $option = "", $dir="") {
+function printoption2($value, $selected="", $option = "", $dir="") {
     $tempstr = "";
     if(!$option){$option=$value;}
     if ($option == $selected or $value == $selected) {$tempstr = " selected";}
@@ -104,7 +104,7 @@ if (isset($quiz)){
             foreach($images as $image){
                 $ext = getextension($image);
                 if($ext=="gif" || $ext == "png") {
-                    printoption($image, $quiz->image, "", $this->request->webroot . "img");
+                    printoption2($image, $quiz->image, "", $this->request->webroot . "img");
                 }
             }
         ?>

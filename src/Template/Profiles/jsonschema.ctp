@@ -11,10 +11,10 @@
         }
         echo '</SELECT> <INPUT TYPE="submit"></FORM><P></P>';
     }
-    function printoption($Name, $selected, $Value = ""){
+    function printoption2($Name, $selected, $Value = ""){
         if (is_array($Name)){
             foreach($Name as $Key => $Value){
-                printoption($Value, $selected, $Key);
+                printoption2($Value, $selected, $Key);
             }
         } else {
             echo '<OPTION';
@@ -34,7 +34,7 @@
     <SELECT NAME="action">
         <OPTION>Show JSON</OPTION>
         <OPTION value="json_to_html">Show JSON HTML</OPTION>
-        <?php printoption(array("json_to_profile" => "JSON to Profile", "json_to_order" => "JSON to Order", "order_to_html" => "Order to HTML", "validate_all" => "Validate ALL"), $Action); ?>
+        <?php printoption2(array("json_to_profile" => "JSON to Profile", "json_to_order" => "JSON to Order", "order_to_html" => "Order to HTML", "validate_all" => "Validate ALL"), $Action); ?>
     </SELECT>
     <INPUT TYPE="submit">
     <?php

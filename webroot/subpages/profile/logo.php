@@ -1,6 +1,6 @@
 <?php
  if($this->request->session()->read('debug')) {
-     echo "<span style ='color:red;'>logo.php #INC121</span>";
+     echo "<span style ='color:red;'>subpages/profile/logo.php #INC121</span>";
  }
 
 function printlogos($logos1, $webroot, $index,$uid){ //* replaces the logo enumerators *//
@@ -57,7 +57,7 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                         <div class="tab-pane active" id="subtab_1_1">
                                             <div class="portlet solid blue" -->
 
-                                                <div class="portlet-body" align="right">
+                                                <div class="portlet-body" align="right" style="padding-top: 10px;">
 
                                                     <form action="<?php echo $this->request->webroot; ?>logos" method="post" class="form-inline" role="form" id="logoform">
 
@@ -84,7 +84,7 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                         <div class="tab-pane" id="subtab_1_2">
                                             <div class="portlet solid blue" -->
 
-                                                <div class="portlet-body" align="right">
+                                                <div class="portlet-body" align="right" style="padding-top: 10px;">
 
                                                     <form action="<?php echo $this->request->webroot; ?>logos/secondary"
                                                           method="post" class="form-inline" role="form" id="logoform1">
@@ -112,7 +112,7 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                         <div class="tab-pane" id="subtab_1_3">
                                             <div class="portlet solid blue" -->
 
-                                                <div class="portlet-body" align="right">
+                                                <div class="portlet-body" align="right" style="padding-top: 10px;">
 
                                                     <form action="<?php echo $this->request->webroot; ?>logos/login"
                                                           method="post" class="form-inline" role="form" id="logoform2">
