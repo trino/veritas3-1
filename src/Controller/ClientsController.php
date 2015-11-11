@@ -288,10 +288,16 @@
             unset($_POST['contact_id']);
             $_POST['contact_id'] = $rec;
             $clients = TableRegistry::get('Clients');
+            if(isset($_POST['company_name'])){
+            $company_name = $_POST['company_name'];
+           $slug = strtolower($company_name);
+           $_POST['slug'] = str_replace(' ','_',$slug);
+           }
             $client = $clients->newEntity($_POST);
             if ($this->request->is('post')) {
 
                 if ($clients->save($client)) {
+                    
                     //if (isset($_POST['division'])) {
                     //}
                     $this->Flash->success($this->Trans->getString("flash_usersaved"));
@@ -1671,6 +1677,26 @@
         $check = in_array($rid,$arr);
         $this->response->body($check);
         return $this->response;
+    }
+    
+    function createSlug()
+    {
+        $clients = TableRegistry::get('clients');
+        $cli = $clients->find()->all();
+        foreach($cli as $c)
+        {
+           $company_name = $c->company_name;
+           $slug = strtolower($company_name);
+           $slug = str_replace(' ','_',$slug);
+
+                        //echo $s;die();
+                        $query = $clients->query();
+                        $query->update()
+                            ->set(['slug'=>$slug])
+                            ->where(['id' => $c->id])
+                            ->execute(); 
+        }
+        die('Slugs generated successfully');
     }
         
 }
