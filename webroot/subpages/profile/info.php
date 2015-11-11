@@ -46,17 +46,6 @@ if($ShouldShow || $canedit){
 }
 $getProfileType = $this->requestAction('profiles/getProfileType/' . $userID);
 
-function printoption($option, $selected, $value = ""){
-    $tempstr = "";
-    if ($option == $selected || $value == $selected) {
-        $tempstr = " selected";
-    }
-    if (strlen($value) > 0) {
-        $value = " value='" . $value . "'";
-    }
-    echo '<option' . $value . $tempstr . ">" . $option . "</option>";
-}
-
 function printoption2($value, $selected = "", $option){
     $tempstr = "";
     if ($option == $selected or $value == $selected) {
@@ -1512,6 +1501,7 @@ loadreasons($param, $strings, true);
         <?php if(!isset($p) || ! ($p->admin || $p->super)){?>
         var elements = document.getElementsByClassName('addclientz');
         var element = document.getElementById("c_" + Index), id, checked = element.checked;
+        set_visible("doplaceorders", checked);
         for (var i = 0; i < elements.length; ++i) {
             element = elements[i];
             id = element.getAttribute('id').substr(2);

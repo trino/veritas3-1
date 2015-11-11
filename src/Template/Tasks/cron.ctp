@@ -152,9 +152,9 @@
                                             echo '<TR>' . $CRLF;
                                             echo '<TD>' . $Client->id . '</TD>' . $CRLF;
                                             echo '<TD><A HREF="' . $this->request->webroot . 'profiles/index?&filter_by_client=' . $Client->id . '" TARGET="_blank">' . $Client->company_name . '</A></TD>' . $CRLF;
-                                            echo '<TD><LABEL><INPUT TYPE="checkbox" name="requalify[' . $Client->id . ']" value="1" ONCHANGE="change();"';
+                                            echo '<TD><INPUT TYPE="checkbox" name="requalify[' . $Client->id . ']" value="1" ONCHANGE="change();"';
                                             if($Client->requalify){echo ' CHECKED';}
-                                            echo '></LABEL></TD>';
+                                            echo ' STYLE="width: 100%;"></TD>';
                                             echo '<TD><SELECT ID="freq' . $Client->id . '" NAME="requalify_frequency[' . $Client->id . ']" STYLE="width: 100%;">';
                                             foreach($Frequencies as $Frequency => $Date){
                                                 echo '<OPTION VALUE="' . $Frequency . '"';
@@ -239,7 +239,7 @@
             echo $Profile->expiry_date . '" class="datepicker date-picker">';
 
             echo '</TD>' . $CRLF;
-            echo '<TD><INPUT ONCHANGE="change();" TYPE="CHECKBOX" NAME="profiles[is_hired][' . $Profile->id . ']" VALUE="1"';
+            echo '<TD><INPUT ONCHANGE="change();" TYPE="CHECKBOX" NAME="profiles[is_hired][' . $Profile->id . ']" VALUE="1"  STYLE="width: 100%;"';
             if($Profile->is_hired){ echo " CHECKED";}
             echo '></TD>' . $CRLF;
 

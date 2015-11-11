@@ -1284,7 +1284,7 @@ class DocumentComponent extends Component{
 
                 $save2 = $education->newEntity($arr2);
                 $education->save($save2);
-                echo $save2->id;
+                
             }
 
             die;

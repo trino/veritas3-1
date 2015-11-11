@@ -1,5 +1,10 @@
 <?php
-
+if (isset($consent_detail)){
+	$Filename = getcwd() . "/canvas/" . $consent_detail->signature_company_witness;
+	if(!file_exists($Filename)){
+		$consent_detail->signature_company_witness = "";
+	}
+}
 $_GET['num']=1004;?>
 		<meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>

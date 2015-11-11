@@ -461,13 +461,13 @@ function getdatecolor($date, $now=""){
     return $date;
 }
 
-function provinces($name){
+function provinces($name, $Selected = ""){
     echo '<SELECT class="form-control" name="' . $name . '">';
     $acronyms = getprovinces("Acronyms");
     $Provinces = getprovinces("");
     $ID=0;
     foreach($acronyms as $acronym){
-        echo '<OPTION value="' . $acronym . '">' . $Provinces[$ID] . '</OPTION>';
+        printoption($Provinces[$ID], $Selected, $acronym);
         $ID++;
     }
     echo '</SELECT>';
@@ -545,6 +545,13 @@ function selecttitle($language, $strings, $name, $title, $is_disabled = ""){
         printoption($strings["forms_mrs"], $title, "Mrs");
         if($language != "French"){ printoption($strings["forms_ms"], $title, "Ms");}
     echo '</SELECT>';
+}
+
+function printoption($option, $selected = "", $value = ""){
+    $tempstr = "";
+    if ($option == $selected || $value == $selected) {$tempstr = " SELECTED";}
+    if (strlen($value) > 0) {$value = " VALUE='" . $value . "'";}
+    echo '<OPTION' . $value . $tempstr . ">" . $option . "</OPTION>";
 }
 
 function changevalidation($inputtype, $message){

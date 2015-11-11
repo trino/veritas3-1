@@ -75,7 +75,12 @@
 
         <div class="col-md-12">
             <input type="text" class="form-control" name="conf_driver_name" id="conf_driver_name"
-                   value="<?php if (isset($modal->conf_driver_name)) echo $modal->conf_driver_name; ?>"/>
+                   value="<?php
+                   if (isset($modal->conf_driver_name)){
+                       $Profile = $Manager->get_profile($modal->DriverID);
+                       echo formatname($Profile);
+                   }
+                   ?>"/>
         </div>
 
 

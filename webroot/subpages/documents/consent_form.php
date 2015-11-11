@@ -1,7 +1,8 @@
 <?php
     if($this->request->params['controller']!='ClientApplication'){
-    if ($this->request->session()->read('debug'))
+    if ($this->request->session()->read('debug')) {
         echo "<span style ='color:red;'>subpages/documents/consent_form.php #INC139</span>";
+    }
     //include_once 'subpages/filelist.php';
     if (isset($sub2)) { listfiles($sub2['con_at'], "attachments/", "", false, 3,false,'consent');     }}
     //includejavascript($strings);
@@ -69,7 +70,11 @@
             </div>
 
             <div class="col-md-4 margin-bottom-10"><label class="control-label"><?= $strings["forms_provinceissued"]; ?>:</label>
-                <?php provinces("driver_license_issued"); ?>
+                <?php
+                $DefaultProvince = "";
+                if (isset($consent_detail)) {$DefaultProvince = $consent_detail->driver_license_issued;}
+                provinces("driver_license_issued", $DefaultProvince);
+                ?>
             </div>
 
             <div class="col-md-4 margin-bottom-10"><label class="control-label"><?= $strings["forms_email"]; ?>: </label>
@@ -94,7 +99,10 @@
                 <span class="error"></span>
             </div>
             <div class="col-md-2">
-                <?php provinces("current_province"); ?>
+                <?php
+                    if (isset($consent_detail)) {$DefaultProvince = $consent_detail->current_province;}
+                    provinces("current_province", $DefaultProvince);
+                ?>
             </div>
             <div class="col-md-3">
                 <input type="text" role="postalcode" class="form-control required" placeholder="<?= $strings["forms_postalcode"]; ?>" name="current_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->current_postal_code;?>"/>

@@ -2,6 +2,14 @@
 /*if ($this->request->session()->read('debug')) {
     echo "<span style ='color:red;'>subpages/canvas/apply.php #INC???</span>";
 }*/
+
+	if (isset($application_for_employment_gfs)){
+        $Filename = getcwd() . "/canvas/" . $application_for_employment_gfs->gfs_signature;
+        if(!file_exists($Filename)){
+            $application_for_employment_gfs->gfs_signature = "";
+        }
+    }
+
 $_GET['num']=100;?>
 		<meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>

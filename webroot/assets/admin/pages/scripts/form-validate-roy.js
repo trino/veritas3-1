@@ -28,7 +28,7 @@ function validate_data(Data, DataType){
                 var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
                 var regex = /[^\d+]/;
                 var Data2 = clean_data(Data, "number");
-                return (Data2.match(phoneRe) !== null || Data.match(regex) !== null);
+                return (Data2.match(phoneRe) !== null || Data2.length > 0);
                 break;
             case "sin":
                 Data = clean_data(Data, "number");
@@ -125,17 +125,47 @@ function isVisible (element) {
 function elementtype(element){
     return element.tagName.toLowerCase();
 }
+function elementtype2(element){
+    var tagtype;
+    if (element.hasAttribute("type")) {
+        tagtype = element.getAttribute("type").toLowerCase().trim();
+    } else {
+        tagtype = elementtype(element);
+    }
+    if (element.hasAttribute("role")) {
+        tagtype = element.getAttribute("role");
+    }
+    if(element.hasClass("datepicker") || element.hasClass("date-picker")){
+        tagtype = "date";
+    }
+    return tagtype;
+}
 
-function setinputvalue(element,newvalue) {
+function setinputvalue(element,newvalue, name) {
     if(typeof element !== 'object'){
         element = document.getElementById(element);
         if(!element){return false;}
     }
-    tagtype = elementtype(element);
+    tagtype = elementtype2(element);
     switch(tagtype){
-
+        case "radio":case "checkbox":
+            element.checked = newvalue;
+            element.parentElement.classList.add("checked");
+            break;
         default:
             element.value = newvalue;
+    }
+}
+
+function set_visible(element, status){
+    if(typeof element !== 'object'){
+        element = document.getElementById(element);
+        if(!element){return false;}
+    }
+    if(status){
+        element.style.visibility = 'visible';
+    } else{
+        element.style.visibility = 'hidden';
     }
 }
 
@@ -326,4 +356,109 @@ function getName(element){
 
 function replaceAll(find, replace, str) {
     return str.replace(new RegExp(find, 'g'), replace);
+}
+
+function autofill2(Type){
+    if(!Type){
+        //addform(9);
+        //addform(10);
+        autofill2("input");
+        autofill2("select");
+        autofill2("textarea");
+    } else {
+        var inputs, index, element, value, name, temp, doneNames = new Array();
+        inputs = document.getElementsByTagName(Type);
+        for (index = 0; index < inputs.length; ++index) {
+            element = inputs[index];
+            name = element.getAttribute("name");
+            value = getinputvalue(element);
+            if (element.hasAttribute("type")) {
+                Type = element.getAttribute("type");
+                if(Type == "radio" && value){
+                    doneNames.push(name);
+                }
+            }
+
+            if(name && !value) {
+                temp = name.indexOf("][");
+                if(temp > -1){
+                    name = name.substr(temp+2);
+                    name = name.substr(0, name.length-1);
+                }
+                if (element.hasAttribute("role")) {
+                    Type = element.getAttribute("role");
+                }
+                if(element.hasClass("datepicker") || element.hasClass("date-picker")){
+                    Type = "date";
+                }
+
+                switch(Type){
+                    case "checkbox":case "radio":
+                        value = Math.random() >= 0.5;
+                        if(Type == "radio" && value){
+                            if(doneNames.indexOf(name) == -1) {
+                                doneNames.push(name);
+                            } else {
+                                value = false;
+                            }
+                        }
+                        break;
+
+                    case "file":
+                        value="";
+                        break;
+                    case "text":case "textarea":
+                        value=randomtext();
+                        break;
+                    case "phone":
+                        value="905555" + getRandomInt(1000,9999);
+                        break;
+                    case "postalcode":
+                        value = "L7P6V6";
+                        break;
+                    case "select":
+                        switch(name){
+                            case "province": case "driver_province":
+                                value="ON";
+                                break;
+                        }
+                        break;
+                    case "date":
+                        value = "10/04/" + getRandomInt(1960,2015);
+                        break;
+                    case "email":
+                        value = randomemail(20);
+                        break;
+                    case "sin":
+                        value = getRandomInt(100,999) + "-" + getRandomInt(100,999) + "-" + getRandomInt(100,999);
+                        break;
+                }
+                if (value){
+                    setinputvalue(element, value, name);
+                } else {
+                    //alert(name + " (" + Type + ") " + value);
+                }
+            }
+        }
+    }
+}
+
+function randomemail(Length){
+    return "info+" + makeid(Length) + "@trinoweb.com";
+}
+function makeid(Length) {
+    var text = "";
+    var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < Length; i++ ) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
+function randomtext(){
+    var randomtext = ["Lorem ipsum", "dolor sit", "amet, consectetur", "adipiscing elit", "sed do eiusmod", "tempor incididunt", "ut labore et", "dolore magna aliqua", "Ut enim ad", "minim veniam", "quis nostrud", "exercitation ullamco", "laboris nisi ut", "aliquip ex ea", "commodo consequat", "Duis aute irure", "dolor in", "reprehenderit in", "voluptate velit", "esse cillum", "dolore eu fugiat", "nulla pariatur", "Excepteur sint occaecat", "cupidatat non proident", "sunt in culpa", "qui officia deserunt", "mollit anim", "id est laborum."];
+    return randomtext[Math.floor(Math.random() * randomtext.length)];
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

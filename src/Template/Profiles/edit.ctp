@@ -185,6 +185,9 @@
                 echo $this->Html->link(__($strings["dashboard_edit"]), ['action' => 'edit', $profile->id], ['class' => 'floatright btn btn-primary btnspc']);
             } else if ($param == 'edit') {
                 echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-info btnspc']);
+                if($this->request->session()->read('debug')){
+                    echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+                }
             }
             if ($this->request->session()->read('Profile.super') && $this->request->session()->read('Profile.id') != $profile->id && $debug) {
                 echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
@@ -269,8 +272,11 @@
                                 </div>
                             <?php }
                                 if (isset($p)) {
-
-                                    if ($profile->Ptype && $profile->Ptype->placesorders == 1 && $CanOrder) {//driver, owner driver, owner operator, sales, employee
+                                    $ClientID = $Manager->find_client($profile->id, true);
+                                    echo '<DIV ID="doplaceorders"';
+                                    if(!$ClientID){ echo ' STYLE="visibility: hidden;"';}
+                                    echo '>';
+                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder ) {//driver, owner driver, owner operator, sales, employee
 
                                         echo '<label class="uniform-inline" style="margin-bottom:10px;">
                                                 <input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
@@ -308,6 +314,8 @@
                                             //echo "<BR><B>" . $strings["flash_cantorder"] . '</BR><HR>' .
                                             echo "<BR><B>" . $strings["flash_cantorder2"] . ': </B>';
                                             echo implode(", ", $Missing);
+                                        } else if (!isset($sidebar->orders_create)) {
+                                            echo "<BR>" . $strings["flash_cantorder4"];
                                         } else if ($sidebar->orders_create == 1) {
                                             $title = getFieldname("Name", $language);
                                             foreach ($products as $product) {
@@ -335,9 +343,14 @@
                                                 echo ' <i class="icon-doc m-icon-white"></i></a>';
                                             }
                                         }
-                                    } elseif (!$profile->Ptype) {
-                                        echo "Profile type: " . $profile->profile_type . " is missing";
+                                    } else if($this->request->session()->read('debug')) {
+                                        if(!$CanOrder){
+                                            echo "You cannot place orders";
+                                        } else {
+                                            echo "This profile type cannot order";
+                                        }
                                     }
+                                    echo '</DIV>';
                                 }
 
                                 //if (isset($client_docs)) {

@@ -146,22 +146,62 @@
    <div class="form-group left15 col-md-12">
         <label class="control-label col-md-3"><translate>verifs_equipmento</translate>: </label>
         <div class="col-md-9">
-            <input type="checkbox" name="equipment_vans[]" value="1"/>&nbsp;<translate>verifs_vans</translate>&nbsp;
-            <input type="checkbox" name="equipment_reefer[]" value="1"/>&nbsp;<translate>verifs_reefers</translate>&nbsp;
-            <input type="checkbox" name="equipment_decks[]" value="1"/>&nbsp;<translate>verifs_decks</translate>&nbsp;
-            <input type="checkbox" name="equipment_super[]" value="1"/>&nbsp;<translate>verifs_superbs</translate>&nbsp;
-            <input type="checkbox" name="equipment_straight_truck[]" value="1"/>&nbsp;<translate>verifs_straighttr</translate>&nbsp;
-            <input type="checkbox" name="equipment_others[]" value="1"/>&nbsp;<translate>verifs_others</translate>:
+            <samp>
+                <input type="checkbox" name="equipment_vans[]" value="1"/>
+                <input type="hidden" name="equipment_vans[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_vans</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="equipment_reefer[]" value="1"/>
+            <input type="hidden" name="equipment_reefer[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_reefers</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="equipment_decks[]" value="1"/>
+            <input type="hidden" name="equipment_decks[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_decks</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="equipment_super[]" value="1"/>
+            <input type="hidden" name="equipment_super[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_superbs</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="equipment_straight_truck[]" value="1"/>
+            <input type="hidden" name="equipment_straight_truck[]" value="0" class="adddisabled"/>
+            &nbsp;<translate>verifs_straighttr</translate>&nbsp;
+            </samp>
+             <samp>
+            <input type="checkbox" name="equipment_others[]" value="1"/>
+            <input type="hidden" name="equipment_others[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_others</translate>:
         </div>
    </div>
 
    <div class="form-group left15 col-md-12">
         <label class="control-label col-md-3"><translate>verifs_drivingexp</translate>: </label>
         <div class="col-md-9">
-            <input type="checkbox" name="driving_experince_local[]" value="1"/>&nbsp;<translate>verifs_local</translate>&nbsp;
-            <input type="checkbox" name="driving_experince_canada[]" value="1"/>&nbsp;<translate>verifs_canada</translate>&nbsp;
-            <input type="checkbox" name="driving_experince_canada_rocky_mountains[]" value="1"/>&nbsp;<translate>verifs_canadarock</translate>&nbsp;
-            <input type="checkbox" name="driving_experince_usa[]" value="1"/>&nbsp;<translate>verifs_usa</translate>&nbsp;
+            <samp>
+            <input type="checkbox" name="driving_experince_local[]" value="1"/>
+            <input type="hidden" name="driving_experince_local[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_local</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="driving_experince_canada[]" value="1"/>
+            <input type="hidden" name="driving_experince_canada[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_canada</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="driving_experince_canada_rocky_mountains[]" value="1"/>
+            <input type="hidden" name="driving_experince_canada_rocky_mountains[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_canadarock</translate>&nbsp;
+             <samp>
+            <input type="checkbox" name="driving_experince_usa[]" value="1"/>
+            <input type="hidden" name="driving_experince_usa[]" value="0" class="adddisabled"/>
+            </samp>
+            &nbsp;<translate>verifs_usa</translate>&nbsp;
         </div>
    </div>
 

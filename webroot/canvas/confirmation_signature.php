@@ -3,8 +3,15 @@
 		echo "<span style ='color:red;'>subpages/canvas/confirmation_signature.php #INC???</span>";
 	}
 	$_GET['num']=1;
+
+	if (isset($modal)){
+		$Filename = getcwd() . "/canvas/" . $modal->recruiter_signature;
+		if(!file_exists($Filename)){
+			$modal->recruiter_signature = "";
+		}
+	}
 ?>
-<meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <script src="<?php echo $this->request->webroot;?>canvas/jquery.jqscribble.js" type="text/javascript"></script>
@@ -59,10 +66,8 @@
 		<?php
 			if(isset($modal) && $modal->recruiter_signature){
 				echo '<img src="' . $this->request->webroot . 'canvas/' . $modal->recruiter_signature . '" style="max-width: 100%;" />';
-			} else {
-				if(isset($modal)) {
-					echo '<strong>' . $strings["forms_nosig"] . '</strong>';
-				}
+			} else if(isset($modal)) {
+				echo '<strong>' . $strings["forms_nosig"] . '</strong>';
 			}
 		?>
 		<br />

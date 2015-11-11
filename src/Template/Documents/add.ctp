@@ -36,7 +36,7 @@
     printCSS($this);
     JSinclude($this, "js/jquery.easyui.min.js");
     loadreasons($action, $strings, true);
-    
+    $Debug = $this->request->session()->read('debug') || $language == "Debug";
 ?>
 <h3 class="page-title">
     <?= $title; ?>
@@ -66,7 +66,9 @@
             else
                 $sep = '&';}
         if (isset($this->request->params['pass'][1])&& !isset($_GET['order_id'])) { echo '<a href="../../' . $url . '/' . $ClientID . "/" . $id1 . $id2 .$sep. 'type='.$_GET['type'].'" class="floatright btn btn-info btnspc">' . $strings["dashboard_" . $opposite] . '</a>'; }
-
+        if($Debug){
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+        }
 
         function makeportlet($did, $color="", $Title=""){
             if (strlen($Title)>0){

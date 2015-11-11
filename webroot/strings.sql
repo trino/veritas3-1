@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2015 at 09:29 PM
+-- Generation Time: Nov 10, 2015 at 09:46 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=793 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=797 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1446732862', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447179876', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -776,7 +776,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (757, 'email_smi_cron_message', 'Hello, <BR>\n<BR>\nA reminder that you have following task outstanding on your calendar in AFIMAC #SMI:<BR>\n<BR>\nTitle: %title%<BR>\nDescription: %description%<BR>\nDue By: %dueby%<BR>\n<BR>\n<A HREF="%path%">Please click here to view the task.</A><BR>\n<BR>\nRegards,<BR>\nAFIMAC #SMI', 'email_smi_cron_message'),
 (758, 'email_smi_userorder_subject', 'AFIMAC #SMI - %type% Ordered', 'email_smi_userorder_subject'),
 (759, 'email_smi_userorder_message', 'Thank you for submitting an order for %type%.<BR>\n<BR>\nOrder number %id% has been received and is being reviewed. An AFIMAC agent will contact you within 24 hours.<BR>\n<BR>\n<A HREF="%path%">Click here to view the order</A><BR>\n<BR>If you have any immediate questions, please call 1-800-313-9170 and ask for Investigations.<BR>\n<BR>\nThank you,<BR>\nAFIMAC #SMI', 'email_smi_userorder_message'),
-(760, 'flash_cantorder', 'This user has not completed their forms or is missing data, and cannot have orders placed for them', ''),
+(760, 'flash_cantorder', 'This %profile% has not completed their forms', 'Ce %profile% n''a pas terminé leurs formes'),
 (761, 'email_cronordercomplete_variables', 'site, path, email', ''),
 (762, 'email_survey_variables', 'site, username, email, monthsFrench, months, days, id, path', ''),
 (763, 'email_training_passed_variables', 'email, score, username, path', ''),
@@ -806,7 +806,11 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (789, 'invoice_invoice', 'Sales Rep', 'facture #'),
 (790, 'invoice_company', 'Registered Company', 'Société enregistrée'),
 (791, 'invoice_datecreatedcompleted', 'Date Created/Completed', 'Date Créée/Complet'),
-(792, 'orders_completed', 'Completed', 'Terminé');
+(792, 'orders_completed', 'Completed', 'Terminé'),
+(793, 'dashboard_autofill', 'Autofill', 'Remplissage automatique'),
+(794, 'addorder_notassigned', 'This %profile% is not assigned to a %client%', 'Ce %profile% est pas affectée à un %client%'),
+(795, 'flash_cantorder3', 'Click here to edit their %profile%', 'Cliquez ici pour modifier leur %profile%'),
+(796, 'flash_cantorder4', 'Permissions data is missing. Edit this %profile%''s permissions to restore them', 'Autorisations données est manquant. Modifier ce %profile%''s de autorisations pour les restaurer');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

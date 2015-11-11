@@ -1,44 +1,45 @@
 <?php
+    use Cake\ORM\TableRegistry;
+    include_once 'subpages/filelist.php';
+    $param = $this->request->params['action'];
+    include_once('subpages/api.php');
 
-use Cake\ORM\TableRegistry;
-include_once 'subpages/filelist.php';
-$param = $this->request->params['action'];
-include_once('subpages/api.php');
+    $view = 'nope';
+    $debugging=isset($_GET["debug"]);
 
-$view = 'nope';
-$debugging=isset($_GET["debug"]);
-
-if($this->request->params['action'] == 'vieworder'){$view = 'view';}
-$action = ucfirst($param);
-if ($action == "Vieworder") { $action = "View";}
-if ($action == "Addorder") {
-    $action = "Create" ;
-    if ($did>0){ $action = "Edit";}
-}
-if (isset($this->request->params['pass'][0])) {
-    $ClientID = $this->request->params['pass'][0];
-}
-$doc_ext = array('pdf', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx');
-$img_ext = array('jpg', 'jpeg', 'png', 'bmp', 'gif');
-if($did) {
-    $_GET['driver'] = $ooo->uploaded_for;
-}
-if(!isset($_GET["driver"]))
-$_GET['driver'] = 0;
-$is_disabled = '';
-if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
-$settings = $this->requestAction('settings/get_settings');
-$language = $this->request->session()->read('Profile.language');
-$strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%"), $settings);
-if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}
-$title = $strings["orders_" . strtolower($action)];
-//<script src="<?php echo $this->request->webroot;  js/jquery.easyui.min.js" type="text/javascript"></script>
-//<script src="<?php echo $this->request->webroot;  js/ajaxupload.js" type="text/javascript"></script>
-//includejavascript($strings);
-JSinclude($this,"js/jquery.easyui.min.js");
-JSinclude($this,"js/ajaxupload.js");
-printCSS($this);
-    ?>
+    if($this->request->params['action'] == 'vieworder'){$view = 'view';}
+    $action = ucfirst($param);
+    if ($action == "Vieworder") { $action = "View";}
+    $Viewing = $action == "View";
+    if ($action == "Addorder") {
+        $action = "Create" ;
+        if ($did>0){ $action = "Edit";}
+    }
+    if (isset($this->request->params['pass'][0])) {
+        $ClientID = $this->request->params['pass'][0];
+    }
+    $doc_ext = array('pdf', 'doc', 'docx', 'txt', 'csv', 'xls', 'xlsx');
+    $img_ext = array('jpg', 'jpeg', 'png', 'bmp', 'gif');
+    if($did) {
+        $_GET['driver'] = $ooo->uploaded_for;
+    }
+    if(!isset($_GET["driver"]))
+    $_GET['driver'] = 0;
+    $is_disabled = '';
+    if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
+    $settings = $this->requestAction('settings/get_settings');
+    $language = $this->request->session()->read('Profile.language');
+    $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%", "flash_cantorde%"), $settings);
+    if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}
+    $title = $strings["orders_" . strtolower($action)];
+    //<script src="<?php echo $this->request->webroot;  js/jquery.easyui.min.js" type="text/javascript"></script>
+    //<script src="<?php echo $this->request->webroot;  js/ajaxupload.js" type="text/javascript"></script>
+    //includejavascript($strings);
+    JSinclude($this,"js/jquery.easyui.min.js");
+    JSinclude($this,"js/ajaxupload.js");
+    printCSS($this);
+    $Debug = $this->request->session()->read('debug') || $language == "Debug";
+?>
 <style>.allattach{display:none;}</style>
 
 <script>
@@ -183,7 +184,9 @@ printCSS($this);
         <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
         <a href="" class="floatright btn btn-info">Add to Task List</a-->
     <?php }
-
+    if($Debug){
+        echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+    }
     echo '</div>';
 
     if($p->iscomplete){
@@ -215,8 +218,26 @@ printCSS($this);
                     <input type="hidden" id="user_id" value="<?php echo $_GET['driver'];?>" />
                     <input type="hidden" id="division" value="<?php if(isset($_GET['division']))echo $_GET['division'];?>" />
                         <?php
-
-                        if ($param != 'view') {
+                        $profile = $Manager->get_profile($_GET['driver']);
+                        //$client = $Manager->find_client($_GET['driver']);
+                        $MissingFields = $Manager->requiredfields(false, "profile2order");
+                        $MissingData = $Manager->requiredfields($profile, "profile2order");
+                        $Missing= array();
+                        $EditURL = $this->request->webroot . 'profiles/edit/' . $_GET['driver'];
+                        foreach($MissingFields as $Field => $String){
+                            if(!$profile->$Field){
+                                $Missing[] = $strings[$String];
+                            }
+                        }
+                        if(!isset($client) && !$Viewing){
+                            echo $strings["documents_missingclient"];
+                        } else if(!$client && !$Viewing) {
+                            echo '<A HREF="' . $EditURL . '">' . $strings["addorder_notassigned"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
+                        } else if(!$profile->is_complete && !$Viewing){
+                            echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
+                        } else if ($MissingData && !$Viewing) {
+                            echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing)  . '<BR>' . $strings["flash_cantorder3"] . '</A>';
+                        } else if ($param != 'view') {
                             
                             $doc = $doc_comp->getDocument('orders');
                                 $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
@@ -298,7 +319,7 @@ printCSS($this);
                                         of <?php echo $doc_count+2;?>
                                         </p>
                                     </strong>
-                                        <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
+                                        <input type="hidden" name="c_id" value="<?php if($client){echo $client->id;} else { echo 0; } ?>" />
                                         <?php include('subpages/documents/driver_form.php');?>
                                         <hr />
                                         <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>

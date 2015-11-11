@@ -188,7 +188,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->equipment_vans, '&#9745;','&#9744;');
                 } else {
                     ?>
+                    <samp>
                     <input type="checkbox" <?php if($emp->equipment_vans == 1){?>checked="checked"<?php }?> name="equipment_vans[]" value="1"/>
+                    <input type="hidden" name="equipment_vans[]" value="0" class="adddisabled" <?php if($emp->equipment_vans == 1){?>disabled<?php }?>/>
+                    </samp>
                     <?php
                 }
              ?>
@@ -197,7 +200,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                             if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                                                 ifchar($emp->equipment_reefer, '&#9745;','&#9744;');
                                             } else {?>
+                                                <samp>
                                                 <input type="checkbox" <?php if($emp->equipment_reefer == 1){?>checked="checked"<?php }?> name="equipment_reefer[]" value="1"/>
+                                                <input type="hidden" name="equipment_reefer[]" value="0" class="adddisabled" <?php if($emp->equipment_reefer == 1){?>disabled<?php }?>/>
+                                                </samp>
                                                 <?php
                                             }
                                          ?>
@@ -207,7 +213,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                                 ifchar($emp->equipment_decks, '&#9745;','&#9744;');
                                             } else {
                                                 ?>
+                                                <samp>
                                                 <input type="checkbox" <?php if($emp->equipment_decks == 1){?>checked="checked"<?php }?> name="equipment_decks[]" value="1"/>
+                                                <input type="hidden" name="equipment_decks[]" value="0" class="adddisabled" <?php if($emp->equipment_decks == 1){?>disabled<?php }?>/>
+                                                </samp>
                                                 <?php
                                             }
                                          ?>
@@ -217,7 +226,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                                 ifchar($emp->equipment_super, '&#9745;','&#9744;');
                                             } else {
                                                 ?>
+                                                <samp>
                                                 <input type="checkbox" <?php if($emp->equipment_super == 1){?>checked="checked"<?php }?> name="equipment_super[]" value="1"/>
+                                                <input type="hidden" name="equipment_super[]" value="0" class="adddisabled" <?php if($emp->equipment_super == 1){?>disabled<?php }?>/>
+                                                </samp>
                                                 <?php
                                             }
                                         ?>
@@ -227,7 +239,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->equipment_straight_truck, '&#9745;','&#9744;');
                 } else {
                     ?>
+                    <samp>
                     <input type="checkbox" <?php if($emp->equipment_straight_truck == 1){?>checked="checked"<?php }?> name="equipment_straight_truck[]" value="1"/>
+                    <input type="hidden" name="equipment_straight_truck[]" value="0" class="adddisabled" <?php if($emp->equipment_straight_truck == 1){?>disabled<?php }?>/>
+                    </samp>
                     <?php
                 }
              ?>&nbsp;<?= $strings2["verifs_straighttr"]; ?>&nbsp;
@@ -236,7 +251,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->equipment_others, '&#9745;','&#9744;');
                 } else {
                     ?>
+                    <samp>
                     <input type="checkbox" <?php if($emp->equipment_others == 1){?>checked="checked"<?php }?> name="equipment_others[]" value="1"/>
+                    <input type="hidden" name="equipment_others[]" value="0" class="adddisabled" <?php if($emp->equipment_others == 1){?>disabled<?php }?>/>
+                    </samp>
                     <?php
                 }
              ?>&nbsp;<?= $strings2["verifs_others"]; ?>:
@@ -250,7 +268,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->driving_experince_local, '&#9745;','&#9744;');
                 } else {
                     ?>
+                    <samp>
                     <input type="checkbox" <?php if($emp->driving_experince_local == 1){?>checked="checked"<?php }?> name="driving_experince_local[]" value="1"/>
+                    <input type="hidden" name="driving_experince_local[]" value="0" class="adddisabled" <?php if($emp->driving_experince_local == 1){?>disabled<?php }?>/>
+                    </samp>
                     <?php
                 }
              ?>
@@ -260,7 +281,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->driving_experince_canada, '&#9745;','&#9744;');
                 } else {
                     ?>
+                    <samp>
                     <input type="checkbox" <?php if($emp->driving_experince_canada == 1){?>checked="checked"<?php }?> name="driving_experince_canada[]" value="1"/>
+                    <input type="hidden" name="driving_experince_canada[]" value="0" class="adddisabled" <?php if($emp->driving_experince_canada == 1){?>disabled<?php }?>  />
+                    </samp>
                     <?php
                 }
              ?>&nbsp;<?= $strings2["verifs_canada"]; ?>&nbsp;
@@ -269,7 +293,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->driving_experince_canada_rocky_mountains, '&#9745;','&#9744;');
                 } else {
                     ?>
+                    <samp>
                     <input type="checkbox" <?php if($emp->driving_experince_canada_rocky_mountains == 1){?>checked="checked"<?php }?> name="driving_experince_canada_rocky_mountains[]" value="1"/>
+                    <input type="hidden" name="driving_experince_canada_rocky_mountains[]" value="0" class="adddisabled" <?php if($emp->driving_experince_canada_rocky_mountains == 1){?>disabled<?php }?>/>
+                    </samp>
                     <?php
                 }
              ?>
@@ -279,7 +306,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                     ifchar($emp->driving_experince_usa, '&#9745;','&#9744;');
                 } else {
                     ?>
-                    <input type="checkbox" <?php if($emp->driving_experince_usa == 1){?>checked="checked"<?php }?> name="driving_experince_usa[]" value="1"/>
+                    <samp>
+                        <input type="checkbox" <?php if($emp->driving_experince_usa == 1){?>checked="checked"<?php }?> name="driving_experince_usa[]" value="1"/>
+                        <input type="hidden" name="driving_experince_usa[]" value="0" class="adddisabled" <?php if($emp->driving_experince_usa == 1){?>disabled<?php }?>/>
+                    </samp>
                     <?php
                 }
              ?>
@@ -413,21 +443,61 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                 <div class="form-group row">
                                             <label class="control-label col-md-3"><?= $strings2["verifs_equipmento"]; ?>: </label>
                                             <div class="col-md-9">
-                                                <input type="checkbox" name="equipment_vans[]" value="1"/>&nbsp;<?= $strings2["verifs_vans"]; ?>&nbsp;
-                                                <input type="checkbox" name="equipment_reefer[]" value="1"/>&nbsp;<?= $strings2["verifs_reefers"]; ?>&nbsp;
-                                                <input type="checkbox" name="equipment_decks[]" value="1"/>&nbsp;<?= $strings2["verifs_decks"]; ?>&nbsp;
-                                                <input type="checkbox" name="equipment_super[]" value="1"/>&nbsp;<?= $strings2["verifs_superbs"]; ?>&nbsp;
-                                                <input type="checkbox" name="equipment_straight_truck[]" value="1"/>&nbsp;<?= $strings2["verifs_straighttr"]; ?>&nbsp;
-                                                <input type="checkbox" name="equipment_others[]" value="1"/>&nbsp;<?= $strings2["verifs_others"]; ?>:
+                                                <samp>
+                                                <input type="checkbox" name="equipment_vans[]" value="1"/>
+                                                <input type="hidden" name="equipment_vans[]" value="0" class="adddisabled"/>
+                                                </samp>
+                                                &nbsp;<?= $strings2["verifs_vans"]; ?>&nbsp;
+                                                <samp>
+                                                <input type="checkbox" name="equipment_reefer[]" value="1"/>
+                                                <input type="hidden" name="equipment_reefer[]" value="0" class="adddisabled"/>
+                                                </samp>
+                                                &nbsp;<?= $strings2["verifs_reefers"]; ?>&nbsp;
+                                                <samp>
+                                                <input type="checkbox" name="equipment_decks[]" value="1"/>
+                                                <input type="hidden" name="equipment_decks[]" value="0" class="adddisabled"/>
+                                                </samp>
+                                                &nbsp;<?= $strings2["verifs_decks"]; ?>&nbsp;
+                                                <samp>
+                                                <input type="checkbox" name="equipment_super[]" value="1"/>
+                                                <input type="hidden" name="equipment_super[]" value="0" class="adddisabled"/>
+                                                </samp>
+                                                &nbsp;<?= $strings2["verifs_superbs"]; ?>&nbsp;
+                                                <samp>
+                                                <input type="checkbox" name="equipment_straight_truck[]" value="1"/>
+                                                <input type="hidden" name="equipment_straight_truck[]" value="0" class="adddisabled"/>
+                                                </samp>
+                                                &nbsp;<?= $strings2["verifs_straighttr"]; ?>&nbsp;
+                                                <samp>
+                                                <input type="checkbox" name="equipment_others[]" value="1"/>
+                                                <input type="hidden" name="equipment_others[]" value="0" class="adddisabled"/>
+                                                </samp>
+                                                &nbsp;<?= $strings2["verifs_others"]; ?>
                                 </div>
                                 </div>
                                 <div class="form-group row">
                                 <label class="control-label col-md-3"><?= $strings2["verifs_drivingexp"]; ?>: </label>
                                 <div class="col-md-9">
-                                    <input type="checkbox" name="driving_experince_local[]" value="1"/>&nbsp;<?= $strings2["verifs_local"]; ?>&nbsp;
-                                    <input type="checkbox" name="driving_experince_canada[]" value="1"/>&nbsp;<?= $strings2["verifs_canada"]; ?>&nbsp;
-                                    <input type="checkbox" name="driving_experince_canada_rocky_mountains[]" value="1"/>&nbsp;<?= $strings2["verifs_canadarock"]; ?>&nbsp;
-                                    <input type="checkbox" name="driving_experince_usa[]" value="1"/>&nbsp;<?= $strings2["verifs_usa"]; ?>&nbsp;
+                                    <samp>
+                                    <input type="checkbox" name="driving_experince_local[]" value="1"/>
+                                    <input type="hidden" name="driving_experince_local[]" value="0" class="adddisabled"/>
+                                    </samp>
+                                    &nbsp;<?= $strings2["verifs_local"]; ?>&nbsp;
+                                    <samp>
+                                    <input type="checkbox" name="driving_experince_canada[]" value="1"/>
+                                    <input type="hidden" name="driving_experince_canada[]" value="0" class="adddisabled"/>
+                                    </samp>
+                                    &nbsp;<?= $strings2["verifs_canada"]; ?>&nbsp;
+                                    <samp>
+                                    <input type="checkbox" name="driving_experince_canada_rocky_mountains[]" value="1"/>
+                                    <input type="hidden" name="driving_experince_canada_rocky_mountains[]" value="0" class="adddisabled"/>
+                                    </samp>
+                                    &nbsp;<?= $strings2["verifs_canadarock"]; ?>&nbsp;
+                                    <samp>
+                                    <input type="checkbox" name="driving_experince_usa[]" value="1"/>
+                                    <input type="hidden" name="driving_experince_usa[]" value="0" class="adddisabled"/>
+                                    </samp>
+                                    &nbsp;<?= $strings2["verifs_usa"]; ?>&nbsp;
                                 </div>
 
                 </div>
@@ -454,7 +524,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
             <label class="control-label col-md-3"><?= $strings2["file_attachfile"]; ?>: </label>
             <div class="col-md-9">
             <input type="hidden" name="attach_doc[]" class="emp1" />
-            <a href="javascript:void(0);" id="emp1" class="btn btn-primary"><?= $strings["forms_browse"]; ?></a> <span class="uploaded"></span>
+            <a href="javascript:void(0);" id="emp1" class="btn btn-primary"><?= $strings["forms_browse"]; ?></a> <samp class="uploaded"></samp>
             </div>
            </div>
            <?php }
@@ -507,6 +577,12 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
 <script>
     <?php loadstringsJS(array_merge($strings, $strings2)); ?>
     $(function(){
+        $(document.body).on('click','input[type=checkbox]',function(){
+           if($(this).is(':checked'))
+                $(this).closest('samp').find('.adddisabled').attr('disabled','disabled');
+            else
+                $(this).closest('samp').find('.adddisabled').removeAttr('disabled');
+        })
         <?php
             if(!isset($sub3['att'])){
                 $sub3['att'] = array();
@@ -555,7 +631,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
       $('#add_more_employ_doc').click(function(){
             var count = $('#more_employ_doc').data('emp');
             $('#more_employ_doc').data('emp',parseInt(count)+1);
-            $('#more_employ_doc').append('<div class="del_append_employ"><label class="control-label col-md-3"></label><div class="col-md-6 pad_bot"><input type="hidden" name="attach_doc[]" class="emp'+$('#more_employ_doc').data('emp')+'" /><a href="javascript:void(0);" id="emp'+$('#more_employ_doc').data('emp')+'" class="btn btn-primary"><?= addslashes($strings["forms_browse"]); ?></a> <a  href="javascript:void(0);" class="btn btn-danger" id="delete_employ_doc"><?= $strings["dashboard_delete"]; ?></a> <span class="uploaded"></span></div></div><div class="clearfix"></div>');
+            $('#more_employ_doc').append('<div class="del_append_employ"><label class="control-label col-md-3"></label><div class="col-md-6 pad_bot"><input type="hidden" name="attach_doc[]" class="emp'+$('#more_employ_doc').data('emp')+'" /><a href="javascript:void(0);" id="emp'+$('#more_employ_doc').data('emp')+'" class="btn btn-primary"><?= addslashes($strings["forms_browse"]); ?></a> <a  href="javascript:void(0);" class="btn btn-danger" id="delete_employ_doc"><?= $strings["dashboard_delete"]; ?></a> <samp class="uploaded"></samp></div></div><div class="clearfix"></div>');
             fileUpload('emp'+$('#more_employ_doc').data('emp'));
       });
 

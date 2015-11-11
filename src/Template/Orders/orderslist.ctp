@@ -216,11 +216,11 @@
 
                                     ?>
                                     <tr class="<?= $row_color_class; ?>" role="row" ID="row<?= $order->id; ?>">
-                                        <td><?= $this->Number->format($order->id);
+                                        <td class="v-center" align="center"><?= $this->Number->format($order->id);
                                                 if ($order->hasattachments) {
                                                     echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';
                                                 }  //echo $order->profile->title;      ?></td>
-                                        <td style="min-width: 145px;">
+                                        <td style="min-width: 145px;" class="v-center">
 
                                             <?php
                                             if (is_object($order) && $order->order_type) {
@@ -283,16 +283,16 @@
 
 
                                         </td>
-                                        <td><?php if (isset($uploaded_by)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);?></td>
-                                        <td><?php if (isset($uploaded_for)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>" ?></td>
-                                        <td><?php
+                                        <td class="v-center"><?php if (isset($uploaded_by)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);?></td>
+                                        <td class="v-center"><?php if (isset($uploaded_for)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>" ?></td>
+                                        <td class="v-center"><?php
                                                 if (is_object($client)) {
                                                     echo "<a href ='" . $this->request->webroot . "clients/edit/" . $order->client_id . "?view' target='_blank'>" . ucfirst(h($client->company_name)) . "</a>";
                                                 } else {
                                                     echo $strings["documents_missingclient"];
                                                 }
                                             ?></td>
-                                        <td><?php if ($order->division) {
+                                        <td class="v-center"><?php if ($order->division) {
                                                 $div = $doc_comp->getDivById($order->division);
                                                 if (is_object($div)) {
                                                     echo ucfirst($div->title);
@@ -301,13 +301,13 @@
                                                 }
                                             } ?></td>
 
-                                        <td><?= getdatecolor(h($order->created)) ?></td>
-                                        <td class="actions  util-btn-margin-bottom-5">
+                                        <td class="v-center" align="center"><?= getdatecolor(h($order->created)) ?></td>
+                                        <td class="actions v-center util-btn-margin-bottom-5">
 
                                             <?php
                                                 if ($sidebar->orders_list == '1' && $order->draft != 1 && $order->order_type!='BUL' && $order->order_type!='REQ' && !$isRapid) {
                                                     ?>
-                                                    <a class="<?= btnclass("VIEW") ?>"
+                                                    <a class="<?= btnclass("VIEW") ?>" style="margin-bottom: 0 !important;"
                                                        href="<?php echo $this->request->webroot; ?>orders/vieworder/<?php echo $order->client_id; ?>/<?php echo $order->id;
                                                            if ($order->order_type) {
                                                                echo '?order_type=' . urlencode($order->order_type);
@@ -323,7 +323,7 @@
                                                     if ($sidebar->orders_edit == '1' && $order->order_type!='BUL' && $order->order_type!='REQ' && ($super==1 || $this->request->session()->read('Profile.id')==$order->user_id)) {
                                                         if (!isset($_GET['table']) && $order->draft == 1) {
                                                             ?>
-                                                            <a class="<?= btnclass("EDIT") ?>"
+                                                            <a class="<?= btnclass("EDIT") ?>" style="margin-bottom: 0 !important;"
                                                                href="<?= $EDITURL ?>"><?= $strings["dashboard_edit"]; ?></a>
 <?php
 
@@ -342,13 +342,13 @@
                                             if (!isset($_GET['draft']) && is_object($order->profile) && ($order->draft == 0)) {
                                                 ?>
                                                 <a href="<?php echo $this->request->webroot; ?>profiles/view/<?php echo $order->profile->id ?>?getprofilescore=1"
-                                                   class="<?= btnclass("btn-info", "blue-soft") ?>"><?= $strings["orders_scorecard"]; ?></a>
+                                                   class="<?= btnclass("btn-info", "blue-soft") ?>" style="margin-bottom: 0 !important;"><?= $strings["orders_scorecard"]; ?></a>
                                             <?php
                                             }
 
 
                                                 if ($super || (isset($_GET['draft']) || $candelete && $this->request->session()->read('Profile.id') == $order->user_id)) {
-                                                    echo '<A ONCLICK="deleteorder(' . $order->id . ", '" . isset($_GET['draft']) . "'" . ');" CLASS="' . btnclass("DELETE") . '">';
+                                                    echo '<A ONCLICK="deleteorder(' . $order->id . ", '" . isset($_GET['draft']) . "'" . ');" CLASS="' . btnclass("DELETE") . '" style="margin-bottom: 0 !important;">';
                                                     echo $strings["dashboard_delete"] . '</a>';
                                                 }
 
@@ -359,7 +359,7 @@
                                         </td>
 
 
-                                        <td align="center" valign="middle">
+                                        <td align="center" class="v-center">
                                             <?php
                                             if($order->draft == 1) {
                                                 echo '<span class="label label-sm label-warning"  style="padding:4px;">' . $strings["documents_draft"] . '</span>';

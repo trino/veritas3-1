@@ -246,12 +246,12 @@
                                     ?>
 
                                     <tr class="<?= $row_color_class; ?>" role="row" id="row<?= $profile->id; ?>">
-                                        <td><?php echo $this->Number->format($profile->id);
+                                        <td class="v-center" align="center"><?php echo $this->Number->format($profile->id);
                                                 if ($profile->hasattachments) {
                                                     echo '<BR><i title="Has Attachment" class="fa fa-paperclip"></i>';
                                                 }
                                             ?></td>
-                                        <td><?php
+                                        <td class="v-center" align="center"><?php
                                                 if ($sidebar->profile_list == '1' && !isset($_GET["draft"])) {
                                                     ?>
                                                     <a href="<?php echo $this->request->webroot; ?>profiles/view/<?php echo $profile->id; ?>">
@@ -264,7 +264,7 @@
                                             ?>
 
                                         </td>
-                                        <td class="actions " align="center" valign="middle">
+                                        <td class="actions v-center" align="center" valign="middle">
                                             <?php if ($sidebar->bulk == '1' && ($profile->profile_type == 5 || $profile->profile_type == 7 || $profile->profile_type == 8 || $profile->profile_type == 11)) {
                                                 echo '<!--input type="checkbox" class="form-control bulk_user" value="' . $profile->id . '" id="checkbox_id_' . $profile->id . '" -->';
                                             }
@@ -286,9 +286,9 @@
                                             <?}?>
                                         </td>
 
-                                        <td><?= formatname($profile) ?></td>
+                                        <td class="v-center"><?= formatname($profile) ?></td>
 
-                                        <td><?php
+                                        <td class="v-center" align="center"><?php
                                                 if (strlen($profile->profile_type) > 0) {
                                                     $profiletype = getIterator($ptypes, "id", $profile->profile_type);
                                                     echo $profiletype->$fieldname . $Trans;
@@ -298,7 +298,7 @@
                                                         $expires = strtotime($profile->expiry_date);
                                                         if ($expires) {
                                                             if ($expires < time()) {
-                                                                echo '<span class="clearfix " style="color:#a94442">' . $strings["profiles_expired"] . '</span>';
+                                                                echo '<div class="border"><span class="clearfix" style="color:#a94442" width="100%">' . $strings["profiles_expired"] . '</span></div>';
                                                             }
                                                         }
                                                     }
@@ -307,18 +307,18 @@
                                                 }
                                             ?></td>
 
-                                        <td><?php $clinet_name = strtolower($ProClients->getClientName($profile->id));
+                                        <td class="v-center"><?php $clinet_name = strtolower($ProClients->getClientName($profile->id));
                                                 echo $ProClients->getAllClientsname($profile->id); ?></td>
-                                        <td class="actions  util-btn-margin-bottom-5">
+                                        <td class="actions v-center util-btn-margin-bottom-5">
                                             <?php
 
                                                 if ($sidebar->profile_list == '1' && !isset($_GET["draft"]) && ($super || $profile->profile_type > 0)) {
-                                                    echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => btnclass("btn-info", "blue-soft")]);
+                                                    echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => btnclass("btn-info", "blue-soft"),  "style"=>"margin-bottom: 0 !important;"]);
                                                 }
 
                                                 $checker = $this->requestAction('/settings/check_edit_permission/' . $this->request->session()->read('Profile.id') . '/' . $profile->id . "/" . $profile->created_by);
                                                 if ($sidebar->profile_edit == '1' && $checker == 1) {
-                                                    echo $this->Html->link(__($strings["dashboard_edit"]), ['action' => 'edit', $profile->id], ['class' => btnclass("EDIT")]);
+                                                    echo $this->Html->link(__($strings["dashboard_edit"]), ['action' => 'edit', $profile->id], ['class' => btnclass("EDIT"),  "style"=>"margin-bottom: 0 !important;"]);
                                                 }
 
                                                 if ($sidebar->document_list == 1/* && $doc != 0 && $cn != 0*/) {
@@ -347,7 +347,7 @@
 
                                                     if ($CanDelete) {
                                                         //echo '<a href="' . $this->request->webroot . 'profiles/delete/' . $profile->id;
-                                                        echo '<a onclick="deleteprofile(' . $profile->id . ", '" . addslashes3(formatname($profile)) . "'" . ');"';
+                                                        echo '<a onclick="deleteprofile(' . $profile->id . ", '" . addslashes3(formatname($profile)) . "'" . ');" style="margin-bottom: 0 !important;"';
                                                         if (isset($_GET['draft'])) {
                                                             echo "?draft";
                                                         }
@@ -358,7 +358,7 @@
                                                     if ($super && $debug) {
                                                         echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
                                                         echo '" onclick="return confirm(' . "'Are you sure you want to possess " . addslashes2(formatname($profile)) . "?'";
-                                                        echo ');" class="' . btnclass("DELETE") . '">' . $strings["dashboard_possess"] . '</a>';
+                                                        echo ');" class="' . btnclass("DELETE") . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_possess"] . '</a>';
                                                     }
 
                                                     if (strtolower($clinet_name) == 'gordon food service') {

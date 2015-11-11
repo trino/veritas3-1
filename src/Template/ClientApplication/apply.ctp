@@ -47,14 +47,24 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     loadreasons($action, $strings, true);
 ?>
 <div id="tab0">
-<h2>Application for <?php echo $client->company_name;?></h2>
+<h2 style="float: left;">Application for <?php echo $client->company_name;?></h2>
 <input type="hidden" id="user_id" value=""/>
-<strong><p> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong>
+<div class="step_counters" style="float: right;
+    text-transform: uppercase;
+    font-size: 15px;    margin-top: 28px;
+    margin-right: 45px;">
+    <strong><p style="color: #578ebe;"> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong>
+</div>
+<div class="clearfix"></div>
+ <hr />
 <div class="steps" id="step0" class="active">
     <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
     <?php include('subpages/documents/driver_form.php');?>    
     <hr />
     <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
+    <?php if($this->request->session()->read('debug')){
+        echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+    } ?>
 </div>
 <?php 
 $cid = $client->id;
@@ -87,8 +97,5 @@ foreach($subd as $s)
     $(function(){
         $('#more_div').css({'padding':'0'});
         $('#more_div').addClass('row');
-   
-        
     })
-
 </script>
