@@ -193,7 +193,11 @@
                                 }
 
                                 if (count($orders) == 0) {
-                                    echo '<TR><TD COLSPAN="10" ALIGN="CENTER">' . $strings["orders_noresults"] . '</TD></TR>';
+                                    echo '<TR><TD COLSPAN="10" ALIGN="CENTER">' . $strings["orders_noresults"];
+                                    if($debug){
+                                        echo '<BR>' . $sql;
+                                    }
+                                    echo '</TD></TR>';
                                 }
 
                                 foreach ($orders as $order){

@@ -244,7 +244,11 @@
 
                                 //var_dump($docz);
                                 if (count($documents) == 0) {
-                                    echo '<TR><TD COLSPAN="9" ALIGN="CENTER">' . $strings["documents_noresults"] . '</TD></TR>';
+                                    echo '<TR><TD COLSPAN="9" ALIGN="CENTER">' . $strings["documents_noresults"];
+                                    if($debug){
+                                        echo '<BR>' . $sql;
+                                    }
+                                    echo '</TD></TR>';
                                 }
 
                                 foreach ($documents as $docs):
@@ -338,7 +342,7 @@
                                 $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->user_id . '" target="_blank">' . formatname($uploaded_by);
                                 $docname .= ", " . $strings["documents_submittedby"] . " " . formatname($uploaded_by);
                             } else {
-                                $user = $strings["documents_none"];//needs translation
+                                $user = $strings["documents_none"];
                             }
                             echo $user;
                         ?></td>
@@ -347,12 +351,11 @@
 
                     <td class="v-center">
                         <?php
-                        
                             if (isset($uploaded_for->username)) {
                                 $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->uploaded_for . '" target="_blank">' . formatname($uploaded_for);
                                 if(!is_object($uploaded_by) || $uploaded_for->id <> $uploaded_by->id) {$docname .= ", " . $strings["documents_submittedfor"] . " " . formatname($uploaded_for);}
                             } else {
-                                $user = $strings["documents_none"];//needs translation
+                                $user = $strings["documents_none"];
                             }
                             echo $user;
                         ?>

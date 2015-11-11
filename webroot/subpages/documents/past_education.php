@@ -1,5 +1,5 @@
 <?php
- //if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/past_education.php #INC145</span>"; }
+    if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/past_education.php #INC145</span>"; }
  ?>
 <div id="toremove">
 <div class="clearfix"></div>

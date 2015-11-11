@@ -15,12 +15,12 @@
             <form id="form_education">
                 <?php
                     if($this->request->params['controller']!='ClientApplication'){
-                    include_once 'subpages/filelist.php';
-                    if (isset($sub4['att'])) {listfiles($sub4['att'], "attachments/", "", false, 3);}
+                        include_once 'subpages/filelist.php';
+                        if (isset($sub4['att'])) {listfiles($sub4['att'], "attachments/", "", false, 3);}
                     }
 
                     $counter = 0;
-                    
+
                     if (isset($sub4['edu']) && count($sub4['edu'])) {
                         foreach ($sub4['edu'] as $emp) {
                             $counter++;
@@ -110,7 +110,7 @@
 
                                 <div class="col-md-3">
                                     &nbsp;&nbsp;
-                                    <?php 
+                                    <?php
                                     if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                                         if($emp->claim_tutor == '1') {
                                             ?>
@@ -120,15 +120,15 @@
                                             ?>
                                             &#10006;
                                             <?php
-                                        } 
+                                        }
                                     } else {
-                                        ?>                                      
-                                        <input type="radio" name="claim_tutor[]" value="1" <?php if ($emp->claim_tutor == '1'){ ?>checked="checked"<?php }?>/> 
+                                        ?>
+                                        <input type="radio" name="claim_tutor[]" value="1" <?php if ($emp->claim_tutor == '1'){ ?>checked="checked"<?php }?>/>
                                         <?php
                                     }
                                      ?>
                                     &nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <?php 
+                                    <?php
                                     if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                                         if($emp->claim_tutor == '0') {
                                             ?>
@@ -138,10 +138,10 @@
                                             ?>
                                             &#10006;
                                             <?php
-                                        } 
+                                        }
                                     } else {
-                                        ?>                                      
-                                        <input type="radio" name="claim_tutor[]" value="0" <?php if ($emp->claim_tutor == '0'){ ?>checked="checked"<?php }?>/> 
+                                        ?>
+                                        <input type="radio" name="claim_tutor[]" value="0" <?php if ($emp->claim_tutor == '0'){ ?>checked="checked"<?php }?>/>
                                         <?php
                                     }
                                      ?>&nbsp;&nbsp;&nbsp;&nbsp;No
@@ -231,8 +231,9 @@
                                 <label class="col-md-3 control-label"><?= $strings2["tasks_date"]; ?>:</label>
 
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control date-picker" name="date_time[]"
-                                           value="<?php echo $emp->date_time;?>"/>
+                                    <input type="text" class="form-control date-picker" name="date_time[]" value="<?php
+                                        echo $emp->date_time;  ?>
+                                    "/>
                                 </div>
 
                                 <label class="col-md-3 control-label" style="display: none;">Signature:</label>
@@ -258,7 +259,7 @@
                                 <?php
                                 if ($counter == 2) {
                                     ?>
-                                    
+
                                 <?php
                                 }
                             }
@@ -274,7 +275,7 @@
                             </div>
                             <?php
                         }
-                        
+
                     } else {
                         ?>
                         <div class="form-group row">
@@ -424,7 +425,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 control-label"><?= $strings2["tasks_date"]; ?>: </label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control date-picker" name="date_time[]"/>
+                                <input type="text" class="form-control date-picker" name="date_time[]" value="<?= date('Y-m-d'); ?>"/>
                             </div>
 
                             <label class="col-md-3 control-label" style="display: none;"><?= $strings["forms_signature"]; ?>:</label>
@@ -535,9 +536,9 @@
             </form>
             <script>
                 $(function () {
-                    
+
                     <?php
-                    
+
                        if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add')&& (!isset($sub4['edu'])))
                        {
                            ?>

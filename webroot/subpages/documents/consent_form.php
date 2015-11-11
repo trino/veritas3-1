@@ -168,11 +168,13 @@
             <label style="  text-align: left;" class="control-label col-md-11"><?= $strings2["consent_d0"]; ?>: </label>
         </div>
 
-        <div class="form-group col-md-6">
-            <?php include('canvas/consent_signature_driver2.php'); ?>
-        </div>
-        <div class="form-group col-md-6">
-            <?php include('canvas/consent_signature_witness2.php'); ?>
+        <DIV CLASS="row">
+            <div class="form-group col-md-6">
+                <?php include('canvas/consent_signature_driver2.php'); ?>
+            </div>
+            <div class="form-group col-md-6">
+                <?php include('canvas/consent_signature_witness2.php'); ?>
+            </div>
         </div>
 
         <div class="clearfix"></div>
@@ -241,19 +243,16 @@
                     <input type="text" class="form-control datepicker date-picker" placeholder="<?= $strings["forms_dateformat"]; ?>" name="criminal_date" value="<?php if (isset($consent_detail))echo $consent_detail->criminal_date;?>"
                            value="<?php echo date("Y-m-d"); ?>"/>
                 </div>
-            </div>
 
+                <label class="control-label col-md-12"><?= $strings2["consent_currentadd"]; ?>: </label>
 
-            <div class="form-group row">
-                <label class="control-label col-md-3"><?= $strings2["consent_currentadd"]; ?>: </label>
-
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="text" class="form-control" placeholder="<?= $strings["forms_address"]; ?>" name="criminal_current_address" value="<?php if (isset($consent_detail))echo $consent_detail->criminal_current_address;?>"/>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <?php provinces("criminal_current_province"); ?>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="text" role="postalcode" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->criminal_current_postal_code;?>"
                            name="criminal_current_postal_code"/>
                 </div>
@@ -352,42 +351,44 @@
             </div>
             <div class="col-md-12">
                 <p>
-
-                <div class="col-md-5">1.&nbsp;&nbsp;<?= $strings2["consent_g1a"]; ?></div>
-                <div class="col-md-3"><input type="text" class="form-control" name="psp_employer"/></div>
-                <div class="col-md-4"><?= $strings2["consent_g1b"]; ?></div>
-                <br/><br/> <?= $strings2["consent_g1c"]; ?></p>
+                    1.&nbsp;&nbsp;<?= $strings2["consent_g1a"]; ?>
+                    <input type="text" class="form-control" name="psp_employer" style="width: 20% !important; display: inline;" placeholder="<?= str_replace('"', "&quot;", $strings2["consent_g2b"]); ?>"/>
+                    <?= $strings2["consent_g1c"]; ?>
+                </p>
                 <p><?= $strings2["consent_g1d"]; ?></p>
                 <p><?= $strings2["consent_g1e"]; ?></p>
                 <p><?= $strings2["consent_g1f"]; ?></p>
                 <p><?= $strings2["consent_g1g"]; ?>:</p>
             </div>
             <div class="col-md-12">
-                <p>
+                    <P>
+                    2.&nbsp;&nbsp;<?= $strings2["consent_g2a"]; ?>
+                    <input type="text" class="form-control" style="width: 20% !important; display: inline;" name="authorize_name_hereby" placeholder="<?= str_replace('"', "&quot;", $strings2["consent_g2b"]); ?>"/>
+                    <?= $strings2["consent_g2c"]; ?>
+                    </P>
+            </div>
 
-                <div class="col-md-2">2.&nbsp;&nbsp;<?= $strings2["consent_g2a"]; ?></div>
-                <div class="col-md-3"><input type="text" class="form-control" name="authorize_name_hereby"/></div>
-                <div class="col-md-7"><?= $strings2["consent_g2b"]; ?></div>
-                </p><br/><br/>
-
-                <p><?= $strings2["consent_g2c"]; ?></p>
+            <div class="col-md-12">
                 <p>3.&nbsp;&nbsp;<?= $strings2["consent_g3a"]; ?></p>
                 <p>4.&nbsp;&nbsp;<?= $strings2["consent_g3b"]; ?></p>
                 <p><?= $strings2["consent_g3c"]; ?></p>
+            </div>
 
-                <label class="control-label col-md-2"><?= $strings2["tasks_date"]; ?>: </label>
-
-                <div class="col-md-2">
-                    <input type="text" class="form-control datepicker date-picker" name="authorize_date"/>
-                </div>
-                <input type="hidden" class="form-control" name="authorize_signature" />
-
-                <label class="control-label col-md-3"> <?= $strings2["profiles_name"]; ?>: </label>
-
-                <div class="col-md-5">
-                    <input type="text" class="form-control" name="authorize_name" value="<?php if (isset($consent_detail))echo $consent_detail->authorize_name;?>"/>
+            <div class="col-md-12 row">
+                <div class="form-group col-md-6">
+                    <label class="control-label col-md-2"><?= $strings2["tasks_date"]; ?>: </label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control datepicker date-picker" name="authorize_date" value="<?= date('Y-m-d'); ?>"/>
+                    </div>
+                </DIV>
+                <div class="form-group col-md-6">
+                    <label class="control-label col-md-2"> <?= $strings2["profiles_name"]; ?>: </label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="authorize_name" value="<?php if (isset($consent_detail))echo $consent_detail->authorize_name;?>"/>
+                    </div>
                 </div>
             </div>
+
             <div class="col-md-12">
                 <p><?= $strings2["consent_g3d"]; ?></p>
 
@@ -397,6 +398,7 @@
             
 
             <div class="form-group col-md-6">
+                <input type="hidden" class="form-control" name="authorize_signature" />
                 <?php include('canvas/consent_signature_driver.php'); ?>
             </div>
             <div class="form-group col-md-6">
