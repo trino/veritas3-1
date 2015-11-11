@@ -808,37 +808,26 @@ loadreasons($param, $strings, true);
                                                 <?php
                         
                                                     $clients = $this->requestAction('/clients/getAllClient/');
+                                                    $AssignedTo = array();
+                                                    $clientcount=0;
+                                                    foreach ($clients as $client) {
+                                                        $pro_ids = explode(",", $client->profile_id);
+                                                        if (in_array($id, $pro_ids)){
+                                                            $AssignedTo[] = $client->id;
+                                                            $clientcount++;
+                                                        }
+                                                    }
+                                                    $cidss = implode(",", $AssignedTo);
                                                     $count = 0;
                                                     if ($clients) {
-                                                        $clientcount=0;
-                                                        if(!$isadmin) {
-                                                            foreach ($clients as $o) {
-                                                                $pro_ids = explode(",", $o->profile_id);
-                                                                if (in_array($id, $pro_ids)) {$clientcount++;}
-                                                            }
-                                                        }
-                        
                                                         $b=0;
-                                                        $cidss = '';
                                                         foreach ($clients as $o) {
-                                                            
                                                             $b++;
-                                                            $pro_ids = explode(",", $o->profile_id);
-                                                            $isassigned = in_array($id, $pro_ids);
-                                                            if($isassigned)
-                                                            {
-                                                                if($cidss == '')
-                                                                {
-                                                                    $cidss = $o->id;
-                                                                }
-                                                                else
-                                                                $cidss = $cidss.','.$o->id;
-                                                            }
-                                                            if($this->request->params['action'] == 'view')
-                                                            {
+                                                            $isassigned = in_array($o->id, $AssignedTo);
+                                                            if($this->request->params['action'] == 'view') {
                                                                 if (!$isassigned) {
                                                                         continue;
-                                                                    }
+                                                                }
                                                             }
                                                             ?>
                         
@@ -851,7 +840,7 @@ loadreasons($param, $strings, true);
                                                                         class="addclientz" name="client_idss[]" <?php if ($isassigned) {
                                                                         echo "checked";
                                                                     } ?>  <?php echo $is_disabled;
-                                                                     if(!$isassigned && $clientcount >0){
+                                                                     if(!$isassigned && $clientcount >0 && !$profile->admin && !$profile->super){
                                                                          echo " disabled";
                                                                      }
                                                                     ?> />
