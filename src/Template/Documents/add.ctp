@@ -58,17 +58,21 @@
         if (isset($disabled)) {
             echo ' <a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }
-        $opposite = "edit"; $url="add";
-        if ($action=="Edit"){ $opposite = "view"; $url= "view";}
-        if($did){
-            if(str_replace('?','',$id1.$id2)==$id1.$id2)
-                $sep = '?';
-            else
-                $sep = '&';}
-        if (isset($this->request->params['pass'][1])&& !isset($_GET['order_id'])) { echo '<a href="../../' . $url . '/' . $ClientID . "/" . $id1 . $id2 .$sep. 'type='.$_GET['type'].'" class="floatright btn btn-info btnspc">' . $strings["dashboard_" . $opposite] . '</a>'; }
-        if($Debug){
+        if($Debug && ($action=="Edit" || $action=="Create")){
             echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
         }
+
+        $opposite = "edit"; $url="add";
+        if ($action=="Edit"){ $opposite = "view"; $url= "view";}
+        if($did) {
+            if (str_replace('?', '', $id1 . $id2) == $id1 . $id2) {
+                $sep = '?';
+            } else {
+                $sep = '&';
+            }
+        }
+        if (isset($this->request->params['pass'][1])&& !isset($_GET['order_id'])) { echo '<a href="../../' . $url . '/' . $ClientID . "/" . $id1 . $id2 .$sep. 'type='.$_GET['type'].'" class="floatright btn btn-info btnspc">' . $strings["dashboard_" . $opposite] . '</a>'; }
+
 
         function makeportlet($did, $color="", $Title=""){
             if (strlen($Title)>0){
