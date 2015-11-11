@@ -399,10 +399,18 @@ class ClientApplicationController extends AppController {
             
             
             $subdoc = TableRegistry::get('subdocuments')->find()->where(['id'=>$sub])->first();
-            $table = $subdoc->table_name;
-            echo ucfirst($table);die();
-            $this->loadModel(ucfirst($table));
-            $arr = (array)$this->ucfirst($table)->schema();
+            $table_name = $subdoc->table_name;
+            
+            $table_arr = explode('_',$table_name);
+            $table = '';            
+            foreach($table_arr as $ta)
+            {
+                $table = $table.ucfirst($ta);
+            }
+            //echo ucfirst($table);die();
+            
+            $this->loadModel($table);
+            $arr = (array)$this->$table->schema();
             $i=0;
             foreach($arr as $a)
             {
@@ -418,15 +426,14 @@ class ClientApplicationController extends AppController {
                 
                 $fields[] = $key;
             }
-            var_dump($fields);die();
-            
-            
-            $q = TableRegistry::get($table)->find()->where(['user_id'=>$driver])->order('id','DESC')->first();
-            
-            
-             $this->response->body($q);
-            return $this->response;
-            die();
+            $q = TableRegistry::get($table_name)->find()->where(['user_id'=>$driver])->order('id','DESC')->first();
+            foreach($fields as $f)
+            {
+                
+                if($q)
+                $return[$f] = $q->$f;
+            }
+            echo json_encode($return); die(); 
         }
 
 }
