@@ -73,6 +73,11 @@
 
     //  echo '<div class="col-xs-4">';
 ?>
+<STYLE>
+    .profile_client{
+        margin-top: 8px !important;
+    }
+</STYLE>
     <div class="clearfix"></div>
 <div class="scrolldiv" style="margin-bottom: 15px; overflow-y: auto; width: auto; height: auto;" ID="bulkform">
     <input type="text" id="searchProfile" onkeyup="searchProfile()" class="form-control" placeholder="<?= $strings["infoorder_searchprofiles"]; ?>"/>
@@ -104,7 +109,7 @@
                         $fulllist = $profile->id;
                     }
                     //}
-                    print1profile($i, $profile, $profiletype, $Manager);
+                    print1profile($i, $profile, $profiletype, $Manager, $strings);
 
                     $i++;
                 }
@@ -119,16 +124,17 @@
             return "";
             }
 
-            function print1profile($index, $profile, $profiletype, $Manager){//$index = $i
+            function print1profile($index, $profile, $profiletype, $Manager, $strings){//$index = $i
                 $Disabled = "";
-                $username=formatname($profile);
+                $ALERT="infoorder_complete";
                 if(!$profile->is_complete || $Manager->requiredfields($profile, "profile2order")){
                     $Disabled = " DISABLED";
+                    $ALERT="infoorder_incomplete";
                 }
-                echo '<tr><td><span' . $Disabled . '><input class="profile_client" type="checkbox" id="p_' . $index . '" name="p_' . $profile->id . '"' . $Disabled .
+                echo '<tr><td class="v-center"><span' . $Disabled . '><LABEL><input class="profile_client" type="checkbox" id="p_' . $index . '" name="p_' . $profile->id . '"' . $Disabled .
                 ' onchange="addProfile(' . $profile->id . ');"
                 value="' . $profile->id . '"/></span>
-                <span><label for="p_' .  $index . '">' . $username . '</span> ';
+                <span>' . formatname($profile) . '</span> ';
                 if($profile->profile_type){ echo $profiletype;}
                 echo ' </span>&nbsp;
                 <span class="msg_' . $profile->id . '"></span></label>
@@ -183,7 +189,6 @@
             function productslist($ordertype, $products, $ID, $Checked = false, $Blocked = ""){
                 $field = getFieldname("title", $GLOBALS["language"]);
                 if($GLOBALS["language"] == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
-
                 if ($Checked) { $Checked = ' checked disabled';} else { $Checked = "";}
                 $index=0;
                 if($Blocked){$Blocked = explode(",", $Blocked);}
@@ -326,19 +331,13 @@
 
     <select class="form-control input-<?= $size ?> select2me"
             <?php if (!isset($_GET['ordertype']) || (isset($_GET['ordertype']) && $_GET['ordertype'] != "QUA")) { ?>data-placeholder="<?= $strings["infoorder_createdriver"]; ?>"<?php } ?>
-            id="selecting_driver" <?php if ($driver) { ?>disabled="disabled"<?php } ?>>
-        <?php if (!isset($_GET['ordertype']) || (isset($_GET['ordertype']) && $_GET['ordertype'] != "QUA")) { ?>
-        <option <? if ($driver == '0') {
-            echo 'selected';
-        } ?>><?= $strings["infoorder_selectdriver"];?>
-            </option><?php } else {
-            ?>
-            <option <? if ($driver == '0') {
-                echo 'selected';
-            } ?>><?= $strings["infoorder_selectdriver"];?>
-            </option>
+            id="selecting_driver" <?php if ($driver) { echo 'disabled="disabled"'; } ?>>
         <?php
-        }
+
+        echo '<option ';
+        if ($driver == '0') { echo 'selected'; }
+        echo '>' . $strings["infoorder_selectdriver"] . '</option>';
+
         $counting = 0;
         $drcl_d = $dr_cl['driver'];
         foreach ($drcl_d as $drcld) {
@@ -346,11 +345,16 @@
         }
 
         foreach ($dr_cl['driver'] as $dr) {
+            //don't forget about orders/getDriverByClient and profiles/get_ajax_profile.ctp and print1profile
+            $ALERT= "infoorder_complete";
             $driver_id = $dr->id;
             echo '<option value="' . $dr->id . '"';
-            if(!$dr->is_complete || $Manager->requiredfields($dr, "profile2order")){echo " DISABLED";}
+            if(!$dr->is_complete || $Manager->requiredfields($dr, "profile2order")){
+                echo " DISABLED";
+                $ALERT= "infoorder_incomplete";
+            }
             if ($dr->id == $driver || $counting == 1 && $driver != '0'){ echo 'selected="selected"'; }
-            echo '>' . formatname($dr) . '</option>';
+            echo '>' . $strings[$ALERT] . " " . formatname($dr) . '</option>';
         }
         ?>
     </select>

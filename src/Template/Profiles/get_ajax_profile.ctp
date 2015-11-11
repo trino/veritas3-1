@@ -36,6 +36,7 @@ $fulllist="";
 if(iterator_count($profiles)==0){
     printtdline(getstring("infoorder_nonefound", $language));
 } else {
+    printtdline(getstring("infoorder_disabled", $language));
     foreach ($profiles as $r) {
         $DOIT = true;
         $username = "[NO NAME]";
@@ -57,43 +58,31 @@ if(iterator_count($profiles)==0){
             $profiletype = " (Draft)";
         }
         if ($mode == 1) {
-            //$DOIT = false;
-            //if (empty($r->profile_type) || $r->profile_type == 5 || $r->profile_type == 8 || $r->profile_type == 11 || $r->profile_type == 17) {
-            //    $DOIT = true;
-            //}
-
             $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
-            //$profiletype.= " [" . $r->profile_type . "]";
         }
-//echo $r->username;continue;
-//if($i%2==0)
+
         if ($DOIT) {
-            ?>
-            <tr>
-                <td>
-<span><input id="p_<?= $i ?>" name="p_<?= $r->id ?>" class="profile_client" onchange="<?php
-    $checked = "";
-    if ($mode == 0) {
-        echo "if($(this).is(':checked')){assignProfile($(this).val(),'" . $cid . "','yes');}else{assignProfile($(this).val(),'" . $cid . "','no');}";
-        $checked = in_array($r->id, $profile);
-    } else {
-        echo $sub . "(" . $r->id . ");";
-        $checked = in_array($r->id, $selected);
-    }
-    if ($checked) {
-        $checked = 'checked="checked"';
-    }
+            echo '<tr><td><span><input id="p_' . $i . '" name="p_' . $r->id . '" class="profile_client" onchange="';
+            $checked = "";
+            if ($mode == 0) {
+                echo "if($(this).is(':checked')){assignProfile($(this).val(),'" . $cid . "','yes');}else{assignProfile($(this).val(),'" . $cid . "','no');}";
+                $checked = in_array($r->id, $profile);
+            } else {
+                echo $sub . "(" . $r->id . ");";
+                $checked = in_array($r->id, $selected);
+            }
+            if ($checked) {
+                $checked = 'checked="checked"';
+            }
 
-    ?>" type="checkbox" <?= $checked; ?> value="<?php echo $r->id; ?>"/></span>
-                <span><label for="p_<?= $i ?>"><?php echo $username; ?> <?php if ($profiletype) {
-                            echo $profiletype;
-                        } ?> </span></label>
-                    <span class="msg_<?php echo $r->id; ?>"></span>
-                </td>
-            </tr>
-<?php
-// }
-
+            ?>" type="checkbox" <?= $checked; ?> value="<?php echo $r->id; ?>"/></span>
+                        <span><label for="p_<?= $i ?>"><?php echo $username; ?> <?php if ($profiletype) {
+                                    echo $profiletype;
+                                } ?> </span></label>
+                            <span class="msg_<?php echo $r->id; ?>"></span>
+                        </td>
+                    </tr>
+            <?php
             $i++;
         }
     }
@@ -105,12 +94,6 @@ if(iterator_count($profiles)==0){
             echo '<TR><TD><SPAN><INPUT TYPE="CHECKBOX" ID="selectall" ONCHANGE="selectall(' . $fulllist . ');"></SPAN> <SPAN><LABEL FOR="selectall">Select All</LABEL></SPAN></TD></TR>';
         }
     }
-
-
-//if(($i+1)%2!=0)
-//                                                {
-//                                                    echo "</td></tr>";
-//                                                }
 ?>
 
 <script>

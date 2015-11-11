@@ -1079,19 +1079,22 @@
 
             //echo "<OPTION>" . $this->makeprofiletypequery() . "</OPTION>";
 
+            $Strings = array( "complete" => $this->Trans->getString("infoorder_complete"), "incomplete" => $this->Trans->getString("infoorder_incomplete") );
             echo "<option value='' title='Orderscontroller.getDriverByClient'>" . $this->Trans->getString("forms_selectdriver") . "</option>";
             if ($profile) {
                 foreach ($profile as $p) {
+                    $ALERT= "complete";
                     echo "<option value='" . $p->id . "'";
-                    if($this->Manager->requiredfields($p, "profile2order") || !$p->iscomplete){
+                    if($this->Manager->requiredfields($p, "profile2order") || !$p->is_complete){
                         echo ' DISABLED';
+                        $ALERT= "incomplete";
                     }
                     $username="";
                     if($p->username){
                         $username = " (" . $p->username . ")";
                     }
                     $username = trim($p->fname . ' ' . $p->mname . ' ' . $p->lname . $username);
-                    echo ">" . $username . "</option>";
+                    echo ">" . $Strings[$ALERT] . " " . $username . "</option>";
                 }
             }
 

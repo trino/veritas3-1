@@ -264,10 +264,10 @@
                                 $Fieldname = getFieldname("title", $language);
                                 $jj=0;
                                 $doc_count = 0;
-                                foreach($subdoccli as $getcounter)
-                                {
+                                foreach($subdoccli as $getcounter) {
                                    $doc_count++;
-                                }$doc = $doc_comp->getDocument('orders');
+                                }
+                                $doc = $doc_comp->getDocument('orders');
                                 $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
                                 if(is_iterable($doc_ids)) {
                                     //die('here');
@@ -292,18 +292,14 @@
                                 $Fieldname = getFieldname("title", $language);
                                 $jj=0;
                                 $doc_count = 0;
-                                foreach($subdoccli as $getcounter)
-                                {
+                                foreach($subdoccli as $getcounter) {
                                    $doc_count++;
                                 }
                             
                             
                             $tab = 'tab-pane';
                             $i = 1;
-                            ?>
-
-
-                                <?php if ($DriverID>0){
+                            if ($DriverID>0){
                                     $i++;?>
 
 
@@ -325,11 +321,7 @@
                                         <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
                                     </div>
 
-
-
-                                <?php }?>
-
-                                <?php
+                                <?php }
 
                                 $temp_step = 1;
                                 foreach ($subdoccli as $sd) {
@@ -366,10 +358,7 @@
                                             } else if($k_cou<$j) {
                                                 $k_cou=$j;
                                             }
-                                            ?>
-                                            
-                                            
-                                            <?php
+
                                             //$d = $this->requestAction('/clients/getFirstSub/'.$sd->sub_id);
                                             $dx = $this->requestAction('/orders/getSubDetail/'.$sd->sub_id);
                                             //var_dump($s);
@@ -425,11 +414,6 @@
                                 <?php
                                 if($debugging) { debug($thedocuments);}
                                 if(!isset($k_cou)){ $k_cou = 1; }
-                                ?>
-
-                               
-                            
-                        <?php
                         }
                         ?>
                         
@@ -442,5 +426,6 @@
         </div>
     </div>
 </div>
-<?php } ?>
-<?php include('subpages/commonjs.php');?>
+<?php
+    }
+include('subpages/commonjs.php');?>
