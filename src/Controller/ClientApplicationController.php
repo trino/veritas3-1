@@ -72,10 +72,9 @@ class ClientApplicationController extends AppController {
         }
 
     function saveDriver($id=0) {
-        
         $model = TableRegistry::get('profiles');
         if($id==0){
-            $_POST["profile_type"] = 0;
+            $_POST["profile_type"] = 5;
             $profile = $model->newEntity($_POST);
             $model->save($profile);
             echo $pid = $profile->id;
