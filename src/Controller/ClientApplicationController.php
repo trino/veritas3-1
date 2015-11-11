@@ -32,9 +32,11 @@ class ClientApplicationController extends AppController {
         $this->set('client',$client);
     }
 
-    public function apply($id) {
+    public function apply($slug) {
+        $client = TableRegistry::get('clients')->find()->where(['slug'=>$slug])->first();
+        $id = $client->id;
         $sub = TableRegistry::get('client_application_sub_order')->find()->where(['sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE client_id = '.$id.' AND display_application = 1)','client_id'=>$id])->order(['display_order'=>'ASC']);
-        $client = TableRegistry::get('clients')->find()->where(['id'=>$id])->first();
+        //$client = TableRegistry::get('clients')->find()->where(['id'=>$id])->first();
         $this->set('client',$client);
         $this->set('subd',$sub);
         $this->set('Manager',$this->Manager);
@@ -350,7 +352,7 @@ class ClientApplicationController extends AppController {
      public function getJsonFields($driver)
         {
             $profiles = TableRegistry::get('Profiles')->find()->where(['id'=>$driver])->first();
-            $arr = array('username','email','password','fname','mname','lname','title','phone','gender','dob','placeofbirth','address','city','province','postal','driver_license_no','driver_province','expiry_date','sin');
+            $arr = array('username','email','password','fname','mname','lname','title','phone','gender','dob','placeofbirth','street','city','province','postal','driver_license_no','driver_province','expiry_date','sin');
             foreach($arr as $f)
             {
                 $arr2[$f] = $profiles->$f;

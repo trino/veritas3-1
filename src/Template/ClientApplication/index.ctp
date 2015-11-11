@@ -7,7 +7,7 @@
     {
         $i++;
         ?>
-        <a class="listclient" href="<?php echo $this->request->webroot;?>clientApplication/apply/<?php echo $c->id;?>" style="display: block;">
+        <a class="listclient" href="<?php echo $this->request->webroot;?>clientApplication/apply/<?php echo $c->slug;?>" style="display: block;">
             
             <?php 
             echo $i.' '.strtoupper($c->company_name);
