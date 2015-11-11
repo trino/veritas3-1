@@ -185,9 +185,6 @@
                 echo $this->Html->link(__($strings["dashboard_edit"]), ['action' => 'edit', $profile->id], ['class' => 'floatright btn btn-primary btnspc']);
             } else if ($param == 'edit') {
                 echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-info btnspc']);
-                if($this->request->session()->read('debug')){
-                    echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
-                }
             }
             if ($this->request->session()->read('Profile.super') && $this->request->session()->read('Profile.id') != $profile->id && $debug) {
                 echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
@@ -209,6 +206,10 @@
                 ?>" class=" floatright btn default btnspc"><?= $strings["profiles_mydocuments"]; ?></a>
                 <?php
             }
+        }
+
+        if($this->request->session()->read('debug') && ($param == "edit" || $param == "add") ){
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
         }
     ?>
 </div>
