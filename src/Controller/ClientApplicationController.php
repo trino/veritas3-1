@@ -433,7 +433,11 @@ class ClientApplicationController extends AppController {
                 if($q)
                 $return[$f] = $q->$f;
             }
-            echo json_encode($return); die(); 
+            if(isset($return) && $return)
+            echo json_encode($return);
+            else
+            echo '';
+            die(); 
         }
 
 }

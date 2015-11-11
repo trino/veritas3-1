@@ -22,10 +22,10 @@ client_id = '<?=$cid?>';
             //alert(res['applicants_email']);
              $('#tab0 input,#tab0 textarea').each(function(){
                 //alert($(this).attr('name');
-                if(res[$(this).attr('name')])
+                if(res[$(this).attr('name').replace('[]','')])
                 {
                     <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
-                    $(this).val(res[$(this).attr('name')]);
+                    $(this).val(res[$(this).attr('name').replace('[]','')]);
                 }
              });
            } 
@@ -37,16 +37,60 @@ client_id = '<?=$cid?>';
            url:'<?php echo $this->request->webroot;?>clientApplication/getJsonPrevious/'+driverid+'/'+sub_id,
            success:function(res)
            {
+            if(res){
+            
             res = JSON.parse(res);
             //alert(res['applicants_email']);
-             $('.subform_'+sub_id+' input,.subform_'+sub_id+' textarea').each(function(){
+             $('.subform_'+sub_id+' input:not([type=image],[type=button],[type=submit],[type=checkbox],[type=radio]),.subform_'+sub_id+' textarea').each(function(){
                 //alert($(this).attr('name');
-                if(res[$(this).attr('name')])
+                if(res[$(this).attr('name').replace('[]','')])
                 {
                     <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
-                    $(this).val(res[$(this).attr('name')]);
+                    $(this).val(res[$(this).attr('name').replace('[]','')]);
                 }
              });
+             $('.subform_'+sub_id+' select').each(function(){
+                //alert($(this).attr('name');
+                if(res[$(this).attr('name').replace('[]','')])
+                {
+                    $this = $(this);
+                    if($this.val() == ''){
+                    $this.find('option').each(function(){
+                        
+                       if($(this).attr('value') == res[$this.attr('name').replace('[]','')]) 
+                       {
+                        $(this).attr('selected','selected');
+                       }
+                    });
+                    }
+                    
+                }
+             });
+             
+             $('.subform_'+sub_id+' radio').each(function(){
+                //alert($(this).attr('name');
+                if(res[$(this).attr('name').replace('[]','')])
+                {
+                    //$this = $(this);
+                    if($(this).val() == res[$(this).attr('name').replace('[]','')]){
+                    $(this).attr('checked','checked');
+                    }
+                    
+                }
+             });
+             
+             $('.subform_'+sub_id+' checkbox').each(function(){
+                //alert($(this).attr('name');
+                if(res[$(this).attr('name').replace('[]','')])
+                {
+                    //$this = $(this);
+                    if($(this).val() == res[$(this).attr('name').replace('[]','')]){
+                    $(this).attr('checked','checked');
+                    }
+                    
+                }
+             });
+             }
            } 
         });
     }
@@ -58,7 +102,7 @@ $(function(){
         foreach($arr_sd as $asd)
         {
               ?>
-              //getJsonPrevious(profile_id,$asd); //Need to have a parent class subform_[sub_id] in parent div of particular form
+              getJsonPrevious(profile_id,<?php echo $asd;?>); //Need to have a parent class subform_[sub_id] in parent div of particular form
               <?php  
         }
         }
