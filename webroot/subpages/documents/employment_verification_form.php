@@ -42,10 +42,10 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 
                 if(isset($sub3['emp']) && count($sub3['emp'])){
                     
-                    if($this->request->params['controller']!='Orders'){
+                    /*if($this->request->params['controller']!='Orders'){
                     if (count($sub3['emp']) == 1 && is_object($sub3['emp'])){
                         $sub3['emp'] = array($sub3['emp']);
-                    }}
+                    }}*/
 
                     foreach($sub3['emp'] as $emp){
                         //var_dump($emp);die();
