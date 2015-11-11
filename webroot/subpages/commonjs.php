@@ -58,7 +58,7 @@ $(function(){
         foreach($arr_sd as $asd)
         {
               ?>
-              getJsonPrevious(profile_id,$asd); //Need to have a parent class subform_[sub_id] in parent div of particular form
+              //getJsonPrevious(profile_id,$asd); //Need to have a parent class subform_[sub_id] in parent div of particular form
               <?php  
         }
         }
