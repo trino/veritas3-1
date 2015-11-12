@@ -151,7 +151,9 @@ class DocumentsController extends AppController{
             $profiles = $this->Manager->cacheprofiles($profiles);
             $this->set("profiles", $profiles);
 
-            $cli_id = $this->Manager->enum_all("clients", "id IN('" . $cli_id  . "')");
+            if($cli_id) {
+                $cli_id = $this->Manager->enum_all("clients", "id IN('" . $cli_id . "')");
+            }
             $this->set("clients", $cli_id);
         }
 
@@ -179,6 +181,8 @@ class DocumentsController extends AppController{
         $profiletype = TableRegistry::get('profile_types')->find()->where(['id'=>$usertype])->first();
         $this->set('profiletype', $profiletype);
         $this->set("sql", $cond);
+
+        $this->Manager->permissions(array("sidebar" => array("document_list", "document_others", "document_create", "document_edit", "document_delete")), $setting, false, $sess);
     }
 
     function AppendSQL($SQL, $Query){
@@ -255,7 +259,8 @@ class DocumentsController extends AppController{
             $doc = $this->Document->getDocumentcount();
             $cn = $this->Document->getUserDocumentcount();
             if ($setting->document_list == 0 || count($doc) == 0 || $cn == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions") . ' (024)');
+                $this->Flash->error($this->Trans->getpermissions("024", array("document_list", "documents_enabled")));
+                //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (024)');
                 return $this->redirect("/");
             }
             $this->set('disabled', 1);
@@ -551,16 +556,17 @@ class DocumentsController extends AppController{
                 $query = $doc->find()->where(['id' => $did])->first();
                 $this->set('document', $query);
                 if ($setting->document_edit == 0 || count($doc) == 0 || $cn == 0) {
-                    $this->Flash->error($this->Trans->getString("flash_permissions") . ' (023)');
+                    $this->Flash->error($this->Trans->getpermissions("023", array("document_edit", "documents_enabled")));
+                    //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (023)');
                     return $this->redirect("/");
 
                 }
 
             } else {
                 if ($setting->document_create == 0 || count($doc) == 0 || $cn == 0) {
-                    $this->Flash->error($this->Trans->getString("flash_permissions") . ' (022)');
+                    $this->Flash->error($this->Trans->getpermissions("022", array("document_create", "documents_enabled")));
+                    //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (022)');
                     return $this->redirect("/");
-
                 }
             }
             if (isset($_POST['uploaded_for'])) {
@@ -738,10 +744,11 @@ class DocumentsController extends AppController{
         $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
 
         if ($setting->document_delete == 0) {
-            $this->Flash->error($this->Trans->getString("flash_permissions") . ' (021)');
+            $this->Flash->error($this->Trans->getpermissions("021", "document_delete"));
+            //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (021)');
             return $this->redirect("/");
-
         }
+
         if ($id != "") {
             $doc = TableRegistry::get('Subdocuments');
             $query = $doc->find();

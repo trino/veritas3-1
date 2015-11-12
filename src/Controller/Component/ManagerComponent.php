@@ -719,7 +719,9 @@ class ManagerComponent extends Component {
         }
         if(!$Table){$Table = "profiles";}
         $Profiles = implode(",", $Profiles);
-        $Profiles = $this->enum_all($Table, "id IN (" . $Profiles . ")");
+        if($Profiles) {
+            $Profiles = $this->enum_all($Table, "id IN (" . $Profiles . ")");
+        }
         return $Profiles;
     }
 

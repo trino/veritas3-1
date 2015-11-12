@@ -47,17 +47,14 @@ class PagesController extends AppController {
         $conditions="";
         if(!$this->request->session()->read('Profile.super')){
             $conditions["id"] = $this->Manager->find_client($userid, false);
+            $clients = null;
             if(is_array($conditions["id"])) {
                 $client_ids = implode($conditions['id'], ',');
-            }else {
-                $client_ids = $conditions["id"];
-            }
-            if($client_ids) {
                 $clients = TableRegistry::get('clients')->find('all')->where('id IN (' . $client_ids . ')');
-            }else {
-                $clients = null;
+            } else if ($conditions["id"]){
+                $client_ids = $conditions["id"];
+                $clients = TableRegistry::get('clients')->find('all')->where('id = ' . $client_ids);
             }
-          
             $this->set('client', $this->paginate($clients));
         } else {
             $this->set('client', $this->paginate($this->Manager->enum_all("clients", $conditions)));
@@ -85,7 +82,7 @@ class PagesController extends AppController {
             }
         }
 
-        $this->Manager->permissions(array("sidebar" => "client_list"), $setting, $block, $userid);
+        $this->Manager->permissions(array("sidebar" => array("client_list", "client_edit", "client_delete")), $setting, $block, $userid);
 	}
 
     function countenabled($Data, $Filter = array()){

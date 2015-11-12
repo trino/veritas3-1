@@ -231,13 +231,14 @@
 
                                 $isISB = (isset($sidebar) && $sidebar->client_option == 0);
                                 // $profiletype = ['', 'Admin', 'Recruiter', 'External', 'Safety', 'Driver', 'Contact', 'Owner Operator', 'Owner Driver', 'Employee', 'Guest', 'Partner'];
-                                if (count($profiles) == 0) {
+                                if (!isset($profiles) || count($profiles) == 0) {
                                     echo '<TR><TD COLSPAN="8" ALIGN="CENTER">' . $strings["profiles_nonefound"] . '</TD></TR>';
                                 }
 
                                 $URLStart = '<a href="' . $this->request->webroot;
                                 $URLEnd = '" class="' . btnclass("btn-info", "blue-soft") . '">';//$strings["profiles_viewdocuments"]
-                                foreach ($profiles as $profile):
+                                if(isset($profiles)){
+                                foreach ($profiles as $profile){
                                     if ($row_color_class == "even") {
                                         $row_color_class = "odd";
                                     } else {
@@ -372,7 +373,9 @@
                                         </td>
                                     </tr>
 
-                                <?php endforeach; ?>
+                                <?php }
+                                }
+                            ?>
                             </tbody>
                         </table>
                     </div>

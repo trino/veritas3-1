@@ -1692,25 +1692,20 @@ class DocumentComponent extends Component{
             die();
         }
         
-        function getDriverClient($driver,$client)
-        {
+        function getDriverClient($driver,$client) {
             $controller = $this->_registry->getController();
             $logged_id = $controller->request->session()->read('Profile.id');
             //echo "<br/>";
             if(!$client){
-            $cmodel = TableRegistry::get('Clients');
-            if(!$controller->request->session()->read('Profile.super'))
-            $clients = $cmodel->find()->where(['(profile_id LIKE "'.$logged_id.',%" OR profile_id LIKE "%,'.$logged_id.',%" OR profile_id LIKE "%,'.$logged_id.'")']);
-            else{
-                if(!$driver)
-            $clients = $cmodel->find();
-            else
-            $clients = $cmodel->find()->where(['(profile_id LIKE "'.$driver.',%" OR profile_id LIKE "%,'.$driver.',%" OR profile_id LIKE "%,'.$driver.'")']);
-            }
-            
-            }
-            else
-            {
+                $cmodel = TableRegistry::get('Clients');
+                if(!$controller->request->session()->read('Profile.super')) {
+                    $clients = $cmodel->find()->where(['(profile_id LIKE "' . $logged_id . ',%" OR profile_id LIKE "%,' . $logged_id . ',%" OR profile_id LIKE "%,' . $logged_id . '")']);
+                }else if(!$driver) {
+                    $clients = $cmodel->find();
+                } else {
+                    $clients = $cmodel->find()->where(['(profile_id LIKE "' . $driver . ',%" OR profile_id LIKE "%,' . $driver . ',%" OR profile_id LIKE "%,' . $driver . '")']);
+                }
+            } else {
                $cmodel = TableRegistry::get('Clients');
                $clients = $cmodel->find()->where(['id'=>$client]); 
                
@@ -1735,9 +1730,7 @@ class DocumentComponent extends Component{
                 
             }
             $profile_ids = '';
-            foreach($clients as $c)
-            {
-
+            foreach($clients as $c) {
                 if($profile_ids) {
                     $profile_ids = $profile_ids.','.$c->profile_id;
                 } else {
@@ -1754,8 +1747,7 @@ class DocumentComponent extends Component{
                 $profile_ids = str_replace(',,',',',$profile_ids);
             //echo $profile_ids;die();
             //echo $profile_ids.'_';die();
-            if($driver==0 && $client==0)
-            {
+            if($driver==0 && $client==0) {
                 $model = TableRegistry::get('Profiles');
                 $conditions = array($this->makeprofiletypequery());
                 if(!$controller->request->session()->read('Profile.super')) {
@@ -1763,11 +1755,11 @@ class DocumentComponent extends Component{
                 }
                 $q = $model->find()->where([$conditions])->order('fname');
 
-            }
-            else
-            if($driver!=0) {
-               $model = TableRegistry::get('Profiles');
-               $q = $model->find()->where(['id' => $driver])->order('fname'); 
+            } else {
+                if ($driver != 0) {
+                    $model = TableRegistry::get('Profiles');
+                    $q = $model->find()->where(['id' => $driver])->order('fname');
+                }
             }
             
             $dr_cl['driver'] = $q;
@@ -1776,7 +1768,6 @@ class DocumentComponent extends Component{
             //$this->response->body($dr_cl);
             return $dr_cl;
             die();
-            
         }
 
     function makeprofiletypequery(){

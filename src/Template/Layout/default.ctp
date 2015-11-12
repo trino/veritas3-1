@@ -354,13 +354,13 @@
                                     $Title = $strings[$Title];
                                 }
                             }
-                            echo '<SPAN TITLE="' . $strings["permissions_requiredto"] . $Title . '" STYLE="color:';
+                            echo '<A TITLE="' . $strings["permissions_requiredto"] . $Title . '" ONCLICK="alert(this.getAttribute(' . "'title'" . '));" STYLE="color:';
                             if ($permissions[$Table . "_actual"]->$permission){
                                 echo 'GREEN" CLASS="shadow">' . $Yes;
                             } else {
                                 echo 'RED" CLASS="shadow">' . $No;
                             }
-                            echo '</SPAN>';
+                            echo '</A>';
                         }
                     }
                 }

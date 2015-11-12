@@ -57,7 +57,6 @@
 
                                     foreach ($client as $clients):
                                         $profiles = explode(",", $clients->profile_id);
-
                                         if (in_array($profile_id, $profiles) || $this->request->session()->read('Profile.super') == '1') {
                                             ?>
 
@@ -70,35 +69,21 @@
                                                         }
                                                     ?></td>
                                                 <td align="center" class="v-center">
-
                                                     <?php
                                                         if ($sidebar->client_list == '1' && !isset($_GET["draft"])) {
                                                             ?>
                                                             <a href="<?php echo $this->request->webroot; ?>clients/edit/<?php echo $clients->id; ?>?view">
                                                                 <img class="img-responsive" style="max-width:180px;max-height:50px;width: auto; height: auto;"
                                                                      id="clientpic"
-                                                                     alt=""
                                                                      src="<?php
                                                                      echo clientimage($this->request->webroot, $settings, $clients) . '"/></a>';
                                                             } else {
                                                             ?>
-                                                            <img class="img-responsive" style="max-width:180px;"
+                                                            <img class="img-responsive" style="max-width:180px;max-height:50px;width: auto; height: auto;"
                                                                  id="clientpic"
-                                                                 alt=""
-                                                                 src="<?php if (isset($clients->image) && $clients->image)
-                                                                     {
-                                                                         echo $this->request->webroot; ?>img/jobs/<?php echo $clients->image . '"';
-                                                                     }
-                                                                     else
-                                                                     {
-                                                                        echo $this->request->webroot;?>img/clients/<?php echo $settings->client_img;?>"
-                                                                <?php
-                                                                    }
-                                                                ?> />
-                                                        <?php
+                                                                 src="<?php echo clientimage($this->request->webroot, $settings, $clients) . '"/>';
                                                         }
                                                     ?>
-
                                                 </td>
                                                 <td class="actions  util-btn-margin-bottom-5 v-center">
                                                     <?php
@@ -106,9 +91,9 @@
                                                     ?>
                                                     <a href="<?php echo $this->request->webroot; ?>clients/edit/<?php echo $clients->id; ?>?view">
                                                         <?= ucfirst(h($clients->company_name)) . '</a>';
-                                                            }
-                                                            else
-                                                                ucfirst(h($clients->company_name));
+                                                            } else {
+                                                            echo ucfirst(h($clients->company_name));
+                                                        }
                                                             if ($clients->drafts == 1) echo ' ( Draft ) ';
                                                         ?>
                                                 </td>

@@ -54,7 +54,8 @@
             $doc = $this->Document->getDocumentcount();
             $cn = $this->Document->getUserDocumentcount();
             if ($setting->orders_list == 0 || count($doc) == 0 || $cn == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions") . ' (011)');
+                $this->Flash->error($this->Trans->getpermissions("011", array("orders_list", "documents_enabled")));
+                //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (011)');
                 return $this->redirect("/");
 
             }
@@ -212,7 +213,8 @@
 
             //die(count($doc));
             if ($setting->orders_create == 0 || count($doc) == 0 || $cn == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions") . ' (010)');
+                $this->Flash->error($this->Trans->getpermissions("010", array("orders_create", "documents_enabled")));
+                //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (010)');
                 return $this->redirect("/");
             }
 
@@ -524,7 +526,8 @@
             }
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
             if ($setting->orders_delete == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions") . ' (009)');
+                $this->Flash->error($this->Trans->getpermissions("009", "orders_delete"));
+                //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (009)');
                 return $this->redirect("/");
             }
 
@@ -563,7 +566,8 @@
             $cn = $this->Document->getUserDocumentcount();
 
             if ($setting->orders_list == 0 || count($doc) == 0 || $cn == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions") . ' (008)');
+                $this->Flash->error($this->Trans->getpermissions("008", array("orders_list", "documents_enabled")));
+                //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (008)');
                 return $this->redirect("/");
             }
 
@@ -1135,7 +1139,8 @@
             $this->set('products', TableRegistry::get('product_types')->find('all'));
 
             if ($setting->orders_list == 0 || count($doc) == 0 || $cn == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions") . ' (007)');
+                $this->Flash->error($this->Trans->getpermissions("007", array("orders_list", "documents_enabled")));
+                //$this->Flash->error($this->Trans->getString("flash_permissions") . ' (007)');
                 return $this->redirect("/");
             }
 

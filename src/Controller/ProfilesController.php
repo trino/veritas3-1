@@ -655,7 +655,7 @@
             $condition = $this->Settings->getprofilebyclient($u, $super);
             //var_dump($condition);die();
             if ($setting->profile_list == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "index")) . ' (005)');
+                $this->Flash->error($this->Trans->getpermissions("005", "profile_list"));
                 return $this->redirect("/");
             }
             if (isset($_GET['draft'])) {
@@ -735,7 +735,11 @@
 
             if(!$this->request->session()->read('Profile.super')) {
                 $Me = $this->Manager->get_profile($u)->ptypes;
-                $query = $querys->find()->where(['profile_type IN (' . $Me . ')']);
+                if($Me) {
+                    $query = $querys->find()->where(['profile_type IN (' . $Me . ')']);
+                } else {
+                    $query=false;
+                }
             }
             if (isset($search)) {
                 $this->set('search_text', $search);
@@ -747,10 +751,12 @@
                 $this->set('return_client', $client);
             }
 
-            if (isset($_GET["all"])) {
-                $this->set('profiles', $this->appendattachments($query));
-            } else {
-                $this->set('profiles', $this->appendattachments($this->paginate($query)));
+            if($query) {
+                if (isset($_GET["all"])) {
+                    $this->set('profiles', $this->appendattachments($query));
+                } else {
+                    $this->set('profiles', $this->appendattachments($this->paginate($query)));
+                }
             }
 
             if (!$this->request->session()->read('Profile.super')) {
@@ -760,7 +766,7 @@
                 $this->set('assignedtoGFS', $results);
             }
 
-            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles")), $setting, false, $u);
+            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles", "profile_edit", "profile_delete", "profile_create", "client_option", "bulk", "document_list", "orders_list")), $setting, false, $u);
         }
 
 
@@ -889,7 +895,8 @@
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
 
             if ($setting->profile_create == 0 && !$this->request->session()->read('Profile.super')) {
-                $this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "add")) . ' (004)');
+                $this->Flash->error($this->Trans->getpermissions("004", "profile_create"));
+                //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "add")) . ' (004)');
                 return $this->redirect("/");
             }
             $this->loadModel('Logos');
@@ -1560,7 +1567,8 @@
 
             $setting = $this->Settings->get_permission($userid);
             if (($setting->profile_edit == 0 || $setting->viewprofiles ==0) && $id != $userid) {
-                $this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "edit")) . ' (000)');
+                $this->Flash->error($this->Trans->getpermissions("004", array("profile_edit", "viewprofiles")));
+                //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "edit")) . ' (000)');
                 return $this->redirect("/");
             } else {
                 $this->set('myuser', '1');
@@ -1740,7 +1748,8 @@
 
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
             if ($setting->profile_delete == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "delete 2")) . ' (002)');
+                $this->Flash->error($this->Trans->getpermissions("002", "profile_delete"));
+                //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "delete 2")) . ' (002)');
                 return $this->redirect("/");
             }
 
@@ -2168,7 +2177,8 @@
         function filterBy() {
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
             if ($setting->profile_list == 0) {
-                $this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "filter by")) . '(003)');
+                $this->Flash->error($this->Trans->getpermissions("003", "profile_list"));
+                //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "filter by")) . '(003)');
                 return $this->redirect("/");
             }
             $profile_type = $_GET['filter_profile_type'];

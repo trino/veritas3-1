@@ -279,7 +279,7 @@
                             <tr ID="row<?= $docs->id; ?>" class="<?= $row_color_class; ?>" role="row">
                                 <td class="v-center" align="center">
                                     <?php
-                                        if($docs->hasattachments) { echo '<i  title="Has Attachment" class="fa fa-paperclip"></i>';}
+                                        if($docs->hasattachments) { echo '<i title="Has Attachment" class="fa fa-paperclip"></i>';}
                                         echo $this->Number->format($docs->id)
                                     ?>
                                 </td>

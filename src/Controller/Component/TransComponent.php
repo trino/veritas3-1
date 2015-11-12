@@ -92,6 +92,20 @@ class TransComponent extends Component {
         return "English";//assume english
     }
 
+    public function getpermissions($Index, $Permissions){
+        if (!is_array($Permissions)){
+            $Permissions = array($Permissions);
+        }
+        foreach($Permissions as $Key => $Permission){
+            $Permissions[$Key] = $this->getString("permissions_" . str_replace("_", "" , $Permission));
+            if (strpos($Permissions[$Key] , "_") !== false){
+                $Permissions[$Key] = $this->getString($Permissions[$Key]);
+            }
+        }
+        if ($Permissions){$Index .= ": " . implode(", ", $Permissions);}
+        return $this->getString("flash_permissions") . ' (' . $Index . ')';
+    }
+
     public function getString($String, $Variables = "", $UserID=""){
         $Table = TableRegistry::get('strings')->find()->select()->where(["Name" => $String])->first();
         if(!$Table){return "[" . $String . " NOT FOUND]";}
