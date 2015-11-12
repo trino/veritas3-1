@@ -93,6 +93,7 @@ class ManagerComponent extends Component {
     }
 
     public function find_client($UserID="", $LimitToOne = true){
+        
         if(!$UserID){$UserID = $this->read("id");}
         if(!$UserID){return 0;}
         $clients = TableRegistry::get("clients")->find()->select('id')->where(['profile_id LIKE "'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.'" OR profile_id ="'.$UserID.'"']);

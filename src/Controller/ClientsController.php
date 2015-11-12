@@ -112,7 +112,11 @@
             if(!$this->request->session()->read('Profile.super')){
                 $userid = $this->request->session()->read('Profile.id');
                 $conditions['id'] = $this->Manager->find_client($userid, false);
+                
+                if(is_array($conditions["id"]))
                 $client_ids = implode($conditions['id'],',');
+                else
+                $client_ids = $conditions["id"];
                 $query = $querys->find('all')->where('id IN ('.$client_ids.')');
           
             }

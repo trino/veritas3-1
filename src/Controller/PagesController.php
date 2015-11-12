@@ -46,8 +46,14 @@ class PagesController extends AppController {
         $conditions="";
         if(!$this->request->session()->read('Profile.super')){
             $conditions["id"] = $this->Manager->find_client($userid, false);
+            if(is_array($conditions["id"]))
             $client_ids = implode($conditions['id'],',');
+            else
+            $client_ids = $conditions["id"];
+            if($client_ids)
             $clients = TableRegistry::get('clients')->find('all')->where('id IN ('.$client_ids.')');
+            else
+            $clients = null;
           
             $this->set('client', $this->paginate($clients));
         }
