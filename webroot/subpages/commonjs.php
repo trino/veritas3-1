@@ -125,7 +125,11 @@ $(function(){
     <?php
     if($this->request->params['action']=='vieworder')
     {
+        
         ?>
+        $('#tab0 a:not(.forview)').each(function(){
+           $(this).hide(); 
+        });
         $('input').each(function(){
            $(this).attr('disabled','disabled'); 
         });

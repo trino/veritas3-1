@@ -265,7 +265,11 @@
                                 $jj=0;
                                 $doc_count = 0;
                                 foreach($subdoccli as $getcounter) {
+                                    
+                                    $d = $this->requestAction('/clients/getFirstSub/'.$getcounter->sub_id);
+                                    if (displayform2($DriverProvince,$thedocuments,$d->title, $theproduct,$d->id,$_this)){
                                    $doc_count++;
+                                   }
                                 }
                                 $doc = $doc_comp->getDocument('orders');
                                 $doc_ids = $this->requestAction('/clients/orders_doc/'.$cid.'/'.$_GET['order_type']);
