@@ -1,6 +1,6 @@
 <?php
 $settings = $Manager->get_settings();
-$sidebar = $this->requestAction("settings/get_side/" . $this->Session->read('Profile.id'));
+$sidebar = $Manager->loadpermissions($Me, "sidebar");
 include_once('subpages/api.php');
 
 function clean($data, $datatype=0){

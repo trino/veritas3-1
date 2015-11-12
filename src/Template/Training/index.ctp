@@ -40,7 +40,7 @@
     }
 
     $settings = $Manager->get_settings();
-    $sidebar = $this->requestAction("settings/get_side/" . $this->Session->read('Profile.id'));
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
     $QuizID = -1;
     if (!isset($_GET["action"]) AND isset($_GET["quizid"])) {

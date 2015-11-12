@@ -1,5 +1,5 @@
 <?php $settings = $Manager->get_settings(); ?>
-<?php $sidebar = $this->requestAction("settings/get_side/" . $this->Session->read('Profile.id')); ?>
+<?php $sidebar = $Manager->loadpermissions($Me, "sidebar"); ?>
 <h3 class="page-title">
     Quiz
 </h3>

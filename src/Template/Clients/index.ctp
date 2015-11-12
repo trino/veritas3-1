@@ -1,6 +1,6 @@
 <?php
 $settings = $Manager->get_settings();
-$sidebar =$this->requestAction("settings/all_settings/".$this->Session->read('Profile.id')."/sidebar");
+$sidebar =$Manager->loadpermissions($Me, "sidebar");
 include_once('subpages/api.php');
 $language = $this->request->session()->read('Profile.language');
 $strings = CacheTranslations($language, $this->request->params['controller'] . "_%",$settings);
