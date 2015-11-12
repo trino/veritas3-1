@@ -711,18 +711,19 @@ class ManagerComponent extends Component {
         return $tables;
     }
 
-    function cacheprofiles($Profiles, $IsClient = false){
+    function cacheprofiles($Profiles, $Table = false, $ForceMethod2 = false){
         if (is_array($Profiles)) {
             $Profiles = array_keys($Profiles);
         } else {
             $Profiles = explode(",", $Profiles);
         }
-        if($IsClient){
+        if($Table && !$ForceMethod2){
             $Profiles = implode(",", $Profiles);
-            $Profiles = $this->enum_all("clients", "id IN ('" . $Profiles . "')");
+            $Profiles = $this->enum_all($Table, "id IN ('" . $Profiles . "')");
         } else {
+            if(!$Table){$Table = "profiles";}
             $Profiles = "id = " . implode(" OR id = ", $Profiles);
-            $Profiles = $this->enum_all("profiles", $Profiles);//find IN is not working
+            $Profiles = $this->enum_all($Table, $Profiles);//find IN is not working
         }
         return $Profiles;
     }

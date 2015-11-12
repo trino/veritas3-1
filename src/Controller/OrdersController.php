@@ -1227,13 +1227,16 @@
             $orders = $this->appendattachments($this->paginate($order));
             $profiles = array();
             $clients = array();
+            $divisions = array();
             foreach($orders as $order){
                 $clients[$order->client_id] = true;
                 if($order->uploaded_for) {$profiles[$order->uploaded_for] = true;}
                 if($order->user_id) {$profiles[$order->user_id] = true;}
+                if($order->division) {$divisions[$order->division] = true;}
             }
+            $this->set('divisions', $this->Manager->cacheprofiles($divisions, 'client_divison', true));
             $this->set('profiles', $this->Manager->cacheprofiles($profiles));
-            $this->set('clients', $this->Manager->cacheprofiles($clients, true));
+            $this->set('clients', $this->Manager->cacheprofiles($clients, 'clients'));
 
             $this->set('orders', $orders);
 
@@ -1351,8 +1354,14 @@
 
 
         public function appendattachments($query){
+            $IDs = array();
+            foreach($query as $document){
+                $IDs[] = $document->id;
+            }
+            $IDs = implode(",", $IDs);
+            $IDs = $this->Manager->enum_all("doc_attachments", array("attachment LIKE ('%.%')", "order_id IN ('" . $IDs . "')"));
             foreach($query as $client){
-                $client->hasattachments = $this->hasattachments($client->id);
+                $client->hasattachments = $this->Manager->getIterator($IDs, "order_id", $document->id); //$this->hasattachments($client->id);
             }
             return $query;
         }

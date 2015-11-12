@@ -88,48 +88,37 @@
                     <div class="btn-set pull-right">
 
                         <form action="<?php echo $this->request->webroot; ?>orders/orderslist" method="get">
-                            <?php if (isset($_GET['draft'])) { ?><input type="hidden" name="draft"/><?php } ?>
                             <?php
-                                $users = $doc_comp->getAllUser();
-                            ?>
-                            <select class="form-control input-inline" name="submitted_by_id" style="">
-                                <option value=""><?= $strings["documents_submittedby"];?></option>
-                                <?php
-                                    foreach ($users as $u) {
-                                        ?>
-                                        <option value="<?php echo $u->id; ?>" <?php if (isset($return_user_id) && $return_user_id == $u->id) { ?> selected="selected"<?php } ?> ><?= formatname($u); ?></option>
-                                    <?php
-                                    }
-                                ?>
-                            </select>
-                            <select class="form-control input-inline" name="uploaded_for" style="">
-                                <option value=""><?= $strings["documents_submittedfor"];?></option>
-                                <?php
-                                    foreach ($users as $u) {
-                                        ?>
-                                        <option value="<?php echo $u->id; ?>" <?php if (isset($_GET['uploaded_for']) && $_GET['uploaded_for'] == $u->id) { ?> selected="selected"<?php } ?> ><?= formatname($u); ?></option>
-                                        <?php
-                                    }
-                                ?>
-                            </select>
+                            if (isset($_GET['draft'])) {
+                                echo '<input type="hidden" name="draft"/>';
+                            }
+                            $users = $doc_comp->getAllUser();
+                            echo '<select class="form-control input-inline" name="submitted_by_id" style=""><option value="">' . $strings["documents_submittedby"] . '</option>';
+                            foreach ($users as $u) {
+                                 echo '<option value="' . $u->id . '" ';
+                                 if (isset($return_user_id) && $return_user_id == $u->id) { echo ' selected="selected"'; }
+                                 echo '>' . formatname($u) . '</option>';
 
-                            <?php
+                            }
+                            echo '</select><select class="form-control input-inline" name="uploaded_for" style=""><option value="">' . $strings["documents_submittedfor"] . '</option>';
+                            foreach ($users as $u) {
+                                echo '<option value="' . $u->id . '" ';
+                                if (isset($_GET['uploaded_for']) && $_GET['uploaded_for'] == $u->id) { echo ' selected="selected"';}
+                                echo '>' . formatname($u) . '</option>';
+                            }
+                            echo '</select>';
+
                             if($this->request->session()->read('Profile.super')) {
                                 $clients = $doc_comp->getAllClient();
-                            ?>
-                            <select class="form-control showdivision input-inline" name="client_id">
-                                <option value=""><?=$strings["settings_client"]; ?></option>
-                                <?php
-                                    foreach ($clients as $c) {
-                                        ?>
-                                        <option
-                                            value="<?php echo $c->id; ?>" <?php if (isset($return_client_id) && $return_client_id == $c->id) { ?> selected="selected"<?php } ?> ><?php echo ucfirst($c->company_name); ?></option>
-                                    <?php
-                                    }
-                                ?>
+                                echo '<select class="form-control showdivision input-inline" name="client_id"><option value="">' . $strings["settings_client"] . '</option>';
+                                foreach ($clients as $c) {
+                                    echo '<option value="' . $c->id . '" ';
+                                    if (isset($return_client_id) && $return_client_id == $c->id) { echo ' selected="selected"';}
+                                    echo '>' . ucfirst($c->company_name) . '</option>';
+                                }
+                                echo '</select>';
 
-                            </select>
-                            <?php }?>
+                            }?>
                             <div class="divisions input-inline" style="">
                                 <!-- Divisions section -->
                             </div>
@@ -220,10 +209,12 @@
 
                                     ?>
                                     <tr class="<?= $row_color_class; ?>" role="row" ID="row<?= $order->id; ?>">
-                                        <td class="v-center" align="center"><?= $this->Number->format($order->id);
+                                        <td class="v-center" align="center"><?php
                                                 if ($order->hasattachments) {
-                                                    echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';
-                                                }  //echo $order->profile->title;      ?></td>
+                                                    echo '<i  title="Has Attachment" class="fa fa-paperclip"></i>';
+                                                }
+                                                echo $this->Number->format($order->id);
+                                                ?></td>
                                         <td style="min-width: 145px;" class="v-center">
 
                                             <?php
@@ -297,7 +288,7 @@
                                                 }
                                             ?></td>
                                         <td class="v-center"><?php if ($order->division) {
-                                                $div = $doc_comp->getDivById($order->division);
+                                                $div = getIterator($divisions, "id", $order->division); //$doc_comp->getDivById($order->division);
                                                 if (is_object($div)) {
                                                     echo ucfirst($div->title);
                                                 } elseif ($this->request->session()->read('Profile.profile_type') == 1) {
