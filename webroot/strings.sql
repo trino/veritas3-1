@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2015 at 04:11 PM
+-- Generation Time: Nov 12, 2015 at 08:02 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=799 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=802 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447188384', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447265916', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -184,7 +184,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (148, 'orders_all', 'List All Orders', 'Inscrivez Commandes'),
 (149, 'infoorder_continue', 'Continue', 'Poursuivre'),
 (150, 'infoorder_driver', 'Subject', 'Sujet'),
-(151, 'infoorder_selectdriver', 'Select Subject', 'Sélectionner le sujet'),
+(151, 'infoorder_selectdriver', 'Select Subject (Disabled subjects are missing data to place orders)', 'Sélectionner le sujet'),
 (152, 'infoorder_createdriver', 'Create New Driver', 'Créer un nouveau pilote'),
 (153, 'infoorder_noneselected', 'None Selected', 'Aucune sélection'),
 (154, 'infoorder_alertselectdriver', 'Please select a driver.', 'S''il vous plaît sélectionner un pilote.'),
@@ -637,9 +637,9 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (608, 'consent_a7', 'Employment Verification (Drug test information and Claims History)', 'Vérification des antécédents professionnels (information sur test de dépistage des drogues et historique de réclamations)'),
 (609, 'consent_a8', 'Credit Check', 'Vérification de solvabilité'),
 (610, 'consent_b0', 'I hereby consent to a criminal record search (Adult) through both the', 'Par les présentes, je consens à une recherche de casiers judiciaires (adulte) dans'),
-(611, 'consent_b1', 'Local Police Records which includes Police Information Portal (PIP) Firearms Interest Person (FIP) and Niche RMS', 'les dossiers de la police locale, qui inclut le Portail d''informations policières (PIP), Personne méritant attention relativement aux armes à feu (PMAAF) et Niche RMS'),
-(612, 'consent_b2', 'RCMP National Repository of Criminal Records which will be conducted based on name(s), date of birth and declared criminal record (as per Section 9.6.4 of the CCRTIS Dissemination policy)', ' et dans le Répertoire national des casiers judiciaires (CIPC) de la GRC, qui est menée à l''aide du nom ou des noms, de la date de naissance et du casier judiciaire déclaré (en vertu de l''article 9.6.4 de la politique de dissémination des SCICTR (Services canadiens d''identification criminelle en temps réel)');
+(611, 'consent_b1', 'Local Police Records which includes Police Information Portal (PIP) Firearms Interest Person (FIP) and Niche RMS', 'les dossiers de la police locale, qui inclut le Portail d''informations policières (PIP), Personne méritant attention relativement aux armes à feu (PMAAF) et Niche RMS');
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
+(612, 'consent_b2', 'RCMP National Repository of Criminal Records which will be conducted based on name(s), date of birth and declared criminal record (as per Section 9.6.4 of the CCRTIS Dissemination policy)', ' et dans le Répertoire national des casiers judiciaires (CIPC) de la GRC, qui est menée à l''aide du nom ou des noms, de la date de naissance et du casier judiciaire déclaré (en vertu de l''article 9.6.4 de la politique de dissémination des SCICTR (Services canadiens d''identification criminelle en temps réel)'),
 (613, 'consent_c0', 'Authorization to Release Clearance Report or Any Police Information', 'Autorisation de divulguer une attestation de sécurité ou toute information policière.'),
 (614, 'consent_c1', 'I certify that the information I have supplied is correct and true to the best of my knowledge. I consent to the release of a Criminal Record or any Criminal Information to ISB Canada and its partners, and to the Organization Requesting Search named below and its designated agents and/or partners. All data is subject to provincial, state, and federal privacy legislation.', 'J''atteste que, à ma connaissance, les renseignements que j''ai fournis sont vrais et exacts. J''accepte que toute information criminelle ou liée à mon casier judiciaire soit divulguée à ISB Canada et à ses partenaires, et à l''organisation qui fait la demande de la recherche dont le nom apparaît plus bas, ainsi qu''à ses mandataires désignés et partenaires. Toutes les données sont assujetties aux lois provinciales et fédérales sur la protection de la vie privée.'),
 (615, 'consent_c2', 'The criminal record search will be performed by a police service. I hereby release and forever discharge all members and employees of the Processing Police Service from any and all actions, claims and demands for damages, loss or injury howsoever arising which may hereafter be sustained by myself or as a result of the disclosure of information by the Processing Police Service to ISB Canada and its partners.', 'Des services policiers mèneront la recherche du casier judiciaire. Par les présentes, je dégage et pour toujours tous les membres et tous les employés des services policiers effectuant la recherche de tout procès, toutes réclamations ou demandes de dommages, de perte ou de préjudice que je pourrais subir par la suite ou en raison de la divulgation des renseignements par les services policiers à ISB Canada et à ses partenaires. '),
@@ -671,8 +671,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (641, 'consent_g1f', 'The Prospective Employer cannot obtain background reports from FMCSA unless you consent in writing.', 'L''employeur éventuel ne peut obtenir des renseignements généraux de la FMCSA, à moins que vous y consentiez au préalable par écrit.'),
 (642, 'consent_g1g', 'If you agree that the Prospective Employer may obtain such background reports, please read the following and sign below:', 'Si vous acceptez que l''employeur éventuel puisse obtenir ces renseignements généraux, veuillez lire ce qui suit et apposer votre signature'),
 (643, 'consent_g2a', 'I authorize', 'J''autorise'),
-(644, 'consent_g2b', '("Prospective Employer") to access the FMCSA Pre-Employment Screening Program PSP', '« Employeur éventuel » à accéder au système « Pre-Employment Screening Program PSP » de la FMCSA'),
-(645, 'consent_g2c', 'system to seek information regarding my commercial driving safety record and information regarding my safety inspection history. I understand that I am consenting to the release of safety performance information including crash data from the previous five (5) years and inspection history from the previous three (3) years. I understand and acknowledge that this release of information may assist the Prospective Employer to make a determination regarding my suitability as an employee.', 'pour obtenir des renseignements sur mon dossier de conduite sécuritaire commerciale ou sur mon historique d''inspections de sécurité. Je comprends que j''accepte la divulgation des renseignements de rendement sécuritaire, qui comprend les données sur les collisions pour les cinq (5) années antérieures et l''historique d''inspections pour les trois (3) années antérieures. Je comprends et reconnais que la divulgation de cette information peut aider l''employeur éventuel à déterminer mes aptitudes à titre d''employé.'),
+(644, 'consent_g2b', 'Prospective Employer', 'Employeur éventuel'),
+(645, 'consent_g2c', 'to access the FMCSA Pre-Employment Screening Program PSP system to seek information regarding my commercial driving safety record and information regarding my safety inspection history. I understand that I am consenting to the release of safety performance information including crash data from the previous five (5) years and inspection history from the previous three (3) years. I understand and acknowledge that this release of information may assist the Prospective Employer to make a determination regarding my suitability as an employee.', 'à accéder au système « Pre-Employment Screening Program PSP » de la FMCSA pour obtenir des renseignements sur mon dossier de conduite sécuritaire commerciale ou sur mon historique d''inspections de sécurité. Je comprends que j''accepte la divulgation des renseignements de rendement sécuritaire, qui comprend les données sur les collisions pour les cinq (5) années antérieures et l''historique d''inspections pour les trois (3) années antérieures. Je comprends et reconnais que la divulgation de cette information peut aider l''employeur éventuel à déterminer mes aptitudes à titre d''employé.'),
 (646, 'consent_g3a', 'I further understand that neither the Prospective Employer nor the FMCSA contractor supplying the crash and safety information has the capability to correct any safety data that appears to be incorrect. I understand I may challenge the accuracy of the data by submitting a request to https://dataqs.fmcsa.dot.gov. If I am challenging crash or inspection information reported by a State, FMCSA cannot change or correct this data. I understand my request will be forwarded by the DataQs system to the appropriate State for adjudication.', '  Je comprends également que l''employeur éventuel ou l''entrepreneur FMCSA qui fournit les renseignements sur les collisions ou sur la sécurité n''ont pas la capacité de corriger toute donnée portant sur la sécurité qui semble incorrecte. Je comprends que je peux contester l''exactitude des données en faisant parvenir une demande à https://dataqs.fmcsa.dot.gov. Si je conteste des renseignements sur les collisions ou les inspections signalés par un état, FMCSA ne peut pas changer ou corriger ces données. Je comprends que ma demande sera acheminée par le système DataQs à l''état approprié aux fins d''une décision.'),
 (647, 'consent_g3b', 'Please note: Any crash or inspection in which you were involved will display on your PSP report. Since the PSP report does not report, or assign, or imply fault, it will include all Commercial Motor Vehicle (CMV) crashes where you were a driver or co-driver and where those crashes were reported to FMCSA, regardless of fault. Similarly, all inspections, with or without violations, appear on the PSP report. State citations associated with FMCSR violations that have been adjudicated by a court of law will also appear, and remain, on a PSP report.', ' Prière de noter : toute collision ou toute inspection dans laquelle vous avez été impliqué apparaît dans votre rapport PSP. Puisque le rapport PSP n''indique pas ou n''attribue pas la responsabilité d''un accident, il inclut toutes les collisions impliquant un véhicule automobile commercial dont vous étiez le chauffeur ou le co-chauffeur et qui ont été signalées à la FMCSA, peu importe qui en était responsable. Similairement, toutes les inspections, avec ou sans infractions, apparaissent dans le rapport PSP. Des citations émises par un état qui sont associées à des infractions aux FMCSR et qui ont été jugées par un tribunal apparaissent également dans le rapport PSP. '),
 (648, 'consent_g3c', 'I have read the above Notice Regarding Background Reports provided to me by Prospective Employer and I understand that if I sign this consent form, Prospective Employer may obtain a report of my crash and inspection history. I hereby authorize Prospective Employer and its employees, authorized agents, and/or affiliates to obtain the information authorized above.', 'J''ai lu l''avis concernant le signalement de renseignements généraux que m''a fournis l''employeur éventuel, et je comprends que si je signe ce formulaire de consentement, l''employeur éventuel peut obtenir un rapport sur mon historique de collisions et d''inspections. Par la présente, j''autorise l''employeur éventuel et ses employés, ses mandataires autorisés, et ses associés à obtenir l''information autorisée susmentionnée.'),
@@ -812,7 +812,9 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (795, 'flash_cantorder3', 'Click here to edit their %profile%', 'Cliquez ici pour modifier leur %profile%'),
 (796, 'flash_cantorder4', 'Permissions data is missing. Edit this %profile%''s permissions to restore them', 'Autorisations données est manquant. Modifier ce %profile%''s de autorisations pour les restaurer'),
 (797, 'flash_cantorder5', 'You cannot place orders', 'Vous ne pouvez pas placer des commandes'),
-(798, 'flash_cantorder6', 'This %profile% type cannot place orders', 'Ce type de %profile% ne peut pas placer des commandes');
+(798, 'flash_cantorder6', 'This %profile% type cannot place orders', 'Ce type de %profile% ne peut pas placer des commandes'),
+(799, 'infoorder_incomplete', '&#9746;', '<SPAN TITLE="INCOMPLETE">&#9746;</SPAN>'),
+(800, 'infoorder_complete', '&#9745;', '&#9745;');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
