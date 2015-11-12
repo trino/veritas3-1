@@ -318,7 +318,7 @@
                                         <input type="hidden" name="c_id" value="<?php if($client){echo $client->id;} else { echo 0; } ?>" />
                                         <?php include('subpages/documents/driver_form.php');?>
                                         <hr />
-                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
+                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary forview">Proceed</a>
                                     </div>
 
                                 <?php }
@@ -377,8 +377,8 @@
                                             </strong>
                                                 <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                 <hr />
-                                                <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
-                                                <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Next</a>
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
+                                                <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview">Next</a>
                                                 <?php if($this->request->params['action'] == 'addorder'){?>
                                                 <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
                                                 <?php }?>
@@ -404,7 +404,7 @@
                                             </strong>
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
-                                                <a href="javascript:void(0)" class="buttonprev btn btn-success" id="buttonprev<?php echo $jj-1;?>">Previous</a>
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>">Previous</a>
                                                 <?php if($this->request->params['action'] == 'addorder'){?> 
                                                 <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
                                                 <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
