@@ -2,7 +2,7 @@
      if($this->request->session()->read('debug')) {
          echo "<span style ='color:red;'>avatar.php #INC150</span>";
      }
-     $settings = $this->requestAction('settings/get_settings');
+     $settings = $Manager->get_settings();
      include_once('subpages/api.php');
      $language = $this->request->session()->read('Profile.language');
      $strings = CacheTranslations($language, array("forms_%"), $settings);

@@ -24,7 +24,7 @@ function printlogos($logos1, $webroot, $index,$uid){ //* replaces the logo enume
 
 $uid = $this->request->session()->read("Profile.id");
 
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 include_once('subpages/api.php');
 $language = $this->request->session()->read('Profile.language');
 $strings = CacheTranslations($language, array("forms_%"), $settings);

@@ -2,7 +2,7 @@
     $debug=$this->request->session()->read('debug');
     if($debug) {echo "<span style ='color:red;'>subpages/profile/info_order2.php #INC???</span>";}
     include_once('subpages/api.php');
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("infoorder_%", "forms_saving"),$settings);
     $GLOBALS["language"] = $language;
@@ -59,7 +59,7 @@
     //'<?php echo $this->request->webroot; //profiles/getAjaxProfile/' + clientID() + '/1',
     //$GLOBALS['contact']= $this->requestAction('/profiles/getContact');
     $GLOBALS['pType'] = $this->requestAction('/profiles/getProfileTypes');// ['','Admin','Recruiter','External','Safety','Driver','Contact'];
-    $GLOBALS['settings'] = $this->requestAction('settings/get_settings');
+    $GLOBALS['settings'] = $Manager->get_settings();
     $GLOBALS['counting'] = $counting;
 
     function makeBulk($strings, $Manager){

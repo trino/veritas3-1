@@ -247,7 +247,7 @@
 
 
 
-        <?php $settings = $this->requestAction('settings/get_settings');
+        <?php $settings = $Manager->get_settings();
             $uploaded_by = $doc_comp->getUser($order->user_id);
         ?>
 

@@ -1395,7 +1395,9 @@ class ManagerComponent extends Component {
             $Data = $this->$Table;
         } else {
             $Data = $this->get_entry($Table, $UserID, "user_id");
-            if($UserID == $this->Me){$this->$Table = $Table;}
+            if($UserID == $this->Me){
+                $this->$Table = $Data;
+            }
         }
         if($AsArray){$Data = $this->getProtectedValue($Data, "_properties");}
         return $Data;
@@ -1425,6 +1427,10 @@ class ManagerComponent extends Component {
         $Master = $this->enum_all("profiles", array("master" => 1, "profile_type" => $ProfileType))->first();
         if($Master){return $Master->id;}
         return $UserID;
+    }
+
+    function get_settings(){
+        return $this->enum_table('Settings')->first();
     }
 }
 ?>

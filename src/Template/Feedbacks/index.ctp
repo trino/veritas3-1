@@ -1,4 +1,4 @@
-<?php //$settings = $this->requestAction('settings/get_settings');?>
+<?php //$settings = $Manager->get_settings();?>
 <?php $sidebar =$this->requestAction("settings/get_side/".$this->Session->read('Profile.id'));?>
 <h3 class="page-title">
 			Feedbacks <small>View/Edit/Delete Feedbacks</small>

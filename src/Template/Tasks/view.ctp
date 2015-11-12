@@ -1,4 +1,4 @@
-<?php $settings = $this->requestAction('settings/get_settings');?>
+<?php $settings = $Manager->get_settings();?>
 <h3 class="page-title">
 			Schedules <small>(Reminders)</small>
 			</h3>

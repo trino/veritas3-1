@@ -234,7 +234,7 @@
         // var_dump($p);
         if ($order->draft == 0) {
             $k++;
-            $settings = $this->requestAction('settings/get_settings');
+            $settings = $Manager->get_settings();
             $uploaded_by = $doc_comp->getUser($order->user_id);
             ?>
 

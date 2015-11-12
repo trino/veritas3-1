@@ -117,7 +117,7 @@
   //  $CanOrder = $Manager->loadpermissions($userID, "sidebar")->orders_create;
     $CanOrder = true;
 
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
 
 /*  what is this supposed to do?
     if ($this->request->session()->read('Profile.super')) {

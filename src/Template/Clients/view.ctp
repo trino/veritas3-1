@@ -7,7 +7,7 @@ $is_disabled = '';
 $profile = $this->requestAction('clients/getProfile/'.$id);
 $contact = $this->requestAction('clients/getContact/'.$id);
 ?>
-<?php $settings = $this->requestAction('settings/get_settings');?>
+<?php $settings = $Manager->get_settings();?>
 
 <h3 class="page-title"><?php echo $client->company_name; ?>
 			</h3>

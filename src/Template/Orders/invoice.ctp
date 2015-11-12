@@ -11,7 +11,7 @@ $debug = $this->request->session()->read('debug');
 //print_r($conditions);
 
 include_once('subpages/api.php');
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 $language = $this->request->session()->read('Profile.language');
 $controller = $this->request->params['controller'];
 $strings = CacheTranslations($language, array("invoice_%", "documents_%", "analytics_%", "month_long%", "month_short%", "forms_%", "infoorder_nonefound", "forms_dateformat", "orders_completed", "tasks_date"), $settings);

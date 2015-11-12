@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     use Cake\ORM\TableRegistry;
     $debug = $this->request->session()->read('debug');
     include_once('subpages/api.php');

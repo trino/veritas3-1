@@ -1,6 +1,6 @@
 <?php
 include_once('subpages/api.php');
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 $language = $this->request->session()->read('Profile.language');
 $strings = CacheTranslations($language, "pages_%",$settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
 

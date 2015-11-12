@@ -3,7 +3,7 @@
     $Clients = $Manager->enum_all("clients");//, array("requalify" => 1));
     $ProfileTypes = $Manager->enum_all("profile_types");
     $products = $Manager->enum_all("order_products");
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     $sidebar =$this->requestAction("settings/all_settings/".$this->Session->read('Profile.id')."/sidebar");
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');

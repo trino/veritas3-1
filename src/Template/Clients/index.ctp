@@ -1,5 +1,5 @@
 <?php
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 $sidebar =$this->requestAction("settings/all_settings/".$this->Session->read('Profile.id')."/sidebar");
 include_once('subpages/api.php');
 $language = $this->request->session()->read('Profile.language');

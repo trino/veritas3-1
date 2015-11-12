@@ -6,7 +6,7 @@
     $GLOBALS['webroot'] = $webroot = $this->request->webroot;
 
     $language = $this->request->session()->read('Profile.language');
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     include_once("api.php");
     $GLOBALS["strings"] = CacheTranslations($language, array("file_%", "orders_ordertype", "documents_submittedby", "documents_submittedfor", "settings_client", "dashboard_delete", "forms_attachedfiles"), $settings, False);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
 

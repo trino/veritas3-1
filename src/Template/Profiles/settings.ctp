@@ -53,7 +53,7 @@
     $is_disabled = '';
     if (isset($disabled)) {$is_disabled = 'disabled="disabled"';}
     if (isset($profile)) {$p = $profile;}
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     include_once('subpages/api.php');
     $languages = languages();
 

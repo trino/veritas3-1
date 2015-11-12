@@ -1,6 +1,6 @@
 <?php
-    $settings = $this->requestAction('settings/get_settings');
-    $sidebar = $this->requestAction("settings/all_settings/" . $this->Session->read('Profile.id') . "/sidebar");
+    $settings = $Manager->get_settings();
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");// $this->requestAction("settings/all_settings/" . $this->Session->read('Profile.id') . "/sidebar");
     $debug=$this->request->session()->read('debug');
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');

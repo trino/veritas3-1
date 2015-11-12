@@ -1,7 +1,7 @@
 <?php
 include_once('subpages/api.php');
 $language = $this->request->session()->read('Profile.language');
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 $strings = CacheTranslations($language, "aggregate_%",$settings);//,$registry);
 ?>
 

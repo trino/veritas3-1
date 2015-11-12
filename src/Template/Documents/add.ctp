@@ -11,7 +11,7 @@
         $view = "view";
     }
 
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     $action = ucfirst($param);
     if ($action == "Add") {
         $action = "Create";

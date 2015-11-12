@@ -5,7 +5,7 @@ if ($this->request->session()->read('timediff')) {
     handletimezone($events,$this->request->session()->read('timediff'));
 }
 
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 include_once('subpages/api.php');
 $language = $this->request->session()->read('Profile.language');
 $strings = CacheTranslations($language, $this->request->params['controller'] . "_%",$settings);

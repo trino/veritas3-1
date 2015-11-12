@@ -1,5 +1,5 @@
 <?php
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 $profileID = $this->Session->read('Profile.id');
 $sidebar = $this->requestAction("settings/all_settings/" . $profileID . "/sidebar");
 $company_name="";

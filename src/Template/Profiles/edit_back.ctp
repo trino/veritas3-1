@@ -41,7 +41,7 @@
     if (isset($profile)) {
         $p = $profile;
     }
-     $settings = $this->requestAction('settings/get_settings');
+     $settings = $Manager->get_settings();
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("profiles_%", "forms_%"), $settings);

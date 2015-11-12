@@ -1,4 +1,4 @@
-<?php $settings = $this->requestAction('settings/get_settings');
+<?php $settings = $Manager->get_settings();
 $sidebar = $this->requestAction("settings/get_side/" . $this->Session->read('Profile.id'));
 //this page is bypassed to orders/orderslist
 

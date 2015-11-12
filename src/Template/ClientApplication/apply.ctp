@@ -21,7 +21,7 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
         $is_disabled = "";
     }
 
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     $action = ucfirst($param);
     if ($action == "Add" || $action == "Apply") {
         $action = "Create";

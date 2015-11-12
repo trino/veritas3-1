@@ -27,7 +27,7 @@
     $_GET['driver'] = 0;
     $is_disabled = '';
     if (isset($disabled)){ $is_disabled = 'disabled="disabled"';}
-    $settings = $this->requestAction('settings/get_settings');
+    $settings = $Manager->get_settings();
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("orders_%", "forms_%", "documents_%", "profiles_null", "clients_addeditimage", "addorder_%", "flash_cantorde%"), $settings);
     if($language=="Debug"){$Trans = " [Trans]";} else {$Trans = "";}

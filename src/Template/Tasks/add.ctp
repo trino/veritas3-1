@@ -1,7 +1,7 @@
 <?php
 $debug=$this->request->session()->read('debug');
 include_once('subpages/api.php');
-$settings = $this->requestAction('settings/get_settings');
+$settings = $Manager->get_settings();
 $language = $this->request->session()->read('Profile.language');
 $controller =  $this->request->params['controller'];
 $strings = CacheTranslations($language, array($controller  . "_%", "month_long%", "forms_%"),$settings);
