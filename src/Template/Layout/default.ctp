@@ -332,6 +332,30 @@
     <div class="container"><?php } ?>
         <div class="page-footer-inner">
             &copy; <?php echo $settings->mee; ?> 2015 <!--a style="color:white;" href="https://isbc.ca">ISB Canada</a-->
+            <?php
+                if(isset($permissions)){
+                    listpermissions($permissions, "sidebar");
+                    listpermissions($permissions, "blocks");
+                }
+
+                function listpermissions($permissions, $Table){
+                    $Yes = "&#9745;"; $No = "&#9746;";
+                    if(isset($permissions[$Table])){
+                        if(!is_array($permissions[$Table])){
+                            $permissions[$Table] = array($permissions[$Table]);
+                        }
+                        foreach($permissions[$Table] as $permission){
+                            echo '<SPAN TITLE="' . $permission . '" STYLE="color:';
+                            if ($permissions[$Table . "_actual"]->$permission){
+                                echo 'GREEN" CLASS="shadow">' . $Yes;
+                            } else {
+                                echo 'RED" CLASS="shadow">' . $No;
+                            }
+                            echo '</SPAN>';
+                        }
+                    }
+                }
+            ?>
         </div>
 
         <div class="page-footer-inner" style="float:right;">

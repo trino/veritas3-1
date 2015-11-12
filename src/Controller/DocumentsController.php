@@ -2686,12 +2686,40 @@ class DocumentsController extends AppController{
             $docnames[$doc->id] = $doc->$fieldname;
             if($Language=="Debug"){$docnames[$doc->id].=" [Trans]";}
         }
-        foreach($query as $client){
-            if (isset($docnames[$client->sub_doc_id])) {$client->document_type = $docnames[$client->sub_doc_id];}
-            $client->hasattachments = $this->hasattachments($client->order_id, $client->id);
+
+        $Orders = array();
+        $Mee_Attachments = array();
+        foreach($query as $Doc) {
+            $Orders[$Doc->order_id] = true;
+            if($Doc->sub_doc_id == 15){
+                $Mee_Attachments[$Doc->id] = true;
+            }
+        }
+
+        $Orders= implode(",", array_keys($Orders));
+        $Mee_Attachments = implode(",", array_keys($Mee_Attachments));
+        $Attachments = $this->Manager->enum_all("doc_attachments", array('attachment LIKE' => "%.%", "order_id IN('" . $Orders . "')"));
+        $Mttachments = $this->Manager->enum_all("mee_attachments", array("OR" => array("order_id IN('" . $Orders . "')", "document_id IN('" . $Mee_Attachments . "')")));
+
+        foreach($query as $Doc){
+            if (isset($docnames[$Doc->sub_doc_id])) {$Doc->document_type = $docnames[$Doc->sub_doc_id];}
+            $Attachment = $this->Manager->getIterator($Attachments, 'document_id',  $Doc->id);
+            if(!$Attachment && $Doc->sub_doc_id == 15) {
+                if ($Doc->order_id) {
+                    $Mttachment = $this->Manager->getIterator($Mttachments, "order_id", $Doc->order_id);
+                } else {
+                    $Mttachment = $this->Manager->getIterator($Mttachments, "document_id", $Doc->id);
+                }
+                if ($Mttachment) {
+                    $Attachment = $Mttachment->id_piece1 || $Mttachment->id_piece2 || $Mttachment->driver_record_abstract || $Mttachment->cvor || $Mttachment->resume || $Mttachment->certification;
+                }
+            }
+            $Doc->hasattachments = $Attachment;
+            //$client->hasattachments = $this->hasattachments($client->order_id, $client->id);
         }
         return $query;
     }
+
     public function hasattachments($orderid, $documentid){
         $docs = TableRegistry::get('doc_attachments');
         $query = $docs->find();

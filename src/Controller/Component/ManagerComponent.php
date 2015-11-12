@@ -10,27 +10,39 @@ use DateTime;
 class ManagerComponent extends Component {
     function init($Controller){
         if($Controller->request->params['controller']!='ClientApplication'){
-        $Controller->set("Manager", $this);
-        $Controller->set("Me", $Controller->request->session()->read('Profile.id'));
-        $this->Controller = $Controller;
+            $this->Controller = $Controller;
+            $Controller->set("Manager", $this);
+            $this->Me = $this->read("id");
+            $Controller->set("Me", $this->Me);
 
-        //echo $this->sendorder(813);  die();
-        if(isset($_GET["action"])){
-            switch (strtolower($_GET["action"])){
-                case "testemail":
-                    $this->handleevent("test", array("email" => "roy@trinoweb.com"));
-                    break;
+            if(isset($_GET["action"])){
+                switch (strtolower($_GET["action"])){
+                    case "testemail":
+                        $this->handleevent("test", array("email" => "roy@trinoweb.com"));
+                        break;
+                }
             }
-        }
 
-        $Controller->loadComponent("Settings");
-        $Controller->Settings->verifylogin($Controller,$Controller->name);
+            $Controller->loadComponent("Settings");
+            $Controller->Settings->verifylogin($Controller,$Controller->name);
         }
+    }
+
+    function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){
+        if(!$UserID){$UserID = $this->read("id");}
+        if (!$Sidebar){$Sidebar = $this->loadpermissions($UserID, "sidebar");}
+        if (!$Blocks){$Blocks = $this->loadpermissions($UserID, "blocks");}
+        $Permissions["sidebar_actual"] = $Sidebar;
+        $Permissions["blocks_actual"] = $Blocks;
+        $this->set("permissions", $Permissions);
     }
 
     //////////////////////////profile API//////////////////////////////////////////
     function read($Key){
         return $this->Controller->request->session()->read('Profile.' . $Key);
+    }
+    function set($Key, $Value){
+        $this->Controller->set($Key, $Value);
     }
 
     public function get_profile($UserID = false){
@@ -1360,15 +1372,18 @@ class ManagerComponent extends Component {
         return $Data;
     }
 
-    function loadpermissions($UserID, $Table, $AsArray = false){//$Table should be sidebar or blocks
-        //echo "PERM: " . $UserID . " " . print_r($this->debug_string_backtrace(), true);
-        if($UserID==-1){$UserID = $this->read("id");}
-        $Data = $this->get_entry($Table, $UserID, "user_id");
-        //$Data->backtrace = $this->debug_string_backtrace();
-
+    function loadpermissions($UserID = false, $Table = "settings", $AsArray = false){//$Table should be sidebar or blocks
+        if($UserID==-1){$UserID = $this->Me;}
+        if($UserID == $this->Me && isset($this->$Table)){
+            $Data = $this->$Table;
+        } else {
+            $Data = $this->get_entry($Table, $UserID, "user_id");
+            if($UserID == $this->Me){$this->$Table = $Table;}
+        }
         if($AsArray){$Data = $this->getProtectedValue($Data, "_properties");}
         return $Data;
     }
+
     function makepermissions($UserID, $Table, $ProfileType = false){
         //$this->debugprint("Make profile: " . $UserID . " " . $Table);
         if(!$ProfileType){$ProfileType = $this->get_profile($UserID)->profile_type;}

@@ -234,6 +234,7 @@
                                 foreach ($subdoc as $d) {
                                     array_push($docz, $d->title);
                                 }
+                                $colors = $Manager->enum_table("color_class");
 
                                 function hasget($name) {
                                     if (isset($_GET[$name])) {
@@ -269,12 +270,16 @@
                                 if($orderID) {
                                     $orderDetail = $doc_comp->getOrderById($docs->order_id);
                                 }
-                                $getColorId = $this->requestAction('documents/getColorId/'.$docs->sub_doc_id);
-                                //$orderDetail = '<A HREF="'.$this->request->webroot.'orders/vieworder/'.$orderDetail->client_id.'/' . $orderID . '">' . $orderID . '</A>';
+
+                                $getColorId = getIterator($subdoc, "id", $docs->sub_doc_id)->color_id;
+                                $getColorId = getIterator($colors, "id", $getColorId)->color;
                             ?>
                             <tr ID="row<?= $docs->id; ?>" class="<?= $row_color_class; ?>" role="row">
-                                <td class="v-center" align="center"><?echo $this->Number->format($docs->id);
-                                    if($docs->hasattachments) { echo '<BR><i  title="Has Attachment" class="fa fa-paperclip"></i>';} ?>
+                                <td class="v-center" align="center">
+                                    <?php
+                                        if($docs->hasattachments) { echo '<i  title="Has Attachment" class="fa fa-paperclip"></i>';}
+                                        echo $this->Number->format($docs->id)
+                                    ?>
                                 </td>
 
                                 <td width="220" style="width: 220px; white-space: nowrap;">
@@ -307,8 +312,7 @@
                     <?php break;
                         case 2: //tile, doesn't work. CSS not included?
                             ?>
-
-                            <a href=$this->request->webroot."orders/productSelection?driver=0&amp;ordertype=MEE"
+                            <a href="<?= $this->request->webroot;?>orders/productSelection?driver=0&amp;ordertype=MEE"
                                 class="tile bg-yellow" style="display: block; height: 100px; ">
                                 <div class="tile-body">
                                     <i class="icon-docs"></i>
@@ -318,7 +322,6 @@
                                     <div class="number"></div>
                                 </div>
                             </a>
-
                             <?php break;
                         } ?>
                     </td>
@@ -329,7 +332,7 @@
                     <td class="v-center" align="center"><?php if ($orderID > 0) {
                             echo '<a href="'.$this->request->webroot.'orders/vieworder/'.$orderDetail->client_id.'/'.$orderDetail->id;if($orderDetail->order_type){echo '?order_type='.urlencode($orderDetail->order_type);if($orderDetail->forms)echo '&forms='.$orderDetail->forms;}echo '">'.$orderDetail->id;echo '</a>';
                         } else {
-                            echo $strings["documents_na"];//needs translation
+                            echo $strings["documents_na"];
                         }  ?></td>
 
 
@@ -389,23 +392,15 @@
 
                         $isssuper = $this->request->session()->read('Profile.super');
                         if ($sidebar->document_delete == '1' && ($docs->order_id == 0 || $isssuper)) {
+                            $dl_show = $isssuper;
                             if (!$isssuper && $docs->user_id == $this->request->session()->read('Profile.id')) {
                                 $dl_show = true;
-                            } else if ($isssuper) {
-                                $dl_show = true;
-                            } else {
-                                $dl_show = false;
                             }
                             if ($dl_show) {
-                                ?>
-                                    <a
-                                       onclick="deletedocument(<?=$docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname); ?>');"
-                                       class="<?= btnclass("DELETE") ?>" style="margin-bottom: 0 !important;"><?= $strings["dashboard_delete"]; ?></a>
-                                <?php
+                                echo '<a onclick="deletedocument(' . $docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname) . "'" . ');"';
+                                echo 'class="' . btnclass("DELETE") . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_delete"] . '</a>';
                             }
-
                         }
-
                         ?>
 
                     </td>

@@ -33,10 +33,11 @@ class PagesController extends AppController {
         $this->set('doc_comp',$this->Document);
         $this->getAllClient();
 
-        if(isset($_GET['orderflash']))
-        $this->Flash->success($this->Trans->getString("flash_orderdraft"));
+        if(isset($_GET['orderflash'])) {
+            $this->Flash->success($this->Trans->getString("flash_orderdraft"));
+        }
         $userid=$this->request->session()->read('Profile.id');
-		$setting = $this->Settings->get_permission($userid);
+		$setting = $this->Settings->get_permission($userid);//sidebar
 
         if(isset($setting->client_list) && $setting->client_list==0) {
             $this->set('hideclient', 1);
@@ -46,19 +47,21 @@ class PagesController extends AppController {
         $conditions="";
         if(!$this->request->session()->read('Profile.super')){
             $conditions["id"] = $this->Manager->find_client($userid, false);
-            if(is_array($conditions["id"]))
-            $client_ids = implode($conditions['id'],',');
-            else
-            $client_ids = $conditions["id"];
-            if($client_ids)
-            $clients = TableRegistry::get('clients')->find('all')->where('id IN ('.$client_ids.')');
-            else
-            $clients = null;
+            if(is_array($conditions["id"])) {
+                $client_ids = implode($conditions['id'], ',');
+            }else {
+                $client_ids = $conditions["id"];
+            }
+            if($client_ids) {
+                $clients = TableRegistry::get('clients')->find('all')->where('id IN (' . $client_ids . ')');
+            }else {
+                $clients = null;
+            }
           
             $this->set('client', $this->paginate($clients));
-        }
-        else
+        } else {
             $this->set('client', $this->paginate($this->Manager->enum_all("clients", $conditions)));
+        }
        
         $this->loadproducts();
 
@@ -66,22 +69,23 @@ class PagesController extends AppController {
         $this->getsubdocument_topblocks($userid);
 
         $block =  $this->Manager->loadpermissions($userid, "blocks");//$this->requestAction("settings/all_settings/" . $userid . "/blocks");
-        $sidebar = $this->Manager->loadpermissions($userid, "sidebar");//$this->requestAction("settings/all_settings/" . $userid . "/sidebar");
         $this->set("userid",    $userid);
-        $this->set('block',     $block);
-        $this->set('sidebar',   $sidebar);
+        $this->set("block",     $block);
+        $this->set("sidebar",   $setting);
 
 
 
   //      debug($sidebar);die();
-  //      $Count = $this->countenabled($block, array("id", "user_id"));
-        if(!$sidebar->orders){
+  //      $Count = $this->countenabled($block, array("id", "user_id"));//this should not be disabled!!!!
+        if(!$setting->orders){
             if($setting->profile_list) {
                $this->redirect("/profiles");
             } else if ($setting->training) {
                 $this->redirect("/training");
             }
         }
+
+        $this->Manager->permissions(array("sidebar" => "client_list"), $setting, $block, $userid);
 	}
 
     function countenabled($Data, $Filter = array()){

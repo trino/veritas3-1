@@ -1431,22 +1431,22 @@ class DocumentComponent extends Component{
             $query = $doc->find();
             $query->where(['display' => 1])->all();
             $cnt = 0;
+
+            $SubDocs = $this->Manager->enum_all('profilessubdocument', array("profile_id" => $this->Manager->read("id"), 'display <>' => 0));
             foreach ($query as $q) {
-                $subdoc = TableRegistry::get('profilessubdocument');
-                if ($query1 = $subdoc->find()->where(['profile_id' => $controller->request->session()->read('Profile.id'), 'subdoc_id' => $q->id, 'display <>' => 0])->first())
+                $query1 = $this->Manager->getIterator($SubDocs, 'subdoc_id', $q->id);
+                if ($query1) {
                     $cnt++;
+                }
             }
             return $cnt;
         }
         
         function getUser($user_id){
-            
-                $query = TableRegistry::get('Profiles');
-                $query = $query->find()->where(['id' => $user_id]);
-                $q = $query->first();
-                //$this->response->body($q);
-                return $q;
-           
+            $query = TableRegistry::get('Profiles');
+            $query = $query->find()->where(['id' => $user_id]);
+            $q = $query->first();
+            return $q;
             die();
         }
 
@@ -1480,22 +1480,30 @@ class DocumentComponent extends Component{
         return $pro_id . "." . $doc_id . " is not set";
     }
 
-        function getDocType($UserID = -1){
-            $query = TableRegistry::get('Subdocuments');
-            $query = $query->find();
-            $q = $query->select()->where(['display' => '1']);
-            //$this->response->body($q);
-            if($UserID>-1){//a user ID was specified, check their settings
-                //use: $this->request->session()->read('Profile.id') to get the user's ID
-                foreach($q as $sub){//inject user's settings
-                    $sub->user = $this->getProSubDoc($UserID, $sub->id);
-                    //3 is both, 2 is create only, 1 is view only, 0 is none (which won't be returned in the results)
-                    $sub->show = $sub->user == 3||$sub->user ==1;
-                }
+    function getDocType($UserID = -1, $Language = ""){
+        $SubDocs = $this->Manager->enum_all('Subdocuments', array('display' => '1'));
+        if($UserID>-1){//a user ID was specified, check their settings
+            $ProfileSubDocs = $this->Manager->enum_all('Profilessubdocument', array('profile_id'=>$UserID));
+            if(!$Language){$Language = $this->Manager->read("language");}
+            if($Language == "English" || $Language == "Debug"){
+                $Language = "display";
+            } else {
+                $Language = "display" . $Language;
             }
-            return $q;
-            die();
+            //use: $this->request->session()->read('Profile.id') to get the user's ID
+            foreach($SubDocs as $SubDoc){//inject user's settings
+                $ThisDoc = $this->Manager->getIterator($ProfileSubDocs, 'subdoc_id',  $SubDoc->id);
+                $SubDoc->user = 0;
+                if($ThisDoc){
+                    $SubDoc->user = $ThisDoc->display;
+                }
+                //$SubDoc->user = $this->getProSubDoc($UserID, $SubDoc->id);
+                //3 is both, 2 is create only, 1 is view only, 0 is none (which won't be returned in the results)
+                $SubDoc->show = $SubDoc->user == 3||$SubDoc->user ==1;
+            }
         }
+        return $SubDocs;
+    }
         
         public function getSpecificData($cid = 0, $order_id = 0){
             $modal = TableRegistry::get($_GET['form_type']);

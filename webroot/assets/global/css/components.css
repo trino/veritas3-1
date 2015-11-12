@@ -5,6 +5,12 @@
 .v-center{
     vertical-align: middle !important;
 }
+.shadow{
+    text-shadow: 1px 1px black;
+    font-weight: bold;
+    font-size: 120%;
+    margin-left:5em;
+}
 
 /***
 Rounded corners reset
