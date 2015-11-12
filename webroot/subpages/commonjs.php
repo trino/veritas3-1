@@ -91,6 +91,10 @@ client_id = '<?=$cid?>';
                 }
              });
              }
+             else
+             {
+                    getJsonFields(driverid);
+             }
            } 
         });
     }

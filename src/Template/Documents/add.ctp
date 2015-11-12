@@ -234,7 +234,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="moredocxs">
+                    <div class="moredocxs subform_<?php echo (isset($_GET['type']))?$_GET['type']:'';?>">
 
                         <?php
 
@@ -551,10 +551,10 @@
             <?php }?>
         }
         if (!doc_id || doc_id=='0') {
-
+            var subdoc_id = '<?php echo (isset($_GET['type']))?$_GET['type']:'';?>';
             $('#selecting_driver').change(function () {
-
-                fillform();
+                getJsonPrevious($(this).val(),subdoc_id)
+                //fillform();
             });
         }
     })

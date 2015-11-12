@@ -110,8 +110,14 @@
             $querys = TableRegistry::get('Clients');
             $conditions['drafts'] = $draft;
             if(!$this->request->session()->read('Profile.super')){
-                $conditions['id'] = $this->Manager->find_client();
+                $userid = $this->request->session()->read('Profile.id');
+                $conditions['id'] = $this->Manager->find_client($userid, false);
+                $client_ids = implode($conditions['id'],',');
+                $query = $querys->find('all')->where('id IN ('.$client_ids.')');
+          
             }
+            else
+            
             $query = $querys->find()->where($conditions);
 
             $this->set('client', $this->appendattachments($this->paginate($query)));
