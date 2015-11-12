@@ -24,7 +24,7 @@ class ManagerComponent extends Component {
         }
 
         $Controller->loadComponent("Settings");
-        //$Controller->Settings->verifylogin($Controller,$Controller->name);
+        $Controller->Settings->verifylogin($Controller,$Controller->name);
         }
     }
 
