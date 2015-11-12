@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <?php
-    $settings = $Manager->get_settings();
+    $settings = $this->requestAction('settings/get_settings');// $Manager->get_settings();
     use Cake\ORM\TableRegistry;
     $debug = $this->request->session()->read('debug');
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, "langswitch", $settings);//,$registry);
+    $strings = CacheTranslations($language, array("langswitch", "permissions_%"), $settings);//,$registry);
 ?>
 <!--[if IE 8]>
 <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -334,18 +334,27 @@
             &copy; <?php echo $settings->mee; ?> 2015 <!--a style="color:white;" href="https://isbc.ca">ISB Canada</a-->
             <?php
                 if(isset($permissions)){
-                    listpermissions($permissions, "sidebar");
-                    listpermissions($permissions, "blocks");
+                    echo '<SPAN STYLE="margin-left:5em;">' . $strings["permissions_used"] . ': ';
+                    listpermissions($strings, $permissions, "sidebar");
+                    listpermissions($strings, $permissions, "blocks");
+                    echo '</SPAN>';
                 }
 
-                function listpermissions($permissions, $Table){
+                function listpermissions($strings, $permissions, $Table){
                     $Yes = "&#9745;"; $No = "&#9746;";
                     if(isset($permissions[$Table])){
                         if(!is_array($permissions[$Table])){
                             $permissions[$Table] = array($permissions[$Table]);
                         }
                         foreach($permissions[$Table] as $permission){
-                            echo '<SPAN TITLE="' . $permission . '" STYLE="color:';
+                            $Title = str_replace("_", "", $permission);
+                            if( isset($strings["permissions_" . $Title])){
+                                $Title = $strings["permissions_" . $Title];
+                                if (strpos($Title , "_") !== false && isset($strings[$Title])){
+                                    $Title = $strings[$Title];
+                                }
+                            }
+                            echo '<SPAN TITLE="' . $strings["permissions_requiredto"] . $Title . '" STYLE="color:';
                             if ($permissions[$Table . "_actual"]->$permission){
                                 echo 'GREEN" CLASS="shadow">' . $Yes;
                             } else {
@@ -379,8 +388,7 @@
                     }
 
                     $isfirst = true;
-                    function print_title($content, $webroot, $URL, $slug, $isfirst, $Bypass = false, $language = "English")
-                    {
+                    function print_title($content, $webroot, $URL, $slug, $isfirst, $Bypass = false, $language = "English") {
                         if (!$Bypass) {
                             $slug = get_title($content, $slug, $language);
                         }
@@ -413,8 +421,7 @@
                     }
                     $debugmode = " (" . $strings[$debugmode] . ")";
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings?toggledebug", $strings["dashboard_debug"] . $debugmode, $isfirst, True, $language);
-                        $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
-
+                    $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
                 }
             ?>
         </div>

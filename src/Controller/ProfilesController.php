@@ -760,6 +760,7 @@
                 $this->set('assignedtoGFS', $results);
             }
 
+            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles")), $setting, false, $u);
         }
 
 

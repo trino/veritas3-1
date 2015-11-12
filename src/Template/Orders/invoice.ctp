@@ -450,85 +450,89 @@ function getname($profile) {
 									echo "<TR><TD COLSPAN='6' ALIGN='CENTER'><strong>" . $strings["infoorder_nonefound"] . "</strong></TD></TR>";
 								} else {
 									foreach ($orders as $order) {
-										foreach ($order->documents as $productype) {
-											$SMI = false;
-											$quantity = 1;
-											$Fieldname = getFieldname("Name", $language);
-											//$productype = $order->order_type;
-											//if(!$productype){$productype = "PSA";}
-											$productype = FindIterator($products, "Acronym", $productype);
-											$Price=0;
-											if ($productype->Price > 0) {
-												$Price = $Manager->getprice("CAN", $products, $productype, $order->user_id);
-												$Price = $Price["price"];
-												$HasURL = ($productype->Acronym == "SPF" && strrpos($order->status, "http") !== false) || ($productype->Acronym == "SMS" && strrpos($order->status1, "http") !== false);
-												if ($order->user_id == 81) {//hard coded value! BAD! LAZY!
-													$taxlesstotal += $quantity * $Price;
-													$SMI = true;
-												} else if ($HasURL) {
-													$total += $quantity * $Price;
-												}
-											}
-											?>
-											<tr>
-												<td>
-													<?= $order->id; ?>
-												</td>
-												<td class="noprint">
-													<?= $order->title; ?>
-												</td>
-												<TD OLDTITLE="<?= $strings["forms_dateformat"]; ?>">
-													<?php
-													echo asdate($strings, $order->created) . '<BR>';
-													if ($order->date_completed) {
-														echo asdate($strings, $order->date_completed);
-													} elseif ($order->date_completed2) {
-														echo asdate($strings, $order->date_completed2);
-													} elseif ($order->date_completed3) {
-														echo asdate($strings, $order->date_completed3);
-													}
-													?>
-												</TD>
-												<td class="hidden-480" title="<?= $order->order_type; ?>">
-													<?= $productype->$Fieldname . $Trans; ?>
-												</td>
-												<?php
-												if ($includeusers) {
-													$profile = getIterator($profiles, "id", $order->user_id);
-													echo '<td class="hidden-480">' . getname($profile) . '</td>';
-													if ($showEmailAndPhone) {
-														echo '<td class="hidden-480">' . $profile->phone . '</td>';
-														echo '<td class="hidden-480">' . $profile->email . '</td>';
-													}
-													echo '<td class="hidden-480">';
-													//$subject = getSubject($subjects, "order_id", $order->id);
-													$subject = $this->requestAction('/orders/getSubject/' . $order->id);
-													if($subject) { echo $subject; }
-													echo '</td>';
-												}
-												if (!$client_id) {
-													$client = getIterator($clients, "id", $order->client_id);
-													/* if($client == 49 && $productype->Acronym == "SPF"){
-                                                        $Price=52;
-                                                    } */
-													echo '<td class="hidden-480">' . $client->company_name . '</td>';
-												}
-												if ($doquantity) {
-													echo '<td class="hidden-480">' . $quantity . '</td>';
-													echo '<td class="hidden-480">' . asDollars($Price) . '</td>';
-												} ?>
-												<td><?php echo $client->country; ?></td>
-												<td><?php
-													if ($productype->Acronym == "PSA") {
-														echo "TBD";
+										If ($order->documents && iterator_count($order->documents)) {
+											foreach ($order->documents as $productype) {
+												$SMI = false;
+												$quantity = 1;
+												$Fieldname = getFieldname("Name", $language);
+												//$productype = $order->order_type;
+												//if(!$productype){$productype = "PSA";}
+												$productype = FindIterator($products, "Acronym", $productype);
+												$Price = 0;
+												if ($productype->Price > 0) {
+													$Price = $Manager->getprice("CAN", $products, $productype, $order->user_id);
+													$Price = $Price["price"];
+													$HasURL = ($productype->Acronym == "SPF" && strrpos($order->status, "http") !== false) || ($productype->Acronym == "SMS" && strrpos($order->status1, "http") !== false);
+													if ($order->user_id == 81) {//hard coded value! BAD! LAZY!
+														$taxlesstotal += $quantity * $Price;
+														$SMI = true;
 													} else if ($HasURL) {
-														echo asDollars($quantity * $Price, $SMI);
-													} else {
-														echo asDollars();
+														$total += $quantity * $Price;
 													}
-													?></td>
-											</tr>
-										<?php }
+												}
+												?>
+												<tr>
+													<td>
+														<?= $order->id; ?>
+													</td>
+													<td class="noprint">
+														<?= $order->title; ?>
+													</td>
+													<TD OLDTITLE="<?= $strings["forms_dateformat"]; ?>">
+														<?php
+														echo asdate($strings, $order->created) . '<BR>';
+														if ($order->date_completed) {
+															echo asdate($strings, $order->date_completed);
+														} elseif ($order->date_completed2) {
+															echo asdate($strings, $order->date_completed2);
+														} elseif ($order->date_completed3) {
+															echo asdate($strings, $order->date_completed3);
+														}
+														?>
+													</TD>
+													<td class="hidden-480" title="<?= $order->order_type; ?>">
+														<?= $productype->$Fieldname . $Trans; ?>
+													</td>
+													<?php
+													if ($includeusers) {
+														$profile = getIterator($profiles, "id", $order->user_id);
+														echo '<td class="hidden-480">' . getname($profile) . '</td>';
+														if ($showEmailAndPhone) {
+															echo '<td class="hidden-480">' . $profile->phone . '</td>';
+															echo '<td class="hidden-480">' . $profile->email . '</td>';
+														}
+														echo '<td class="hidden-480">';
+														//$subject = getSubject($subjects, "order_id", $order->id);
+														$subject = $this->requestAction('/orders/getSubject/' . $order->id);
+														if ($subject) {
+															echo $subject;
+														}
+														echo '</td>';
+													}
+													if (!$client_id) {
+														$client = getIterator($clients, "id", $order->client_id);
+														/* if($client == 49 && $productype->Acronym == "SPF"){
+                                                            $Price=52;
+                                                        } */
+														echo '<td class="hidden-480">' . $client->company_name . '</td>';
+													}
+													if ($doquantity) {
+														echo '<td class="hidden-480">' . $quantity . '</td>';
+														echo '<td class="hidden-480">' . asDollars($Price) . '</td>';
+													} ?>
+													<td><?php echo $client->country; ?></td>
+													<td><?php
+														if ($productype->Acronym == "PSA") {
+															echo "TBD";
+														} else if ($HasURL) {
+															echo asDollars($quantity * $Price, $SMI);
+														} else {
+															echo asDollars();
+														}
+														?></td>
+												</tr>
+											<?php }
+										}
 									}
 								}
 								?>

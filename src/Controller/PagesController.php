@@ -179,9 +179,8 @@ class PagesController extends AppController {
 
     function view($slug){
         $content = TableRegistry::get("contents");
-        //$query = $content->query();
-          $l =  $content->find()->where(['slug'=>$slug])->first();
-          $this->set('content',$l);
+        $l =  $content->find()->where(['slug'=>$slug])->first();
+        $this->set('content',$l);
     }
 
     function recent_more(){

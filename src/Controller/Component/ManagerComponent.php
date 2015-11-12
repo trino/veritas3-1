@@ -30,8 +30,8 @@ class ManagerComponent extends Component {
 
     function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){
         if(!$UserID){$UserID = $this->read("id");}
-        if (!$Sidebar){$Sidebar = $this->loadpermissions($UserID, "sidebar");}
-        if (!$Blocks){$Blocks = $this->loadpermissions($UserID, "blocks");}
+        if (!$Sidebar && isset($Permissions["sidebar"])){$Sidebar = $this->loadpermissions($UserID, "sidebar");}
+        if (!$Blocks && isset($Permissions["blocks"])){$Blocks = $this->loadpermissions($UserID, "blocks");}
         $Permissions["sidebar_actual"] = $Sidebar;
         $Permissions["blocks_actual"] = $Blocks;
         $this->set("permissions", $Permissions);
@@ -717,14 +717,9 @@ class ManagerComponent extends Component {
         } else {
             $Profiles = explode(",", $Profiles);
         }
-        if($Table && !$ForceMethod2){
-            $Profiles = implode(",", $Profiles);
-            $Profiles = $this->enum_all($Table, "id IN ('" . $Profiles . "')");
-        } else {
-            if(!$Table){$Table = "profiles";}
-            $Profiles = "id = " . implode(" OR id = ", $Profiles);
-            $Profiles = $this->enum_all($Table, $Profiles);//find IN is not working
-        }
+        if(!$Table){$Table = "profiles";}
+        $Profiles = implode(",", $Profiles);
+        $Profiles = $this->enum_all($Table, "id IN (" . $Profiles . ")");
         return $Profiles;
     }
 

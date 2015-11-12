@@ -101,7 +101,7 @@
             if (isset($_GET['flash'])) {
                 $this->Flash->success($this->Trans->getString("flash_selectclient"));
             }
-            $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
+            $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));//sidebar
             if ($setting->client_list == 0) {
                 $this->Flash->error($this->Trans->getString("flash_permissions") . ' (020)');
                 return $this->redirect("/");
@@ -112,18 +112,15 @@
             if(!$this->request->session()->read('Profile.super')){
                 $userid = $this->request->session()->read('Profile.id');
                 $conditions['id'] = $this->Manager->find_client($userid, false);
-                
-                if(is_array($conditions["id"]))
-                $client_ids = implode($conditions['id'],',');
-                else
-                $client_ids = $conditions["id"];
+                if(is_array($conditions["id"])) {
+                    $client_ids = implode($conditions['id'], ',');
+                }else {
+                    $client_ids = $conditions["id"];
+                }
                 $query = $querys->find('all')->where('id IN ('.$client_ids.')');
-          
+            } else {
+                $query = $querys->find()->where($conditions);
             }
-            else
-            
-            $query = $querys->find()->where($conditions);
-
             $this->set('client', $this->appendattachments($this->paginate($query)));
         }
 

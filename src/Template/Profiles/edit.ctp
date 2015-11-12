@@ -292,7 +292,7 @@
                                         $MissingFields = $Manager->requiredfields(false, "profile2order");
                                         $MissingData = $Manager->requiredfields($profile, "profile2order");
                                         $Missing= array();
-                                        $sidebar = $Manager->loadpermissions(-1, "sidebar");
+                                        $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
                                         if(!$profile->iscomplete || $MissingData){
                                             $Debug = ' (' . $MissingData . '|' . $profile->iscomplete . ')';
