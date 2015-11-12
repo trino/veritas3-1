@@ -175,7 +175,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label class="control-label col-md-3"><?= $strings2["tasks_date"]; ?>: </label>
+                            <label class="control-label col-md-3"><?= $strings2["verifs_date"]; ?>: </label>
                         <div class="col-md-9">
                         <input type="text" class="form-control date-picker datepicker" name="signature_datetime[]" value="<?php echo $emp->signature_datetime;?>"/>
                         </div>
@@ -435,8 +435,8 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                 </div>
 
                                 <div class="form-group row">
-                                <label class="control-label col-md-3"><?= $strings2["tasks_date"]; ?>:</label>
-                                <div class="col-md-3">
+                                <label class="control-label col-md-3"><?= $strings2["verifs_date"]; ?>:</label>
+                                <div class="col-md-9">
                                 <input type="text" class="form-control date-picker datepicker" name="signature_datetime[]"/>
                                 </div>
                                 </div>

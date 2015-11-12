@@ -3,6 +3,7 @@
     
     <input type="hidden" name="document_type" value="driver_form" />
     <input type="hidden" name="client_id" value="<?php if(isset($cid))echo $cid;?>" />
+    <?php if($this->request->controller !='ClientApplication' && $this->request->controller !='Orders'){?>
     <div class="col-md-4"><label class="control-label required notonclient">Your Username: </label>
         <input type="text" class="form-control required notonclient uname"  name="username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php }?> />
         <span class="error"></span>
@@ -14,6 +15,7 @@
     <!--div class="col-md-4"><label class="control-label"><?= $strings["forms_retypepassword"]; ?>: </label>
         <input type="text" class="form-control required" required name="password2" />
     </div-->
+    <?php }?>
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_firstname"]; ?>: </label>
         <input type="text" class="form-control required" required name="fname" <?php if (isset($p->fname)) { ?> value="<?php echo $p->fname; ?>" <?php }?> />
         <span class="error"></span>
@@ -71,9 +73,9 @@
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_provincestate"]; ?>: </label>
         <?php
                                             if (isset($p->province))
-                                                provinces("province", $p->province, $is_disabled);
+                                                provinces("province", $p->province, 'required');
                                             else
-                                                provinces("province", "", $is_disabled);
+                                                provinces("province", "", 'required');
                                         ?>
         <span class="error"></span>
     </div>
@@ -96,9 +98,9 @@
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_provinceissued"]; ?>: </label>
         <?php
         if (isset($p->province))
-                                                provinces("driver_province", $p->driver_province, $is_disabled);
+                                                provinces("driver_province", $p->driver_province, 'required');
                                             else
-                                                provinces("driver_province", "", $is_disabled);
+                                                provinces("driver_province", "", 'required');
         ?>
         <span class="error"></span>
     </div>

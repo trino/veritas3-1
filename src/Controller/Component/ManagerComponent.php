@@ -108,7 +108,8 @@ class ManagerComponent extends Component {
             }
             return $Data;
         }
-        return 0;
+        else
+            return 0;
     }
 
 

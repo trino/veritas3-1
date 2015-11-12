@@ -461,8 +461,8 @@ function getdatecolor($date, $now=""){
     return $date;
 }
 
-function provinces($name, $Selected = ""){
-    echo '<SELECT class="form-control" name="' . $name . '">';
+function provinces($name, $Selected = "", $req=''){
+    echo '<SELECT class="form-control '.$req.'" name="' . $name . '">';
     $acronyms = getprovinces("Acronyms");
     $Provinces = getprovinces("");
     $ID=0;

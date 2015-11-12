@@ -119,22 +119,23 @@
    </div>
 
    <div class="form-group left15 col-md-12">
-        <label class="control-label col-md-6"><translate>verifs_educationh</translate>:</label>
-        <div class="col-md-6">
+        <label class="control-label col-md-3"><translate>verifs_educationh</translate>:</label>
+        <div class="col-md-3">
             <input type="text" class="form-control" name="emploment_history_confirm_verify_use[]"/>
         </div>
-   </div>
-
-   <div class="form-group left15 col-md-12">
         <label class="control-label col-md-3">US DOT MC/MX#:</label>
         <div class="col-md-3">
             <input name="us_dot[]" type="text" class="form-control" name="us_dot[]" />
         </div>
+   </div>
+
+   <!--div class="form-group left15 col-md-12">
+        
         <label class="control-label col-md-3" style="display: none;"><translate>forms_signature</translate>:</label>
-        <div class="col-md-3">
+        <div class="col-md-9">
             <input type="text" class="form-control" style="display: none;" name="signature[]"/>
         </div>
-   </div>
+   </div-->
 
    <div class="form-group left15 col-md-12">
         <label class="control-label col-md-3"><translate>verifs_date</translate>:</label>

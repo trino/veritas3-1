@@ -45,10 +45,15 @@ class PagesController extends AppController {
         }
         $conditions="";
         if(!$this->request->session()->read('Profile.super')){
-            $conditions["id"] = $this->Manager->find_client($userid);
+            $conditions["id"] = $this->Manager->find_client($userid, false);
+            $client_ids = implode($conditions['id'],',');
+            $clients = TableRegistry::get('clients')->find('all')->where('id IN ('.$client_ids.')');
+          
+            $this->set('client', $this->paginate($clients));
         }
-        $this->set('client', $this->paginate($this->Manager->enum_all("clients", $conditions)));
-
+        else
+            $this->set('client', $this->paginate($this->Manager->enum_all("clients", $conditions)));
+       
         $this->loadproducts();
 
         $this->set('forms',  TableRegistry::get('order_products')->find('all'));
