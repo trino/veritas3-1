@@ -1,6 +1,7 @@
 <?php
  if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/quebec.php #INC166<BR> dx is not defined!!!</span>"; }
 ?>
+<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
 <form id="form_tab<?php echo $dx->id;?>" enctype="multipart/form-data" action="<?php echo $this->request->webroot;?>documents/quebec/<?php echo $cid .'/' .$did;?>" method="post">
     <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
         <input type="hidden" name="sub_doc_id" value="<?php echo $dx->id;?>" class="sub_docs_id" id="af" />

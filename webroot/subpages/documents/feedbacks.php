@@ -6,6 +6,7 @@ $is_disabled = '';
 if(isset($disabled)){ $is_disabled = 'disabled="disabled"'; }
 if(isset($feeds)) {$feed = $feeds; }
 ?>
+<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
 <form role="form" action="" method="post" id="form_tab6">
 
  <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>

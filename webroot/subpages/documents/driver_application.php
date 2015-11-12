@@ -4,6 +4,7 @@ if($this->request->params['controller']!='ClientApplication'){
         echo "<span style ='color:red;'>subpages/documents/driver_application.php #INC140</span>";
         }
  ?>
+ <?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
 <form id="form_tab2">
 <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>" id="af" />
 <input type="hidden" name="sub_doc_id" value="2" class="sub_docs_id" id="af" />

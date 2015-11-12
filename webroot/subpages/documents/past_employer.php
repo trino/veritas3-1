@@ -16,6 +16,7 @@
         echo '<SCRIPT>document.write(getstring("' . $name . '"));</SCRIPT>';
     }
  ?>
+ 
 <body onload="translate();">
 
 <div id="toremove" class="toremove">

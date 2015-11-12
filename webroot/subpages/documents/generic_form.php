@@ -5,7 +5,7 @@ if($this->request->params['controller']!='ClientApplication'){
  $is_disabled = '';//there is no place for attachments
 if(isset($disabled)) { $is_disabled = 'disabled="disabled"'; }
  ?>
-
+<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
 <form  enctype="multipart/form-data" action="<?php echo $this->request->webroot;?>documents/basic/<?php echo $cid .'/' .$did;?>" method="post" id="form_tab11">
    <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
         <input type="hidden" name="sub_doc_id" value="<?php echo $dx->id;?>" class="sub_docs_id" id="af" /> 

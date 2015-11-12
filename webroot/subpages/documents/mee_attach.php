@@ -11,7 +11,7 @@
     $strings2 = CacheTranslations($language, array("upload_%"), $settings, False);
     copy2globals($strings2, array("upload_none"));
 ?>
-
+<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
 <form id="form_tab15">
     <input type="hidden" class="document_type" name="document_type" value="<?php if(isset($dx))echo $dx->title;?>"/>
     <input type="hidden" name="sub_doc_id" value="15" class="sub_docs_id" id="af"/>

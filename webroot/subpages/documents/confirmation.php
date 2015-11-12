@@ -1,3 +1,4 @@
+<p>Confirmation</p>
 <?php
     if ($this->request->session()->read('debug')) {
         echo "<span style ='color:red;'>subpages/documents/confirmation.php #INC138</span>";

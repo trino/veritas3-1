@@ -8,7 +8,7 @@ if(isset($disabled)) { $is_disabled = 'disabled="disabled"'; }
  
  
  
-
+<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
 <form role="form" action="<?php echo $this->request->webroot;?>documents/investigation/<?php echo $cid .'/' .$did;?>" method="post" id="form_tab<?php echo $dx->id;?>">
 
  <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
