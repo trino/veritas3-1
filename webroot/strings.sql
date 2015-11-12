@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2015 at 08:02 PM
+-- Generation Time: Nov 12, 2015 at 11:01 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=802 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=823 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447265916', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447354967', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -200,7 +200,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (164, 'flash_newclientsubject', '%Client% Created: %name%', 'Créé %client%: %name%'),
 (165, 'flash_newclientmessage', 'Domain: %path% <br>%Client% Name: %name% <br>Created by: %username% (%Profile% Type: %ut%) <br> Created on: %created%', 'Domaine: %path% <br> %client% Nom: %name% <br> Créé par: %username% (%Profile% type: %ut%) <br> Créé le: %created%'),
 (166, 'flash_docsaved', 'The %document% has been saved.', 'Le %document% de a été enregistré.'),
-(167, 'flash_cantviewdocs', 'Sorry, you don''t have the required permission to view %document%s. Please contact the administrator to enable it.', 'Désolé, vous ne disposez pas de l''autorisation nécessaire pour visualiser les %document%s. S''il vous plaît contactez l''administrateur pour l''activer.'),
+(167, 'flash_cantviewdocs', 'Sorry, you don''t have any %document%s enabled. Please contact the administrator to enable them.', 'Désolé, vous ne devez pas tout le %document%s activé. S''il vous plaît contactez l''administrateur pour les activer.'),
 (168, 'flash_cantuploaddocs', 'Sorry, you don''t have the required permission to upload %document%s. Please contact the administrator to enable it.', 'Désolé vous ne disposez pas de l''autorisation nécessaire pour télécharger des %document%s. S''il vous plaît contactez l''administrateur pour l''activer.'),
 (169, 'flash_docdeleted', '%Document% has been deleted.', '%Document% a été supprimé.'),
 (170, 'flash_docnotdeleted', '%Document% could not be deleted. Please try again.', '%Document% n''a pas pu être supprimé. S''il vous plaît essayer à nouveau.'),
@@ -255,7 +255,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (219, 'flash_error', 'Error', 'Erreur'),
 (220, 'tasks_confirmdelete', 'Are you sure you want to delete this event?', 'Êtes-vous sûr de vouloir supprimer cet événement?'),
 (221, 'clients_nonefound', 'No %client%s found', 'Pas de %client%s trouvés'),
-(222, 'profiles_nonefound', 'No %profile%s found', 'Pas de %profile%s trouvés'),
+(222, 'profiles_nonefound', 'No %profile%s found, or no %profile% types have been enabled', 'Aucun %profile%s de trouvé, ou pas %profile% types ont été activées'),
 (223, 'clients_editclient', 'Edit %Client%', 'Modifier %client%'),
 (224, 'clients_viewclient', 'View %Client%', 'View %client%'),
 (225, 'clients_createclient', 'Create %Client%', 'Créer %client%'),
@@ -814,7 +814,29 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (797, 'flash_cantorder5', 'You cannot place orders', 'Vous ne pouvez pas placer des commandes'),
 (798, 'flash_cantorder6', 'This %profile% type cannot place orders', 'Ce type de %profile% ne peut pas placer des commandes'),
 (799, 'infoorder_incomplete', '&#9746;', '<SPAN TITLE="INCOMPLETE">&#9746;</SPAN>'),
-(800, 'infoorder_complete', '&#9745;', '&#9745;');
+(800, 'infoorder_complete', '&#9745;', '&#9745;'),
+(801, 'permissions_used', 'Permissions used', 'Permission utilisés'),
+(802, 'permissions_clientlist', 'index_listclients', 'index_listclients'),
+(803, 'permissions_requiredto', 'Required to', 'Nécessaire pour'),
+(804, 'permissions_profilelist', 'index_listprofile', 'index_listprofile'),
+(805, 'permissions_viewprofiles', 'View %Profile%s', 'Voir le %Profile%s'),
+(806, 'permissions_orderslist', 'index_listorders', 'index_listorders'),
+(807, 'permissions_documentlist', 'index_listdocuments', 'index_listdocuments'),
+(808, 'permissions_profilecreate', 'index_createprofile', 'index_createprofile'),
+(809, 'permissions_documentcreate', 'index_createdocument', 'index_createdocument'),
+(810, 'permissions_documentsenabled', 'At least 1 %document% enabled', 'Au moins 1 activé %document%'),
+(811, 'permissions_clientedit', 'Edit %Client%s', 'Modifier %client%s'),
+(812, 'permissions_clientdelete', 'Delete %Client%s', 'Supprimer %client%s'),
+(813, 'permissions_profileedit', 'Edit %Profile%s', 'Modifier le %profil%s'),
+(814, 'permissions_bulk', 'Place Bulk Orders', 'Passer des commandes en vrac'),
+(815, 'permissions_profiledelete', 'Delete %Profile%s', 'Supprimer %profil%s'),
+(816, 'permissions_documentedit', 'index_editdocument', 'index_editdocument'),
+(817, 'permissions_documentdelete', 'Delete %Document%s', 'Supprimer %document%s'),
+(818, 'permissions_documentothers', 'View %Document%s from Other %Client%s', 'Voir le %document%s de Autres %client%s'),
+(819, 'permissions_ordersothers', 'View Orders from Other %Client%s', 'Affichage des commandes de Autres %client%s'),
+(820, 'permissions_ordersedit', 'Edit Orders', 'Modifier commandes'),
+(821, 'permissions_ordersdelete', 'Delete Orders', 'Supprimer commandes'),
+(822, 'permissions_orderscreate', 'index_createclient', 'index_createclient');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1249,6 +1249,8 @@
             $profiletype = TableRegistry::get('profile_types')->find()->where(['id'=>$usertype])->first();
             $this->set('profiletype', $profiletype);
             $this->set("sql", $cond);
+
+            $this->Manager->permissions(array("sidebar" => array("orders_list", "orders_others", "orders_create", "orders_delete", "orders_edit", "orders_requalify", "document_list"), "others" => "documents_enabled"), $setting, false, $userid);
         }
 
         function AppendSQL($SQL, $Query){
