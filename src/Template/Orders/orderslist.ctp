@@ -209,12 +209,12 @@
                                         $row_color_class = "even";
                                     }
                                     if ($order->user_id) {
-                                        $uploaded_by = $doc_comp->getUser($order->user_id);
+                                        $uploaded_by = getIterator($profiles, "id", $order->user_id);
                                     }
                                     if ($order->uploaded_for) {
-                                        $uploaded_for = $doc_comp->getUser($order->uploaded_for);
+                                        $uploaded_for = getIterator($profiles, "id", $order->uploaded_for);
                                     }
-                                    $client = $this->requestAction("clients/getClient/" . $order->client_id);
+                                    $client = getIterator($clients, "id", $order->client_id);
 
                                     $EDITURL = $Manager->make_order_path($order);
 

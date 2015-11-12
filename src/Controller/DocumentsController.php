@@ -44,17 +44,17 @@ class DocumentsController extends AppController{
     public function index() {
         $cond = '';
         $this->set('doc_comp', $this->Document);
+        $sess = $this->request->session()->read('Profile.id');
 
         $this->Document->fixsubmittedfor();
 
-        $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
+        $setting = $this->Settings->get_permission($sess);
         $doc = $this->Document->getDocumentcount();
         $cn = $this->Document->getUserDocumentcount();
         if ($setting->document_list == 0 || count($doc) == 0 || $cn == 0) {
             $this->Flash->error($this->Trans->getString("flash_cantviewdocs"));
             return $this->redirect("/");
         }
-        $sess = $this->request->session()->read('Profile.id');
 
         if (!$this->request->session()->read('Profile.super')) {
             $setting = $this->Settings->get_permission($sess);
@@ -62,8 +62,6 @@ class DocumentsController extends AppController{
                 $cond = 'user_id = ' . $sess;
             }
         }
-
-
         $language = $this->request->session()->read('Profile.language');
 
 
@@ -73,11 +71,11 @@ class DocumentsController extends AppController{
         $cls = TableRegistry::get('Clients');
         //$attachments = TableRegistry::get('attachments');
 
-        $cl = $cls->find()->where(['(profile_id LIKE "' . $sess . ',%" OR profile_id LIKE "%,' . $sess . ',%" OR profile_id LIKE "%,' . $sess . '%")'])->all();
-        $cli_id = '999999999';
-        foreach ($cl as $cc) {
-            $cli_id = $cli_id . ',' . $cc->id;
+        $cli_id = $this->Manager->find_client($sess, false);
+        if (is_array($cli_id)){
+            $cli_id  = implode(",", $cli_id);
         }
+
         $doc = $docs->find();
         $doc = $doc->select()->where(['(order_id = 0 OR (order_id <> 0 AND order_id IN (SELECT id FROM orders)))']);
         if (isset($_GET['draft'])) {
@@ -91,7 +89,7 @@ class DocumentsController extends AppController{
         if (!$this->request->session()->read('Profile.admin')){
             if ($setting->document_others == 0) {
                 $cond = $this->AppendSQL($cond, 'user_id = ' . $sess);
-            } else {
+            } else if($cli_id) {
                 $cond = $this->AppendSQL($cond, 'client_id IN (' . $cli_id . ')');
             }
         }
@@ -138,6 +136,23 @@ class DocumentsController extends AppController{
         if ($cond) {
            // debug($doc);die($cond);
             $doc = $doc->where([$cond]);
+            $profiles = array();
+            if ($setting->document_others == 0 || true) {
+                $cli_id=array();
+                foreach($doc as $Found){
+                    $cli_id[$Found->client_id] = true;
+                }
+                $cli_id = implode(",", array_keys($cli_id));
+            }
+            foreach($doc as $Found){
+                if($Found->user_id) {$profiles[$Found->user_id] = true;}
+                if($Found->uploaded_for) {$profiles[$Found->uploaded_for] = true;}
+            }
+            $profiles = $this->Manager->cacheprofiles($profiles);
+            $this->set("profiles", $profiles);
+
+            $cli_id = $this->Manager->enum_all("clients", "id IN('" . $cli_id  . "')");
+            $this->set("clients", $cli_id);
         }
 
         if (isset($_GET['searchdoc'])) {
@@ -2712,6 +2727,9 @@ class DocumentsController extends AppController{
                 }
                 if ($Mttachment) {
                     $Attachment = $Mttachment->id_piece1 || $Mttachment->id_piece2 || $Mttachment->driver_record_abstract || $Mttachment->cvor || $Mttachment->resume || $Mttachment->certification;
+                    if(!$Attachment){
+                        $Attachment = $this->Manager->Managerget_row_count("mee_attachments_more", array("mee_id" => $Mttachment->id));
+                    }
                 }
             }
             $Doc->hasattachments = $Attachment;

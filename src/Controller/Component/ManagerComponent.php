@@ -711,6 +711,22 @@ class ManagerComponent extends Component {
         return $tables;
     }
 
+    function cacheprofiles($Profiles, $IsClient = false){
+        if (is_array($Profiles)) {
+            $Profiles = array_keys($Profiles);
+        } else {
+            $Profiles = explode(",", $Profiles);
+        }
+        if($IsClient){
+            $Profiles = implode(",", $Profiles);
+            $Profiles = $this->enum_all("clients", "id IN ('" . $Profiles . "')");
+        } else {
+            $Profiles = "id = " . implode(" OR id = ", $Profiles);
+            $Profiles = $this->enum_all("profiles", $Profiles);//find IN is not working
+        }
+        return $Profiles;
+    }
+
     function delete_all($Table, $conditions){
         TableRegistry::get($Table)->deleteAll($conditions, false);
     }

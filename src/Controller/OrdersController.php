@@ -1224,8 +1224,18 @@
                 $this->set('return_type', $_GET['type']);
             }
 
-            //debug($order);
-            $this->set('orders', $this->appendattachments($this->paginate($order)));
+            $orders = $this->appendattachments($this->paginate($order));
+            $profiles = array();
+            $clients = array();
+            foreach($orders as $order){
+                $clients[$order->client_id] = true;
+                if($order->uploaded_for) {$profiles[$order->uploaded_for] = true;}
+                if($order->user_id) {$profiles[$order->user_id] = true;}
+            }
+            $this->set('profiles', $this->Manager->cacheprofiles($profiles));
+            $this->set('clients', $this->Manager->cacheprofiles($clients, true));
+
+            $this->set('orders', $orders);
 
             $usertype = TableRegistry::get('profiles')->find()->where(['id'=>$sess])->first()->profile_type;
             $profiletype = TableRegistry::get('profile_types')->find()->where(['id'=>$usertype])->first();

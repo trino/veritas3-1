@@ -263,9 +263,11 @@
                                 } else {
                                     $row_color_class = "even";
                                 }
-                                $uploaded_by = $doc_comp->getUser($docs->user_id);
-                                $uploaded_for = $doc_comp->getUser($docs->uploaded_for);
-                                $getClientById = $doc_comp->getClientById($docs->client_id);
+
+                                $uploaded_by = getIterator($profiles, "id", $docs->user_id);
+                                $uploaded_for = getIterator($profiles, "id", $docs->uploaded_for);
+
+                                $getClientById = getIterator($clients, "id", $docs->client_id );// $doc_comp->getClientById($docs->client_id);
                                 $orderID = $this->Number->format($docs->order_id);
                                 if($orderID) {
                                     $orderDetail = $doc_comp->getOrderById($docs->order_id);
