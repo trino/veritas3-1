@@ -237,9 +237,19 @@
                     <div class="moredocxs subform_<?php echo (isset($_GET['type']))?$_GET['type']:'';?>">
 
                         <?php
-
                             $controller = $this->request->params['controller'];
                             $controller = strtolower($controller);
+
+                            $subdocuments = $Manager->enum_all("subdocuments");
+                            $colorclasses = $Manager->enum_all("color_class");
+
+                            function getColorId($subdocuments, $colorclasses, $SubDocID){
+                                $SubDocID = getIterator($subdocuments, "id", $SubDocID);
+                                if($SubDocID){
+                                    $SubDocID = getIterator($colorclasses, "id", $SubDocID->color_id);
+                                    return $SubDocID->color;
+                                }
+                            }
                         ?>
 
                         <?php
@@ -250,7 +260,7 @@
                         <div class="subform1">
                             <?php
                                 if($controller == 'documents' ) {
-                                    $colr = $this->requestAction('/documents/getColorId/1');
+                                    $colr = getColorId($subdocuments, $colorclasses,1);
                                     if(!$colr){$colr = $class[0];}
                                     makeportlet($did, $colr,docname(1, $subdoccli, $language));
                                 } else {
@@ -286,7 +296,7 @@
                                     <div class="subform3"><?php
                                             if($controller == 'documents' ) {
 
-                                                $colr = $this->requestAction('/documents/getColorId/3');
+                                                $colr =getColorId($subdocuments, $colorclasses,3);
                                                 if(!$colr){$colr = $class[2];}
 
                                                 makeportlet($did, $colr, docname(3, $subdoccli, $language) );
@@ -308,7 +318,7 @@
                                     <div class="subform4">
                                         <?php
                                             if($controller == 'documents' ) {
-                                                $colr = $this->requestAction('/documents/getColorId/4');
+                                                $colr =getColorId($subdocuments, $colorclasses,4);
                                                 if(!$colr) {$colr = $class[3];}
                                                 makeportlet($did, $colr,docname(4, $subdoccli, $language));
                                             }
@@ -330,7 +340,7 @@
                                     <div class="subform5">
                                         <?php
                                             if($controller == 'documents' ) {
-                                                $colr = $this->requestAction('/documents/getColorId/5');
+                                                $colr = getColorId($subdocuments, $colorclasses,5);
                                                 if(!$colr) {$colr = $class[4];}
                                                 makeportlet($did, $colr,docname(5, $subdoccli, $language));
                                             } else {
@@ -354,7 +364,7 @@
                                             if($controller == 'documents' )
                                             {
 
-                                                $colr = $this->requestAction('/documents/getColorId/6');
+                                                $colr = getColorId($subdocuments, $colorclasses,6);
                                                 if(!$colr) {$colr = $class[5];}
                                                 makeportlet($did, $colr,docname(6, $subdoccli, $language));
                                             }
@@ -378,7 +388,7 @@
                                     <div class="subform7">
                                         <?php
                                             if($controller == 'documents' ) {
-                                                $colr = $this->requestAction('/documents/getColorId/7');
+                                                $colr = getColorId($subdocuments, $colorclasses,7);
                                                 if(!$colr) {$colr = $class[6];}
                                                 makeportlet($did, $colr,docname(7, $subdoccli, $language));
                                             }
@@ -402,7 +412,7 @@
                                     <div class="subform8">
                                         <?php
                                             if($controller == 'documents' ) {
-                                                $colr = $this->requestAction('/documents/getColorId/8');
+                                                $colr = getColorId($subdocuments, $colorclasses,8);
                                                 if(!$colr) {$colr = $class[7];}
                                                 makeportlet($did, $colr,docname(8, $subdoccli, $language));
                                             } else {
@@ -425,7 +435,7 @@
                                     <div class="subform9">
                                         <?php
                                             if($controller == 'documents' ) {
-                                                $colr = $this->requestAction('/documents/getColorId/9');
+                                                $colr = getColorId($subdocuments, $colorclasses,9);
                                                 if(!$colr) {$colr = $class[8];}
                                                 makeportlet($did, $colr,docname(9, $subdoccli, $language));
                                             } else {
@@ -453,7 +463,7 @@
                                         <?php
                                             if($controller == 'documents' ) {
 
-                                                $colr = $this->requestAction('/documents/getColorId/10');
+                                                $colr = getColorId($subdocuments, $colorclasses,10);
                                                 if(!$colr) {$colr = $class[9];}
                                                 makeportlet($did, $colr,docname(10, $subdoccli, $language));
                                             } else {
@@ -480,7 +490,7 @@
                                             <input type="hidden" name="sub_doc_id" value="<?php echo $dx->id;?>" class="sub_docs_id"  />
                                             <?php
                                                 if($controller == 'documents' ) {
-                                                    $colr = $this->requestAction('/documents/getColorId/'.$dx->id);
+                                                    $colr = getColorId($subdocuments, $colorclasses, $dx->id);
                                                     if(!$colr) {$colr = $class[9];}
                                                     makeportlet($did, $colr,$dx->$keyname  . $Trans);
                                                 } else {

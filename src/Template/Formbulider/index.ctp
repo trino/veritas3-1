@@ -36,7 +36,7 @@
 <?php
     $getProfileType = $this->requestAction('profiles/getProfileType/' . $this->Session->read('Profile.id'));
     $settings = $Manager->get_settings();
-    $sidebar = $this->requestAction("settings/all_settings/" . $this->request->session()->read('Profile.id') . "/sidebar");
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
     function hasget($name)
     {

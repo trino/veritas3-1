@@ -1,7 +1,7 @@
 <?php
 $settings = $Manager->get_settings();
 $profileID = $this->Session->read('Profile.id');
-$sidebar = $this->requestAction("settings/all_settings/" . $profileID . "/sidebar");
+$sidebar = $Manager->loadpermissions($Me, $profileID);
 $company_name="";
 if (isset($client)){$company_name = " (" . $client->company_name . ")";}
 

@@ -1,7 +1,7 @@
 <?php
     $uid = ($this->request['action'] == 'add') ? "0" : $this->request['pass'][0];
-    $sidebar = $this->requestAction("settings/all_settings/" . $uid . "/sidebar");
-    $block = $this->requestAction("settings/all_settings/" . $uid . "/blocks");
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
+    $block = $Manager->loadpermissions($Me, "blocks");
 
 
     $YourSidebar = $Manager->loadpermissions(-1, "sidebar");

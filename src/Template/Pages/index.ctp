@@ -1,6 +1,6 @@
 <?php
 $settings = $Manager->get_settings();
-$sidebar =$this->requestAction("settings/get_side/".$this->Session->read('Profile.id'));
+$sidebar = $Manager->loadpermissions($Me, "sidebar");
 $debug=$this->request->session()->read('debug');
 include_once('subpages/api.php');
 $language = $this->request->session()->read('Profile.language');
@@ -98,15 +98,13 @@ if ($sidebar->training == 1 && $sidebar->client_list == 0) {
 
 
 <? if ($settings->mee !="AFIMAC SMI"){ ?>
-<div class="clearfix"></div>
-<?php include('subpages/home_blocks.php'); ?>
+    <div class="clearfix"></div>
+    <?php include('subpages/home_blocks.php'); ?>
 <?}?>
 <div class="clearfix"></div>
 
 <?php
 if(!$hideclient){
-    $settings = $Manager->get_settings();
-    $sidebar =$this->requestAction("settings/get_side/".$this->Session->read('Profile.id'));
     include('subpages/clients/listing.php');
 }
 echo '<div class="clearfix"></div>';

@@ -33,7 +33,7 @@
 
 <?php
     $profileID = $this->Session->read('Profile.id');
-    $sidebar = $this->requestAction("settings/all_settings/" . $profileID . "/sidebar");
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
     if ($sidebar->training == 0) {
         echo '<div class="alert alert-danger"><strong>Error!</strong> You don' . "'t have permission to view training</div>";
         return;

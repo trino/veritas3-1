@@ -20,7 +20,7 @@
         $c = $client;
     }
 
-    $sidebar = $this->requestAction("settings/all_settings/" . $this->request->session()->read('Profile.id') . "/sidebar");
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");;
     $getprofile = $this->requestAction('clients/getProfile/' . $id);
     $getcontact = $this->requestAction('clients/getContact/' . $id);
     $param = $this->request->params['action'];

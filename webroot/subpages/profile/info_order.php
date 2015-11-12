@@ -8,7 +8,7 @@
 
     $getProfileType = $this->requestAction('profiles/getProfileType/' . $this->Session->read('Profile.id'));
     $profiletypes = $this->requestAction('profiles/getProfileTypes/' . $language);
-    $sidebar = $this->requestAction("settings/all_settings/" . $this->request->session()->read('Profile.id') . "/sidebar");
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
     $strings2 = CacheTranslations($language, array("info_%", "profiles_profiletype"), $settings, False);
 
     function printoption($option, $selected, $value = ""){
