@@ -1,7 +1,7 @@
 <?php
- //if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/period_of_unemployment.php #INC147</span>"; }
- ?>
- <?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
+ if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/period_of_unemployment.php #INC147</span>"; }
+ if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }
+?>
 <div>
 <div class="form-group col-md-12">
                 <label class="control-label col-md-5">Period Of Unemployment(if any) From:</label>

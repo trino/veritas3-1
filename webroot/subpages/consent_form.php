@@ -2,7 +2,7 @@
  if($this->request->session()->read('debug'))
         echo "<span style ='color:red;'>consent_form.php #INC156</span>";
  ?>
- <?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
+ <?php if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
 <div class="portlet box blue ">
 	<div class="portlet-title">
 		<div class="caption">

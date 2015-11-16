@@ -4,7 +4,7 @@ if($this->request->params['controller']!='ClientApplication'){
 include_once 'subpages/filelist.php';
 }
  ?>
- <?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
+ <?php if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
 <form id="form_tab1">
 <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
 <input type="hidden" name="sub_doc_id" value="1" class="sub_docs_id" id="af" />

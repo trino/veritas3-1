@@ -1,4 +1,6 @@
- <?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
+<?php
+if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/past_education.php #INC145</span>"; }
+if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
 <div id="toremove">
 <div class="clearfix"></div>
 <hr />

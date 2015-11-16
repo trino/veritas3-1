@@ -1,4 +1,4 @@
-<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
+<?php if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
 <div class="allattach">
 <?php
     echo '<div>';
