@@ -484,4 +484,37 @@ body.login .content {
     text-align: left !important;
 }
 
+.page-boxed .img_delete {
+  margin-left: 10px;
+}
 
+.page-boxed .pagination > li > a, .page-boxed  .pagination > li > span {
+  padding: 4px 9px;
+}
+
+.page-boxed .form .form-actions .btn-set select {
+    margin-left: 10px;
+    max-width: 134px !important;
+}
+
+.page-boxed .yesNoCheck, .page-boxed  .radio-list > label.radio-inline {
+  padding-left: 0;
+}
+
+.page-boxed .form-group canvas {
+  width: 100% !important;
+}
+
+.page-boxed .input-medium {
+    margin-bottom: 10px;
+    width: 240px !important;
+}
+
+.page-boxed .chat-form .col-md-2 .btn {
+  float: right;
+  font-size: 12px;
+  margin-bottom: 11px;
+  padding: 8px 5px;
+  text-align: center;
+  width: 120px;
+}
