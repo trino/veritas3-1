@@ -284,7 +284,7 @@
                                     ?>
                                 </td>
 
-                                <td width="220" style="width: 220px; white-space: nowrap;">
+                                <td width="220" style="width: 220px; white-space: nowrap;" class="v-center">
                                     <?php
                                     $VIEWURL = $this->request->webroot . "documents/view/" . $docs->client_id . "/" . $docs->id . '?type=' . $docs->sub_doc_id;
                                     if ($docs->sub_doc_id == 4) {$VIEWURL .= '&doc=' . urlencode($docs->document_type);}

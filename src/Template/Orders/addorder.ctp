@@ -184,7 +184,8 @@
         <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
         <a href="" class="floatright btn btn-info">Add to Task List</a-->
     <?php }
-    if($Debug){
+    $param = $this->request->params['action'];
+    if($Debug && $param != "vieworder"){
         echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
     }
     echo '</div>';
@@ -197,7 +198,6 @@
         <div class="portlet box blue" id="form_wizard_1">
             <div class="portlet-title">
                 <?php
-                $param = $this->request->params['action'];
                 if(strtolower($param) == 'vieworder') {
                     echo '<input type="hidden" id="viewingorder" value="1" />';
                 } else {
@@ -296,7 +296,12 @@
                                 $Fieldname = getFieldname("title", $language);
                                 $jj=0;
                                 
-                            
+                            function printsteps($strings, $CurrentStep, $doc_count){
+                                $string = $strings["forms_steps"];
+                                $string = str_replace("%step%", '<span class="counters">' . $CurrentStep . '</span>', $string);
+                                $string = str_replace("%total%", $doc_count+2, $string);
+                                return '<strong><p>' . $string . '</p></strong>';
+                            }
                             
                             $tab = 'tab-pane';
                             $i = 1;
@@ -309,17 +314,12 @@
                                     
                                     <input type="hidden" id="user_id" value=""/>
                                     <div class="steps" id="step0" class="active">
-                                    <strong>
-                                        <p>
-                                        Step
-                                        <span class="counters">1</span>
-                                        of <?php echo $doc_count+2;?>
-                                        </p>
-                                    </strong>
+                                        <?= printsteps($strings, 1, $doc_count); ?>
+
                                         <input type="hidden" name="c_id" value="<?php if($client){echo $client->id;} else { echo 0; } ?>" />
                                         <?php include('subpages/documents/driver_form.php');?>
                                         <hr />
-                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary forview">Proceed</a>
+                                        <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a>
                                     </div>
 
                                 <?php }
@@ -368,20 +368,14 @@
                                             $arr_sd[] = $sd->sub_id;
                                             ?>
                                             <div class="steps subform_<?php echo $sd->sub_id?>" id="step<?php echo $jj;?>" style="display:none;">
-                                            <strong>
-                                                <p>
-                                                Step
-                                                <span class="counters"><?php echo $temp_step;?></span>
-                                                of <?php echo $doc_count+2;?>
-                                                </p>
-                                                
-                                            </strong>
+                                                <?= printsteps($strings, $temp_step, $doc_count); ?>
+
                                                 <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                 <hr />
-                                                <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>">Previous</a> 
-                                                <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview">Next</a>
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
+                                                <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a>
                                                 <?php if($this->request->params['action'] == 'addorder'){?>
-                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
+                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info"><?= $strings["forms_savedraft"]; ?></a>
                                                 <?php }?>
                                             </div>
                                             
@@ -396,22 +390,16 @@
                                 $jj++;
                                 ?>
                                 <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
-                                <strong>
-                                                <p>
-                                                Step
-                                                <span class="counters"><?php echo $doc_count+2;?></span>
-                                                of <?php echo $doc_count+2;?>
-                                                </p>
-                                            </strong>
-                                                <?php include('subpages/documents/confirmation.php');?>
-                                                <hr />
-                                                <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>">Previous</a>
-                                                <?php if($this->request->params['action'] == 'addorder'){?> 
-                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info">Save as draft</a>
-                                                <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary">Save</a>
-                                                <?php }?>
-                                                    
-                                            </div>
+                                    <?= printsteps($strings, $doc_count+2, $doc_count); ?>
+                                    <?php include('subpages/documents/confirmation.php');?>
+                                    <hr />
+                                    <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
+                                    <?php if($this->request->params['action'] == 'addorder'){?>
+                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info"><?= $strings["forms_savedraft"]; ?></a>
+                                    <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_save"] ?></a>
+                                    <?php }?>
+
+                                </div>
                                 <?php
                                 if($debugging) { debug($thedocuments);}
                                 if(!isset($k_cou)){ $k_cou = 1; }

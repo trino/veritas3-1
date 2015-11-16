@@ -290,13 +290,13 @@
                         <a href="javascript:void(0)" class="btn btn-primary" id="mee_att_1"><?= $strings["forms_browse"]; ?></a>&nbsp;
                         <span class="uploaded">
                             <?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece1) {
-                                echo '<a class="dl" href="' . $this->request->webroot . 'documents/download/' . $mee_att['attach_doc']->id_piece1 . '">' . printanattachment($mee_att['attach_doc']->id_piece1) . '</a>';} ?>
+                                echo '<a class="dl nohide forview" href="' . $this->request->webroot . 'documents/download/' . $mee_att['attach_doc']->id_piece1 . '">' . printanattachment($mee_att['attach_doc']->id_piece1) . '</a>';} ?>
                         </span>
                     </span>
                     <span>
                         <a href="javascript:void(0)" class="btn btn-primary" id="mee_att_2"><?= $strings["forms_browse"]; ?></a>&nbsp;
                         <span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece2) { ?>
-                            <a class="dl" href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->id_piece2; ?>"><?php echo printanattachment($mee_att['attach_doc']->id_piece2); ?></a><?php } ?>
+                            <a class="dl nohide forview" href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->id_piece2; ?>"><?php echo printanattachment($mee_att['attach_doc']->id_piece2); ?></a><?php } ?>
                         </span>
                     </span>
                     <input type="hidden" name="id_piece1" class="mee_att_1" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece1) {
