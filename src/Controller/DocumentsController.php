@@ -2735,7 +2735,7 @@ class DocumentsController extends AppController{
                 if ($Mttachment) {
                     $Attachment = $Mttachment->id_piece1 || $Mttachment->id_piece2 || $Mttachment->driver_record_abstract || $Mttachment->cvor || $Mttachment->resume || $Mttachment->certification;
                     if(!$Attachment){
-                        $Attachment = $this->Manager->Managerget_row_count("mee_attachments_more", array("mee_id" => $Mttachment->id));
+                        $Attachment = $this->Manager->get_row_count("mee_attachments_more", array("mee_id" => $Mttachment->id));
                     }
                 }
             }
