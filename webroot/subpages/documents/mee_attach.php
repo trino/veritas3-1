@@ -27,6 +27,14 @@
 
         $controller = $this->request->params['controller'];
         $controller = strtolower($controller);
+        if($controller == "orders" && $dii) {
+            if($mee_att === null || $mee_att['attach_doc'] === null){
+                $mee_attach = array("attach_doc" => $Manager->get_entry("mee_attachments", $dii, "order_id"));
+                debug($mee_attach);
+                debug($dii);
+            }
+        }
+
         $action = ucfirst($param);
 
         if($action == "View" && $controller == "documents") {
@@ -137,31 +145,36 @@
             return $files;
         }
 
-        function printfile($webroot, $cc, $file, $skip=false,$rem=''){
+        function printfile($webroot, $cc, $file, $skip=false, $rem=''){
             $path = $webroot . "attachments/" . $file->attachments;
             $realpath = getcwd() . "/attachments/" . $file->attachments;
             if (file_exists($realpath)) {//do not remove this check!
                 if($skip){
                     $skip=false;
-                } else {
-                    ?>
+                } else { ?>
                     <div>
-                                    <span><a style="margin-bottom:5px;" href="javascript:void(0)"
-                                             class="btn btn-primary additional" id="mee_att_<?php echo $cc;?>"><?= $GLOBALS["forms_browse"]; ?></a>&nbsp;
-                                             <?php if(!$rem){?>
-                                          <a style="margin-bottom:5px;" class="btn btn-danger" href="javascript:void(0);"
-                                             onclick="$(this).parent().parent().remove();"><?= $GLOBALS["dashboard_delete"]; ?></a>
-                                             <?php }?>
-                                          <span class="uploaded nohide">
-                                                <a class="dl nohide"
-                                                   href="<?php echo $path?>"><?php echo printanattachment($file->attachments) ;?></a>
-                                          </span>
-                                    </span>
-                        <input type="hidden" value="<?php echo $file->attachments;?>" name="mee_attachments[]"
-                               class="mee_att_<?php echo $cc;?>"/>
+                        <span>
+                            <a style="margin-bottom:5px;"
+                               href="javascript:void(0)"
+                               class="btn btn-primary additional"
+                               id="mee_att_<?php echo $cc;?>">
+                                    <?= $GLOBALS["forms_browse"]; ?>
+                            </a>&nbsp;
+                            <?php if(!$rem){?>
+                                <a style="margin-bottom:5px;"
+                                   class="btn btn-danger"
+                                   href="javascript:void(0);"
+                                   onclick="$(this).parent().parent().remove();">
+                                        <?= $GLOBALS["dashboard_delete"]; ?>
+                                </a>
+                            <?php }?>
+                            <span class="uploaded nohide">
+                                <a class="dl nohide" href="<?= $path?>"><?php echo printanattachment($file->attachments) ;?></a>
+                            </span>
+                        </span>
+                        <input type="hidden" value="<?= $file->attachments;?>" name="mee_attachments[]" class="mee_att_<?= $cc;?>"/>
                     </div>
-                <?php
-                }
+                <?php }
                 return true;
             }
         }
@@ -253,7 +266,6 @@
                         break;
                     }
                 }
-                
             } 
         ?>
 
