@@ -198,7 +198,7 @@ function getinputvalue(element){
 }
 
 function checktags(TabID, tagtype){//use tagtype = "single" to get a single element with the ID = TabID
-    var element, inputs;
+    var element, inputs, endDates = new Object();
     resetelement();
     if(TabID) {
         element = document.getElementById(TabID);
@@ -231,6 +231,22 @@ function checktags(TabID, tagtype){//use tagtype = "single" to get a single elem
             } else if (element.hasAttribute("role")) {
                 Reason = element.getAttribute("role");
                 isValid = validate_data(value, Reason);
+            }
+
+            if(element.hasClass("datepicker") || element.hasClass("date-picker")){
+                if(name.indexOf("_end") > -1 && isValid){//make sure end date is after start date
+                    if(!endDates.hasOwnProperty(name)){
+                        endDates[name] = 0;
+                    } else {
+                        endDates[name] = endDates[name] + 1;
+                    }
+                    var EndDate = Date.parse(value);
+                    var StartDate = name.replace("_end", "_start");
+                    StartDate = document.getElementsByName(StartDate);
+                    StartDate = Date.parse(StartDate[endDates[name]].value);
+                    isValid = StartDate < EndDate;
+                    if(!isValid){ Reason = "paradox"; }
+                }
             }
 
             if (isValid && Reason) {
@@ -394,6 +410,8 @@ function autofill2(Type){
                 }
 
                 switch(Type){
+                    case "hidden":
+                        break;
                     case "checkbox":case "radio":
                         value = Math.random() >= 0.5;
                         if(Type == "radio" && value){
@@ -418,7 +436,9 @@ function autofill2(Type){
                         value = "L7P6V6";
                         break;
                     case "select":
-                        value = element.options[ getRandomInt(0, element.options.length) ].value;
+                        while(!value) {
+                            value = element.options[getRandomInt(0, element.options.length-1)].value;
+                        }
                         break;
                     case "date":
                         value = "10/04/" + getRandomInt(1960,2015);

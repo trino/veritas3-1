@@ -45,15 +45,23 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     printCSS($this);
 
     loadreasons($action, $strings, true);
+
+    function printsteps($strings, $CurrentStep, $doc_count){
+        $string = $strings["forms_steps"];
+        $string = str_replace("%step%", '<span class="counters">' . $CurrentStep . '</span>', $string);
+        $string = str_replace("%total%", $doc_count+2, $string);
+        return '<strong><p>' . $string . '</p></strong>';
+    }
+
 ?>
 <div id="tab0">
-<h2 style="float: left;">Application for <?php echo $client->company_name;?></h2>
+<h2 style="float: left;">Application for <?= $client->company_name;?></h2>
 <input type="hidden" id="user_id" value=""/>
 <div class="step_counters" style="float: right;
     text-transform: uppercase;
     font-size: 15px;    margin-top: 28px;
     margin-right: 45px;">
-    <strong><p style="color: #578ebe;"> Step <span class="counter">1</span> of <?php echo $subd->count()+2;?></p></strong>
+    <?= printsteps($strings, 1, $subd->count()); ?>
 </div>
 <div class="clearfix"></div>
  <hr />
@@ -61,7 +69,7 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     <input type="hidden" name="c_id" value="<?php echo $client->id;?>" />
     <?php include('subpages/documents/driver_form.php');?>    
     <hr />
-    <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary">Proceed</a>
+    <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary"><?= $strings["dashboard_next"]; ?></a>
     <?php if($this->request->session()->read('debug')){
         echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
     } ?>
@@ -78,8 +86,9 @@ foreach($subd as $s)
     <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
         <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$s->sub_id));?>
         <hr />
-        <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-warning">Previous</a> 
-        <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary">Proceed</a>
+        <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-warning"><?= $strings["dashboard_previous"]; ?></a>
+        <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["dashboard_next"]; ?></a>
+        <A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning"><?= $strings["dashboard_autofill"]; ?></A>
     </div>
     <?php
     //echo $s->sub_id;

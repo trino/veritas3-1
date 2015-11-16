@@ -466,6 +466,7 @@ function provinces($name, $Selected = "", $req=''){
     $acronyms = getprovinces("Acronyms");
     $Provinces = getprovinces("");
     $ID=0;
+    if(!$Selected){$Selected="ON";}
     foreach($acronyms as $acronym){
         printoption($Provinces[$ID], $Selected, $acronym);
         $ID++;
@@ -582,6 +583,7 @@ function loadreasons($action, $strings, $IncludeScript = false){
         echo "reasons['required'] = '" . addslashes($strings["forms_fillall"]) . "';";
         echo "reasons['postalzip'] = '" . addslashes($strings["forms_postalzip"]) . "';";
         echo "reasons['number'] = '" . addslashes($strings["forms_number"]) . "';";
+        echo "reasons['paradox'] = '" . addslashes($strings["forms_paradox"]) . "';";
     } else {
         echo "var reasons = false; //Action is: " . $action;
     }

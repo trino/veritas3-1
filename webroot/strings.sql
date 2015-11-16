@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2015 at 05:24 PM
+-- Generation Time: Nov 16, 2015 at 07:39 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=824 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=825 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447427752', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447691112', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -837,7 +837,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (820, 'permissions_ordersedit', 'Edit Orders', 'Modifier commandes'),
 (821, 'permissions_ordersdelete', 'Delete Orders', 'Supprimer commandes'),
 (822, 'permissions_orderscreate', 'index_createclient', 'index_createclient'),
-(823, 'forms_steps', 'Step %step% of %total%', 'Étape %step% sur %total%');
+(823, 'forms_steps', 'Step %step% of %total%', 'Étape %step% sur %total%'),
+(824, 'forms_paradox', 'end date. It must be after the start date', 'date de fin. Il doit être postérieure à la date de début');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
