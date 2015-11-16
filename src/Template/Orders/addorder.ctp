@@ -295,10 +295,7 @@
                                 //http://localhost/veritas3-0/profiles/settings
                                 $Fieldname = getFieldname("title", $language);
                                 $jj=0;
-                                $doc_count = 0;
-                                foreach($subdoccli as $getcounter) {
-                                   $doc_count++;
-                                }
+                                
                             
                             
                             $tab = 'tab-pane';
