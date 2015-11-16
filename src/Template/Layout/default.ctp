@@ -366,6 +366,10 @@
                         }
                     }
                 }
+
+                if($debug) {
+                    echo '<SPAN STYLE="margin-left:5em;">Total Time: ' . round(microtime(true) - $StartTime, 4) . ' seconds</span>';
+                }
             ?>
         </div>
 

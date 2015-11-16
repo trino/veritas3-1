@@ -9,6 +9,7 @@ use DateTime;
 
 class ManagerComponent extends Component {
     function init($Controller){
+        $Controller->set("StartTime", microtime(true));
         if($Controller->request->params['controller']!='ClientApplication'){
             $this->Controller = $Controller;
             $Controller->set("Manager", $this);
