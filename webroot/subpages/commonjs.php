@@ -22,9 +22,10 @@ client_id = '<?=$cid?>';
             //alert(res['applicants_email']);
              $('#tab0 input,#tab0 textarea').each(function(){
                 //alert($(this).attr('name');
+                if($(this).attr('name'))
                 if(res[$(this).attr('name').replace('[]','')])
                 {
-                    <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
+                    <?php if($this->request->action!='add' && $this->request->action!='apply'){?>if($(this).val() == '')<?php }?>
                     $(this).val(res[$(this).attr('name').replace('[]','')]);
                 }
              });
@@ -147,23 +148,28 @@ $(function(){
     
    function save_driver(par,webroot)
     {
-    var driver_id = '';
-    $('.overlay-wrapper').show();
-    var fields = par.find('input').serialize();
-    var fields = fields+'&'+par.find('select').serialize();
-    $.ajax({
-        url:webroot+'clientApplication/saveDriver/<?php if(isset($_GET['driver']))echo $_GET['driver'];?>',
-        data:fields,
-        type:'post',
-        success:function(res){
-            $('#user_id').val(res);
-            getJsonFields(res);
-            $('.counter').text(Number($('.counter').text())+1);
-            $('.overlay-wrapper').hide();
-            
-            
-        }
-    });
+        <?php if($this->request->controller == 'ClientApplication'){?>
+            var driver_id = $('#user_id').val();
+        <?php }else
+        {?>
+            var driver_id = '';
+        <?php }?>
+        $('.overlay-wrapper').show();
+        var fields = par.find('input').serialize();
+        var fields = fields+'&'+par.find('select').serialize()+'&driver_id='+driver_id;
+        $.ajax({
+            url:webroot+'clientApplication/saveDriver/<?php if(isset($_GET['driver']))echo $_GET['driver'];?>',
+            data:fields,
+            type:'post',
+            success:function(res){
+                $('#user_id').val(res);
+                getJsonFields(res);
+                $('.counter').text(Number($('.counter').text())+1);
+                $('.overlay-wrapper').hide();
+                
+                
+            }
+        });
     
     }
  

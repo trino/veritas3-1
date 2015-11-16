@@ -73,12 +73,27 @@ class ClientApplicationController extends AppController {
 
     function saveDriver($id=0) {
         $model = TableRegistry::get('profiles');
-        if($id==0){
+        if($id==0 && $_POST['driver_id']==""){
             $_POST["profile_type"] = 5;
             $profile = $model->newEntity($_POST);
             $model->save($profile);
             echo $pid = $profile->id;
-        } else {
+        }
+        elseif($_POST['driver_id']!='')
+        {
+            $arrs = $_POST;
+            unset($arrs['client_id']);
+            unset($arrs['c_id']);
+            unset($arrs['document_type']);
+            unset($arrs['driver_id']);
+            $model->query()->update()
+                ->set($arrs)
+                ->where(['id' => $_POST['driver_id']])
+                ->execute();
+                echo $pid = $_POST['driver_id'];
+        } 
+        else
+        {
             $arrs = $_POST;
             unset($arrs['client_id']);
             unset($arrs['c_id']);

@@ -380,7 +380,7 @@ function makerow($profile, $Fields){
              <div class="row"> 
                     <label class="control-label col-md-6">Do you want to work: </label>
                     <div class="col-md-6 radio-list">
-                        <label class="radio-inline col-md-2">
+                        <label class="radio-inline col-md-3">
                             <?php
                             if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                                 printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal1=='1');
@@ -393,7 +393,7 @@ function makerow($profile, $Fields){
                             Part Time
                         </label>
 
-                        <label class="radio-inline col-md-2">
+                        <label class="radio-inline col-md-3">
                             <?php
                                 if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                                     printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal1=='0');

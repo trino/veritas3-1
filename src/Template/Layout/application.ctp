@@ -181,14 +181,18 @@
             <script src="<?php echo $this->request->webroot;?>assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
             <!--script src="<?php echo $this->request->webroot;?>assets/admin/pages/scripts/login.js" type="text/javascript"></script-->
             <script type="text/javascript" src="<?php echo $this->request->webroot;?>js/ajaxupload.js"></script>
+            <script type="text/javascript" src="<?php echo $this->request->webroot;?>assets/admin/pages/scripts/form-wizard.js"></script>
             
             <!-- END PAGE LEVEL SCRIPTS -->
             <script>
                 $(document).ready(function () {
-                    Metronic.init(); // init metronic core components
-                    Layout.init(); // init current layout
-                    // Login.init();
-                    Demo.init();
+                  Metronic.init(); // init metronic core componets
+        Layout.init(); // init layout
+        //QuickSidebar.init(); // init quick sidebar
+        Demo.init(); // init demo features
+        FormWizard.init();
+        //Index.init();
+     
                 });
 
                 function removeelement(id) {

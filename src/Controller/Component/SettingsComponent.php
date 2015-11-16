@@ -24,7 +24,8 @@
                 case "orders":
                     $exceptions = array("webservice");
                     break;
-                case "rapid";case "clientapplication":
+                case "rapid";
+                case "clientapplication":
                    return false;
             }
 
