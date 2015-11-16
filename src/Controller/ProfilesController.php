@@ -355,6 +355,11 @@
                     case "sendtoroy":
                         $this->sendtoroy();
                         break;
+                    case "sendemail":
+                        $Email = $this->Manager->read("email");
+                        $this->Mailer->handleevent($_POST["event"], array("email" => $Email));
+                        echo $_POST["event"] . " sent to " . $Email;
+                        break;
                     default:
                         echo $_POST["Type"] . " is unhandled";
                 }

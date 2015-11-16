@@ -1,4 +1,6 @@
 <?php
+ if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/profile/emails.php #INC???</span>"; }
+
 $languages = array("English", "French");
 $strings2 = array();
 foreach($languages as $language){
@@ -98,7 +100,7 @@ foreach($emails as $Key => $Data){
                 echo '<INPUT ONCHANGE="haschanged = true;" ID="' . $id . '" TYPE="TEXT" CLASS="form-control email_' . $Key . '" NAME="' . $Key2 . '" VALUE="' . $Value . '">';
             } elseif (strpos($Key2, "message") === 0) {
                 if (!$fullmode) {$Key2 = "[French]";}
-                echo '<TEXTAREA ONCHANGE="haschanged = true;" ID="' . $id . '" CLASS="form-control email_' . $Key . '" NAME="' . $Key2 . '">' . $Value . '</TEXTAREA>';
+                echo '<TEXTAREA ROWS="5" ONCHANGE="haschanged = true;" ID="' . $id . '" CLASS="form-control email_' . $Key . '" NAME="' . $Key2 . '">' . $Value . '</TEXTAREA>';
             }
             echo '</DIV>';
         }
@@ -111,6 +113,7 @@ foreach($emails as $Key => $Data){
     <CENTER>WARNING: Emails can only be edited by the primary translator, or the changes will be overwritten when the strings table gets updated next</CENTER>
     <button class="btn btn-danger" id="delete" onclick="deletekey(lastkey);">Delete</button>
     <button class="btn btn-primary" id="save" onclick="saveall(lastkey);">Save</button>
+    <button class="btn btn-info" id="send" onclick="sendtest(lastkey);" title="This will not substitute any variables">Send to yourself</button>
 </TD>
 </TFOOT></TABLE>
 <script>
@@ -135,6 +138,20 @@ foreach($emails as $Key => $Data){
         return false;
     }
     show("<?= $FirstEmail; ?>");
+
+    function sendtest(key){
+        if(key){
+            $.ajax({
+                url: "<?php echo $this->request->webroot;?>profiles/products",
+                type: "post",
+                dataType: "HTML",
+                data: "Type=sendemail&event=" + key,
+                success: function (msg) {
+                    alert(msg);
+                }
+            })
+        }
+    }
 
     function saveall(key){
         if(!haschanged){
