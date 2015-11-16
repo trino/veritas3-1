@@ -98,6 +98,8 @@ class ClientApplicationController extends AppController {
             unset($arrs['client_id']);
             unset($arrs['c_id']);
             unset($arrs['document_type']);
+            unset($arrs['driver_id']);
+
             $model->query()->update()
                 ->set($arrs)
                 ->where(['id' => $id])
