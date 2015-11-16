@@ -49,20 +49,18 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                             <li>
                                                 <a href="#subtab_1_3" data-toggle="tab">Login Logo</a>
                                             </li>
-
+                                            <li>
+                                                <a href="#subtab_1_4" data-toggle="tab">Client Logo</a>
+                                            </li>
                                         </ul>
 
                                 <div class="portlet-body solid blue"> <!-- blue is needed to make the white logos stand out -->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="subtab_1_1">
                                             <div class="portlet solid blue" -->
-
                                                 <div class="portlet-body" align="right" style="padding-top: 10px;">
-
                                                     <form action="<?php echo $this->request->webroot; ?>logos" method="post" class="form-inline" role="form" id="logoform">
-
                                                         <?php $index = printlogos($logos, $this->request->webroot, 0, $uid);?>
-
                                                         <div class="clearfix"></div>
                                                         <div class="margin-top-10 alert alert-success display-hide flash" style="display: none;">
                                                             <button class="close" data-close="alert"></button>
@@ -76,21 +74,16 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                                         <a href="javascript:void(0)" id="addnewlogo" class="primary btn btn-info">Add New Logo</a>
                                                         <a href='javascript:;' class="btn btn-success" id="submit">Save Changes</a>
                                                     </form>
-
                                                 </div>
                                             </div>
-
                                         </div>
+
                                         <div class="tab-pane" id="subtab_1_2">
                                             <div class="portlet solid blue" -->
-
                                                 <div class="portlet-body" align="right" style="padding-top: 10px;">
-
                                                     <form action="<?php echo $this->request->webroot; ?>logos/secondary"
                                                           method="post" class="form-inline" role="form" id="logoform1">
-
                                                         <?php $index = printlogos($logos1, $this->request->webroot, $index,$uid);?>
-
                                                         <div class="clearfix"></div>
                                                             <div class="margin-top-10 alert alert-success display-hide flash" style="display: none;">
                                                                 <button class="close" data-close="alert"></button>
@@ -104,21 +97,16 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                                         <a href="javascript:void(0)" id="addnewlogo1" class="secondary btn btn-info">Add New Logo</a>
                                                         <a href='javascript:;' class="btn btn-success" id="submit1">Save Changes</a>
                                                     </form>
-
-
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane" id="subtab_1_3">
                                             <div class="portlet solid blue" -->
-
                                                 <div class="portlet-body" align="right" style="padding-top: 10px;">
-
                                                     <form action="<?php echo $this->request->webroot; ?>logos/login"
                                                           method="post" class="form-inline" role="form" id="logoform2">
-
                                                         <?php $index = printlogos($logos2, $this->request->webroot, $index, $uid);?>
-
                                                         <div class="clearfix"></div>
                                                             <div class="margin-top-10 alert alert-success display-hide flash" style="display: none;">
                                                                 <button class="close" data-close="alert"></button>
@@ -132,13 +120,17 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                                         <a href="javascript:void(0)" id="addnewlogo2" class="loginlogo btn btn-info">Add New Logo</a>
                                                         <a href='javascript:;' class="btn btn-success" id="submit2">Save Changes</a>
                                                     </form>
-
-
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <div class="tab-pane" id="subtab_1_4">
+                                            <?php include('subpages/client_logo.php'); ?>
+                                        </div>
+
                                     </div>
+
+
         <!--</DIV>-->
 
 <script>

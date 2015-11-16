@@ -108,64 +108,57 @@ if (isset($_GET["includeonly"])){
         <div class="tabbable tabbable-custom">
             <ul class="nav nav-tabs">
                 <?php
-                if ($this->request['action'] != 'add') {
-                    if ($this->request->session()->read('Profile.admin') && $this->request->session()->read('Profile.super')) {
-                        ?>
-                            <li <?php if(!isset($_GET['activedisplay'])){ ?> class="active" <?php } ?> >
-                                    <a href="#tab_1_5" data-toggle="tab">Logo</a>
-                            </li>
-                            <li>
-                                <a href="#tab_1_6" data-toggle="tab">Pages</a>
-                            </li>
-                            <li>
-                                <a href="#tab_1_8" data-toggle="tab">Display</a>
-                            </li>
-                             <li>
-                                <a href="#tab_1_10" data-toggle="tab">Packages</a>
-                            </li>
-                            <li>
-                                <a href="#tab_1_14" data-toggle="tab">Configuration</a>
-                            </li>
-                            <li>
-                                <a href="#tab_1_15" data-toggle="tab">Client Logo</a>
-                            </li>
-                             <?php
-                             if($_SERVER['SERVER_NAME'] =='localhost') {
-                             ?>
-                             <li>
-                                <a href="#tab_1_9" data-toggle="tab">Clear Data</a>
-                            </li>
-                            <?php
+                function activetab($activetab, $thistab, $description = ""){
+                    if (is_array($thistab)){
+                        foreach($thistab as $Name => $description){
+                            if(!$activetab){
+                                $activetab = $Name;
                             }
-                                if($this->request->session()->read('Profile.super')) {
-                            ?>
-                            <li <?php if(isset($_GET['activedisplay'])){ ?> class="active" <?php } ?> >
-                                    <a href="#tab_1_13" data-toggle="tab">Add/Edit Documents</a>
-                            </li>
+                            activetab($activetab, $Name, $description);
+                        }
+                        return $activetab;
+                    } else {
+                        echo '<li><a href="#' . $thistab . '" data-toggle="tab"';
+                        if ($activetab == $thistab || $activetab == $description) {
+                            echo ' class="active"';
+                        }
+                        echo '>' . $description . '</a></li>';
+                    }
+                }
+
+                if ($this->request['action'] != 'add') {
+                    $activetab="tab_1_5";
+                    if(isset($_GET['activedisplay'])){$activetab = "tab_1_13";}
+                    if ($this->request->session()->read('Profile.admin') && $this->request->session()->read('Profile.super')) {
+                        activetab($activetab, array(
+                            "tab_1_5" => "Logos",
+                            "tab_1_6" => "Pages",
+                            "tab_1_8" => "Display",
+                            "tab_1_10" => "Packages",
+                            "tab_1_14" => "Configuration",
+                        ));
+                        if($_SERVER['SERVER_NAME'] =='localhost') {
+                            activetab($activetab, "tab_1_9", "Clear Data");
+                        }
+                    }
+                    if($this->request->session()->read('Profile.super')) {
+                        activetab($activetab, array(
+                            "tab_1_13" => "Add/Edit Documents",
+                            "tab_1_30" => "All Crons",
+                            "tab_1_16" => "Profile Importer",
+                            "tab_1_17" => "Email Editor",
+                            "tab_1_18" => "Translation"
+                        ));
+                        ?>
                             <li>
                                 <a href="<?= $this->request->webroot; ?>profiles/producteditor">Product Types</a>
                             </li>
-                            <li>
-                                <a href="#tab_1_30" data-toggle="tab">All Crons</a>
+                            <li style="display: none">
+                                <a href="<?= $this->request->webroot; ?>profiles/jsonschema">JSON Schema</a>
                             </li>
-                            <li>
-                                <a href="#tab_1_16" data-toggle="tab">Profile Importer</a>
-                            </li>
-                            <LI>
-                                <a href="#tab_1_17" data-toggle="tab">Email Editor</a>
-                            </LI>
-                            <LI>
-                                <a href="#tab_1_18" data-toggle="tab">Translation</a>
-                            </LI>
-
-                                    <li>
-                                        <a href="<?= $this->request->webroot; ?>profiles/jsonschema">JSON Schema</a>
-                                    </li>
-                            <?php
-                            }
+                        <?php
                         }
-                }
-
+                    }
                 ?>
             </ul>
 
@@ -191,9 +184,6 @@ if (isset($_GET["includeonly"])){
                     </div>
                     <div class="tab-pane" id="tab_1_10">
                         <?php include('products.ctp'); //subpages/profile/products.php'); ?>
-                    </div>
-                    <div class="tab-pane" id="tab_1_15">
-                        <?php include('subpages/client_logo.php'); ?>
                     </div>
                      <div class="tab-pane" id="tab_1_30">
                         <div class="tabbable tabbable-custom">
