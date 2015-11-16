@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2015 at 07:39 PM
+-- Generation Time: Nov 16, 2015 at 08:51 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=825 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=826 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447691112', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447703208', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -554,7 +554,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (524, 'upload_uploadresu', 'Upload Resume', 'Déposez votre CV'),
 (525, 'upload_uploadcert', 'Upload Certifications', 'Ajouter Certifications'),
 (526, 'upload_step2', '<STRONG>Step 2: </STRONG> Upload Abstract Consent Form (Above)', '<STRONG>Étape 2: </STRONG> Télécharger Résumé formulaire de consentement (Ci-dessus)'),
-(527, 'upload_step1', '<STRONG>Step 1: </STRONG> Please download, fill out, and upload', '<STRONG>Étape 2: </STRONG> S''il vous plaît télécharger, remplir, et télécharger'),
+(527, 'upload_step1', '<STRONG>Step 1: </STRONG> Please download, fill out, and upload<BR>using the ''Browse'' button next to ''Driver''s Record Abstract''', '<STRONG>Étape 2: </STRONG> S''il vous plaît télécharger, remplir, et de télécharger<BR>en utilisant le bouton ''Feuilleter'' à côté de ''la fiche résumé du conducteur'''),
 (528, 'orders_view', 'View Order', 'Voir Commander'),
 (529, 'orders_create', 'Create Order', 'Créer une commande'),
 (530, 'orders_edit', 'Edit Order', 'Modifier la commande'),
@@ -838,7 +838,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (821, 'permissions_ordersdelete', 'Delete Orders', 'Supprimer commandes'),
 (822, 'permissions_orderscreate', 'index_createclient', 'index_createclient'),
 (823, 'forms_steps', 'Step %step% of %total%', 'Étape %step% sur %total%'),
-(824, 'forms_paradox', 'end date. It must be after the start date', 'date de fin. Il doit être postérieure à la date de début');
+(824, 'forms_paradox', 'end date. It must be after the start date', 'date de fin. Il doit être postérieure à la date de début'),
+(825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

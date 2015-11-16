@@ -766,7 +766,7 @@
                 $this->set('assignedtoGFS', $results);
             }
 
-            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles", "profile_edit", "profile_delete", "profile_create", "client_option", "bulk", "document_list", "orders_list")), $setting, false, $u);
+            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles", "profile_edit", "profile_delete", "profile_create", "bulk", "document_list", "orders_list")), $setting, false, $u);// "client_option", I don't know what this is used for
         }
 
 

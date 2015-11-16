@@ -25,6 +25,7 @@ function validate_data(Data, DataType){
                 return regex.test(Data);
                 break;
             case "phone":
+                return true;//skipping validation for now
                 var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
                 var regex = /[^\d+]/;
                 var Data2 = clean_data(Data, "number");
@@ -234,7 +235,7 @@ function checktags(TabID, tagtype){//use tagtype = "single" to get a single elem
             }
 
             if(element.hasClass("datepicker") || element.hasClass("date-picker")){
-                if(name.indexOf("_end") > -1 && isValid){//make sure end date is after start date
+                if(name.indexOf("_end") > -1 && isValid && value){//make sure end date is after start date
                     if(!endDates.hasOwnProperty(name)){
                         endDates[name] = 0;
                     } else {
@@ -243,9 +244,12 @@ function checktags(TabID, tagtype){//use tagtype = "single" to get a single elem
                     var EndDate = Date.parse(value);
                     var StartDate = name.replace("_end", "_start");
                     StartDate = document.getElementsByName(StartDate);
-                    StartDate = Date.parse(StartDate[endDates[name]].value);
-                    isValid = StartDate < EndDate;
-                    if(!isValid){ Reason = "paradox"; }
+                    StartDate = StartDate[endDates[name]].value;
+                    if(StartDate) {
+                        StartDate = Date.parse(StartDate);
+                        isValid = StartDate < EndDate;
+                        if (!isValid) {Reason = "paradox";}
+                    }
                 }
             }
 
