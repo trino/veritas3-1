@@ -131,6 +131,9 @@ $(function(){
         $('#tab0 a:not(.forview)').each(function(){
            $(this).hide(); 
         });
+        $('#tab0 .nohide').each(function(){
+           $(this).show(); 
+        });
         $('input').each(function(){
            $(this).attr('disabled','disabled'); 
         });
