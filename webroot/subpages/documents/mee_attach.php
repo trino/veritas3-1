@@ -27,11 +27,10 @@
 
         $controller = $this->request->params['controller'];
         $controller = strtolower($controller);
+
         if($controller == "orders" && $dii) {
             if($mee_att === null || $mee_att['attach_doc'] === null){
-                $mee_attach = array("attach_doc" => $Manager->get_entry("mee_attachments", $dii, "order_id"));
-                debug($mee_attach);
-                debug($dii);
+                //$mee_att = array("attach_doc" => $Manager->get_entry("mee_attachments", $dii, "order_id"));
             }
         }
 
@@ -168,8 +167,8 @@
                                         <?= $GLOBALS["dashboard_delete"]; ?>
                                 </a>
                             <?php }?>
-                            <span class="uploaded nohide">
-                                <a class="dl nohide" href="<?= $path?>"><?php echo printanattachment($file->attachments) ;?></a>
+                            <span class="uploaded nohide forview">
+                                <a class="dl nohide forview" href="<?= $path?>"><?php echo printanattachment($file->attachments) ;?></a>
                             </span>
                         </span>
                         <input type="hidden" value="<?= $file->attachments;?>" name="mee_attachments[]" class="mee_att_<?= $cc;?>"/>
@@ -281,6 +280,7 @@
         </div>
 
     <?php }
+
         if (printdivrequired($action, $forms, "id_piece", $DriverProvince, getattachment($mee_att, "id_piece1") . getattachment($mee_att, "id_piece2"))) {
             $docsprinted+=1; ?>
             <div class="col-md-12" style="margin-top: 15px;">
@@ -289,8 +289,8 @@
                     <span>
                         <a href="javascript:void(0)" class="btn btn-primary" id="mee_att_1"><?= $strings["forms_browse"]; ?></a>&nbsp;
                         <span class="uploaded">
-                            <?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece1) { ?>
-                                <a class="dl" href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->id_piece1; ?>"><?php echo printanattachment($mee_att['attach_doc']->id_piece1); ?></a><?php } ?>
+                            <?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece1) {
+                                echo '<a class="dl" href="' . $this->request->webroot . 'documents/download/' . $mee_att['attach_doc']->id_piece1 . '">' . printanattachment($mee_att['attach_doc']->id_piece1) . '</a>';} ?>
                         </span>
                     </span>
                     <span>
@@ -487,43 +487,20 @@
         });
         $('#mee_att_more').click(function(){
             last_id++;
-            if(last_id < 19)
-            {
+            if(last_id < 19) {
                 $('.mee_att_'+last_id).parent().show();
-            }
-            else
-            {
+            } else {
                 var strings = '<div><span><a style="margin-bottom:5px;" href="javascript:void(0)" class="btn btn-primary additional" id="mee_att_'+last_id+'"><?= addslashes($strings["forms_browse"]); ?></a>&nbsp;<a style="margin-bottom:5px;" class="btn btn-danger" href="javascript:void(0);" onclick="$(this).parent().parent().remove();"><?= $GLOBALS["dashboard_delete"]; ?></a>&nbsp;<span class="uploaded"></span></span>'+
                     '<input type="hidden" name="mee_attachments[]" class="mee_att_'+last_id+'" /></div>';
-
                 $('.mee_more').append(strings);
                 fileUpload('mee_att_'+last_id);
-
             }
 
 
         });
     })
-</script>
 
-
-
-<script>
-    $(function () {
-
-        /*if( $('.mee_att_1').length ){fileUpload('mee_att_1');}
-         if( $('.mee_att_2').length ){fileUpload('mee_att_2');}
-         if( $('.mee_att_3').length ){fileUpload('mee_att_3');}
-         if( $('.mee_att_4').length ){fileUpload('mee_att_4');}
-         if( $('.mee_att_5').length ){fileUpload('mee_att_5');}
-         if( $('.mee_att_6').length ){fileUpload('mee_att_6');}
-         fileUpload('mee_att_1');
-         fileUpload('mee_att_2');
-         fileUpload('mee_att_4');
-         fileUpload('mee_att_3');
-         fileUpload('mee_att_5');
-         fileUpload('mee_att_6');*/
-
-
+    $( document ).ready(function() {
+        $('.dl').show();
     });
 </script>
