@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2015 at 08:51 PM
+-- Generation Time: Nov 16, 2015 at 10:09 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447703208', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447703485', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -699,7 +699,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (671, 'infoorder_selectclient', 'Select a %client%', 'Sélectionner un %client%'),
 (672, 'documents_selectdocument', 'Select %Document%', 'Sélectionnez %document%'),
 (673, 'forms_credssent', 'Credentials sent', 'Pouvoirs envoyés'),
-(679, 'email_profilecreated_variables', 'username, email, path, createdby, type, password, id', ''),
+(679, 'email_profilecreated_variables', 'email', ''),
 (680, 'email_documentcreated_variables', 'site, email, company_name, username, id, path, profile_type, place, document_type', ''),
 (681, 'email_ordercompleted_variables', 'email, username, profile_type, company_name, for, html, path', ''),
 (682, 'email_gfs_variables', 'email, path1, path2, site, username', ''),
@@ -812,7 +812,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (795, 'flash_cantorder3', 'Click here to edit their %profile%', 'Cliquez ici pour modifier leur %profile%'),
 (796, 'flash_cantorder4', 'Permissions data is missing. Edit this %profile%''s permissions to restore them', 'Autorisations données est manquant. Modifier ce %profile%''s de autorisations pour les restaurer'),
 (797, 'flash_cantorder5', 'You cannot place orders', 'Vous ne pouvez pas placer des commandes'),
-(798, 'flash_cantorder6', 'This %profile% type cannot place orders', 'Ce type de %profile% ne peut pas placer des commandes'),
+(798, 'flash_cantorder6', 'This %profile% type cannot have orders placed for them', 'Ce type de %profile% ne peut pas avoir les commandes passées pour eux'),
 (799, 'infoorder_incomplete', '&#9746;', '<SPAN TITLE="INCOMPLETE">&#9746;</SPAN>'),
 (800, 'infoorder_complete', '&#9745;', '&#9745;'),
 (801, 'permissions_used', 'Permissions used', 'Permission utilisés'),

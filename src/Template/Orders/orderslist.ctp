@@ -93,14 +93,14 @@
                                 echo '<input type="hidden" name="draft"/>';
                             }
                             $users = $doc_comp->getAllUser();
-                            echo '<select class="form-control input-inline" name="submitted_by_id" style=""><option value="">' . $strings["documents_submittedby"] . '</option>';
+                            echo '<select class="form-control input-inline select2me" name="submitted_by_id" style=""><option value="">' . $strings["documents_submittedby"] . '</option>';
                             foreach ($users as $u) {
                                  echo '<option value="' . $u->id . '" ';
                                  if (isset($return_user_id) && $return_user_id == $u->id) { echo ' selected="selected"'; }
                                  echo '>' . formatname($u) . '</option>';
 
                             }
-                            echo '</select><select class="form-control input-inline" name="uploaded_for" style=""><option value="">' . $strings["documents_submittedfor"] . '</option>';
+                            echo '</select><select class="form-control input-inline select2me" name="uploaded_for" style=""><option value="">' . $strings["documents_submittedfor"] . '</option>';
                             foreach ($users as $u) {
                                 echo '<option value="' . $u->id . '" ';
                                 if (isset($_GET['uploaded_for']) && $_GET['uploaded_for'] == $u->id) { echo ' selected="selected"';}

@@ -84,3 +84,4 @@ tmp/debug_kit.sqlite
 webroot/royslog.txt
 src/Controller/logs/debug.log
 *.log
+webroot/img/clients/750857_605975.jpeg

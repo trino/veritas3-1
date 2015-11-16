@@ -63,98 +63,47 @@
                     <div class="btn-set pull-right">
 
 
-                        <form action="<?php echo $this->request->webroot; ?>documents/index" method="get">
-                            <?php if (isset($_GET['draft'])) { ?><input type="hidden" name="draft"/><?php } ?>
-
-
-
-
-
-
+                        <form action="<?= $this->request->webroot; ?>documents/index" method="get">
                             <?php
+                                if (isset($_GET['draft'])) { echo '<input type="hidden" name="draft"/>'; }
                                 $type = $doc_comp->getDocType($this->request->session()->read('Profile.id'));
-                            ?>
+                                echo '<select class="form-control input-inline" name="type"><option value="">' . $strings["documents_document"] . '</option>';
 
-                            <select class="form-control input-inline" name="type">
-                                <option value=""><?= $strings["documents_document"]; ?></option>
-                                <?php
-                                    $fieldname = getFieldname("title", $language);
-                                    foreach ($type as $t) {
-                                        if(!isset($t->show) || $t->show) {
-                                            ?>
-                                            <option
-                                                value="<?php echo $t->id; ?>"
-                                                <?php if (isset($return_type) && $return_type == $t->id) { ?> selected="selected"<?php } ?> >
-                                                <?php echo ucfirst($t->$fieldname . $Trans); ?>
-                                            </option>
-                                        <?php
-                                        }
+                                $fieldname = getFieldname("title", $language);
+                                foreach ($type as $t) {
+                                    if(!isset($t->show) || $t->show) {
+                                        echo '<option value="' . $t->id . '"';
+                                            if (isset($return_type) && $return_type == $t->id) { echo ' selected="selected"';}
+                                             echo '>' . ucfirst($t->$fieldname . $Trans);
+                                            echo '</option>';
                                     }
-                                ?>
-                                <!--<option
-                                    value="orders" <?php if (isset($return_type) && $return_type == 'orders') { ?> selected="selected"<?php } ?>>
-                                    Orders
-                                </option>
-                                <option
-                                    value="feedbacks" <?php if (isset($return_type) && $return_type == 'feedbacks') { ?> selected="selected"<?php } ?>>
-                                    Feedback
-                                </option>-->
-                            </select>
+                                }
 
+                                echo '</select><select class="form-control input-inline select2me" name="submitted_by_id"><option value="">' . $strings["documents_submittedby"] . '</option>';
 
-
-
-
-
-                            <?php
                                 $users = $doc_comp->getAllUser();
-                            ?>
+                                foreach ($users as $u) {
+                                    echo '<option value="' . $u->id . '" ';
+                                    if (isset($return_user_id) && $return_user_id == $u->id) { echo ' selected="selected"';}
+                                    echo '>' . formatname($u) . '</option>';
+                                }
+                                echo '</select>';
 
+                                if ($settings->mee == "MEE") {
+                                echo '<select class="form-control input-inline select2me" name="submitted_for_id" style=""><option value="">' . $strings["documents_submittedfor"] . '</option>';
 
-                            <select class="form-control input-inline" name="submitted_by_id" style="width:140px;">
-                                <option value=""><?=$strings["documents_submittedby"];?></option>
-                                <?php
-                                    foreach ($users as $u) {
-                                        ?>
-                                        <option
-                                            value="<?php echo $u->id; ?>" <?php if (isset($return_user_id) && $return_user_id == $u->id) { ?> selected="selected"<?php } ?> ><?php echo formatname($u); ?></option>
-                                    <?php
-                                    }
-                                ?>
-                            </select>
-
-                            <?php if ($settings->mee == "MEE") { ?>
-
-                            <select class="form-control input-inline" name="submitted_for_id" style="">
-                                <option value=""><?= $strings["documents_submittedfor"];?></option>
-                                <?php
                                     $dr_cl = $doc_comp->getDriverClient(0, 0);
                                     $drcl_d = $dr_cl['driver'];
                                     foreach ($drcl_d as $drcld) {
-
-                                        ?>
-                                        <option
-                                            value="<?php echo $drcld->id; ?>" <?php if (isset($return_submitted_for_id) && $return_submitted_for_id == $drcld->id) { ?> selected="selected"<?php } ?> ><?php echo formatname($drcld); ?></option>
-                                    <?php
+                                        echo '<option value="' . $drcld->id . '" ';
+                                        if (isset($return_submitted_for_id) && $return_submitted_for_id == $drcld->id) { echo ' selected="selected"'; }
+                                        echo '>' .  formatname($drcld) . '</option>';
                                     }
-                                ?>
-                            </select>
-
-
-
-                            <?php
+                                echo '</select>';
                             }
-                            ?>
 
-                            <?php
-                                $clients = $doc_comp->getAllClient();
-                            ?>
-
-
-
-                            <select class="form-control showclientdivision  input-inline" name="client_id">
-                                <option value=""><?= $strings["settings_client"]; ?></option>
-                                <?php
+                            $clients = $doc_comp->getAllClient();
+                            echo '<select class="form-control showclientdivision input-inline" name="client_id"><option value="">' . $strings["settings_client"] . '</option>';
                                     foreach ($clients as $c) {
                                         $doit=true;
                                         if (!$this->Session->read('Profile.super')){
@@ -162,10 +111,9 @@
                                             $return_client_id= $userclients;
                                         }
                                         if($doit) {
-                                            ?>
-                                            <option
-                                                value="<?php echo $c->id; ?>" <?php if (isset($return_client_id) && $return_client_id == $c->id) { ?> selected="selected"<?php } ?> ><?php echo ucfirst($c->company_name); ?></option>
-                                        <?php
+                                            echo '<option value="' . $c->id . '" ';
+                                            if (isset($return_client_id) && $return_client_id == $c->id) { echo ' selected="selected"';}
+                                            echo '>' . ucfirst($c->company_name) . '</option>';
                                         }
                                     }
                                 ?>
