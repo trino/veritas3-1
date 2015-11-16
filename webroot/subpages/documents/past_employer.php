@@ -8,7 +8,7 @@
         $language = $_GET["language"];
     else
         $language = 'English';
-    if(isset( $_GET["debug"])){ echo "<span style ='color:red;'>subpages/documents/past_employer.php #INC146</span>"; }//$this is not accessible!
+  //  if(isset( $_GET["debug"])){ echo "<span style ='color:red;'>subpages/documents/past_employer.php #INC146</span>"; }//$this is not accessible!
     //$strings = CacheTranslations($language, array("forms_%"));
     //var_dump($strings);
 

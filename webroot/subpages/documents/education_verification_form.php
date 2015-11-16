@@ -1,8 +1,10 @@
 <?php
     if($this->request->params['controller']!='ClientApplication'){
+   /*
     if ($this->request->session()->read('debug')) {
         echo "<span style ='color:red;'>subpages/documents/education_verification_form.php #INC142</span>";
     }
+   */
     }
     $strings2 = CacheTranslations($language, array("verifs_%", "file_attachfile", "tasks_date"), $settings, False);
 ?>
