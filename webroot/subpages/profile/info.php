@@ -782,7 +782,7 @@ loadreasons($param, $strings, true);
                                         </div>
                                         <?php
                                          }?>
-                                        <div class="scrolldiv" <?php if($this->request->params['action']=='view'){
+                                        <div class="<?php if($this->request->params['action']!='view')echo 'scrolldiv';?>" <?php if($this->request->params['action']=='view'){
                                             ?> style="border-top: 1px solid #e5e5e5;"<?php }?>>
                                             <table class="table" id="clientTable" style="border: 1px solid #e5e5e5;border-top:none;">
                                                 <?php

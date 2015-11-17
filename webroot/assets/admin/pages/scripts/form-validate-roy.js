@@ -234,7 +234,7 @@ function checktags(TabID, tagtype){//use tagtype = "single" to get a single elem
                 isValid = validate_data(value, Reason);
             }
 
-            if(element.hasClass("datepicker") || element.hasClass("date-picker")){
+            if(name && (element.hasClass("datepicker") || element.hasClass("date-picker"))){
                 if(name.indexOf("_end") > -1 && isValid && value){//make sure end date is after start date
                     if(!endDates.hasOwnProperty(name)){
                         endDates[name] = 0;
