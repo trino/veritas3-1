@@ -271,7 +271,7 @@ class DocumentComponent extends Component{
                             $assignedProfile1 .= $new_pro->id.","; 
                         }
                         $assignedProfile1 = substr($assignedProfile1, 0,strlen($assignedProfile1)-1);
-                        if($assignedProfile1)
+                        if($assignedProfile1 && $emailenabled)
                         {
                            
                             if(!isset($_GET['draft'])|| (isset($_GET['draft']) && $_GET['draft']=='0'))
