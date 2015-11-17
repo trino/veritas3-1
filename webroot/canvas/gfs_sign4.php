@@ -55,7 +55,9 @@ $_GET['num']=1004;?>
             <input type="hidden" name="signature_company_witness" id="signature_company_witness" /><?php if(!isset($_GET['form_id'])){?>
             <label class="control-label "><?= $strings2["consent_sigwitness"]; ?></label><br>
             <p style="margin-top:8px;">Please Sign in within the border.</p>
-            <canvas id="test<?php echo $_GET['num'];?>" style="border: 20px solid silver;border-radius: 5px; width: 400px;"></canvas>
+            <div style="border: 15px solid silver;border-radius: 5px;">
+            <canvas id="test<?php echo $_GET['num'];?>" style=""></canvas>
+            </div>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
     			<strong style="display: none;">OPTIONS:</strong>

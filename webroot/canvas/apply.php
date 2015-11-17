@@ -54,13 +54,15 @@ $_GET['num']=100;?>
 				<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)"});'>Blue</a>
 			</div>
 		</div>
-        <div class="col-sm-10" style="width: 700px;padding:0px;">
+        <div class="col-sm-10" style="width: 700px;">
             <input type="hidden" class="touched" value="0" />
             <input type="hidden" class="touched_edit" value="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->gfs_signature){?>1<?php }else{?>0<?php }?>" />
             <input type="hidden" name="gfs_signature" id="recruiter_signature"
                value="<?php if (isset($application_for_employment_gfs->recruiter_signature) && $application_for_employment_gfs->gfs_signature) echo $application_for_employment_gfs->gfs_signature; ?>"/>
             <?php if(!isset($_GET['form_id'])){?>
-            <canvas id="test<?php echo $_GET['num'];?>" style="border: 20px solid silver;border-radius: 5px;"></canvas>
+            <div style="border: 15px solid silver;border-radius: 5px;">
+            <canvas id="test<?php echo $_GET['num'];?>" style=""></canvas>
+            </div>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
     			<strong style="display: none;">OPTIONS:</strong>

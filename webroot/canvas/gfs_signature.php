@@ -46,8 +46,10 @@ if (isset($application_for_employment_gfs)){
             
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
             <p style="margin-top:8px;">Please Sign in within the border.</p>
-    		<div style="width: 400px; height:250px">
-                <canvas id="test8" style="border: 20px solid silver;border-radius: 5px;"></canvas>
+    		<div style="">
+            <div style="width:404px;">
+                <canvas style="border-radius: 5px; border: 8px solid silver;" width="404" id="test8" style=""></canvas>
+                </div>
             </div>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">

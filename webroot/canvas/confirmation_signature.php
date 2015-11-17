@@ -52,11 +52,11 @@
 		<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)"});'>Blue</a>
 	</div>
 </div>
-<div class="col-sm-10" style="width: 700px;">
+<div class="col-sm-10" style="">
 	<input type="hidden" class="touched" value="0" />
 	<input type="hidden" class="touched_edit" value="<?php if(isset($modal) && $modal->recruiter_signature){ echo 1;} else{ echo 0; }?>" />
 	<?php if($this->request->params['action'] != 'vieworder' && $this->request->params['action'] != 'view'){
-		echo '<canvas id="test' . $_GET['num'] . '" style="border: 20px solid silver;border-radius: 5px;width:400px !important;"></canvas>';
+		echo '<div style="border: 15px solid silver;border-radius: 5px;width:480px;"><canvas id="test' . $_GET['num'] . '"></canvas></div>';
 	}?>
     <div style="display: none;color:red;margin:5px 0 10px 0;" class="pleaseprovide">Please provide your signature</div>
 	<div class="links" style="margin-top: 5px;">
