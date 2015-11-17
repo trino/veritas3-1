@@ -21,6 +21,8 @@
 
     if (isset($this->request->params['pass'][0])) {
         $ClientID = $this->request->params['pass'][0];
+        $Client = $Manager->get_client($ClientID);
+        $Image = clientimage($this->request->webroot, $settings, $Client);
     }
 
     if (isset($this->request->params['pass'][1])) {
@@ -35,11 +37,11 @@
 
     loadreasons($action, $strings, true);
 
-    function printsteps($strings, $CurrentStep, $doc_count){
+    function printsteps($strings, $CurrentStep, $doc_count, $Image){
         $string = $strings["forms_steps"];
         $string = str_replace("%step%", '<span class="counters counter">' . $CurrentStep . '</span>', $string);
         $string = str_replace("%total%", $doc_count+2, $string);
-        return '<strong><p>' . $string . '</p></strong>';
+        return '<IMG SRC="' . $Image . '" STYLE="max-height: 50px;"><strong><p>' . $string . '</p></strong>';
     }
 ?>
 <div id="tab0">
@@ -47,9 +49,11 @@
     <input type="hidden" id="user_id" value=""/>
     <div class="step_counters" style="float: right;
     text-transform: uppercase;
-    font-size: 15px;    margin-top: 28px;
-    margin-right: 45px;">
-        <?= printsteps($strings, 1, $subd->count()); ?>
+    font-size: 15px;
+    margin-top: 28px;
+    margin-right: 45px;
+    text-align: center !important;">
+        <?= printsteps($strings, 1, $subd->count(), $Image); ?>
     </div>
     <div class="clearfix"></div>
     <!--hr /-->

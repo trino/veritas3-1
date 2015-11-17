@@ -597,7 +597,10 @@ class ManagerComponent extends Component {
         }
     }
     function get_client($ClientID){
-        return $this->get_entry("clients", $ClientID, "id");
+        if(is_numeric($ClientID)) {
+            return $this->get_entry("clients", $ClientID, "id");
+        }
+        return $this->get_entry("clients", $ClientID, "slug");
     }
 
     function assign_profile_to_client($ProfileID, $ClientID){

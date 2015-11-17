@@ -11,7 +11,7 @@
 <?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
 <form id="form_consent">
     <div class="form-group row">
-        <h3 class="col-md-12"><?= $strings2["consent_release"]; ?></h3>
+        <h4 class="col-md-12"><?= $strings2["consent_release"]; ?></h4>
     </div>
     <div class="gndn">
         <div class="form-group row">
