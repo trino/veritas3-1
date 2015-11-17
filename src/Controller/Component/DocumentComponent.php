@@ -42,7 +42,10 @@ class DocumentComponent extends Component{
                 if(!$did || $did == '0'){
                 $arr['title'] = 'order_' . $_POST['uploaded_for'] . '_' . date('Y-m-d H:i:s');
                 $txtfile = $txtfile.'Title: '.$arr['title']."\n";}
+                
                 $arr['uploaded_for'] = $_POST['uploaded_for'];
+                
+                
                 $txtfile = $txtfile.'Uploaded for: User Id# '.$arr['uploaded_for']."\n";
                 $txtfile = $txtfile.'Uploaded By: User Id# '.$controller->request->session()->read('Profile.id')."\n";
                 $sig = explode('/',$_POST['recruiter_signature']);
@@ -119,7 +122,7 @@ class DocumentComponent extends Component{
                     $arr['created'] = date('Y-m-d H:i:s');
                 }
                 if (!$did || $did == '0') {
-                    if(!isset($_POST['user_id']))
+                    if(!isset($_POST['user_id']) || isset($_GET['draft']))
                         $arr['user_id'] = $controller->request->session()->read('Profile.id');
                     else
                         $arr['user_id'] = $_POST['user_id'];
@@ -144,6 +147,9 @@ class DocumentComponent extends Component{
                         //echo "e";
                     }
                 } else {
+                    
+                    if(isset($_GET['draft']))
+                    $arr['user_id'] = $controller->request->session()->read('Profile.id');
                     $query2 = $orders->query();
                     $query2->update()
                         ->set($arr)
