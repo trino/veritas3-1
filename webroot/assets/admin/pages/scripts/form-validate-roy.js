@@ -119,11 +119,11 @@ function validatespecialrules(){
             case "meeattach"://hard-coded rule for mee_attach
                 if(isvisible("form_tab15")){
                     Rule = element.getAttribute("driverprovince");
-                    if (Rule == "BC" || Rule == "QC" || Rule == "SK"){
-                        if(!getinputvalue("mee_attach_7")){return MissingAbstract;}
-                    }
                     if(element.getAttribute("isform") == 1){
                         if (!getinputvalue("meeattach_id1") && !getinputvalue("meeattach_id2")){return MissingID;}
+                    }
+                    if (Rule == "BC" || Rule == "QC" || Rule == "SK"){
+                        if(!getinputvalue("mee_attach_7")){return MissingAbstract;}
                     }
                 }
                 break;
@@ -377,7 +377,7 @@ function scrollto(Reason, element){
     //if($(element).parent().find('.error'))
     //    $(element).parent().find('.error').text(rsn);
     //else
-         $(element).parent().append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+rsn+'</span>');
+    $(element).parent().append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+rsn+'</span>');
     $('html,body').animate({ scrollTop: ($(element).offset().top)-80}, 'slow');
     
     //alert($(element).attr('name'));

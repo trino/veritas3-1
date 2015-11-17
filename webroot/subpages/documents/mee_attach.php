@@ -32,6 +32,10 @@
     // This file is never to be touched again.
     // This file is never to be touched again.
 
+    //rules:
+    //if $_GET["forms"] contains 1603: either meeattach_id1 or meeattach_id2 are required
+    //if driver's province is BC, QC or SK: mee_attach_7 is required
+
     if($this->request->params['controller']!='ClientApplication'){
         if ($this->request->session()->read('debug')) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
     }
