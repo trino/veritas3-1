@@ -21,6 +21,23 @@ class DocumentComponent extends Component{
                 ->execute();
         }
     }
+
+    function enum_emails_canorder($ClientID){
+        $Profiles = $this->enum_profiles_canorder($ClientID);
+        $Emails = array();
+        foreach($Profiles as $Profile){
+            $Emails[] = $Profile->email;
+        }
+        return $Emails;
+    }
+
+    function enum_profiles_canorder($ClientID = false){
+        $PTypes = $this->Manager->enum_all("profile_types", array("placesorders" => 1));
+        $PTypes = array_keys($this->Manager->iterator_to_array($PTypes, "id"));
+        if(!$ClientID){return $PTypes;}
+        $ClientID = $this->Manager->get_client($ClientID)->profile_id;
+        return $this->Manager->enum_all("profiles", array("id IN (" . $ClientID . ")", "profile_type IN (" . implode(",", $PTypes) . ")"));
+    }
 	
     public function savedoc($Mailer, $cid = 0, $did = 0, $emailenabled = True){
              $controller = $this->_registry->getController();

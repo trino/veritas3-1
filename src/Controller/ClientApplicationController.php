@@ -110,6 +110,7 @@ class ClientApplicationController extends AppController {
         $this->Manager->assign_profile_to_client($pid, $cid);
         die();
     }
+
     public function savedoc($cid = 0, $did = 0) {
         $this->set('doc_comp',$this->Document);
         $this->loadComponent('Mailer');
@@ -137,6 +138,13 @@ class ClientApplicationController extends AppController {
     }
 
     public function savedMeeOrder($document_id = 0, $cid = 0){
+        if(isset($_GET["document"]) && $_GET["document"] == "Consent Form") {
+            $this->Mailer->debugprint("Consnet saved!");
+            $Emails = $this->Document->enum_emails_canorder($cid);
+            $Emails[] = "super";
+            $this->Mailer->handleevent("application", array("email" => $Emails, "document" => $document_id, "client" => $cid));
+        }
+
         $this->Document->savedMeeOrder($document_id,$cid);
         die();
     }
@@ -348,6 +356,9 @@ class ClientApplicationController extends AppController {
         if($DID){$saved = "updated";}
         if($Success) {
             $this->Flash->success($this->Trans->getString("flash_doc" . $saved));
+
+
+
         }else{
             $this->Flash->error($this->Trans->getString("flash_docnot" . $saved));
         }

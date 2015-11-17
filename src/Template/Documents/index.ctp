@@ -8,7 +8,15 @@
     $strings = CacheTranslations($language, $controller  . "_%",$settings);
     if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 ?>
-
+<style>
+    .select2me{
+        width: 200px;
+        margin-left: 5px;
+    }
+    .showclientdivision{
+        margin-left: 5px !important;
+    }
+</style>
 <h3 class="page-title">
     <?php
         $string = "index_documents";

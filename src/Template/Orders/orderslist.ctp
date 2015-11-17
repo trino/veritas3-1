@@ -15,6 +15,15 @@
     }
 
 ?>
+<style>
+    .select2me{
+        width: 200px;
+        margin-left: 5px;
+    }
+    .showdivision{
+        margin-left: 5px !important;
+    }
+</style>
 
 <h3 class="page-title">
     <?php
