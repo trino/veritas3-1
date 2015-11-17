@@ -1928,9 +1928,11 @@ class DocumentComponent extends Component{
         }
         
         function getProfilePermission($profile,$type){
-            //var_dump($profile);die();
+            if(!is_array($profile))
+            $profile = explode(',',$profile);
             //$arr_profile = explode(',',$profile);
             $email_arr = array();
+            if($profile)
             foreach($profile as $ap) {
                 
                  $permit = $this->Manager->loadpermissions($ap, "sidebar"); //$query->first();
