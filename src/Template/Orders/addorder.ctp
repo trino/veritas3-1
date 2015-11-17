@@ -389,7 +389,7 @@
                                 }
                                 $jj++;
                                 ?>
-                                <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
+                                <div class="steps confirmationbl" id="step<?php echo $jj;?>" style="display:none;">
                                     <?= printsteps($strings, $doc_count+2, $doc_count); ?>
                                     <?php include('subpages/documents/confirmation.php');?>
                                     <hr />

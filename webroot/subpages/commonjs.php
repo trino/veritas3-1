@@ -1674,8 +1674,13 @@ function fileUpload(ID) {
         });
         }
         else{
-            $('.overlay-wrapper').show();
+            $('.overlay-wrapper').hide();
+            $('.confirmationbl').addClass('active');
+            $('.confirmationbl').show();
             $('.pleaseprovide').show();
+            $('html,body').animate({
+                            scrollTop: $('.pleaseprovide').offset().top},
+                        'slow');
         }
     }
 
