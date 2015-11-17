@@ -48,7 +48,7 @@ JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
 
     function printsteps($strings, $CurrentStep, $doc_count){
         $string = $strings["forms_steps"];
-        $string = str_replace("%step%", '<span class="counters">' . $CurrentStep . '</span>', $string);
+        $string = str_replace("%step%", '<span class="counters counter">' . $CurrentStep . '</span>', $string);
         $string = str_replace("%total%", $doc_count+2, $string);
         return '<strong><p>' . $string . '</p></strong>';
     }

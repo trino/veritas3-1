@@ -29,13 +29,13 @@ class DocumentComponent extends Component{
 //         echo "<pre>";print_r($_POST);
             if (!isset($_GET['document'])) {
                 if(!isset($_POST['recruiter_signature']))
-                $_POST['recruiter_signature'] = '';
+                    $_POST['recruiter_signature'] = '';
                 
                 if(!isset($_POST['conf_recruiter_name']))
-                $_POST['conf_recruiter_name'] = '';
+                    $_POST['conf_recruiter_name'] = '';
                 
                 if(!isset($_POST['conf_date']))
-                $_POST['conf_date'] = '';
+                    $_POST['conf_date'] = '';
                 // saving in order table
                 $txtfile = '';
                 $orders = TableRegistry::get('orders');
@@ -216,7 +216,9 @@ class DocumentComponent extends Component{
                            }
                 }
 
-            } else {
+            } 
+            else 
+            {
                 $docs = TableRegistry::get('Documents');
                 if (isset($_GET['draft']) && $_GET['draft']){
                     $arr['draft'] = 1;
@@ -254,15 +256,28 @@ class DocumentComponent extends Component{
                         $get_client = TableRegistry::get('Clients');
                         $gc = $get_client->find()->where(['id' => $cid])->first();
                         $client_name = $gc->company_name;
+                        
                         $assignedProfile = $this->getAssignedProfile($cid);
+                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile->profile_id.')'])
+                                        ->contain(['Sidebar'=> function ($q) {
+                                                                        return $q
+                                            ->select(['email_document', 'email_orders'])
+                                            ->where(['Sidebar.email_document' => '1']);
+                                    }]);
                        
-                        if($assignedProfile)
+                        $assignedProfile1 = '';
+                        foreach($profiles_all as $new_pro)
+                        {
+                            $assignedProfile1 .= $new_pro->id.","; 
+                        }
+                        $assignedProfile1 = substr($assignedProfile1, 0,strlen($assignedProfile1)-1);
+                        if($assignedProfile1)
                         {
                            
                             if(!isset($_GET['draft'])|| (isset($_GET['draft']) && $_GET['draft']=='0'))
                             {
-                                
-                                $profile = $this->getProfilePermission($assignedProfile->profile_id, 'document');
+                                $profile = explode(',',$assignedProfile1);
+                                //$profile = $this->getProfilePermission($arr_profile, 'document');
                                 if($profile)
                                 {
                                     
@@ -363,7 +378,8 @@ class DocumentComponent extends Component{
                         //echo "e";
                     }
 
-                } else
+                } 
+                else
                 {
                    
                     $query2 = $docs->query();
@@ -376,13 +392,25 @@ class DocumentComponent extends Component{
                         $gc = $get_client->find()->where(['id' => $cid])->first();
                         $client_name = $gc->company_name;
                         $assignedProfile = $this->getAssignedProfile($cid);
-                     
-                        if($assignedProfile)
+                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile->profile_id.')'])
+                                        ->contain(['Sidebar'=> function ($q) {
+                                                                        return $q
+                                            ->select(['email_document', 'email_orders'])
+                                            ->where(['Sidebar.email_document' => '1']);
+                                    }]);
+                       
+                        $assignedProfile1 = '';
+                        foreach($profiles_all as $new_pro)
+                        {
+                            $assignedProfile1 .= $new_pro->id.","; 
+                        }
+                        $assignedProfile1 = substr($assignedProfile1, 0,strlen($assignedProfile1)-1);die();
+                        if($assignedProfile1 && $emailenabled)
                         {
                             if(!isset($_GET['draft']) || !($_GET['draft']))
                             {
-                                $profile = $this->getProfilePermission($assignedProfile->profile_id, 'document');
-                                
+                                //$profile = $this->getProfilePermission($assignedProfile->profile_id, 'document');
+                                 $profile = explode(',',$assignedProfile1);
                                 if($profile)
                                 {
                                     foreach($profile as $p)
@@ -393,7 +421,7 @@ class DocumentComponent extends Component{
                                         $em = $email_query->email;
 
                                         $user_id = $p;//shouldn't this be $p?
-                                        $uq = $pro_query->find('all')->where(['id' => $user_id])->first();
+                                        $uq = $pro_query->find()->where(['id' => $user_id])->first();
                                         $ut = '';
                                         if (isset($uq->profile_type)) {
                                             $u = $uq->profile_type;
@@ -1895,14 +1923,16 @@ class DocumentComponent extends Component{
         
         function getAssignedProfile($cid = 0){
             $profile = TableRegistry::get('Clients');
-            $pro = $profile->find()->where(['id' => $cid])->first();
+            $pro = $profile->find()->select('profile_id')->where(['id' => $cid])->first();
             return $pro;
         }
         
         function getProfilePermission($profile,$type){
-            $arr_profile = explode(',',$profile);
+            //var_dump($profile);die();
+            //$arr_profile = explode(',',$profile);
             $email_arr = array();
-            foreach($arr_profile as $ap) {
+            foreach($profile as $ap) {
+                
                  $permit = $this->Manager->loadpermissions($ap, "sidebar"); //$query->first();
                  if($permit){
                     if($type =='document') {
@@ -1923,7 +1953,7 @@ class DocumentComponent extends Component{
        
         function getEmail($id, $Column = "email"){
             $query = TableRegistry::get('Profiles');
-            $pro = $query->find()->where(['id'=>$id])->first();
+            $pro = $query->find()->select($Column)->where(['id'=>$id])->first();
 			if($pro){
                 return $pro->$Column;
 			}

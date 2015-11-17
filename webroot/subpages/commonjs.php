@@ -1,4 +1,90 @@
 <script>
+var asyncRequest = function() {
+
+  function handleReadyState(o, callback) {
+
+    if (o && o.readyState == 4 && o.status == 200) {
+
+      if (callback) {
+
+        callback(o);
+
+      }
+
+    }
+
+  }
+
+  var getXHR = function() {
+
+    var http;
+
+    try {
+
+      http = new XMLHttpRequest;
+
+        getXHR = function() {
+
+          return new XMLHttpRequest;
+
+        };
+
+    }
+
+    catch(e) {
+
+      var msxml = [
+
+        'MSXML2.XMLHTTP.3.0', 
+
+        'MSXML2.XMLHTTP', 
+
+        'Microsoft.XMLHTTP'
+
+      ];
+
+      for (var i=0, len = msxml.length; i < len; ++i) {
+
+        try {
+
+          http = new ActiveXObject(msxml[i]);
+
+          getXHR = function() {
+
+            return new ActiveXObject(msxml[i]);
+
+          };
+
+          break;
+
+        }
+
+        catch(e) {}
+
+      }
+
+    }
+
+    return http;
+
+  };
+
+  return function(method, uri, callback, postData) {
+
+    var http = getXHR();
+
+    http.open(method, uri, true);
+
+    handleReadyState(http, callback);
+
+    http.send(postData || null);
+
+    return http;
+
+  };
+
+}();
+
 client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
     profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
@@ -158,13 +244,15 @@ $(function(){
             var driver_id = '';
         <?php }?>
         $('.overlay-wrapper').show();
-        var fields = par.find('input').serialize();
+       var fields = par.find('input').serialize();
         var fields = fields+'&'+par.find('select').serialize()+'&driver_id='+driver_id;
-        $.ajax({
+         $.ajax({
             url:webroot+'clientApplication/saveDriver/<?php if(isset($_GET['driver']))echo $_GET['driver'];?>',
             data:fields,
             type:'post',
             success:function(res){
+                //console.log(responseText);
+               
                 $('#user_id').val(res);
                 getJsonFields(res);
                 $('.counter').text(Number($('.counter').text())+1);
@@ -399,7 +487,66 @@ $(function(){
                         //division: $('#division').val(),
                         //attach_doc: attach_docs
                     };
-                    
+                    if(sid =='18')
+                    {
+                       $('.overlay-wrapper').show();
+                        if($('#test8').parent().parent().find('.touched').val()=='1'){
+                            $.when(save_signature('8')).done(function(d1){
+                                $('#gfs_signature').val(d1);
+                                var order_id = did,
+                                    cid = '<?php echo $cid;?>',
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
+                                var param = $('#form_tab18').serialize();
+                                 $.ajax({
+                                    url: url,
+                                    data: param,
+                                    type: 'POST',
+                                    success: function (res) {
+                                         <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
+                                            $('.counter').text(Number($('.counter').text())+1);
+                                            $('.overlay-wrapper').hide();
+                                     <?php }?>
+                                     id = parseInt(id)+1;
+                                    $('#step'+id).show();
+                                    $('#step'+id).addClass('active');
+                                         }
+        
+        
+                                });
+                            });
+                           }
+                           else
+                           {
+                                var order_id = did,
+                                    cid = '<?php echo $cid;?>',
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
+                                var param = $('#form_tab18').serialize();
+                                 $.ajax({
+                                    url: url,
+                                    data: param,
+                                    type: 'POST',
+                                    success: function (res) {
+                                         <?php if($this->request->controller=='Documents')
+                                        {?>
+                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                     <?php }else{?>
+                                            $('.counter').text(Number($('.counter').text())+1);
+                                            $('.overlay-wrapper').hide();
+                                     <?php }?>
+                                     id = parseInt(id)+1;
+                                    $('#step'+id).show();
+                                    $('#step'+id).addClass('active');
+                                         }
+        
+        
+                                });
+                           } 
+    
+                        }
+                    else
                     $.ajax({
                         //data:'uploaded_for='+$('#uploaded_for').val(),
                         data: data,
@@ -575,58 +722,7 @@ $(function(){
                                 });
         
                             }
-                            else
-                            if (sid == "18") {
-                                if($('#test8').parent().parent().find('.touched').val()=='1'){
-                                $.when(save_signature('8')).done(function(d1){
-                                    $('#gfs_signature').val(d1);
-                                    var order_id = res,
-                                        cid = '<?php echo $cid;?>',
-                                        url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
-                                    var param = $('#form_tab18').serialize();
-                                     $.ajax({
-                                        url: url,
-                                        data: param,
-                                        type: 'POST',
-                                        success: function (res) {
-                                             <?php if($this->request->controller=='Documents')
-                                            {?>
-                                                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                         <?php }else{?>
-                                                $('.counter').text(Number($('.counter').text())+1);
-                                                $('.overlay-wrapper').hide();
-                                         <?php }?>
-                                             }
-            
-            
-                                    });
-                                });
-                               }
-                               else
-                               {
-                                    var order_id = res,
-                                        cid = '<?php echo $cid;?>',
-                                        url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
-                                    var param = $('#form_tab18').serialize();
-                                     $.ajax({
-                                        url: url,
-                                        data: param,
-                                        type: 'POST',
-                                        success: function (res) {
-                                             <?php if($this->request->controller=='Documents')
-                                            {?>
-                                                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                         <?php }else{?>
-                                                $('.counter').text(Number($('.counter').text())+1);
-                                                $('.overlay-wrapper').hide();
-                                         <?php }?>
-                                             }
-            
-            
-                                    });
-                               } 
-        
-                            }
+                           
                             else
                             if(sid == 'c1'){
                                 save_recruiter_info(res);

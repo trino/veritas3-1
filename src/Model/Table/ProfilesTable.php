@@ -22,6 +22,14 @@ public function initialize(array $config) {
         $this->hasMany('Orders', [
             'className' => 'Orders',
         ]);
+        $this->hasOne('Sidebar' ,[
+            'className' => 'Sidebar',
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+            //'conditions' => ['Addresses.primary' => '1'],
+            'dependent' => true
+        ]);
+        
     }
 
 /**
