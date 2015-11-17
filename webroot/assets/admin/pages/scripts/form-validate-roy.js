@@ -106,7 +106,35 @@ function checkalltags(TabID){
     if (!inputs['Status']){return false;}
     inputs = checktags(TabID, 'select');
     if (!inputs['Status']){return false;}
-    return true;
+    var inputs = validatespecialrules();
+    if(!inputs){return true;}
+    alert(inputs);
+}
+
+function validatespecialrules(){
+    var element = document.getElementById("specialrule");
+    if(element){
+        var Rule = element.value;
+        switch(Rule){
+            case "meeattach"://hard-coded rule for mee_attach
+                if(isvisible("form_tab15")){
+                    Rule = element.getAttribute("driverprovince");
+                    if (Rule == "BC" || Rule == "QC" || Rule == "SK"){
+                        if(!getinputvalue("mee_attach_7")){return MissingAbstract;}
+                    }
+                    if(element.getAttribute("isform") == 1){
+                        if (!getinputvalue("meeattach_id1") && !getinputvalue("meeattach_id2")){return MissingID;}
+                    }
+                }
+                break;
+        }
+    }
+    return false;
+}
+
+function isvisible(element){
+    element = document.getElementById(element);
+    return element.offsetWidth > 0 || element.offsetHeight > 0;
 }
 
 function radiovalue(Name){

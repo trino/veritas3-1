@@ -1,4 +1,37 @@
 <?php
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+    // This file is never to be touched again.
+
     if($this->request->params['controller']!='ClientApplication'){
         if ($this->request->session()->read('debug')) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
     }
@@ -19,7 +52,8 @@
     <div class="clearfix"></div>
 
     <?php
-
+        echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" isform="';
+        echo in_array("1603", explode(",", "1603,1,14,77,78,1627")) . '">';
         $skip=false;
         function alert($Text){
             echo "<SCRIPT>alert('" . $Text . "');</SCRIPT>";
@@ -41,11 +75,16 @@
             $DriverProvince =$data->reciever->driver_province;
         }
 
-        function makeBrowseButton($ID, $Display, $Remove = true, $text=""){
+        function makeBrowseButton($ID, $Display, $Remove = true, $text="", $Required = false){
             if(!$Display){$Display=' style="display: none;"';} else{ $Display="";}
             echo '<div' . $Display . '><span><a style="margin-bottom:5px;" href="javascript:void(0)" class="btn btn-primary additional" id="mee_att_' . $ID . '">';
             echo $GLOBALS["forms_browse"] . '</a>&nbsp';
-            if ($Remove) { echo '<a style="margin-bottom:5px;" class="btn btn-danger" href="javascript:void(0);" onclick="$(this).parent().parent().remove();">' . $GLOBALS["dashboard_delete"] . '</a>';}        echo '<span class="uploaded"></span></span><input type="hidden" name="mee_attachments[]" class="mee_att_' . $ID . '" /> ' . $text . '</div>';
+            if ($Remove) {
+                echo '<a style="margin-bottom:5px;" class="btn btn-danger" href="javascript:void(0);" onclick="$(this).parent().parent().remove();">' . $GLOBALS["dashboard_delete"] . '</a>';
+            }
+            echo '<span class="uploaded"></span></span><input type="hidden" name="mee_attachments[]" class="mee_att_' . $ID . '" ID="mee_attach_' . $ID . '"';
+            //if($Required){ echo " REQUIRED";}
+            echo '/> ' . $text . '</div>';
         }
 
         if (!isset($mee_att)) {$mee_att = array();}
@@ -254,7 +293,7 @@
             $lprov = array('BC','QC','SK');
             $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
             if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
-                makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>');
+                makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
             }
             if($did  && in_array($get_prov,$lprov)){
                 $skip=true;
@@ -299,10 +338,10 @@
                             <a class="dl nohide forview" href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->id_piece2; ?>"><?php echo printanattachment($mee_att['attach_doc']->id_piece2); ?></a><?php } ?>
                         </span>
                     </span>
-                    <input type="hidden" name="id_piece1" class="mee_att_1" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece1) {
+                    <input type="hidden" id="meeattach_id1" name="id_piece1" class="mee_att_1" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece1) {
                         echo $mee_att['attach_doc']->id_piece1;
                     } ?>" />
-                    <input type="hidden" name="id_piece2" class="mee_att_2" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece2) {
+                    <input type="hidden" id="meeattach_id2" name="id_piece2" class="mee_att_2" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->id_piece2) {
                         echo $mee_att['attach_doc']->id_piece2;
                     } ?>" />
                     <?= printrequired($action, $forms, "id_piece", $DriverProvince, 0, $strings2["upload_required"]); ?>
@@ -332,7 +371,7 @@
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
                 <a class="dl"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
-                    <input type="hidden" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
+                    <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
                 echo $mee_att['attach_doc']->driver_record_abstract;
             } ?>" />
                     <?= printrequired($action, $forms, "driver_record_abstract", $DriverProvince, 0, $strings2["upload_required"]); ?>
@@ -356,7 +395,7 @@
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_4"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) { ?>
                 <a class="dl"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->cvor; ?>"><?php echo printanattachment($mee_att['attach_doc']->cvor); ?></a><?php } ?></span></span>
-                    <input type="hidden" name="cvor" class="mee_att_4" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) {
+                    <input type="hidden" id="meeattach_cvor" name="cvor" class="mee_att_4" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) {
                 echo $mee_att['attach_doc']->cvor;
             } ?>" />
                     <?= printrequired($action, $forms, "cvor", $DriverProvince, 0, $strings2["upload_required"]); ?>
@@ -380,7 +419,7 @@
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_5"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) { ?>
                 <a class="dl"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->resume; ?>"><?php echo printanattachment($mee_att['attach_doc']->resume); ?></a><?php } ?></span></span>
-                    <input type="hidden" name="resume" class="mee_att_5" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) {
+                    <input type="hidden" id="meeattach_resume" name="resume" class="mee_att_5" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) {
                 echo $mee_att['attach_doc']->resume;
             } ?>" />
                     <?= printrequired($action, $forms, "resume", $DriverProvince, 0, $strings2["upload_required"]); ?>
@@ -404,7 +443,7 @@
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_6"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) { ?>
                 <a class="dl"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->certification; ?>"><?php echo printanattachment($mee_att['attach_doc']->certification); ?></a><?php } ?></span></span>
-                    <input type="hidden" name="certification" class="mee_att_6" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) {
+                    <input type="hidden" id="meeattach_certification" name="certification" class="mee_att_6" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) {
                 echo $mee_att['attach_doc']->certification;
             } ?>" />
                     <?= printrequired($action, $forms, "certification", $DriverProvince, 0, $strings2["upload_required"]); ?>
@@ -429,7 +468,7 @@
                 <div class="mee_more">
                     <?php
                         $cc = 8;
-                        if(isset($mee_more)) {
+                        if(isset($mee_more) && is_iterable($mee_more)) {
                             foreach($mee_more as $key => $file) {//id, mee_id, attachments
                                 if( printfile($this->request->webroot, $cc, $file, $skip)){
                                     $skip=false;
@@ -450,7 +489,7 @@
                                      id="mee_att_<?php echo $h; ?>"><?= $strings["forms_browse"]; ?></a>&nbsp;<a style="margin-bottom:5px;"
                                                                                        class="btn btn-danger"
                                                                                        href="javascript:void(0);"
-                                                                                       onclick="$(this).parent().parent().remove();"><?= $GLOBALS["dashboard_delete"]; ?></a> 
+                                                                                       onclick="$(this).parent().parent().remove();"><?= $GLOBALS["dashboard_delete"]; ?></a>
                                     <span class="uploaded"></span></span>
                                         <input type="hidden" name="mee_attachments[]" class="mee_att_<?php echo $h; ?>"/>
                                     </div>
