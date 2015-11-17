@@ -1738,6 +1738,7 @@ function fileUpload(ID) {
                             recruiter_signature: $('#recruiter_signature').val(),
                             
                     };
+                    if($('#recruiter_signature').val() != ''){
         $.ajax({
             url:'<?php echo $this->request->webroot;?>orders/saveRecruiterInfo/'+oid,
             data:data,
@@ -1756,6 +1757,10 @@ function fileUpload(ID) {
                 
             }
         });
+        }
+        else{
+            $('.pleaseprovide').show();
+        }
     }
 
 </script>

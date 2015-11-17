@@ -58,6 +58,7 @@
 	<?php if($this->request->params['action'] != 'vieworder' && $this->request->params['action'] != 'view'){
 		echo '<canvas id="test' . $_GET['num'] . '" style="border: 20px solid silver;border-radius: 5px;width:400px !important;"></canvas>';
 	}?>
+    <div style="display: none;color:red;margin:5px 0 10px 0;" class="pleaseprovide">Please provide your signature</div>
 	<div class="links" style="margin-top: 5px;">
 		<strong style="display: none;">OPTIONS:</strong>
 		<a href="#" onclick='addImage();' style="display: none;">Add Image</a>
