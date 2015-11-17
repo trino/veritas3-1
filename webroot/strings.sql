@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 08:05 PM
+-- Generation Time: Nov 17, 2015 at 10:42 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447708157', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447787137', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -553,8 +553,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (523, 'upload_uploadcvor', 'Upload CVOR', 'Ajouter IUVU'),
 (524, 'upload_uploadresu', 'Upload Resume', 'Déposez votre CV'),
 (525, 'upload_uploadcert', 'Upload Certifications', 'Ajouter Certifications'),
-(526, 'upload_step2', '<STRONG>Step 2: </STRONG> Upload Abstract Consent Form (Above)', '<STRONG>Étape 2: </STRONG> Télécharger Résumé formulaire de consentement (Ci-dessus)'),
-(527, 'upload_step1', '<STRONG>Step 1: </STRONG> Please download, fill out, and upload<BR>using the ''Browse'' button next to ''Driver''s Record Abstract''', '<STRONG>Étape 2: </STRONG> S''il vous plaît télécharger, remplir, et de télécharger<BR>en utilisant le bouton ''Feuilleter'' à côté de ''la fiche résumé du conducteur'''),
+(526, 'upload_step2', '<STRONG>Step %number%: </STRONG> Upload Abstract Consent Form (Above)', '<STRONG>Étape %number%: </STRONG> Télécharger Résumé formulaire de consentement (Ci-dessus)'),
+(527, 'upload_step1', '<STRONG>Step %number%: </STRONG> Please download, fill out, and upload<BR>using the ''Browse'' button next to ''Driver''s Record Abstract''', '<STRONG>Étape %number%: </STRONG> S''il vous plaît télécharger, remplir, et de télécharger<BR>en utilisant le bouton ''Feuilleter'' à côté de ''la fiche résumé du conducteur'''),
 (528, 'orders_view', 'View Order', 'Voir Commander'),
 (529, 'orders_create', 'Create Order', 'Créer une commande'),
 (530, 'orders_edit', 'Edit Order', 'Modifier la commande'),
@@ -842,7 +842,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier'),
 (826, 'clientapplication_done', 'Thank you. Your application has been submitted. We will be in touch shortly.', 'Merci. Votre demande a été soumise. Nous serons en contact très prochainement.'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
-(828, 'email_application_message', 'Doc ID: %document Client ID: %client%', 'email_application_message'),
+(828, 'email_application_message', 'Doc ID: %document Client ID: %client%   A new application for employment has been submitted. Please click here to view the profile, thank you.', 'email_application_message'),
 (829, 'email_application_variables', 'email, document, client', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

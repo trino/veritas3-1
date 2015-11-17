@@ -36,6 +36,8 @@
     //if $_GET["forms"] contains 1603: either meeattach_id1 or meeattach_id2 are required
     //if driver's province is BC, QC or SK: mee_attach_7 is required
 
+    $Step = 1;
+
     if($this->request->params['controller']!='ClientApplication'){
         if ($this->request->session()->read('debug')) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
     }
@@ -273,7 +275,8 @@
                 $doit = true;
                 if (count($attachment) > 0) {
                     echo '<div class="form-group row"><div class="col-md-12">';
-                    echo '<label class="control-label col-md-4" align="right">' . $strings2["upload_step1"] . ': </label><div class="col-md-8">';
+                    echo '<label class="control-label col-md-4" align="right">' . str_replace("%number%", $Step, $strings2["upload_step1"]) . ': </label><div class="col-md-8">';
+                    $Step = $Step + 1;
                     foreach ($attachment as $name => $file) {//C:\wamp\www\veritas3-0\webroot\ http://localhost/veritas3-0/webroot/img/certificates/certificate71-1.pdf
                         echo '<A class="btn btn-info" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file . '">';
                         echo '<i class="fa fa-floppy-o"></i> ' . $name . ' </A> ';
@@ -290,7 +293,7 @@
             }
             echo '<div class="col-md-12">';
             if ($doit && (count($attachment) > 0) || $morecount>0) {
-            echo '<div class="col-md-4" align="right">' . $description . ': </div>';
+            echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
             echo '<div class="col-md-8 mee_more">';
             if(!isset($mee_more))
             $mee_more = false;
