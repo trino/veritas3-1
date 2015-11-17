@@ -1,20 +1,20 @@
+<STYLE>
+    .SPACER{
+        width: 18px !important;
+        margin-bottom: 0px;
+        margin-right: 5px;
+        text-align: right;
+    }
+</STYLE>
 <h1>Submit an application</h1>
 <div class="parent">
     <h3>Choose a client</h3>
     <?php
-    $i = 0;
-    foreach($client as $c)
-    {
-        $i++;
-        ?>
-        <a class="listclient" href="<?php echo $this->request->webroot;?>clientApplication/apply/<?php echo $c->slug;?>" style="display: block;">
-            
-            <?php 
-            echo $i.' '.strtoupper($c->company_name);
-            ?>
-        </a>
-        <?php
-    }
+        $i = 0;
+        foreach($client as $c) {
+            $i++;
+            echo '<a class="listclient" href="' . $this->request->webroot . 'clientApplication/apply/' . $c->slug . '" style="display: block;">';
+            echo '<LABEL CLASS="SPACER">' . $i . '</LABEL>' . strtoupper($c->company_name) . '</a>';
+        }
     ?>
-    
 </div>
