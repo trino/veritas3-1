@@ -1759,6 +1759,7 @@ function fileUpload(ID) {
         });
         }
         else{
+            $('.overlay-wrapper').show();
             $('.pleaseprovide').show();
         }
     }
