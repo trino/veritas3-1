@@ -54,7 +54,8 @@ $_GET['num']=1004;?>
             <input type="hidden" class="touched_edit" value="<?php if(isset($consent_detail) && $consent_detail->signature_company_witness){?>1<?php }else{?>0<?php }?>" />
             <input type="hidden" name="signature_company_witness" id="signature_company_witness" /><?php if(!isset($_GET['form_id'])){?>
             <label class="control-label "><?= $strings2["consent_sigwitness"]; ?></label><br>
-            <canvas id="test<?php echo $_GET['num'];?>" style="border: 1px solid silver;border-radius: 5px; width: 400px;"></canvas>
+            <p style="margin-top:8px;">Please Sign in within the border.</p>
+            <canvas id="test<?php echo $_GET['num'];?>" style="border: 20px solid silver;border-radius: 5px; width: 400px;"></canvas>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
     			<strong style="display: none;">OPTIONS:</strong>

@@ -45,8 +45,9 @@ if (isset($consent_detail)){
            value="<?php if (isset($consent_detail) && $consent_detail->signature_company_witness2) { ?>1<?php } else { ?>0<?php } ?>"/>
     <label class="control-label"><?= $strings2["consent_sigwitness"]; ?></label><br>
     <?php if ($this->request->params['action'] != 'vieworder' && $this->request->params['action'] != 'view') { ?>
+    <p style="margin-top:8px;">Please Sign in within the border.</p>
         <div style="width:400px;">
-            <canvas id="test6" style="border: 1px solid silver;border-radius: 5px;"></canvas>
+            <canvas id="test6" style="border: 20px solid silver;border-radius: 5px;"></canvas>
         </div>
     <?php } ?>
     <div class="links" style="margin-top: 5px;">

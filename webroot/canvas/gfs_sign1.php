@@ -57,7 +57,8 @@ $_GET['num']=1001;?>
             <input type="hidden" class="touched_edit2" value="<?php if(isset($consent_detail) && $consent_detail->criminal_signature_applicant2){?>1<?php }else{?>0<?php }?>" />
             <label class="control-label required"><?= $strings2["consent_sigapplica"]; ?></label><br>
             <?php if(!isset($_GET['form_id'])){?>
-            <canvas id="test<?php echo $_GET['num'];?>" style="border: 1px solid silver;border-radius: 5px; width: 400px;"></canvas>
+            <p style="margin-top:8px;">Please Sign in within the border.</p>
+            <canvas id="test<?php echo $_GET['num'];?>" style="border: 20px solid silver;border-radius: 5px; width: 400px;"></canvas>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
     			<strong style="display: none;">OPTIONS:</strong>

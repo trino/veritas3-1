@@ -45,8 +45,9 @@ if (isset($application_for_employment_gfs)){
             <input type="hidden" class="touched_edit8" value="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->gfs_signature){?>1<?php }else{?>0<?php }?>" />
             
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
+            <p style="margin-top:8px;">Please Sign in within the border.</p>
     		<div style="width: 400px; height:250px">
-                <canvas id="test8" style="border: 1px solid silver;border-radius: 5px;"></canvas>
+                <canvas id="test8" style="border: 20px solid silver;border-radius: 5px;"></canvas>
             </div>
             <?php }?>
     		<div class="links" style="margin-top: 5px;">
