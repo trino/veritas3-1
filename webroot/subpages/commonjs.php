@@ -1,9 +1,8 @@
 <script>
-
-client_id = '<?=$cid?>';
+    client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
     profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
- <?php if($did) { ?>
+    <?php if($did) { ?>
         showforms('company_pre_screen_question.php');
         showforms('driver_application.php');
         showforms('driver_evaluation_form.php');
@@ -12,9 +11,70 @@ client_id = '<?=$cid?>';
     var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
     var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
     var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
-    
-    function getJsonFields(driverid)
-    {
+
+    jQuery.fn.copystyle = function(source){
+        var dom = $(source).get(0);
+        var style;
+        var dest = {};
+        if(window.getComputedStyle){
+            var camelize = function(a,b){
+                return b.toUpperCase();
+            };
+            style = window.getComputedStyle(dom, null);
+            for(var i = 0, l = style.length; i < l; i++){
+                var prop = style[i];
+                var camel = prop.replace(/\-([a-z])/g, camelize);
+                var val = style.getPropertyValue(prop);
+                dest[camel] = val;
+            };
+            return this.css(dest);
+        };
+        if(style = dom.currentStyle){
+            for(var prop in style){
+                dest[prop] = style[prop];
+            };
+            return this.css(dest);
+        };
+        if(style = dom.style){
+            for(var prop in style){
+                if(typeof style[prop] != 'function'){
+                    dest[prop] = style[prop];
+                };
+            };
+        };
+        return this.css(dest);
+    };
+
+    var realStyle = function(_elem, _style) {
+        var computedStyle;
+        if ( typeof _elem.currentStyle != 'undefined' ) {
+            computedStyle = _elem.currentStyle;
+        } else {
+            computedStyle = document.defaultView.getComputedStyle(_elem, null);
+        }
+
+        return _style ? computedStyle[_style] : computedStyle;
+    };
+
+    var copyComputedStyle = function(src, dest) {
+        var s = realStyle(src);
+        dest.style = new Array();
+        for ( var i in s ) {// Do not use `hasOwnProperty`, nothing will get copied
+            if ( typeof i == "string" && i != "cssText" && !/\d/.test(i) ) {// The try is for setter only properties
+                try {
+                    dest.style[i] = s[i];
+                    // `fontSize` comes before `font` If `font` is empty, `fontSize` gets
+                    // overwritten.  So make sure to reset this property. (hackyhackhack)
+                    // Other properties may need similar treatment
+                    if ( i == "font" ) {
+                        dest.style.fontSize = s.fontSize;
+                    }
+                } catch (e) {}
+            }
+        }
+    };
+
+    function getJsonFields(driverid) {
         $.ajax({
            url:'<?php echo $this->request->webroot;?>clientApplication/getJsonFields/'+driverid,
            success:function(res)
@@ -33,8 +93,8 @@ client_id = '<?=$cid?>';
            } 
         });
     }
-    function getJsonPrevious(driverid,sub_id)
-    {
+
+    function getJsonPrevious(driverid,sub_id) {
         $.ajax({
            url:'<?php echo $this->request->webroot;?>clientApplication/getJsonPrevious/'+driverid+'/'+sub_id,
            success:function(res)
@@ -92,9 +152,7 @@ client_id = '<?=$cid?>';
                     
                 }
              });
-             }
-             else
-             {
+             } else {
                     getJsonFields(driverid);
              }
            } 
@@ -102,31 +160,20 @@ client_id = '<?=$cid?>';
     }
 $(function(){
     <?php
-    if($this->request->params['action'] == 'addorder')
-    {
+    if($this->request->params['action'] == 'addorder')  {
         if(isset($arr_sd) && $arr_sd){
-        foreach($arr_sd as $asd)
-        {
-              ?>
-              getJsonPrevious(profile_id,<?php echo $asd;?>); //Need to have a parent class subform_[sub_id] in parent div of particular form
-              <?php  
-        }
+            foreach($arr_sd as $asd){
+                  ?>
+                  getJsonPrevious(profile_id,<?php echo $asd;?>); //Need to have a parent class subform_[sub_id] in parent div of particular form
+                  <?php
+            }
         }
         ?>
         getJsonFields('<?php echo $_GET['driver']?>');
         <?php
     }
-    ?>
-    
-    <?php
-    if($this->request->params['action'] != 'view' && $this->request->params['action'] != 'vieworder')
-    {
-       
-    }
-    ?>
-    <?php
-    if($this->request->params['action']=='vieworder')
-    {
+
+    if($this->request->params['action']=='vieworder'){
         
         ?>
         $('#tab0 a:not(.forview)').each(function(){
@@ -150,12 +197,10 @@ $(function(){
     var did = '<?php if(isset($did))echo $did;else echo '0';?>';
     var checker = 0;
     
-   function save_driver(par,webroot)
-    {
+   function save_driver(par,webroot) {
         <?php if($this->request->controller == 'ClientApplication'){?>
             var driver_id = $('#user_id').val();
-        <?php }else
-        {?>
+        <?php }else {?>
             var driver_id = '';
         <?php }?>
         $('.overlay-wrapper').show();

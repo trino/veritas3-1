@@ -2,7 +2,7 @@
  //if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/accident_record.php #INC136</span>"; }
  ?>
 <div>
-<?php if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
 <div class="form-group col-md-12">
                 <label class="control-label col-md-6">Date: </label>
                 <div class="col-md-6">

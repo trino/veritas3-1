@@ -10,7 +10,7 @@
     copy2globals($strings, array("forms_browse", "dashboard_delete"));
     $strings2 = CacheTranslations($language, array("upload_%"), $settings, False);
     copy2globals($strings2, array("upload_none"));
-    if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }
+    if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
 ?>
 <form id="form_tab15">
     <input type="hidden" class="document_type" name="document_type" value="<?php if(isset($dx))echo $dx->title;?>"/>

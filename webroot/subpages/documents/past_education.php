@@ -1,6 +1,6 @@
 <?php
 //if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/past_education.php #INC145</span>"; }
-if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
+if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
 <div id="toremove">
 <div class="clearfix"></div>
 <hr />
@@ -58,7 +58,8 @@ if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
                      <div class="form-group row">
                                 <label class="control-label col-md-3">Claims with this Tutor</label>
                                 <div class="col-md-3">
-                                    &nbsp;&nbsp;<input type="radio" name="claim_tutor[]" value="1"/>&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="claim_tutor[]" value="0"/>&nbsp;&nbsp;&nbsp;&nbsp;No</td>
+                                    &nbsp;&nbsp;<input type="radio" name="claim_tutor[]" value="1" class="refreshme"/>&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="claim_tutor[]" value="0" class="refreshme"/>&nbsp;&nbsp;&nbsp;&nbsp;No</td>
                                 </div>
                                 <label class="control-label col-md-3">Date Claims Occured</label>
                                 <div class="col-md-3">

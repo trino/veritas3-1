@@ -2,7 +2,7 @@
   if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/footprint.php #INC500</span>"; }
   $is_disabled = '';//there is no place for attachments
   if(isset($disabled)) { $is_disabled = 'disabled="disabled"'; }
-  if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }
+  if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
 ?>
 <form role="form" action="<?php echo $this->request->webroot;?>documents/footprint/<?php echo $cid .'/' .$did;?>" method="post" id="form_tab<?php echo $dx->id;?>">
 

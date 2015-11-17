@@ -203,6 +203,7 @@
                                     if ($order->uploaded_for) {
                                         $uploaded_for = getIterator($profiles, "id", $order->uploaded_for);
                                     }
+
                                     $client = getIterator($clients, "id", $order->client_id);
 
                                     $EDITURL = $Manager->make_order_path($order);
@@ -278,8 +279,13 @@
 
 
                                         </td>
+
                                         <td class="v-center"><?php if (isset($uploaded_by)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);?></td>
-                                        <td class="v-center"><?php if (isset($uploaded_for)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>" ?></td>
+
+                                        <td class="v-center">
+                                            <?php if (isset($uploaded_for)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>" ?>
+                                        </td>
+
                                         <td class="v-center"><?php
                                                 if (is_object($client)) {
                                                     echo "<a href ='" . $this->request->webroot . "clients/edit/" . $order->client_id . "?view' target='_blank'>" . ucfirst(h($client->company_name)) . "</a>";

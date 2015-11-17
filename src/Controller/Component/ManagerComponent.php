@@ -10,23 +10,21 @@ use DateTime;
 class ManagerComponent extends Component {
     function init($Controller){
         $Controller->set("StartTime", microtime(true));
-        if($Controller->request->params['controller']!='ClientApplication'){
-            $this->Controller = $Controller;
-            $Controller->set("Manager", $this);
-            $this->Me = $this->read("id");
-            $Controller->set("Me", $this->Me);
+        $this->Controller = $Controller;
+        $Controller->set("Manager", $this);
+        $this->Me = $this->read("id");
+        $Controller->set("Me", $this->Me);
 
-            if(isset($_GET["action"])){
-                switch (strtolower($_GET["action"])){
-                    case "testemail":
-                        $this->handleevent("test", array("email" => "roy@trinoweb.com"));
-                        break;
-                }
+        if(isset($_GET["action"])){
+            switch (strtolower($_GET["action"])){
+                case "testemail":
+                    $this->handleevent("test", array("email" => "roy@trinoweb.com"));
+                    break;
             }
-
-            $Controller->loadComponent("Settings");
-            $Controller->Settings->verifylogin($Controller,$Controller->name);
         }
+
+        $Controller->loadComponent("Settings");
+        $Controller->Settings->verifylogin($Controller,$Controller->name);
     }
 
     function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){

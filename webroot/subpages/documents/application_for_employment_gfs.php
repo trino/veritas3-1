@@ -14,11 +14,10 @@ if($ClientID != 26){
 function makerow($profile, $Fields){
     if($profile){
         $theindex = 0;
-        ?>
-        <div>
-            <?php foreach($Fields as $Label => $Field){
+        echo '<div>';
+        foreach($Fields as $Label => $Field){
                 ?>
-    <div class="col-md-6">
+                <div class="col-md-6">
                     <label class="control-label col-md-6"><?= $Label; ?>:  </label>
                     <div class="col-md-6">
                         <input class="form-control" name="<?= $Field; ?>" value="<?= $profile->$Field ;?>" />
@@ -32,25 +31,19 @@ function makerow($profile, $Fields){
                 }
 
             }
-            if ($theindex){
-               // echo '<div class="col-md-6"><div class="col-md-6"></div></div>';
-            }
-            ?>
-
-            <div class="clearfix"></div>
-    <?php
+        echo '<div class="clearfix"></div>';
     }
 }
 ?>
-<?php if(isset($dx)){?><p>Document - <?php echo $dx->title;?></p><?php }?>
+<?php if(isset($dx)){?><p><?php echo $dx->title;?></p><?php }?>
 <form id="form_tab<?php echo $dx->id;?>" action="<?php echo $this->request->webroot;?>documents/application_employment/<?php echo $cid .'/' .$did;?>" method="post">
         <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
         <input type="hidden" name="sub_doc_id" value="<?php echo $dx->id;?>" class="sub_docs_id" id="af" />
-        
+
         <div class="clearfix"></div>
         <div class="col-md-12 margin-bottom-10">
             <hr/>
-        <div class="row"> 
+        <div class="row">
             <div class="col-md-6"><img src="<?php
                 if ($ClientID == 26) {
                     echo $this->request->webroot . "img/gfs.png";
@@ -62,18 +55,18 @@ function makerow($profile, $Fields){
         </div>
         </div>
         <div class="clearfix"></div>
-       
+
 
     <?= makerow($profile, array("Title" => "title", "Gender" => "gender", "Email" => "email", "Country of Birth" => "placeofbirth", "Date of Birth" => "dob")); ?>
 
         <div class="col-md-12 margin-bottom-10">
             <div class="col-md-6" style="padding-left:0!important; padding-right: 0!important;">
-             <div class="row"> 
+             <div class="row">
                     <label class="control-label col-md-3">Name: </label>
                     <div class="col-md-3">
                         <input class="form-control" name="fname" placeholder="First" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->fname;?>" />
                     </div>
-                    <div class="col-md-3">              
+                    <div class="col-md-3">
                         <input class="form-control" name="mname" placeholder="Middle" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->mname;?>" />
                     </div>
                     <div class="col-md-3">
@@ -82,18 +75,18 @@ function makerow($profile, $Fields){
              </div>
             </div>
             <div class="col-md-6">
-             <div class="row"> 
-                    <label class="control-label col-md-4">Telephone: </label>  
-                    <div class="col-md-3">              
+             <div class="row">
+                    <label class="control-label col-md-4">Telephone: </label>
+                    <div class="col-md-3">
                         <input class="form-control" name="code" placeholder="Area Code" maxlength="3" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->code;?>" />
-                    </div>  
-                    <div class="col-md-5" style="padding-right: 0;">              
+                    </div>
+                    <div class="col-md-5" style="padding-right: 0;">
                         <input class="form-control" role="phone" name="phone" maxlength="8" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->phone;?>" />
                     </div>
-            </div> 
+            </div>
             </div>
         </div>
-        
+
             <div class="col-md-12 margin-bottom-10">
                 <div class="row">
                     <label class="control-label col-md-4">Current Address: </label>
@@ -102,10 +95,10 @@ function makerow($profile, $Fields){
                     </div>
                 </div>
             </div>
-     
+
             <div class="col-md-12 ever_applied_work margin-bottom-10">
                 <div class="row">
-                    <label class="control-label col-md-4">Have you ever applied for work with us before? </label>  
+                    <label class="control-label col-md-4">Have you ever applied for work with us before? </label>
                     <div class="col-md-2 radio-list yesNoCheck">
                         <label class="radio-inline">
                         <?php
@@ -116,33 +109,33 @@ function makerow($profile, $Fields){
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->workedbefore=='1');
                         } else {
-                            ?>                                      
-                            <input type="radio" class="form-control" name="workedbefore" id="yesCheck" value="1" 
+                            ?>
+                            <input type="radio" class="form-control" name="workedbefore" id="yesCheck" value="1"
                             <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->workedbefore=='1')echo "checked='checked'";?>/>
                             <?php
                         }
                          ?> <span>Yes</span>
                         </label>
                         <label class="radio-inline">
-                        <?php 
+                        <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->workedbefore=='0');
                         } else {
-                            ?>                                      
-                            <input type="radio" class="form-control" name="workedbefore" id="noCheck" value="0" 
+                            ?>
+                            <input type="radio" class="form-control" name="workedbefore" id="noCheck" value="0"
                             <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->workedbefore=='0')echo "checked='checked'";?>/>
                             <?php
                         }
-                         ?> 
+                         ?>
                         <span>No</span>
                         </label>
                     </div>
                     <div id="yesDiv" style="display: none;">
-                        <label class="control-label col-md-2">If yes, when? </label> 
-                        <div class="col-md-4">              
+                        <label class="control-label col-md-2">If yes, when? </label>
+                        <div class="col-md-4">
                             <textarea class="form-control" name="worked"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->worked;?></textarea>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
 
@@ -150,41 +143,41 @@ function makerow($profile, $Fields){
                 <div class="row">
                     <label class="control-label col-md-4">List anyone you know who woks for us: </label>
                     <div class="col-md-8">
-                        <input class="form-control" name="for_us"value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->for_us;?>" /> 
+                        <input class="form-control" name="for_us"value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->for_us;?>" />
                     </div>
                 </div>
             </div>
 
             <div class="col-md-12 nothuron margin-bottom-10">
-             <div class="row"> 
+             <div class="row">
                     <label class="control-label col-md-4">Did anyone refer you? </label>
                     <div class="col-md-8">
-                        <input class="form-control" name="refer"value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->refer;?>" /> 
+                        <input class="form-control" name="refer"value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->refer;?>" />
                     </div>
             </div>
             </div>
             <div class="col-md-6 margin-bottom-10">
-             <div class="row"> 
-                    <label class="control-label col-md-8">Are you 18 years of age or older? </label>  
+             <div class="row">
+                    <label class="control-label col-md-8">Are you 18 years of age or older? </label>
                     <div class="col-md-4 radio-list">
                         <label class="radio-inline">
-                        <?php 
+                        <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->age=='1');
                         } else {
-                            ?>                                      
+                            ?>
                             <input type="radio" class="form-control" name="age" value="1" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->age=='1')echo "checked='checked'";?>/>
                             <?php
                         }
-                         ?>              
+                         ?>
                         Yes
                         </label>
                         <label class="radio-inline">
-                        <?php 
+                        <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->age=='0');
                         } else {
-                            ?>                                      
+                            ?>
                             <input type="radio" class="form-control" name="age" value="0" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->age=='0')echo "checked='checked'";?>/>
                             <?php
                         }
@@ -195,27 +188,27 @@ function makerow($profile, $Fields){
             </div>
             </div>
             <div class="col-md-6 margin-bottom-10">
-             <div class="row"> 
-                    <label class="control-label col-md-8">Are you legally eligible to work in Canada? </label>  
+             <div class="row">
+                    <label class="control-label col-md-8">Are you legally eligible to work in Canada? </label>
                     <div class="col-md-4 radio-list">
                         <label class="radio-inline">
-                        <?php 
+                        <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal=='1') ;
                         } else {
-                            ?>                                      
+                            ?>
                             <input type="radio" class="form-control" name="legal" value="1" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal=='1')echo "checked='checked'";?>/>
                             <?php
                         }
-                         ?>              
+                         ?>
                         Yes
                         </label>
                         <label class="radio-inline">
-                        <?php 
+                        <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal=='0');
                         } else {
-                            ?>                                      
+                            ?>
                             <input type="radio" class="form-control" name="legal" value="0" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal=='0')echo "checked='checked'";?>/>
                             <?php
                         }
@@ -226,15 +219,15 @@ function makerow($profile, $Fields){
             </div>
             </div>
         <div class="clearfix"></div>
-       
+
 
     <div class="col-md-12">
-     <div class="row"> 
+     <div class="row">
         <h3 class="col-md-12">Driver's License</h3>
         </div>
     </div>
     <div class="col-md-12">
-         <div class="row"> 
+         <div class="row">
         <div class="col-md-4">
             <div class="">
                 <label class="control-label required">Driver's License #:</label>
@@ -260,14 +253,14 @@ function makerow($profile, $Fields){
         </div>
     </div>
     </div>
-    
+
     <div class="col-md-12 nothuron">
-     <div class="row"> 
+     <div class="row">
         <h3 class="col-md-12">SIN Card</h3>
         </div>
     </div>
     <div class="col-md-12">
-         <div class="row"> 
+         <div class="row">
         <div class="col-md-4 nothuron">
             <div class="">
                 <label class="control-label required">SIN:</label>
@@ -294,7 +287,7 @@ function makerow($profile, $Fields){
                         <th>Did you Graduate?</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <tr>
                         <th>Grammar</th>
@@ -328,56 +321,56 @@ function makerow($profile, $Fields){
             </table>
         </div>
         </div>
-        
+
             <p>&nbsp;</p-->
             <div class="col-md-12">
-             <div class="row"> 
+             <div class="row">
                     <label class="control-label col-md-6">Do you have any skills, qualifications or experiences which you feel would specially fit you for working with us? </label>
                     <div class="col-md-6">
-                        <textarea class="form-control" name="skills"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->skills;?></textarea> 
+                        <textarea class="form-control" name="skills"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->skills;?></textarea>
                     </div>
             </div>
             </div>
 
             <div class="col-md-12 nothuron" style="padding-left:0!important; padding-right: 0!important;">
-             <div class="row"> 
+             <div class="row">
                     <div class="col-md-12">
-                        <label class="control-label col-md-2">Job(s) Applied for: </label> 
-                    </div> 
+                        <label class="control-label col-md-2">Job(s) Applied for: </label>
+                    </div>
                     <div class="col-md-12">
                         <label class="control-label col-md-1">1. </label>
                         <div class="col-md-3">
-                            <input class="form-control" name="applied" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->applied;?>" /> 
+                            <input class="form-control" name="applied" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->applied;?>" />
                         </div>
                         <label class="control-label col-md-3">Rate of pay expected $ </label>
                         <div class="col-md-2">
-                            <input class="form-control" name="rate" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->rate;?>" /> 
+                            <input class="form-control" name="rate" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->rate;?>" />
                         </div>
                         <label class="control-label col-md-1">per </label>
                         <div class="col-md-2">
-                            <input class="form-control" name="per" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->per;?>" /> 
+                            <input class="form-control" name="per" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->per;?>" />
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <label class="control-label col-md-1">2. </label>
                         <div class="col-md-3">
-                            <input class="form-control" name="applied1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->applied1;?>" /> 
+                            <input class="form-control" name="applied1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->applied1;?>" />
                         </div>
                         <label class="control-label col-md-3">Rate of pay expected $ </label>
                         <div class="col-md-2">
-                            <input class="form-control" name="rate1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->rate1;?>" /> 
+                            <input class="form-control" name="rate1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->rate1;?>" />
                         </div>
                         <label class="control-label col-md-1">per </label>
                         <div class="col-md-2">
-                            <input class="form-control" name="per1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->per1;?>" /> 
+                            <input class="form-control" name="per1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->per1;?>" />
                         </div>
                     </div>
             </div>
             </div>
-           
+
             <div class="col-md-12">
-             <div class="row"> 
+             <div class="row">
                     <label class="control-label col-md-6">Do you want to work: </label>
                     <div class="col-md-6 radio-list">
                         <label class="radio-inline col-md-3">
@@ -409,19 +402,19 @@ function makerow($profile, $Fields){
             </div>
             </div>
             <div id="partTimeDiv" style="display: none;">
-           
+
             <div class="col-md-12">
-             <div class="row"> 
-                <label class="control-label col-md-5">If applying only for part-time, which days and hours?</label> 
-                <div class="col-md-7">              
+             <div class="row">
+                <label class="control-label col-md-5">If applying only for part-time, which days and hours?</label>
+                <div class="col-md-7">
                     <textarea class="form-control" name="part"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->part;?></textarea>
                 </div>
             </div>
             </div>
             </div>
-           
+
             <div class="col-md-12">
-             <div class="row"> 
+             <div class="row">
                     <label class="control-label col-md-6">Are you able to do the job(s) for which you are applying? </label>
                     <div class="col-md-6 radio-list">
                         <label class="radio-inline col-md-2">
@@ -449,28 +442,28 @@ function makerow($profile, $Fields){
                             ?>
                             No
                         </label>
-                    </div> 
+                    </div>
             </div>
             </div>
             <div id="notAbleDiv" style="display: none;">
-           
+
             <div class="col-md-12">
-             <div class="row"> 
-                <label class="control-label col-md-5">If no, please explain: </label> 
-                <div class="col-md-7">              
+             <div class="row">
+                <label class="control-label col-md-5">If no, please explain: </label>
+                <div class="col-md-7">
                     <textarea class="form-control" name="no_explain"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->no_explain;?></textarea>
                 </div>
             </div>
             </div>
-             </div> 
-             
-            
+             </div>
+
+
             <!--div class="col-md-12">
-                <label class="control-label col-md-5">If hired, when can you start?</label> 
-                <div class="col-md-7">              
+                <label class="control-label col-md-5">If hired, when can you start?</label>
+                <div class="col-md-7">
                     <input class="form-control" name="start"value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->start;?>" />
                 </div>
-            </div> 
+            </div>
             <div class="clearfix"></div>
             <hr />
             <div class="col-md-12">
@@ -490,7 +483,7 @@ function makerow($profile, $Fields){
                         <th>Vehicle Type <br />(Commercial or Personal)</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <tr>
                         <th>Last Collision</th>
@@ -512,9 +505,9 @@ function makerow($profile, $Fields){
                     </tr>
                 </tbody>
             </table>
-        </div> 
+        </div>
         </div-->
-        
+
         <div class="clearfix"></div>
             <hr />
     <div class="col-md-12">
@@ -531,7 +524,7 @@ function makerow($profile, $Fields){
                         <th>Expires</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <tr>
                         <td><input class="form-control" name="class1"value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->class1;?>" /></td>
@@ -548,7 +541,7 @@ function makerow($profile, $Fields){
                 </tbody>
             </table>
         </div>
-        
+
         <div class="col-md-6">
             <table class="table table-bordered">
                 <thead>
@@ -557,7 +550,7 @@ function makerow($profile, $Fields){
                         <th>Approx. No. of Miles (Total)</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     <tr>
                         <th>Straight Truck</th>
@@ -578,41 +571,41 @@ function makerow($profile, $Fields){
                 </tbody>
             </table>
         </div-->
-                
-        
+
+
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Show special courses or training that will help you as as driver</label>
             <div class="col-md-6"><textarea class="form-control" name="special_course"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->special_course;?></textarea></div>
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Which safe driving awaards do you hold and from whom?</label>
             <div class="col-md-6"><textarea class="form-control" name="which_safe_driving"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->which_safe_driving;?></textarea></div>
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Show any trucking, transportation or other experiences that may help in your work for this company:</label>
             <div class="col-md-6"><textarea class="form-control" name="show_any_trucking"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->show_any_trucking;?></textarea></div>
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">List courses and training other than shown elsewhere in this application</label>
             <div class="col-md-6"><textarea class="form-control" name="list_courses_training"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->list_courses_training;?></textarea></div>
 
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">List special equipment or technical materials you can work with (other than those already shown)</label>
             <div class="col-md-6"><textarea class="form-control" name="list_special_equipment"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->list_special_equipment;?></textarea></div>
 
         </div>
         </div>
-        
+
         <hr />
         <div class="col-md-12">
              <h3>EMPLOYMENT HISTORY</h3>
@@ -645,9 +638,9 @@ function makerow($profile, $Fields){
                         <div class="col-md-12"><textarea name="supervisor_name_phone1" class="form-control form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->supervisor_name_phone1;?></textarea></div>
                     </td>
                     <td>
-                       <label class="col-md-12">Final Salary</label> 
+                       <label class="col-md-12">Final Salary</label>
                        <div class="col-md-12"><input type="text" class="form-control" name="final_salary1" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->final_salary1;?>" /></div>
-                    </td>               
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -656,7 +649,7 @@ function makerow($profile, $Fields){
                     </td>
                 </tr>
             </table>
-            
+
             <p>&nbsp;</p>
             <table class="table table-bordered">
                 <tr>
@@ -682,9 +675,9 @@ function makerow($profile, $Fields){
                         <div class="col-md-12"><textarea name="supervisor_name_phone2" class="form-control form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->supervisor_name_phone2;?></textarea></div>
                     </td>
                     <td>
-                       <label class="col-md-12">Final Salary</label> 
+                       <label class="col-md-12">Final Salary</label>
                        <div class="col-md-12"><input type="text" class="form-control" name="final_salary2" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->final_salary2;?>" /></div>
-                    </td>               
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -693,7 +686,7 @@ function makerow($profile, $Fields){
                     </td>
                 </tr>
             </table>
-            
+
             <p>&nbsp;</p>
             <table class="table table-bordered">
                 <tr>
@@ -719,9 +712,9 @@ function makerow($profile, $Fields){
                         <div class="col-md-12"><textarea name="supervisor_name_phone3" class="form-control form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->supervisor_name_phone3;?></textarea></div>
                     </td>
                     <td>
-                       <label class="col-md-12">Final Salary</label> 
+                       <label class="col-md-12">Final Salary</label>
                        <div class="col-md-12"><input type="text" class="form-control" name="final_salary3" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->final_salary3;?>" /></div>
-                    </td>               
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -732,28 +725,28 @@ function makerow($profile, $Fields){
             </table-->
         </div>
         <div class="col-md-12">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Would you be willing to take a physical exam?</label>
             <div class="col-md-6 radio-list">
             <label class="radio-inline">
-            <?php 
+            <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->physical_exam=='1') ;
                         } else {
-                            ?>                                      
-                            <input type="radio" name="physical_exam" value="1" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->physical_exam=='1')echo "checked='checked'";?> /> 
+                            ?>
+                            <input type="radio" name="physical_exam" value="1" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->physical_exam=='1')echo "checked='checked'";?> />
                             <?php
                         }
                          ?>
              Yes &nbsp; &nbsp;
              </label>
              <label class="radio-inline">
-             <?php 
+             <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->physical_exam=='0');
                         } else {
-                            ?>                                      
-                            <input type="radio" name="physical_exam" value="0" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->physical_exam=='0')echo "checked='checked'";?> /> 
+                            ?>
+                            <input type="radio" name="physical_exam" value="0" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->physical_exam=='0')echo "checked='checked'";?> />
                             <?php
                         }
                          ?>
@@ -762,43 +755,43 @@ function makerow($profile, $Fields){
               </div>
         </div>
         </div>
-        
+
         <div class="col-md-12">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">What are your aspirations, now and in the future?</label>
             <div class="col-md-12"><textarea class="form-control" name="aspirations"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->aspirations;?></textarea></div>
         </div>
         </div>
         <div class="col-md-12">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Why do you think you are the best qualified candidate?</label>
             <div class="col-md-12"><textarea class="form-control" name="best_qualified"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->best_qualified;?></textarea></div>
         </div>
         </div>
         <div class="col-md-12">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Would you be willing to relocate?</label>
             <div class="col-md-6 radio-list">
                 <label class="radio-inline">
-                <?php 
+                <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->willing_relocate=='1') ;
                         } else {
-                            ?>                                      
-                            <input type="radio" name="willing_relocate" value="1" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->willing_relocate=='1')echo "checked='checked'";?>/> 
+                            ?>
+                            <input type="radio" name="willing_relocate" value="1" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->willing_relocate=='1')echo "checked='checked'";?>/>
                             <?php
                         }
                          ?>
-                    
-                    Yes &nbsp; &nbsp; 
+
+                    Yes &nbsp; &nbsp;
                  </label>
                  <label class="radio-inline">
-                 <?php 
+                 <?php
                         if($this->request->params['action'] == 'vieworder'  || $this->request->params['action']== 'view') {
                             printsymbols(isset($application_for_employment_gfs) && $application_for_employment_gfs->willing_relocate=='0');
                         } else {
-                            ?>                                      
-                            <input type="radio" name="willing_relocate" value="0" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->willing_relocate=='0')echo "checked='checked'";?>/> 
+                            ?>
+                            <input type="radio" name="willing_relocate" value="0" <?php if(isset($application_for_employment_gfs)&& $application_for_employment_gfs->willing_relocate=='0')echo "checked='checked'";?>/>
                             <?php
                         }
                          ?>
@@ -808,13 +801,13 @@ function makerow($profile, $Fields){
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <label class="col-md-6">Which of your former positions did you like best and why?</label>
             <div class="col-md-12"><textarea class="form-control" name="best_former_positions"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->best_former_posotions;?></textarea></div>
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-        
+
              <h3>OTHER INFORMATION</h3>
              <p>
              You may attach a separate sheet of paper to list any other information necessary to answer fully the above, or add any additional information about
@@ -835,12 +828,12 @@ function makerow($profile, $Fields){
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input name="business_communication_name1" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_name1;?>" /></td>                    
+                        <td><input name="business_communication_name1" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_name1;?>" /></td>
                         <td><input name="business_communication_address1" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_address1;?>" /></td>
                         <td><input name="business_communication_occupation1" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_occupation1;?>" /></td>
                     </tr>
                     <tr>
-                        <td><input name="business_communication_name2" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_name2;?>" /></td>                    
+                        <td><input name="business_communication_name2" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_name2;?>" /></td>
                         <td><input name="business_communication_address2" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_address2;?>" /></td>
                         <td><input name="business_communication_occupation2" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->business_communication_occupation2;?>" /></td>
                     </tr>
@@ -849,34 +842,34 @@ function makerow($profile, $Fields){
         </div>
 
         <div class="col-md-12 nothuron margin-bottom-10">
-            <h3>APPLICANT’S CERTIFICATION AND AGREEMENT</h3>   
-            <strong>PLEASE READ EACH SECTION CAREFULLY AND CHECK THE BOX:</strong> 
-            <p>&nbsp;</p>  
+            <h3>APPLICANT’S CERTIFICATION AND AGREEMENT</h3>
+            <strong>PLEASE READ EACH SECTION CAREFULLY AND CHECK THE BOX:</strong>
+            <p>&nbsp;</p>
             <p><LABEL><input type="checkbox" required placeholder="checkbox 1" name="checkbox1" value="1" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->checkbox1=='1')echo "checked='checked'";?>/> &nbsp; 1. AUTHORIZATION FOR EMPLOYMENT/EDUCATIONAL INFORMATION. I authorize the references listed in this
-    
+
                 Application for Employment, and any prior employer, educational institution, or any other persons or organizations to give <?= $Client->company_name; ?>
-                
+
                 any and all information concerning my previous employment/educational accomplishments, disciplinary information or any other pertinent informa-
                 tion they may have, personal or otherwise, and release all parties from all liability for any damage that may result from furnishing same to you. I
-                
+
                 hereby waive written notice that employment information is being provided by any person or organization.
             </LABEL></p>
             <p><LABEL><input type="checkbox" required placeholder="checkbox 2" name="checkbox2" value="1" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->checkbox2=='1')echo "checked='checked'";?>/> &nbsp; 2. TERMINATION OF EMPLOYMENT. If I am hired, in consideration of my employment, I agree to abide by the rules and policies of
 
                 <?= $Client->company_name; ?>, including any changes made from time to time, and agree that my employment and compensation can be terminated with or
-                
+
                 without cause, at any time with the provision of the appropriate statutory notice or pay in lieu of notice.
             </LABEL></p>
             <p><LABEL>
                 <input type="checkbox" placeholder="checkbox 3" required name="checkbox3" value="1" <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->checkbox3=='1')echo "checked='checked'";?>/> &nbsp; 3. RELEASE OF MEDICAL INFORMATION. I authorize every medical doctor, physician or other healthcare provider to provide any
 
                 and all information, including but not limited to, all medical reports, laboratory reports, X-rays or clinical abstracts relating to my previous health
-                
+
                 history or employment in connection with any examination, consultation, tests or evaluation. I hereby release every medical doctor, healthcare per-
                 sonnel and every other person, firm, officer, corporation, association, organization or institution which shall comply with the authorization or
-                
+
                 request made in this respect from any and all liability. I understand
-                
+
                 until a job offer has been made
             </LABEL></p>
             <p><LABEL>
@@ -908,9 +901,9 @@ through 7 inclusive, and acknowledge that with my signature below.
             </LABEL></p>
         </div>
         <div class="clearfix"></div>
-        
+
         <div class="col-md-12 margin-bottom-10">
-         <div class="other_informations"> 
+         <div class="other_informations">
         <div class="col-md-3">
         <div class="row">
             <label>Dated:</label>
@@ -926,79 +919,79 @@ through 7 inclusive, and acknowledge that with my signature below.
         <div class="col-md-3">
         </div>
         <div class="col-md-6">
-        <div class="row"> 
+        <div class="row">
             <label class="col-md-12">Signature:</label>
             <?php include('canvas/gfs_signature.php');?>
             </div>
         </div>
         </div>
         </div>
-        
-        
+
+
         <div class="col-md-12" style="margin-bottom: 20px;">
             <h3 style="color: #FFF;background: #5B5A5A;padding:5px;">Process Record - For Use by <?= $Client->company_name; ?> Representatives ONLY!</h3>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <div class="col-md-4">
-            <div class="row"> 
+            <div class="row">
                 <label class="col-md-6">Applicant Hired</label>
-                <div class="col-md-6"><input type="text" name="applicant_hired" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->applicant_hired;?>" /></div>            
+                <div class="col-md-6"><input type="text" name="applicant_hired" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->applicant_hired;?>" /></div>
             </div>
             </div>
             <div class="col-md-4">
-            <div class="row"> 
+            <div class="row">
                 <label class="col-md-6">Date Employed</label>
-                <div class="col-md-6"><input type="text" name="date_employed" class="form-control date-picker" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->date_employed;?>" /></div>            
+                <div class="col-md-6"><input type="text" name="date_employed" class="form-control date-picker" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->date_employed;?>" /></div>
             </div>
             </div>
             <div class="col-md-4">
-            <div class="row"> 
+            <div class="row">
                 <label class="col-md-6">Starting Salary/Wage</label>
-                <div class="col-md-6"><input type="text" name="starting_salary" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->starting_salary;?>" /></div>            
+                <div class="col-md-6"><input type="text" name="starting_salary" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->starting_salary;?>" /></div>
             </div>
             </div>
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <div class="col-md-8">
-            <div class="row"> 
+            <div class="row">
                 <label class="col-md-3">Position</label>
-                <div class="col-md-9"><input type="text" name="position_company" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->position_company;?>" /></div>            
+                <div class="col-md-9"><input type="text" name="position_company" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->position_company;?>" /></div>
             </div>
             </div>
             <div class="col-md-4">
-            <div class="row"> 
+            <div class="row">
                 <label class="col-md-6">Branch</label>
-                <div class="col-md-6"><input type="text" name="branch_company" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->branch_company;?>" /></div>            
+                <div class="col-md-6"><input type="text" name="branch_company" class="form-control" value="<?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->branch_company;?>" /></div>
             </div>
             </div>
-            
+
         </div>
         </div>
         <div class="col-md-12 margin-bottom-10">
-         <div class="row"> 
+         <div class="row">
             <div class="col-md-12">
-            <div class="row"> 
+            <div class="row">
                 <label class="col-md-12">Comments</label>
-                <div class="col-md-12"><textarea name="comments_company" class="form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->comments_company;?></textarea></div>            
+                <div class="col-md-12"><textarea name="comments_company" class="form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->comments_company;?></textarea></div>
             </div>
             </div>
             <p>&nbsp;</p>
              <div class="col-md-12">
-             <div class="row"> 
+             <div class="row">
                 <label class="col-md-12">If rejected, give reasons:</label>
-                <div class="col-md-12"><textarea name="if_rejected" class="form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->if_rejected;?></textarea></div>            
-            </div>  
-            </div>     
+                <div class="col-md-12"><textarea name="if_rejected" class="form-control"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->if_rejected;?></textarea></div>
+            </div>
+            </div>
         </div>
         </div>
         <?php if($this->request->params['controller']!='Documents' && $this->request->params['controller']!='ClientApplication'){?>
-        <div class="addattachment<?php echo $dx->id;?> form-group col-md-12"></div> 
+        <div class="addattachment<?php echo $dx->id;?> form-group col-md-12"></div>
         <?php }?>
         <div class="clearfix"></div>
-    
+
 
 </form>
 <script>
@@ -1006,37 +999,37 @@ through 7 inclusive, and acknowledge that with my signature below.
 $(function(){
     <?php if($this->request->params['action'] != 'vieworder'  && $this->request->params['action']!= 'view'){?>
         $("#test8").jqScribble();
-        $('#test8').data("jqScribble").update({width: 400}); 
+        $('#test8').data("jqScribble").update({width: 400});
         $('#test8').click(function(){
             $(this).parent().parent().find('.touched').val('1');
-        });       
+        });
         <?php }?>
             $('#yesCheck').click(function(){
-              $("#yesDiv").show();  
+              $("#yesDiv").show();
             });
             $('#noCheck').click(function(){
-              $("#yesDiv").hide();  
+              $("#yesDiv").hide();
             });
-            
+
             $('#notAbleToWork').click(function(){
-              $("#notAbleDiv").show();  
+              $("#notAbleDiv").show();
             });
             $('#ableToWork').click(function(){
-              $("#notAbleDiv").hide();  
+              $("#notAbleDiv").hide();
             });
-            
+
             $('#partTime').click(function(){
-              $("#partTimeDiv").show();  
+              $("#partTimeDiv").show();
             });
             $('#fullTime').click(function(){
-              $("#partTimeDiv").hide();  
+              $("#partTimeDiv").hide();
             });
             <?php
         if(isset($disabled))
         {
     ?>
            $('#form_tab18 input').attr('disabled','disabled');
-           $('#form_tab18 textarea').attr('disabled','disabled');            
+           $('#form_tab18 textarea').attr('disabled','disabled');
     <?php }
     ?>
 });

@@ -11,7 +11,7 @@ echo '<form role="form" enctype="multipart/form-data" action="' . $this->request
 
 ?>
 
-<?php if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
     <div class="row">
     <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
     <input type="hidden" name="sub_doc_id" value="<?php echo $dx->id;?>" class="sub_docs_id" id="af" />

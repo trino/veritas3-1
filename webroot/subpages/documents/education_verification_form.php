@@ -8,7 +8,7 @@
     }
     $strings2 = CacheTranslations($language, array("verifs_%", "file_attachfile", "tasks_date"), $settings, False);
 ?>
-<?php if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
 <div id="form_tab10">
     <input class="document_type" type="hidden" name="document_type" value="<?php if(isset($dx))echo $dx->title;else echo "Education";?>"/>
     <input type="hidden" class="sub_docs_id" name="sub_doc_id" value="10"/>
@@ -126,7 +126,7 @@
                                         }
                                     } else {
                                         ?>
-                                        <input type="radio" name="claim_tutor[]" value="1" <?php if ($emp->claim_tutor == '1'){ ?>checked="checked"<?php }?>/>
+                                        <input type="radio" name="claim_tutor[]" value="1" id="source_a" <?php if ($emp->claim_tutor == '1'){ ?>checked="checked"<?php }?>/>
                                         <?php
                                     }
                                      ?>
@@ -346,7 +346,7 @@
                             <label class="control-label col-md-3"><?= $strings2["verifs_claimswith"]; ?>: </label>
 
                             <div class="col-md-3">
-                                &nbsp;&nbsp;<input type="radio" name="claim_tutor[]" value="1"/>&nbsp;&nbsp;<?= $strings["dashboard_affirmative"]; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                &nbsp;&nbsp;<input type="radio" name="claim_tutor[]" value="1" id="source_b"/>&nbsp;&nbsp;<?= $strings["dashboard_affirmative"]; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
                                     type="radio" name="claim_tutor[]" value="0"/>&nbsp;&nbsp;&nbsp;&nbsp;<?= $strings["dashboard_negative"]; ?>
                             </div>
                             <label class="control-label col-md-3"><?= $strings2["verifs_dateclaims"]; ?>: </label>
@@ -442,6 +442,7 @@
                     <p>&nbsp;</p>
                     <input type="hidden" name="count_more_edu" id="count_more_edu" value="<?php if(isset($counter))echo $counter;?>">
                     <a href="javascript:void(0);" class="btn green add_more_edu"><?= $strings["forms_addmore"]; ?></a>
+                    <!--a href="javascript:void(0);" class="btn btn-success moremore" ONCLICK="refresh();">REFRESH</A-->
                 </div>
                 <?php if($this->request->params['controller']!='Documents' && $this->request->params['controller']!='ClientApplication'){?>
                 <div class="allattach">
@@ -538,16 +539,34 @@
                 <?php }?>
             </form>
             <script>
-                $(function () {
-
-                    <?php
-
-                       if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add')&& (!isset($sub4['edu'])))
-                       {
-                           ?>
-                    fileUpload('edu1');
-                    <?php
+                function refresh(){
+                    alert("refreshing");
+                    //$('#more_edu').listview('refresh');
+                    //$('#more_edu').collapsibleset('refresh')
+                    //$("#more_edu").listview();
+                    //$('#more_edu').html( myHtmlStr ).enhanceWithin();
+                    //$("#more_edu").trigger('enhance');
+                    //$("#more_edu").trigger('create');
+                    //$("#more_edu").enhanceWithin();
+                    //$('#more_edu').page();
+                    //$('#more_edu').selectmenu('refresh');
+                    //$(".refreshme").trigger('resize');
+                    //$(".refreshme").copystyle("#source_a");
+                    /*
+                     $(".refreshme").copystyle("#source_b");
+                     var SourceElement = document.getElementById("source_b");
+                    var Radios = document.getElementsByClassName("refreshme");
+                    for(i = 0; i < Radios.length; i++){
+                        copyComputedStyle(SourceElement, Radios[i]);
+                    }
+                    */
                 }
+
+                $(function () {
+                    <?php
+                       if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add')&& (!isset($sub4['edu']))){
+                         echo "fileUpload('edu1');";
+                    }
                 ?>
                     //
                     $(".add_more_edu").click(function () {
@@ -556,6 +575,8 @@
                             url: "<?php echo $this->request->webroot;?>subpages/documents/past_education.php",
                             success: function (res) {
                                 $("#more_edu").append(res);
+
+                                //$('#more_edu').listview();
                                 var current = $('#count_more_edu').val();
                                 var counter = parseInt(current) + 1;
 

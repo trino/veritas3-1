@@ -2,7 +2,7 @@
  if($this->request->params['controller']!='ClientApplication'){
     if($this->request->session()->read('debug')){  echo "<span style ='color:red;'>subpages/documents/pre_employment_road_test.php #INC205</span>";}
  }
- if(isset($dx)){ echo '<p>Document - ' . $dx->title . '</p>'; }
+ if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
 ?>
 <form id="form_tab<?php echo $dx->id;?>" action="<?php echo $this->request->webroot;?>documents/pre_employment_road_test/<?php echo $cid .'/' .$did;?>" method="post">
         <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
