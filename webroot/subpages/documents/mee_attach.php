@@ -302,7 +302,7 @@
             if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
                 makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
             }
-            if($did  && in_array($get_prov,$lprov)){
+            if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
                 $skip=true;
                 $morecount = $morecount-1;
                 foreach($mee_more as $key => $file) {//id, mee_id, attachments
