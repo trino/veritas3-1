@@ -1,6 +1,6 @@
 <?php
  if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/recruiter_notes.php #INC129</span>";}
- if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
+ if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
 ?>
 <div class=" light recruiter_notes">
     <?php

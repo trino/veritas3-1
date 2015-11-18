@@ -18,7 +18,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
         color: #e32;
     }
 </STYLE>
-<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div id="form_tab9">
 <input class="document_type" type="hidden" name="document_type" value="<?php if(isset($dx))echo $dx->title;else echo "Employment";?>" />
 <input type="hidden" class="sub_docs_id" name="sub_doc_id" value="9"  />

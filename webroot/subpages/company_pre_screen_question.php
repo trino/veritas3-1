@@ -1,7 +1,7 @@
  <?php
  if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/company_pre_screen_question.php #INC155</span>";}
  ?>
- <?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
+ <?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div class="portlet box blue ">
 						<div class="portlet-title">
 							<div class="caption">

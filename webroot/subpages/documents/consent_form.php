@@ -8,10 +8,10 @@
     //includejavascript($strings);
     $strings2 = CacheTranslations($language, array("consent_%", "file_attachfile", "tasks_date", "profiles_name"), $settings, False);
 ?>
-<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <form id="form_consent">
     <div class="form-group row">
-        <h4 class="col-md-12"><?= $strings2["consent_release"]; ?></h4>
+        <h4 class="col-md-12" style="font-weight: bold;"><?= $strings2["consent_release"]; ?></h4>
     </div>
     <div class="gndn">
         <div class="form-group row">

@@ -1,6 +1,6 @@
 <?php
  if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/bc.php #INC166</span>"; }
- if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
+ if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
 ?>
 <form id="form_tab<?php echo $dx->id;?>" enctype="multipart/form-data" action="<?php echo $this->request->webroot;?>documents/bc/<?php echo $cid .'/' .$did;?>" method="post">
 <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>

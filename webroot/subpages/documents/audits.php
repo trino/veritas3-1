@@ -7,7 +7,7 @@ if(isset($disabled)){$is_disabled = 'disabled="disabled"';}
 
 //this document type can't have attachments, reason unknown
 ?>
-<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div class="portlet-body form">
 <!-- BEGIN FORM-->
 <form  id="form_tab8" method="post" action="<?php echo $this->request->webroot;?>documents/audits/<?php echo $cid;?>/<?php echo $did;?>" class="form-horizontal">

@@ -1,6 +1,6 @@
 <?php
  if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/period_of_unemployment.php #INC147</span>"; }
- if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
+ if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
 ?>
 <div>
 <div class="form-group col-md-12">

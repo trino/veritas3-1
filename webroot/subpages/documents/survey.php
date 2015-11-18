@@ -4,7 +4,7 @@
     }
     $is_disabled = '';
     if(isset($disabled)){$is_disabled = 'disabled="disabled"';}
-    if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
+    if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
 ?>
 <form role="form" action="" method="post" id="form_tab5">
 <div class="row"> <h4 class="col-md-12">Understanding Your Businesses Security Risks and Focus</h4></div>

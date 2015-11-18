@@ -5,7 +5,7 @@
     $is_disabled = '';
     if(isset($disabled)){ $is_disabled = 'disabled="disabled"'; }
     if(isset($feeds)) {$feed = $feeds; }
-    if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }
+    if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
 ?>
 <form role="form" action="" method="post" id="form_tab6">
 

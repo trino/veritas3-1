@@ -1,4 +1,4 @@
-<?php if(isset($dx)){ echo '<p>' . $dx->title . '</p>'; }?>
+<?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div class="allattach">
 <?php
     echo '<div>';
