@@ -211,8 +211,8 @@ loadreasons($param, $strings, true);
                                     <label class="control-label">ISB ID: </label>
                                     <input <?php echo $is_disabled ?>
                                         name="isb_id" type="text"
-                                        placeholder=""
-                                        class="form-control req_rec" <?php if (isset($p->isb_id)) { ?> value="<?php echo $p->isb_id; ?>" <?php }
+                                        placeholder="" oldclass="req_rec"
+                                        class="form-control" <?php if (isset($p->isb_id)) { ?> value="<?php echo $p->isb_id; ?>" <?php }
                                     if (isset($p->isb_id) && !$this->request->session()->read('Profile.super')) {
                                         ?>
                                         disabled="disabled"
