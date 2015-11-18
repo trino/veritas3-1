@@ -893,7 +893,8 @@
 
                     $('#save_display1').click(function () {
                         $('#save_display1').text('Saving..');
-                        var str = $('#displayform1 input.fororder').serialize();
+                        //var str = $('#displayform1 input.fororder').serialize();
+                        var str = $('#displayform1 input').serialize();
                         $.ajax({
                             url: '<?php echo $this->request->webroot;?>clients/displaySubdocs/<?php echo $id;?>',
                             data: str,
