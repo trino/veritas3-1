@@ -201,16 +201,14 @@
 
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="<?= $this->request->webroot; ?>">
-                <?php $logo = $this->requestAction('Logos/getlogo/0', ['return']); ?>
-                <img src="<?php
-                    $DIR =  $this->request->webroot . "img/logos/";
+            <a href="<?= $this->request->webroot; ?>"><img src="<?php
+                $logo = $this->requestAction('Logos/getlogo/0', ['return']);
+                    $DIR = getcwd() . "/img/logos/";
                     if(!file_exists($DIR . $logo)){
                         $logo = "MEELogo.png";
                     }
-                    echo $DIR . $logo;
-                    ?>" alt="logo" class=""
-                     style="max-width:225px;"/>
+                    echo $this->request->webroot . "img/logos/" . $logo;
+                    ?>" alt="logo" class="" style="max-width:225px;"/>
             </a>
 
             <div class="menu-toggler sidebar-toggler hide">
