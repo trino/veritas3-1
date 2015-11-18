@@ -5,7 +5,7 @@
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
     $controller =  $this->request->params['controller'];
-    $strings = CacheTranslations($language, array($controller  . "_%", "documents_%", "forms_dateformat"),$settings);
+    $strings = CacheTranslations($language, array($controller  . "_%", "documents_%", "forms_dateformat", "month_short%"),$settings);
     if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 
     function getColor($products, $OrderType, $Default = "blue"){
@@ -311,7 +311,7 @@
                                                 }
                                             } ?></td>
 
-                                        <td class="v-center" align="center"><?= getdatecolor(h($order->created)) ?></td>
+                                        <td class="v-center" align="center"><?= getdatecolor(h($order->created), $strings) ?></td>
                                         <td class="actions v-center util-btn-margin-bottom-5">
 
                                             <?php

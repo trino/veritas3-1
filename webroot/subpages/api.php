@@ -80,6 +80,25 @@ function printCSS($_this = ""){
     echo '</STYLE>' . "\r\n";
 }
 
+function formatnumber($Number){
+    if ($Number < 10){$Number  = "0" . $Number;}
+    return $Number;
+}
+function formatdate($Date, $strings){
+    //month_short
+    $Date = date_parse($Date);
+    $Date["month"]  = formatnumber($Date["month"]);
+    $Date["minute"] = formatnumber($Date["minute"]);
+    if (isset($strings["month_short" . $Date["month"]])) {$Date["monthshort"] = $strings["month_short" . $Date["month"]]; $Format = $strings["month_short_format"];}
+    if (isset($strings["month_long" . $Date["month"]])) {$Date["monthshort"] = $strings["month_long" . $Date["month"]]; $Format = $strings["month_short_format"];}
+    foreach($Date as $Key => $Value){
+        if(!is_array($Value)){
+            $Format = str_replace("%" . $Key . "%", $Value, $Format);
+        }
+    }
+    return $Format;
+}
+
 function updatetable($Table, $PrimaryKey, $Value, $Data){
     if(!is_object($Table)) {$Table = TableRegistry::get($Table);}
     $item = $Table->find()->where([$PrimaryKey => $Value])->first();
@@ -441,7 +460,7 @@ function getdatestamp($date){
     return date_timestamp_get($newdate);
 }
 
-function getdatecolor($date, $now=""){
+function getdatecolor($date, $strings = false, $now=""){
     $datestamp = getdatestamp($date);
     if(!$now){$now=time();}
     $color = "";
@@ -457,8 +476,8 @@ function getdatecolor($date, $now=""){
             $color ="red";
         }
     }
-    if($color){return '<FONT COLOR="' . $color . '">' . $date . "</FONT>";}
-    return $date;
+    if($color){return '<FONT COLOR="' . $color . '">' . formatdate($date, $strings) . "</FONT>";}
+    return formatdate($date, $strings);
 }
 
 function provinces($name, $Selected = "", $req=''){
