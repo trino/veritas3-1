@@ -5,6 +5,7 @@
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("clientapplication_%", "forms_%", "clients_addeditimage", "infoorder_selectclient", "documents_%"), $settings);
     JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
+    includejavascript($strings, $settings );
 
     if (isset($disabled)) {
         $is_disabled = 'disabled="disabled"';

@@ -1,4 +1,5 @@
 <?php
+    $AllowOthers = false;
     if ($this->request->session()->read('debug')) {
         echo "<span style ='color:red;display:block;padding:10px;'>subpages/profile/block.php #INC116</span>";
     }
@@ -62,8 +63,10 @@
                         <?php
                             if($this->request->session()->read('Profile.super')) {
                                 $CurrentMaster = $Manager->enum_all("profiles", array("master" => 1, "profile_type" => $profile->profile_type))->first();
+                                $ProfileType = getIterator($ptypes, "id", $profile->profile_type);
+                                $Field = getFieldname("title", $language);
                                 if ($CurrentMaster && $CurrentMaster->id <> $uid) {
-                                    echo '<TR><TD>Master Profile</TD><TD><A HREF="' . $this->request->webroot . 'profiles/edit/' . $CurrentMaster->id . '">' . formatname($CurrentMaster) . '</A></TD></TR>';
+                                    echo '<TR><TD>Master Profile</TD><TD><A HREF="' . $this->request->webroot . 'profiles/edit/' . $CurrentMaster->id . '">' . formatname($CurrentMaster) . '</A> - ' . $ProfileType->$Field . '</TD></TR>';
                                 }
                             }
                         ?>
@@ -119,12 +122,13 @@
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->email_profile == 1) echo "checked"; ?> />
                                         Receive Email (on create profile)
                                     </label>
+                                    <?php if($AllowOthers){?>
                                     <label class="uniform-inline">
                                         <input <?php echo $is_disabled ?> type="checkbox" name="side[viewprofiles]"
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->viewprofiles == 1) echo "checked"; ?> />
                                         View Other's
                                     </label>
-
+                                    <?php } ?>
                                 </div>
                                 <div class="clearfix"></div>
                             </td>
@@ -319,12 +323,13 @@
                                                                               value="1" <?php if (isset($sidebar) && $sidebar->orders_delete == 1) echo "checked"; ?> />
                                             Delete
                                         </label>
+                                        <?php if($AllowOthers){?>
                                         <label class="uniform-inline">
                                             <input <?php echo $is_disabled ?> type="checkbox" name="side[orders_others]"
                                                                               value="1" <?php if (isset($sidebar) && $sidebar->orders_others == 1) echo "checked"; ?> />
                                             View Other's
                                         </label>
-
+                                        <?php } ?>
 
                                         <label class="uniform-inline">
                                             <input <?php echo $is_disabled ?> type="checkbox" name="side[email_orders]"
@@ -415,12 +420,14 @@
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->document_delete == 1) echo "checked"; ?> />
                                         Delete
                                     </label>
+                                    <?php if($AllowOthers){?>
                                     <label class="uniform-inline">
                                         <input <?php echo $is_disabled ?> type="checkbox"
                                                                           name="side[document_others]"
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->document_others == 1) echo "checked"; ?> />
                                         View Other's
                                     </label>
+                                    <?php } ?>
                                     <label class="uniform-inline">
                                         <input <?php echo $is_disabled ?> type="checkbox" name="side[email_document]"
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->email_document == 1) echo "checked"; ?> />

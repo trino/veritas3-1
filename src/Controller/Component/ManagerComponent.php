@@ -192,13 +192,11 @@ class ManagerComponent extends Component {
 
     function base64_to_html($JSON, $End = '"'){
         return $JSON;
-
         if (strpos($JSON, 'data:image\/')) {
             $JSON = str_replace('data:image\/', '<IMG SRC="data:image/', $JSON);
         } else {
             $JSON = str_replace('data:image', '<IMG SRC="data:image', $JSON);
         }
-
         $pos2=0;
         while($pos = strpos($JSON, "data:image", $pos2)){
             $pos2 = strpos($JSON, $End, $pos);

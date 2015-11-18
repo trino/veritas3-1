@@ -299,7 +299,7 @@
                                                         $expires = strtotime($profile->expiry_date);
                                                         if ($expires) {
                                                             if ($expires < time()) {
-                                                                echo '<div class="border"><span class="clearfix" style="color:#a94442" width="100%">' . $strings["profiles_expired"] . '</span></div>';
+                                                                echo '<div oldclass="border"><span class="clearfix" style="color: red;" width="100%">' . $strings["profiles_expired"] . '</span></div>';
                                                             }
                                                         }
                                                     }

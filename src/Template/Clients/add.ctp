@@ -10,6 +10,8 @@
         $Trans = "";
     }
 
+    $ProfileType = $Manager->get_entry("profile_types", $Manager->read("profile_type"), "id");
+
     include_once 'subpages/filelist.php';
     $delete = isset($disabled);
     $is_disabled = '';
@@ -75,6 +77,11 @@
             if($this->request->session()->read('debug')){
                 echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
             }
+
+        }
+
+        if($sidebar->profile_list) {
+            echo '<A HREF="' . $this->request->webroot . 'profiles/index?filter_by_client=' . $id . '" class="floatright btn btnspc btn-info">' . $strings["index_listprofile"] . '</A>';
         }
         echo "</div>";
     ?>
@@ -146,7 +153,6 @@
 
 
                                     <?php
-
                                 }
                                 ?>
 

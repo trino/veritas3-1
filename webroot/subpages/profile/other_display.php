@@ -41,7 +41,7 @@
                 }
 
                 $col = printsetting($col, $settings, "mee");
-                $col = printsetting($col, $settings, "forceemail");
+                //$col = printsetting($col, $settings, "forceemail");
 
                 if($col) {echo "</DIV>";}
             ?>

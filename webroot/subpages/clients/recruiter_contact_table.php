@@ -12,7 +12,7 @@
 
 
 <div class="col-md-12" style=" float: right;margin-bottom: 10px;padding-right: 0;">
-    <LABEL CLASS="btnspc"><INPUT TYPE="checkbox" ID="visibleprofiles" ONCLICK="visibleprofiles();"> Visible to non-employees</LABEL>
+    <!--LABEL CLASS="btnspc"><INPUT TYPE="checkbox" ID="visibleprofiles" ONCLICK="visibleprofiles();"> Visible to non-employees</LABEL-->
     <a href="<?php echo $this->request->webroot;?>profiles/add" class="btn btn-primary btnspc" style="float: right;"><?= $strings["infoorder_addprofile"]; ?></a>
 </div>
 <div class="clearfix"></div>

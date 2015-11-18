@@ -58,8 +58,12 @@
     <div class="clearfix"></div>
 
     <?php
+        if(!isset($DriverProvince)){$DriverProvince="";}
         echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" isform="';
-        echo in_array("1603", explode(",", "1603,1,14,77,78,1627")) . '">';
+        if(isset($_GET["forms"])) {
+            echo in_array("1603", explode(",", $_GET["forms"]));
+        }
+        echo '">';
         $skip=false;
         function alert($Text){
             echo "<SCRIPT>alert('" . $Text . "');</SCRIPT>";
