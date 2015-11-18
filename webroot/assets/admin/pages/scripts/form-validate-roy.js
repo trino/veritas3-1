@@ -318,10 +318,6 @@ function alertfail(Reason){
          text = replaceAll("%name%", Reason["Element"], text);
          text = replaceAll("%value%", Reason["Value"], text);
          text = replaceAll("%type%", reasons[Reason["Reason"]], text);
-         //alert(text);
-         text = text.replace('all','');
-         text = text.replace('the','this');
-         text = text.replace('fields','field');
          return text;
          //alert(Reason["Element"]);
          //alert("Name: " + Reason["Element"] + "\r\n (" + Reason["Value"] + ") is not valid (" + Reason['Reason'] + ")");
