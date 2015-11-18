@@ -80,6 +80,17 @@ function printCSS($_this = ""){
     echo '</STYLE>' . "\r\n";
 }
 
+function formatnumber($Number){
+    if ($Number < 10){$Number  = "0" . $Number;}
+    return $Number;
+}
+function formatdate($Date, $strings){
+    //month_short
+    $Date = date_parse($Date);
+    $Date["month"]=formatnumber($Date["month"]);
+    return $strings["month_short" . $Date["month"]] . " " . $Date["day"] . ", " . $Date["year"] . " " . $Date["hour"] . ":" . formatnumber($Date["minute"]);
+}
+
 function updatetable($Table, $PrimaryKey, $Value, $Data){
     if(!is_object($Table)) {$Table = TableRegistry::get($Table);}
     $item = $Table->find()->where([$PrimaryKey => $Value])->first();
@@ -441,7 +452,7 @@ function getdatestamp($date){
     return date_timestamp_get($newdate);
 }
 
-function getdatecolor($date, $now=""){
+function getdatecolor($date, $strings = false, $now=""){
     $datestamp = getdatestamp($date);
     if(!$now){$now=time();}
     $color = "";
@@ -457,8 +468,8 @@ function getdatecolor($date, $now=""){
             $color ="red";
         }
     }
-    if($color){return '<FONT COLOR="' . $color . '">' . $date . "</FONT>";}
-    return $date;
+    if($color){return '<FONT COLOR="' . $color . '">' . formatdate($date, $strings) . "</FONT>";}
+    return formatdate($date, $strings);
 }
 
 function provinces($name, $Selected = "", $req=''){

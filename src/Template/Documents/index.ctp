@@ -5,7 +5,7 @@
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
     $controller =  $this->request->params['controller'];
-    $strings = CacheTranslations($language, $controller  . "_%",$settings);
+    $strings = CacheTranslations($language, array($controller  . "_%", "month_short%"),$settings);
     if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 ?>
 <style>
@@ -208,176 +208,175 @@
                                     echo '</TD></TR>';
                                 }
 
-                                foreach ($documents as $docs):
+                                foreach ($documents as $docs){
 
-                                if ($docs->document_type == 'feedbacks' && !$this->request->session()->read('Profile.super')) {
-                                    continue;
-                                }
+                            if ($docs->document_type == 'feedbacks' && !$this->request->session()->read('Profile.super')) {
+                                continue;
+                            }
 
-                                if ($row_color_class == "even") {
-                                    $row_color_class = "odd";
-                                } else {
-                                    $row_color_class = "even";
-                                }
+                            if ($row_color_class == "even") {
+                                $row_color_class = "odd";
+                            } else {
+                                $row_color_class = "even";
+                            }
 
-                                $uploaded_by = getIterator($profiles, "id", $docs->user_id);
-                                $uploaded_for = getIterator($profiles, "id", $docs->uploaded_for);
+                            $uploaded_by = getIterator($profiles, "id", $docs->user_id);
+                            $uploaded_for = getIterator($profiles, "id", $docs->uploaded_for);
 
-                                $getClientById = getIterator($clients, "id", $docs->client_id );// $doc_comp->getClientById($docs->client_id);
-                                $orderID = $this->Number->format($docs->order_id);
-                                if($orderID) {
-                                    $orderDetail = $doc_comp->getOrderById($docs->order_id);
-                                }
+                            $getClientById = getIterator($clients, "id", $docs->client_id);// $doc_comp->getClientById($docs->client_id);
+                            $orderID = $this->Number->format($docs->order_id);
+                            if ($orderID) {
+                                $orderDetail = $doc_comp->getOrderById($docs->order_id);
+                            }
 
-                                $getColorId = getIterator($subdoc, "id", $docs->sub_doc_id)->color_id;
-                                $getColorId = getIterator($colors, "id", $getColorId)->color;
+                            $getColorId = getIterator($subdoc, "id", $docs->sub_doc_id)->color_id;
+                            $getColorId = getIterator($colors, "id", $getColorId)->color;
                             ?>
                             <tr ID="row<?= $docs->id; ?>" class="<?= $row_color_class; ?>" role="row">
                                 <td class="v-center" align="center">
                                     <?php
-                                        if($docs->hasattachments) { echo '<i title="Has Attachment" class="fa fa-paperclip"></i>';}
-                                        echo $this->Number->format($docs->id)
+                                    if ($docs->hasattachments) {
+                                        echo '<i title="Has Attachment" class="fa fa-paperclip"></i>';
+                                    }
+                                    echo $this->Number->format($docs->id)
                                     ?>
                                 </td>
 
                                 <td width="220" style="width: 220px; white-space: nowrap;" class="v-center">
                                     <?php
                                     $VIEWURL = $this->request->webroot . "documents/view/" . $docs->client_id . "/" . $docs->id . '?type=' . $docs->sub_doc_id;
-                                    if ($docs->sub_doc_id == 4) {$VIEWURL .= '&doc=' . urlencode($docs->document_type);}
-                                    if ($docs->order_id) {$VIEWURL.= "&order_id=" . $docs->order_id; }
+                                    if ($docs->sub_doc_id == 4) {
+                                        $VIEWURL .= '&doc=' . urlencode($docs->document_type);
+                                    }
+                                    if ($docs->order_id) {
+                                        $VIEWURL .= "&order_id=" . $docs->order_id;
+                                    }
                                     $EDITURL = str_replace("/view/", "/add/", $VIEWURL);
-                                    if($docs->draft == 1 || isset($_GET["draft"])){$VIEWURL = $EDITURL;}
-                                    
-                                        switch (1){//change the number to pick a style
-                                            case 0://plain text
-                                                echo  h($docs->document_type);
-                                                break;
-                                            case 1://top block
-                                                echo '<div class="dashboard-stat ';
-                                                if(isset($getColorId)) {
-                                                    echo $getColorId;
-                                                }else {
-                                                    echo "blue";
-                                                }
+                                    if ($docs->draft == 1 || isset($_GET["draft"])) {
+                                        $VIEWURL = $EDITURL;
+                                    }
+
+                                    switch (1){//change the number to pick a style
+                                    case 0://plain text
+                                        echo h($docs->document_type);
+                                        break;
+                                    case 1://top block
+                                    echo '<div class="dashboard-stat ';
+                                    if (isset($getColorId)) {
+                                        echo $getColorId;
+                                    } else {
+                                        echo "blue";
+                                    }
                                     ?>">
 
-                                    <a class="more"  id="sub_doc_click1" href="<?= $VIEWURL; ?>">
-                                        <?= h(str_replace('_',' ',$docs->document_type)); //it won't let me put it in the desc ?>
+                                    <a class="more" id="sub_doc_click1" href="<?= $VIEWURL; ?>">
+                                        <?= h(str_replace('_', ' ', $docs->document_type)); //it won't let me put it in the desc  ?>
                                         <i class="fa fa-copy"></i>
                                     </a>
                     </div>
 
                     <?php break;
-                        case 2: //tile, doesn't work. CSS not included?
-                            ?>
-                            <a href="<?= $this->request->webroot;?>orders/productSelection?driver=0&amp;ordertype=MEE"
-                                class="tile bg-yellow" style="display: block; height: 100px; ">
-                                <div class="tile-body">
-                                    <i class="icon-docs"></i>
-                                </div>
-                                <div class="tile-object">
-                                    <div class="name">Order MEE</div>
-                                    <div class="number"></div>
-                                </div>
-                            </a>
-                            <?php break;
-                        } ?>
-                    </td>
+                    case 2: //tile, doesn't work. CSS not included?
+                        ?>
+                        <a href="<?= $this->request->webroot; ?>orders/productSelection?driver=0&amp;ordertype=MEE"
+                           class="tile bg-yellow" style="display: block; height: 100px; ">
+                            <div class="tile-body">
+                                <i class="icon-docs"></i>
+                            </div>
+                            <div class="tile-object">
+                                <div class="name">Order MEE</div>
+                                <div class="number"></div>
+                            </div>
+                        </a>
+                        <?php break;
+                    }
+                    echo '</td>';
 
-
-                    <?php if ($settings->mee == "MEE") { ?>
-
-                    <td class="v-center" align="center"><?php if ($orderID > 0) {
-                            echo '<a href="'.$this->request->webroot.'orders/vieworder/'.$orderDetail->client_id.'/'.$orderDetail->id;if($orderDetail->order_type){echo '?order_type='.urlencode($orderDetail->order_type);if($orderDetail->forms)echo '&forms='.$orderDetail->forms;}echo '">'.$orderDetail->id;echo '</a>';
+                    if ($settings->mee == "MEE") {
+                        echo '<td class="v-center" align="center">';
+                        if ($orderID > 0) {
+                            echo '<a href="' . $this->request->webroot . 'orders/vieworder/' . $orderDetail->client_id . '/' . $orderDetail->id;
+                            if ($orderDetail->order_type) {
+                                echo '?order_type=' . urlencode($orderDetail->order_type);
+                                if ($orderDetail->forms) {
+                                    echo '&forms=' . $orderDetail->forms;
+                                }
+                            }
+                            echo '">' . $orderDetail->id . '</a>';
                         } else {
                             echo $strings["documents_na"];
-                        }  ?></td>
-
-
-<?}?>
-
-
-                    <td class="v-center"><?php
-                            $docname = h($docs->document_type) . " #: " . $this->Number->format($docs->id);
-                            if (isset($uploaded_by->username)) {
-                                $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->user_id . '" target="_blank">' . formatname($uploaded_by);
-                                $docname .= ", " . $strings["documents_submittedby"] . " " . formatname($uploaded_by);
-                            } else {
-                                $user = $strings["documents_none"];
-                            }
-                            echo $user;
-                        ?></td>
-
-                    <?php if ($settings->mee == "MEE") { ?>
-
-                    <td class="v-center">
-                        <?php
-                            if (isset($uploaded_for->username)) {
-                                $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->uploaded_for . '" target="_blank">' . formatname($uploaded_for);
-                                if(!is_object($uploaded_by) || $uploaded_for->id <> $uploaded_by->id) {$docname .= ", " . $strings["documents_submittedfor"] . " " . formatname($uploaded_for);}
-                            } else {
-                                $user = $strings["documents_none"];
-                            }
-                            echo $user;
-                        ?>
-                    </td>
-
-                    <?}?>
-                    <td class="v-center" align="center"><?= getdatecolor(h($docs->created)) ?></td>
-                    <td class="v-center">
-                        <?php
-                            $docname .=  ", " . $strings["documents_at"] . " " . h($docs->created);
-                            if (is_object($getClientById)) {
-                                echo "<a href ='" . $this->request->webroot . "clients/edit/" . $docs->client_id . "?view'>" . ucfirst(h($getClientById->company_name)) . "</a>";
-                            } else {
-                                echo $strings["documents_missingclient"];
-                            }
-                        ?>
-
-                    </td>
-                    <td class="actions util-btn-margin-bottom-5 v-center">
-                        <?php
-                        if ($sidebar->document_list == '1' && !isset($_GET["draft"])) {
-                            //echo $this->Html->link(__('View'), ['action' => 'view', $docs->client_id, $docs->id], ['class' => btnclass("VIEW")]);
-                            echo '<a class="' . btnclass("VIEW") . '" href="' . $VIEWURL . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_view"] . '</a>';
                         }
+                        echo '</td>';
+                    }
 
-                        if ($sidebar->document_edit == '1' &&  ($profiletype->caneditall == 1 || $this->request->session()->read('Profile.super')==1 || $this->request->session()->read('Profile.id')==$docs->user_id)) {
-                            if (!$docs->order_id || $this->request->session()->read('Profile.super')) {
-                                echo '<a class="' . btnclass("EDIT") . '" href="' . $EDITURL . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_edit"] . '</a>';
+                    echo '<td class="v-center">';
+                    $docname = h($docs->document_type) . " #: " . $this->Number->format($docs->id);
+                    if (isset($uploaded_by->username)) {
+                        $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->user_id . '" target="_blank">' . formatname($uploaded_by);
+                        $docname .= ", " . $strings["documents_submittedby"] . " " . formatname($uploaded_by);
+                    } else {
+                        $user = $strings["documents_none"];
+                    }
+                    echo $user . '</td>';
+
+                    if ($settings->mee == "MEE") {
+                        echo '<td class="v-center">';
+                        if (isset($uploaded_for->username)) {
+                            $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->uploaded_for . '" target="_blank">' . formatname($uploaded_for);
+                            if (!is_object($uploaded_by) || $uploaded_for->id <> $uploaded_by->id) {
+                                $docname .= ", " . $strings["documents_submittedfor"] . " " . formatname($uploaded_for);
                             }
+                        } else {
+                            $user = $strings["documents_none"];
                         }
+                        echo $user . '</td>';
+                    }
 
-                        $isssuper = $this->request->session()->read('Profile.super');
-                        if ($sidebar->document_delete == '1' && ($docs->order_id == 0 || $isssuper)) {
-                            $dl_show = $isssuper;
-                            if (!$isssuper && $docs->user_id == $this->request->session()->read('Profile.id')) {
-                                $dl_show = true;
-                            }
-                            if ($dl_show) {
-                                echo '<a onclick="deletedocument(' . $docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname) . "'" . ');"';
-                                echo 'class="' . btnclass("DELETE") . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_delete"] . '</a>';
-                            }
+                    echo '<td class="v-center" align="center">' . getdatecolor(h($docs->created), $strings) . '</td><td class="v-center">';
+                    $docname .= ", " . $strings["documents_at"] . " " . h($docs->created);
+                    if (is_object($getClientById)) {
+                        echo "<a href ='" . $this->request->webroot . "clients/edit/" . $docs->client_id . "?view'>" . ucfirst(h($getClientById->company_name)) . "</a>";
+                    } else {
+                        echo $strings["documents_missingclient"];
+                    }
+
+                    echo '</td><td class="actions util-btn-margin-bottom-5 v-center">';
+
+                    if ($sidebar->document_list == '1' && !isset($_GET["draft"])) {
+                        //echo $this->Html->link(__('View'), ['action' => 'view', $docs->client_id, $docs->id], ['class' => btnclass("VIEW")]);
+                        echo '<a class="' . btnclass("VIEW") . '" href="' . $VIEWURL . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_view"] . '</a>';
+                    }
+
+                    if ($sidebar->document_edit == '1' && ($profiletype->caneditall == 1 || $this->request->session()->read('Profile.super') == 1 || $this->request->session()->read('Profile.id') == $docs->user_id)) {
+                        if (!$docs->order_id || $this->request->session()->read('Profile.super')) {
+                            echo '<a class="' . btnclass("EDIT") . '" href="' . $EDITURL . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_edit"] . '</a>';
                         }
-                        ?>
+                    }
 
-                    </td>
-                    <td align="center" class="v-center">
-                        <?php
-                            if($docs->draft == 1){
-                                $Color = "label-warning";
-                                $Label = $strings["documents_draft"];
-                            } else {
-                                $Color = "label-success";
-                                $Label = $strings["documents_saved"];
-                            }
-                            echo '<span class="label label-sm ' . $Color . '" style="padding:4px;">' . $Label . '</span>';
-                        ?></td>
-                    </tr>
+                    $isssuper = $this->request->session()->read('Profile.super');
+                    if ($sidebar->document_delete == '1' && ($docs->order_id == 0 || $isssuper)) {
+                        $dl_show = $isssuper;
+                        if (!$isssuper && $docs->user_id == $this->request->session()->read('Profile.id')) {
+                            $dl_show = true;
+                        }
+                        if ($dl_show) {
+                            echo '<a onclick="deletedocument(' . $docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname) . "'" . ');"';
+                            echo 'class="' . btnclass("DELETE") . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_delete"] . '</a>';
+                        }
+                    }
 
-                    <!--TR><TD colspan="8"><!php print_r($docs); !></TD></TR-->
+                    echo '</td><td align="center" class="v-center">';
+                    if ($docs->draft == 1) {
+                        $Color = "label-warning";
+                        $Label = $strings["documents_draft"];
+                    } else {
+                        $Color = "label-success";
+                        $Label = $strings["documents_saved"];
+                    }
+                    echo '<span class="label label-sm ' . $Color . '" style="padding:4px;">' . $Label . '</span></td></tr>';
 
-                    <?php endforeach; ?>
+                    //<!--TR><TD colspan="8"><!php print_r($docs); !></TD></TR-->
+                    } ?>
                     </tbody>
                     </table>
 
