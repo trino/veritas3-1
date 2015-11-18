@@ -157,15 +157,11 @@ function BasicCanvasSave(imageData){window.open(imageData,'jqScribble Image');}
             {
                 
                 
-                if($elm.parent().find('.touched').parent().attr('id')=='sig1' || $elm.parent().find('.touched').parent().attr('id')=='sig2' || $elm.parent().find('.touched').parent().attr('id')=='sig3' || $elm.parent().find('.touched').parent().attr('id')=='sig4')
-                {
-                //do nothing
-                }
-                else
-                {
-                    $elm.parent().find('.touched').val('1');
+                $elm.parent().find('.touched').val('1');
+                    $elm.parent().parent().find('.touched').val('1');
+                    $elm.parent().parent().parent().find('.touched').val('1');
                     
-                }
+                
                 var o = $elm.offset();
                 e.preventDefault();
                 if(e.touches.length > 0)self.brush.strokeBegin(e.touches[0].pageX-o.left, e.touches[0].pageY-o.top);
@@ -192,15 +188,12 @@ function BasicCanvasSave(imageData){window.open(imageData,'jqScribble Image');}
                 mousedown: function(e)
                 {
                     
-                    if($elm.parent().find('.touched').parent().attr('id')=='sig1' || $elm.parent().find('.touched').parent().attr('id')=='sig2' || $elm.parent().find('.touched').parent().attr('id')=='sig3' || $elm.parent().find('.touched').parent().attr('id')=='sig4')
-                    {
-                    //do nothing
-                    }
-                    else
-                    {
+                    
                         $elm.parent().find('.touched').val('1');
+                    $elm.parent().parent().find('.touched').val('1');
+                    $elm.parent().parent().parent().find('.touched').val('1');
                         
-                    }
+                    
                     var o = $elm.offset();
                     self.brush.strokeBegin(e.pageX-o.left, e.pageY-o.top);
                 },
