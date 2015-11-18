@@ -87,8 +87,16 @@ function formatnumber($Number){
 function formatdate($Date, $strings){
     //month_short
     $Date = date_parse($Date);
-    $Date["month"]=formatnumber($Date["month"]);
-    return $strings["month_short" . $Date["month"]] . " " . $Date["day"] . ", " . $Date["year"] . " " . $Date["hour"] . ":" . formatnumber($Date["minute"]);
+    $Date["month"]  = formatnumber($Date["month"]);
+    $Date["minute"] = formatnumber($Date["minute"]);
+    if (isset($strings["month_short" . $Date["month"]])) {$Date["monthshort"] = $strings["month_short" . $Date["month"]]; $Format = $strings["month_short_format"];}
+    if (isset($strings["month_long" . $Date["month"]])) {$Date["monthshort"] = $strings["month_long" . $Date["month"]]; $Format = $strings["month_short_format"];}
+    foreach($Date as $Key => $Value){
+        if(!is_array($Value)){
+            $Format = str_replace("%" . $Key . "%", $Value, $Format);
+        }
+    }
+    return $Format;
 }
 
 function updatetable($Table, $PrimaryKey, $Value, $Data){

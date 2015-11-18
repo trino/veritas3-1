@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 10:42 PM
+-- Generation Time: Nov 18, 2015 at 04:43 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=830 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=832 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447787137', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447796537', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -843,7 +843,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (826, 'clientapplication_done', 'Thank you. Your application has been submitted. We will be in touch shortly.', 'Merci. Votre demande a été soumise. Nous serons en contact très prochainement.'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
 (828, 'email_application_message', 'Doc ID: %document Client ID: %client%   A new application for employment has been submitted. Please click here to view the profile, thank you.', 'email_application_message'),
-(829, 'email_application_variables', 'email, document, client', '');
+(829, 'email_application_variables', 'email, document, client', ''),
+(831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
