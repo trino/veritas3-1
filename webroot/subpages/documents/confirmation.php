@@ -9,6 +9,8 @@
     }
     else
         $forms = $this->requestAction('/orders/getProNum');
+        
+    $dri = $this->requestAction('/clientApplication/getfullname/'.$_GET['driver']);    
 
     $allattachments = array();// new AppendIterator;
     if (isset($pre_at['attach_doc'])) {
@@ -76,12 +78,7 @@
 
         <div class="col-md-12">
             <input type="text" class="form-control" name="conf_driver_name" id="conf_driver_name"
-                   value="<?php
-                   if (isset($modal->conf_driver_name)){
-                       $Profile = $Manager->get_profile($modal->DriverID);
-                       echo formatname($Profile);
-                   }
-                   ?>"/>
+                   value="<?php echo $dri;?>"/>
         </div>
 
 

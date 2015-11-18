@@ -462,5 +462,18 @@ class ClientApplicationController extends AppController {
             echo '';
             die(); 
         }
+        public function getfullname($id = 0)
+        {
+            $q = TableRegistry::get('profiles')->find()->where(['id'=>$id])->first();
+            if($q){
+            $name = $q->fname.' '.$q->mname.' '.$q->lname;
+            $name = trim($name);
+            }
+            else
+            $name = '';
+            $this->response->body($name);
+            return $this->response;
+            die(); 
+        }
 
 }
