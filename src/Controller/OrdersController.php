@@ -482,6 +482,46 @@
                     }
                 }
             }
+            
+            $con_detail = $this->getlastdocument($Profile_ID, 10, "education_verification");
+            if($con_detail) {
+                if ($con_detail->document_id) {
+                    $emp = TableRegistry::get('education_verification')->find()->where(['document_id' => $con_detail->document_id])->all();
+                } elseif ($con_detail->order_id) {
+                    $emp = TableRegistry::get('education_verification')->find()->where(['order_id' => $con_detail->order_id])->all();
+                }
+
+                if ($emp) {
+                    //$emp = TableRegistry::get('employment_verification')->find()->order(['id' => 'DESC'])->where(['user_id' => $Profile_ID])->all();
+                    $listofdocs = array();
+                    foreach ($emp as $document) {
+                        if (count($listofdocs) == 0) {
+                            $listofdocs[] = $document;
+                        } elseif ($listofdocs[0]->document_id && $listofdocs[0]->document_id == $document->document_id) {
+                            $listofdocs[] = $document;
+                        } elseif ($listofdocs[0]->order_id && $listofdocs[0]->order_id == $document->order_id) {
+                            $listofdocs[] = $document;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    $sub4['edu'] = $listofdocs;
+                    if ($sub4['edu']) {
+                        $did = "";
+                        foreach ($sub4['edu'] as $document) {
+                            if (!$did) {
+                                $did = $document->document_id;
+                            }
+                        }
+                        if ($did) {
+                            $edu_att = TableRegistry::get('doc_attachments');
+                            $sub4['att'] = $edu_att->find()->where(['document_id' => $did])->all();
+                        }
+                        $this->set('sub4', $sub4);
+                    }
+                }
+            }
         }
 
         public function savedoc($cid = 0, $did = 0){
