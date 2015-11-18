@@ -612,7 +612,14 @@
 
     $JSON = $Manager->order_to_email($orderid, $DataIneed);
     $servicearr["html"] = $JSON;
-    $servicearr["email"] = $Manager->getfirstsuper()->email;
+    $servicearr["email"] = array();
+
+    $Order = $Manager->get_entry("orders", $orderid);
+    if($Order->client_id){
+        $servicearr["email"] = $Manager->enum_profiles_permission($client_id, "email_orders", "email");
+    }
+    $servicearr["email"][] = "super";
+
     $mailer->handleevent("ordercompleted",$servicearr);
     //  $mailer->handleevent("ordercompleted",$servicearr,'hsidhu@isbc.ca ');
     //  $mailer->handleevent("ordercompleted",$servicearr,'pclement@isbc.ca');

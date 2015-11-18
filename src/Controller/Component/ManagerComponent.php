@@ -264,6 +264,13 @@ class ManagerComponent extends Component {
         $this->Controller->Mailer->handleevent($EventName, $Data, $Email);
     }
 
+    function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
+        $this->Controller->loadComponent("Document");
+        $Profiles = $this->Controller->Document->enum_profiles_permission($ClientID, $Permission, $Key, $PermissionTable);
+        if($Key){$Profiles = $this->remove_empties($Profiles);}
+        return $Profiles;
+    }
+
     function order_to_email($OrderID, $IDs){
         $Order = $this->load_order($OrderID, true, true);
         $Details = array();

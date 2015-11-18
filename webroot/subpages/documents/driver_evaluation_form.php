@@ -3693,23 +3693,18 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
             total2 = 0;
             $('#total_score').val($('#total1').val());
             $('.scores input[type="radio"]').each(function(){
-            if($(this).is(':checked'))
-            {
-                total2 = total2+parseInt($(this).attr('class'));
-            }
+                if($(this).is(':checked')) {
+                    total2 = total2+parseInt($(this).attr('class'));
+                }
             });
-            $('#total_score').val(total2 + parseInt($('#total1').val()));
+            $('#total_score').val(total2 + parseInt( $('#total1').val() ) );
         });
         
         
         <?php
-        
-        if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add') && !count($sub['de_at']))
-        {
-            ?>
-            fileUpload('road1');
-            <?php
-        }
+            if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add') && !count($sub['de_at'])) {
+                echo "fileUpload('road1');";
+            }
         ?>
 //        
        $('#add_more_driver_doc').click(function(){

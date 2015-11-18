@@ -1163,17 +1163,14 @@
                     }
                     $profile = $profiles->newEntity($_POST);
                     if ($profiles->save($profile)) {
-                        if(isset($_POST['cids']) && $_POST['cids'])
-                        {
+                        if(isset($_POST['cids']) && $_POST['cids']) {
                             $_POST['client_idss'] = explode(',',$_POST['cids']);
                             $cquery = TableRegistry::get('Clients');
                             $cq = $cquery->find();
-                            foreach($cq as $ccq)
-                            {
+                            foreach($cq as $ccq) {
                                 $this->addprofile(0,$ccq->id,$profile->id);
                             }
-                            foreach($_POST['client_idss'] as $cid)
-                            {
+                            foreach($_POST['client_idss'] as $cid) {
                                 $this->addprofile(1,$cid,$profile->id);
                             }
                         }
@@ -1213,54 +1210,15 @@
                             if ($clients_id != "") {
                                 $client_id = explode(",", $clients_id);
                                 foreach ($client_id as $cid) {
-                                    $query = TableRegistry::get('clients');
-                                    $q = $query->find()->where(['id' => $cid])->first();
-                                    $profile_id = $q->profile_id;
-                                    $pros = explode(",", $profile_id);
-
-                                    $p_ids = "";
-
-                                    array_push($pros, $profile->id);
-                                    $pro_id = array_unique($pros);
-
-                                    foreach ($pro_id as $k => $p) {
-                                        if (count($pro_id) == $k + 1) {
-                                            $p_ids .= $p;
-                                        } else {
-                                            $p_ids .= $p . ",";
-                                        }
-                                    }
-
-                                    $query->query()->update()->set(['profile_id' => $p_ids])
-                                        ->where(['id' => $cid])
-                                        ->execute();
+                                    $this->Manager->assign_profile_to_client($profile->id, $cid);
                                 }
                             }
                         }
-                        if ($_POST['client_ids'] != "") {
+
+                        if ($_POST['client_ids']) {
                             $client_id = explode(",", $_POST['client_ids']);
                             foreach ($client_id as $cid) {
-                                $query = TableRegistry::get('clients');
-                                $q = $query->find()->where(['id' => $cid])->first();
-                                $profile_id = $q->profile_id;
-                                $pros = explode(",", $profile_id);
-
-                                $p_ids = "";
-
-                                array_push($pros, $profile->id);
-                                $pro_id = array_unique($pros);
-
-                                foreach ($pro_id as $k => $p) {
-                                    if (count($pro_id) == $k + 1) {
-                                        $p_ids .= $p;
-                                    } else {
-                                        $p_ids .= $p . ",";
-                                    }
-                                }
-
-                                $query->query()->update()->set(['profile_id' => $p_ids])
-                                    ->where(['id' => $cid])
-                                    ->execute();
+                                $this->Manager->assign_profile_to_client($profile->id, $cid);
                             }
                         }
 
@@ -1303,7 +1261,13 @@
 
                             //$this->Mailer->debugprint(print_r($_POST,true));
 
-                            $emails = array("super");
+
+                            $emails = array();
+                            if ($_POST['client_idss']) {
+                                $client_id = $_POST['client_idss'];
+                                $emails = $this->Manager->remove_empties($this->Document->enum_profiles_permission($client_id, "email_profile", "email"));
+                            }
+                            $emails[] = "super";
                             if (isset($_POST["emailcreds"]) && $_POST["emailcreds"] && strlen(trim($_POST["email"])) > 0) {
                                 $emails[] = $_POST["email"];
                                 $profiles->query()->update()->set(['emailsent' => date('Y-m-d H:i:s')])->where(['id' => $profile->id])->execute();

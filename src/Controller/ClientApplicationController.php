@@ -116,7 +116,7 @@ class ClientApplicationController extends AppController {
         $this->loadComponent('Mailer');
         //$this->Mailer->handleevent("documentcreatedb", array("site" => "","email" => "roy", "company_name" => "", "username" => $this->request->session()->read('Profile.username'), "id" => $did, "path" => "", "profile_type" => ""));
 
-        $ret = $this->Document->savedoc($this->Mailer, $cid,$did,false);
+        $ret = $this->Document->savedoc($this->Mailer, $cid,$did,true);
         //$this->Mailer->handleevent("documentcreated", $ret);
         die();
     }
