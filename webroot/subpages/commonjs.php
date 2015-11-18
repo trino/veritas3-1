@@ -80,9 +80,8 @@
            success:function(res)
            {
             res = JSON.parse(res);
-            //alert(res['applicants_email']);
-             $('#tab0 input,#tab0 textarea').each(function(){
-                //alert($(this).attr('name');
+            $('#tab0 input,#tab0 textarea').each(function(){
+                
                 if($(this).attr('name'))
                 if(res[$(this).attr('name').replace('[]','')])
                 {
@@ -102,9 +101,9 @@
             if(res){
             
             res = JSON.parse(res);
-            //alert(res['applicants_email']);
+           
              $('.subform_'+sub_id+' input:not([type=image],[type=button],[type=submit],[type=checkbox],[type=radio]),.subform_'+sub_id+' textarea').each(function(){
-                //alert($(this).attr('name');
+          
                 if(res[$(this).attr('name').replace('[]','')])
                 {
                     <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
@@ -112,7 +111,7 @@
                 }
              });
              $('.subform_'+sub_id+' select').each(function(){
-                //alert($(this).attr('name');
+                
                 if(res[$(this).attr('name').replace('[]','')])
                 {
                     $this = $(this);
@@ -130,10 +129,10 @@
              });
              
              $('.subform_'+sub_id+' radio').each(function(){
-                //alert($(this).attr('name');
+                
                 if(res[$(this).attr('name').replace('[]','')])
                 {
-                    //$this = $(this);
+                   
                     if($(this).val() == res[$(this).attr('name').replace('[]','')]){
                     $(this).attr('checked','checked');
                     }
@@ -142,10 +141,10 @@
              });
              
              $('.subform_'+sub_id+' checkbox').each(function(){
-                //alert($(this).attr('name');
+                
                 if(res[$(this).attr('name').replace('[]','')])
                 {
-                    //$this = $(this);
+                   
                     if($(this).val() == res[$(this).attr('name').replace('[]','')]){
                     $(this).attr('checked','checked');
                     }
