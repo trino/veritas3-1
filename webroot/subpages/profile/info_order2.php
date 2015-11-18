@@ -354,7 +354,7 @@
                 $ALERT= "infoorder_incomplete";
             }
             if ($dr->id == $driver || $counting == 1 && $driver != '0'){ echo 'selected="selected"'; }
-            echo '>' . $strings[$ALERT] . " " . formatname($dr) . '</option>';
+            echo '>' . $strings[$ALERT] . " " . formatname($dr) .  'test</option>';
         }
         ?>
     </select>
@@ -392,6 +392,8 @@
 </div>
 
 <script>
+    AtLeastOneProduct = '<?= addslashes($strings["infoorder_atleastone"]); ?>';
+
     function changelist(Ordertype, ClientID){
         //PRODUCTLIST
         $.ajax({
@@ -433,7 +435,7 @@
                 checkerbox = 1;
         });
         if (checkerbox == 0) {
-            alert('Please select at least one product');
+            alert(AtLeastOneProduct);
             return false;
         }
         var checker = 0;
@@ -465,6 +467,10 @@
             }
             if ($('.selecting_client').val()) {
                 <?php if(!isset($_GET['profiles'])){?>
+                if(!getcheckboxes()){
+                    alert(AtLeastOneProduct);
+                    return false;
+                }
                 Driver = $('.selecting_driver').val();
                 if(typeof Driver === "undefined"){
                     Driver = Drivers();

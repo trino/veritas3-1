@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2015 at 04:43 PM
+-- Generation Time: Nov 18, 2015 at 10:42 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=832 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=835 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447796537', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447861432', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -699,7 +699,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (671, 'infoorder_selectclient', 'Select a %client%', 'Sélectionner un %client%'),
 (672, 'documents_selectdocument', 'Select %Document%', 'Sélectionnez %document%'),
 (673, 'forms_credssent', 'Credentials sent', 'Pouvoirs envoyés'),
-(679, 'email_profilecreated_variables', 'email', ''),
+(679, 'email_profilecreated_variables', 'username, email, path, createdby, type, password, id', ''),
 (680, 'email_documentcreated_variables', 'site, email, company_name, username, id, path, profile_type, place, document_type', ''),
 (681, 'email_ordercompleted_variables', 'email, username, profile_type, company_name, for, html, path', ''),
 (682, 'email_gfs_variables', 'email, path1, path2, site, username', ''),
@@ -844,7 +844,10 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
 (828, 'email_application_message', 'Doc ID: %document Client ID: %client%   A new application for employment has been submitted. Please click here to view the profile, thank you.', 'email_application_message'),
 (829, 'email_application_variables', 'email, document, client', ''),
-(831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%');
+(831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%'),
+(832, 'infoorder_atleastone', 'Please select at least one product', 'S''il vous plaît sélectionner au moins un produit'),
+(833, 'email_bulkorder_subject', 'Bulk Order Created', 'email_bulkorder_subject'),
+(834, 'email_bulkorder_message', '%profiles%', 'email_bulkorder_message');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

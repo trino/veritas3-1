@@ -31,6 +31,14 @@ function printtdline($Text){
     echo "<TR><TD>" . $Text . "</TD></TR>";
 }
 
+$Fields = array ("fname" => "forms_firstname", "email" => "forms_email", "lname" => "forms_lastname", "profile_type" => "profiles_profiletype", "gender" => "forms_gender",  "driver_province" => "forms_provinceissued", "title" => "forms_title", "placeofbirth" => "forms_placeofbirth", "sin" => "forms_sin", "phone" => "forms_phone", "street" => "forms_address", "city" => "forms_city", "province" => "forms_provincestate", "postal" => "forms_postalcode", "country" => "forms_country", "dob" => "forms_dateofbirth", "driver_license_no" => "forms_driverslicense", "expiry_date" => "forms_expirydate");
+
+function hasallfields($r, $Fields){
+    foreach($Fields as $Key => $Value){
+        if(!$r->$Key){return false;}
+    }
+    return true;
+}
 
 $fulllist="";
 if(iterator_count($profiles)==0){
@@ -59,6 +67,7 @@ if(iterator_count($profiles)==0){
         }
         if ($mode == 1) {
             $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
+            if($DOIT){ $DOIT = hasallfields($r, $Fields); }
         }
 
         if ($DOIT) {

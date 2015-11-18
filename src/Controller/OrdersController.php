@@ -1546,9 +1546,15 @@
             $arr['user_id'] = $this->request->session()->read('Profile.id');
             $arr['driver'] = '';
             $arr['order_id'] = '';
+            $ord = TableRegistry::get('orders');
+
+            $Profiles = array();
             foreach($drivers as $driver) {
                 $arr['uploaded_for'] = $driver;
-                $ord = TableRegistry::get('orders');
+
+                $Profile = $this->Manager->get_profile($driver);
+                $Profile = $Profile->fname . ' ' . $Profile->mname . ' ' . $Profile->lname . ' (' . $Profile->username . ')';
+                $Profiles[] = $Profile;
 
                 $doc = $ord->newEntity($arr);
                 $ord->save($doc);
@@ -1563,17 +1569,23 @@
                 }else {
                     $arr['order_id'] = $doc->id;
                 }
-                
-                if (!is_dir(APP.'../webroot/orders/order_'.$doc->id)) {
-                               mkdir(APP . '../webroot/orders/order_' . $doc->id, 0777);
-                           }
+
+                $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
+                if (!is_dir($DIR)) {
+                   mkdir($DIR, 0777);
+                }
                 unset($doc);
             }
+            $Profiles = implode("<BR>\r\n", $Profiles);
+
+            $Emails = $this->Manager->enum_profiles_permission($arr['client_id'] , "email_orders", "email");
+            $this->Mailer->handleevent("bulkorder", array("profiles" => $Profiles, "email" => $Emails));
 
             echo json_encode($arr);
-            $this->Flash->success($this->Trans->getString("flash_bulkorder"));
+            $this->Flash->success($this->Trans->getString("flash_bulkorder") . " DIR: " . $DIR);
             die();
         }
+
         public function checkPermisssionOrder($did,$driver) {
             $recruiter = $this->request->session()->read('Profile.id');
             $ord = TableRegistry::get('profilessubdocument');
