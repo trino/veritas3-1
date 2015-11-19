@@ -488,6 +488,7 @@
                         url:'<?php echo $this->request->webroot;?>orders/bulksubmit/true',
                         type:'post',
                         success:function(res) {
+                            alert(res);
                             /*
                             var response = JSON.parse(res);
                             var driv = response['driver'];//.split(',');

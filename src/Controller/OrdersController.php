@@ -831,89 +831,100 @@
         }
 
         public function webservice($order_type = null, $forms = null, $driverid = null, $orderid = null) {
-            $all_attachments = TableRegistry::get('mee_attachments');
-            $mee_query = $all_attachments->find()->where(['order_id'=>$orderid]);
-            $orderid=$this->filternonnumeric($orderid);//there is an error message being passed in $orderid!!!
-            $uploadedfor = $this->getprofile($driverid);
+            if(strpos($driverid, ",") !== false){
+                echo "Bulk drivers: " . $driverid . " Orders: " . $orderid;
+                $driverid = explode(",", $driverid);
+                $orderid = explode(",", $orderid);
+                die();
+            } else {
+                $all_attachments = TableRegistry::get('mee_attachments');
+                $mee_query = $all_attachments->find()->where(['order_id' => $orderid]);
+                $orderid = $this->filternonnumeric($orderid);//there is an error message being passed in $orderid!!!
+                $uploadedfor = $this->getprofile($driverid);
 
-            if($mee_query) {
-                foreach($mee_query as $mq) {
-                    /* UNCOMMENT BELOW TO VIEW THE ATTACHMENTS OF MEE*/
-                    echo "forms: " . $forms . "<BR>";
-                    echo 'id_piece1: '.$mq->id_piece1.'<br/>';
-                    echo 'id_piece2: '.$mq->id_piece2.'<br/>';
-                    echo 'driver_record_abstract: '.$mq->driver_record_abstract.'<br/>';
-                    echo 'cvor: '.$mq->cvor.'<br/>';
-                    echo 'resume: '.$mq->resume.'<br/>';
-                    echo 'certification: '.$mq->certification.'<br/>';
-                    $more_mee = TableRegistry::get('mee_attachments_more');
-                    $more = $more_mee->find()->where(['mee_id'=>$mq->id]);
-                    if($more) {//WEBSERVICE DEBUGGER
-                        $First=true;
-                        foreach($more as $file) {
-                            $realpath = getcwd() . "/attachments/" . $file->attachments;
-                            if (file_exists($realpath)) {
-                                $label = "ADDITIONAL ATTACHMENT: ";
-                                if($First){//} && !empty($driverid)){
-                                    $DriverProvince = $uploadedfor->driver_province;
-                                    echo "Driver's license Province: " . $DriverProvince . "<BR>";
-                                    $forms = explode(",", $forms);
-                                    $First = (in_array("1", $forms) && $DriverProvince == "QC") || (in_array("14", $forms) && ($DriverProvince == "SK" || $DriverProvince == "BC"));
-                                    if ($First) {$label = "Abstract consent form: ";}
+                if ($mee_query) {
+                    foreach ($mee_query as $mq) {
+                        /* UNCOMMENT BELOW TO VIEW THE ATTACHMENTS OF MEE*/
+                        echo "forms: " . $forms . "<BR>";
+                        echo 'id_piece1: ' . $mq->id_piece1 . '<br/>';
+                        echo 'id_piece2: ' . $mq->id_piece2 . '<br/>';
+                        echo 'driver_record_abstract: ' . $mq->driver_record_abstract . '<br/>';
+                        echo 'cvor: ' . $mq->cvor . '<br/>';
+                        echo 'resume: ' . $mq->resume . '<br/>';
+                        echo 'certification: ' . $mq->certification . '<br/>';
+                        $more_mee = TableRegistry::get('mee_attachments_more');
+                        $more = $more_mee->find()->where(['mee_id' => $mq->id]);
+                        if ($more) {//WEBSERVICE DEBUGGER
+                            $First = true;
+                            foreach ($more as $file) {
+                                $realpath = getcwd() . "/attachments/" . $file->attachments;
+                                if (file_exists($realpath)) {
+                                    $label = "ADDITIONAL ATTACHMENT: ";
+                                    if ($First) {//} && !empty($driverid)){
+                                        $DriverProvince = $uploadedfor->driver_province;
+                                        echo "Driver's license Province: " . $DriverProvince . "<BR>";
+                                        $forms = explode(",", $forms);
+                                        $First = (in_array("1", $forms) && $DriverProvince == "QC") || (in_array("14", $forms) && ($DriverProvince == "SK" || $DriverProvince == "BC"));
+                                        if ($First) {
+                                            $label = "Abstract consent form: ";
+                                        }
+                                    }
+                                    echo $label . $file->attachments . '<br/>';
+
+                                    //debug($file);
+                                    $First = False;
                                 }
-                                echo $label . $file->attachments . '<br/>';
-
-                                //debug($file);
-                                $First = False;
                             }
+
+                            $this->set('attachments_more', $more);
+
                         }
 
-                        $this->set('attachments_more', $more);
-
+                        $this->set('attachments1', $mq);
                     }
-
-                    $this->set('attachments1', $mq);
                 }
+
+                $all_attachments = TableRegistry::get('doc_attachments');
+                $this->layout = "blank";
+
+                $model = TableRegistry::get('profiles');
+                $driverinfo = $model->find()->where(['id' => $driverid])->first(); //$conditions[] = 'find_in_set(id, ' . $conditions2 . ')'
+
+                $this->set('orderid', $orderid);
+                $this->set('driverinfo', $driverinfo);
+
+                if ($order_type == "Requalification") {
+                    $ordertype1 = "MEE-REQ";
+                } else if ($order_type == "Order Products") {
+                    $ordertype1 = "MEE-IND";
+                } else {
+                    $ordertype1 = "MEE";
+                }
+                $this->set('ordertype', $ordertype1);
+
+                $orders = TableRegistry::get('orders');
+                $order_info = $orders->find()->where(['id' => $orderid])->first();
+                $this->set('order_info', $order_info);
+
+                $order_attach = $all_attachments->find()->where(['order_id' => $orderid]);
+
+                $this->set('order_attach', $order_attach);
+                $this->set('subdocument', TableRegistry::get('subdocuments'));
+
+                if ($order_info->user_id == 0) {
+                    $order_info->user_id = $this->request->session()->read('Profile.id');
+                }
+                $profile = $this->getcol("profiles", "id", $order_info->user_id);
+                $client = $this->getcol("clients", "id", $order_info->client_id);
+
+                $setting = TableRegistry::get('settings')->find()->first();
+
+                $this->set('servicearr', array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for));
+                $this->set('mailer', $this->Mailer);
+                $this->set('order_model', $orders);
+                $this->set('orderid', $orderid);
+                //$this->Mailer->handleevent("ordercompleted", );//$order_info
             }
-
-            $all_attachments = TableRegistry::get('doc_attachments');
-            $this->layout = "blank";
-
-            $model = TableRegistry::get('profiles');
-            $driverinfo = $model->find()->where(['id' => $driverid])->first(); //$conditions[] = 'find_in_set(id, ' . $conditions2 . ')'
-
-            $this->set('orderid', $orderid);
-            $this->set('driverinfo', $driverinfo);
-
-            if ($order_type == "Requalification") {
-                $ordertype1 = "MEE-REQ";
-            } else if ($order_type == "Order Products") {
-                $ordertype1 = "MEE-IND";
-            } else {
-                $ordertype1 = "MEE";
-            }
-            $this->set('ordertype', $ordertype1);
-
-            $orders = TableRegistry::get('orders');
-            $order_info = $orders->find()->where(['id' => $orderid])->first();
-            $this->set('order_info', $order_info);
-
-            $order_attach = $all_attachments->find()->where(['order_id'=>$orderid]);
-
-            $this->set('order_attach', $order_attach);
-            $this->set('subdocument', TableRegistry::get('subdocuments'));
-
-            if ($order_info->user_id == 0){ $order_info->user_id = $this->request->session()->read('Profile.id'); }
-            $profile = $this->getcol("profiles", "id", $order_info->user_id);
-            $client =  $this->getcol("clients", "id", $order_info->client_id);
-
-            $setting = TableRegistry::get('settings')->find()->first();
-
-            $this->set('servicearr',array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for));
-            $this->set('mailer',$this->Mailer);
-            $this->set('order_model',$orders);
-            $this->set('orderid',$orderid);
-            //$this->Mailer->handleevent("ordercompleted", );//$order_info
         }
 
 
@@ -1564,11 +1575,11 @@
 
                 $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
                 if (!is_dir($DIR)) {
-                   mkdir($DIR, 0777);
+                   @mkdir($DIR, 0777);
                 }
 
                 if($Send){
-                    $this->webservice('BUL', $arr['forms'], $driver, $doc->id);
+                    //$this->webservice('BUL', $arr['forms'], $driver, $doc->id);
                 }
                 unset($doc);
             }
@@ -1576,6 +1587,12 @@
 
             $Emails = $this->Manager->enum_profiles_permission($arr['client_id'] , "email_orders", "email");
             $this->Mailer->handleevent("bulkorder", array("profiles" => $Profiles, "email" => $Emails));
+
+            if($Send){
+                //$this->webservice('BUL', $arr['forms'], $arr['driver'], $arr['order_id']);
+                $URL=implode("/", array('orders', 'webservice', 'BUL', $arr['forms'], implode(",", $arr['driver']), implode(",", $arr['order_id'])));
+                echo $this->requestAction($URL);
+            }
 
             $arr['driver'] = implode(",", $arr['driver']);
             $arr['order_id'] = implode(",", $arr['order_id']);
