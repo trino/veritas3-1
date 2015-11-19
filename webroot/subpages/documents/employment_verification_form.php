@@ -34,7 +34,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
         ?>
 
         <div class="form-group row">
-            <h3 class="col-md-12"><?= $strings2["verifs_pastemploy"]; ?></h3>
+            <p class="col-md-12" style="font-weight: bold;"><?= $strings2["verifs_pastemploy"]; ?></p>
         </div>
         <div class="GNDN">
 

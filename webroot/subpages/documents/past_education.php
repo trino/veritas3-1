@@ -5,7 +5,7 @@ if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div class="clearfix"></div>
 <hr />
  <div class="form-group row">
-                    <h4 class="control-label col-md-12">Past Education</h4>
+                    <p class="control-label col-md-12" style="font-weight: bold;">Past Education</h4>
                     </div>
                     <div class="form-group row">
                     <label class="control-label col-md-3">School/College Name </label>

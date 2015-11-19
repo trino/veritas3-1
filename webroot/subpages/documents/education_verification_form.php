@@ -283,7 +283,7 @@
                         ?>
                         <div class="form-group row">
                             <div class="col-md-2">
-                                <h4 class="control-label col-md-12"><?= $strings2["verifs_pasteducat"]; ?></h4>
+                                <p class="control-label" style="font-weight: bold;"><?= $strings2["verifs_pasteducat"]; ?></p>
                             </div>
                         </div>
                         <div class="form-group row">

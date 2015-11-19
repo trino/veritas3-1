@@ -28,7 +28,7 @@
     } ?>
 
    <div class="form-group left15 col-md-12">
-        <h4 class="control-label col-md-12"><translate>verifs_pastemploy</translate></h4>
+        <p class="control-label col-md-12" style="font-weight: bold;"><translate>verifs_pastemploy</translate></p>
    </div>
                 
    <div class="form-group left15 col-md-12">
