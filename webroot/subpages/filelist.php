@@ -267,7 +267,8 @@
                 }
             }
             echo '</table>';
-        } else {//old layout ?>
+        } else {
+            //old layout ?>
             <div class="form-group col-md-12">
                 <label class="control-label" id="attach_label"><?php
                     echo $strings["forms_attachedfiles"];
@@ -318,7 +319,7 @@
                         }
                         if ($count == 0) {
                             ?>
-                        <?
+                        <?php
                         } ?>
 
                 </div>
