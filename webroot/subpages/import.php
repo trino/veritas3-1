@@ -47,157 +47,190 @@ function makesimpleselect($Manager, $Table, $Field){
 </form>
 <TABLE CLASS="table table-condensed  table-striped table-bordered table-hover dataTable">
     <THEAD>
-        <TH>#</TH>
-        <TH>Name</TH>
-        <TH>Type</TH>
-        <TH>Notes</TH>
+        <TR>
+            <TH COLSPAN="5">The first line must specify the database fields. Leave the first line as DEFAULT to use this column order:</TH>
+        </TR>
+        <TR>
+            <TH>#</TH>
+            <TH>Name</TH>
+            <TH>Database Field</TH>
+            <TH>Type</TH>
+            <TH>Notes</TH>
+        </TR>
     </THEAD>
     <TBODY>
         <TR>
             <TD>1</TD>
             <TD>Profile Type<SPAN CLASS="required"></SPAN></TD>
+            <TD>profile_type</TD>
             <TD>Number</TD>
             <TD><?php makesimpleselect($Manager, "profile_types", "title"); ?></TD>
         </TR>
         <TR>
             <TD>2</TD>
             <TD>Driver</TD>
+            <TD>driver</TD>
             <TD>Number</TD>
             <TD>I don't know what this is for</TD>
         </TR>
         <TR>
             <TD>3</TD>
             <TD>Username</TD>
+            <TD>username</TD>
             <TD>Text</TD>
             <TD>Must be unique</TD>
         </TR>
         <TR>
             <TD>4</TD>
             <TD>Title<SPAN CLASS="required"></SPAN></TD>
+            <TD>title</TD>
             <TD>Option</TD>
             <TD>Must be either: "Mr", "Ms" or "Mrs"</TD>
         </TR>
         <TR>
             <TD>5</TD>
             <TD>First Name<SPAN CLASS="required"></SPAN></TD>
+            <TD>fname</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>6</TD>
             <TD>Middle Name</TD>
+            <TD>mname</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>7</TD>
             <TD>Last Name<SPAN CLASS="required"></SPAN></TD>
+            <TD>lname</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
+            <TD>N/A</TD>
+            <TD>Full Name</TD>
+            <TD>FULLNAME</TD>
+            <TD>Text</TD>
+            <TD>If a full name is given, it will be split up into the fname mname and lname</TD>
+        </TR>
+        <TR>
             <TD>8</TD>
             <TD>Phone Number<SPAN CLASS="required"></SPAN></TD>
+            <TD>phone</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>9</TD>
             <TD>Gender<SPAN CLASS="required"></SPAN></TD>
+            <TD>gender</TD>
             <TD>Option</TD>
             <TD>Must be either: "Male" or "Female"</TD>
         </TR>
         <TR>
             <TD>10</TD>
             <TD>Place of Birth<SPAN CLASS="required"></SPAN></TD>
+            <TD>placeofbirth</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>11</TD>
             <TD>Date of Birth<SPAN CLASS="required"></SPAN></TD>
+            <TD>dob</TD>
             <TD>Date</TD>
             <TD>YYYY-MM-DD</TD>
         </TR>
         <TR>
             <TD>12</TD>
             <TD>Street<SPAN CLASS="required"></SPAN></TD>
+            <TD>street</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>13</TD>
             <TD>City<SPAN CLASS="required"></SPAN></TD>
+            <TD>city</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>14</TD>
             <TD>Province<SPAN CLASS="required"></SPAN></TD>
+            <TD>province</TD>
             <TD>Option</TD>
             <TD><?php provinces("","","", "Acronyms"); ?></TD>
         </TR>
         <TR>
             <TD>15</TD>
             <TD>Postal Code<SPAN CLASS="required"></SPAN></TD>
+            <TD>postal</TD>
             <TD>Text</TD>
             <TD>LETTER Number LETTER Space Number LETTER Number</TD>
         </TR>
         <TR>
             <TD>16</TD>
             <TD>Country<SPAN CLASS="required"></SPAN></TD>
+            <TD>country</TD>
             <TD>Ignored</TD>
             <TD>Will always be Canada</TD>
         </TR>
         <TR>
             <TD>17</TD>
             <TD>Driver's license number<SPAN CLASS="required"></SPAN></TD>
+            <TD>driver_license_no</TD>
             <TD>Text</TD>
             <TD></TD>
         </TR>
         <TR>
             <TD>18</TD>
             <TD>Province driver's license was issued<SPAN CLASS="required"></SPAN></TD>
+            <TD>driver_province</TD>
             <TD>Option</TD>
             <TD><?php provinces("","","", "Acronyms"); ?></TD>
         </TR>
         <TR>
             <TD>19</TD>
             <TD>Driver's license Expiry Date<SPAN CLASS="required"></SPAN></TD>
+            <TD>expiry_date</TD>
             <TD>Date</TD>
             <TD>YYYY-MM-DD</TD>
         </TR>
         <TR>
             <TD>20</TD>
             <TD>Email Address<SPAN CLASS="required"></SPAN></TD>
+            <TD>email</TD>
             <TD>Text</TD>
             <TD>Must be unique</TD>
         </TR>
         <TR>
             <TD>21</TD>
             <TD>Client ID<SPAN CLASS="required"></SPAN></TD>
+            <TD>CLIENTID</TD>
             <TD>Number</TD>
             <TD><?php makesimpleselect($Manager, "clients", "company_name"); ?></TD></TD>
         </TR>
         <TR>
             <TD>22</TD>
             <TD>Hired Date</TD>
+            <TD>hired_date</TD>
             <TD>Date</TD>
             <TD>YYYY-MM-DD</TD>
         </TR>
         <TR>
             <TD>23</TD>
             <TD>Social Insurance Number<SPAN CLASS="required"></SPAN></TD>
+            <TD>sin</TD>
             <TD>Text</TD>
             <TD>###-###-###</TD>
         </TR>
     </TBODY>
     <TFOOT>
         <TR>
-            <TD COLSPAN="4" ALIGN="CENTER">This is the order in which the data must be on each line</TD>
-        </TR>
-        <TR>
-            <TD COLSPAN="4" ALIGN="CENTER"><SPAN CLASS="required"></SPAN> denotes a field required to place an order</TD>
+            <TD COLSPAN="5" ALIGN="CENTER"><SPAN CLASS="required"></SPAN> denotes a field required to place an order</TD>
         </TR>
     </TFOOT>
 </TABLE>

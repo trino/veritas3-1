@@ -1016,58 +1016,100 @@
             $allowed = array('csv');
             $check = strtolower($ext);
             if (in_array($check, $allowed)) {
+                $Filename = $_FILES['csv']['tmp_name'];
                 if ($_FILES['csv']['size'] > 0) {
-                    $handle = fopen($_FILES['csv']['tmp_name'], "r");
+                    $handle = fopen($Filename, "r");
+
+                    $file = fopen($Filename,"r");
+                    $Contents = fread($file,$_FILES['csv']['size']);
+                    fclose($file);
+                    if (strpos($Contents, ",") !== false){
+                        $Delimeter = ",";
+                    } else if (strpos($Contents, "\t") !== false){
+                        $Delimeter = "\t";
+                    }
                     $i=0;
                     $flash ="";
                     $line = 0;
-                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                        if($i!=0){
-                            $line++;
-                            $em =0;
-                            $un =0;
-                            if($data[19]!="") {$em = $this->check_email('', $data[19]);}
-                            if($data[2]!="") {$un = $this->check_user('', $data[2]);}
-                            if($un == 1 && $data[19]) {//ignore if username is blank, fix that later
-                                $flash .= "Failed: Username '" . $data[2] . "' already exists(Line no ".$line."), ";
-                            }elseif($em == 1) {
-                                $flash .= "Failed: Email '" . $data[19] . "' already exists(Line no ".$line."), ";
+                    while (($data = fgetcsv($handle, 1000, $Delimeter)) !== FALSE) {
+                        if($i==0) {
+                            if($data[0] == "DEFAULT"){
+                                $Columns = explode(",", "profile_type,driver,username,title,fname,mname,lname,phone,gender,placeofbirth,dob,street,city,province,postal,country,driver_license_no,driver_province,expiry_date,email,CLIENTID,hired_date,sin");
                             } else {
-
-                                foreach($data as $KEY => $VALUE){//clean all values
-                                    $data[$KEY] =  trim(ucfirst(addslashes($VALUE)));
+                                $Columns = $data;
+                            }
+                            /*
+                                $Columns = $this->Manager->getColumnNames("profiles");
+                                $Columns["FULLNAME"];
+                                $Columns["CLIENTID"];
+                            */
+                        } else {
+                            $line++;
+                            $DOIT=count($data);
+                            if($DOIT) {
+                                foreach ($data as $KEY => $VALUE) {//clean all values
+                                    $data[$KEY] = trim(ucfirst(addslashes($VALUE)));
+                                }
+                                $pro = array_combine($Columns, $data);
+                                $ClientID = 0;
+                                if (isset($pro["CLIENTID"])) {
+                                    $ClientID = $pro["CLIENTID"];
+                                    unset($pro["CLIENTID"]);
+                                }
+                                $pro["country"] = "Canada";
+                                if (isset($pro["title"])) {
+                                    if (strpos($pro["title"], ".") === false) {
+                                        $pro["title"] .= ".";
+                                    }
+                                }
+                                if (isset($pro["province"])) {
+                                    $pro["province"] = strtoupper($pro["province"]);
+                                }
+                                foreach (array("dob", "expiry_date", "hired_date") as $KEY) {
+                                    if (isset($pro[$KEY])) {
+                                        $pro[$KEY] = date('Y-m-d', strtotime($pro[$KEY]));
+                                    }
+                                }
+                                if (isset($pro["FULLNAME"])) {
+                                    $pro["FULLNAME"] = explode(" ", $pro["FULLNAME"]);
+                                    $pro["fname"] = $pro["FULLNAME"][0];
+                                    $pro["lname"] = $pro["FULLNAME"][count($pro["FULLNAME"]) - 1];
+                                    if (count($pro["FULLNAME"]) > 2) {
+                                        $pro["mname"] = $pro["FULLNAME"][1];
+                                    }
+                                    unset($pro["FULLNAME"]);
+                                }
+                                foreach (array("fname", "mname", "lname") as $KEY) {
+                                    if (isset($pro[$KEY])) {
+                                        $pro[$KEY] = ucfirst( strtolower($pro[$KEY]));
+                                    }
                                 }
 
-                                $pro = (['profile_type' =>  $data[0],
-                                    'driver'            =>  $data[1],
-                                    'username'          =>  $data[2],
-                                    'title'             =>  $data[3] . ".",
-                                    'fname'             =>  $data[4],
-                                    'mname'             =>  $data[5],
-                                    'lname'             =>  $data[6],
-                                    'phone'             =>  $data[7],
-                                    'gender'            =>  $data[8],
-                                    'placeofbirth'      =>  $data[9],
-                                    'dob'               =>  date('Y-m-d',strtotime($data[10])),
-                                    'street'            =>  $data[11],
-                                    'city'              =>  $data[12],
-                                    'province'          =>  strtoupper($data[13]),
-                                    'postal'            =>  $data[14],
-                                    'country'           =>  "Canada",
-                                    'driver_license_no' =>  $data[16],
-                                    'driver_province'   =>  $data[17],
-                                    'expiry_date'       =>  date("Y-m-d",strtotime($data[18])),
-                                    'email'             =>  $data[19],
-                                    'hired_date'        =>  date("Y-m-d",strtotime($data[21])),
-                                    'sin'               =>  $data[22]
-                                ]);
-
-                                $pros = $profile->newEntity($pro);
-                                if($profile->save($pros)) {
-                                    $flash .= "Success (Line no ".$line."), ";
-                                    if($data[20]){$this->Manager->assign_profile_to_client($pros->id, $data[20]);}
-                                    $this->Manager->makepermissions($pros->id, "blocks", $pros->profile_type);
-                                    $this->Manager->makepermissions($pros->id, "sidebar", $pros->profile_type);
+                                if (isset($pro["email"]) && $pro["email"]) {
+                                    $em = $this->check_email('', $pro["email"]);
+                                    if ($em == 1) {
+                                        $flash .= "Failed: Email '" . $pro["email"] . "' already exists(Line no " . $line . "), ";
+                                        $DOIT = false;
+                                    }
+                                }
+                                if (isset($pro["username"]) && $pro["username"]) {
+                                    $em = $this->check_user('', $pro["username"]);
+                                    if ($em == 1) {
+                                        $flash .= "Failed: Username '" . $pro["username"] . "' already exists(Line no " . $line . "), ";
+                                        $DOIT = false;
+                                    }
+                                }
+                                $pro = $this->Manager->remove_empties($pro);
+                                if ($DOIT) {
+                                    $pros = $profile->newEntity($pro);
+                                    if ($profile->save($pros)) {
+                                        $flash .= "Success (Line no " . $line . "), ";
+                                        if ($ClientID) {
+                                            $this->Manager->assign_profile_to_client($pros->id, $ClientID);
+                                        }
+                                        $this->Manager->makepermissions($pros->id, "blocks", $pros->profile_type);
+                                        $this->Manager->makepermissions($pros->id, "sidebar", $pros->profile_type);
+                                    }
                                 }
                             }
                         }

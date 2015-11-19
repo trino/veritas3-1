@@ -1398,7 +1398,11 @@ class ManagerComponent extends Component {
     function matchcolumns($Table, $Data){
         $Table = $this->getColumnNames($Table);
         foreach($Data as $key => $value){
-            if(!in_array($key,$Table)){
+            if(is_numeric($key)){
+                if(!in_array($value,$Table)) {
+                    unset($Data[$value]);
+                }
+            } else if(!in_array($key,$Table)){
                 unset($Data[$key]);
             }
         }
