@@ -1,5 +1,5 @@
 <?php
- if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/profile/emails.php #INC???</span>"; }
+if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/profile/emails.php #INC???</span>"; }
 
 $languages = array("English", "French");
 $strings2 = array();
@@ -53,6 +53,16 @@ foreach($strings3 as $Key => $Data){
     if($currentemail) {
         $emails[$name] = $currentemail;
     }
+}
+
+if(isset($_GET["export"])){
+    echo $CRLF = "\r\n";
+    foreach($emails as $Key => $Data){
+        echo "[" . $Key . "]" . $CRLF;
+        echo "Subject=" . $Data["subject[English]"] . $CRLF;
+        echo "Email=" . $CRLF . $Data["message[English]"] . $CRLF . $CRLF;
+    }
+    die();
 }
 
 echo '<TABLE CLASS="table table-hover" width="100%"><THEAD><TH>Event</TH><TH WIDTH="100%">Email</TH></THEAD><TBODY><TD>';

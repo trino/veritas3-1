@@ -779,16 +779,16 @@
             $data["username"] = "revolution_user";
             $data["password"] = md5("Pass34533!z4");
 
-            $JSON = true;
+            $JSON = false;
             $BaseURL = 'http://isbmee.ca/mee/';//(REMOTE)
             //$BaseURL = LOGIN;//(LOCAL)
             if ($JSON) {
                 $data = json_encode($data);
                 echo $this->Manager->cURL($BaseURL . 'rapid/placerapidorder', $data);//hard way (the same way they'll be doing it)
             } else {
-                //echo $this->placerapidorder($data);//fast way
-                $data = $this->array_flatten($data);//your URL: 'http://isbmee.ca/mee/rapid/placerapidorder'
-                echo $this->Manager->cURL($BaseURL . 'rapid/placerapidorder', $data, "multipart/form-data");//hard way (the same way they'll be doing it)
+                echo $this->placerapidorder($data);//fast way
+                //$data = $this->array_flatten($data);//your URL: 'http://isbmee.ca/mee/rapid/placerapidorder'
+                //echo $this->Manager->cURL($BaseURL . 'rapid/placerapidorder', $data, "multipart/form-data");//hard way (the same way they'll be doing it)
             }
             die();
         }
@@ -898,22 +898,25 @@
             if (!$ClientID) {
                 $this->Status(False, "Not a valid client ID");
             }
+
+            $GETPOST["email"] = trim($GETPOST["email"]);
+            $Profile = $this->Manager->get_entry("profiles", $GETPOST["email"], "email");
+            if($Profile){
+                $Clients = $this->Manager->find_client($Super->id, false);
+                if($this->Manager->is_assigned_to_client($Profile->id, $Clients)){
+                    $GETPOST["driverid"] = $Profile->id;
+                }
+            }
+
             if (isset($GETPOST["driverid"])) {
                 $Driver = $GETPOST["driverid"];
                 $this->testuser($Driver, "id");
             } else {
-                //$GETPOST["email"] = "a1243@gmail.com";//comment out when in post production!!!!!
+                //$GETPOST["email"] = "roy@trinoweb.com";//comment out when in post production!!!!!
                 if (!$this->Manager->validate_data($this->testuser($GETPOST, "email"), "email")) {
                     $this->Status(False, "Not a valid email address");
                 }
-                /* $this->testuser($GETPOST, "username");
-                if(isset($GETPOST["password"]) && $GETPOST["password"]){
-                    if(!isset($GETPOST["password2"]) || $GETPOST["password"] == $GETPOST["password2"]){
-                        $GETPOST["password"] = md5($GETPOST["password"]);
-                    } else {
-                        Status(False, "Password mismatch");
-                    }
-                } */
+
                 $DateOfBirth = $GETPOST["dob"];
                 if ($DateOfBirth) {//change "10/15/2015" to "2015-10-15"
                     $DateOfBirth = substr($DateOfBirth, 6, 4) . "-" . substr($DateOfBirth, 0, 2) . "-" . substr($DateOfBirth, 3, 2);

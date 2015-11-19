@@ -123,7 +123,19 @@ class ManagerComponent extends Component {
         else
             return 0;
     }
-
+    public function is_assigned_to_client($UserID, $ClientID){
+        if(is_array($ClientID)){
+            foreach($ClientID as $Client){
+                if ($this->is_assigned_to_client($UserID,$Client)){return true;}
+            }
+        } else {
+            $client = $this->get_entry("clients", $ClientID);
+            if ($client) {
+                $client = explode(",", $client->profile_id);
+                return in_array($UserID, $client);
+            }
+        }
+    }
 
 
     //////////////////////////////////profile type API/////////////////////////////////
