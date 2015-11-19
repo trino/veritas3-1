@@ -485,7 +485,7 @@
                     //window.location = '<?php echo $this->request->webroot; ?>orders/orderslist?flash=Bulk Order bypass';
                     $.ajax({
                         data:'forms='+getcheckboxes()+'&drivers='+getdrivers()+'&client='+$('#selecting_client').val()+'&division='+division,
-                        url:'<?php echo $this->request->webroot;?>orders/bulksubmit/true',
+                        url:'<?php echo $this->request->webroot;?>orders/webservice/BUL',
                         type:'post',
                         success:function(res) {
                             alert(res);
