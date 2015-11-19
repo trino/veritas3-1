@@ -175,7 +175,7 @@ function makesimpleselect($Manager, $Table, $Field){
         </TR>
         <TR>
             <TD>21</TD>
-            <TD>Client ID</TD>
+            <TD>Client ID<SPAN CLASS="required"></SPAN></TD>
             <TD>Number</TD>
             <TD><?php makesimpleselect($Manager, "clients", "company_name"); ?></TD></TD>
         </TR>

@@ -1065,8 +1065,7 @@
                                 $pros = $profile->newEntity($pro);
                                 if($profile->save($pros)) {
                                     $flash .= "Success (Line no ".$line."), ";
-
-                                    $this->Manager->assign_profile_to_client($pros->id, $data[20]);
+                                    if($data[20]){$this->Manager->assign_profile_to_client($pros->id, $data[20]);}
                                     $this->Manager->makepermissions($pros->id, "blocks", $pros->profile_type);
                                     $this->Manager->makepermissions($pros->id, "sidebar", $pros->profile_type);
                                 }
