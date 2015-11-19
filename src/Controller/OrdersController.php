@@ -974,7 +974,7 @@
         function profiletype($type){
             return TableRegistry::get('profile_types')->find()->where(['id'=>$type])->first()->title;
         }
-        
+
         function orderinfo($id)
         {
             return TableRegistry::get('orders')->find()->where(['id' => $id])->first();
