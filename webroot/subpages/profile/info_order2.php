@@ -488,7 +488,7 @@
                         url:'<?php echo $this->request->webroot;?>orders/webservice/BUL',
                         type:'post',
                         success:function(res) {
-                            alert(res);
+                         //   alert(res);
                             /*
                             var response = JSON.parse(res);
                             var driv = response['driver'];//.split(',');
@@ -509,7 +509,7 @@
 
 
                             //setTimeout(function(){
-                            //    window.location = '<?php echo $this->request->webroot;?>';
+                              //  window.location = '<?php echo $this->request->webroot;?>';
                             //},10000);
 
 

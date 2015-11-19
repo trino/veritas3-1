@@ -973,6 +973,10 @@
                 }
                 //$this->Mailer->handleevent("ordercompleted", );//$order_info
             }
+
+//make sure u change this to bulk
+            $this->Flash->success($this->Trans->getString("flash_orderdraft"));
+
         }
 
 

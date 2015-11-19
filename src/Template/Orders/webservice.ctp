@@ -4,7 +4,6 @@ var_dump($forms);
 var_dump($orders);
 var_dump($drivers);
 
-die();
 
     if(false){
     include_once('subpages/api.php');
