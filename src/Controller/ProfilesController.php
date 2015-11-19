@@ -1106,6 +1106,9 @@
                                         $DOIT = false;
                                     }
                                 }
+                                if(!isset($pro["profile_type"])){
+                                    $pro["profile_type"] = 5;//driver
+                                }
 
                                 $pro = $this->Manager->remove_empties($pro);
                                 if ($DOIT) {
