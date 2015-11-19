@@ -296,7 +296,7 @@ class DocumentComponent extends Component{
                         $client_name = $gc->company_name;
 
                         $assignedProfile = $this->getAssignedProfile($cid);
-                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile->profile_id.')'])
+                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile->profile_id.')','Profiles.email REGEXP "^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"'])
                                         ->contain(['Sidebar'=> function ($q) {
                                                                         return $q
                                             ->select(['email_document', 'email_orders'])
@@ -308,6 +308,7 @@ class DocumentComponent extends Component{
                             $assignedProfile1 .= $new_pro->id.",";
                         }
                         $assignedProfile1 = substr($assignedProfile1, 0,strlen($assignedProfile1)-1);
+                        //echo $assignedProfile1; die();
                         if($assignedProfile1 && $emailenabled) {
                             if(!isset($_GET['draft'])|| (isset($_GET['draft']) && $_GET['draft']=='0')) {
                                 $profile = explode(',',$assignedProfile1);
