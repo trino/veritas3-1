@@ -923,7 +923,7 @@
                     $GETPOST["dob"] = $DateOfBirth;
                 }
 
-                $Driver = $this->Manager->copyitems($GETPOST, array("profile_type" => 0, "fname", "mname", "lname", "title", "gender" => "Female", "street", "city", "province", "postal", "dob", "driver_license_no", "driver_province", "email", "phone", "city", "country", "sin", "expiry_date", "placeofbirth"));//"password", "username",
+                $Driver = $this->Manager->copyitems($GETPOST, array("profile_type" => 0, "fname", "mname", "lname", "title", "gender" => "Female", "street", "city", "province", "postal", "dob", "driver_license_no", "driver_province", "email", "phone", "city", "country", "sin", "expiry_date", "placeofbirth", "import_type" => 2));//"password", "username",
                 $Driver = $this->Manager->new_entry("profiles", "id", $Driver);
                 $Driver = $Driver["id"];
                 if (!isset($GETPOST["username"]) || !$GETPOST["username"]) {

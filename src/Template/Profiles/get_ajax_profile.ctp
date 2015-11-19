@@ -34,6 +34,9 @@ function printtdline($Text){
 $Fields = array ("fname" => "forms_firstname", "email" => "forms_email", "lname" => "forms_lastname", "profile_type" => "profiles_profiletype", "gender" => "forms_gender",  "driver_province" => "forms_provinceissued", "title" => "forms_title", "placeofbirth" => "forms_placeofbirth", "sin" => "forms_sin", "phone" => "forms_phone", "street" => "forms_address", "city" => "forms_city", "province" => "forms_provincestate", "postal" => "forms_postalcode", "country" => "forms_country", "dob" => "forms_dateofbirth", "driver_license_no" => "forms_driverslicense", "expiry_date" => "forms_expirydate");
 
 function hasallfields($r, $Fields){
+    if($r->import_type == 1){//added via CSV
+        return true;
+    }
     foreach($Fields as $Key => $Value){
         if(!$r->$Key){return false;}
     }
@@ -83,15 +86,10 @@ if(iterator_count($profiles)==0){
             if ($checked) {
                 $checked = 'checked="checked"';
             }
-
-            ?>" type="checkbox" <?= $checked; ?> value="<?php echo $r->id; ?>"/></span>
-                        <span><label for="p_<?= $i ?>"><?php echo $username; ?> <?php if ($profiletype) {
-                                    echo $profiletype;
-                                } ?> </span></label>
-                            <span class="msg_<?php echo $r->id; ?>"></span>
-                        </td>
-                    </tr>
-            <?php
+            echo'" type="checkbox" ' . $checked . ' value="' . $r->id . '"/></span>';
+            echo '<span><label for="p_' . $i . '">' . $username;
+            if ($profiletype) {echo ' ' . $profiletype;}
+            echo '</span></label><span class="msg_' . $r->id . '"></span></td></tr>';
             $i++;
         }
     }
@@ -108,18 +106,18 @@ if(iterator_count($profiles)==0){
 <script>
     function assignProfile(profile,client,status) {
         if(status=='yes') {
-            var url= '<?php echo $this->request->webroot;?>clients/assignProfile/'+profile+'/'+client+'/yes';
+            var url= '<?= $this->request->webroot;?>clients/assignProfile/'+profile+'/'+client+'/yes';
         } else {
-            var url= '<?php echo $this->request->webroot;?>clients/assignProfile/'+profile+'/'+client+'/no';
+            var url= '<?= $this->request->webroot;?>clients/assignProfile/'+profile+'/'+client+'/no';
         }
         $.ajax({url:url});
     }
 
     function assignClient(profile,client,status) {
         if(status=='yes') {
-            var url= '<?php echo $this->request->webroot;?>clients/assignClient/'+profile+'/'+client+'/yes';
+            var url= '<?= $this->request->webroot;?>clients/assignClient/'+profile+'/'+client+'/yes';
         } else {
-            var url= '<?php echo $this->request->webroot;?>clients/assignClient/'+profile+'/'+client+'/no';
+            var url= '<?= $this->request->webroot;?>clients/assignClient/'+profile+'/'+client+'/no';
         }
         $.ajax({url:url});
     }
