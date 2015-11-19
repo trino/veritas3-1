@@ -1013,7 +1013,7 @@
             $arr = explode('.', $_FILES['csv']['name']);
             $ext = end($arr);
 
-            $allowed = array( 'csv');
+            $allowed = array('csv');
             $check = strtolower($ext);
             if (in_array($check, $allowed)) {
                 if ($_FILES['csv']['size'] > 0) {
@@ -1058,32 +1058,17 @@
                                     'driver_province'   =>  $data[17],
                                     'expiry_date'       =>  date("Y-m-d",strtotime($data[18])),
                                     'email'             =>  $data[19],
-                                    'hired_date'       =>  date("Y-m-d",strtotime($data[21]))]
-                                );
+                                    'hired_date'        =>  date("Y-m-d",strtotime($data[21])),
+                                    'sin'               =>  $data[22]
+                                ]);
 
                                 $pros = $profile->newEntity($pro);
                                 if($profile->save($pros)) {
                                     $flash .= "Success (Line no ".$line."), ";
 
-
-                                    $uid = $pros->id;
-                                    $jid = $data[20];
-
-                                    $client =  TableRegistry::get('clients');
-                                    $query = $client->find()->where(['id'=>$jid])->first();
-                                    if($query){
-                                        $profile_id = $query->profile_id;
-                                        $new_ids = $profile_id.",".$uid;
-                                        $client->query()->update()->set(['profile_id'=>$new_ids])
-                                            ->where(['id' => $query->id])
-                                            ->execute();
-
-                                    }
-
+                                    $this->Manager->assign_profile_to_client($pros->id, $data[20]);
                                     $this->Manager->makepermissions($pros->id, "blocks", $pros->profile_type);
                                     $this->Manager->makepermissions($pros->id, "sidebar", $pros->profile_type);
-
-                                    unset($query2);
                                 }
                             }
                         }

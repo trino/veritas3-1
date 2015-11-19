@@ -480,14 +480,30 @@ function getdatecolor($date, $strings = false, $now=""){
     return formatdate($date, $strings);
 }
 
-function provinces($name, $Selected = "", $req=''){
-    echo '<SELECT class="form-control '.$req.'" name="' . $name . '">';
+function provinces($name, $Selected = "", $Required= '', $Language = ""){
     $acronyms = getprovinces("Acronyms");
-    $Provinces = getprovinces("");
+    if($Language=="Acronyms"){
+        $Provinces = getprovinces("English");
+        $Class = "";
+    } else {
+        $Provinces = getprovinces($Language);
+        $Class = "form-control ";
+    }
+    echo '<SELECT class="' . $Class . $Required . '" name="' . $name . '" ' . $Required . '>';
     $ID=0;
     if(!$Selected){$Selected="ON";}
     foreach($acronyms as $acronym){
-        printoption($Provinces[$ID], $Selected, $acronym);
+        $Text="";
+        if($Language == "Acronyms"){
+            if($acronym){
+                $Text = $acronym . " = " . $Provinces[$ID];
+            }
+        } else {
+            $Text = $Provinces[$ID];
+        }
+        if($Text){
+            printoption($Text, $Selected, $acronym);
+        }
         $ID++;
     }
     echo '</SELECT>';
