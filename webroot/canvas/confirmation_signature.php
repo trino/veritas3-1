@@ -52,7 +52,7 @@
 		<a href="#" onclick='$("#test").data("jqScribble").update({brushColor: "rgb(0,0,255)"});'>Blue</a>
 	</div>
 </div>
-<div class="col-sm-10" style="">
+<div class="col-sm-10 conf" style="">
 	<input type="hidden" class="touched" value="0" />
 	<input type="hidden" class="touched_edit" value="<?php if(isset($modal) && $modal->recruiter_signature){ echo 1;} else{ echo 0; }?>" />
 	<?php if($this->request->params['action'] != 'vieworder' && $this->request->params['action'] != 'view'){

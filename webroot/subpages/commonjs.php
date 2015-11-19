@@ -512,7 +512,7 @@ $(function(){
                         //data:'uploaded_for='+$('#uploaded_for').val(),
                         data: data,
                         type: 'post',
-                        beforeSend: function(){$('.overlay-wrapper').show();},
+                        beforeSend: function(){$('.overlay-wrapper').show();<?php if($this->request->params['action'] == 'addorder'){?>if($('.conf .touched').val()=='1')save_signature('1');<?php }?>},
                         url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/'+did+'/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
                         success: function (res) {
                             $('#did').val(res);
@@ -686,6 +686,7 @@ $(function(){
                            
                             else
                             if(sid == 'c1'){
+                               // if(save_signature('1')){
                                 save_recruiter_info(res);
                             }
                             else{
@@ -737,6 +738,7 @@ $(function(){
                     d.resolve(response);
                     if(numb=='1') {
                         $('#recruiter_signature').val(response);
+                        
                     }
                     if(numb=='3') {
                         $('#criminal_signature_applicant').val(response);
