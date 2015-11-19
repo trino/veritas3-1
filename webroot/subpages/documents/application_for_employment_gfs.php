@@ -130,7 +130,7 @@ function makerow($profile, $Fields){
                         <span>No</span>
                         </label>
                     </div>
-                    <div id="yesDiv" style="display: none;">
+                    <div id="yesDiv" style="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->workedbefore=='0')echo 'display: none;'?>">
                         <label class="control-label col-md-2">If yes, when? </label>
                         <div class="col-md-4">
                             <textarea class="form-control" name="worked"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->worked;?></textarea>
@@ -401,12 +401,12 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
-            <div id="partTimeDiv" style="display: none;">
+            <div id="partTimeDiv" style="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal1=='0')echo "display: none;";?>">
 
             <div class="col-md-12">
              <div class="row">
-                <label class="control-label col-md-5">If applying only for part-time, which days and hours?</label>
-                <div class="col-md-7">
+                <label class="control-label col-md-6">If applying only for part-time, which days and hours?</label>
+                <div class="col-md-6">
                     <textarea class="form-control" name="part"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->part;?></textarea>
                 </div>
             </div>
@@ -445,12 +445,12 @@ function makerow($profile, $Fields){
                     </div>
             </div>
             </div>
-            <div id="notAbleDiv" style="display: none;">
+            <div id="notAbleDiv" style="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->legal2=='1')echo 'display: none;'?>">
 
             <div class="col-md-12">
              <div class="row">
-                <label class="control-label col-md-5">If no, please explain: </label>
-                <div class="col-md-7">
+                <label class="control-label col-md-6">If no, please explain: </label>
+                <div class="col-md-6">
                     <textarea class="form-control" name="no_explain"><?php if(isset($application_for_employment_gfs))echo $application_for_employment_gfs->no_explain;?></textarea>
                 </div>
             </div>

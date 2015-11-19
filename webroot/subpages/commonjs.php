@@ -449,7 +449,8 @@ $(function(){
                     if(sid =='18')
                     {
                        $('.overlay-wrapper').show();
-                        if($('#test8').parent().parent().find('.touched').val()=='1'){
+                        if($('#sig8').find('.touched').val()=='1'){
+                           
                             $.when(save_signature('8')).done(function(d1){
                                 $('#gfs_signature').val(d1);
                                 var order_id = did,
@@ -479,6 +480,7 @@ $(function(){
                            }
                            else
                            {
+                            
                                 var order_id = did,
                                     cid = '<?php echo $cid;?>',
                                     url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
