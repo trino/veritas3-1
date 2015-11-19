@@ -1099,6 +1099,14 @@
                                         $DOIT = false;
                                     }
                                 }
+                                if(isset($pro["driver_license_no"]) && $pro["driver_license_no"]){
+                                    $em = $this->Manager->get_entry("profiles", $pro["driver_license_no"],  "driver_license_no");
+                                    if($em){
+                                        $flash .= "Failed: Driver's license # '" . $pro["driver_license_no"] . "' already exists(Line no " . $line . "), ";
+                                        $DOIT = false;
+                                    }
+                                }
+
                                 $pro = $this->Manager->remove_empties($pro);
                                 if ($DOIT) {
                                     $pros = $profile->newEntity($pro);
