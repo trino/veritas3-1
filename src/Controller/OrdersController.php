@@ -831,8 +831,9 @@
         }
 
         public function webservice($order_type = null, $forms = null, $drivers = null, $orders = null) {
-            if($order_type ==  'BUL'){
+            if($order_type == 'BUL'){
                 $forms = $_POST['forms'];
+                $this->set('drivers', $_POST['drivers']);
                 $drivers = explode(",", $_POST['drivers']);
                 $orders = array();
 
@@ -875,6 +876,7 @@
                 $drivers = array($drivers);
                 $orders = array($orders);
             }
+
             for($I = 0; $I < count($drivers); $I++){
                 $driverid = $drivers[$I];
                 $orderid = $orders[$I];
@@ -944,8 +946,8 @@
                 }
                 $this->set('ordertype', $ordertype1);
 
-                $orders = TableRegistry::get('orders');
-                $order_info = $orders->find()->where(['id' => $orderid])->first();
+                $ordersTABLE = TableRegistry::get('orders');
+                $order_info = $ordersTABLE->find()->where(['id' => $orderid])->first();
                 $this->set('order_info', $order_info);
 
                 $order_attach = $all_attachments->find()->where(['order_id' => $orderid]);
@@ -963,8 +965,12 @@
 
                 $this->set('servicearr', array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for));
                 $this->set('mailer', $this->Mailer);
-                $this->set('order_model', $orders);
+                $this->set('order_model', $ordersTABLE);
                 $this->set('orderid', $orderid);
+                $this->set('forms', $forms);
+                if($order_type ==  'BUL'){
+                    $this->set('orders', $orders);
+                }
                 //$this->Mailer->handleevent("ordercompleted", );//$order_info
             }
         }
