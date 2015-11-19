@@ -55,7 +55,7 @@ function makesimpleselect($Manager, $Table, $Field){
             <TH>Name</TH>
             <TH>Database Field</TH>
             <TH>Type</TH>
-            <TH>Notes</TH>
+            <TH>Notes (The dropdowns are to show you possible values, they do nothing)</TH>
         </TR>
     </THEAD>
     <TBODY>

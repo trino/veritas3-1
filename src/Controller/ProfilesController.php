@@ -1094,21 +1094,21 @@
                                 if (isset($pro["email"]) && $pro["email"]) {
                                     $em = $this->check_email('', $pro["email"]);
                                     if ($em == 1) {
-                                        $flash .= "Failed: Email '" . $pro["email"] . "' already exists(Line no " . $line . ")\r\n";
+                                        $flash .= "Failed: Email '" . $pro["email"] . "' already exists(Line no " . $line . ")<BR>";
                                         $DOIT = false;
                                     }
                                 }
                                 if (isset($pro["username"]) && $pro["username"]) {
                                     $em = $this->check_user('', $pro["username"]);
                                     if ($em == 1) {
-                                        $flash .= "Failed: Username '" . $pro["username"] . "' already exists(Line no " . $line . ")\r\n";
+                                        $flash .= "Failed: Username '" . $pro["username"] . "' already exists(Line no " . $line . ")<BR>";
                                         $DOIT = false;
                                     }
                                 }
                                 if(isset($pro["driver_license_no"]) && $pro["driver_license_no"]){
                                     $em = $this->Manager->get_entry("profiles", $pro["driver_license_no"],  "driver_license_no");
                                     if($em){
-                                        $flash .= "Failed: Driver's license # '" . $pro["driver_license_no"] . "' already exists(Line no " . $line . ")\r\n";
+                                        $flash .= "Failed: Driver's license # '" . $pro["driver_license_no"] . "' already exists(Line no " . $line . ")<BR>";
                                         $DOIT = false;
                                     }
                                 }
