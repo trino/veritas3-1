@@ -1116,7 +1116,6 @@
                                     $pro["profile_type"] = 5;//driver
                                 }
                                 $pro["import_type"] = 1;
-                                $pro["is_complete"] = 1;
 
                                 $pro = $this->Manager->remove_empties($pro);
                                 if ($DOIT) {
@@ -2117,10 +2116,10 @@
             $conditions=array('iscomplete' >= 1, 'super <>' => 1, 'drafts' => 0, '(fname LIKE "%' . $key . '%" OR lname LIKE "%' . $key . '%" OR username LIKE "%' . $key . '%")');
             if($mode==1 && $id>0) {//search by client
                 $conditions[] = 'find_in_set(id, (SELECT profile_id FROM clients WHERE id = ' . $id . '))';
-                $RequiredFields = array_keys($this->Manager->requiredfields("", "profile2order"));
-                foreach($RequiredFields as $Field){
-                    $conditions[] = "CHAR_LENGTH(" . $Field . ') > 0';
-                }
+                //$RequiredFields = array_keys($this->Manager->requiredfields("", "profile2order"));
+                //foreach($RequiredFields as $Field){
+                //    $conditions[] = "CHAR_LENGTH(" . $Field . ') > 0';
+                //}
             } else if (!$super) {
                 $conditions['created_by'] = $u;
             }

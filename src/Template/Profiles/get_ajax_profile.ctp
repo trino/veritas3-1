@@ -1,5 +1,5 @@
 <?php
-
+//uses profiles/getAjaxProfile
 use Cake\ORM\TableRegistry;
 $language = $this->request->session()->read('Profile.language');
 function getstring($String, $language){//no variable processing
@@ -34,7 +34,7 @@ function printtdline($Text){
 $Fields = array ("fname" => "forms_firstname", "email" => "forms_email", "lname" => "forms_lastname", "profile_type" => "profiles_profiletype", "gender" => "forms_gender",  "driver_province" => "forms_provinceissued", "title" => "forms_title", "placeofbirth" => "forms_placeofbirth", "sin" => "forms_sin", "phone" => "forms_phone", "street" => "forms_address", "city" => "forms_city", "province" => "forms_provincestate", "postal" => "forms_postalcode", "country" => "forms_country", "dob" => "forms_dateofbirth", "driver_license_no" => "forms_driverslicense", "expiry_date" => "forms_expirydate");
 
 function hasallfields($r, $Fields){
-    if($r->import_type == 1){//added via CSV
+    if($r->is_complete){
         return true;
     }
     foreach($Fields as $Key => $Value){
