@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2015 at 10:42 PM
+-- Generation Time: Nov 19, 2015 at 03:47 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=835 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=836 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447861432', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1447882934', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -847,7 +847,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%'),
 (832, 'infoorder_atleastone', 'Please select at least one product', 'S''il vous plaît sélectionner au moins un produit'),
 (833, 'email_bulkorder_subject', 'Bulk Order Created', 'email_bulkorder_subject'),
-(834, 'email_bulkorder_message', '%profiles%', 'email_bulkorder_message');
+(834, 'email_bulkorder_message', '%profiles%', 'email_bulkorder_message'),
+(835, 'forms_expired', 'expiry date', 'date d''expiration');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -262,14 +262,14 @@ function checktags(TabID, tagtype){//use tagtype = "single" to get a single elem
                 isValid = validate_data(value, Reason);
             }
 
-            if(name && (element.hasClass("datepicker") || element.hasClass("date-picker"))){
-                if(name.indexOf("_end") > -1 && isValid && value){//make sure end date is after start date
+            if(name && isValid && value && (element.hasClass("datepicker") || element.hasClass("date-picker"))){
+                var EndDate = Date.parse(value);
+                if(name.indexOf("_end") > -1){//make sure end date is after start date
                     if(!endDates.hasOwnProperty(name)){
                         endDates[name] = 0;
                     } else {
                         endDates[name] = endDates[name] + 1;
                     }
-                    var EndDate = Date.parse(value);
                     var StartDate = name.replace("_end", "_start");
                     StartDate = document.getElementsByName(StartDate);
                     StartDate = StartDate[endDates[name]].value;
@@ -278,6 +278,10 @@ function checktags(TabID, tagtype){//use tagtype = "single" to get a single elem
                         isValid = StartDate < EndDate;
                         if (!isValid) {Reason = "paradox";}
                     }
+                } else if (name.indexOf("expiry") > -1){
+                    var StartDate = Date.now();
+                    isValid = StartDate < EndDate;
+                    if (!isValid) {Reason = "expired";}
                 }
             }
 
@@ -402,15 +406,22 @@ function replaceAll(find, replace, str) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
 
+function radiovalue(Name){
+    var genders = document.getElementsByName(Name);
+    for(var i = 0; i < genders.length; i++) {
+        if(genders[i].checked == true) {
+            return genders[i].value;
+        }
+    }
+}
+
 function autofill2(Type){
     if(!Type){
-        //addform(9);
-        //addform(10);
         autofill2("input");
         autofill2("select");
         autofill2("textarea");
     } else {
-        var inputs, index, element, value, name, temp, doneNames = new Array();
+        var inputs, index, element, value, name, temp
         inputs = document.getElementsByTagName(Type);
         for (index = 0; index < inputs.length; ++index) {
             element = inputs[index];
@@ -419,8 +430,8 @@ function autofill2(Type){
 
             if (element.hasAttribute("type")) {
                 Type = element.getAttribute("type");
-                if(Type == "radio" && value){
-                    doneNames.push(name);
+                if(Type == "radio"){
+                    value = radiovalue(name);
                 }
             }
 
@@ -442,13 +453,6 @@ function autofill2(Type){
                         break;
                     case "checkbox":case "radio":
                         value = Math.random() >= 0.5;
-                        if(Type == "radio" && value){
-                            if(doneNames.indexOf(name) == -1) {
-                                doneNames.push(name);
-                            } else {
-                                value = false;
-                            }
-                        }
                         break;
 
                     case "file":
@@ -469,7 +473,12 @@ function autofill2(Type){
                         }
                         break;
                     case "date":
-                        value = "10/04/" + getRandomInt(1960,2015);
+                        var Now = new Date().getFullYear(); var StartYear = Now-25; var EndYear = Now;
+                        if(name.indexOf("expiry")>-1){
+                            StartYear = Now+1;
+                            EndYear = Now+20;
+                        }
+                        value = "10/04/" + getRandomInt(StartYear,EndYear);
                         break;
                     case "email":
                         value = randomemail(20);

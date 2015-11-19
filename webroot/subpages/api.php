@@ -603,6 +603,7 @@ function loadreasons($action, $strings, $IncludeScript = false){
         echo "reasons['postalzip'] = '" . addslashes($strings["forms_postalzip"]) . "';";
         echo "reasons['number'] = '" . addslashes($strings["forms_number"]) . "';";
         echo "reasons['paradox'] = '" . addslashes($strings["forms_paradox"]) . "';";
+        echo "reasons['expired'] = '" . addslashes($strings["forms_expired"]) . "';";
     } else {
         echo "var reasons = false; //Action is: " . $action;
     }
