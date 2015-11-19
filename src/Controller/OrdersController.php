@@ -831,12 +831,108 @@
         }
 
         public function webservice($order_type = null, $forms = null, $driverid = null, $orderid = null) {
+
+
+
             if(strpos($driverid, ",") !== false){
+
+
+
+
+
+
+
+
+                $dri = $_POST['drivers'];
+                $drivers = explode(',',$dri);
+                //$forms = $_POST['forms'];
+                $arr['forms'] = $_POST['forms'];
+                $arr['order_type'] = 'BUL';
+                $arr['draft'] = 0;
+                $arr['title'] = 'order_'.date('Y-m-d H:i:s');
+                $arr['client_id'] = $_POST['client'];
+                $arr['created'] = date('Y-m-d H:i:s');
+                $arr['division'] = $_POST['division'];
+                $arr['user_id'] = $this->request->session()->read('Profile.id');
+                $arr['driver'] = '';
+                $arr['order_id'] = '';
+                $ord = TableRegistry::get('orders');
+
+                $Profiles = array();
+                foreach($drivers as $driver) {
+                    $arr['uploaded_for'] = $driver;
+
+                    $Profile = $this->Manager->get_profile($driver);
+                    $Profile = $Profile->fname . ' ' . $Profile->mname . ' ' . $Profile->lname . ' (' . $Profile->username . ')';
+                    $Profiles[] = $Profile;
+
+                    $doc = $ord->newEntity($arr);
+                    $ord->save($doc);
+
+                    $arr['driver'][] = $driver;
+                    $arr['order_id'][] = $doc->id;
+
+                    $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
+                    if (!is_dir($DIR)) {
+                        @mkdir($DIR, 0777);
+                    }
+
+                    unset($doc);
+                }
+                $Profiles = implode("<BR>\r\n", $Profiles);
+
+                $Emails = $this->Manager->enum_profiles_permission($arr['client_id'] , "email_orders", "email");
+                $this->Mailer->handleevent("bulkorder", array("profiles" => $Profiles, "email" => $Emails));
+
+                if($Send){
+                    //$this->webservice('BUL', $arr['forms'], $arr['driver'], $arr['order_id']);
+                    $URL=implode("/", array('orders', 'webservice', 'BUL', $arr['forms'], implode(",", $arr['driver']), implode(",", $arr['order_id'])));
+                    echo $this->requestAction($URL);
+                }
+
+                $arr['driver'] = implode(",", $arr['driver']);
+                $arr['order_id'] = implode(",", $arr['order_id']);
+
+                echo json_encode($arr);
+                $this->Flash->success($this->Trans->getString("flash_bulkorder") );
+                die();
+
+
+
+
+
+
+
+
+
+
+
+
+
                 echo "Bulk drivers: " . $driverid . " Orders: " . $orderid;
                 $driverid = explode(",", $driverid);
                 $orderid = explode(",", $orderid);
+
+
+                $this->set('forms', $forms);
+                $this->set('orderid', $orderid);
+                $this->set('driverid', $driverid);
+
+
+
                 die();
+
+
+
+
+
             } else {
+
+
+
+
+
+
                 $all_attachments = TableRegistry::get('mee_attachments');
                 $mee_query = $all_attachments->find()->where(['order_id' => $orderid]);
                 $orderid = $this->filternonnumeric($orderid);//there is an error message being passed in $orderid!!!
@@ -1544,6 +1640,8 @@
         }
 
         public function bulksubmit($Send = false) {
+
+
             $dri = $_POST['drivers'];
             $drivers = explode(',',$dri);
             //$forms = $_POST['forms'];

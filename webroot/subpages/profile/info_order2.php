@@ -485,10 +485,10 @@
                     //window.location = '<?php echo $this->request->webroot; ?>orders/orderslist?flash=Bulk Order bypass';
                     $.ajax({
                         data:'forms='+getcheckboxes()+'&drivers='+getdrivers()+'&client='+$('#selecting_client').val()+'&division='+division,
-                        url:'<?php echo $this->request->webroot;?>orders/bulksubmit/true',
+                        url:'<?php echo $this->request->webroot;?>orders/webservice',
                         type:'post',
                         success:function(res) {
-                            alert(res);
+                          //  alert(res);
                             /*
                             var response = JSON.parse(res);
                             var driv = response['driver'];//.split(',');
@@ -506,12 +506,12 @@
                                     url:'<?php echo $this->request->webroot;?>orders/webservice/BUL/'+response['forms']+'/'+driv[k]+'/'+ord[k]
                                 });
                             }*/
-
+/*
 
                             setTimeout(function(){
                                 window.location = '<?php echo $this->request->webroot;?>';
                             },10000);
-
+*/
 
                         }
                     });
