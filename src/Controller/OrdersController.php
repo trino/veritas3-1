@@ -1582,7 +1582,7 @@
             $this->Mailer->handleevent("bulkorder", array("profiles" => $Profiles, "email" => $Emails));
 
             echo json_encode($arr);
-            $this->Flash->success($this->Trans->getString("flash_bulkorder") . " DIR: " . $DIR);
+            $this->Flash->success($this->Trans->getString("flash_bulkorder") );
             die();
         }
 
