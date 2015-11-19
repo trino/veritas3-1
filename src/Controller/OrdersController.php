@@ -1140,7 +1140,7 @@
                 foreach ($profile as $p) {
                     $ALERT= "complete";
                     echo "<option value='" . $p->id . "'";
-                    if($this->Manager->requiredfields($p, "profile2order") || !$p->is_complete){
+                    if(!$p->is_complete){//$this->Manager->requiredfields($p, "profile2order")
                         echo ' DISABLED';
                         $ALERT= "incomplete";
                     }

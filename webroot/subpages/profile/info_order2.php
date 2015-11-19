@@ -127,7 +127,7 @@
             function print1profile($index, $profile, $profiletype, $Manager, $strings){//$index = $i
                 $Disabled = "";
                 $ALERT="infoorder_complete";
-                if(!$profile->is_complete || $Manager->requiredfields($profile, "profile2order")){
+                if(!$profile->is_complete){// || $Manager->requiredfields($profile, "profile2order")){
                     $Disabled = " DISABLED";
                     $ALERT="infoorder_incomplete";
                 }
@@ -349,7 +349,7 @@
             $ALERT= "infoorder_complete";
             $driver_id = $dr->id;
             echo '<option value="' . $dr->id . '"';
-            if(!$dr->is_complete || $Manager->requiredfields($dr, "profile2order")){
+            if(!$dr->is_complete){// || $Manager->requiredfields($dr, "profile2order")){
                 echo " DISABLED";
                 $ALERT= "infoorder_incomplete";
             }

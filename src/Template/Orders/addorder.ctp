@@ -220,23 +220,23 @@
                         <?php
                         $profile = $Manager->get_profile($_GET['driver']);
                         //$client = $Manager->find_client($_GET['driver']);
-                        $MissingFields = $Manager->requiredfields(false, "profile2order");
-                        $MissingData = $Manager->requiredfields($profile, "profile2order");
+                        //$MissingFields = $Manager->requiredfields(false, "profile2order");
+                        //$MissingData = $Manager->requiredfields($profile, "profile2order");
                         $Missing= array();
                         $EditURL = $this->request->webroot . 'profiles/edit/' . $_GET['driver'];
-                        foreach($MissingFields as $Field => $String){
+                        /*foreach($MissingFields as $Field => $String){
                             if(!$profile->$Field){
                                 $Missing[] = $strings[$String];
                             }
-                        }
+                        }*/
                         if(!isset($client) && !$Viewing){
                             echo $strings["documents_missingclient"];
                         } else if(!$client && !$Viewing) {
                             echo '<A HREF="' . $EditURL . '">' . $strings["addorder_notassigned"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
                         } else if(!$profile->is_complete && !$Viewing){
                             echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder"] . '<BR>' . $strings["flash_cantorder3"] . '</A>';
-                        } else if ($MissingData && !$Viewing) {
-                            echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing)  . '<BR>' . $strings["flash_cantorder3"] . '</A>';
+                        //} else if ($MissingData && !$Viewing) {
+                        //   echo '<A HREF="' . $EditURL . '">' .$strings["flash_cantorder2"] . ': </B>' . implode(", ", $Missing)  . '<BR>' . $strings["flash_cantorder3"] . '</A>';
                         } else if ($param != 'view') {
                             
                             $doc = $doc_comp->getDocument('orders');
