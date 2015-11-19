@@ -1008,6 +1008,12 @@
             TableRegistry::get($Table)->query()->update()->set([$Key => $Value])->where([$PrimaryKey=>$PrimaryValue])->execute();
         }
 
+        function getmiddlename($array){
+            unset($array[ count($array) -1 ]);
+            unset($array[0]);
+            return trim(implode(" ", $array));
+        }
+
         function csv() {
             $profile = TableRegistry::get('profiles');
             $arr = explode('.', $_FILES['csv']['name']);
@@ -1075,7 +1081,7 @@
                                     $pro["fname"] = $pro["FULLNAME"][0];
                                     $pro["lname"] = $pro["FULLNAME"][count($pro["FULLNAME"]) - 1];
                                     if (count($pro["FULLNAME"]) > 2) {
-                                        $pro["mname"] = $pro["FULLNAME"][1];
+                                        $pro["mname"] = $this->getmiddlename($pro["FULLNAME"]);
                                     }
                                     unset($pro["FULLNAME"]);
                                 }
@@ -1088,21 +1094,21 @@
                                 if (isset($pro["email"]) && $pro["email"]) {
                                     $em = $this->check_email('', $pro["email"]);
                                     if ($em == 1) {
-                                        $flash .= "Failed: Email '" . $pro["email"] . "' already exists(Line no " . $line . "), ";
+                                        $flash .= "Failed: Email '" . $pro["email"] . "' already exists(Line no " . $line . ")\r\n";
                                         $DOIT = false;
                                     }
                                 }
                                 if (isset($pro["username"]) && $pro["username"]) {
                                     $em = $this->check_user('', $pro["username"]);
                                     if ($em == 1) {
-                                        $flash .= "Failed: Username '" . $pro["username"] . "' already exists(Line no " . $line . "), ";
+                                        $flash .= "Failed: Username '" . $pro["username"] . "' already exists(Line no " . $line . ")\r\n";
                                         $DOIT = false;
                                     }
                                 }
                                 if(isset($pro["driver_license_no"]) && $pro["driver_license_no"]){
                                     $em = $this->Manager->get_entry("profiles", $pro["driver_license_no"],  "driver_license_no");
                                     if($em){
-                                        $flash .= "Failed: Driver's license # '" . $pro["driver_license_no"] . "' already exists(Line no " . $line . "), ";
+                                        $flash .= "Failed: Driver's license # '" . $pro["driver_license_no"] . "' already exists(Line no " . $line . ")\r\n";
                                         $DOIT = false;
                                     }
                                 }
