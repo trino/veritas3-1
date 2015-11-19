@@ -1532,7 +1532,7 @@
             }
         }
 
-        public function bulksubmit() {
+        public function bulksubmit($Send = false) {
             $dri = $_POST['drivers'];
             $drivers = explode(',',$dri);
             //$forms = $_POST['forms'];
@@ -1558,21 +1558,17 @@
 
                 $doc = $ord->newEntity($arr);
                 $ord->save($doc);
-                //$this->webservice('BUL', $arr['forms'], $arr['user_id'], $doc->id);
-                if($arr['driver']) {
-                    $arr['driver'] = $arr['driver'] . ',' . $driver;
-                }else {
-                    $arr['driver'] = $driver;
-                }
-                if($arr['order_id']) {
-                    $arr['order_id'] = $arr['order_id'] . ',' . $doc->id;
-                }else {
-                    $arr['order_id'] = $doc->id;
-                }
+
+                $arr['driver'][] = $driver;
+                $arr['order_id'][] = $doc->id;
 
                 $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
                 if (!is_dir($DIR)) {
                    mkdir($DIR, 0777);
+                }
+
+                if($Send){
+                    $this->webservice('BUL', $arr['forms'], $driver, $doc->id);
                 }
                 unset($doc);
             }
@@ -1580,6 +1576,9 @@
 
             $Emails = $this->Manager->enum_profiles_permission($arr['client_id'] , "email_orders", "email");
             $this->Mailer->handleevent("bulkorder", array("profiles" => $Profiles, "email" => $Emails));
+
+            $arr['driver'] = implode(",", $arr['driver']);
+            $arr['order_id'] = implode(",", $arr['order_id']);
 
             echo json_encode($arr);
             $this->Flash->success($this->Trans->getString("flash_bulkorder") );

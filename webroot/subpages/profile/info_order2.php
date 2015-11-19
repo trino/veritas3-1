@@ -485,20 +485,28 @@
                     //window.location = '<?php echo $this->request->webroot; ?>orders/orderslist?flash=Bulk Order bypass';
                     $.ajax({
                         data:'forms='+getcheckboxes()+'&drivers='+getdrivers()+'&client='+$('#selecting_client').val()+'&division='+division,
-                        url:'<?php echo $this->request->webroot;?>orders/bulksubmit',
+                        url:'<?php echo $this->request->webroot;?>orders/bulksubmit/true',
                         type:'post',
                         success:function(res) {
+                            /*
                             var response = JSON.parse(res);
-                            var driv = response['driver'].split(',');
+                            var driv = response['driver'];//.split(',');
                             //alert(response['order_id']);
-                            var ord = response['order_id'].split(',');
+                            var ord = response['order_id'];//.split(',');
                             var check = 0;
-                            for(var k=0;k<driv.length;k++) {
+
+                            $.ajax({
+                                    url:'<?php echo $this->request->webroot;?>orders/webservice/BUL/'+response['forms']+'/'+driv+'/'+ord
+                                });
+
+                            /*for(var k=0;k<driv.length;k++) {
                                 //check = k;
                                 $.ajax({
                                     url:'<?php echo $this->request->webroot;?>orders/webservice/BUL/'+response['forms']+'/'+driv[k]+'/'+ord[k]
                                 });
-                            }
+                            }*/
+
+
                             setTimeout(function(){
                                 window.location = '<?php echo $this->request->webroot;?>';
                             },10000);
