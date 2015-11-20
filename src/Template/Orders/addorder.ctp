@@ -312,7 +312,7 @@
 
                                     
                                     
-                                    <input type="hidden" id="user_id" value=""/>
+                                    
                                     <div class="steps" id="step0" class="active">
                                         <?= printsteps($strings, 1, $doc_count); ?>
 
