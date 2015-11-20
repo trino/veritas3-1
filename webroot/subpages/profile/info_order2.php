@@ -1,6 +1,13 @@
+<STYLE>
+    .profile_client{
+        margin-top: 8px !important;
+    }
+</STYLE>
+
 <?php
     $debug=$this->request->session()->read('debug');
-    if($debug) {echo "<span style ='color:red;'>subpages/profile/info_order2.php #INC???</span>";}
+    if($debug) {//echo "<span style ='color:red;'>subpages/profile/info_order2.php #INC???</span>";
+    }
     include_once('subpages/api.php');
     $settings = $Manager->get_settings();
     $language = $this->request->session()->read('Profile.language');
@@ -61,7 +68,10 @@
     $GLOBALS['pType'] = $this->requestAction('/profiles/getProfileTypes');// ['','Admin','Recruiter','External','Safety','Driver','Contact'];
     $GLOBALS['settings'] = $Manager->get_settings();
     $GLOBALS['counting'] = $counting;
+?>
 
+
+<?php
     function makeBulk($strings, $Manager){
     //    $contact = $GLOBALS['contact'];
         $pType = $GLOBALS['pType'];
@@ -71,13 +81,12 @@
             $profiles = $GLOBALS['profiles'];
         }
 
-    //  echo '<div class="col-xs-4">';
+
 ?>
-<STYLE>
-    .profile_client{
-        margin-top: 8px !important;
-    }
-</STYLE>
+
+
+
+
     <div class="clearfix"></div>
 <div class="scrolldiv" style="margin-bottom: 15px; overflow-y: auto; width: auto; height: auto;" ID="bulkform">
     <input type="text" id="searchProfile" onkeyup="searchProfile()" class="form-control" placeholder="<?= $strings["infoorder_searchprofiles"]; ?>"/>
@@ -88,7 +97,11 @@
         </tr-->
         </thead>
         <tbody id="profileTable">
+
+
+
         <?php
+
             $i = 0;
             if($counting==1) {
                 $fulllist = "";
@@ -250,6 +263,10 @@
 
             $dodiv = true;?>
 
+
+
+
+
         <script type="text/javascript">
             function reload(value) {
                 var container = document.getElementById("selecting_driver");
@@ -258,14 +275,19 @@
                 //this should set the select dropdown to "Create a Driver"
             }
         </script>
+
+
+
         <STYLE>
             body{
                 overflow-x: hidden;
                 overflow-y: scroll;
             }
         </STYLE>
-        <?php
 
+
+
+        <?php
             if ($counting > 1) { ?>
                 <select id="selecting_client" class="form-control input-<?= $size ?> select2me"
                 onoldchange="reload(-1);"
@@ -311,10 +333,17 @@
         } ?>
 </div>
 
+
+
+
 <?php if ($intable) {
     echo '<div class="row" style="margin-top: 15px;margin-bottom: 15px;">';
 } ?>
-<?php if(!isset($_GET['profiles'])){?>
+
+
+<?php if(!isset($_GET['profiles']))
+{
+?>
 <div class="form-group ">
 
     <?php
@@ -354,7 +383,7 @@
                 $ALERT= "infoorder_incomplete";
             }
             if ($dr->id == $driver || $counting == 1 && $driver != '0'){ echo 'selected="selected"'; }
-            echo '>' . $strings[$ALERT] . " " . formatname($dr) .  'test</option>';
+            echo '>' . $strings[$ALERT] . " " . formatname($dr) .  '</option>';
         }
         ?>
     </select>
@@ -390,6 +419,25 @@
         }
     ?>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     AtLeastOneProduct = '<?= addslashes($strings["infoorder_atleastone"]); ?>';
@@ -632,6 +680,11 @@
         });
     });
 </script>
+
+
+
+
+
 <SCRIPT>
     var UpdatesEnabled = true;
 

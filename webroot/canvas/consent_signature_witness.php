@@ -45,7 +45,7 @@ if (isset($consent_detail)){
             <input type="hidden" class="touched_edit3" value="<?php if(isset($consent_detail) && $consent_detail->signature_company_witness){?>1<?php }else{?>0<?php }?>" />
             <label class="control-label "><?= $strings2["consent_sigwitness"]; ?></label><br>
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
-            <p style="margin-top:8px;">Please Sign in within the border.</p>
+            <p style="margin-top:8px;">gg77gg-Please sign within the border.</p>
                 <div style="border: 15px solid silver;border-radius: 5px;">
                     <canvas id="test4" style=""></canvas>
                 </div>
