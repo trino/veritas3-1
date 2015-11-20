@@ -384,6 +384,13 @@ class ClientApplicationController extends AppController {
                 foreach($arr as $f2)
                 {
                     $temp = $f->$f2;
+                    if($f2=='expiry_date')
+                    {
+                        $exp = explode('-',$temp);
+                        if(is_array($exp) && count($exp)>2)
+                        $temp = $exp[2].'/'.$exp[1].'/'.$exp[0];
+                    }
+                    
                     if($temp){
                     
                     $arr3[$f2][] = $temp;
@@ -451,9 +458,18 @@ class ClientApplicationController extends AppController {
             //echo $q->id;
             foreach($fields as $f)
             {
-                //die('here');
-                if($q)
-                $return[$f] = $q->$f;
+                if($q){
+                $temp = $q->$f;
+                if(str_replace('date','',$f)!=$f)
+                {
+                        $exp = explode('-',$temp);
+                        if(is_array($exp) && count($exp)>2)
+                        $temp = $exp[2].'/'.$exp[1].'/'.$exp[0];
+                    
+                }
+                
+                $return[$f] = $temp;
+                }
             }
            
             if(isset($return) && $return)
