@@ -300,7 +300,7 @@
                                 $string = $strings["forms_steps"];
                                 $string = str_replace("%step%", '<span class="counters">' . $CurrentStep . '</span>', $string);
                                 $string = str_replace("%total%", $doc_count+2, $string);
-                                return '<strong><p>' . $string . '</p></strong>';
+                                return '<strong style="float:right;margin-left:20px;float: right;text-transform: uppercase;font-size: 15px;margin-right: 32px;text-align: center !important;"><p>' . $string . '</p></strong>';
                             }
                             
                             $tab = 'tab-pane';
