@@ -503,7 +503,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
 
                 </div>
 
-                    <div id="more_div" style="padding-left: 16px;"></div>
+                    <div id="more_div" style="<?php if($this->request->action!='addorder')echo 'padding-left: 16px;';?>"></div>
                    <?php
                 }
                 ?>
