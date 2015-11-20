@@ -1,4 +1,4 @@
-<p>Confirmation</p>
+<p style="font-weight: bold;">Confirmation</p>
 <?php
     if ($this->request->session()->read('debug')) {
         echo "<span style ='color:red;'>subpages/documents/confirmation.php #INC138</span>";
@@ -52,7 +52,7 @@
 //confirm_confirm
 ?>
 <div class="note note-success">
-    <h3 class="block col-md-12"><?= ProcessVariables($language, $strings2["confirm_confirm"], array("name" => getpost("order_type"))); ?></h3>
+    <h3 class="block col-md-12" style="margin-bottom: 0;padding: 0;font-size: 20px;"><?= ProcessVariables($language, $strings2["confirm_confirm"], array("name" => getpost("order_type"))); ?></h3>
 
     <div class="clearfix"></div>
 </div>
@@ -61,7 +61,7 @@
 <input class="document_type" type="hidden" name="document_type" value="Confirmation" />
 <input type="hidden" class="sub_docs_id" name="sub_doc_id" value="c1"  />
 
-<div class="row col-md-4">
+<div class="row col-md-6">
     
 
     <div class="form-group">
@@ -97,7 +97,7 @@
 </div>
 
 
-<div class="col-md-4"><label><?= $strings2["score_products"]; ?>:</label>
+<div class="col-md-6"><label><?= $strings2["score_products"]; ?>:</label>
 
     <div class="clearfix"></div>
 
