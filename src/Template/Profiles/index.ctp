@@ -10,6 +10,12 @@
         $Trans = "";
     }
     $super = $this->request->session()->read('Profile.super');
+  $st_query = '';
+  if(isset($_GET['filter_profile_type']))
+                        {
+                            $st_query = $st_query.'?filter_profile_type='.$_GET['filter_profile_type'];
+                        }
+                        
 ?>
 
 <style>

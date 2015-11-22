@@ -688,7 +688,7 @@
                 $cond .= ' (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
             }
 
-            if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type']!='') {
+            if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type'] > -1) {
                 if ($cond){ $cond.= ' AND'; }
                 if($_GET['filter_profile_type'] == "NULL") {
                     $cond .= ' profile_type IS NULL';

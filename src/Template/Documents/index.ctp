@@ -375,7 +375,7 @@
                     }
                     echo '<span class="label label-sm ' . $Color . '" style="padding:4px;">' . $Label . '</span></td></tr>';
 
-                    //<!--TR><TD colspan="8"><!php print_r($docs); !></TD></TR-->
+                    $st_query = '';
                     } ?>
                     </tbody>
                     </table>
@@ -387,7 +387,12 @@
                 <div class="row">
                     <div class="col-md-12" align="right">
 
-
+                        <?php
+                        if(isset($_GET['doc_type']))
+                        {
+                            $st_query = $st_query.'?doc_type='.$_GET['doc_type'];
+                        }
+                        ?>
                         <div id="sample_2_paginate" class="dataTables_paginate paging_simple_numbers"
                              style="margin-top:-10px;">
 

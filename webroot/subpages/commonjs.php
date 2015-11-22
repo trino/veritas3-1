@@ -1698,10 +1698,10 @@
                         url: '<?php echo $this->request->webroot;?>orders/webservice/<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>/<?php if(isset($_GET['forms']))echo $_GET['forms']; ?>/' + $('#user_id').val() + '/' + $('#did').val(),
                         success: function (msg) {
                             //alert("Order saved: " + msg);
-                            //  window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                              window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
                         },
                         error: function () {
-                            //  window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                              window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
                         }
                     });
 
