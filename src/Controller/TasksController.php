@@ -20,12 +20,70 @@ class TasksController extends AppController {
 	public function index() {
 
 	}
+     function requalify($cid){
+            $p = '';
+            foreach($_POST['requalify_product'] as $k=>$r) {
+                if($k+1==count($_POST['requalify_product'])) {
+                    $p .= $r;
+                }else {
+                    $p .= $r . ",";
+                }
+            }
+            if(!isset($_POST['requalify'])) {
+                $_POST['requalify'] = 0;
+            }
+            if(!isset($_POST['requalify_re'])) {
+                $_POST['requalify_re'] = 0;
+            }
+            $_POST['requalify_product'] = $p;
+            $id = $_POST['id'];
+            $cleint = TableRegistry::get('clients');
 
+            $RunCron = isset($_POST["runcron"]) && $_POST["runcron"];
+            unset($_POST["runcron"]);
+
+            $query = $cleint->query();
+                        $query->update()
+                            ->set($_POST)
+                            ->where(['id' => $id])
+                            ->execute();
+            
+        }
     public function cron($Duration = "+2 years"){
         if($_POST){
+            $allclients = TableRegistry::get('clients')->find()->all();
+            $cleint = TableRegistry::get('clients');
             $this->Flash->success("Data has been saved");
+            foreach($allclients as $cid)
+            {
+                $id = $cid->id;
+                if(isset($_POST['requalify'][$id]))
+                    $update_requalify['requalify']= 1;
+                else
+                    $update_requalify['requalify']= 0;
+                if(isset($_POST['requalify_re'][$id]))
+                    $update_requalify['requalify_re'] = $_POST['requalify_re'][$id];
+                else
+                    $update_requalify['requalify_re'] = 0;
+                if(isset($_POST['requalify_product'][$id]))
+                    $update_requalify['requalify_product'] = implode(',',$_POST['requalify_product'][$id]);
+                else
+                    $update_requalify['requalify_product'] = '';
+                if(isset($_POST['requalify_frequency'][$id]))
+                    $update_requalify['requalify_frequency'] = '1';
+                else
+                    $update_requalify['requalify_frequency'] = 0;
+                $query = $cleint->query();
+                        $query->update()
+                            ->set($update_requalify)
+                            ->where(['id' => $id])
+                            ->execute();
+                unset($update_requalify);
+                
+            }
+            //var_dump($_POST['requalify']);die();
         }
-
+        
         //////////////////copied from profile controller
         $today = date('Y-m-d');
         $EndTime = date('Y-m-d', strtotime($Duration, strtotime($today)));
