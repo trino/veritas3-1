@@ -2780,8 +2780,9 @@
             if (isset($_GET["testemail"]) || $debugging) {
                 $email = "/" . $this->request->session()->read('Profile.email');
             }
+            //echo '<script src="'.$this->request->webroot.'"assets/global/plugins/jquery.min.js"></script>';
             echo '<TR><TH COLSPAN="3">Clients</TH></TR>';
-            echo $this->requestAction("clients/cron" . $email);
+            echo $this->requestAction("rapid/cron" . $email);
 
             echo '</TABLE>';
 

@@ -167,7 +167,7 @@
             return $cnt;
         }
 
-        function cron() {
+        function cron($IsDebug = false) {
             $today = date('Y-m-d');
             $msg = "";
             $clients = TableRegistry::get('clients')->find('all')->where(['requalify' => '1', 'requalify_product <> ""']);
@@ -233,7 +233,7 @@
                     }
                     //echo $p->expiry_date."<br/>" ;
                     //echo strtotime($p->expiry_date)."<br/>".time();
-                    if (($p->profile_type == '5' || $p->profile_type == '7' || $p->profile_type == '8')) {
+                    //if (($p->profile_type == '5' || $p->profile_type == '7' || $p->profile_type == '8')) {
                         //echo $p->id."</br>";
                         //echo $p->created_by;
                         if (strtotime($p->expiry_date) < strtotime($today)) {
@@ -247,6 +247,7 @@
 
                                     //$date =  $this->getnextdate($date,$frequency); 
                                     if (strtotime($date) == strtotime($today)) {
+                                        $date =$this->getnextdate($date, $frequency);
                                         if ($this->checkcron($c->id, $date, $p->id)) {
                                             $date = $this->getnextdate($date, $frequency);
                                         }
@@ -293,7 +294,7 @@
 
                             }
                         }
-                    }
+                    //}
                 }
                 //die();
                 array_push($pronames, $p_name);
@@ -308,10 +309,10 @@
                 if ($epired_profile != "") {
                     $mesg .= "<br/>Expired Profiles:" . $epired_profile;
                 }
-
+                if($IsDebug)
                 foreach ($em as $e) {
 
-                    // $this->Mailer->handleevent("requalification", array("email" => $e, "company_name" => $c->company_name, "username" => $username, "expired" => $epired_profile));
+                    $this->Mailer->handleevent("requalification", array("email" => $e, "company_name" => $c->company_name, "username" => $username, "expired" => $epired_profile));
                     //$this->Mailer->sendEmail("", $e, "Driver Re-qualified (" . $c->company_name . ")", $mesg);
 
                     $emails .= $e . ",";

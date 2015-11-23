@@ -51,7 +51,7 @@ class TasksController extends AppController {
         }
     public function cron($Duration = "+2 years"){
         if($_POST){
-            var_dump($_POST);die();
+            //var_dump($_POST);die();
             $allclients = TableRegistry::get('clients')->find()->all();
             $cleint = TableRegistry::get('clients');
             $this->Flash->success("Data has been saved");
@@ -70,7 +70,7 @@ class TasksController extends AppController {
                     $update_requalify['requalify_product'] = implode(',',array_keys($_POST['requalify_product'][$id]));
                 else
                     $update_requalify['requalify_product'] = '';
-                if(isset($_POST['requalify_date'][$id])&& $_POST['requalify_re'][$id]=='1')
+                if(isset($_POST['requalify_date'][$id])&& $_POST['requalify_re'][$id]=='0')
                     $update_requalify['requalify_date'] = $_POST['requalify_date'][$id];
                 else
                     $update_requalify['requalify_date'] = '';
@@ -124,21 +124,28 @@ class TasksController extends AppController {
                 //debug($profile);die();
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
+                    
                     $date = $c->requalify_date;
-                    if(strtotime($date)< strtotime($today)) {
-                        $date = $this->getnextdate($date,$frequency);
+                    if(strtotime($date)<= strtotime($today)) {
+                        
                         if($this->checkcron($c->id, $date, $p->id)) {
-                            $date = $this->getnextdate($date, $frequency);
+                            
+                             $date = $this->getnextdate($date, $frequency);
+                            if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
                         }
-                    else
-                    {
-                        echo $date = $this->getnextdate($date,$frequency);
-                        if($this->checkcron($c->id, $date, $p->id)) {
+                        else
+                        {
+                         
+                          //echo "<br/>";
                             $date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                           //die(); 
                         }
-                    }die('1');
                     }
                 } else {
+                    
                     $date = $p->hired_date;
                     if(strtotime($date) < strtotime($today)) {
                         if(strtotime($date) == strtotime($today)) {
@@ -178,6 +185,7 @@ class TasksController extends AppController {
 
             }
         }
+        //var_dump($reqs);die();
         $this->sksort($reqs,'cron_date',true);
         $this->set('new_req',$reqs);
     }
@@ -213,14 +221,18 @@ class TasksController extends AppController {
     }
 
     function checkcron($cid,$date,$pid) {
+        
         $client_crons = TableRegistry::get('client_crons');
         $cnt = $client_crons->find('all')->where(['client_id'=>$cid,'orders_sent'=>'1','cron_date'=>$date,'profile_id'=>$pid])->count();
+        //debug($client_crons->find('all')->where(['client_id'=>$cid,'orders_sent'=>'1','cron_date'=>$date,'profile_id'=>$pid]));
+        //die($cnt);
         return $cnt;
     }
 
     function getnextdate($date, $frequency) {
+        //echo $date."<br/>";
         $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
-        $nxt_date = date('Y-m-d', strtotime($date)+($frequency*24*60*60*30));
+         $nxt_date = date('Y-m-d', strtotime($date)+($frequency*24*60*60*30));
         if (strtotime($nxt_date) < strtotime($today)) {
             $d = $this->getnextdate($nxt_date, $frequency);
         } else {

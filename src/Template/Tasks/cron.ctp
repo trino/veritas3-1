@@ -165,10 +165,10 @@
                                             }
                                             echo '</SELECT></TD>';
                                             ?>
-                                            <td><input type="radio" name="requalify_re['<?php echo $Client->id;?>']" value="1" <?php if($Client->requalify_re){ echo " CHECKED";}?> onclick="$('#span_when<?php echo $Client->id;?>').hide();"/>Hired Date OR 
-                                                <input type="radio" name="requalify_re['<?php echo $Client->id;?>']"<?php if($Client->requalify_re=='0'){ echo " CHECKED";}?> id="check_when<?php echo $Client->id;?>" onclick="$('#span_when<?php echo $Client->id;?>').show();" value="0" />Anniversary
+                                            <td><input type="radio" name="requalify_re[<?php echo $Client->id;?>]" value="1" <?php if($Client->requalify_re){ echo " CHECKED";}?> onclick="$('#span_when<?php echo $Client->id;?>').hide();"/>Hired Date OR 
+                                                <input type="radio" name="requalify_re[<?php echo $Client->id;?>]"<?php if($Client->requalify_re=='0'){ echo " CHECKED";}?> id="check_when<?php echo $Client->id;?>" onclick="$('#span_when<?php echo $Client->id;?>').show();" value="0" />Anniversary
                                                 <span id="span_when<?php echo $Client->id;?>" style="<?php if($Client->requalify_re){ echo ' display: none;';}?>">
-                                                    <br /><input type="text" name="requalify_date['<?php echo $Client->id;?>']" ID="text_when<?php echo $Client->id;?>"
+                                                    <br /><input type="text" name="requalify_date[<?php echo $Client->id;?>]" ID="text_when<?php echo $Client->id;?>"
                                                     class="datepicker date-picker" value="<?php echo $Client->requalify_date;?>"  STYLE="width: 90%;">
                                                 </span>
                                             <td>
