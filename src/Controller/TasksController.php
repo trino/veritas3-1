@@ -354,4 +354,15 @@ class TasksController extends AppController {
         $newdate->modify($hours . " hours");
         return $newdate->format('Y-m-d H:i:s');
     }
+    function saveDriverInfo($id)
+    {
+        $cleint = TableRegistry::get('profiles');
+
+            $query = $cleint->query();
+                        $query->update()
+                            ->set($_POST)
+                            ->where(['id' => $id])
+                            ->execute();
+                            die();
+    }
 }

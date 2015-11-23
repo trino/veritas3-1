@@ -16,7 +16,7 @@
     }
 
     function profiletypes($ProfileTypes, $Name, $Type){
-        echo '<SELECT NAME="' . $Name . '">';
+        echo '<SELECT class="profile_types" NAME="' . $Name . '">';
         foreach($ProfileTypes as $ProfileType){
             echo '<OPTION VALUE="' . $ProfileType->id . '"';
             if ($Type==$ProfileType->id){ echo ' SELECTED';}
