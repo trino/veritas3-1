@@ -163,7 +163,19 @@
                                                 if ($Frequency == $Client->requalify_frequency){ echo ' SELECTED';}
                                                 echo '>' . $Frequency .  pluralize($Frequency, ' Month') . '</OPTION>';
                                             }
-                                            echo '</SELECT></TD><TD><LABEL><INPUT TYPE="CHECKBOX" value="1" id="check_when' . $Client->id . '" ONCLICK="when(' . $Client->id . ');" NAME="requalify_re[' . $Client->id . ']"';
+                                            echo '</SELECT></TD>';
+                                            ?>
+                                            <td><input type="radio" name="requalify_re['<?php echo $Client->id;?>']" value="1" <?php if($Client->requalify_re){ echo " CHECKED";}?> onclick="$('#span_when<?php echo $Client->id;?>').hide();"/>Hired Date OR 
+                                                <input type="radio" name="requalify_re['<?php echo $Client->id;?>']"<?php if($Client->requalify_re=='0'){ echo " CHECKED";}?> id="check_when<?php echo $Client->id;?>" onclick="$('#span_when<?php echo $Client->id;?>').show();" value="0" />Anniversary
+                                                <span id="span_when<?php echo $Client->id;?>" style="<?php if($Client->requalify_re){ echo ' display: none;';}?>">
+                                                    <br /><input type="text" name="requalify_date['<?php echo $Client->id;?>']" ID="text_when<?php echo $Client->id;?>"
+                                                    class="datepicker date-picker" value="<?php echo $Client->requalify_date;?>"  STYLE="width: 90%;">
+                                                </span>
+                                            <td>
+                                            <?php
+                                           /*
+                                            echo
+                                              '<TD><LABEL><INPUT TYPE="radio" value="1" id="check_when' . $Client->id . '" ONCLICK="when(' . $Client->id . ');" NAME="requalify_re[' . $Client->id . ']"';
                                                 echo ' TITLE="Click to toggle between the anniversary of their hired date or specify a date yourself"';
                                                 if($Client->requalify_re){ echo " CHECKED";}
                                                 echo '>&nbsp;<SPAN ID="span_when' . $Client->id . '"';
@@ -172,7 +184,7 @@
                                                 echo '>Anniversary</SPAN></LABEL><INPUT TYPE="TEXT" NAME="requalify_date[' . $Client->id . ']" ID="text_when' . $Client->id;
                                                 echo '" class="datepicker date-picker" value="' .  $Client->requalify_date . '" ONCHANGE="change();" STYLE="width: 90%;';
                                                 if($Client->requalify_re){ echo ' display: none;';}
-                                            echo '"></TD><TD>';
+                                            echo '"></TD><TD>';*/
                                             printproducts($Client->id, $Client->requalify_product, $products, array(1, 14, 72), $language);
                                             echo '</TD><TD align="RIGHT">';
                                             $Count = iterator_count($Users);

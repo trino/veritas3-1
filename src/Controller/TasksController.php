@@ -131,7 +131,7 @@ class TasksController extends AppController {
                     }
                 } else {
                     $date = $p->hired_date;
-                    if(strtotime($date) <= strtotime($today)) {
+                    if(strtotime($date) < strtotime($today)) {
                         if(strtotime($date) == strtotime($today)) {
                             if($this->checkcron($c->id, $date, $p->id)) {
                                 $date = $this->getnextdate($date, $frequency);
