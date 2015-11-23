@@ -275,7 +275,17 @@
 
                                 if (isset($p)) {
                                     $ClientID = $Manager->find_client($profile->id, true);
-                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder ) {//driver, owner driver, owner operator, sales, employee
+                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder ) {
+                                        
+                                        
+                                        $MissingFields = $Manager->requiredfields(false, "profile2order");
+                                        $MissingData = $Manager->requiredfields($profile, "profile2order");
+                                        $Missing= array();
+                                        $sidebar = $Manager->loadpermissions($Me, "sidebar");
+                                        
+                                        
+                                        if($profile->iscomplete && !$MissingData){
+                                        //driver, owner driver, owner operator, sales, employee
                                         echo '<label class="uniform-inline" style="margin-bottom:10px;">';
                                         echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
                                         if ($p->is_hired == '1') {
@@ -288,11 +298,12 @@
                                             echo " checked";
                                         }
                                         echo '> ' . $strings["clients_enablerequalify"] . '<span class="req_msg"></span></label>';
-
-                                        $MissingFields = $Manager->requiredfields(false, "profile2order");
-                                        $MissingData = $Manager->requiredfields($profile, "profile2order");
-                                        $Missing= array();
-                                        $sidebar = $Manager->loadpermissions($Me, "sidebar");
+                }
+                
+                
+                
+                
+                                        
 
                                         if(!$profile->iscomplete || $MissingData){
                                             $Debug = ' (' . $MissingData . '|' . $profile->iscomplete . ')';
