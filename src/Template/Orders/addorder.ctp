@@ -326,12 +326,12 @@
 
                                 $temp_step = 1;
                                 foreach ($subdoccli as $sd) {
-                                    //var_dump($sd);
+                                    
                                     $index+=1;
                                     $d = $this->requestAction('/clients/getFirstSub/'.$sd->sub_id);
 
                                     if($debugging) {
-                                        //die('here');
+                                        
                                         echo "<BR>Displayform: " . displayform2($DriverProvince, $thedocuments, $d->title, $theproduct,$d->id,$_this);
                                         $thedocuments[strtolower($d->title)]["IsSet"] = true;
                                         debug($d);
@@ -410,7 +410,7 @@
                     </div>
                     
                 </div>
-                <!--</form> -->
+                
             </div>
         </div>
     </div>

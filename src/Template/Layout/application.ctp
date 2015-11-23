@@ -1,4 +1,4 @@
-<!DOCTYPE html><TITLE>MEE</TITLE>
+<!DOCTYPE html><title>MEE</title>
 <style>
     .required:after {
         content: " *";
@@ -48,7 +48,7 @@
         .splitcolsOLD {
             -webkit-column-count: 2 !important; /* Chrome, Safari, Opera */
             -moz-column-count: 2 !important; /* Firefox */
-            column-count: 2 !important; */
+            column-count: 2 !important; 
         }
 
         .row {
