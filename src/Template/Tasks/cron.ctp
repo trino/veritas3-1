@@ -237,7 +237,7 @@
 
                     <div class="form-body">
                         <div class="table-scrollable">
-                            <TD COLSPAN="7" style="padding-right: 10px;"><table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer" style="margin-bottom: 5px; margin-left: 3px;"><thead><TR><TH>ID</TH><TH>Name</TH><TH>Profile Type</TH><TH title="Expiry date is not blank, and is after yesterday">Expiry Date >= ' . $Today . '</TH><TH title="Is hired">IH</TH><TH>Hired Date</TH><TH>Auto-Change</TH></TR><TBODY>';
+                            <TD COLSPAN="7" style="padding-right: 10px;"><table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer" style="margin-bottom: 5px; margin-left: 3px;"><thead><TR><TH>ID</TH><TH>Name</TH><TH>Profile Type</TH><TH title="Expiry date is not blank, and is after yesterday">Expiry Date >= ' . $Today . '</TH><TH title="Is hired">IH</TH><TH>Hired Date</TH><TH>Auto-Change</TH><TH>Action</TH></TR><TBODY>';
 
         $Users = $Profiles[$_GET["clientid"]];
         foreach($Users as $Profile){
@@ -250,20 +250,20 @@
             echo '<TD>' . checkmark($Profile->expiry_date && $Profile->expiry_date >= $Today);
 
             echo ' <INPUT ONCHANGE="change();" TYPE="TEXT" NAME="profiles[expiry_date][' . $Profile->id . ']" VALUE="';
-            echo $Profile->expiry_date . '" class="datepicker date-picker">';
+            echo $Profile->expiry_date . '" class="datepicker date-picker expiry_date">';
 
             echo '</TD>' . $CRLF;
-            echo '<TD><INPUT ONCHANGE="change();" TYPE="CHECKBOX" NAME="profiles[is_hired][' . $Profile->id . ']" VALUE="1"  STYLE="width: 100%;"';
+            echo '<TD><INPUT class="is_hired" ONCHANGE="change();" TYPE="CHECKBOX" NAME="profiles[is_hired][' . $Profile->id . ']" VALUE="1"  STYLE="width: 100%;"';
             if($Profile->is_hired){ echo " CHECKED";}
             echo '></TD>' . $CRLF;
 
             echo '<TD><INPUT ONCHANGE="change();" TYPE="TEXT" ID="hireddate' . $Profile->id . '" NAME="profiles[hired_date][' . $Profile->id . ']" VALUE="';
-            echo $Profile->hired_date . '" class="datepicker date-picker"></TD><TD>';
+            echo $Profile->hired_date . '" class="datepicker date-picker hired_date"></TD><TD>';
             foreach($Frequencies as $Frequency => $Date){
                 echo '<INPUT TYPE="BUTTON" CLASS="btn-xs btn btn-info btnspc" VALUE="-' . $Frequency . pluralize($Frequency, " Month") . '" ';
                 echo 'ONCLICK="changehired(' . $Profile->id . ', ' . $Frequency . ", '" . $Date . "'" . ');">';
             }
-            echo '</TD></TR>';
+            echo '</TD><td><a href="javascript:void(0)" class="btn btn-primary saveDriverInfo" id="save_id_'.$Profile->id.'">Save</a></td></td></TR>';
         }
         echo '</TBODY></TABLE></div></div></div></div>';
     } ?>
@@ -460,3 +460,32 @@ echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-col
         </div>
     </div>
 </div>
+<script>
+$(function(){
+    $('.saveDriverInfo').click(function(){
+       $(this).html('Saving..');
+       var profile_type = $(this).parent().parent().find('.profile_types').val();
+       //alert(profile_type);
+       var expiry_date = $(this).parent().parent().find('.expiry_date').val();
+       //alert(expiry_date);
+       if($(this).parent().parent().find('.is_hired').is(':checked'))
+       var is_hired = 1;
+       else
+       var is_hired = 0;
+       //alert(is_hired);
+       var hired_date = $(this).parent().parent().find('.hired_date').val();
+       //alert(hired_date);
+       var id = $(this).attr('id').replace('save_id_','');
+       
+       $.ajax({
+        url:'<?php echo $this->request->webroot;?>tasks/saveDriverInfo/'+id,
+        type:'post',
+        data:'profile_type='+profile_type+'&expiry_date='+expiry_date+'&is_hired='+is_hired+'&hired_date='+hired_date,
+        success:function(){
+            alert('Saved successfully');
+            
+        }
+       });
+    });
+})
+</script>
