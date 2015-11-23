@@ -171,8 +171,6 @@
             $client_crons = TableRegistry::get('client_crons');
             foreach ($clients as $c) {
                 $frequency = $c->requalify_frequency;
-
-
                 $epired_profile ="";
                 $escape_id = $client_crons->find('all')->where(['client_id'=>$c->id,'orders_sent'=>'1','cron_date'=>$today]);
                 $escape_ids = '';
@@ -187,6 +185,7 @@
                 }
 
                 $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today])->order('created_by');
+                //debug($profile);
                 $temp = '';
                 foreach ($profile as $p) {
                     if ($c->requalify_re == '0') {
