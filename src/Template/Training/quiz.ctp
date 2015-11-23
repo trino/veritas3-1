@@ -134,7 +134,7 @@
         $QuestionID = $QuizID . ':' . $Index;
         echo '<div class="state">' . $answered . '</div><div class="grade">Marked out of ' . $markedOutOf . '</div>';
         if($picture){
-            echo '<IMG SRC="' . $webroot . 'assets/global/' . $picture . '" style="max-width: 270px;">';
+            echo '<IMG SRC="' . $webroot . 'img/training/' . $picture . '" style="max-width: 138px;">';
         }
     }
 

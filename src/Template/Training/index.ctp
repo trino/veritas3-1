@@ -29,6 +29,10 @@
             display: none;
         }
     }
+
+    .nowrap{
+        white-space: nowrap;
+    }
 </style>
 
 <?php
@@ -202,6 +206,7 @@
                                             $attachments = explode(",", $quiz->Attachments);
                                             $attachmentJS = "";
                                             $id = 0;
+                                            $Index = 0;
                                             $checked = "";
                                             if ($hasusertakenquiz) {
                                                 $checked = " checked";
@@ -230,6 +235,11 @@
                                                     echo '<input type="checkbox" name="chk' . $id . '" id="chk' . $id . '" disabled' . $checked . '></input>' . ($id + 1) . ' <a href="' . $attachment . $download . ' class="btn btn-xs btn-warning chk' . $id . '" onclick="return check(';
                                                     echo "'chk" . $id . "', '" . $attachment . $Q . ');" title="Please follow these steps in sequential order before you can take the quiz"' . $checked . '>' . $name . '</a>';
                                                     $id += 1;
+                                                    $Index += 1;
+                                                    if($Index == 3){
+                                                        $Index = 0;
+                                                        echo '<BR>';
+                                                    }
                                                 }
                                             }
                                             echo '<input type="checkbox" id="quiz" disabled' . $checked . '><a class="btn btn-xs btn-info" href="training/quiz?quizid=' . $quiz->ID . '" onclick="return checkboxes();">Quiz</a></input>';

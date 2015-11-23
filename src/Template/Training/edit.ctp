@@ -137,7 +137,7 @@ if (isset($quiz)){
 <div class="col-md-2">
     <div class="form-group">
         <label class="control-label">Certificate:</label>
-        <LABEL><input type="radio" name="hascert" value="1" <?php if (isset($quiz) && $quiz->hascert) { echo "CHECKED"; } ?>>Yes </LABEL>
+        <LABEL><input type="radio" name="hascert" value="1" <?php if (!isset($quiz) || (isset($quiz) && $quiz->hascert)) { echo "CHECKED"; } ?>>Yes </LABEL>
         <LABEL><input type="radio" name="hascert" value="0" <?php if (isset($quiz) && !$quiz->hascert) { echo "CHECKED"; } ?>>No </LABEL>
     </div>
 </div>
