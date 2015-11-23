@@ -66,11 +66,11 @@ class TasksController extends AppController {
                 else
                     $update_requalify['requalify_re'] = 0;
                 if(isset($_POST['requalify_product'][$id]))
-                    $update_requalify['requalify_product'] = implode(',',$_POST['requalify_product'][$id]);
+                    $update_requalify['requalify_product'] = implode(',',array_keys($_POST['requalify_product'][$id]));
                 else
                     $update_requalify['requalify_product'] = '';
                 if(isset($_POST['requalify_frequency'][$id]))
-                    $update_requalify['requalify_frequency'] = '1';
+                    $update_requalify['requalify_frequency'] = $_POST['requalify_frequency'][$id];
                 else
                     $update_requalify['requalify_frequency'] = 0;
                 $query = $cleint->query();
@@ -81,6 +81,7 @@ class TasksController extends AppController {
                 unset($update_requalify);
                 
             }
+             return $this->redirect(['action' => 'cron']);
             //var_dump($_POST['requalify']);die();
         }
         

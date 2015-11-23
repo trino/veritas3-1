@@ -155,10 +155,12 @@
                                             echo '<TD><INPUT TYPE="checkbox" name="requalify[' . $Client->id . ']" value="1" ONCHANGE="change();"';
                                             if($Client->requalify){echo ' CHECKED';}
                                             echo ' STYLE="width: 100%;"></TD>';
+                                            //echo "<td>".$Client->requalify_frequency."</td>";
                                             echo '<TD><SELECT ID="freq' . $Client->id . '" NAME="requalify_frequency[' . $Client->id . ']" STYLE="width: 100%;">';
+                                            
                                             foreach($Frequencies as $Frequency => $Date){
                                                 echo '<OPTION VALUE="' . $Frequency . '"';
-                                                if ($Frequency==$Client->requalify_frequency){ echo ' SELECTED';}
+                                                if ($Frequency == $Client->requalify_frequency){ echo ' SELECTED';}
                                                 echo '>' . $Frequency .  pluralize($Frequency, ' Month') . '</OPTION>';
                                             }
                                             echo '</SELECT></TD><TD><LABEL><INPUT TYPE="CHECKBOX" value="1" id="check_when' . $Client->id . '" ONCLICK="when(' . $Client->id . ');" NAME="requalify_re[' . $Client->id . ']"';
