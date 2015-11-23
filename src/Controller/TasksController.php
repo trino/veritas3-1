@@ -69,6 +69,10 @@ class TasksController extends AppController {
                     $update_requalify['requalify_product'] = implode(',',array_keys($_POST['requalify_product'][$id]));
                 else
                     $update_requalify['requalify_product'] = '';
+                if(isset($_POST['requalify_date'][$id]))
+                    $update_requalify['requalify_date'] = $_POST['requalify_date'][$id];
+                else
+                    $update_requalify['requalify_date'] = '';
                 if(isset($_POST['requalify_frequency'][$id]))
                     $update_requalify['requalify_frequency'] = $_POST['requalify_frequency'][$id];
                 else
@@ -118,7 +122,7 @@ class TasksController extends AppController {
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
                     $date = $c->requalify_date;
-                    if(strtotime($date)<= strtotime($today)) {
+                    if(strtotime($date)< strtotime($today)) {
                         $date = $this->getnextdate($date,$frequency);
                         if($this->checkcron($c->id, $date, $p->id)) {
                             $date = $this->getnextdate($date, $frequency);
