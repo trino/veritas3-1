@@ -7,7 +7,7 @@ var ComponentsPickers = function () {
                 rtl: Metronic.isRTL(),
                 orientation: "left",
                 autoclose: true,
-                format: 'yyyy-mm-dd'
+                format: 'yy-mm-dd'
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }

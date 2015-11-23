@@ -75,7 +75,7 @@
                 $arr = explode('.', $_FILES['myfile']['name']);
                 $ext = end($arr);
                 $rand = rand(100000, 999999) . '_' . rand(100000, 999999) . '.' . $ext;
-                $allowed = array('jpg', 'jpeg', 'png', 'bmp', 'gif', 'pdf', 'doc', 'docx', 'csv', 'xlsx', 'xls');
+                $allowed = array('jpg', 'jpeg', 'png', 'bmp', 'gif', 'pdf', 'doc', 'docx', 'csv', 'xlsx', 'xls', 'txt');
                 $check = strtolower($ext);
                 if (in_array($check, $allowed)) {
                     move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/img/jobs/' . $rand);
