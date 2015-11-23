@@ -96,7 +96,8 @@ class TasksController extends AppController {
         $this->set('EndTime', $EndTime);
         $this->set('Duration', $Duration);
 
-        $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+        //$cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+        $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1'])->all();
         $this->set('requalify',$cron);
         $p_type = "";
         $clients = TableRegistry::get('clients')->find('all')->where(['requalify' => '1','requalify_product <> ""']);

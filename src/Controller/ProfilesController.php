@@ -152,7 +152,8 @@
                 }
             }
 
-            $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+            //$cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+            $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1'])->all();
             $this->set('requalify',$cron);
             $maxdate = $cron->max('cron_date');
             $p_type = "";
