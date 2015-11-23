@@ -51,6 +51,7 @@ class TasksController extends AppController {
         }
     public function cron($Duration = "+2 years"){
         if($_POST){
+            var_dump($_POST);die();
             $allclients = TableRegistry::get('clients')->find()->all();
             $cleint = TableRegistry::get('clients');
             $this->Flash->success("Data has been saved");
@@ -69,7 +70,7 @@ class TasksController extends AppController {
                     $update_requalify['requalify_product'] = implode(',',array_keys($_POST['requalify_product'][$id]));
                 else
                     $update_requalify['requalify_product'] = '';
-                if(isset($_POST['requalify_date'][$id]))
+                if(isset($_POST['requalify_date'][$id])&& $_POST['requalify_re'][$id]=='1')
                     $update_requalify['requalify_date'] = $_POST['requalify_date'][$id];
                 else
                     $update_requalify['requalify_date'] = '';
@@ -120,14 +121,22 @@ class TasksController extends AppController {
             }
 
             $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today]);
+                //debug($profile);die();
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
                     $date = $c->requalify_date;
-                    if(strtotime($date)<= strtotime($today)) {
+                    if(strtotime($date)< strtotime($today)) {
                         $date = $this->getnextdate($date,$frequency);
                         if($this->checkcron($c->id, $date, $p->id)) {
                             $date = $this->getnextdate($date, $frequency);
                         }
+                    else
+                    {
+                        echo $date = $this->getnextdate($date,$frequency);
+                        if($this->checkcron($c->id, $date, $p->id)) {
+                            $date = $this->getnextdate($date, $frequency);
+                        }
+                    }die('1');
                     }
                 } else {
                     $date = $p->hired_date;
