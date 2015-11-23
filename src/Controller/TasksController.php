@@ -123,7 +123,7 @@ class TasksController extends AppController {
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
                     $date = $c->requalify_date;
-                    if(strtotime($date)< strtotime($today)) {
+                    if(strtotime($date)<= strtotime($today)) {
                         $date = $this->getnextdate($date,$frequency);
                         if($this->checkcron($c->id, $date, $p->id)) {
                             $date = $this->getnextdate($date, $frequency);
