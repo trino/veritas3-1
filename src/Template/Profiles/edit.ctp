@@ -289,8 +289,8 @@
                                     $ClientID = $Manager->find_client($profile->id, true);
                                     if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder) {
 
-                                        $MissingFields = $Manager->requiredfields(false, "profile2order");
-                                        $MissingData = $Manager->requiredfields($profile, "profile2order");
+                                        $MissingFields = false;//$Manager->requiredfields(false, "profile2order");
+                                        $MissingData = false;//$Manager->requiredfields($profile, "profile2order");
                                         $Missing = array();
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
 

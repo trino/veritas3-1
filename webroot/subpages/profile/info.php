@@ -498,7 +498,7 @@ loadreasons($param, $strings, true);
                             </div>
 
 
-                            <div class="col-md-4">
+                            <!--div class="col-md-4">
                                 <div class="form-group">
 
                                     <label class="control-label"><?= $strings["forms_gender"]; ?>: </label>
@@ -513,7 +513,7 @@ loadreasons($param, $strings, true);
                                         printoption($strings["forms_female"], $gender, "Female");
                                         ?></SELECT>
                                 </div>
-                            </div>
+                            </div-->
 
 
 

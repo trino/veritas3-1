@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2015 at 03:49 PM
+-- Generation Time: Nov 24, 2015 at 03:58 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1447950505', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1448376556', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -851,7 +851,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (835, 'forms_expired', 'expiry date', 'date d''expiration'),
 (836, 'email_bulkorder_variables', 'profiles, email', ''),
 (837, 'dashboard_deletedprofile', 'Deleted %Profile%', 'Supprimé %profile%'),
-(838, 'index_nondrafts', 'Orders (Non-drafts)', 'Ordres (non-courants d''air)'),
+(838, 'index_nondrafts', 'Submitted orders', 'Les ordres présentés'),
 (839, 'documents_select', 'Select an option', 'Choisir une option'),
 (840, 'consent_withinborder', 'Please sign within the border.', 'S''il vous plaît signer dans la frontière.');
 
