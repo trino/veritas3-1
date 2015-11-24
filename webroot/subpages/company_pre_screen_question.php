@@ -374,7 +374,7 @@
                                         <div class="col-md-3">
                                         </div>
                                         <div class="col-md-9">
-                                            <a href="javascript:void(0);" class="add_attach btn btn-success">Add More</a>
+                                            <a href="javascript:void(0);" class="add_attach btn btn-primary">Add More</a>
                                         </div>
                                       </div>
                             <div class="clearfix"></div>

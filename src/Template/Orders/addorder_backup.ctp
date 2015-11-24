@@ -170,7 +170,7 @@ printCSS($this);
     if (isset($disabled)) { ?>
         <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
-        <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
+        <!--a href="" class="floatright btn btn-primary">Re-Qualify</a>
         <a href="" class="floatright btn btn-primary">Add to Task List</a-->
     <?php }
 

@@ -254,7 +254,7 @@
 
                                         <div class="input-icon">
                                             <br/>
-                                            <a class="btn btn-xs  btn-success   margin-t10" href="javascript:void(0)"
+                                            <a class="btn btn-xs  btn-primary   margin-t10" href="javascript:void(0)"
                                                id="clientimg">
                                                 <i class="fa fa-image"></i>
                                                 <?= $strings["clients_addeditimage"]; ?>

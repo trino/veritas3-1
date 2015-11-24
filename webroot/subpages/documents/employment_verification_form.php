@@ -567,7 +567,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
             <div class="col-md-3">
             </div>
             <div class="col-md-9">
-                <a href="javascript:void(0);" class="btn btn-success moremore no-print" id="add_more_employ_doc"><?= $strings["forms_addmore"]; ?></a>
+                <a href="javascript:void(0);" class="btn btn-primary moremore no-print" id="add_more_employ_doc"><?= $strings["forms_addmore"]; ?></a>
             </div>
           </div>
           <div class="clearfix"></div>

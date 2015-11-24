@@ -101,7 +101,7 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-9">
-        <a href="javascript:void(0);" class="btn btn-success" id="add_more_edu_doc">Add More</a>
+        <a href="javascript:void(0);" class="btn btn-primary" id="add_more_edu_doc">Add More</a>
     </div>
     </div>
 

@@ -321,7 +321,7 @@
 } ?>
                 <div class="clearfix"></div>
                 <!--p>&nbsp;</p>
-                <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-success"><?= $strings["forms_addmore"]; ?></a></div-->
+                <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-primary"><?= $strings["forms_addmore"]; ?></a></div-->
             </div>
         </div>
 
@@ -509,7 +509,7 @@
                     ?>
 
                 </div>
-                <a href="javascript:void(0)" class="btn btn-success" id="mee_att_more"><?= $strings["forms_addmore"]; ?></a>
+                <a href="javascript:void(0)" class="btn btn-primary" id="mee_att_more"><?= $strings["forms_addmore"]; ?></a>
             </div>
         </div>
     </div>
