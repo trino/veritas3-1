@@ -693,7 +693,7 @@ if (isset($_GET["includeonly"])){
         }
     <?php   }   ?>
     $(function () {
-        $('#tab_1_30').load('<?php echo $this->request->webroot;?>tasks/cron');
+        $('#tab_1_30').load('<?php echo $this->request->webroot;?>tasks/cron/<?php if(isset($_GET['clientid']))echo '?clientid='.$_GET['clientid'];?>');
         $('.scrolldiv').slimScroll({
             height: '250px'
         });

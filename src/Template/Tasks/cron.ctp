@@ -180,7 +180,7 @@
                                             echo '</TD><TD align="RIGHT">';
                                             $Count = iterator_count($Users);
                                             if($Count) {
-                                                echo '<A HREF="?clientid=' . $Client->id . '">' . $Count . '/' . count(explode(",", $Client->profile_id)) . '</A>';
+                                                echo '<A HREF="?clientid=' . $Client->id . '&all_cron">' . $Count . '/' . count(explode(",", $Client->profile_id)) . '</A>';
                                             } else {
                                                 echo "0/" . count(explode(",", $Client->profile_id));
                                             }
