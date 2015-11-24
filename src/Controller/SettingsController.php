@@ -458,10 +458,10 @@ class SettingsController extends AppController {
         return $this->response;
     }
 
-    function getprofile($pid) {
+    function getprofile($pid){
         $profile = TableRegistry::get('profiles')->find()->where(['id'=>$pid])->first();
         if($profile) {
-            $this->response->body($profile->username);
+            $this->response->body($profile);
         } else {
             $this->response->body(false);
         }

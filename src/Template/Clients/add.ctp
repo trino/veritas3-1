@@ -129,9 +129,9 @@
                                 <?php if ($this->request['action'] != "add" && !isset($_GET['view'])) {
                                     ?>
 
-                                    <li>
+                                    <!--li>
                                         <a href="#tab_1_6" data-toggle="tab"><?= $strings["clients_requalify"] ?></a>
-                                    </li>
+                                    </li-->
 
 
                                     <li>
@@ -781,13 +781,13 @@
                                                     include('subpages/clients/recruiter_contact_table.php');
                                                 ?>
                                             </div>
-                                            <div class="tab-pane" id="tab_1_6" style="">
+                                            <!--div class="tab-pane" id="tab_1_6" style="">
                                                 <?php
                                                     if ($action != "Create") {
                                                             include('subpages/clients/requalify.php');
                                                     }
                                                 ?>
-                                            </div>
+                                            </div-->
 
                                             <!--<div class="tab-pane" id="tab_1_7" style="">
                                                 <?php

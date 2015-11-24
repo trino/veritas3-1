@@ -2541,7 +2541,7 @@
 /////////////////////////////////////////////////////////////////////////////////////process order
         function cron($debugging = false) {//////////////////////////////////send out emails
             $path = $this->Document->getUrl();
-
+            
             $setting = TableRegistry::get('settings')->find()->first();
             $q = TableRegistry::get('events');
             $que = $q->find();
