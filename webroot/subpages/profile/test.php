@@ -30,7 +30,7 @@
                             <button type="submit"   class="btn btn-primary" onclick="savepage('product_example');"><i
                                     class="fa fa-check"></i> Submit
                             </button>
-                            <button type="button" class="btn btn-primary">Cancel
+                            <button type="button" class="btn default">Cancel
                             </button>
                         </div>
                     </div>

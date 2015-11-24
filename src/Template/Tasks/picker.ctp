@@ -1186,7 +1186,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary">Save changes</button>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -1369,7 +1369,7 @@
 											<div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
 												<input type="text" class="form-control" readonly>
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -1383,7 +1383,7 @@
 											<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
 												<input type="text" class="form-control" readonly>
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -1397,7 +1397,7 @@
 											<div class="input-group input-medium date date-picker" data-date="10/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
 												<input type="text" class="form-control" readonly>
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -1457,7 +1457,7 @@
 														<div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
 															<input type="text" class="form-control" readonly>
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 														<!-- /input-group -->
@@ -1471,7 +1471,7 @@
 														<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
 															<input type="text" class="form-control" readonly>
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 														<!-- /input-group -->
@@ -1483,7 +1483,7 @@
 														<div class="input-group input-medium date date-picker" data-date="10/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
 															<input type="text" class="form-control" readonly>
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 														<!-- /input-group -->
@@ -1545,7 +1545,7 @@
 											<div class="input-group date form_datetime">
 												<input type="text" size="16" readonly class="form-control">
 												<span class="input-group-btn">
-												<button class="btn btn-primary date-set" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -1557,8 +1557,8 @@
 											<div class="input-group date form_datetime" data-date="2012-12-21T15:25:00Z">
 												<input type="text" size="16" readonly class="form-control">
 												<span class="input-group-btn">
-												<button class="btn btn-primary date-reset" type="button"><i class="fa fa-times"></i></button>
-												<button class="btn btn-primary date-set" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -1570,8 +1570,8 @@
 											<div class="input-group date form_meridian_datetime" data-date="2012-12-21T15:25:00Z">
 												<input type="text" size="16" class="form-control">
 												<span class="input-group-btn">
-												<button class="btn btn-primary date-reset" type="button"><i class="fa fa-times"></i></button>
-												<button class="btn btn-primary date-set" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -1598,7 +1598,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn btn-primary">Cancel</button>
+											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -1618,7 +1618,7 @@
 														<div class="input-group date form_datetime input-medium">
 															<input type="text" size="16" readonly class="form-control">
 															<span class="input-group-btn">
-															<button class="btn btn-primary date-set" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 														<!-- /input-group -->
@@ -1630,8 +1630,8 @@
 														<div class="input-group date form_datetime input-large" data-date="2012-12-21T15:25:00Z">
 															<input type="text" size="16" readonly class="form-control">
 															<span class="input-group-btn">
-															<button class="btn btn-primary date-reset" type="button"><i class="fa fa-times"></i></button>
-															<button class="btn btn-primary date-set" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 														<!-- /input-group -->
@@ -1643,8 +1643,8 @@
 														<div class="input-group date form_meridian_datetime input-large" data-date="2012-12-21T15:25:00Z">
 															<input type="text" size="16" class="form-control">
 															<span class="input-group-btn">
-															<button class="btn btn-primary date-reset" type="button"><i class="fa fa-times"></i></button>
-															<button class="btn btn-primary date-set" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+															<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 														<!-- /input-group -->
@@ -1703,7 +1703,7 @@
 											<div class="input-group">
 												<input type="text" class="form-control timepicker timepicker-no-seconds">
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button"><i class="fa fa-clock-o"></i></button>
+												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
 												</span>
 											</div>
 										</div>
@@ -1714,7 +1714,7 @@
 											<div class="input-group">
 												<input type="text" class="form-control timepicker timepicker-24">
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button"><i class="fa fa-clock-o"></i></button>
+												<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
 												</span>
 											</div>
 										</div>
@@ -1753,7 +1753,7 @@
 														<div class="input-group">
 															<input type="text" class="form-control timepicker timepicker-no-seconds">
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button"><i class="fa fa-clock-o"></i></button>
+															<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
 															</span>
 														</div>
 													</div>
@@ -1764,7 +1764,7 @@
 														<div class="input-group">
 															<input type="text" class="form-control timepicker timepicker-24">
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button"><i class="fa fa-clock-o"></i></button>
+															<button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
 															</span>
 														</div>
 													</div>
@@ -1815,7 +1815,7 @@
 											<div class="input-group">
 												<input type="text" id="clockface_2" value="14:30" class="form-control" readonly=""/>
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button" id="clockface_2_toggle"><i class="fa fa-clock-o"></i></button>
+												<button class="btn default" type="button" id="clockface_2_toggle"><i class="fa fa-clock-o"></i></button>
 												</span>
 											</div>
 										</div>
@@ -1858,7 +1858,7 @@
 														<div class="input-group">
 															<input type="text" id="clockface_2_modal" value="14:30" class="form-control" readonly=""/>
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button" id="clockface_2_modal_toggle"><i class="fa fa-clock-o"></i></button>
+															<button class="btn default" type="button" id="clockface_2_modal_toggle"><i class="fa fa-clock-o"></i></button>
 															</span>
 														</div>
 													</div>
@@ -1873,7 +1873,7 @@
 											</form>
 										</div>
 										<div class="modal-footer">
-											<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+											<button class="btn default" data-dismiss="modal" aria-hidden="true">Close</button>
 											<button class="btn btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
@@ -1912,7 +1912,7 @@
 											<div class="input-group" id="defaultrange">
 												<input type="text" class="form-control">
 												<span class="input-group-btn">
-												<button class="btn btn-primary date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+												<button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
 											</div>
 										</div>
@@ -1920,7 +1920,7 @@
 									<div class="form-group ">
 										<label class="control-label col-md-3">Advance Date Ranges</label>
 										<div class="col-md-4">
-											<div id="reportrange" class="btn btn-primary">
+											<div id="reportrange" class="btn default">
 												<i class="fa fa-calendar"></i>
 												&nbsp; <span>
 												</span>
@@ -1941,7 +1941,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn btn-primary">Cancel</button>
+											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -1961,7 +1961,7 @@
 														<div class="input-group input-large" id="defaultrange_modal">
 															<input type="text" class="form-control">
 															<span class="input-group-btn">
-															<button class="btn btn-primary date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
+															<button class="btn default date-range-toggle" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
 													</div>
@@ -2022,7 +2022,7 @@
 											<div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
 												<input type="text" class="form-control" value="#3865a8" readonly>
 												<span class="input-group-btn">
-												<button class="btn btn-primary" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
+												<button class="btn default" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
 												</span>
 											</div>
 											<!-- /input-group -->
@@ -2065,7 +2065,7 @@
 														<div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
 															<input type="text" class="form-control" value="#3865a8" readonly>
 															<span class="input-group-btn">
-															<button class="btn btn-primary" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
+															<button class="btn default" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
 															</span>
 														</div>
 														<!-- /input-group -->

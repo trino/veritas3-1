@@ -355,7 +355,7 @@ printCSS($this);
                         <div class="form-actions <?php if ($tab == 'nodisplay') echo $tab; ?>">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <a href="javascript:;" class="btn btn-primary button-previous"
+                                    <a href="javascript:;" class="btn default button-previous"
                                        onclick="$('#skip').val('0');">
                                         <i class="m-icon-swapleft"></i> <?= $strings["addorder_back"]; ?> </a>
 
@@ -495,7 +495,7 @@ printCSS($this);
                     <div class="form-actions <?php if ($tab == 'nodisplay') echo $tab; ?>" id="bottomact">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <a href="javascript:;" class="btn btn-primary button-previous" onclick="$('#skip').val('0');">
+                                <a href="javascript:;" class="btn default button-previous" onclick="$('#skip').val('0');">
                                     <i class="m-icon-swapleft"></i> <?= $strings["addorder_back"]; ?> </a>
 
                                 <a href="javascript:;" class="btn red button-next skip cont" onclick="$('#skip').val('1');">

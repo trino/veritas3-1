@@ -57,7 +57,7 @@ function makepage($webroot, $tabIndex, $name, $cms, $active){
                 <button type="submit"   class="btn btn-primary"  >
                     Save Changes
                 </button>
-                <button type="button" class="btn btn-primary" style="margin-right: 8px;">Cancel
+                <button type="button" class="btn default" style="margin-right: 8px;">Cancel
                 </button>
             </div>
         </div>

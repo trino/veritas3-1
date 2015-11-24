@@ -75,7 +75,7 @@ else
                                         </div>
                                         <div class="margin-top-10">
                                             <a id="save_displayz" class="btn btn-primary" >Submit</a>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn default">
                                                 Cancel </a>
                                         </div>
                                         <div class="clearfix"></div>

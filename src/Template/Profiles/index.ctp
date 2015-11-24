@@ -369,7 +369,7 @@
                                                     }
 
                                                     if (strtolower($clinet_name) == 'gordon food service') {
-                                                        //         echo "<button onclick=\"$('.consent_linkz_".$profile->id."').toggle();\" class='btn btn-primary btn-xs blue-soft-stripe'>Consent Link</button>";
+                                                        //         echo "<button onclick=\"$('.consent_linkz_".$profile->id."').toggle();\" class='btn default btn-xs blue-soft-stripe'>Consent Link</button>";
                                                         //        echo "<div class='consent_linkz_".$profile->id."' style='display:none;'><strong>Please send the following link to the applicant to re-submit the consent form:</strong><br>http://".getenv('HTTP_HOST').$this->request->webroot."application/index.php?form=4&user_id=".$profile->id."&customlink</div><div class='clearfix'></div>";
                                                     }
 

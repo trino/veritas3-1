@@ -63,7 +63,7 @@
     				</div>
                     <div class="margiv-top-10">
                     <a id="save_client_p1" class="btn btn-primary" href="javascript:void(0)">Save</a>
-                    <a class="btn btn-primary" href=""> Cancel </a>
+                    <a class="btn default" href=""> Cancel </a>
                     </div>
                     </form>
                 <div class="clearfix"></div>

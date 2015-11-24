@@ -212,7 +212,7 @@
                         $tag = "submitted_by_id";
                     }
                     echo $this->request->webroot . 'documents/index?type=&' . $tag . '=' . $profile->id;
-                ?>" class=" floatright btn btn-primary btnspc"><?= $strings["profiles_mydocuments"]; ?></a>
+                ?>" class=" floatright btn default btnspc"><?= $strings["profiles_mydocuments"]; ?></a>
                 <?php
             }
         }
