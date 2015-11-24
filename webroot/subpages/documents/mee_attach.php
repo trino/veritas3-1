@@ -296,31 +296,29 @@
                 echo "<div>";
             }
             echo '<div class="col-md-12">';
+
             if ($doit && (count($attachment) > 0) || $morecount>0) {
-            echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
-            echo '<div class="col-md-8 mee_more">';
-            if(!isset($mee_more))
-            $mee_more = false;
-            $lprov = array('BC','QC','SK');
-            $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
-            if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
-                makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
-            }
-            if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
-                $skip=true;
-                $morecount = $morecount-1;
-                foreach($mee_more as $key => $file) {//id, mee_id, attachments
-                    //var_dump($file);
-                    if(printfile($this->request->webroot, 8, $file,'','norem')) {
-                        break;
+                echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
+                echo '<div class="col-md-8 mee_more">';
+                if(!isset($mee_more))
+                $mee_more = false;
+                $lprov = array('BC','QC','SK');
+                $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
+                if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
+                    makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
+                }
+                if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
+                    $skip=true;
+                    $morecount = $morecount-1;
+                    foreach($mee_more as $key => $file) {//id, mee_id, attachments
+                        //var_dump($file);
+                        if(printfile($this->request->webroot, 8, $file,'','norem')) {
+                            break;
+                        }
                     }
                 }
-            } 
-        ?>
-
-
-    </div>
-<?php } ?>
+            echo '</div>';
+} ?>
                 <div class="clearfix"></div>
                 <!--p>&nbsp;</p>
                 <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-success"><?= $strings["forms_addmore"]; ?></a></div-->

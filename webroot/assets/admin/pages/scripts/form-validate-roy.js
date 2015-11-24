@@ -123,7 +123,7 @@ function validatespecialrules(){
                         if (!getinputvalue("meeattach_id1") && !getinputvalue("meeattach_id2")){return MissingID;}
                     }
                     if (Rule == "BC" || Rule == "QC" || Rule == "SK"){
-                        if(!getinputvalue("mee_attach_7")){return MissingAbstract;}
+                        if(isvisible("mee_attach_7") && !getinputvalue("mee_attach_7")){return MissingAbstract;}
                     }
                 }
                 break;
@@ -132,9 +132,11 @@ function validatespecialrules(){
     return false;
 }
 
-function isvisible(element){
-    element = document.getElementById(element);
-    return element.offsetWidth > 0 || element.offsetHeight > 0;
+function isvisible(elementName){
+    var element = document.getElementById(elementName);
+    if(element) {
+        return element.offsetWidth > 0 || element.offsetHeight > 0;
+    }
 }
 
 function radiovalue(Name){

@@ -796,15 +796,21 @@
            // if($setting->viewprofiles == 0){
                 $Clients = TableRegistry::get('Clients')->find()->select()->where([true]);
                 $OR = array();
-                foreach($Clients as $Client){
-                    if($Client->profile_id) {
-                        $OR = array_merge($OR, explode(",", $Client->profile_id));
+                $IsSuper = $this->request->session()->read('Profile.super');
+                if(!$IsSuper) {
+                    foreach ($Clients as $Client) {
+                        if ($Client->profile_id) {
+                            $Profiles = explode(",", $Client->profile_id);
+                            if (in_array($u, $Profiles)) {
+                                $OR = array_merge($OR, $Profiles);
+                            }
+                        }
                     }
-                }
-                $OR = implode(",", array_unique($OR));
-                if($OR){
-                    if ($cond) {$cond .= ' AND ';}
-                    $cond .= "id IN (" . $OR . ")";
+                    $OR = implode(",", array_unique($OR));
+                    if ($OR) {
+                        if ($cond) {$cond .= ' AND ';}
+                        $cond .= "id IN (" . $OR . ")";
+                    }
                 }
                 $query = $this->Profiles->find()->where($cond);
             } elseif ($cond) {
