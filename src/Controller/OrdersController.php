@@ -609,8 +609,15 @@
             if (isset($_GET['draft']) && isset($_GET['flash'])) {
                 $this->Flash->success($this->Trans->getString("flash_orderdraft"));
             } else {
-                if (isset($_GET['flash'])) {
+                if (isset($_GET['flash']) && !isset($_GET['d'])) {
                     $this->Flash->success($this->Trans->getString("flash_ordersaved"));
+                }
+                else
+                {
+                    if(isset($_GET['d']))
+                    {
+                        $this->Flash->success($this->Trans->getString("flash_orderdraft"));
+                    }
                 }
             }
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
@@ -1271,11 +1278,16 @@
             $userid = $this->request->session()->read('Profile.id');
 
             $this->set('doc_comp', $this->Document);
-            if (isset($_GET['draft']) && isset($_GET['flash'])) {
-                $this->Flash->success($this->Trans->getString("flash_orderdraft"));
-            } elseif (isset($_GET['flash'])) {
-                $this->Flash->success($this->Trans->getString("flash_ordersaved"));
-            }
+            if (isset($_GET['flash']) && !isset($_GET['d'])) {
+                    $this->Flash->success($this->Trans->getString("flash_ordersaved"));
+                }
+                else
+                {
+                    if(isset($_GET['d']))
+                    {
+                        $this->Flash->success($this->Trans->getString("flash_orderdraft"));
+                    }
+                }
             $setting = $this->Settings->get_permission($userid);
             $doc = $this->Document->getDocumentcount();
             $cn = $this->Document->getUserDocumentcount();

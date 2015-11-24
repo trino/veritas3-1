@@ -97,6 +97,11 @@
                     <div class="btn-set pull-right">
 
                         <form action="<?php echo $this->request->webroot; ?>orders/orderslist" method="get">
+                        <select onchange="window.location = $(this).val();" class="form-control input-inline">
+                        <option>Choose option</option>
+                        <option value="<?php echo $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_orderdrafts"]; ?></option>
+                        <option value="<?php echo $this->request->webroot; ?>orders/orderslist" <?php if(!isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_nondrafts"]; ?></option>
+                        </select>
                             <?php
                             if (isset($_GET['draft'])) {
                                 echo '<input type="hidden" name="draft"/>';

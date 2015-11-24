@@ -462,7 +462,16 @@
                                             <?php }else{?>
                                             $('.counter').text(Number($('.counter').text()) + 1);
                                             $('.overlay-wrapper').hide();
-                                            <?php }?>
+                                            <?php }
+                                            if($this->requsst->params['action'] == 'addorder')
+                                            {
+                                                ?>
+                                                if (redir == 1) {
+                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                                                }
+                                                <?php
+                                            }
+                                            ?>
                                             id = parseInt(id) + 1;
                                             $('#step' + id).show();
                                             $('#step' + id).addClass('active');
@@ -661,13 +670,19 @@
                                                 <?php if($this->request->controller=='Documents')
                                                     {?>
                                                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                                <?php }else{?>
+                                                <?php }else{
+                                                    
+                                                    ?>
                                                 $('.counter').text(Number($('.counter').text()) + 1);
                                                 $('.overlay-wrapper').hide();
                                                 <?php }?>
                                                 <?php }
                                                else{
+                                                
                                                   ?>
+                                                  if (redir == 1) {
+                                                        window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                                                    }
                                                 $('.counter').text(Number($('.counter').text()) + 1);
                                                 $('.overlay-wrapper').hide();
                                                 <?php
@@ -848,6 +863,9 @@
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
                     success: function () {
+                        if (redir == 1) {
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                        }
                         $('.counter').text(Number($('.counter').text()) + 1);
                         $('.overlay-wrapper').hide();
                     }
@@ -885,6 +903,9 @@
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
                     success: function () {
+                        if (redir == 1) {
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                        }
                         $('.counter').text(Number($('.counter').text()) + 1);
                         $('.overlay-wrapper').hide();
                     }
@@ -926,7 +947,7 @@
                     url: '<?php echo $this->request->webroot;?>orders/createPdfEducation/' + $('#did').val(),
                     success: function () {
                         if (redir == 1) {
-                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
                         }
                         $('.counter').text(Number($('.counter').text()) + 1);
                         $('.overlay-wrapper').hide();
