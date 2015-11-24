@@ -784,7 +784,7 @@
                                             <!--div class="tab-pane" id="tab_1_6" style="">
                                                 <?php
                                                     if ($action != "Create") {
-                                                            include('subpages/clients/requalify.php');
+                                                            //include('subpages/clients/requalify.php');
                                                     }
                                                 ?>
                                             </div-->
