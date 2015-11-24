@@ -2104,7 +2104,7 @@
             display: none;
         }
 
-        .page-footer, .nav-tabs, .page-title, .page-bar, .theme-panel, .page-sidebar-wrapper, .form-actions, .steps, .caption {
+        .page-footer, .nav-tabs, .page-title, .page-bar, .theme-panel, .page-sidebar-wrapper, .form-actions, .caption {
             display: none !important;
         }
 
