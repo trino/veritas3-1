@@ -11,6 +11,10 @@ if($ClientID != 26){
     echo '<STYLE>.nothuron{display: none; !important;}</STYLE>';
 }
 
+$language = $this->request->session()->read('Profile.language');
+$settings = $Manager->get_settings();
+$strings = CacheTranslations($language, "consent_withinborder" ,$settings);
+
 function makerow($profile, $Fields){
     if($profile){
         $theindex = 0;
@@ -34,9 +38,9 @@ function makerow($profile, $Fields){
         echo '<div class="clearfix"></div>';
     }
 }
+    if(isset($dx)){ echo '<p style="font-size: 20px;font-weight: bold;">' . $dx->title . '</p>'; }
 ?>
-<?php if(isset($dx)){?><p style="font-size: 20px;font-weight: bold;"><?php echo $dx->title;?></p><?php }?>
-<form id="form_tab<?php echo $dx->id;?>" action="<?php echo $this->request->webroot;?>documents/application_employment/<?php echo $cid .'/' .$did;?>" method="post">
+<form id="form_tab<?= $dx->id;?>" action="<?= $this->request->webroot;?>documents/application_employment/<?= $cid .'/' .$did;?>" method="post">
         <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>
         <input type="hidden" name="sub_doc_id" value="<?php echo $dx->id;?>" class="sub_docs_id" id="af" />
 

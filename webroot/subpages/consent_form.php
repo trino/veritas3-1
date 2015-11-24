@@ -1,8 +1,9 @@
  <?php
- if($this->request->session()->read('debug'))
-        echo "<span style ='color:red;'>consent_form.php #INC156</span>";
+     if($this->request->session()->read('debug')) {
+         echo "<span style ='color:red;'>consent_form.php #INC156</span>";
+     }
+     if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
  ?>
- <?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div class="portlet box blue ">
 	<div class="portlet-title">
 		<div class="caption">

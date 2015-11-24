@@ -45,7 +45,7 @@ if (isset($application_for_employment_gfs)){
             <input type="hidden" class="touched_edit8" value="<?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->gfs_signature){?>1<?php }else{?>0<?php }?>" />
             
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
-            <p style="margin-top:8px;">gg77gg-Please sign within the border.</p>
+            <p style="margin-top:8px;"><?= $strings["consent_withinborder"]; ?></p>
     		<div style="">
             <div style="width:404px;">
                 <canvas style="border-radius: 5px; border: 8px solid silver;" width="404" id="test8" style=""></canvas>
@@ -62,13 +62,9 @@ if (isset($application_for_employment_gfs)){
         
         <div class="col-sm-6">
                 <?php if(isset($application_for_employment_gfs) && $application_for_employment_gfs->gfs_signature){?><img src="<?php echo $this->request->webroot.'canvas/'.$application_for_employment_gfs->gfs_signature;?>" style="max-width: 100%;" /><?php }
-                else
-                {
-                    if(isset($application_for_employment_gfs))
-                    {
-                        ?>
-                        <p>&nbsp;</p><strong>No signature supplied</strong>
-                        <?php
+                else {
+                    if(isset($application_for_employment_gfs)) {
+                        echo '<p>&nbsp;</p><strong>No signature supplied</strong>';
                     }
                 }
                 ?>                    

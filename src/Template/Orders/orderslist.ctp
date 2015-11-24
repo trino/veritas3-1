@@ -98,9 +98,9 @@
 
                         <form action="<?php echo $this->request->webroot; ?>orders/orderslist" method="get">
                         <select onchange="window.location = $(this).val();" class="form-control input-inline">
-                        <option>Choose option</option>
-                        <option value="<?php echo $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_orderdrafts"]; ?></option>
-                        <option value="<?php echo $this->request->webroot; ?>orders/orderslist" <?php if(!isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_nondrafts"]; ?></option>
+                        <option><?= $strings["documents_select"]; ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_orderdrafts"]; ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist" <?php if(!isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_nondrafts"]; ?></option>
                         </select>
                             <?php
                             if (isset($_GET['draft'])) {
@@ -294,10 +294,20 @@
 
                                         </td>
 
-                                        <td class="v-center"><?php if (isset($uploaded_by)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);?></td>
+                                        <td class="v-center"><?php
+                                            if (isset($uploaded_by)) {
+                                                echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);
+                                            } else {
+                                                echo $strings["dashboard_deletedprofile"];
+                                            }
+                                            ?></td>
 
                                         <td class="v-center">
-                                            <?php if (isset($uploaded_for)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>" ?>
+                                            <?php if (isset($uploaded_for) && $uploaded_for) {
+                                                echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>";
+                                            } else {
+                                                echo $strings["dashboard_deletedprofile"];
+                                            }?>
                                         </td>
 
                                         <td class="v-center"><?php

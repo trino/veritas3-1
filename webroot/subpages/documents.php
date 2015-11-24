@@ -1,6 +1,7 @@
  <?php
- if($this->request->session()->read('debug'))
-        echo "<span style ='color:red;'>document.php #INC157</span>";
+     if($this->request->session()->read('debug')) {
+         echo "<span style ='color:red;'>document.php #INC157</span>";
+     }
  ?>
 
 <div class="row">

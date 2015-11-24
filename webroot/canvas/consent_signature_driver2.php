@@ -47,7 +47,7 @@ if (isset($consent_detail)){
             <input type="hidden" class="touched_edit2" value="<?php if(isset($consent_detail) && $consent_detail->criminal_signature_applicant2){?>1<?php }else{?>0<?php }?>" />
             <label class="control-label"><?= $strings2["consent_sigapplica"]; ?></label><br>
             <?php if($this->request->params['action']!= 'vieworder' && $this->request->params['action']!= 'view'){?>
-            <p style="margin-top:8px;">gg77gg-Please sign within the border.</p>
+            <p style="margin-top:8px;"><?= $strings2["consent_withinborder"]; ?></p>
             <div style="border: 15px solid silver;border-radius: 5px;">
               <canvas id="test5" style=""></canvas>
             </div>

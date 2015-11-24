@@ -311,23 +311,23 @@
 
                     echo '<td class="v-center">';
                     $docname = h($docs->document_type) . " #: " . $this->Number->format($docs->id);
-                    if (isset($uploaded_by->username)) {
+                    if (is_object($uploaded_by)) {
                         $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->user_id . '" target="_blank">' . formatname($uploaded_by);
                         $docname .= ", " . $strings["documents_submittedby"] . " " . formatname($uploaded_by);
                     } else {
-                        $user = $strings["documents_none"];
+                        $user = $strings["dashboard_deletedprofile"];
                     }
                     echo $user . '</td>';
 
                     if ($settings->mee == "MEE") {
                         echo '<td class="v-center">';
-                        if (isset($uploaded_for->username)) {
+                        if (is_object($uploaded_for)) {
                             $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->uploaded_for . '" target="_blank">' . formatname($uploaded_for);
                             if (!is_object($uploaded_by) || $uploaded_for->id <> $uploaded_by->id) {
                                 $docname .= ", " . $strings["documents_submittedfor"] . " " . formatname($uploaded_for);
                             }
                         } else {
-                            $user = $strings["documents_none"];
+                            $user = $strings["dashboard_deletedprofile"];
                         }
                         echo $user . '</td>';
                     }
