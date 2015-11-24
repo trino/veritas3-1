@@ -103,7 +103,7 @@
     ?>
 
 
-    <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
+    <!--a href="" class="floatright btn btn-primary">Re-Qualify</a>
     <a href="" class="floatright btn btn-primary">Add to Task List</a-->
 
 </div>
@@ -1809,7 +1809,7 @@
         
         $('#addfiles').click(function () {
             //alert("ssss");
-            $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-success">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();"><?= addslashes($strings["dashboard_delete"]); ?></a><br/></div>');
+            $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-primary">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();"><?= addslashes($strings["dashboard_delete"]); ?></a><br/></div>');
         });
         $('.nohide').show();
     });

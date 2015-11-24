@@ -217,7 +217,7 @@ function formatname($profile){
                                         //clients_requalify orders_scorecard documents_complete documents_pending documents_draft
                                          if ($sidebar->orders_requalify == '1' && $order->draft == '0') echo $this->Html->link(__($strings["clients_requalify"]), ['controller' => 'orders', 'action' => 'addorder', $order->client_id, $order->id], ['class' => 'btn btn-primary']);
 
-                                        if (!isset($_GET['draft'])) echo $this->Html->link(__($strings["orders_scorecard"]), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-success']);?>
+                                        if (!isset($_GET['draft'])) echo $this->Html->link(__($strings["orders_scorecard"]), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-primary']);?>
                                     </TD><td valign="middle">
                                         <?php if (!isset($_GET['draft'])) { ?>
                                             <?php if (isset($order->bright_planet_html_binary)) { ?>

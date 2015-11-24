@@ -629,7 +629,7 @@ if($newsigmethod){include("signature.php");}
                     <div class="col-md-3">
                     </div>
                     <div class="col-md-9">
-                        <a href="javascript:void(0);" class="btn btn-success moremore" id="add_more_consent_doc"><?= $strings["forms_addmore"]; ?></a>
+                        <a href="javascript:void(0);" class="btn btn-primary moremore" id="add_more_consent_doc"><?= $strings["forms_addmore"]; ?></a>
                     </div>
                 </div>
 

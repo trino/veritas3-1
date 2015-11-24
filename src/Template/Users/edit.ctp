@@ -465,7 +465,7 @@ $is_disabled = '';
                                                                 <hr />
 
                                                             <?php }?>
-                                                            <input type="submit" class="btn btn-success" value="submit" name="submit" />
+                                                            <input type="submit" class="btn btn-primary" value="submit" name="submit" />
                                                             </form>
 
                                                         </div>
@@ -496,7 +496,7 @@ $is_disabled = '';
                                                                 <hr />
 
                                                             <?php }?>
-                                                            <input type="submit" class="btn btn-success" value="submit" name="submit" />
+                                                            <input type="submit" class="btn btn-primary" value="submit" name="submit" />
                                                             </form>
 
 

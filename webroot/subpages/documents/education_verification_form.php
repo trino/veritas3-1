@@ -442,7 +442,7 @@
                     <p>&nbsp;</p>
                     <input type="hidden" name="count_more_edu" id="count_more_edu" value="<?php if(isset($counter))echo $counter;?>">
                     <a href="javascript:void(0);" class="btn btn-primary add_more_edu"><?= $strings["forms_addmore"]; ?></a>
-                    <!--a href="javascript:void(0);" class="btn btn-success moremore" ONCLICK="refresh();">REFRESH</A-->
+                    <!--a href="javascript:void(0);" class="btn btn-primary moremore" ONCLICK="refresh();">REFRESH</A-->
                 </div>
                 <?php if($this->request->params['controller']!='Documents' && $this->request->params['controller']!='ClientApplication'){?>
                 <div class="allattach">
@@ -530,7 +530,7 @@
                     </div>
                     <div class="col-md-9">
                         <input type="hidden" name="count_more_edu_doc" id="count_more_edu_doc" value="1">
-                        <a href="javascript:void(0);" class="btn btn-success moremore" id="add_more_edu_doc"><?= $strings["forms_addmore"]; ?></a>
+                        <a href="javascript:void(0);" class="btn btn-primary moremore" id="add_more_edu_doc"><?= $strings["forms_addmore"]; ?></a>
                     </div>
                 </div>
 

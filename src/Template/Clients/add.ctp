@@ -100,7 +100,7 @@
                                for="exampleInputEmail22"><?= $strings["clients_addeditimage"]; ?></label>
 
                         <div class="input-icon">
-                            <a class="btn btn-xs btn-success" href="javascript:void(0)" id="clientimg">
+                            <a class="btn btn-xs btn-primary" href="javascript:void(0)" id="clientimg">
                                 <i class="fa fa-image"></i>
                                 <?= $strings["clients_addeditimage"]; ?>
                             </a>

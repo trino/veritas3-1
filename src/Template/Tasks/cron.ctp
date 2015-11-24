@@ -296,6 +296,15 @@
             element.style.display = 'none';
         }
     }
+
+    $(function () {
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1980:2020',
+            dateFormat: 'yy-mm-dd'
+        });
+    });
 </SCRIPT>
 <?php
     include('subpages/profile/requalify.php');

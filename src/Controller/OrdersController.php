@@ -236,6 +236,7 @@
                 }
             }
 
+            /*
             $MissingFields = $this->Manager->requiredfields($profiles, "profile2order");
             if ($MissingFields || !$profiles->iscomplete) {
                 if (isset($_GET["debug"])) {
@@ -244,7 +245,7 @@
                     die();
                 }
                 $this->Flash->error($this->Trans->getString("flash_cantorder"));
-            }
+            }*/
 
             if ($did) {
                 $o_model = TableRegistry::get('Orders');
@@ -526,10 +527,9 @@
             }
         }
 
-        public function savedoc($cid = 0, $did = 0)
-        {
+        public function savedoc($cid = 0, $did = 0) {
             $this->loadComponent('Mailer');
-            $ret = $this->Document->savedoc($this->Mailer, $cid, $did, false);
+            $ret = $this->Document->savedoc($this->Mailer, $cid, $did, true);
             die();
         }
 

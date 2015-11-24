@@ -155,7 +155,7 @@
                                                                 View Orders</a>
 
                                                             <!--a href="<?php echo $this->request->webroot; ?>documents/index/?client_id=<?php echo $clients->id; ?>"
-                                                           class="btn btn-success">
+                                                           class="btn btn-primary">
                                                             View <?= ucfirst($settings->document); ?>s</a-->
 
                                                         <?php

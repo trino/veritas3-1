@@ -349,7 +349,7 @@
 									<label class="sr-only" for="exampleInputEmail22">Add Image</label>
 									<div class="input-icon">
 
-										<a href="javascript:void(0)" <?php echo $is_disabled;?> class="btn btn-success"><i class="fa fa-envelope"></i> &nbsp; Add Profile image</a>
+										<a href="javascript:void(0)" <?php echo $is_disabled;?> class="btn btn-primary"><i class="fa fa-envelope"></i> &nbsp; Add Profile image</a>
 									</div>
 							</div>
 

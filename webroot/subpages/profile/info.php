@@ -749,20 +749,11 @@ loadreasons($param, $strings, true);
                                 <div class=""
                                      id="subtab_2_4" style="padding: 10px;">
                                      
-                                     <label class="control-label">Assign to client: </label>
+                                     <label class="control-label"><?= $strings["profiles_assigntoclient"]; ?>:</label>
                         
-                                    <?php if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
-                                        //&& $this->request->session()->read("Profile.id")==$id
-                                        ?>
-                        
-                                        <!--
-                                        <div class="portlet box">
-                                            <div class="portlet-title" style="background: #CCC;">
-                                                <div class="caption">Assign to client</div>
-                                            </div>
-                                            <div class="portlet-body">
-                                            -->
-                                         <?php if($this->request->params['action']!='view'){
+                                    <?php
+                                        if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
+                                            if($this->request->params['action']!='view'){
                                             ?>
                                           
                                         <div class="input-group">
@@ -778,17 +769,27 @@ loadreasons($param, $strings, true);
                                             ?> style="border-top: 1px solid #e5e5e5;"<?php }?>>
                                             <table class="table" id="clientTable" style="border: 1px solid #e5e5e5;border-top:none;">
                                                 <?php
-                        
+                                                    $IsAdmin = $Manager->read("admin") || $Manager->read("super");
+
+                                                    $CheckID = $id;
+                                                    if(!$CheckID){
+                                                        $CheckID=$userID;
+                                                    }
                                                     $clients = $this->requestAction('/clients/getAllClient/');
                                                     $AssignedTo = array();
                                                     $clientcount=0;
                                                     foreach ($clients as $client) {
                                                         $pro_ids = explode(",", $client->profile_id);
-                                                        if (in_array($id, $pro_ids)){
+                                                        if (in_array($CheckID, $pro_ids)){
                                                             $AssignedTo[] = $client->id;
                                                             $clientcount++;
                                                         }
                                                     }
+
+                                                    if(!$id && count($AssignedTo)>1){
+                                                        $AssignedTo = array();
+                                                    }
+
                                                     $cidss = implode(",", $AssignedTo);
                                                     $count = 0;
                                                     if ($clients) {
@@ -812,7 +813,7 @@ loadreasons($param, $strings, true);
                                                                         class="addclientz" name="client_idss[]" <?php if ($isassigned) {
                                                                         echo "checked";
                                                                     } ?>  <?php echo $is_disabled;
-                                                                     if(!$isassigned && $clientcount >0 && !$profile->admin && !$profile->super){
+                                                                     if(!$isassigned && $clientcount >0 && !$IsAdmin){
                                                                          echo " disabled";
                                                                      }
                                                                     ?> />

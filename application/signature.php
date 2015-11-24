@@ -144,8 +144,8 @@
             <INPUT TYPE="HIDDEN" ID="<?= $name; ?>" NAME="<?= $name; ?>">
             <div class="alert alert-info" id="error<?= $name; ?>">Sign above</div>
             <input type="button" onclick="clear<?= $name; ?>();" class="btn btn-primary" value="Clear">
-            <input type="button" onclick="save<?= $name; ?>();" id="savebtn<?= $name; ?>" class="btn btn-success" <?php if(!$savebutton) { echo 'style="display: none"'; } ?> value="Save">
-            <!--button class="btn btn-success" onclick="QuickSave<?= $name; ?>();">Save</button-->
+            <input type="button" onclick="save<?= $name; ?>();" id="savebtn<?= $name; ?>" class="btn btn-primary" <?php if(!$savebutton) { echo 'style="display: none"'; } ?> value="Save">
+            <!--button class="btn btn-primary" onclick="QuickSave<?= $name; ?>();">Save</button-->
         </div>
     </div>
 </div>
