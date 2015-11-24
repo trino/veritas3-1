@@ -380,7 +380,7 @@
                  <div class="col-md-4" align="right"><?= $strings2["upload_uploaddriv"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
                 echo $mee_att['attach_doc']->driver_record_abstract;
@@ -404,7 +404,7 @@
                 <!--label class="control-label col-md-4">Upload CVOR: </label-->
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_4"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->cvor; ?>"><?php echo printanattachment($mee_att['attach_doc']->cvor); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_cvor" name="cvor" class="mee_att_4" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) {
                 echo $mee_att['attach_doc']->cvor;
@@ -428,7 +428,7 @@
             <div class="col-md-4" align="right"><?= $strings2["upload_uploadresu"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_5"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->resume; ?>"><?php echo printanattachment($mee_att['attach_doc']->resume); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_resume" name="resume" class="mee_att_5" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) {
                 echo $mee_att['attach_doc']->resume;
@@ -452,7 +452,7 @@
             <div class="col-md-4" align="right"><?= $strings2["upload_uploadcert"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_6"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->certification; ?>"><?php echo printanattachment($mee_att['attach_doc']->certification); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_certification" name="certification" class="mee_att_6" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) {
                 echo $mee_att['attach_doc']->certification;
