@@ -360,7 +360,7 @@
                         <tr>
                             <td colspan="2" style="background: #f7f7f7;">&nbsp;</td>
                         </tr>
-                        <tr>
+                        <!--tr>
                             <td class="vtop"> Invoice</td>
                             <td>
                                 <label class="uniform-inline">
@@ -374,7 +374,7 @@
                                                                       value="0" <?php if (isset($sidebar) && $sidebar->invoice == 0) echo "checked"; ?>/>
                                     No </label>
                             </td>
-                        </tr>
+                        </tr-->
 
                         <tr>
                             <td class="vtop">

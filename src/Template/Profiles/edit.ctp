@@ -3,16 +3,21 @@
     $sidebar = $Manager->loadpermissions($Me, "sidebar");
     $block = $Manager->loadpermissions($Me, "blocks");
 
-
     $YourSidebar = $Manager->loadpermissions(-1, "sidebar");
     $isadmin = $Manager->read("admin") == 1 || $Manager->read("super") == 1;
-    if (!isset($is_disabled1)) {$is_disabled1 = "";}//something is wrong with this variable
+    if (!isset($is_disabled1)) {
+        $is_disabled1 = "";
+    }//something is wrong with this variable
 
     $activetab = "config";
     if ($activetab == "permissions") {
-        if ((isset($Clientcount) && $Clientcount == 0) || $this->request->session()->read('Profile.profile_type') == '2') {$activetab = "assign";}
+        if ((isset($Clientcount) && $Clientcount == 0) || $this->request->session()->read('Profile.profile_type') == '2') {
+            $activetab = "assign";
+        }
     } else {
-        if ($this->request->session()->read('Profile.profile_type') == '2') {$activetab = "assign";}
+        if ($this->request->session()->read('Profile.profile_type') == '2') {
+            $activetab = "assign";
+        }
     }
 
 ?>
@@ -21,9 +26,9 @@
     if($this->request->params['action']=='edit')
     {
         ?>
-        $(function(){
-           $('#searchClient').keyup(function(){
-            
+    $(function () {
+        $('#searchClient').keyup(function () {
+
             var key = $('#searchClient').val();
             $('#clientTable').html('<tbody><tr><td><img src="<?php echo $this->request->webroot;?>assets/admin/layout/img/ajax-loading.gif"/></td></tr></tbody>');
             $.ajax({
@@ -34,32 +39,32 @@
                     $('#clientTable').html(res);
                 }
             });
-            
-           }); 
+
         });
-    
+    });
+
     <?php
     }
     else
     {
     ?>
-    
-    $(function(){
-           $('#searchClient').keyup(function(){
-            
+
+    $(function () {
+        $('#searchClient').keyup(function () {
+
             var key = $('#searchClient').val();
-        $('#clientTable').html('<tbody><tr><td><img src="<?php echo $this->request->webroot;?>assets/admin/layout/img/ajax-loading.gif"/></td></tr></tbody>');
-        $.ajax({
-            url: '<?php echo $this->request->webroot;?>clients/getAjaxClient',
-            data: 'key=' + key,
-            type: 'get',
-            success: function (res) {
-                $('#clientTable').html(res);
-            }
+            $('#clientTable').html('<tbody><tr><td><img src="<?php echo $this->request->webroot;?>assets/admin/layout/img/ajax-loading.gif"/></td></tr></tbody>');
+            $.ajax({
+                url: '<?php echo $this->request->webroot;?>clients/getAjaxClient',
+                data: 'key=' + key,
+                type: 'get',
+                success: function (res) {
+                    $('#clientTable').html(res);
+                }
+            });
         });
-        });
-        });
-    
+    });
+
     <?php
     }
     ?>
@@ -106,7 +111,9 @@
 
 <?php
     $is_disabled = '';
-    if (isset($disabled)) {$is_disabled = 'disabled="disabled"';}// style="border: 0px solid;"';}
+    if (isset($disabled)) {
+        $is_disabled = 'disabled="disabled"';
+    }// style="border: 0px solid;"';}
     $hidepermissions = true;
     $userID = $this->request->session()->read('Profile.id');
     if (isset($profile)) {
@@ -114,24 +121,26 @@
         $hidepermissions = $this->request->session()->read('Profile.admin') && $userID == $p->id;
     }
 
-  //  $CanOrder = $Manager->loadpermissions($userID, "sidebar")->orders_create;
+    //  $CanOrder = $Manager->loadpermissions($userID, "sidebar")->orders_create;
     $CanOrder = true;
 
     $settings = $Manager->get_settings();
 
-/*  what is this supposed to do?
-    if ($this->request->session()->read('Profile.super')) {
-        $sidebar = $this->requestAction("settings/all_settings/0/sidebar");
-    } else {
-        $sidebar = $this->requestAction("settings/all_settings/" . $userID . "/sidebar");
-    }
-*/
+    /*  what is this supposed to do?
+        if ($this->request->session()->read('Profile.super')) {
+            $sidebar = $this->requestAction("settings/all_settings/0/sidebar");
+        } else {
+            $sidebar = $this->requestAction("settings/all_settings/" . $userID . "/sidebar");
+        }
+    */
 
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("profiles_%", "forms_%", "file_missingdata", "clients_addeditimage", "clients_enablerequalify", "theme_%", "month_long%", "flash_cantorder%"), $settings);
     $Trans = "";
-    if ($language == "Debug") {$Trans = " [Trans]";}
+    if ($language == "Debug") {
+        $Trans = " [Trans]";
+    }
     $debug = $this->request->session()->read('debug');
     $param = $this->request->params['action'];
     $param2 = $strings["profiles_" . $param];
@@ -186,7 +195,7 @@
             } else if ($param == 'edit') {
                 echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-info btnspc']);
             }
-            if ($this->request->session()->read('Profile.super') && $this->request->session()->read('Profile.id') != $profile->id && $debug) {
+            if ($this->request->session()->read('Profile.super') && $this->request->session()->read('Profile.id') != $profile->id) {
                 echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
                 echo '" onclick="return confirm(' . "'Are you sure you want to possess " . formatname($profile) . "?'";
                 echo ');" class="floatright btn btnspc btn-danger">' . $strings["dashboard_possess"] . '</a>';
@@ -208,7 +217,7 @@
             }
         }
 
-        if($this->request->session()->read('debug') && ($param == "edit" || $param == "add") ){
+        if ($this->request->session()->read('debug') && ($param == "edit" || $param == "add")) {
             echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
         }
     ?>
@@ -264,7 +273,9 @@
                                 <?php if (isset($p->fname)) echo ucwords($p->fname . ' ' . $p->lname); ?>
                             </div>
 
-                            <?php if (isset($p->isb_id) && ($p->isb_id != "") && ($settings->mee == "MEE")) {
+                            <?php
+                                /*
+                                if (isset($p->isb_id) && ($p->isb_id != "") && ($settings->mee == "MEE")) {
                                 ?>
                                 <div class="profile-usertitle-job">
                                     <small>
@@ -272,47 +283,41 @@
                                     </small>
                                 </div>
                             <?php }
+                                */
 
                                 if (isset($p)) {
                                     $ClientID = $Manager->find_client($profile->id, true);
-                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder ) {
-                                        
-                                        
+                                    if (!$profile->Ptype || ($profile->Ptype && $profile->Ptype->placesorders == 1) && $CanOrder) {
+
                                         $MissingFields = $Manager->requiredfields(false, "profile2order");
                                         $MissingData = $Manager->requiredfields($profile, "profile2order");
-                                        $Missing= array();
+                                        $Missing = array();
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
-                                        
-                                        
-                                        if($profile->iscomplete && !$MissingData){
-                                        //driver, owner driver, owner operator, sales, employee
-                                        echo '<label class="uniform-inline" style="margin-bottom:10px;">';
-                                        echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
-                                        if ($p->is_hired == '1') {
-                                            echo " checked";
-                                        }
-                                        echo '/> ' . $strings["profiles_washired"] . ' <span class="hired_msg"></span></label>';
-                                        echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
-                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
-                                        if ($p->requalify == '1') {
-                                            echo " checked";
-                                        }
-                                        echo '> ' . $strings["clients_enablerequalify"] . '<span class="req_msg"></span></label>';
-                }
-                
-                
-                
-                
-                                        
 
-                                        if(!$profile->iscomplete || $MissingData){
+                                        if ($profile->iscomplete && !$MissingData) {
+                                            //driver, owner driver, owner operator, sales, employee
+                                            echo '<label class="uniform-inline" style="margin-bottom:10px;">';
+                                            echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
+                                            if ($p->is_hired == '1') {
+                                                echo " checked";
+                                            }
+                                            echo '/> ' . $strings["profiles_washired"] . ' <span class="hired_msg"></span></label>';
+                                            echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
+                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
+                                            if ($p->requalify == '1') {
+                                                echo " checked";
+                                            }
+                                            echo '> ' . $strings["clients_enablerequalify"] . '<span class="req_msg"></span></label>';
+                                        }
+
+                                        if (!$profile->iscomplete || $MissingData) {
                                             $Debug = ' (' . $MissingData . '|' . $profile->iscomplete . ')';
-                                            if(!$profile->iscomplete){
+                                            if (!$profile->iscomplete) {
                                                 $Missing[] = "Letter of Experience";
                                                 $Missing[] = "Consent form";
                                             }
-                                            foreach($MissingFields as $Field => $String){
-                                                if(!$profile->$Field){
+                                            foreach ($MissingFields as $Field => $String) {
+                                                if (!$profile->$Field) {
                                                     $Missing[] = $strings[$String];
                                                 }
                                             }
@@ -325,7 +330,9 @@
                                         } else if ($sidebar->orders_create == 1) {
                                             $title = getFieldname("Name", $language);
                                             echo '<DIV ID="doplaceorders"';
-                                            if(!$ClientID){ echo ' STYLE="visibility: hidden;"';}
+                                            if (!$ClientID) {
+                                                echo ' STYLE="visibility: hidden;"';
+                                            }
                                             echo '>';
                                             foreach ($products as $product) {
                                                 $alias = $product->Sidebar_Alias;
@@ -393,7 +400,7 @@
                             <?php
                                 if ($this->request['action'] == 'view' && ($profile->Ptype && $profile->Ptype->placesorders == 1)) {
                                     $activetab = "scorecard";
-                                }else {
+                                } else {
                                     $activetab = "profile";
                                 }
                                 //if ($this->request->session()->read('Profile.profile_type') > 1) {//is not an admin, block.php suggests using =2
@@ -412,9 +419,12 @@
                                     $activetab = $_GET['activetab'];
                                 }
 
-                                function activetab(&$activetab, $name, $needsclass = True) {
+                                function activetab(&$activetab, $name, $needsclass = True)
+                                {
                                     if ($activetab == $name || $activetab == "") {
-                                        if(!$activetab){$activetab = $name;}
+                                        if (!$activetab) {
+                                            $activetab = $name;
+                                        }
                                         if ($needsclass) {
                                             echo " class='active'";
                                         } else {
@@ -429,21 +439,24 @@
                             <!--BEGIN TABS-->
                             <div class="tabbable tabbable-custom">
                                 <ul class="nav nav-tabs">
-<?php
-    if ($this->request->session()->read('Profile.super') != '1' && $activetab == "permissions") {
-        $activetab = "";
-    }
+                                    <?php
+                                        if ($this->request->session()->read('Profile.super') != '1' && $activetab == "permissions") {
+                                            $activetab = "";
+                                        }
 
-    if ($this->request['action'] == 'view' && ($profile->Ptype && $profile->Ptype->placesorders == 1)) {
-        ?>
-        <li <?php activetab($activetab, "scorecard"); ?>>
-            <a href="#tab_1_11"
-               data-toggle="tab"><?= $strings["profiles_viewscorecard"]; ?></a>
-        </li>
-        <?php
-    }
-?>
-                                    <li <?php if ($this->request['action'] == 'view' && ($profile->Ptype && $profile->Ptype->placesorders == 1)){}else{activetab($activetab, "profile");} ?> >
+                                        if ($this->request['action'] == 'view' && ($profile->Ptype && $profile->Ptype->placesorders == 1)) {
+                                            ?>
+                                            <li <?php activetab($activetab, "scorecard"); ?>>
+                                                <a href="#tab_1_11"
+                                                   data-toggle="tab"><?= $strings["profiles_viewscorecard"]; ?></a>
+                                            </li>
+                                            <?php
+                                        }
+                                    ?>
+                                    <li <?php if ($this->request['action'] == 'view' && ($profile->Ptype && $profile->Ptype->placesorders == 1)) {
+                                    } else {
+                                        activetab($activetab, "profile");
+                                    } ?> >
                                         <a href="#tab_1_1" data-toggle="tab"><?= $strings["profiles_profile"]; ?></a>
                                     </li>
 
@@ -451,9 +464,10 @@
 
                                         if ($this->request['action'] != 'add') {
 
-                                            if ($this->request->params['action'] != 'add' && $CanOrder) {  ?>
+                                            if ($this->request->params['action'] != 'add' && $CanOrder) { ?>
                                                 <li<?php activetab($activetab, "notes"); ?>>
-                                                    <a href="#tab_1_9" data-toggle="tab"><?= $strings["profiles_notes"]; ?></a>
+                                                    <a href="#tab_1_9"
+                                                       data-toggle="tab"><?= $strings["profiles_notes"]; ?></a>
                                                 </li>
 
 
@@ -461,12 +475,13 @@
                                             $checker = $this->requestAction('/settings/check_edit_permission/' . $this->request->session()->read('Profile.id') . '/' . $profile->id . "/" . $profile->created_by);
                                             if ($this->request->session()->read('Profile.super') == '1') {//} || ($sidebar->profile_create == '1' && $sidebar->profile_edit == '1')) {?>
                                                 <li <?php activetab($activetab, "permissions"); ?>>
-                                                    <a href="#tab_1_7" data-toggle="tab"><?= $strings["profiles_permissions"]; ?></a>
+                                                    <a href="#tab_1_7"
+                                                       data-toggle="tab"><?= $strings["profiles_permissions"]; ?></a>
                                                 </li>
 
                                             <?php }
 
-                                            if (isset($profile->email) && $CanOrder && $uid <> $Manager->read("id")) {?>
+                                            if (isset($profile->email) && $CanOrder && $uid <> $Manager->read("id")) { ?>
                                                 <li <?php activetab($activetab, "feedback"); ?> >
                                                     <a href="#tab_1_8" data-toggle="tab">Message</a>
                                                 </li>
@@ -481,7 +496,8 @@
                                     <!-- PERSONAL INFO TAB -->
 
 
-                                    <div class="tab-pane  <?php activetab($activetab, "profile", false); ?> " id="tab_1_1" style="padding: 10px;">
+                                    <div class="tab-pane  <?php activetab($activetab, "profile", false); ?> "
+                                         id="tab_1_1" style="padding: 10px;">
                                         <input type="hidden" name="user_id" value="<?php echo ""; ?>"/>
                                         <?php include('subpages/profile/info.php'); ?>
                                     </div>
@@ -490,24 +506,27 @@
 
                                     <?php if ($this->request['action'] != 'add') { ?>
 
-                                            <div class="tab-pane <?php activetab($activetab, "notes", false); ?>" id="tab_1_9" style="padding: 10px;">
-                                                <div class="cleafix">&nbsp;</div>
+                                        <div class="tab-pane <?php activetab($activetab, "notes", false); ?>"
+                                             id="tab_1_9" style="padding: 10px;">
+                                            <div class="cleafix">&nbsp;</div>
 
-                                                <div class="portlet-body">
-                                                    <?php include('subpages/documents/recruiter_notes.php');//notes ?>
-                                                </div>
+                                            <div class="portlet-body">
+                                                <?php include('subpages/documents/recruiter_notes.php');//notes ?>
                                             </div>
+                                        </div>
 
                                     <?php }
 
                                         if ($this->request['action'] == 'view') { ?>
-                                            <div class="tab-pane <?php activetab($activetab, "scorecard", false); ?>"  id="tab_1_11" style="padding: 10px;">
+                                            <div class="tab-pane <?php activetab($activetab, "scorecard", false); ?>"
+                                                 id="tab_1_11" style="padding: 10px;">
                                                 <?php include('subpages/documents/forview.php'); ?>
                                             </div>
                                         <?php }
 
                                         if ($this->request->session()->read('Profile.super')) { ?>
-                                            <div class="tab-pane <?php activetab($activetab, "permissions", false); ?>" id="tab_1_7">
+                                            <div class="tab-pane <?php activetab($activetab, "permissions", false); ?>"
+                                                 id="tab_1_7">
                                                 <?php if (!isset($BypassLogin)) $BypassLogin = false;
                                                     if (!$BypassLogin) {
                                                         include('subpages/profile/block.php');
@@ -515,7 +534,8 @@
                                                 ?>
                                             </div>
                                         <?php } ?>
-                                    <div class="tab-pane <?php activetab($activetab, "feedback", false); ?>" id="tab_1_8">
+                                    <div class="tab-pane <?php activetab($activetab, "feedback", false); ?>"
+                                         id="tab_1_8">
                                         <? include('subpages/profile/email.php'); ?>
                                     </div>
 
@@ -576,41 +596,45 @@
          ?>
         $('.addclientz').click(function () {
             /*
-            var client_id = $(this).val();
-            var addclient = "";
-            var msg = '';
-            var nameId = 'msg_' + $(this).val();
-            if ($(this).is(':checked')) {
-                addclient = '1';
-                msg = '<span class="msg" style="color:#45B6AF"> <?= addslashes($strings["forms_added"]); ?></span>';
-            }
-            else {
-                addclient = '0';
-                msg = '<span class="msg" style="color:red"> <?= addslashes($strings["forms_removed"]); ?></span>';
-            }
+             var client_id = $(this).val();
+             var addclient = "";
+             var msg = '';
+             var nameId = 'msg_' + $(this).val();
+             if ($(this).is(':checked')) {
+             addclient = '1';
+             msg = '<span class="msg" style="color:#45B6AF">
+            <?= addslashes($strings["forms_added"]); ?></span>';
+             }
+             else {
+             addclient = '0';
+             msg = '<span class="msg" style="color:red">
+            <?= addslashes($strings["forms_removed"]); ?></span>';
+             }
 
             <?php if(isset($profile) && ($profile->admin == 0 && $profile->super == 0)){; ?>
-            $('.addclientz').each(function () {
-                if ($(this).val() != client_id) {
-                    $(this).prop("disabled", addclient == 1);
-                    var parent = $(this).parent().parent();
-                    if (addclient == 1) {
-                        parent.addClass("disabled");
-                    } else {
-                        parent.removeClass("disabled");
-                    }
-                }
-            });
+             $('.addclientz').each(function () {
+             if ($(this).val() != client_id) {
+             $(this).prop("disabled", addclient == 1);
+             var parent = $(this).parent().parent();
+             if (addclient == 1) {
+             parent.addClass("disabled");
+             } else {
+             parent.removeClass("disabled");
+             }
+             }
+             });
             <?php } ?>
 
-            $.ajax({
-                type: "post",
-                data: "client_id=" + client_id + "&add=" + addclient + "&user_id=" +<?php //echo $id;?>,
-                url: "<?php //echo $this->request->webroot;?>clients/addprofile",
-                success: function () {
-                    $('.' + nameId).html(msg);
-                }
-            })*/
+             $.ajax({
+             type: "post",
+             data: "client_id=" + client_id + "&add=" + addclient + "&user_id=" +
+            <?php //echo $id;?>,
+             url: "
+            <?php //echo $this->request->webroot;?>clients/addprofile",
+             success: function () {
+             $('.' + nameId).html(msg);
+             }
+             })*/
         });
         <?php
          }
@@ -618,23 +642,25 @@
          {?>
         $('.addclientz').click(function () {
             /*
-            var nameId = 'msg_' + $(this).val();
-            var client_id = "";
-            var msg = '';
-            $('.addclientz').each(function () {
-                if ($(this).is(':checked')) {
-                    msg = '<span class="msg" style="color:#45B6AF"> <?= addslashes($strings["forms_added"]); ?></span>';
-                    client_id = client_id + "," + $(this).val();
-                }
-                else {
-                    msg = '<span class="msg" style="color:red"> <?= addslashes($strings["forms_removed"]); ?></span>';
-                }
-            });
+             var nameId = 'msg_' + $(this).val();
+             var client_id = "";
+             var msg = '';
+             $('.addclientz').each(function () {
+             if ($(this).is(':checked')) {
+             msg = '<span class="msg" style="color:#45B6AF">
+            <?= addslashes($strings["forms_added"]); ?></span>';
+             client_id = client_id + "," + $(this).val();
+             }
+             else {
+             msg = '<span class="msg" style="color:red">
+            <?= addslashes($strings["forms_removed"]); ?></span>';
+             }
+             });
 
-            client_id = client_id.substr(1, length.client_id);
-            $('.client_profile_id').val(client_id);
-            $('.' + nameId).html(msg);
-*/
+             client_id = client_id.substr(1, length.client_id);
+             $('.client_profile_id').val(client_id);
+             $('.' + nameId).html(msg);
+             */
         });
         <?php
         }
@@ -732,26 +758,26 @@
             })
         })
         /*
-    <?php echo $this->request->webroot;?>clients/assignProfile/' + $(this).val() + '/
+        <?php echo $this->request->webroot;?>clients/assignProfile/' + $(this).val() + '/
         <?php if(isset($id) && $id)echo $id;else echo '0'?>/yes';
-    }
-    else
-    {
-        msg = '<span class="msg" style="color:red">Removed</span>';
-        var url = '
+         }
+         else
+         {
+         msg = '<span class="msg" style="color:red">Removed</span>';
+         var url = '
         <?php echo $this->request->webroot;?>clients / assignProfile / ' + $(this).val() + ' /
         <?php if(isset($id) && $id)echo $id;else echo '0'?> / no
-        ';
-    }
+         ';
+         }
 
-    $.ajax({
-        url: url, success: function () {
-            $('.' + nameId).html(msg);
-        }
-    });
-    })
-    ;
-    */
+         $.ajax({
+         url: url, success: function () {
+         $('.' + nameId).html(msg);
+         }
+         });
+         })
+         ;
+         */
     })
     ;
 </script>

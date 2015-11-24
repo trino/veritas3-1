@@ -723,8 +723,9 @@
             }
 
             /*=================================================================================================== */
-            if($setting->viewprofiles == 0){
-                $Clients = TableRegistry::get('Clients')->find()->select()->where(['visibleprofiles' => 1]);
+            if(true){
+           // if($setting->viewprofiles == 0){
+                $Clients = TableRegistry::get('Clients')->find()->select()->where([true]);
                 $OR = array();
                 foreach($Clients as $Client){
                     if($Client->profile_id) {
@@ -799,7 +800,7 @@
                 $this->set('uid', $id);
                 $this->set('doc_comp', $this->Document);
                 $setting = $this->Settings->get_permission($userid);
-
+/*
                 if ($setting->profile_list == 0 || ($userid != $id && $setting->viewprofiles ==0)) {
                     $ClientID = $this->Manager->find_client($id, false);
                     $visibleprofiles = false;
@@ -816,10 +817,10 @@
 
                     if(!$visibleprofiles) {
                         //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => $place)) . ' (006)');
-                        return $this->redirect("/");
+                     //   return $this->redirect("/");
                     }
                 }
-
+*/
                 $docs = TableRegistry::get('profile_docs');
                 $query = $docs->find();
                 $client_docs = $query->select()->where(['profile_id' => $id])->all();
@@ -900,6 +901,8 @@
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
 
             if ($setting->profile_create == 0 && !$this->request->session()->read('Profile.super')) {
+
+
                 $this->Flash->error($this->Trans->getpermissions("004", "profile_create"));
                 //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "add")) . ' (004)');
                 return $this->redirect("/");
@@ -1579,7 +1582,11 @@
             $checker = $this->Settings->check_edit_permission($userid, $id, $aa->created_by);
 
             $setting = $this->Settings->get_permission($userid);
-            if (($setting->profile_edit == 0 || $setting->viewprofiles ==0) && $id != $userid) {
+            if (($setting->profile_edit == 0) && $id != $userid) {
+
+              //  var_dump($setting);die();
+
+
                 $this->Flash->error($this->Trans->getpermissions("004", array("profile_edit", "viewprofiles")));
                 //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "edit")) . ' (000)');
                 return $this->redirect("/");

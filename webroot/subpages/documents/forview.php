@@ -409,7 +409,7 @@
             if (!$docfind) {
                 echo '<tr><td colspan="3">' . $strings2["score_none"] . '</td></tr>';
             }
-
+/*
             $Education = array("School" => "Scott Park Driving School", "Program Name" => "A-Z Drivers 123", "Graduation Date" => "10/10/2015", "Grade" => "99/100", "Transcript" => "ABC Trucking AZ Driver License October 2015 85 Transcript");
             if(isset($Education)) {maketable("EDUCATION", $Education, ":");}
             $Education = array();
@@ -423,13 +423,14 @@
                     '<A class="label label-info btnspc" HREF="' .  $this->request->webroot . 'training/quiz?quizid=' . $Certificate->QuizID . '&userid=' . $id . '">View Answers (' . round($Percent,2) . '%)</A>';
                 }
             }
-            maketable("CERTIFICATES", $Education);
+*/
+           // maketable("CERTIFICATES", $Education);
 
             $files = getattachments($order->id);
             if (!$includeabove) {
                 printdocumentinfo($order->id, true);
             }
-            listfiles($files, "attachments/", "", false, 3);
+          //  listfiles($files, "attachments/", "", false, 3);
 
             echo '<TR><TD colspan="3"></TD></TR></tbody></table></div><div class="clearfix"></div></div></div><!-- END PORTLET --></div></div><!-- END PORTLET --></div></div></div>';
         }
