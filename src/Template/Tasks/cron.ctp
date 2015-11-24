@@ -92,16 +92,7 @@
     CRON
 </h3>
 <div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="<?= $this->request->webroot . '">' . $strings["dashboard_dashboard"] ?></a>
-						<i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="">CRON</a>
-        </li>
-    </ul>
+    
     <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
     <a class="floatright btn btn-warning btnspc" href="<?= $this->request->webroot; ?>profiles/cron/true">Run the CRON </a>
     <?php if($Showname){
@@ -109,7 +100,7 @@
     } ?>
 </div>
 
-<FORM METHOD="post">
+<FORM METHOD="post" action="<?php echo $this->request->webroot;?>tasks/cron">
     <div class="row">
         <div class="col-md-12">
             <div class="portlet box grey-salsa">

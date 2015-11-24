@@ -50,6 +50,7 @@ class TasksController extends AppController {
             
         }
     public function cron($Duration = "+2 years"){
+        $this->layout = 'blank';
         if($_POST){
             //var_dump($_POST);die();
             $allclients = TableRegistry::get('clients')->find()->all();
@@ -86,7 +87,7 @@ class TasksController extends AppController {
                 unset($update_requalify);
                 
             }
-             return $this->redirect(['action' => 'cron']);
+             return $this->redirect('/profiles/settings?all_cron');
             //var_dump($_POST['requalify']);die();
         }
         

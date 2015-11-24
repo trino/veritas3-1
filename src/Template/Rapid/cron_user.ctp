@@ -16,7 +16,7 @@
                     url: '<?php echo $this->request->webroot;?>orders/webservice/REQ/' + forms + '/' + driv[k] + '/' + ord[k],
                     success:function(){
                         alert('Cron ran successfully.')
-                        window.location="<?php echo $this->request->webroot;?>profiles/settings";
+                        window.location="<?php echo $this->request->webroot;?>profiles/settings?all_cron";
                     }
                 });
             }

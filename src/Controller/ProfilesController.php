@@ -2541,7 +2541,7 @@
 /////////////////////////////////////////////////////////////////////////////////////process order
         function cron($debugging = false) {//////////////////////////////////send out emails
             $path = $this->Document->getUrl();
-            
+            $this->layout = 'blank';
             $setting = TableRegistry::get('settings')->find()->first();
             $q = TableRegistry::get('events');
             $que = $q->find();
@@ -2553,7 +2553,7 @@
             //VAR_Dump($query);die();
 
             $Emails = 1;
-            echo '<TABLE BORDER="1" cellspacing="0"><THEAD><TR><TH>ID</TH><TH>TITLE</TH><TH>NOTES</TH></TR></THEAD>';
+            echo '<TABLE BORDER="1" cellspacing="0" id="crontable"><THEAD><TR><TH>ID</TH><TH>TITLE</TH><TH>NOTES</TH></TR></THEAD>';
             if($debugging){echo '<TR><TH COLSPAN="3">Debugging mode is on</TH></TR>';}
             echo '<TR><TH COLSPAN="3">Task events before now (' . $datetime . ')</TH></TR>';
             if (isset($_GET["testemail"])) {
@@ -2789,7 +2789,9 @@
             }
             //echo '<script src="'.$this->request->webroot.'"assets/global/plugins/jquery.min.js"></script>';
             echo '<TR><TH COLSPAN="3">Clients</TH></TR>';
-            echo $this->requestAction("rapid/cron" . $email);
+            
+            $this->set('email',$email);
+            //$this->requestAction("rapid/cron" . $email);
 
             echo '</TABLE>';
 
@@ -2797,7 +2799,7 @@
                 echo '<BR><span style="border: 2px solid #000000;padding:3px;" onclick="document.getElementById(' . "'royslog'" . ").style.display = ''" . '"><STRONG>Click to see the contents of the log file</STRONG></span>';
                 echo '<BR><SPAN ID="royslog" style="display: none;">' . str_replace("\r\n", "<BR>", file_get_contents ("royslog.txt")) . '</SPAN>';
             }
-            die();
+            
         }
 
         function ajax_cron($type, $profile_id ) {

@@ -128,6 +128,10 @@ if (isset($_GET["includeonly"])){
 
                 if ($this->request['action'] != 'add') {
                     $activetab="tab_1_5";
+                    if(isset($_GET['all_cron']))
+                    {
+                        $activetab="tab_1_30";
+                    }
                     if(isset($_GET['activedisplay'])){$activetab = "tab_1_13";}
                     if ($this->request->session()->read('Profile.admin') && $this->request->session()->read('Profile.super')) {
                         activetab($activetab, array(
@@ -141,6 +145,7 @@ if (isset($_GET["includeonly"])){
                             activetab($activetab, "tab_1_9", "Clear Data");
                         }
                     }
+                    
                     if($this->request->session()->read('Profile.super')) {
                         activetab($activetab, array(
                             "tab_1_13" => "Add/Edit Documents",
@@ -166,7 +171,7 @@ if (isset($_GET["includeonly"])){
             <div class="tab-content">
                 <?php
                 if ($this->request['action'] != 'add') {
-                          if(!isset($_GET['activedisplay'])) {
+                          if(!isset($_GET['activedisplay']) && !isset($_GET['all_cron'])) {
                             echo '<div class="tab-pane active"  id="tab_1_5">';
                           } else {
                             echo '<div class="tab-pane"  id="tab_1_5">';
@@ -185,8 +190,8 @@ if (isset($_GET["includeonly"])){
                     <div class="tab-pane" id="tab_1_10">
                         <?php include('products.ctp'); //subpages/profile/products.php'); ?>
                     </div>
-                     <div class="tab-pane" id="tab_1_30">
-                        <div class="tabbable tabbable-custom">
+                     <div class="tab-pane <?php if(isset($_GET['all_cron'])){?>active<?php }?>" id="tab_1_30">
+                        <?php /*?><div class="tabbable tabbable-custom">
                             <ul class="nav nav-tabs">
 
                                 <!--li class="active">
@@ -212,7 +217,7 @@ if (isset($_GET["includeonly"])){
                                     ?>
                                 </div>
                             </div>
-                           </div>
+                           </div>*/?>
                         
                     </div>
                      <div class="tab-pane" id="tab_1_16">
@@ -688,6 +693,7 @@ if (isset($_GET["includeonly"])){
         }
     <?php   }   ?>
     $(function () {
+        $('#tab_1_30').load('<?php echo $this->request->webroot;?>tasks/cron');
         $('.scrolldiv').slimScroll({
             height: '250px'
         });

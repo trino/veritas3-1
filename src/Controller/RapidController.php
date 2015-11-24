@@ -168,6 +168,8 @@
         }
 
         function cron($IsDebug = false) {
+            if(isset($_GET['blank']))
+            $this->layout = 'blank';
             $today = date('Y-m-d');
             $msg = "";
             $clients = TableRegistry::get('clients')->find('all')->where(['requalify' => '1', 'requalify_product <> ""']);
