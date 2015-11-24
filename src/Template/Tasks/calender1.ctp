@@ -1173,7 +1173,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary">Save changes</button>
-							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -1335,7 +1335,7 @@
 									<div id="external-events">
 										<form class="inline-form">
 											<input type="text" value="" class="form-control" placeholder="Event Title..." id="event_title"/><br/>
-											<a href="javascript:;" id="event_add" class="btn default">
+											<a href="javascript:;" id="event_add" class="btn btn-primary">
 											Add Task </a>
 										</form>
 										<hr/>

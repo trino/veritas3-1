@@ -1188,7 +1188,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary">Save changes</button>
-							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -1426,7 +1426,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -1552,16 +1552,16 @@
 												<div class="input-group" style="width: 325px">
 													<input type="text" class="form-control" id="recaptcha_response_field" name="recaptcha_response_field">
 													<div class="input-group-btn">
-														<a class="btn default" href="javascript:Recaptcha.reload()">
+														<a class="btn btn-primary" href="javascript:Recaptcha.reload()">
 														<i class="fa fa-refresh"></i>
 														</a>
-														<a class="btn default recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')">
+														<a class="btn btn-primary recaptcha_only_if_image" href="javascript:Recaptcha.switch_type('audio')">
 														<i title="Get an audio CAPTCHA" class="fa fa-headphones"></i>
 														</a>
-														<a class="btn default recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')">
+														<a class="btn btn-primary recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type('image')">
 														<i title="Get an image CAPTCHA" class="fa fa-picture-o"></i>
 														</a>
-														<a class="btn default" href="javascript:Recaptcha.showhelp()">
+														<a class="btn btn-primary" href="javascript:Recaptcha.showhelp()">
 														<i class="fa fa-question-circle"></i>
 														</a>
 													</div>
@@ -1623,7 +1623,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -1704,7 +1704,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -1825,7 +1825,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -1940,7 +1940,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -2039,7 +2039,7 @@
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9">
 												<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-												<button type="button" class="btn default">Cancel</button>
+												<button type="button" class="btn btn-primary">Cancel</button>
 											</div>
 										</div>
 									</div>
@@ -2088,7 +2088,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -2193,7 +2193,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -2276,7 +2276,7 @@
 														<i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
 														</span>
 													</div>
-													<span class="input-group-addon btn default btn-file">
+													<span class="input-group-addon btn btn-primary btn-file">
 													<span class="fileinput-new">
 													Select file </span>
 													<span class="fileinput-exists">
@@ -2293,7 +2293,7 @@
 										<label class="control-label col-md-3">Without input</label>
 										<div class="col-md-9">
 											<div class="fileinput fileinput-new" data-provides="fileinput">
-												<span class="btn default btn-file">
+												<span class="btn btn-primary btn-file">
 												<span class="fileinput-new">
 												Select file </span>
 												<span class="fileinput-exists">
@@ -2314,7 +2314,7 @@
 												<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
 												</div>
 												<div>
-													<span class="btn default btn-file">
+													<span class="btn btn-primary btn-file">
 													<span class="fileinput-new">
 													Select image </span>
 													<span class="fileinput-exists">
@@ -2342,7 +2342,7 @@
 												<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 												</div>
 												<div>
-													<span class="btn default btn-file">
+													<span class="btn btn-primary btn-file">
 													<span class="fileinput-new">
 													Select image </span>
 													<span class="fileinput-exists">
@@ -2365,7 +2365,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>
@@ -2410,7 +2410,7 @@
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-											<button type="button" class="btn default">Cancel</button>
+											<button type="button" class="btn btn-primary">Cancel</button>
 										</div>
 									</div>
 								</div>

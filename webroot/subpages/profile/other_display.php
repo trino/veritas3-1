@@ -54,7 +54,7 @@
             </div>
             <div align="right">
                 <a id="save_displayz" class="btn btn-primary" >Submit</a>
-                <a href="#" class="btn default">
+                <a href="#" class="btn btn-primary">
                     Cancel </a>
             </div>
             <div class="clearfix"></div>

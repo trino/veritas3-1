@@ -31,7 +31,7 @@
 
 
                     <div class="clearfix text-right margin-top-20">
-                        <button type="button" class="btn default">View</button>
+                        <button type="button" class="btn btn-primary">View</button>
                         <button type="button" class="btn yellow">Edit</button>
                         <button type="button" class="btn btn-primary">Upload</button>
                         <button type="button" class="btn red">Delete</button>

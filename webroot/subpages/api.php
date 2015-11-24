@@ -281,7 +281,7 @@ function btnclass($xscolor, $stripecolor = ""){
 
     if ($mode ){
         if (strlen($stripecolor)==0){$stripecolor = $xscolor;}
-        return "btn default " . $size . " " . $stripecolor . "-stripe";
+        return "btn btn-primary " . $size . " " . $stripecolor . "-stripe";
     } else {
         return "btn " . $size . " " . $xscolor;
     }

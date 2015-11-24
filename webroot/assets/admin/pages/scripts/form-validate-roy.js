@@ -228,6 +228,21 @@ function getinputvalue(element){
     return value;
 }
 
+function findindex(element){
+    var Name = element.getAttribute("name");
+    var elements = document.getElementsByName(Name);
+    for(var i=0; i<elements.length; i++){
+        if (elements[i] == element){
+            return i;
+        }
+    }
+    return -1;
+}
+function getindex(Name, Index){
+    var elements = document.getElementsByName(Name);
+    return elements[Index];
+}
+
 function checktags(TabID, tagtype){//use tagtype = "single" to get a single element with the ID = TabID
     var element, inputs, endDates = new Object();
     resetelement();
@@ -423,7 +438,7 @@ function autofill2(Type){
         autofill2("select");
         autofill2("textarea");
     } else {
-        var inputs, index, element, value, name, temp
+        var inputs, index, element, value, name, temp;
         inputs = document.getElementsByTagName(Type);
         for (index = 0; index < inputs.length; ++index) {
             element = inputs[index];
@@ -479,6 +494,13 @@ function autofill2(Type){
                         if(name.indexOf("expiry")>-1){
                             StartYear = Now+1;
                             EndYear = Now+20;
+                        } else if (name.indexOf("_end")>-1) {
+                            temp = findindex(element);
+                            name = name.replace("_end", "_start");
+                            value = getindex(name, temp);
+                            value = getinputvalue(value);
+                            StartYear = parseInt(value.substring(6, value.length)) + 1;
+                            EndYear = StartYear + 25;
                         }
                         value = "10/04/" + getRandomInt(StartYear,EndYear);
                         break;

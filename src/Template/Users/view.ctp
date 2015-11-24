@@ -10,7 +10,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary">Save changes</button>
-							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -271,7 +271,7 @@
 													<div class="margiv-top-10">
 														<a href="#" class="btn btn-primary-haze">
 														Save Changes </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
 												</form>
@@ -291,14 +291,14 @@
 															<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 															</div>
 															<div>
-																<span class="btn default btn-file">
+																<span class="btn btn-primary btn-file">
 																<span class="fileinput-new">
 																Select image </span>
 																<span class="fileinput-exists">
 																Change </span>
 																<input type="file" name="...">
 																</span>
-																<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
+																<a href="#" class="btn btn-primary fileinput-exists" data-dismiss="fileinput">
 																Remove </a>
 															</div>
 														</div>
@@ -307,7 +307,7 @@
 													<div class="margin-top-10">
 														<a href="#" class="btn btn-primary-haze">
 														Submit </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
 												</form>
@@ -331,7 +331,7 @@
 													<div class="margin-top-10">
 														<a href="#" class="btn btn-primary-haze">
 														Change Password </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
 												</form>
@@ -386,7 +386,7 @@
 													<div class="margin-top-10">
 														<a href="#" class="btn btn-primary-haze">
 														Save Changes </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
 												</form>

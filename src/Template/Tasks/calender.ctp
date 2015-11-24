@@ -48,7 +48,7 @@ echo "<SCRIPT LANGUAGE='JavaScript'>var Language = '" . $language . "';</SCRIPT>
 									<!--<div id="external-events">
 										<form class="inline-form">
 											<input type="text" value="" class="form-control" placeholder="Event Title..." id="event_title"/><br/>
-											<a href="javascript:;" id="event_add" class="btn default">
+											<a href="javascript:;" id="event_add" class="btn btn-primary">
 											Add Event </a>
 										</form>
 										<hr/>

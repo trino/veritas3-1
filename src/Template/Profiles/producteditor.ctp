@@ -59,7 +59,7 @@
     <tbody>
         <TR ONCLICK="productclick('');">
             <TD COLSPAN="16" ALIGN="CENTER" <?php if(!isset($_GET["Acronym"])){echo 'CLASS="selected"';}?>>
-                <A HREF="javascript:void(0)" CLASS="btn default btn-primary">Create new product type</A>
+                <A HREF="javascript:void(0)" CLASS="btn btn-primary btn-primary">Create new product type</A>
             </TD>
         </TR>
         <?php

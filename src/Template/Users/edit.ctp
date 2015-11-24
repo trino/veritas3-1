@@ -18,7 +18,7 @@ $is_disabled = '';
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary">Save changes</button>
-							<button type="button" class="btn default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -300,7 +300,7 @@ $is_disabled = '';
 													<div class="margiv-top-10">
 														<a href="#" class="btn btn-primary">
 														Save Changes </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
                                                     <?php }?>
@@ -321,14 +321,14 @@ $is_disabled = '';
 															<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
 															</div>
 															<div>
-																<span class="btn default btn-file">
+																<span class="btn btn-primary btn-file">
 																<span class="fileinput-new">
 																Select image </span>
 																<span class="fileinput-exists">
 																Change </span>
 																<input type="file" name="...">
 																</span>
-																<a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
+																<a href="#" class="btn btn-primary fileinput-exists" data-dismiss="fileinput">
 																Remove </a>
 															</div>
 														</div>
@@ -337,7 +337,7 @@ $is_disabled = '';
 													<div class="margin-top-10">
 														<a href="#" class="btn btn-primary">
 														Submit </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
 												</form>
@@ -361,7 +361,7 @@ $is_disabled = '';
 													<div class="margin-top-10">
 														<a href="#" class="btn btn-primary">
 														Change Password </a>
-														<a href="#" class="btn default">
+														<a href="#" class="btn btn-primary">
 														Cancel </a>
 													</div>
 												</form>
@@ -567,7 +567,7 @@ $is_disabled = '';
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
                                 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                                											<button type="button" class="btn default">Cancel</button>
+                                											<button type="button" class="btn btn-primary">Cancel</button>
                                 										</div>
                                 									</div>
                                 								</div>
@@ -609,7 +609,7 @@ $is_disabled = '';
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
                                 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                                											<button type="button" class="btn default">Cancel</button>
+                                											<button type="button" class="btn btn-primary">Cancel</button>
                                 										</div>
                                 									</div>
                                 								</div>
@@ -652,7 +652,7 @@ $is_disabled = '';
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
                                 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                                											<button type="button" class="btn default">Cancel</button>
+                                											<button type="button" class="btn btn-primary">Cancel</button>
                                 										</div>
                                 									</div>
                                 								</div>
@@ -695,7 +695,7 @@ $is_disabled = '';
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
                                 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                                											<button type="button" class="btn default">Cancel</button>
+                                											<button type="button" class="btn btn-primary">Cancel</button>
                                 										</div>
                                 									</div>
                                 								</div>
@@ -738,7 +738,7 @@ $is_disabled = '';
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
                                 											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-                                											<button type="button" class="btn default">Cancel</button>
+                                											<button type="button" class="btn btn-primary">Cancel</button>
                                 										</div>
                                 									</div>
                                 								</div>
@@ -785,7 +785,7 @@ $is_disabled = '';
 																		<div class="row">
 																			<div class="col-md-offset-3 col-md-9">
 																				<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
-																				<button type="button" class="btn default">Cancel</button>
+																				<button type="button" class="btn btn-primary">Cancel</button>
 																			</div>
 																		</div>
 																	</div>

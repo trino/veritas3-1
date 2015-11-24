@@ -837,8 +837,8 @@ class DocumentComponent extends Component{
             }
             die;
         }
-        public function savedMeeOrder($document_id = 0, $cid = 0)
-        {
+
+        public function savedMeeOrder($document_id = 0, $cid = 0) {
             $controller = $this->_registry->getController();
             $consentForm = TableRegistry::get('consent_form');
             
@@ -850,10 +850,11 @@ class DocumentComponent extends Component{
                 
                 $doc= TableRegistry::get('orders')->find()->where(['id'=>$document_id])->first();
                 $arr['user_id'] = $doc->user_id;
-                if(!isset($_GET['order_id']))
+                if(!isset($_GET['order_id'])) {
                     $arr['order_id'] = $document_id;
-                else
+                }else {
                     $arr['order_id'] = $_GET['order_id'];
+                }
                 $arr['document_id'] = 0;
                 $arr['uloaded_for']= $doc->uploaded_for;
                 $uploaded_for = $arr['uploaded_for'];
@@ -878,8 +879,9 @@ class DocumentComponent extends Component{
                 else
                     $del->delete()->where(['order_id' => $_GET['order_id']])->execute();
                 }
-            else
+            else {
                 $del->delete()->where(['document_id' => $document_id])->execute();
+            }
 
             $post = $_POST;
             if (isset($_POST['attach_doc'])) {
@@ -940,11 +942,10 @@ class DocumentComponent extends Component{
                     $consentFormCri->save($saveCrm);
                 }
             }
-
             die;
         }
-        function saveEmployment($document_id = 0, $cid = 0)
-        {
+
+        function saveEmployment($document_id = 0, $cid = 0) {
             // echo "<pre>";print_r($_POST);die;
             //employement
             $controller = $this->_registry->getController();
@@ -1985,9 +1986,7 @@ class DocumentComponent extends Component{
         function getUrl(){
             $url = $_SERVER['SERVER_NAME'];
             if($url=='localhost') { return 'localhost.com';}
-            $url = str_replace(array('http://', '/', 'www'), array('', '', ''), $url);
-            $email_from = $url;
-            return $email_from;
+            return str_replace(array('http://', '/', 'www'), array('', '', ''), $url);//why is this done?
         }
 
 

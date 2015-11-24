@@ -527,10 +527,9 @@
             }
         }
 
-        public function savedoc($cid = 0, $did = 0)
-        {
+        public function savedoc($cid = 0, $did = 0) {
             $this->loadComponent('Mailer');
-            $ret = $this->Document->savedoc($this->Mailer, $cid, $did, false);
+            $ret = $this->Document->savedoc($this->Mailer, $cid, $did, true);
             die();
         }
 
