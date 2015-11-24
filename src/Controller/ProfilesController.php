@@ -751,7 +751,7 @@
                 if($_GET['filter_profile_type'] == "NULL") {
                     $cond .= ' profile_type IS NULL';
                 }else {
-                    $cond .= ' (profile_type = "' . $profile_type .'")';
+                    $cond .= ' profile_type = ' . $profile_type;
                 }
             }
 
@@ -771,6 +771,7 @@
                     }
                 }
             }
+
             if ($this->request->session()->read('Profile.profile_type') == '2') {
                 if ($cond) {
                     //$cond = $cond . ' AND (created_by = ' . $this->request->session()->read('Profile.id') . ')';
@@ -780,6 +781,16 @@
 
             }
 
+            if(!$this->request->session()->read('Profile.super')) {
+                if ($cond) {$cond .= ' AND ';}
+                $Me = $this->Manager->get_profile($u)->ptypes;
+                if($Me) {
+                    $cond .= 'profile_type IN (' . $Me . ')';
+                } else {
+                    $cond .= "1 = 0";
+                }
+            }
+
             /*=================================================================================================== */
             if(true){
            // if($setting->viewprofiles == 0){
@@ -787,24 +798,21 @@
                 $OR = array();
                 foreach($Clients as $Client){
                     if($Client->profile_id) {
-                        $OR[] = "id IN (" . $Client->profile_id . ")";
+                        $OR = array_merge($OR, explode(",", $Client->profile_id));
                     }
                 }
-                $query = $this->Profiles->find()->where([$cond, 'OR' => $OR]);
+                $OR = implode(",", array_unique($OR));
+                if($OR){
+                    if ($cond) {$cond .= ' AND ';}
+                    $cond .= "id IN (" . $OR . ")";
+                }
+                $query = $this->Profiles->find()->where($cond);
             } elseif ($cond) {
                 $query = $querys->find()->where([$cond, 'OR' => $condition, 'AND' => 'super = 0']);
             } else {
                 $query = $this->Profiles->find()->where(['OR' => $condition, 'AND' => 'super = 0']);
             }
 
-            if(!$this->request->session()->read('Profile.super')) {
-                $Me = $this->Manager->get_profile($u)->ptypes;
-                if($Me) {
-                    $query = $querys->find()->where(['profile_type IN (' . $Me . ')']);
-                } else {
-                    $query=false;
-                }
-            }
             if (isset($search)) {
                 $this->set('search_text', $search);
             }
