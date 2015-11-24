@@ -463,7 +463,7 @@
                                             $('.counter').text(Number($('.counter').text()) + 1);
                                             $('.overlay-wrapper').hide();
                                             <?php }
-                                            if($this->requsst->params['action'] == 'addorder')
+                                            if($this->request->params['action'] == 'addorder')
                                             {
                                                 ?>
                                                 if (redir == 1) {

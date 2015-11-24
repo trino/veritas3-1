@@ -78,7 +78,7 @@
 
         <div class="col-md-12">
             <input type="text" class="form-control" name="conf_driver_name" id="conf_driver_name"
-                   value="<?php echo $dri;?>"/>
+                   value="<?php echo $dri;?>" readonly=""/>
         </div>
 
 
