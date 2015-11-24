@@ -126,21 +126,24 @@ class TasksController extends AppController {
                 if ($c->requalify_re == '0') {
                     $date = $c->requalify_date;
                     if(strtotime($date)<= strtotime($today)) {
-                        
+                       
                         if($this->checkcron($c->id, $date, $p->id)) {
-                            
-                             $date = $this->getnextdate($date, $frequency);
+                            $date = $this->getnextdate($date, $frequency);
                             if($this->checkcron($c->id, $date, $p->id))
                                 $date = $this->getnextdate($date, $frequency);
                         }
-                        else
+                        elseif(strtotime($date)== strtotime($today))
                         {
-                         
-                          //echo "<br/>";
-                            $date = $this->getnextdate($date, $frequency);
+                            //$date = $this->getnextdate($date, $frequency);
                              if($this->checkcron($c->id, $date, $p->id))
                                 $date = $this->getnextdate($date, $frequency);
                            //die(); 
+                        }
+                        else
+                        {
+                            $date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
                         }
                     }
                 } else {
