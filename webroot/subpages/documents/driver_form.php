@@ -36,8 +36,8 @@
             <span class="error"></span>
         </select>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_title"]; ?>: </label>
-        <select class="form-control required" required name="title" />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_title"]; ?>: </label>
+        <select class="form-control" name="title" />
             <option value="Mr." <?php if (isset($p->title) && $p->gender=='Mr.') { ?>selected="selected"<?php }?>>Mr.</option>
             <option value="Ms." <?php if (isset($p->title) && $p->gender=='Ms.') { ?>selected="selected"<?php }?>>Ms.</option>
             <option value="Mrs." <?php if (isset($p->title) && $p->gender=='Mrs.') { ?>selected="selected"<?php }?>>Mrs.</option>
@@ -45,23 +45,23 @@
         <span class="error"></span>
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_email"]; ?>: </label>
-        <input type="text" class="form-control required emailz" required name="email" role="email" <?php if (isset($p->email)) { ?> value="<?php echo $p->email; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_email"]; ?>: </label>
+        <input type="text" class="form-control emailz" name="email" role="email" <?php if (isset($p->email)) { ?> value="<?php echo $p->email; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_placeofbirth"]; ?>: </label>
-        <input type="text" class="form-control required" required name="placeofbirth" <?php if (isset($p->placeofbirth)) { ?> value="<?php echo $p->placeofbirth; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_placeofbirth"]; ?>: </label>
+        <input type="text" class="form-control" name="placeofbirth" <?php if (isset($p->placeofbirth)) { ?> value="<?php echo $p->placeofbirth; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_sin"]; ?>: </label>
-        <input type="text" class="form-control required" required name="sin" role="sin" <?php if (isset($p->sin)) { ?> value="<?php echo $p->sin; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_sin"]; ?>: </label>
+        <input type="text" class="form-control" name="sin" role="sin" <?php if (isset($p->sin)) { ?> value="<?php echo $p->sin; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_phone"]; ?>: </label>
-        <input type="text" class="form-control required" required name="phone" role="phone" <?php if (isset($p->phone)) { ?> value="<?php echo $p->phone; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_phone"]; ?>: </label>
+        <input type="text" class="form-control" name="phone" role="phone" <?php if (isset($p->phone)) { ?> value="<?php echo $p->phone; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_address"]; ?>: </label>
@@ -106,8 +106,8 @@
         ?>
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_expirydate"]; ?>: </label>
-        <input type="text" class="form-control datepicker date-picker required" required name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_expirydate"]; ?>: </label>
+        <input type="text" class="form-control datepicker date-picker" name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     
