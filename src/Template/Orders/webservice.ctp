@@ -4,7 +4,7 @@
     var_dump($orders);
     var_dump($drivers);
 
-    if (true){
+    if (false){
 
         include_once('subpages/api.php');
         $proxyhost = 'https://infosearchsite.ca/MEEWS/ISBService.svc?wsdl';
