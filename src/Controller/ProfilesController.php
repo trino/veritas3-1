@@ -191,22 +191,46 @@
                 foreach ($profile as $p) {
                     if ($c->requalify_re == '0') {
                         $date = $c->requalify_date;
-                        if(strtotime($date)<= strtotime($today)) {
+                        //old
+                        /*if(strtotime($date)<= strtotime($today)) {
                             $date = $this->getnextdate($date,$frequency);
                             if($this->checkcron($c->id, $date, $p->id)) {
                                 $date = $this->getnextdate($date, $frequency);
                             }
+                        }*/
+                        if(strtotime($date)<= strtotime($today)) {
+                       
+                        if($this->checkcron($c->id, $date, $p->id)) {
+                            $date = $this->getnextdate($date, $frequency);
+                            if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
                         }
+                        elseif(strtotime($date)== strtotime($today))
+                        {
+                            //$date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                           //die(); 
+                        }
+                        else
+                        {
+                            $date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                        }
+                    }
 
 
                     }
                     //if($p->profile_type=='5'|| $p->profile_type=='7'|| $p->profile_type=='8'){
                         if ($c->requalify_re == '1') {
                             $date = $p->hired_date;
-                            if(strtotime($date) <= strtotime($today)) {
+                            $date = $this->getnextdate($date, $frequency,$c->id,$p->id);
+                            //old
+                            /*if(strtotime($date) <= strtotime($today)) {
                                 if(strtotime($date) == strtotime($today)) {
                                     if($this->checkcron($c->id, $date, $p->id)) {
-                                        $date = $this->getnextdate($date, $frequency);
+                                        $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
                                     }
                                 } else {
                                     $date =  $this->getnextdate($date,$frequency);
@@ -218,9 +242,35 @@
                                 }
                             } else {
                                 if (strtotime($date) == strtotime($today)) {
-                                    $date = $this->getnextdate($date, $frequency);
+                                    $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
                                 }
                             }
+                            
+                            //new
+                               if(strtotime($date) < strtotime($today)) {
+                                if(strtotime($date) == strtotime($today)) {
+                                    if($this->checkcron($c->id, $date, $p->id)) {
+                                        $date = $this->getnextdate($date, $frequency);
+                                    }
+                                } else {
+                                    $date =  $this->getnextdate($date,$frequency);
+                                    if(strtotime($date) == strtotime($today)) {
+                                        if ($this->checkcron($c->id, $date, $p->id)) {
+                                            $date = $this->getnextdate($date, $frequency);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if ($this->checkcron($c->id, $date, $p->id)) {
+                                            $date = $this->getnextdate($date, $frequency);
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (strtotime($date) == strtotime($today)) {
+                                    $date = $this->getnextdate($date, $frequency);
+                                }
+                            }*/
                         }
 
                         $n_req['cron_date']= $date;
@@ -277,13 +327,21 @@
             return $cnt;
         }
 
-        function getnextdate($date, $frequency) {
-            $today = date('Y-m-d');
-            $nxt_date = date('Y-m-d', strtotime($date)+($frequency*24*60*60*30));
+        function getnextdate($date, $frequency, $cid=0 , $pid=0) {
+            $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
+            $days = $frequency*30;
+            $d = "+".$days." days";
+            $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+            
             if (strtotime($nxt_date) < strtotime($today)) {
-                $d = $this->getnextdate($nxt_date, $frequency);
+                $d = $this->getnextdate($nxt_date, $frequency, $cid, $pid);
             } else {
-                $d = $nxt_date;
+                if ($this->checkcron($cid, $nxt_date, $pid))
+                {
+                    $d = $this->getnextdate($nxt_date, $frequency);
+                }
+                else
+                    $d = $nxt_date;
             }
             return $d;
         }

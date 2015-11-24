@@ -126,7 +126,8 @@ class TasksController extends AppController {
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
                     $date = $c->requalify_date;
-                    if(strtotime($date)<= strtotime($today)) {
+                    $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                    /*if(strtotime($date)<= strtotime($today)) {
                        
                         if($this->checkcron($c->id, $date, $p->id)) {
                             $date = $this->getnextdate($date, $frequency);
@@ -146,11 +147,12 @@ class TasksController extends AppController {
                              if($this->checkcron($c->id, $date, $p->id))
                                 $date = $this->getnextdate($date, $frequency);
                         }
-                    }
+                    }*/
                 } else {
                     
-                    $date = $p->hired_date;
-                    if(strtotime($date) < strtotime($today)) {
+                     $date = $p->hired_date;
+                     $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                    /*if(strtotime($date) < strtotime($today)) {
                         if(strtotime($date) == strtotime($today)) {
                             if($this->checkcron($c->id, $date, $p->id)) {
                                 $date = $this->getnextdate($date, $frequency);
@@ -167,7 +169,7 @@ class TasksController extends AppController {
                         if (strtotime($date) == strtotime($today)) {
                             $date = $this->getnextdate($date, $frequency);
                         }
-                    }
+                    }*/
                 }
 
                 $n_req['cron_date']=    $date;
@@ -231,7 +233,25 @@ class TasksController extends AppController {
         //die($cnt);
         return $cnt;
     }
-
+    function getnextdate($date, $frequency, $cid=0 , $pid=0) {
+            $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
+            $days = $frequency*30;
+            $d = "+".$days." days";
+            $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+            
+            if (strtotime($nxt_date) < strtotime($today)) {
+                $d = $this->getnextdate($nxt_date, $frequency, $cid, $pid);
+            } else {
+                if ($this->checkcron($cid, $nxt_date, $pid))
+                {
+                    $d = $this->getnextdate($nxt_date, $frequency, $cid, $pid);
+                }
+                else
+                    $d = $nxt_date;
+            }
+            return $d;
+        }
+    /*
     function getnextdate($date, $frequency) {
         //echo $date."<br/>";
         $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
@@ -245,7 +265,7 @@ class TasksController extends AppController {
             $d = $nxt_date;
         }
         return $d;
-    }
+    }*/
 
 
     function timezone(){
