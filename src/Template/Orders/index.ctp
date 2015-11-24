@@ -25,7 +25,7 @@ function formatname($profile){
     <div class="page-toolbar">
 
     </div>
-    <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 </div>
 
 
@@ -188,9 +188,9 @@ function formatname($profile){
                                         <?php
                                             if ($sidebar->orders_list == '1') {
                                                 if (!isset($_GET['table']))
-                                                    echo $this->Html->link(__('View'), ['action' => 'vieworder', $order->client_id, $order->id], ['class' => 'btn btn-info']);
+                                                    echo $this->Html->link(__('View'), ['action' => 'vieworder', $order->client_id, $order->id], ['class' => 'btn btn-primary']);
                                                 else
-                                                    echo $this->Html->link(__('View'), ['action' => 'vieworder', $order->client_id, $order->id, $_GET['table']], ['class' => 'btn btn-info']);
+                                                    echo $this->Html->link(__('View'), ['action' => 'vieworder', $order->client_id, $order->id, $_GET['table']], ['class' => 'btn btn-primary']);
                                             } ?>
 
                                         <?php
@@ -215,7 +215,7 @@ function formatname($profile){
                                                 }
                                             }
                                         //clients_requalify orders_scorecard documents_complete documents_pending documents_draft
-                                         if ($sidebar->orders_requalify == '1' && $order->draft == '0') echo $this->Html->link(__($strings["clients_requalify"]), ['controller' => 'orders', 'action' => 'addorder', $order->client_id, $order->id], ['class' => 'btn btn-warning']);
+                                         if ($sidebar->orders_requalify == '1' && $order->draft == '0') echo $this->Html->link(__($strings["clients_requalify"]), ['controller' => 'orders', 'action' => 'addorder', $order->client_id, $order->id], ['class' => 'btn btn-primary']);
 
                                         if (!isset($_GET['draft'])) echo $this->Html->link(__($strings["orders_scorecard"]), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-success']);?>
                                     </TD><td valign="middle">

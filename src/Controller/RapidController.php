@@ -238,10 +238,13 @@
                     //if (($p->profile_type == '5' || $p->profile_type == '7' || $p->profile_type == '8')) {
                         //echo $p->id."</br>";
                         //echo $p->created_by;
-                        if (strtotime($p->expiry_date) < strtotime($today)) {
-                            $epired_profile .= $p->username . ",";
 
-                        } else {
+
+                        //if (strtotime($p->expiry_date) < strtotime($today)) {
+                        //    $epired_profile .= $p->username . ",";
+
+                        //} else {
+                    if(true){
 
                             if ($c->requalify_re == '1') {
                                

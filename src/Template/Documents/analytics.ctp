@@ -158,7 +158,7 @@ JSinclude($this, array($Dir . "min.js", $Dir . "resize.min.js", $Dir . "pie.min.
 					</li>
                     
 				</ul>
-                <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+                <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 			</div>
 
 <div class="row" style="display:none;">

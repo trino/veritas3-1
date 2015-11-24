@@ -36,16 +36,16 @@
         </li>
     </ul>
 
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?=$strings["dashboard_print"];?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?=$strings["dashboard_print"];?></a>
     <?php if ($sidebar->document_create == 1) { ?>
         <a href="<?php echo $this->request->webroot; ?>documents/add" class="floatright btn btn-primary btnspc">
             <?= $strings["index_createdocument"]; ?></a>
     <?php }
         if (isset($_GET["draft"])) { ?>
-            <a href="<?php echo $this->request->webroot; ?>documents/index" class="floatright btn btn-info btnspc">
+            <a href="<?php echo $this->request->webroot; ?>documents/index" class="floatright btn btn-primary btnspc">
                 <?=$strings["index_listdocuments"];?></a>
         <?php } else { ?>
-            <a href="<?php echo $this->request->webroot; ?>documents/index?draft" class="floatright btn btn-info btnspc">
+            <a href="<?php echo $this->request->webroot; ?>documents/index?draft" class="floatright btn btn-primary btnspc">
                 <?=$strings["dashboard_drafts"];?></a>
         <?php } ?>
 

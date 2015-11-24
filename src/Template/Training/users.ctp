@@ -53,7 +53,7 @@ Users
                 <a href="">Users</a>
             </li>
         </ul>
-        <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+        <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 </div>
 
 <div class="row"><div class="col-md-12"><div class="portlet box blue-steel"><div class="portlet-title">

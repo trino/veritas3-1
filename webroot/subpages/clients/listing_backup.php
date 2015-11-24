@@ -94,7 +94,7 @@
                                                 <?php
                                                     if ($sidebar->client_list == '1' && !isset($_GET["draft"])) {
                                                         ?>
-                                                        <a class="btn btn-info"
+                                                        <a class="btn btn-primary"
                                                            href="<?php echo $this->request->webroot; ?>clients/edit/<?php echo $clients->id; ?>?view">View</a>
                                                     <?php
                                                     }
@@ -125,7 +125,7 @@
 
                                                     if ($sidebar->orders_list == '1' && !isset($_GET["draft"])) {
                                                         ?>
-                                                        <a href="<?= $this->request->webroot; ?>orders/orderslist/?client_id=<?= $clients->id; ?>" class="btn btn-info">View Orders</a>
+                                                        <a href="<?= $this->request->webroot; ?>orders/orderslist/?client_id=<?= $clients->id; ?>" class="btn btn-primary">View Orders</a>
                                                     <?php
 
                                                     }

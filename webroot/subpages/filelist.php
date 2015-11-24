@@ -306,7 +306,7 @@
                                             echo "<a href='" . $webroot . $dir . $file . "' target='_blank' class='uploaded'>" . $file . "</a>";
                                     ?><BR><?php echo $file;?><BR>
                                     <a href="<?php echo $webroot . $dir . $file ?>" download="<?= $file ?>"
-                                       class="btn btn-info"><?= $strings["file_download"]; ?></a>
+                                       class="btn btn-primary"><?= $strings["file_download"]; ?></a>
 							<span <?php if (($delete)) echo "style='display:none;'";?>>
 								<a href="javascript:void(0);" title="<?php echo $file?>&<?php echo $cd->id;?>"
                                    class="btn btn-danger img_delete"><?= $strings["dashboard_delete"]; ?></a>

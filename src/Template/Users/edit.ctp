@@ -203,7 +203,7 @@ $is_disabled = '';
                                 <div class="profile-desc-text col-sm-6 nopad"><a href="#">Sample Order 1</a></div>
                                 <div class="profile-desc-text col-sm-6 nopad"><a href="#">Sample Order 1</a></div>
 
-                                <a href="<?php echo $this->request->webroot;?>documents/add" class="btn btn-warning margin-top-10">
+                                <a href="<?php echo $this->request->webroot;?>documents/add" class="btn btn-primary margin-top-10">
                                     Submit Order </a>
                                 <div class="clearfix"></div>
 

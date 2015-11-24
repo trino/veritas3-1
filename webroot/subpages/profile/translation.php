@@ -24,7 +24,7 @@
                 } ?>
             </DIV>
             <button class="btn btn-danger" onclick="savestring();" style="width: 150px;">Save String</button><P><P>
-            <button class="btn btn-warning" onclick="sendtoroy();" style="width: 150px; <?php if(!$hascache){ echo 'display: none;'; }?>" id="sendtoroy">Send To Roy</button>
+            <button class="btn btn-primary" onclick="sendtoroy();" style="width: 150px; <?php if(!$hascache){ echo 'display: none;'; }?>" id="sendtoroy">Send To Roy</button>
         </TD>
         <TD VALIGN="TOP" align="left">
             <INPUT TYPE="TEXT" ID="search" placeholder="Search" onkeyup="search(0);">

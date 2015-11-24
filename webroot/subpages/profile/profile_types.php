@@ -46,7 +46,7 @@
                         <td><input type="checkbox" <?php if($product->enable=='1'){echo "checked='checked'";}?> class="penable" id="pchk_<?= $product->id;?>" /><span class="span_<?= $product->id;?>"></span></td>
                         <!--php if($product->id != 1 && $product->id != 2 && $product->id != 5 && $product->id != 7 && $product->id != 8  && $product->id != 11) {?>-->
                         <td><input type="checkbox" <?php if($product->placesorders=='1'){echo "checked='checked'";}?> class="oenable" id="ochk_<?= $product->id;?>" /><span class="span2_<?= $product->id;?>"></span></td>
-                        <td><a href="javascript:;" class="btn btn-info editptype" id="editptype_<?php echo $product->id;?>">Edit</a></td>
+                        <td><a href="javascript:;" class="btn btn-primary editptype" id="editptype_<?php echo $product->id;?>">Edit</a></td>
                     </tr>        
                 <?php
                 $i++;

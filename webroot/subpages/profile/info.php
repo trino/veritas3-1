@@ -913,7 +913,7 @@ loadreasons($param, $strings, true);
 
                                    <div class="form-group col-md-12">
 
-                                       <a href="javascript:void(0)" class="btn btn-info" id="addMoredoc">
+                                       <a href="javascript:void(0)" class="btn btn-primary" id="addMoredoc">
                                            Add More
                                        </a>
                                    </div>-->
@@ -927,7 +927,7 @@ loadreasons($param, $strings, true);
                                     </a>
                                     <?php }
                                     ?>
-                                    <!--button class="btn btn-info"
+                                    <!--button class="btn btn-primary"
                                             onclick="$('#profile_drafts').val('1'); $('#save_clientz').attr('novalidate','novalidate');$('#hiddensub').click();">
                                         Save As Draft
                                     </button-->

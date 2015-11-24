@@ -3243,7 +3243,7 @@
                             <!--td>' . $profile->id . '</td-->
                             <td class="title_' . $profile->id . '">' . $title . '</td>
                             <td><input type="checkbox" id="chk_' . $profile->id . '" class="enable"/></td>
-                            <td><span  class="btn btn-info editpro" id="edit_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
+                            <td><span  class="btn btn-primary editpro" id="edit_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
                         </tr>';
                     }
                 }
@@ -3275,7 +3275,7 @@
                         }
                         echo '    <td><input type="checkbox" id="pchk_' . $profile->id . '" class="penable"/><span class="span_' . $profile->id . '"></span></td>
                         <td><input type="checkbox" class="oenable" id="ochk_' . $profile->id . '" /><span class="span2_' . $profile->id . '"></span></td>
-                        <td><span  class="btn btn-info editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
+                        <td><span  class="btn btn-primary editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
                     </tr>';
                     }
                 }
@@ -3306,7 +3306,7 @@
                             echo '<td class="titlectype' . $language .'_' . $profile->id . '">' . $data["title" . $language] . '</td>';
                         }
                         echo '     <td><input type="checkbox" id="cchk_' . $profile->id . '" class="cenable"/><span class="span_' . $profile->id . '"></span></td>
-                            <td><span  class="btn btn-info editctype" id="editctype_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
+                            <td><span  class="btn btn-primary editctype" id="editctype_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
                         </tr>';
                     }
                 }

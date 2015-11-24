@@ -171,7 +171,7 @@ printCSS($this);
         <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
         <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
-        <a href="" class="floatright btn btn-info">Add to Task List</a-->
+        <a href="" class="floatright btn btn-primary">Add to Task List</a-->
     <?php }
 
     echo '</div>';
@@ -371,7 +371,7 @@ printCSS($this);
                                     </a>
 
 
-                                    <a href="javascript:window.print();" class="btn btn-info button-submit"
+                                    <a href="javascript:window.print();" class="btn btn-primary button-submit"
                                        onclick="$('#skip').val('0');"><?= $strings["dashboard_print"]; ?></a>
                                 </div>
                             </div>
@@ -510,7 +510,7 @@ printCSS($this);
                                     <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
 
-                                <a href="javascript:window.print();" class="btn btn-info button-submit"><?= $strings["dashboard_print"]; ?></a>
+                                <a href="javascript:window.print();" class="btn btn-primary button-submit"><?= $strings["dashboard_print"]; ?></a>
                             </div>
                         </div>
                     </div>

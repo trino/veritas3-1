@@ -174,7 +174,7 @@
 
     <?php
         if (isset($disabled)) {
-            echo '<a href="javascript:window.print();" class="floatright btn btn-info">' . $strings["dashboard_print"] . '</a>';
+            echo '<a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }
         if (isset($profile) && $YourSidebar && $YourSidebar->profile_delete == '1') {
             if ($this->request->session()->read('Profile.super') == '1' || ($this->request->session()->read('Profile.profile_type') == '2' && ($profile->profile_type == '5'))) {
@@ -193,7 +193,7 @@
             if ($YourSidebar && $YourSidebar->profile_edit == '1' && $param == 'view') {
                 echo $this->Html->link(__($strings["dashboard_edit"]), ['action' => 'edit', $profile->id], ['class' => 'floatright btn btn-primary btnspc']);
             } else if ($param == 'edit') {
-                echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-info btnspc']);
+                echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-primary btnspc']);
             }
             if ($this->request->session()->read('Profile.super') && $this->request->session()->read('Profile.id') != $profile->id) {
                 echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
@@ -218,7 +218,7 @@
         }
 
         if ($this->request->session()->read('debug') && ($param == "edit" || $param == "add")) {
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         }
     ?>
 </div>

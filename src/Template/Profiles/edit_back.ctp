@@ -177,7 +177,7 @@
     </ul>
     <?php
         if (isset($disabled)) { ?>
-            <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+            <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
         <?php } ?>
 </div>
 

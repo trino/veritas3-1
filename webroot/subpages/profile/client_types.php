@@ -41,7 +41,7 @@
                         <td class="titlectype_<?php echo $product->id;?>"><?php echo $product->title;?></td>
                         <td class="titlectypeFrench_<?php echo $product->id;?>"><?php echo $product->titleFrench;?></td>
                         <td><input type="checkbox" <?php if($product->enable=='1'){echo "checked='checked'";}?> class="cenable" id="cchk_<?php echo $product->id;?>" /><span class="span_<?php echo $product->id;?>"></span></td>
-                        <td><a href="javascript:;" class="btn btn-info editctype" id="editctype_<?php echo $product->id;?>">Edit</a></td>
+                        <td><a href="javascript:;" class="btn btn-primary editctype" id="editctype_<?php echo $product->id;?>">Edit</a></td>
                     </tr>        
                 <?php
                 }

@@ -71,7 +71,7 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                                             Logo Deleted successfully
                                                         </div>
                                                         <div class="clearfix"></div>
-                                                        <a href="javascript:void(0)" id="addnewlogo" class="primary btn btn-info">Add New Logo</a>
+                                                        <a href="javascript:void(0)" id="addnewlogo" class="primary btn btn-primary">Add New Logo</a>
                                                         <a href='javascript:;' class="btn btn-success" id="submit">Save Changes</a>
                                                     </form>
                                                 </div>
@@ -94,7 +94,7 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                                             Logo Deleted successfully
                                                         </div>
                                                         <div class="clearfix"></div>
-                                                        <a href="javascript:void(0)" id="addnewlogo1" class="secondary btn btn-info">Add New Logo</a>
+                                                        <a href="javascript:void(0)" id="addnewlogo1" class="secondary btn btn-primary">Add New Logo</a>
                                                         <a href='javascript:;' class="btn btn-success" id="submit1">Save Changes</a>
                                                     </form>
                                                 </div>
@@ -117,7 +117,7 @@ $strings = CacheTranslations($language, array("forms_%"), $settings);
                                                             Logo Deleted successfully
                                                         </div>
                                                         <div class="clearfix"></div>
-                                                        <a href="javascript:void(0)" id="addnewlogo2" class="loginlogo btn btn-info">Add New Logo</a>
+                                                        <a href="javascript:void(0)" id="addnewlogo2" class="loginlogo btn btn-primary">Add New Logo</a>
                                                         <a href='javascript:;' class="btn btn-success" id="submit2">Save Changes</a>
                                                     </form>
                                                 </div>

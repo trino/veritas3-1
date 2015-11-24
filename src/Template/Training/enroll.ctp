@@ -33,7 +33,7 @@ $language = $this->request->session()->read('Profile.language');
             <a href="">Enroll <?php echo ucfirst($settings->profile); ?>s</a>
         </li>
     </ul>
-    <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 <?php
 
 if (isset($_GET["new"])){
@@ -188,14 +188,14 @@ if (isset($_GET["new"])){
                                     <td><?php
                                         if (strlen($profile->profile_type) > 0) {
                                             echo h($this->requestAction("profiles/getTypeTitle/".$profile->profile_type . "/" . $language));
-                                            if ($profile->profile_type == 5) {//is a driver
+                                            /* if ($profile->profile_type == 5) {//is a driver
                                                 $expires = strtotime($profile->expiry_date);
                                                 if ($expires) {
                                                     if ($expires < time()) {
                                                         echo '<span class="clearfix " style="color:#a94442">License Expired</span>';
                                                     }
                                                 }
-                                            }
+                                            }*/
                                         } else {
                                             echo "Draft";
                                         }
@@ -205,7 +205,7 @@ if (isset($_GET["new"])){
                                     <td><?php echo $ProClients->getAllClientsname($profile->id);?></td>
                                     <td class="actions  util-btn-margin-bottom-5">
 
-                                        <A href="enroll?quizid=<?= $_GET["quizid"] ?>&userid=<?= $profile->id; ?>" class="<?= btnclass("btn-info", "yellow"); ?>">
+                                        <A href="enroll?quizid=<?= $_GET["quizid"] ?>&userid=<?= $profile->id; ?>" class="<?= btnclass("btn-primary", "yellow"); ?>">
                                             <?php if ($profile->isenrolled) { echo "Unenroll";} else {echo "Enroll";} ?>
                                         </A>
 

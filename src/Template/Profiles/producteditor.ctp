@@ -59,7 +59,7 @@
     <tbody>
         <TR ONCLICK="productclick('');">
             <TD COLSPAN="16" ALIGN="CENTER" <?php if(!isset($_GET["Acronym"])){echo 'CLASS="selected"';}?>>
-                <A HREF="javascript:void(0)" CLASS="btn default btn-info">Create new product type</A>
+                <A HREF="javascript:void(0)" CLASS="btn default btn-primary">Create new product type</A>
             </TD>
         </TR>
         <?php
@@ -308,7 +308,7 @@
 
     echo '<INPUT STYLE="float: right" TYPE="SUBMIT" NAME="submit" CLASS="btn btn-primary" ONCLICK="return isvalid();" VALUE="Save Changes">';
     if(isset($_GET["Acronym"])) {
-        echo '<INPUT STYLE="float: right" TYPE="BUTTON" NAME="discard" ONCLICK="return discardprod();" CLASS="btn btn-warning btnspc" VALUE="Discard Changes">';
+        echo '<INPUT STYLE="float: right" TYPE="BUTTON" NAME="discard" ONCLICK="return discardprod();" CLASS="btn btn-primary btnspc" VALUE="Discard Changes">';
         echo '<INPUT STYLE="float: right" TYPE="BUTTON" NAME="delete" ONCLICK="return deleteproduct();" CLASS="btn btn-danger btnspc" VALUE="Delete">';
     }
 

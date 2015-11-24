@@ -182,11 +182,11 @@
         <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
         <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
-        <a href="" class="floatright btn btn-info">Add to Task List</a-->
+        <a href="" class="floatright btn btn-primary">Add to Task List</a-->
     <?php }
     $param = $this->request->params['action'];
     if($Debug && $param != "vieworder"){
-        echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+        echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
     }
     echo '</div>';
 
@@ -375,7 +375,7 @@
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                 <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a>
                                                 <?php if($this->request->params['action'] == 'addorder'){?>
-                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info"><?= $strings["forms_savedraft"]; ?></a>
+                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_savedraft"]; ?></a>
                                                 <?php }?>
                                             </div>
                                             
@@ -395,7 +395,7 @@
                                     <hr />
                                     <a href="javascript:void(0)" class="buttonprev btn btn-success forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                     <?php if($this->request->params['action'] == 'addorder'){?>
-                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-info"><?= $strings["forms_savedraft"]; ?></a>
+                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_savedraft"]; ?></a>
                                     <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_save"] ?></a>
                                     <?php }?>
 

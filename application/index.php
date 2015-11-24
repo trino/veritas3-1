@@ -346,7 +346,7 @@ if (count($_POST) > 0) {
     }
     handlemsg($strings);
 
-   // echo '<a href="javascript:window.print();" class="floatright btn btn-info no-print" style="float:right;">' . $strings["dashboard_print"] . '</a>';
+   // echo '<a href="javascript:window.print();" class="floatright btn btn-primary no-print" style="float:right;">' . $strings["dashboard_print"] . '</a>';
     echo '<DIV ALIGN="CENTER"><img style="max-width: 100px;" src="' . $webroot . $logo . '"  /></DIV>';//gfs
 ?>
 <script src="../webroot/assets/admin/pages/scripts/form-validate-roy.js"></script>
@@ -587,7 +587,7 @@ function toarray($Result){
 <?php if($doback || $DoVeritas){
     if ($dosubmit && !$DoVeritas){ ?>
         <div class="clearfix"></div>
-        <INPUT TYPE="button" class="btn btn-danger btn-lg" onclick="return checkformext();" VALUE="<?php echo (isset($_GET['customlink']))?'Submit':'Next Step'.$stages;?>" STYLE="float: right;" oldtitle="<?=$strings["forms_submit"];?>">
+        <INPUT TYPE="button" class="btn btn-primary btn-lg" onclick="return checkformext();" VALUE="<?php echo (isset($_GET['customlink']))?'Submit':'Next Step'.$stages;?>" STYLE="float: right;" oldtitle="<?=$strings["forms_submit"];?>">
         <div class="clearfix"></div>
     <?php }
         backbutton($strings["addorder_back"], $DoVeritas);

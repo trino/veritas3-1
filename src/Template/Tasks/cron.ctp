@@ -93,10 +93,10 @@
 </h3>
 <div class="page-bar">
     
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
-    <a class="floatright btn btn-warning btnspc" href="<?= $this->request->webroot; ?>profiles/cron/true">Run the CRON </a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
+    <a class="floatright btn btn-primary btnspc" href="<?= $this->request->webroot; ?>profiles/cron/true">Run the CRON </a>
     <?php if($Showname){
-        echo '<a class="floatright btn btn-danger btnspc" href="' . $this->request->webroot . 'tasks/cron">Go Back</a>';
+        echo '<a class="floatright btn btn-primary btnspc" href="' . $this->request->webroot . 'tasks/cron">Go Back</a>';
     } ?>
 </div>
 
@@ -251,7 +251,7 @@
             echo '<TD><INPUT ONCHANGE="change();" TYPE="TEXT" ID="hireddate' . $Profile->id . '" NAME="profiles[hired_date][' . $Profile->id . ']" VALUE="';
             echo $Profile->hired_date . '" class="datepicker date-picker hired_date"></TD><TD>';
             foreach($Frequencies as $Frequency => $Date){
-                echo '<INPUT TYPE="BUTTON" CLASS="btn-xs btn btn-info btnspc" VALUE="-' . $Frequency . pluralize($Frequency, " Month") . '" ';
+                echo '<INPUT TYPE="BUTTON" CLASS="btn-xs btn btn-primary btnspc" VALUE="-' . $Frequency . pluralize($Frequency, " Month") . '" ';
                 echo 'ONCLICK="changehired(' . $Profile->id . ', ' . $Frequency . ", '" . $Date . "'" . ');">';
             }
             echo '</TD><td><a href="javascript:void(0)" class="btn btn-primary saveDriverInfo" id="save_id_'.$Profile->id.'">Save</a></td></td></TR>';

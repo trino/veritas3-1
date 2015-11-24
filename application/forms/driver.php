@@ -149,10 +149,10 @@
 <div class="form-group row">
     <label class="control-label col-md-4">Add a form:</label>
     <div class="col-md-8">
-        <INPUT TYPE="BUTTON" CLASS="btn btn-info btn-xs" onclick="addform(9);" value="Letter of Experience">&nbsp;&nbsp;
-        <INPUT TYPE="BUTTON" CLASS="btn btn-info btn-xs" onclick="addform(10);" value="Education Verification">&nbsp;&nbsp;
-        <INPUT TYPE="BUTTON" CLASS="btn btn-warning btn-xs" onclick="autofill('');" value="Auto-fill forms">&nbsp;&nbsp;
-        <A HREF="assets/consentform.pdf" download="consentform.pdf" CLASS="btn btn-warning btn-xs">Consent Form PDF</A>
+        <INPUT TYPE="BUTTON" CLASS="btn btn-primary btn-xs" onclick="addform(9);" value="Letter of Experience">&nbsp;&nbsp;
+        <INPUT TYPE="BUTTON" CLASS="btn btn-primary btn-xs" onclick="addform(10);" value="Education Verification">&nbsp;&nbsp;
+        <INPUT TYPE="BUTTON" CLASS="btn btn-primary btn-xs" onclick="autofill('');" value="Auto-fill forms">&nbsp;&nbsp;
+        <A HREF="assets/consentform.pdf" download="consentform.pdf" CLASS="btn btn-primary btn-xs">Consent Form PDF</A>
     </div>
 </div>
 <SCRIPT LANGUAGE="JavaScript">

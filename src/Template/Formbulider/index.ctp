@@ -62,7 +62,7 @@
             <a href=""><?php echo ucfirst($settings->profile); ?>s</a>
         </li>
     </ul>
-    <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 </div>
 
 <div class="row">

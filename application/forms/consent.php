@@ -660,7 +660,7 @@ if($newsigmethod){include("signature.php");}
                 $('#add_more_consent_doc').click(function () {
                     var count = $('#more_consent_doc').data('consent');
                     $('#more_consent_doc').data('consent', parseInt(count) + 1);
-                    $('#more_consent_doc').append('<div class="del_append_consent"><label class="control-label col-md-3"></label><div class="col-md-6 pad_bot"><input type="hidden" name="attach_doc[]" class="consent' + $('#more_consent_doc').data('consent') + '" /><a id="consent' + $('#more_consent_doc').data('consent') + '" href="javascript:void(0);" class="btn btn-primary"><?= addslashes($strings["forms_browse"]); ?></a> <a  href="javascript:void(0);" class="btn btn-danger" id="delete_consent_doc">Delete</a> <span class="uploaded"></span></div></div><div class="clearfix"></div>');
+                    $('#more_consent_doc').append('<div class="del_append_consent"><label class="control-label col-md-3"></label><div class="col-md-6 pad_bot"><input type="hidden" name="attach_doc[]" class="consent' + $('#more_consent_doc').data('consent') + '" /><a id="consent' + $('#more_consent_doc').data('consent') + '" href="javascript:void(0);" class="btn btn-primary"><?= addslashes($strings["forms_browse"]); ?></a> <a  href="javascript:void(0);" class="btn btn-primary" id="delete_consent_doc">Delete</a> <span class="uploaded"></span></div></div><div class="clearfix"></div>');
                     fileUpload('consent' + $('#more_consent_doc').data('consent'));
                 });
 

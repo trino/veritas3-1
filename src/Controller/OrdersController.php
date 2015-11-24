@@ -1237,10 +1237,10 @@
                 foreach ($profile as $p) {
                     $ALERT = "complete";
                     echo "<option value='" . $p->id . "'";
-                    if (!$p->is_complete) {//$this->Manager->requiredfields($p, "profile2order")
+                    /* if (!$p->is_complete) {//$this->Manager->requiredfields($p, "profile2order")
                         echo ' DISABLED';
                         $ALERT = "incomplete";
-                    }
+                    }*/
                     $username = "";
                     if ($p->username) {
                         $username = " (" . $p->username . ")";

@@ -74,7 +74,7 @@ if (isset($quiz)){
                 <a href="">Edit Quiz</a>
             </li>
         </ul>
-        <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+        <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
         <?php if ($canedit && isset($quiz)) {
             if (!isset($_GET["export"])){ echo '<a href="' . $this->request->webroot . 'training/edit?export&quizid=' . $quiz->ID . '" class="floatright btn btn-primary btnspc">Export</a>';}
             echo '<a href="' . $this->request->webroot . 'training?action=delete&quizid=' . $quiz->ID . '" onclick="return confirm(' . "'Are you sure you want to delete this quiz?'" . ');" class="floatright btn btn-danger btnspc">Delete</a>';
@@ -151,10 +151,10 @@ if (isset($quiz)){
     <?php if (isset($_GET["quizid"])){ ?>
     <div class="col-md-6" align="right">
         <div class="form-group">
-            <A href="<?= $this->request->webroot ?>training/users?quizid=<?= $_GET["quizid"] ?>" class="btn btn-info">Results</A>
-            <A href="<?= $this->request->webroot ?>training/enroll?quizid=<?= $_GET["quizid"] ?>" class="btn btn-warning">Enroll</A>
-            <a href="<?= $this->request->webroot ?>training/quiz?quizid=<?= $_GET["quizid"] ?>" class="btn btn-info">Preview</a>
-            <a href="<?= $this->request->webroot ?>training/quiz?quizid=<?= $_GET["quizid"] ?>&debug" class="btn btn-danger">Preview with answers</a>
+            <A href="<?= $this->request->webroot ?>training/users?quizid=<?= $_GET["quizid"] ?>" class="btn btn-primary">Results</A>
+            <A href="<?= $this->request->webroot ?>training/enroll?quizid=<?= $_GET["quizid"] ?>" class="btn btn-primary">Enroll</A>
+            <a href="<?= $this->request->webroot ?>training/quiz?quizid=<?= $_GET["quizid"] ?>" class="btn btn-primary">Preview</a>
+            <a href="<?= $this->request->webroot ?>training/quiz?quizid=<?= $_GET["quizid"] ?>&debug" class="btn btn-primary">Preview with answers</a>
         </div>
     </div>
     <?php } ?>
