@@ -611,11 +611,8 @@
             } else {
                 if (isset($_GET['flash']) && !isset($_GET['d'])) {
                     $this->Flash->success($this->Trans->getString("flash_ordersaved"));
-                }
-                else
-                {
-                    if(isset($_GET['d']))
-                    {
+                } else {
+                    if (isset($_GET['d'])) {
                         $this->Flash->success($this->Trans->getString("flash_orderdraft"));
                     }
                 }
@@ -856,6 +853,156 @@
         public function webservice($order_type = null, $forms = null, $drivers = null, $orders = null)
         {
 
+
+
+
+
+            var_dump($order_type);
+            echo "single drivers:";
+            var_dump($drivers);
+            echo "single forms:";
+            var_dump($forms);
+            echo "bulk drivers:";
+            var_dump($_POST['drivers']);
+            echo "bulk forms:";
+            var_dump($_POST['forms']);
+
+
+            die();
+
+            if ($order_type == "MEE" || $order_type == "GDO" || $order_type == "EMP" || $order_type == "SAL") {
+                $this->set('order_type', 'MEE');
+
+            } else {
+                $this->set('order_type', 'MEE-IND');
+            }
+
+            $model = TableRegistry::get('profiles');
+
+            if ($order_type == 'BUL') {
+                $this->set('forms', $_POST['forms']);
+            } else {
+                $this->set('forms', $forms);
+
+                $driverinfo = $model->find()->where(['id' => $drivers])->first();
+
+                $this->set('driverinfo', $driverinfo);
+
+            }
+
+
+
+
+            $this->layout = "blank";
+
+            var_dump($order_type);
+
+            var_dump($forms);
+            var_dump($drivers);
+            //var_dump($orders);
+
+            var_dump($_POST['drivers']);
+            var_dump($_POST['forms']);
+
+            if ($order_type == 'BUL') {
+
+                $forms = $_POST['forms'];
+                $this->set('drivers', $_POST['drivers']);
+                $drivers = explode(",", $_POST['drivers']);
+                $orders = array();
+
+                $ord = TableRegistry::get('orders');
+
+                foreach ($drivers as $driver) {
+                    $arr['uploaded_for'] = $driver;
+
+                    $Profile = $this->Manager->get_profile($driver);
+                    $Profile = $Profile->fname . ' ' . $Profile->mname . ' ' . $Profile->lname . ' (' . $Profile->username . ')';
+                    $Profiles[] = $Profile;
+
+                    $doc = $ord->newEntity($arr);
+                    $ord->save($doc);
+
+                    $orders[] = $doc->id;
+
+                    $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
+                    if (!is_dir($DIR)) {
+                        @mkdir($DIR, 0777);
+                    }
+                    unset($doc);
+                }
+
+            } else {
+                $drivers = array($drivers);
+                $orders = array($orders);
+            }
+
+            for ($I = 0; $I < count($drivers); $I++) {
+
+                $driverid = $drivers[$I];
+                $orderid = $orders[$I];
+                $orderid = $this->filternonnumeric($orderid);//there is an error message being passed in $orderid!!!
+                $model = TableRegistry::get('profiles');
+                $driverinfo = $model->find()->where(['id' => $driverid])->first(); //$conditions[] = 'find_in_set(id, ' . $conditions2 . ')'
+                $this->set('orderid', $orderid);
+                $this->set('driverinfo', $driverinfo);
+
+                $ordersTABLE = TableRegistry::get('orders');
+                $order_info = $ordersTABLE->find()->where(['id' => $orderid])->first();
+                $this->set('order_info', $order_info);
+                $this->set('mailer', $this->Mailer);
+                $this->set('orderid', $orderid);
+                $this->set('forms', $forms);
+                if ($order_type == 'BUL') {
+                    $this->set('orders', $orders);
+                }
+                //$this->Mailer->handleevent("ordercompleted", );//$order_info
+            }
+
+            $this->Flash->success($this->Trans->getString("flash_bulkorder"));
+        }
+
+        public function webservice999999($order_type = null, $forms = null, $drivers = null, $orders = null)
+        {
+
+
+
+
+            var_dump($order_type);
+            echo "single drivers:";
+            var_dump($drivers);
+            echo "single forms:";
+            var_dump($forms);
+            echo "bulk drivers:";
+            var_dump($_POST['drivers']);
+            echo "bulk forms:";
+            var_dump($_POST['forms']);
+
+
+die();
+
+            if ($order_type == "MEE" || $order_type == "GDO" || $order_type == "EMP" || $order_type == "SAL") {
+                $this->set('order_type', 'MEE');
+
+            } else {
+                $this->set('order_type', 'MEE-IND');
+            }
+
+            $model = TableRegistry::get('profiles');
+
+            if ($order_type == 'BUL') {
+                $this->set('forms', $_POST['forms']);
+            } else {
+                $this->set('forms', $forms);
+
+                $driverinfo = $model->find()->where(['id' => $drivers])->first();
+
+                $this->set('driverinfo', $driverinfo);
+
+            }
+
+            die();
+
             $this->layout = "blank";
 
             if ($order_type == 'BUL') {
@@ -873,8 +1020,10 @@
                 $arr['created'] = date('Y-m-d H:i:s');
                 $arr['division'] = $_POST['division'];
                 $arr['user_id'] = $this->request->session()->read('Profile.id');
+
                 $arr['driver'] = array();
                 $arr['order_id'] = array();
+
                 $ord = TableRegistry::get('orders');
 
                 foreach ($drivers as $driver) {
@@ -917,7 +1066,6 @@
                 //   $all_attachments = TableRegistry::get('mee_attachments');
                 //  $mee_query = $all_attachments->find()->where(['order_id' => $orderid]);
                 $orderid = $this->filternonnumeric($orderid);//there is an error message being passed in $orderid!!!
-
 
                 // $uploadedfor = $this->getprofile($driverid);
                 /*
@@ -964,8 +1112,11 @@
 
                 $model = TableRegistry::get('profiles');
                 $driverinfo = $model->find()->where(['id' => $driverid])->first(); //$conditions[] = 'find_in_set(id, ' . $conditions2 . ')'
+
                 $this->set('orderid', $orderid);
                 $this->set('driverinfo', $driverinfo);
+
+                /*
 
                 if ($order_type == "Requalification") {
                     $ordertype1 = "MEE-REQ";
@@ -974,8 +1125,8 @@
                 } else {
                     $ordertype1 = "MEE";
                 }
-
                 $this->set('ordertype', $ordertype1);
+*/
 
                 $ordersTABLE = TableRegistry::get('orders');
                 $order_info = $ordersTABLE->find()->where(['id' => $orderid])->first();
@@ -1279,15 +1430,12 @@
 
             $this->set('doc_comp', $this->Document);
             if (isset($_GET['flash']) && !isset($_GET['d'])) {
-                    $this->Flash->success($this->Trans->getString("flash_ordersaved"));
+                $this->Flash->success($this->Trans->getString("flash_ordersaved"));
+            } else {
+                if (isset($_GET['d'])) {
+                    $this->Flash->success($this->Trans->getString("flash_orderdraft"));
                 }
-                else
-                {
-                    if(isset($_GET['d']))
-                    {
-                        $this->Flash->success($this->Trans->getString("flash_orderdraft"));
-                    }
-                }
+            }
             $setting = $this->Settings->get_permission($userid);
             $doc = $this->Document->getDocumentcount();
             $cn = $this->Document->getUserDocumentcount();

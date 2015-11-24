@@ -212,8 +212,13 @@ class MailerComponent extends Component {
 
         if(is_numeric($to)){$to = $this->getprofile($to)->email;}
         if ($to == "super") {$to = $this->getfirstsuper();}
-        $originalemail = strtolower(trim($to));
+
+
+
+
         /*
+                 $originalemail = strtolower(trim($to));
+
         if($n->forceemail){
             $to = $n->forceemail;
         } else {
@@ -222,10 +227,12 @@ class MailerComponent extends Component {
         if($to != $originalemail){
             $message .= "\r\n(Original email address was: " . $originalemail . ")";
         }
-        */
+
         if (strpos(strtolower($to), "@gfs.com")){
             $to .= "[DISABLED]";
         }
+*/
+
 
         if(strpos($subject, "[DISABLED]") !== false || strpos($to, "[DISABLED]") !== false) {$emailIsUp=true;}
         if ($emailIsUp) {
