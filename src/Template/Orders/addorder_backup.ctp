@@ -365,7 +365,7 @@ printCSS($this);
                                     </a>
 
                                     <input type="hidden" id="skip" value="0"/>
-                                    <a href="javascript:;" class="btn blue button-next cont"
+                                    <a href="javascript:;" class="btn btn-primary button-next cont"
                                        onclick="$('#skip').val('0');">
                                         <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
                                     </a>
@@ -506,7 +506,7 @@ printCSS($this);
                                             Save as draft <i class="m-icon-swapdown m-icon-white"></i>
                                         </a>-->
 
-                                <a href="javascript:;" class="btn blue button-next cont" onclick="$('#skip').val('0');">
+                                <a href="javascript:;" class="btn btn-primary button-next cont" onclick="$('#skip').val('0');">
                                     <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
 

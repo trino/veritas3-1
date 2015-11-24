@@ -232,7 +232,7 @@
     if (is_object($answer)) {
         //PrintResults($results, $user);
     } else {
-        echo '<DIV align="center"><button type="submit" class="btn blue" style="margin-bottom: 15px;" onclick="return confirm(' . "'Are you sure you are done?'" . ');"><i class="fa fa-check"></i> Save</button></DIV>';
+        echo '<DIV align="center"><button type="submit" class="btn btn-primary" style="margin-bottom: 15px;" onclick="return confirm(' . "'Are you sure you are done?'" . ');"><i class="fa fa-check"></i> Save</button></DIV>';
     }
     echo "</form>";
     //}

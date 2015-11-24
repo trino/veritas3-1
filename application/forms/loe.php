@@ -157,7 +157,7 @@
         <input type="hidden" name="count_past_emp" id="count_past_emp" value="<?php if (isset($sub3['emp'])) {
             echo count($sub3['emp']);
         } else { echo '1'; }?>">
-        <a href="javascript:void(0);" class="btn green no-print" onclick="add_more();"><?= $strings["forms_addmore"]; ?></a>
+        <a href="javascript:void(0);" class="btn btn-primary no-print" onclick="add_more();"><?= $strings["forms_addmore"]; ?></a>
     </div>
 
 <script>

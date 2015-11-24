@@ -294,7 +294,7 @@
                                         $Missing = array();
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
-                                        if ($profile->iscomplete && !$MissingData) {
+                                        if (true){ //$profile->is_complete && !$MissingData) {
                                             //driver, owner driver, owner operator, sales, employee
                                             echo '<label class="uniform-inline" style="margin-bottom:10px;">';
                                             echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
@@ -302,6 +302,13 @@
                                                 echo " checked";
                                             }
                                             echo '/> ' . $strings["profiles_washired"] . ' <span class="hired_msg"></span></label>';
+
+                             if(isset($profile)){?>
+                                <div class="hired_date"  style='display:<?php if($profile->is_hired=='0')echo "none";?>;' >
+                                        <?= $strings["forms_hireddate"] . ': ' . $profile->hired_date; ?>
+                                </div>
+                            <?php }
+
                                             echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
                                         <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
                                             if ($p->requalify == '1') {

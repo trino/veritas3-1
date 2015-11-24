@@ -5,13 +5,13 @@
 <!--p>We also require:</p>
 <div class="table-scrollable">
     <table class="table table-striped">
-        <tr><td>Original CVOR abstract (30 days old or less) for Ontario applicants.</td><td><a class="btn blue">Browse</a></td></tr>
-        <tr><td>Original Drivers Abstract (30 days old or less)</td><td><a class="btn blue">Browse</a></td></tr>
-        <tr><td>Copy of Drivers License</td><td><a class="btn blue">Browse</a></td></tr>
-        <tr><td>Copy of your FAST card</td><td><a class="btn blue">Browse</a></td></tr>
-        <tr><td>Original Criminal Record Search (within 90 days)</td><td><a class="btn blue">Browse</a></td></tr>
-        <tr><td>Proof of Citizenship (birth certificate, passport or Canadian citizenship/US Visa)</td><td><a class="btn blue">Browse</a></td></tr>
-        <tr><td>Completion of an on road evaluation</td><td><a class="btn blue">Browse</a></td></tr>
+        <tr><td>Original CVOR abstract (30 days old or less) for Ontario applicants.</td><td><a class="btn btn-primary">Browse</a></td></tr>
+        <tr><td>Original Drivers Abstract (30 days old or less)</td><td><a class="btn btn-primary">Browse</a></td></tr>
+        <tr><td>Copy of Drivers License</td><td><a class="btn btn-primary">Browse</a></td></tr>
+        <tr><td>Copy of your FAST card</td><td><a class="btn btn-primary">Browse</a></td></tr>
+        <tr><td>Original Criminal Record Search (within 90 days)</td><td><a class="btn btn-primary">Browse</a></td></tr>
+        <tr><td>Proof of Citizenship (birth certificate, passport or Canadian citizenship/US Visa)</td><td><a class="btn btn-primary">Browse</a></td></tr>
+        <tr><td>Completion of an on road evaluation</td><td><a class="btn btn-primary">Browse</a></td></tr>
         </table>
         </div>
 <p>Please return you application and above information to the Challenger Recruiting Department.</p-->
@@ -541,7 +541,7 @@
             <div class="clearfix"></div>
             <hr/>
             <div class="more_form"></div>
-            <a href="javascript:void(0);" class="btn green" id="add_more_form">Add More</a>
+            <a href="javascript:void(0);" class="btn btn-primary" id="add_more_form">Add More</a>
              <div class="clearfix"></div>
             </div>
     </div>
@@ -622,7 +622,7 @@
             <hr />
             <div class="more_acc_record"></div>
             
-            <a href="javascript:void(0);" class="add_more_acc_record btn green">Add More</a>
+            <a href="javascript:void(0);" class="add_more_acc_record btn btn-primary">Add More</a>
             
             <div class="clearfix"></div>
             <hr />

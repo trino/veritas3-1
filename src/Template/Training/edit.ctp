@@ -144,7 +144,7 @@ if (isset($quiz)){
 
 <div class="col-md-2">
     <div class="form-group">
-        <button type="submit" class="btn blue"><i class="fa fa-check"></i> Save Changes</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>
     </div>
 </div>
 

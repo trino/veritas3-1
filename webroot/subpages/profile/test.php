@@ -27,7 +27,7 @@
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-2 col-md-9">
-                            <button type="submit"   class="btn blue" onclick="savepage('product_example');"><i
+                            <button type="submit"   class="btn btn-primary" onclick="savepage('product_example');"><i
                                     class="fa fa-check"></i> Submit
                             </button>
                             <button type="button" class="btn default">Cancel

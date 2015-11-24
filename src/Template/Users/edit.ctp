@@ -17,7 +17,7 @@ $is_disabled = '';
 							 Widget settings form goes here
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
 							<button type="button" class="btn default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -566,7 +566,7 @@ $is_disabled = '';
                                 								<div class="form-actions">
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
-                                											<button type="submit" class="btn blue"><i class="fa fa-check"></i> Submit</button>
+                                											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
                                 											<button type="button" class="btn default">Cancel</button>
                                 										</div>
                                 									</div>
@@ -608,7 +608,7 @@ $is_disabled = '';
                                 								<div class="form-actions">
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
-                                											<button type="submit" class="btn blue"><i class="fa fa-check"></i> Submit</button>
+                                											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
                                 											<button type="button" class="btn default">Cancel</button>
                                 										</div>
                                 									</div>
@@ -651,7 +651,7 @@ $is_disabled = '';
                                 								<div class="form-actions">
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
-                                											<button type="submit" class="btn blue"><i class="fa fa-check"></i> Submit</button>
+                                											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
                                 											<button type="button" class="btn default">Cancel</button>
                                 										</div>
                                 									</div>
@@ -694,7 +694,7 @@ $is_disabled = '';
                                 								<div class="form-actions">
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
-                                											<button type="submit" class="btn blue"><i class="fa fa-check"></i> Submit</button>
+                                											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
                                 											<button type="button" class="btn default">Cancel</button>
                                 										</div>
                                 									</div>
@@ -737,7 +737,7 @@ $is_disabled = '';
                                 								<div class="form-actions">
                                 									<div class="row">
                                 										<div class="col-md-offset-3 col-md-9">
-                                											<button type="submit" class="btn blue"><i class="fa fa-check"></i> Submit</button>
+                                											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
                                 											<button type="button" class="btn default">Cancel</button>
                                 										</div>
                                 									</div>
@@ -784,7 +784,7 @@ $is_disabled = '';
 																	<div class="form-actions">
 																		<div class="row">
 																			<div class="col-md-offset-3 col-md-9">
-																				<button type="submit" class="btn blue"><i class="fa fa-check"></i> Submit</button>
+																				<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 																				<button type="button" class="btn default">Cancel</button>
 																			</div>
 																		</div>

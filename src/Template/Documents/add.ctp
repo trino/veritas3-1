@@ -31,6 +31,8 @@
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("documents_%", "forms_%", "clients_addeditimage", "infoorder_selectclient"), $settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
+    $stringsbackup = $strings;//array("forms_save" => $strings["forms_save"], "forms_savedraft" => $strings["forms_savedraft"]);
+
     if($language == "Debug") { $Trans = " [Trans]";} else { $Trans = ""; }
     $title = $strings["index_" . strtolower($action) . "document"];
     printCSS($this);
@@ -515,27 +517,19 @@
                             <div class="col-md-offset-3 col-md-9 btndocs" <?php if(!isset($_GET['type'])){?>style="display: none;"<?php }?>>
 
 
-                                <a href="javascript:void(0)" class="btn green cont buttons" id="button1"><?= $strings["forms_save"]; ?></a>
+                                <a href="javascript:void(0)" class="btn btn-primary cont buttons" id="button1"><?= $stringsbackup["forms_save"]; ?></a>
 
                                 <?php
-                                    if(!isset($_GET['order_id']))
-                                    {
-                                        ?>
-
-                                        <a href="javascript:;" id="button1" title="draft" class="btn blue cont buttons">
-                                            <?= $strings["forms_savedraft"]; ?> <i class="m-icon-swapright m-icon-white"></i>
-                                        </a>
-                                        <?php
+                                    if(!isset($_GET['order_id'])) {
+                                        echo '<a href="javascript:;" id="button1" title="draft" class="btn btn-primary cont buttons">';
+                                        echo $stringsbackup["forms_savedraft"] . '<i class="m-icon-swapright m-icon-white"></i></a>';
                                     }
                                 ?>
                                 <div class="margin-top-10 alert alert-success display-hide flashDoc" style="display: none;">
                                     <button class="close" data-close="alert"></button>
-                                    <?php echo ucfirst($settings->document); ?> <?= $strings["forms_uploaded"]; ?>
+                                    <?= ucfirst($settings->document) . $stringsbackup["forms_uploaded"]; ?>
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>

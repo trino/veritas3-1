@@ -80,7 +80,7 @@ die("Don't use this one.");
 <div id="more_div"></div>
 <div id="add_more_div">
     <p>&nbsp;</p>
-    <a href="javascript:void(0);" class="btn green" id="add_more">Add More</a>
+    <a href="javascript:void(0);" class="btn btn-primary" id="add_more">Add More</a>
 </div>
 
 <div class="form-group col-md-12">

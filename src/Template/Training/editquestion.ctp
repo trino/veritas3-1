@@ -140,7 +140,7 @@ if (isset($question)) {$question = clean($question,1);}
 
         <div class="col-md-2">
             <div class="form-group">
-                <button type="submit" class="btn blue"><i class="fa fa-check"></i> Save Changes</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>
             </div>
         </div>
         <div class="col-md-2">

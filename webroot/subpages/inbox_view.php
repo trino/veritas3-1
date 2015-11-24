@@ -20,9 +20,9 @@
 		</div>
 		<div class="col-md-5 inbox-info-btn">
 			<div class="btn-group">
-				<button data-messageid="23" class="btn blue reply-btn">
+				<button data-messageid="23" class="btn btn-primary reply-btn">
 				<i class="fa fa-reply"></i> Reply </button>
-				<button class="btn blue dropdown-toggle" data-toggle="dropdown">
+				<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 				<i class="fa fa-angle-down"></i>
 				</button>
 				<ul class="dropdown-menu pull-right">

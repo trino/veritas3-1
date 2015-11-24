@@ -1146,7 +1146,7 @@ if( isset($sub['da_at'])){ listfiles($sub['da_at'], "attachments/", "", false,3)
 
             <div class="more_acc_record"></div>
             <input type="hidden" id="count_acc_record" name="count_acc_record" value="1">
-            <a href="javascript:void(0);" class="add_more_acc_record btn green">Add More</a>
+            <a href="javascript:void(0);" class="add_more_acc_record btn btn-primary">Add More</a>
 
             <div class="clearfix"></div>
             <hr />

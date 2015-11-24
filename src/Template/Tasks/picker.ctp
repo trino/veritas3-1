@@ -1185,7 +1185,7 @@
 							 Widget settings form goes here
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
 							<button type="button" class="btn default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -1505,7 +1505,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-											<button class="btn green" data-dismiss="modal">Save changes</button>
+											<button class="btn btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
 								</div>
@@ -1654,7 +1654,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-											<button class="btn green btn-primary" data-dismiss="modal">Save changes</button>
+											<button class="btn btn-primary btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
 								</div>
@@ -1773,7 +1773,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-											<button class="btn green btn-primary" data-dismiss="modal">Save changes</button>
+											<button class="btn btn-primary btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
 								</div>
@@ -1874,7 +1874,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="btn default" data-dismiss="modal" aria-hidden="true">Close</button>
-											<button class="btn green" data-dismiss="modal">Save changes</button>
+											<button class="btn btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
 								</div>
@@ -1940,7 +1940,7 @@
 								<div class="form-actions">
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
@@ -1970,7 +1970,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-											<button class="btn green btn-primary" data-dismiss="modal">Save changes</button>
+											<button class="btn btn-primary btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
 								</div>
@@ -2075,7 +2075,7 @@
 										</div>
 										<div class="modal-footer">
 											<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-											<button class="btn green btn-primary" data-dismiss="modal">Save changes</button>
+											<button class="btn btn-primary btn-primary" data-dismiss="modal">Save changes</button>
 										</div>
 									</div>
 								</div>
@@ -2361,7 +2361,7 @@
 									<div class="input-group">
 										<input type="text" class="form-control" placeholder="Type a message here...">
 										<div class="input-group-btn">
-											<button type="button" class="btn blue"><i class="icon-paper-clip"></i></button>
+											<button type="button" class="btn btn-primary"><i class="icon-paper-clip"></i></button>
 										</div>
 									</div>
 								</div>
