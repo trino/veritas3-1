@@ -199,6 +199,12 @@ class MailerComponent extends Component {
 
     function sendEmail($from,$to,$subject,$message, $emailIsUp = false){//do not use! Use HandleEvent instead!!!!
         //from can be array with this structure array('email_address'=>'Sender name'));
+
+
+
+
+
+
         $logAllEmails = true;
         $path = $this->getUrl();
         $n =  $this->get_settings();
@@ -250,6 +256,14 @@ class MailerComponent extends Component {
         return $_SERVER['SERVER_NAME'] == "isbmeereports.com";
     }
 
+
+
+
+
+
+
+
+
     function debugprint($text = "", $Domain = "Veritas", $ForceLocal = false){
         if($this->ismaster() || $ForceLocal) {
             $path = "royslog.txt";
@@ -275,6 +289,10 @@ class MailerComponent extends Component {
         }
     }
 
+
+
+
+
     function showalldebug(){
         if($this->ismaster()) {
             return file_get_contents($this->debugprint());
@@ -282,6 +300,10 @@ class MailerComponent extends Component {
             return $this->request("http://isbmeereports.com/rapid/unify", array("action" => "viewlog"), false);
         }
     }
+
+
+
+
 
     function getip($Name = array('SERVER_ADDR', 'REMOTE_ADDR'), $Delimeter = ":"){
         if (is_array($Name)) {
@@ -302,5 +324,10 @@ class MailerComponent extends Component {
             return implode("", $Name);
         }
     }
+
+
+
+
+
 }
 ?>
