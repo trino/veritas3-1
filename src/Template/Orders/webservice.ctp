@@ -1,8 +1,19 @@
 <?php
     $driverinfo2 = $driverinfo;
-    // var_dump($driverinfo2);
 
     if (true) {
+
+        $user_id234 = $this->Session->read('Profile.isb_id');
+        if (isset($user_id234) && $user_id234 != "") {
+            $user_id234 = $this->Session->read('Profile.isb_id');
+        } else {
+            $user_id234 = '22552';
+        }
+        if ($_SERVER['SERVER_NAME'] == "localhost") {
+            //$user_id234 = '22552';
+        }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         include_once('subpages/api.php');
 
@@ -43,17 +54,6 @@
         $sms_ins_32 = false;                                    //9  32   social media search
         $creditcheck_ins_31 = false;                            //10 31   Credit Check
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        $user_id234 = $this->Session->read('Profile.isb_id');
-        if (isset($user_id234) && $user_id234 != "") {
-            $user_id234 = $this->Session->read('Profile.isb_id');
-        } else {
-            $user_id234 = '22552';
-        }
-        if ($_SERVER['SERVER_NAME'] == "localhost") {
-            $user_id234 = '22552';
-        }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -96,26 +96,6 @@
         foreach ($driverinfo2 as $driverinfo) {
 
             echo "<br>The time is " . date("h:i:sa");
-
-            /*
-            $startorder1 = false;
-            $driver_order_79 = false; //only for full mee order (driver order)
-
-            $uploadbinaryconsent_1603 = false;
-            $uploadbinaryemployment_1627 = false;
-            $uploadbinaryeducation_1650 = false;
-
-            $premium_national_ebs_1603 = false;                     //1  1603 Premium check EBS
-            $mvr_driversrecordabstract_ins_1 = false;               //2  1    MVR Driver's Record Abstract INS
-            $cvor_ins_14 = false;                                   //3  14   CVOR INS
-            $preemploymentscreening_ins_77 = false;                 //4  77   Pre-employment Screening Program Report INS
-            $transclick_ins_78 = false;                             //5  78   Transclick INS
-            $education_certification_ebs_1650 = false;              //6  1650 Certification (Education) EBS
-            $loe_employment_ebs_1627 = false;                       //7  1627 LOE (Employment) EBS
-            $checkdl_ins_72 = false;                                //8  72   checkdl INS
-            $sms_ins_32 = false;                                    //9  32   social media search
-            $creditcheck_ins_31 = false;
-            */
 
             if ($driverinfo->order_type == "MEE") {
                 $driver_order_79 = true; // only TRUE if complete mee orders  - DONT CHANGE
@@ -419,10 +399,8 @@
         die();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
         if (false) {
 

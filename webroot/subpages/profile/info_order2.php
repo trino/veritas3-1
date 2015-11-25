@@ -234,11 +234,11 @@
                 switch ($index) {
                     case 1:
                         if (!$inforequired) {
-                            echo '<a href="javascript:void(0);" id="qua_btn" class="btn btn-primary  btn-lg placenow">' . $strings["infoorder_continue"] . ' <i class="m-icon-swapright m-icon-white"></i></a>';
+                            echo '<a href="javascript:void(0);" id="qua_btn" class="btn btn-primary  btn-lg placenow">' . $strings["infoorder_continue"] . ' </a>';
                         }
                         break;
                     case 2: ?>
-                        <a href="javascript:void(0);" class="btn btn-primary" onclick="$('.alacarte').show(200);$('.placenow').attr('disabled','');">A La Carte<i class="m-icon-swapright m-icon-white"></i></a>
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="$('.alacarte').show(200);$('.placenow').attr('disabled','');">A La Carte</a>
                         <?php
                         break;
                     case 5:

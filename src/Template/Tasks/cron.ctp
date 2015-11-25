@@ -195,7 +195,7 @@
                         <div class="row">
                             <div class="col-md-12" align="right">
                                 <button type="submit" class="btn btn-primary" onclick="Changed = false;">
-                                    Save Changes <i class="m-icon-swapright m-icon-white"></i>
+                                    Save Changes
                                 </button>
                             </div>
                         </div>

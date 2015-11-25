@@ -367,7 +367,7 @@ printCSS($this);
                                     <input type="hidden" id="skip" value="0"/>
                                     <a href="javascript:;" class="btn btn-primary button-next cont"
                                        onclick="$('#skip').val('0');">
-                                        <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
+                                        <?= $strings["addorder_savecontinue"]; ?>
                                     </a>
 
 
@@ -507,7 +507,7 @@ printCSS($this);
                                         </a>-->
 
                                 <a href="javascript:;" class="btn btn-primary button-next cont" onclick="$('#skip').val('0');">
-                                    <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
+                                    <?= $strings["addorder_savecontinue"]; ?>
                                 </a>
 
                                 <a href="javascript:window.print();" class="btn btn-primary button-submit"><?= $strings["dashboard_print"]; ?></a>
@@ -1352,7 +1352,7 @@ printCSS($this);
         $('.tab-content button').hide();
         $('.tab-content a').hide();
         $('.nav a').show();
-        $('.cont').html('<?= addslashes($strings["addorder_next"]); ?> <i class="m-icon-swapright m-icon-white"></i>');
+        $('.cont').html('<?= addslashes($strings["addorder_next"]); ?>');
         $('.cont').parent().find('.red').remove();
         $('.cont').each(function () {
             $(this).attr('id', 'nextview');

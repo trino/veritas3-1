@@ -522,7 +522,7 @@
                                 <?php
                                     if(!isset($_GET['order_id'])) {
                                         echo '<a href="javascript:;" id="button1" title="draft" class="btn btn-primary cont buttons">';
-                                        echo $stringsbackup["forms_savedraft"] . '<i class="m-icon-swapright m-icon-white"></i></a>';
+                                        echo $stringsbackup["forms_savedraft"] . '</a>';
                                     }
                                 ?>
                                 <div class="margin-top-10 alert alert-success display-hide flashDoc" style="display: none;">
