@@ -1485,6 +1485,12 @@
             if (isset($_GET['draft'])) {
                 $cond = $this->AppendSQL($cond, 'orders.draft = 1');
             }
+            if (isset($_GET['complete'])) {
+                $cond = $this->AppendSQL($cond, 'orders.complete = 1');
+            }
+            if (isset($_GET['pending'])) {
+                $cond = $this->AppendSQL($cond, 'orders.complete = 0 AND orders.draft=0');
+            }
 
             if ($cond) {
                 $order = $order->where([$cond])->contain(['Profiles']);
