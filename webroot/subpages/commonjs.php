@@ -317,7 +317,26 @@
             var ch = '';
             var doc_id = par.find('.sub_docs_id').val();
             var sid = doc_id;
-            var isvalid = checkalltags("tab0");
+            var isvalid = false;
+            isvalid = checkalltags("tab0");
+            
+            if(sid == 'c1')
+            {
+                
+                if ($('#recruiter_signature').val() == ''){
+                $('.pleaseprovide').show();
+                
+                $('html,body').animate({
+                        scrollTop: $('.pleaseprovide').offset().top
+                    },
+                    'slow');
+                    $('.overlay-wrapper').hide();
+                    isvalid = false;
+                    }
+            }
+            
+            
+            
 
             if (!isvalid) {
                 return false;
@@ -1719,10 +1738,10 @@
                         url: '<?php echo $this->request->webroot;?>orders/webservice/<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>/<?php if(isset($_GET['forms']))echo $_GET['forms']; ?>/' + $('#user_id').val() + '/' + $('#did').val(),
                         success: function (msg) {
                             //alert("Order saved: " + msg);
-                            //  window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                              window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
                         },
                         error: function () {
-                             // window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                              window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
                         }
                     });
 
