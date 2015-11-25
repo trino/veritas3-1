@@ -700,6 +700,22 @@
 </script>
 <script>
     $(function () {
+        $('input,textarea,select').each(function(){
+
+
+            var attr = $(this).attr('required');
+            
+            // For some browsers, `attr` is undefined; for others,
+            // `attr` is false.  Check for both.
+            if (typeof attr !== typeof undefined && attr !== false) {
+                $(this).parent().find('label').addClass('required');
+            }
+            else
+            {
+                $(this).parent().find('label').removeClass('required');
+            }
+            
+        })
 
         $('.checkhiredriver').click(function () {
 

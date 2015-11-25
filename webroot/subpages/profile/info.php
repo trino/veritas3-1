@@ -1285,6 +1285,24 @@ loadreasons($param, $strings, true);
                         $('#retype_password').removeAttr('required');
                         <?php if($canedit){ echo "$('.email_rec').show();"; } ?>
 
+
+                        $('input,textarea,select').each(function(){
+
+                
+                            var attr = $(this).attr('required');
+                            
+                            // For some browsers, `attr` is undefined; for others,
+                            // `attr` is false.  Check for both.
+                            if (typeof attr !== typeof undefined && attr !== false) {
+                                $(this).parent().find('label').addClass('required');
+                            }
+                            else
+                            {
+                                $(this).parent().find('label').removeClass('required');
+                            }
+                            
+                        });
+
                                     });
 
                                     var mem_type = $('.member_type').val();
