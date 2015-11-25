@@ -51,7 +51,7 @@
     <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
     <?php
-        if ($sidebar->orders_list == 1 && !isset($_GET["draft"])) {
+        /*if ($sidebar->orders_list == 1 && !isset($_GET["draft"])) {
             ?>
             <a href="<?php echo $this->request->webroot; ?>orders/orderslist?draft"
                class="floatright btn btn-primary btnspc">
@@ -59,7 +59,7 @@
         <?php } elseif (isset($_GET["draft"])) { ?>
             <a href="<?php echo $this->request->webroot; ?>orders/orderslist" class="floatright btn btn-primary btnspc">
                 <?= $strings["orders_all"];?></a>
-        <?php }
+        <?php }*/
 
 
     if ($sidebar->orders_create == 1  && false){
@@ -98,9 +98,10 @@
 
                         <form action="<?php echo $this->request->webroot; ?>orders/orderslist" method="get">
                         <select onchange="window.location = $(this).val();" class="form-control input-inline">
-                        <option><?= $strings["documents_select"]; ?></option>
-                        <option value="<?= $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_orderdrafts"]; ?></option>
-                        <option value="<?= $this->request->webroot; ?>orders/orderslist" <?php if(!isset($_GET['draft'])){?>selected="selected"<?php }?>><?= $strings["index_nondrafts"]; ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist"><?= $strings["documents_select"]; ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_orderdrafts"]); ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?pending" <?php if(isset($_GET['pending'])){?>selected="selected"<?php }?>><?= ucfirst($strings["documents_pending"]); ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?complete" <?php if(isset($_GET['complete'])){?>selected="selected"<?php }?>><?= ucfirst($strings["documents_complete"]); ?></option>
                         </select>
                             <?php
                             if (isset($_GET['draft'])) {
