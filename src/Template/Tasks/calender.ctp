@@ -58,7 +58,7 @@ echo "<SCRIPT LANGUAGE='JavaScript'>var Language = '" . $language . "';</SCRIPT>
 										<input type="checkbox" id="drop-remove"/>remove after drop </label>
 										<hr class="visible-xs"/>
 									</div>-->
-                                    <a href="<?php echo $this->request->webroot;?>tasks/add" id="event_add" type="button" class="btn red">
+                                    <a href="<?php echo $this->request->webroot;?>tasks/add" id="event_add" type="button" class="btn btn-primary">
 											<?= $strings["tasks_addtask"]; ?></a>
 
 <?php

@@ -2192,7 +2192,7 @@
             $super = $this->request->session()->read('Profile.admin');
             $cond = $this->Settings->getprofilebyclient($u, $super);
 
-            $conditions=array('iscomplete' >= 1, 'super <>' => 1, 'drafts' => 0,'(driver_province = "MB" OR driver_province = "NS" OR driver_province = "NB")', '(fname LIKE "%' . $key . '%" OR lname LIKE "%' . $key . '%" OR username LIKE "%' . $key . '%")');
+            $conditions=array('iscomplete' >= 1, 'super <>' => 1, 'drafts' => 0, '(fname LIKE "%' . $key . '%" OR lname LIKE "%' . $key . '%" OR username LIKE "%' . $key . '%")');
             if($mode==1 && $id>0) {//search by client
                 $conditions[] = 'find_in_set(id, (SELECT profile_id FROM clients WHERE id = ' . $id . '))';
                 //$RequiredFields = array_keys($this->Manager->requiredfields("", "profile2order"));
