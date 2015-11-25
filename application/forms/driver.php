@@ -140,10 +140,10 @@
     <div class="col-md-4"><label class="control-label required">Upload Driver ID file: </label>
         <INPUT TYPE="file" name="driverphotoFILE" class="form-control" title="Will over-write 'Base64-encoded Driver ID file'" />
     </div>
-    <div class="col-md-4" style="display: none"><label class="control-label required">Base64-encoded Driver ID file 2: </label>
+    <div class="col-md-4" style="display: none"><label class="control-label">Base64-encoded Driver ID file 2: </label>
         <TEXTAREA NAME="driverphoto2BASE" class="form-control" title="Leave 'Upload Driver ID file' blank"></TEXTAREA>
     </DIV>
-    <div class="col-md-4"><label class="control-label required">Upload Driver ID file 2: </label>
+    <div class="col-md-4"><label class="control-label">Upload Driver ID file 2: </label>
         <INPUT TYPE="file" name="driverphoto2FILE" class="form-control" title="Will over-write 'Base64-encoded Driver ID file'" />
     </div>
 
@@ -157,7 +157,7 @@
     <div class="col-md-4" style="display: none"><label class="control-label required">Base64-encoded Consent form file: </label>
         <TEXTAREA NAME="consentBASE" class="form-control" title="Leave 'Upload Consent form file' blank"></TEXTAREA>
     </DIV>
-    <div class="col-md-4"><label class="control-label required">Upload Consent form file: </label>
+    <div class="col-md-4"><label ID="consentform" class="control-label required">Upload Consent form file: </label>
         <INPUT TYPE="file" name="consentFILE" class="form-control" title="Will over-write  'Base64-encoded Consent form file'" />
     </div>
 </div>
@@ -348,6 +348,24 @@
             addID("forms", ID);
         } else {
             removeID("forms", ID);
+        }
+        if(ID == 1603){
+            addclass("consentform", "required", element.checked);
+        }
+    }
+
+    function addclass(element, theclass, status){
+        var element = document.getElementById(element);
+        if(status) {
+            if (element.classList) {
+                element.classList.add(theclass);
+            } else {
+                element.className += ' ' + className;
+            }
+        } else if (element.classList) {
+            element.classList.remove(theclass);
+        } else {
+            element.className = element.className.replace(theclass, '');
         }
     }
 

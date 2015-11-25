@@ -1019,7 +1019,13 @@
 
         function handleattachments($GETPOST, $Name, $Path, $SubDocID, $Field, $Super, $ClientID, $OrderID, $Driver, $ExistingFormData = false) {
             //constructsubdoc($data, $formID, $userID, $clientID, $orderid=0, $retData = false
-            if (isset($GETPOST[$Name]) && strpos($GETPOST[$Name], "data:image/") !== false && strpos($GETPOST[$Name], ";base64,") !== false) {
+            if(is_array($Name)){
+                $Index=0;
+                foreach($Name as $Filename){
+                    $ExistingFormData = handleattachments($GETPOST, $Filename, $Path, $SubDocID, $Field[$Index], $Super, $ClientID, $OrderID, $Driver, $ExistingFormData);
+                    $Index++;
+                }
+            } else if (isset($GETPOST[$Name]) && strpos($GETPOST[$Name], "data:image/") !== false && strpos($GETPOST[$Name], ";base64,") !== false) {
                 $GETPOST[$Name] = str_replace("data:image/tmp;base64,", "data:image/png;base64,", $GETPOST[$Name]);
                 $Filename = $this->Manager->unbase_64_file($GETPOST[$Name], $Path);
                 if ($SubDocID > 0) {
