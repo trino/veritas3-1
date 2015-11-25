@@ -323,7 +323,7 @@
             if(sid == 'c1')
             {
                 
-                if ($('#recruiter_signature').val() == ''){
+                if ($('.conf .touched').val() == '0' && $('.conf .touched_edit').val() == '0'){
                 $('.pleaseprovide').show();
                 
                 $('html,body').animate({

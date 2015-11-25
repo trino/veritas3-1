@@ -161,7 +161,7 @@
 </div>
 
 
-<div class="row col-md-12">
+<div class="row col-md-12 conf_block">
     <div class="form-group">
 
         <label class="control-label col-md-12"><?= $strings2["forms_signplease"]; ?>:</label>
