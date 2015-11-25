@@ -151,7 +151,8 @@ if(isset($_GET["client"])){ ?>
 <!-- BEGIN LOGIN FORM -->
 
 
-        <form class="login-form" action="<?php echo $this->request->webroot;?>login/index<?php if(isset($_GET['url'])){?>?url=<?php echo $_GET['url']; }?>" method="post">
+        <form class="login-form" action="<?= $this->request->webroot; ?>login/index" method="post">
+        <input type="hidden" name="url" value="<?php if(isset($_GET['url'])) { echo $_GET['url'];} ?>">
         <h3 class="form-title"><?= text($language, "Log in to your account", "Accéder à votre compte"); ?></h3>
     
     <?= $this->Flash->render() ?>

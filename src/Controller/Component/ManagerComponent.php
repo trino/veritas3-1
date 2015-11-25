@@ -25,6 +25,8 @@ class ManagerComponent extends Component {
 
         $Controller->loadComponent("Settings");
         $Controller->Settings->verifylogin($Controller,$Controller->name);
+
+        //$this->converttoredirect("http://localhost/veritas3-1/orders/productSelection?driver=0&ordertype=BUL", LOGIN);
     }
 
     function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){
