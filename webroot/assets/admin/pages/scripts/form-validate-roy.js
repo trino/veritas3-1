@@ -118,11 +118,12 @@ function validatespecialrules(){
         switch(Rule){
             case "meeattach"://hard-coded rule for mee_attach
                 if(isvisible("form_tab15")){
+                    var Forms = element.getAttribute("forms").split(",");
                     Rule = element.getAttribute("driverprovince");
-                    if(element.getAttribute("isform") == 1){
+                    if(Forms.indexOf("1603") > -1){
                         if (!getinputvalue("meeattach_id1") && !getinputvalue("meeattach_id2")){return MissingID;}
                     }
-                    if (Rule == "BC" || Rule == "QC" || Rule == "SK"){
+                    if ((Rule == "QC" && Forms.indexOf("1") > -1) || ((Rule == "BC" || Rule == "SK") && Forms.indexOf("14") >-1)){
                         if(isvisible("mee_attach_7") && !getinputvalue("mee_attach_7")){return MissingAbstract;}
                     }
                 }

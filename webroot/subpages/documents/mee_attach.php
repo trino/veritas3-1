@@ -86,13 +86,9 @@
         }
 
 
-        echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" isform="';
-        if(isset($_GET["forms"])) {
-            $Is1603 = in_array("1603", $forms);
-            echo $Is1603;
-        }
-        echo '">';
+        echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" forms="' . implode(",", $forms) . '">';
         if($Debug){
+            $Is1603 = in_array(1603, $forms);
             $Yes = "<B>Yes</B>"; $No = "<B>No</B>";
             echo '<HR><H1>Rules for attachments:</H1>';
             echo "If 1603 is one of the forms selected, require 1 piece of ID: " . iif($Is1603, $Yes, $No);
