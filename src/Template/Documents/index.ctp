@@ -41,13 +41,14 @@
         <a href="<?php echo $this->request->webroot; ?>documents/add" class="floatright btn btn-primary btnspc">
             <?= $strings["index_createdocument"]; ?></a>
     <?php }
+    /*        
         if (isset($_GET["draft"])) { ?>
             <a href="<?php echo $this->request->webroot; ?>documents/index" class="floatright btn btn-primary btnspc">
                 <?=$strings["index_listdocuments"];?></a>
         <?php } else { ?>
             <a href="<?php echo $this->request->webroot; ?>documents/index?draft" class="floatright btn btn-primary btnspc">
                 <?=$strings["dashboard_drafts"];?></a>
-        <?php } ?>
+        <?php }*/ ?>
 
 </div>
 
@@ -72,6 +73,10 @@
 
 
                         <form action="<?= $this->request->webroot; ?>documents/index" method="get">
+                        <select onchange="window.location = $(this).val();" class="form-control input-inline">
+                        <option value="<?= $this->request->webroot; ?>documents/index" <?php if(!isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_listdocuments"]); ?></option>
+                        <option value="<?= $this->request->webroot; ?>documents/index?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_orderdrafts"]); ?></option></option>
+                        </select>                                                
                             <?php
                                 if (isset($_GET['draft'])) { echo '<input type="hidden" name="draft"/>'; }
                                 $type = $doc_comp->getDocType($this->request->session()->read('Profile.id'));
