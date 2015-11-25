@@ -733,7 +733,7 @@
                 $searchs = strtolower($search);
             }
 
-            if (isset($_GET['filter_profile_type'])) {
+            if (isset($_GET['filter_profile_type'])&& $_GET['filter_profile_type']!="") {
                 $profile_type = $_GET['filter_profile_type'];
             }
             if (isset($_GET['filter_by_client'])) {
@@ -746,7 +746,7 @@
                 $cond .= ' (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
             }
 
-            if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type'] > -1) {
+            if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type'] > -1 && $_GET['filter_profile_type']!='') {
                 if ($cond){ $cond.= ' AND'; }
                 if($_GET['filter_profile_type'] == "NULL") {
                     $cond .= ' profile_type IS NULL';
@@ -818,7 +818,7 @@
             } else {
                 $query = $this->Profiles->find()->where(['OR' => $condition, 'AND' => 'super = 0']);
             }
-
+            //debug($query);die();
             if (isset($search)) {
                 $this->set('search_text', $search);
             }
