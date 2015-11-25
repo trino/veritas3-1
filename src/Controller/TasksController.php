@@ -120,13 +120,26 @@ class TasksController extends AppController {
             foreach($escape_id as $ei) {
                 $escape_ids .= $ei->profile_id.",";
             }
-
-            $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today]);
+            //with expiry date
+            //$profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today]);
+            //without expiry date
+            $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1']);
+          
                 //debug($profile);die();
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
-                    $date = $c->requalify_date;
-                    $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                     $date = $c->requalify_date;
+                   
+                    if(strtotime($date)==strtotime($today)){
+                      
+                         if($this->checkcron($c->id, $date, $p->id))
+                         {
+                            
+                            $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                         }
+                    }      
+                    else
+                        $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
                     /*if(strtotime($date)<= strtotime($today)) {
                        
                         if($this->checkcron($c->id, $date, $p->id)) {
@@ -148,6 +161,7 @@ class TasksController extends AppController {
                                 $date = $this->getnextdate($date, $frequency);
                         }
                     }*/
+                   
                 } else {
                     
                      $date = $p->hired_date;

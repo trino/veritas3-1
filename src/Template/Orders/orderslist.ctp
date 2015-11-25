@@ -214,6 +214,8 @@
                                     if ($order->user_id) {
                                         $uploaded_by = getIterator($profiles, "id", $order->user_id);
                                     }
+                                    elseif($order->user_id=='0')
+                                        $uploaded_by = "N/A";
                                     if ($order->uploaded_for) {
                                         $uploaded_for = getIterator($profiles, "id", $order->uploaded_for);
                                     }
@@ -295,9 +297,12 @@
                                         </td>
 
                                         <td class="v-center"><?php
-                                            if (isset($uploaded_by)) {
+                                            if (isset($uploaded_by)&& $uploaded_by!= "N/A") {
                                                 echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);
-                                            } else {
+                                            }
+                                            elseif($uploaded_by=='N/A')
+                                                echo $uploaded_by;
+                                             else {
                                                 echo $strings["dashboard_deletedprofile"];
                                             }
                                             ?></td>

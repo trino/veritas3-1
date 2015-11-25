@@ -69,8 +69,11 @@
                         <td><a href="<?= $this->request->webroot;?>profiles/view/<?php echo $d['profile_id'];?>"><?php echo $Profile->username;?></a></td>
                         <td><?php echo $Profile->hired_date;?></td>
                         <td><?php $status= $this->requestAction('/rapid/check_status/'.$d['cron_date'].'/'.$d['client_id'].'/'.$d['profile_id']); if($status=='0'){?>Scheduled for requalification<BR>(products: <?php echo substr($new_form,0,strlen($new_form) - 1);?>)</td>
+                        
+                        <!-- test for expired profile
                         <td><?php if(strtotime($d['expiry_date'])>= strtotime($d['cron_date'])){?><a href="<?php echo $this->request->webroot."rapid/cron_user/".$d['cron_date']."/".$d['client_id']."/".$d['profile_id'];?>" class="btn btn-primary btn-xs" style="width: 100%;">Send Now</a><?php } else { echo "This driver expires on ".$d['expiry_date'];} }else echo "Manually Requalifed</td><td>";?></td>
-
+                        -->
+                        <td><a href="<?php echo $this->request->webroot."rapid/cron_user/".$d['cron_date']."/".$d['client_id']."/".$d['profile_id'];?>" class="btn btn-primary btn-xs" style="width: 100%;">Send Now</a></td>
                     </tr>        
                 <?php
                     unset($new_form);

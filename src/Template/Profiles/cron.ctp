@@ -6,7 +6,7 @@ $(function(){
     $.ajax({
     url: '<?php echo $this->request->webroot;?>rapid/cron<?php echo $email;?>?blank',
     success:function(res){
-        alert(res);
+        //alert(res);
         $('#crontable').append(res);     
     }   
     });

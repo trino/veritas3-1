@@ -338,8 +338,8 @@
 
                 <div class="form-body">
                     <div class="table-scrollable" align="center">
-                        <TABLE width="100%"><TR><TD style="width: 1200px;">
-                        <TABLE border="1"><TR>
+                        <table width="100%"><tr><td >
+                            <table border="1" width="100%"><tr>
                         <?php
                             $EventList = array();
                             for($Temp = 0; $Temp < $Months; $Temp++){
@@ -432,7 +432,7 @@
                                             }
                                 echo '</TR></TBODY></TABLE>';
                             }
-echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-color: white; border: none; overflow-y: auto;">';
+/*echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-color: white; border: none; overflow-y: auto;">';
                                 foreach($EventList as $Date => $Event){
                                     echo $Date . "\r\n";
                                     foreach($Event as $Client => $Data){
@@ -443,8 +443,9 @@ echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-col
                                     }
                                     echo "\r\nProducts:\t" . $EventData["Products"] .  "\r\n\r\n";
                                 }
-                            ?></textarea>
-                        </TD></TR></TABLE>
+                                echo "</textarea>";
+                            */?>
+                        </td></tr></table>
                     </div>
                 </div>
             </div>

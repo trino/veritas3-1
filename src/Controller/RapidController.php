@@ -238,11 +238,13 @@
                     //if (($p->profile_type == '5' || $p->profile_type == '7' || $p->profile_type == '8')) {
                         //echo $p->id."</br>";
                         //echo $p->created_by;
-                        if (strtotime($p->expiry_date) < strtotime($today)) {
+                        
+                        //Test for expired profile
+                        /*if (strtotime($p->expiry_date) < strtotime($today)) {
                             $epired_profile .= $p->username . ",";
 
                         } else {
-
+                        */
                             if ($c->requalify_re == '1') {
                                
                                 $date = $p->hired_date;
@@ -295,7 +297,7 @@
                                 }
 
                             }
-                        }
+                        //} //for else condition
                     //}
                 }
                 //die();
@@ -308,9 +310,10 @@
                 $mesg .= "Profile(s): '" . substr($pronames[$i], 0, strlen($pronames[$i]) - 1) . "' have been re-qualified on " . $today . " for client: " . $c->company_name . ".<br /><br />Click <a href='" . LOGIN . "'>here</a> to login to view the reports.<br /><br />Regards,<br />The MEE Team";
                 $footer = "";
                 //echo $epired_profile; die();
-                if ($epired_profile != "") {
+                //expired profiles
+                /*if ($epired_profile != "") {
                     $mesg .= "<br/>Expired Profiles:" . $epired_profile;
-                }
+                }*/
                 if($IsDebug)
                 foreach ($em as $e) {
 
@@ -404,16 +407,16 @@
 
         function getnextdate($date, $frequency) {
             $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
-        $days = $frequency*30;
-        $d = "+".$days." days";
-        $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
-       
-            if (strtotime($nxt_date) < strtotime($today)) {
-                $d = $this->getnextdate($nxt_date, $frequency);
-            } else {
-                $d = $nxt_date;
-            }
-            return $d;
+            $days = $frequency*30;
+            $d = "+".$days." days";
+            $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+           
+                if (strtotime($nxt_date) < strtotime($today)) {
+                    $d = $this->getnextdate($nxt_date, $frequency);
+                } else {
+                    $d = $nxt_date;
+                }
+                return $d;
         }
 
         function getcronProfiles($c_profile) {
