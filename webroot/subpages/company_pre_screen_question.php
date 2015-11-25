@@ -53,7 +53,7 @@
                                     <div class="form-group col-md-6">
 										<label class="col-md-6 control-label">Date : </label>
 										<div class="col-md-6">
-											<input type="text" class="form-control" placeholder="(MM/DD/YYYY)">
+											<input type="text" class="form-control" placeholder="(YYYY-MM-DD)">
 										</div>
 									</div>
                                     <div class="form-group col-md-6">

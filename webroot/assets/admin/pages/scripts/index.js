@@ -601,7 +601,7 @@ var Index = function () {
                     buttonClasses: ['btn btn-sm'],
                     applyClass: ' blue',
                     cancelClass: 'default',
-                    format: 'MM/DD/YYYY',
+                    format: 'YYYY-MM-DD',
                     separator: ' to ',
                     locale: {
                         applyLabel: 'Apply',

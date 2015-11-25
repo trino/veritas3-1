@@ -230,7 +230,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '1970:2030',
-            dateFormat: 'mm/dd/yy'
+            dateFormat: 'yy-mm-dd'
         });
 
         $('.links a:nth-child(5), .links p').css({'display': 'none'});

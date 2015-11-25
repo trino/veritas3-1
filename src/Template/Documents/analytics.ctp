@@ -278,7 +278,7 @@ jQuery(document).ready(function() {
 									<div class="chat-form"> <form action="<?php echo $this->request->webroot; ?>documents/analytics" method="get">
 										<div class="row">
 											<div class="col-md-11" align="right" style="margin-right:0;padding-right:0">
-												<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+												<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
 													<span class="input-group-addon"><?= $strings["analytics_start"]; ?></span>
 													<input type="text" class="form-control" name="from" value="<?php echo $enddate; ?>" style="min-width: 100px;">
 													<span class="input-group-addon"><?= $strings["analytics_finish"]; ?></span>

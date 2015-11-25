@@ -230,7 +230,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '1980:2020',
-            dateFormat: 'mm/dd/yy'
+            dateFormat: 'yy-mm-dd'
         });
 
         FormID++;
@@ -270,7 +270,7 @@
                     case "date":
                         Class = Class + " datepicker";
                         CurrentData[1] = "text";
-                        placeholder = "mm/dd/yyyy"
+                        placeholder = "yy-mm-dd"
                         break;
                     case "email":case "phone":
                         Role = CurrentData[1];

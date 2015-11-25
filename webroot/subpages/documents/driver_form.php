@@ -90,7 +90,7 @@
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_dateofbirth"]; ?>: </label>
-        <input type="text" class="form-control datepicker date-picker required" required name="dob" <?php if (isset($p->dob)) { ?> value="<?php echo $p->dob; ?>" <?php }?>  />
+        <input type="text" class="form-control dp required" required name="dob" <?php if (isset($p->dob)) { ?> value="<?php echo $p->dob; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_driverslicense"]; ?>: </label>
@@ -107,7 +107,7 @@
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label"><?= $strings["forms_expirydate"]; ?>: </label>
-        <input type="text" class="form-control datepicker date-picker" name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
+        <input type="text" class="form-control dp" name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     
@@ -119,4 +119,9 @@
 </div>
 </div>
 <div class="clearfix"></div>
+<script>
+$(function(){
+   $('.dp').datepicker(); 
+});
+</script>
 

@@ -1408,7 +1408,7 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">Date Range</label>
 										<div class="col-md-4">
-											<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+											<div class="input-group input-large date-picker input-daterange" data-date="2012-10-11" data-date-format="yyyy-mm-dd">
 												<input type="text" class="form-control" name="from">
 												<span class="input-group-addon">
 												to </span>
@@ -1422,7 +1422,7 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">Inline</label>
 										<div class="col-md-3">
-											<div class="date-picker" data-date-format="mm/dd/yyyy">
+											<div class="date-picker" data-date-format="yyyy-ymm-dd">
 											</div>
 										</div>
 									</div>
@@ -1468,7 +1468,7 @@
 												<div class="form-group">
 													<label class="control-label col-md-4">Start With Years</label>
 													<div class="col-md-8">
-														<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+														<div class="input-group input-medium date date-picker" data-date="2012-12-02" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
 															<input type="text" class="form-control" readonly>
 															<span class="input-group-btn">
 															<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>

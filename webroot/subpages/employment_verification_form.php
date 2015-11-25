@@ -18,7 +18,7 @@ die("Don't use this one.");
     <table class="table table-striped">
                 
                 <tr><td colspan="2">Name<input type="text" class="form-control" /></td></tr>
-                <tr><td>Driver's License #:<input type="text" class="form-control"/></td><td>Date of Birth:<input type="text" class="form-control" placeholder="MM/DD/YYYY"/></td></tr>
+                <tr><td>Driver's License #:<input type="text" class="form-control"/></td><td>Date of Birth:<input type="text" class="form-control" placeholder="YYYY-MM-DD"/></td></tr>
                 <tr><td>Total Claims in Past 3 Years:<input type="text" class="form-control"/></td><td>Current Employer:<input type="text" class="form-control"/></td></tr>
      </table>
 </div>

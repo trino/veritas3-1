@@ -417,7 +417,7 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1980:2020',
-                dateFormat: 'mm/dd/yy'
+                dateFormat: 'yy-mm-dd'
             });
         });
     </script>

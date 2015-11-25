@@ -194,7 +194,7 @@
     				</div>
                     <label class="control-label col-md-3">Date of Birth : </label>
                     <div class="col-md-3">
-    					<input type="text" class="form-control" placeholder="YYYY/MM/DD"/>
+    					<input type="text" class="form-control" placeholder="YYYY-MM-DD"/>
     				</div>
                 </div>
                 
