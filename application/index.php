@@ -532,8 +532,7 @@ function savedriver($webroot){
     $URL = "http://" . $_SERVER['SERVER_NAME'] . str_replace("webroot/", 'rapid/placerapidorder', $webroot);
     echo "URL = " . $URL . '<BR>';
     $_POST = array_flatten($_POST);
-    $Result = cURL($URL, $_POST);
-    //$Result = json_encode(array("Status" => True, "OrderID" => 993));
+    $Result = cURL($URL, $_POST);//send all the data to the rapidcontroller for saving
     echo "Result = " . $Result . '<BR>$_POST = ' . tostring($_POST) . ';';
     $Result = toarray($Result);
     if($Result->Status){

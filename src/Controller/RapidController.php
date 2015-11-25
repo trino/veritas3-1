@@ -856,10 +856,13 @@
                 die();
             }
 
-            $Formdata = $this->Manager->validate_data($GETPOST, array("gender" => ["Male", "Female"], "title" => ["Mr.", "Mrs.", "Ms."], "email" => "email", "phone" => "phone", "postal" => "postalcode", "province" => "province", "driver_province" => "province", "clientid" => "number", "driverphotoBASE" => "base64file", "forms" => "csv", 'signatureBASE' => "base64file", 'consentBASE' => "base64file", "dob" => "date"));
+            $Formdata = $this->Manager->validate_data($GETPOST, array("gender" => ["Male", "Female"], "title" => ["Mr.", "Mrs.", "Ms."], "email" => "email", "phone" => "phone", "postal" => "postalcode", "province" => "province", "driver_province" => "province", "clientid" => "number", "driverphotoBASE" => "base64file", "driverphoto2BASE" => "base64file", "forms" => "csv", 'signatureBASE' => "base64file", 'consentBASE' => "base64file", "dob" => "date"));
             //$Required = array("clientid", "forms", "ordertype", "driverphotoBASE", "consentBASE", "fname", "lname", "gender", "email", "driver_province", "title", "placeofbirth", "sin", "phone", "street", "city", "province", "postalcode", "country", "dob", "driver_license_no", "expiry_date");
-            $Required = array("clientid", "forms", "ordertype", "email", "phone", "driver_province", "driverphotoBASE", "consentBASE", "expiry_date", "placeofbirth");
+            $Required = array("clientid", "forms", "ordertype", "email", "phone", "driver_province", "driverphotoBASE", "expiry_date", "placeofbirth");
             $this->requiredfields($GETPOST, $Required);//required field validation
+            if(in_array(1603, explode(",", $GETPOST["forms"]))){
+                $this->requiredfields($GETPOST, array("consentBASE"));//required field validation
+            }
             if (!is_array($Formdata)) {
                 $this->status(False, $Formdata);
             }
@@ -963,7 +966,16 @@
 
             //attachments
             $this->handleattachments($GETPOST, "signatureBASE", 'webroot/canvas', 4, array("criminal_signature_applicant2", "criminal_signature_applicant"), $Super, $ClientID, $OrderID, $Driver);//signature (consent form)
-            $Formdata = $this->handleattachments($GETPOST, "driverphotoBASE", 'webroot/attachments', 15, "id_piece1", $Super, $ClientID, $OrderID, $Driver);//Photo ID (Upload ID)
+
+            if(!isset($GETPOST["driverphotoBASE"]) || !$GETPOST["driverphotoBASE"]){
+                if(isset($GETPOST["driverphoto2BASE"]) && $GETPOST["driverphoto2BASE"]){
+                    $GETPOST["driverphotoBASE"] = $GETPOST["driverphoto2BASE"];
+                    unset($GETPOST["driverphoto2BASE"]);
+                }
+            }
+
+            $Formdata = $this->handleattachments($GETPOST, "driverphotoBASE", 'webroot/attachments', 15, "id_piece1", $Super, $ClientID, $OrderID, $Driver);//Photo ID (Upload ID) 1
+            $this->handleattachments($GETPOST, "driverphoto2BASE", 'webroot/attachments', 15, "id_piece2", $Super, $ClientID, $OrderID, $Driver, $Formdata);//Photo ID (Upload ID) 2
             if (!$Formdata) {
                 $Formdata = $this->Document->constructsubdoc(array(), 15, $Super->id, $ClientID, $OrderID, true, $Driver);
             }
@@ -1005,7 +1017,7 @@
             $this->Status(True, $OrderID, "OrderID");
         }
 
-        function handleattachments($GETPOST, $Name, $Path, $SubDocID, $Field, $Super, $ClientID, $OrderID, $Driver) {
+        function handleattachments($GETPOST, $Name, $Path, $SubDocID, $Field, $Super, $ClientID, $OrderID, $Driver, $ExistingFormData = false) {
             //constructsubdoc($data, $formID, $userID, $clientID, $orderid=0, $retData = false
             if (isset($GETPOST[$Name]) && strpos($GETPOST[$Name], "data:image/") !== false && strpos($GETPOST[$Name], ";base64,") !== false) {
                 $GETPOST[$Name] = str_replace("data:image/tmp;base64,", "data:image/png;base64,", $GETPOST[$Name]);
@@ -1019,13 +1031,18 @@
                     } else {
                         $Data[$Field] = $Filename;
                     }
-                    return $this->Document->constructsubdoc($Data, $SubDocID, $Super->id, $ClientID, $OrderID, true, $Driver);//MEE Attach (Upload ID)
+                    if($ExistingFormData){
+                        $Table = $this->Manager->get_entry("subdocuments", $SubDocID)->table_name;
+                        $this->Manager->update_database($Table, "id", $ExistingFormData["subdocid"], $Data);
+                    } else {
+                        return $this->Document->constructsubdoc($Data, $SubDocID, $Super->id, $ClientID, $OrderID, true, $Driver);//MEE Attach (Upload ID)
+                    }
                 } else if ($SubDocID == -15) {//mee_attachments, Field is the MEE_ID
                     $Data = array("mee_id" => $Field, "attachments" => $Filename);
                     return $this->Manager->new_entry("mee_attachments_more", "id", $Data);
                 }
             }
-            return false;
+            return $ExistingFormData;
         }
 
         function copyarray($SRC, $Cells) {
