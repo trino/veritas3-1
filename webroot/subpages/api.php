@@ -13,6 +13,11 @@ function is_iterable($var) {
     return (is_array($var) || $var instanceof Traversable);
 }
 
+function iif($Value, $isTrue, $isFalse = false){
+    if($Value){return $isTrue;}
+    return $isFalse;
+}
+
 function languagenames(){
     $table =  TableRegistry::get('strings');
     $table = $table->find()->where(["Name" => "name"])->first();

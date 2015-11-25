@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2015 at 07:24 PM
+-- Generation Time: Nov 25, 2015 at 03:22 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=841 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=842 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1448382320', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1448389452', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -184,7 +184,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (148, 'orders_all', 'List All Orders', 'Inscrivez Commandes'),
 (149, 'infoorder_continue', 'Continue', 'Poursuivre'),
 (150, 'infoorder_driver', 'Subject', 'Sujet'),
-(151, 'infoorder_selectdriver', 'Select Subject (Disabled subjects are missing data to place orders)', 'Sélectionner le sujet'),
+(151, 'infoorder_selectdriver', 'Select Subject', 'Sélectionner le sujet'),
 (152, 'infoorder_createdriver', 'Create New Driver', 'Créer un nouveau pilote'),
 (153, 'infoorder_noneselected', 'None Selected', 'Aucune sélection'),
 (154, 'infoorder_alertselectdriver', 'Please select a driver.', 'S''il vous plaît sélectionner un pilote.'),
@@ -840,10 +840,10 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (823, 'forms_steps', 'Step %step% of %total%', 'Étape %step% sur %total%'),
 (824, 'forms_paradox', 'end date. It must be after the start date', 'date de fin. Il doit être postérieure à la date de début'),
 (825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier'),
-(826, 'clientapplication_done', 'Thank you. Your application has been submitted. We will be in touch shortly.', 'Merci. Votre demande a été soumise. Nous serons en contact très prochainement.'),
+(826, 'clientapplication_done', '<center><H3>Thank you.</h3></center> Your application has been submitted. We will be in touch shortly.', '<h3><center>Merci.</h3></center> Votre demande a été soumise. Nous serons en contact très prochainement.'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
-(828, 'email_application_message', 'Doc ID: %document% Client ID: %client%   A new application for employment has been submitted. Please click here to view the profile, thank you.', 'email_application_message'),
-(829, 'email_application_variables', 'email, document, client', ''),
+(828, 'email_application_message', 'Doc ID: %document% Client ID: %client%   A new application for employment has been submitted. <A HREF="%path%">Please click here to view the profile, thank you.</A>', 'email_application_message'),
+(829, 'email_application_variables', 'email, document, client, path', ''),
 (831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%'),
 (832, 'infoorder_atleastone', 'Please select at least one product', 'S''il vous plaît sélectionner au moins un produit'),
 (833, 'email_bulkorder_subject', 'Bulk Order Created', 'email_bulkorder_subject'),
@@ -853,7 +853,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (837, 'dashboard_deletedprofile', 'Deleted %Profile%', 'Supprimé %profile%'),
 (838, 'index_nondrafts', 'Submitted orders', 'Les ordres présentés'),
 (839, 'documents_select', 'Select an option', 'Choisir une option'),
-(840, 'consent_withinborder', 'Please sign within the border.', 'S''il vous plaît signer dans la frontière.');
+(840, 'consent_withinborder', 'Please sign within the border.', 'S''il vous plaît signer dans la frontière.'),
+(841, 'profiles_assigntoclient', 'Assign to %Client%', 'Attribuer à %client%');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

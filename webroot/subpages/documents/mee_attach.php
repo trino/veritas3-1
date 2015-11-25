@@ -37,9 +37,9 @@
     //if driver's province is BC, QC or SK: mee_attach_7 is required
 
     $Step = 1;
-
+    $Debug = $this->request->session()->read('debug') || isset($_GET["debug"]);
     if($this->request->params['controller']!='ClientApplication'){
-        if ($this->request->session()->read('debug')) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
+        if ($Debug) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
     }
      if(isset($_GET['order_id'])) {
          $dii = $_GET['order_id'];
@@ -58,12 +58,49 @@
     <div class="clearfix"></div>
 
     <?php
+        if($action == "View" && $controller == "documents") {
+            $data = getdocumentinfo($did);
+            $DriverProvince =$data->reciever->driver_province;
+        }
         if(!isset($DriverProvince)){$DriverProvince="";}
+
+        if (!isset($mee_att)) {$mee_att = array();}
+        if (!isset($forms)){$forms = "";}
+        if (isset($_GET["forms"])) {$forms = explode(",", $_GET["forms"]);}
+        $attachment = array();//Files are in: C:\wamp\www\veritas3-0\webroot\img\pdfs
+
+        if (is_array($forms)) {
+            if (in_array("1", $forms)) {//                  Name         Filename
+                if ($DriverProvince == "QC") {
+                    $attachment["Quebec MVR Consent"] = "1.QC.pdf";
+                }
+            }
+            if (in_array("14", $forms)) {
+                if ($DriverProvince == "SK") {
+                    $attachment["Saskatchewan Abstract Consent"] = "14.SK.pdf";
+                }
+                if ($DriverProvince == "BC") {
+                    $attachment["British Columbia Abstract Consent"] = "14.BC.pdf";
+                }
+            }
+        }
+
+
         echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" isform="';
         if(isset($_GET["forms"])) {
-            echo in_array("1603", explode(",", $_GET["forms"]));
+            $Is1603 = in_array("1603", $forms);
+            echo $Is1603;
         }
         echo '">';
+        if($Debug){
+            $Yes = "<B>Yes</B>"; $No = "<B>No</B>";
+            echo '<HR><H1>Rules for attachments:</H1>';
+            echo "If 1603 is one of the forms selected, require 1 piece of ID: " . iif($Is1603, $Yes, $No);
+            echo "<BR>Driver's LICENSE ISSUED province: <B>" . $DriverProvince . "</B> - Forms: <B>" . implode(", ", $forms) . '</B>';
+            echo "<BR>QC and Form 1 is selected: " . iif(in_array("1", $forms) && $DriverProvince == "QC", $Yes, $No);
+            echo "<BR>SK <B>or</B> BC and Form 14 is selected: " . iif(in_array("14", $forms) && ($DriverProvince == "SK" || $DriverProvince == "BC"), $Yes, $No);
+        }
+
         $skip=false;
         function alert($Text){
             echo "<SCRIPT>alert('" . $Text . "');</SCRIPT>";
@@ -80,11 +117,6 @@
 
         $action = ucfirst($param);
 
-        if($action == "View" && $controller == "documents") {
-            $data = getdocumentinfo($did);
-            $DriverProvince =$data->reciever->driver_province;
-        }
-
         function makeBrowseButton($ID, $Display, $Remove = true, $text="", $Required = false){
             if(!$Display){$Display=' style="display: none;"';} else{ $Display="";}
             echo '<div' . $Display . '><span><a style="margin-bottom:5px;" href="javascript:void(0)" class="btn btn-primary additional" id="mee_att_' . $ID . '">';
@@ -95,27 +127,6 @@
             echo '<span class="uploaded"></span></span><input type="hidden" name="mee_attachments[]" class="mee_att_' . $ID . '" ID="mee_attach_' . $ID . '"';
             //if($Required){ echo " REQUIRED";}
             echo '/> ' . $text . '</div>';
-        }
-
-        if (!isset($mee_att)) {$mee_att = array();}
-        if (!isset($forms)){$forms = "";}
-        if(!isset($DriverProvince)){$DriverProvince = "";}
-        if (isset($_GET["forms"])) {$forms = explode(",", $_GET["forms"]);}
-        $attachment = array();//Files are in: C:\wamp\www\veritas3-0\webroot\img\pdfs
-        if (is_array($forms)) {
-            if (in_array("1", $forms)) {//                  Name         Filename
-                if ($DriverProvince == "QC") {
-                    $attachment["Quebec MVR Consent"] = "1.QC.pdf";
-                }
-            }
-            if (in_array("14", $forms)) {
-                if ($DriverProvince == "SK") {
-                    $attachment["Saskatchewan Abstract Consent"] = "14.SK.pdf";
-                }
-                if ($DriverProvince == "BC") {
-                    $attachment["British Columbia Abstract Consent"] = "14.BC.pdf";
-                }
-            }
         }
 
         function nodocs($docsprinted){
@@ -303,7 +314,8 @@
                 if(!isset($mee_more))
                 $mee_more = false;
                 $lprov = array('BC','QC','SK');
-                $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
+                //$get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
+                $get_prov = $DriverProvince;
                 if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
                     makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
                 }
