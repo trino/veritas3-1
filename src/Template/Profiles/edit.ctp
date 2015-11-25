@@ -174,7 +174,7 @@
 
     <?php
         if (isset($disabled)) {
-            echo '<a href="javascript:window.print();" class="floatright btn btn-info">' . $strings["dashboard_print"] . '</a>';
+            echo '<a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }
         if (isset($profile) && $YourSidebar && $YourSidebar->profile_delete == '1') {
             if ($this->request->session()->read('Profile.super') == '1' || ($this->request->session()->read('Profile.profile_type') == '2' && ($profile->profile_type == '5'))) {
@@ -193,7 +193,7 @@
             if ($YourSidebar && $YourSidebar->profile_edit == '1' && $param == 'view') {
                 echo $this->Html->link(__($strings["dashboard_edit"]), ['action' => 'edit', $profile->id], ['class' => 'floatright btn btn-primary btnspc']);
             } else if ($param == 'edit') {
-                echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-info btnspc']);
+                echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => 'floatright btn btn-primary btnspc']);
             }
             if ($this->request->session()->read('Profile.super') && $this->request->session()->read('Profile.id') != $profile->id) {
                 echo '<a href="' . $this->request->webroot . 'profiles/possess/' . $profile->id;
@@ -212,13 +212,13 @@
                         $tag = "submitted_by_id";
                     }
                     echo $this->request->webroot . 'documents/index?type=&' . $tag . '=' . $profile->id;
-                ?>" class=" floatright btn default btnspc"><?= $strings["profiles_mydocuments"]; ?></a>
+                ?>" class=" floatright btn  btn-primary btnspc"><?= $strings["profiles_mydocuments"]; ?></a>
                 <?php
             }
         }
 
         if ($this->request->session()->read('debug') && ($param == "edit" || $param == "add")) {
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         }
     ?>
 </div>
@@ -254,7 +254,7 @@
 
                                         <div class="input-icon">
                                             <br/>
-                                            <a class="btn btn-xs  btn-success   margin-t10" href="javascript:void(0)"
+                                            <a class="btn btn-xs  btn-primary   margin-t10" href="javascript:void(0)"
                                                id="clientimg">
                                                 <i class="fa fa-image"></i>
                                                 <?= $strings["clients_addeditimage"]; ?>
@@ -294,7 +294,7 @@
                                         $Missing = array();
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
-                                        if ($profile->iscomplete && !$MissingData) {
+                                        if (true){ //$profile->is_complete && !$MissingData) {
                                             //driver, owner driver, owner operator, sales, employee
                                             echo '<label class="uniform-inline" style="margin-bottom:10px;">';
                                             echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
@@ -302,6 +302,13 @@
                                                 echo " checked";
                                             }
                                             echo '/> ' . $strings["profiles_washired"] . ' <span class="hired_msg"></span></label>';
+
+                             if(isset($profile)){?>
+                                <div class="hired_date"  style='display:<?php if($profile->is_hired=='0')echo "none";?>;' >
+                                        <?= $strings["forms_hireddate"] . ': ' . $profile->hired_date; ?>
+                                </div>
+                            <?php }
+
                                             echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
                                         <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
                                             if ($p->requalify == '1') {
@@ -346,7 +353,7 @@
                                                         echo '<br><a href="' . $this->request->webroot . 'orders/productSelection?driver=' . $profile->id;
                                                         echo '&ordertype=' . $product->Acronym . '"';
                                                         echo ' class="blue-stripe btn floatleft ' . $product->ButtonColor . '" style="margin-top:2px;width:100%;">' . $product->$title . $Trans;
-                                                        echo ' <i class="m-icon-swapright m-icon-white"></i></a>';
+                                                        echo ' </a>';
                                                     }
                                                 }
                                             }

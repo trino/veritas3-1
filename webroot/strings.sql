@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2015 at 03:58 PM
+-- Generation Time: Nov 24, 2015 at 07:24 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1448376556', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1448382320', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -709,7 +709,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (686, 'email_test_subject', 'Test email', 'email_test_subject'),
 (687, 'email_test_message', 'This is test email\n%variables%', 'email_test_message'),
 (688, 'email_requalification_subject', 'Driver Re-qualified (%company_name%)', 'email_requalification_subject'),
-(689, 'email_requalification_message', 'Profile(s): %username% has/have been re-qualified on %created% for client: %company_name%<br>\nExpired profiles : %expired%\n<br>\nClick <a href="%webroot%">here</a> to login to view the reports.<br>\n<br>\nRegards,<br>\nThe %site% Team', 'email_requalification_message'),
+(689, 'email_requalification_message', 'Profile(s): %username% has/have been re-qualified on %created% for client: %company_name%<br>\n<br>\nClick <a href="%webroot%">here</a> to login to view the reports.<br>\n<br>\nRegards,<br>\nThe %site% Team', 'email_requalification_message'),
 (690, 'email_training_enrolled_subject', 'You have been enrolled in a quiz', 'email_training_enrolled_subject'),
 (691, 'email_training_enrolled_message', '<A HREF="%path%">Click here to take the quiz</A>', 'email_training_enrolled_message'),
 (692, 'email_training_passed_subject', 'Course completion (Success!)', 'email_training_passed_subject'),
@@ -842,7 +842,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier'),
 (826, 'clientapplication_done', 'Thank you. Your application has been submitted. We will be in touch shortly.', 'Merci. Votre demande a été soumise. Nous serons en contact très prochainement.'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
-(828, 'email_application_message', 'Doc ID: %document Client ID: %client%   A new application for employment has been submitted. Please click here to view the profile, thank you.', 'email_application_message'),
+(828, 'email_application_message', 'Doc ID: %document% Client ID: %client%   A new application for employment has been submitted. Please click here to view the profile, thank you.', 'email_application_message'),
 (829, 'email_application_variables', 'email, document, client', ''),
 (831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%'),
 (832, 'infoorder_atleastone', 'Please select at least one product', 'S''il vous plaît sélectionner au moins un produit'),

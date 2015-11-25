@@ -52,7 +52,7 @@
     							</div>
     						</div>
     						<a class="more" href="<?php echo $this->request->webroot;?>documents/index?type=<?php echo urlencode($d->title);?>">
-    						View more <i class="m-icon-swapright m-icon-white"></i>
+    						View more
     						</a>
     					</div>
                         <div class="dusk"></div>

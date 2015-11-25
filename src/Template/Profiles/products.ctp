@@ -210,14 +210,14 @@ foreach($products as $product){
 }
 ?></TBODY><TFOOT>
     <TR><TH COLSPAN="3">Actions:</TH></TR><TR class="actions" style="display: none;"><TD COLSPAN="3">
-                    <a class="btn btn-xs btn-info" id="delete" onclick="editproduct();">Rename</a>
+                    <a class="btn btn-xs btn-primary" id="delete" onclick="editproduct();">Rename</a>
                     <a class="btn btn-xs btn-primary" id="delete" onclick="clearproduct();">Clear</a>
                     <a class="btn btn-xs btn-danger" id="delete" onclick="deleteproduct();">Delete</a>
                 </TD></TR>
     <TR><TH COLSPAN="3">Add Package:</TH></TR>
         <TR><TD>
                 <input type="text" id="newnum" style="width: 50px" placeholder="ID#"><BR>
-                <a class="btn btn-xs btn-info" id="add" onclick="addproduct();" style="float: right; width: 50px; margin-top: 3px;">Add</a>
+                <a class="btn btn-xs btn-primary" id="add" onclick="addproduct();" style="float: right; width: 50px; margin-top: 3px;">Add</a>
             </TD>
             <TD COLSPAN="2">
                 <input type="text" id="newname" style="width: 100%" placeholder="English">

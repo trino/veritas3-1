@@ -48,16 +48,16 @@
     <div class="page-toolbar">
 
     </div>
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
     <?php
         if ($sidebar->orders_list == 1 && !isset($_GET["draft"])) {
             ?>
             <a href="<?php echo $this->request->webroot; ?>orders/orderslist?draft"
-               class="floatright btn btn-warning btnspc">
+               class="floatright btn btn-primary btnspc">
                 <?= $strings["index_orderdrafts"]; ?></a>
         <?php } elseif (isset($_GET["draft"])) { ?>
-            <a href="<?php echo $this->request->webroot; ?>orders/orderslist" class="floatright btn btn-warning btnspc">
+            <a href="<?php echo $this->request->webroot; ?>orders/orderslist" class="floatright btn btn-primary btnspc">
                 <?= $strings["orders_all"];?></a>
         <?php }
 
@@ -365,14 +365,14 @@
 
                                             <?php if ($sidebar->orders_requalify == '1' && $order->draft == '0') {
                                                 ?>
-                                                <!--a class="clearfix btn btn-warning" href="<?php echo $this->request->webroot; ?>documents/productSelection?driver=<?php echo $order->uploaded_for; ?>"/>Re-qualify</a-->
+                                                <!--a class="clearfix btn btn-primary" href="<?php echo $this->request->webroot; ?>documents/productSelection?driver=<?php echo $order->uploaded_for; ?>"/>Re-qualify</a-->
                                             <?php
                                             }
 
                                             if (!isset($_GET['draft']) && is_object($order->profile) && ($order->draft == 0)) {
                                                 ?>
                                                 <a href="<?php echo $this->request->webroot; ?>profiles/view/<?php echo $order->profile->id ?>?getprofilescore=1"
-                                                   class="<?= btnclass("btn-info", "blue-soft") ?>" style="margin-bottom: 0 !important;"><?= $strings["orders_scorecard"]; ?></a>
+                                                   class="<?= btnclass("btn-primary", "blue-soft") ?>" style="margin-bottom: 0 !important;"><?= $strings["orders_scorecard"]; ?></a>
                                             <?php
                                             }
 
@@ -384,7 +384,7 @@
 
 
 
-                                          //if (!isset($_GET['draft'])) echo $this->Html->link(__('Score Card'), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-success']);
+                                          //if (!isset($_GET['draft'])) echo $this->Html->link(__('Score Card'), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-primary']);
                                             ?>
                                         </td>
 

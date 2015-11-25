@@ -202,7 +202,7 @@ if (isset($_GET["includeonly"])){
                                 </li>
                                 <?php
                                     if ($_SERVER['SERVER_NAME'] == "localhost") {
-                                        echo '<a style="margin-top: 10px;" class="btn btn-warning" href="' . $this->request->webroot . 'profiles/cron/true">Run the CRON</A>';
+                                        echo '<a style="margin-top: 10px;" class="btn btn-primary" href="' . $this->request->webroot . 'profiles/cron/true">Run the CRON</A>';
                                     }
                                 ?>
                             </ul>

@@ -140,10 +140,12 @@
             function print1profile($index, $profile, $profiletype, $Manager, $strings){//$index = $i
                 $Disabled = "";
                 $ALERT="infoorder_complete";
+                /*
                 if(!$profile->is_complete){// || $Manager->requiredfields($profile, "profile2order")){
                     $Disabled = " DISABLED";
                     $ALERT="infoorder_incomplete";
                 }
+                */
                 echo '<tr><td class="v-center"><span' . $Disabled . '><LABEL><input class="profile_client" type="checkbox" id="p_' . $index . '" name="p_' . $profile->id . '"' . $Disabled .
                 ' onchange="addProfile(' . $profile->id . ');"
                 value="' . $profile->id . '"/></span>
@@ -232,15 +234,15 @@
                 switch ($index) {
                     case 1:
                         if (!$inforequired) {
-                            echo '<a href="javascript:void(0);" id="qua_btn" class="btn btn-danger  btn-lg placenow">' . $strings["infoorder_continue"] . ' <i class="m-icon-swapright m-icon-white"></i></a>';
+                            echo '<a href="javascript:void(0);" id="qua_btn" class="btn btn-primary  btn-lg placenow">' . $strings["infoorder_continue"] . ' </a>';
                         }
                         break;
                     case 2: ?>
-                        <a href="javascript:void(0);" class="btn btn-info" onclick="$('.alacarte').show(200);$('.placenow').attr('disabled','');">A La Carte<i class="m-icon-swapright m-icon-white"></i></a>
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="$('.alacarte').show(200);$('.placenow').attr('disabled','');">A La Carte</a>
                         <?php
                         break;
                     case 5:
-                        echo '<a class=" btn btn-danger btn-lg  button-next proceed" id="cart_btn" href="javascript:void(0)">';
+                        echo '<a class=" btn btn-primary btn-lg  button-next proceed" id="cart_btn" href="javascript:void(0)">';
                         echo $strings["infoorder_continue"] . ' <i class="m-icon-swapright m-icon-white"></i></a>';
                         break;
                 }
@@ -378,10 +380,12 @@
             $ALERT= "infoorder_complete";
             $driver_id = $dr->id;
             echo '<option value="' . $dr->id . '"';
+            /*
             if(!$dr->is_complete){// || $Manager->requiredfields($dr, "profile2order")){
                 echo " DISABLED";
                 $ALERT= "infoorder_incomplete";
             }
+            */
             if ($dr->id == $driver || $counting == 1 && $driver != '0'){ echo 'selected="selected"'; }
             echo '>' . $strings[$ALERT] . " " . formatname($dr) .  '</option>';
         }
@@ -557,7 +561,7 @@
 
 
                             //setTimeout(function(){
-                              //  window.location = '<?php echo $this->request->webroot;?>';
+                          //     window.location = '<?php echo $this->request->webroot;?>';
                             //},10000);
 
 

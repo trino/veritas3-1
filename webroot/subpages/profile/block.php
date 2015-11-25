@@ -337,7 +337,11 @@
                                             Receive Email (on create order)
                                         </label>
 
-
+                                        <label class="uniform-inline">
+                                            <input <?php echo $is_disabled ?> type="checkbox" name="side[clientapp_emails]"
+                                                                              value="1" <?php if (isset($sidebar) && $sidebar->clientapp_emails == 1) echo "checked"; ?> />
+                                            Receive Email (on client application completion)
+                                        </label>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12 nopad martop yesno">

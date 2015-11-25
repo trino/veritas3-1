@@ -9,7 +9,7 @@
 							 Widget settings form goes here
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
 							<button type="button" class="btn default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -269,7 +269,7 @@
 													</div>
 													
 													<div class="margiv-top-10">
-														<a href="#" class="btn green-haze">
+														<a href="#" class="btn btn-primary-haze">
 														Save Changes </a>
 														<a href="#" class="btn default">
 														Cancel </a>
@@ -305,7 +305,7 @@
 														
 													</div>
 													<div class="margin-top-10">
-														<a href="#" class="btn green-haze">
+														<a href="#" class="btn btn-primary-haze">
 														Submit </a>
 														<a href="#" class="btn default">
 														Cancel </a>
@@ -329,7 +329,7 @@
 														<input type="password" class="form-control"/>
 													</div>
 													<div class="margin-top-10">
-														<a href="#" class="btn green-haze">
+														<a href="#" class="btn btn-primary-haze">
 														Change Password </a>
 														<a href="#" class="btn default">
 														Cancel </a>
@@ -384,7 +384,7 @@
 													</table>
 													<!--end profile-settings-->
 													<div class="margin-top-10">
-														<a href="#" class="btn green-haze">
+														<a href="#" class="btn btn-primary-haze">
 														Save Changes </a>
 														<a href="#" class="btn default">
 														Cancel </a>

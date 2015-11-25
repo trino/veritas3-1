@@ -1146,7 +1146,7 @@ if( isset($sub['da_at'])){ listfiles($sub['da_at'], "attachments/", "", false,3)
 
             <div class="more_acc_record"></div>
             <input type="hidden" id="count_acc_record" name="count_acc_record" value="1">
-            <a href="javascript:void(0);" class="add_more_acc_record btn green">Add More</a>
+            <a href="javascript:void(0);" class="add_more_acc_record btn btn-primary">Add More</a>
 
             <div class="clearfix"></div>
             <hr />
@@ -1641,7 +1641,7 @@ if( isset($sub['da_at'])){ listfiles($sub['da_at'], "attachments/", "", false,3)
                       <div class="form-group row">
                         <div class="col-md-3"></div>
                         <div class="col-md-9">
-                            <a href="javascript:void(0);" class="btn btn-success" id="add_more_doc">Add More</a>
+                            <a href="javascript:void(0);" class="btn btn-primary" id="add_more_doc">Add More</a>
                         </div>
                       </div>
                       <!--<div class="form-group col-md-12">

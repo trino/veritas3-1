@@ -564,7 +564,7 @@
                                                     <div class="col-md-6">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <a href="javascript:void(0);" class="btn btn-success" id="add_more_driver_doc">Add More</a>
+                                                        <a href="javascript:void(0);" class="btn btn-primary" id="add_more_driver_doc">Add More</a>
                                                     </div>
                                                   </div>
                                                   

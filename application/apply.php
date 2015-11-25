@@ -1242,7 +1242,7 @@ through 7 inclusive, and acknowledge that with my signature below.
         </div>
 
         <div class="col-md-12 subz">
-              <a href="javascript:void(0);" class="btn btn-danger btn-lg pull-right" onclick="return check_username();">
+              <a href="javascript:void(0);" class="btn btn-primary btn-lg pull-right" onclick="return check_username();">
                     Next Step <i class="m-icon-swapright m-icon-white"></i>
               </a>
         </div>

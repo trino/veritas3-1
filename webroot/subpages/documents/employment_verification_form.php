@@ -511,7 +511,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
         <div id="add_more_div" class="no-print" style="padding-bottom:10px">
             <p>&nbsp;</p>
             <input type="hidden" name="count_past_emp" id="count_past_emp" value="<?php if(isset($sub3['emp'])){echo count($sub3['emp']);}else{?>1<?php }?>">
-            <a href="javascript:void(0);" class="btn green no-print" id="add_more"><?= $strings["forms_addmore"]; ?></a>
+            <a href="javascript:void(0);" class="btn btn-primary no-print" id="add_more"><?= $strings["forms_addmore"]; ?></a>
         </div>
         <?php if($this->request->params['controller']!='Documents' && $this->request->params['controller']!='ClientApplication'){?>
         <div class="allattach" class="no-print">
@@ -567,7 +567,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
             <div class="col-md-3">
             </div>
             <div class="col-md-9">
-                <a href="javascript:void(0);" class="btn btn-success moremore no-print" id="add_more_employ_doc"><?= $strings["forms_addmore"]; ?></a>
+                <a href="javascript:void(0);" class="btn btn-primary moremore no-print" id="add_more_employ_doc"><?= $strings["forms_addmore"]; ?></a>
             </div>
           </div>
           <div class="clearfix"></div>

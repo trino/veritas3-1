@@ -116,7 +116,7 @@ class ClientApplicationController extends AppController {
         $this->loadComponent('Mailer');
         //$this->Mailer->handleevent("documentcreatedb", array("site" => "","email" => "roy", "company_name" => "", "username" => $this->request->session()->read('Profile.username'), "id" => $did, "path" => "", "profile_type" => ""));
 
-        $ret = $this->Document->savedoc($this->Mailer, $cid, $did,true);
+        $ret = $this->Document->savedoc($this->Mailer, $cid, $did, false);
         //$this->Mailer->handleevent("documentcreated", $ret);
         die();
     }
@@ -139,10 +139,11 @@ class ClientApplicationController extends AppController {
 
     public function savedMeeOrder($document_id = 0, $cid = 0){
         if(isset($_GET["document"]) && $_GET["document"] == "Consent Form") {
-            $this->Mailer->debugprint("Consnet saved!");
-            $Emails = $this->Document->enum_emails_canorder($cid);
-            $Emails[] = "super";
-            $this->Mailer->handleevent("application", array("email" => $Emails, "document" => $document_id, "client" => $cid));
+            $Emails = $this->Document->enum_profiles_permission($cid, "clientapp_emails", "email"); //$this->Document->enum_emails_canorder($cid);
+            //$Emails[] = "super";
+            $ProfileID = $this->Manager->get_entry("documents", $document_id)->user_id;
+            $URL = LOGIN . 'profiles/view/' . $ProfileID;
+            $this->Mailer->handleevent("application", array("email" => $Emails, "document" => $document_id, "client" => $cid, "path" => $URL));
         }
 
         $this->Document->savedMeeOrder($document_id,$cid);

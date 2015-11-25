@@ -979,7 +979,7 @@ include_once 'subpages/filelist.php';
             <div class="col-md-3">
             </div>
             <div class="col-md-9">
-                <a href="javascript:void(0);" class="add_attach btn btn-success">Add More</a>
+                <a href="javascript:void(0);" class="add_attach btn btn-primary">Add More</a>
             </div>
         </div>
         <?php }?>
@@ -996,7 +996,7 @@ include_once 'subpages/filelist.php';
 <script>
     $(function(){
         $('#addfiles').click(function(){
-           $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-success">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();">Delete</a><br/></div>');
+           $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-primary">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();">Delete</a><br/></div>');
         });
         <?php
         if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add' || $this->request->params['action']=='apply') && !count($pre_at['attach_doc']))

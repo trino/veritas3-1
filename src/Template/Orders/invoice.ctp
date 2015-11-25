@@ -233,10 +233,10 @@ function getname($profile) {
     			</div-->
 				<div class="col-md-2" align="right" style="padding-left:0;margin-left:0">
 					<?php if ($this->Session->read('Profile.super')) { ?>
-						<A HREF="?csv=clients" class="btn btn-info" download="clients.csv"><?= $strings["invoice_clientscsv"]; ?></A>
+						<A HREF="?csv=clients" class="btn btn-primary" download="clients.csv"><?= $strings["invoice_clientscsv"]; ?></A>
 					<?php } ?>
-					<A href="invoice" class="btn btn-warning"><?= $strings["invoice_reset"]; ?></A>
-					<A HREF="invoice?csv=invoice" class="btn btn-info" id="myLink" download="invoice.csv"
+					<A href="invoice" class="btn btn-primary"><?= $strings["invoice_reset"]; ?></A>
+					<A HREF="invoice?csv=invoice" class="btn btn-primary" id="myLink" download="invoice.csv"
 					   style="display: none"><?= $strings["dashboard_search"]; ?> (CSV)</A>
 					<button type="submit" class="btn btn-primary"><?= $strings["dashboard_search"]; ?></button>
 				</div>
@@ -626,7 +626,7 @@ function getname($profile) {
 					<?= $strings["dashboard_print"]; ?> <i class="fa fa-print"></i>
 				</a>
 				<A HREF="invoice?csv=invoice&<?= $_SERVER['QUERY_STRING']; ?>"
-				   class="btn btn-lg btn-info hidden-print margin-bottom-5" download="invoice.csv"><?= $strings["invoice_export"]; ?> <i
+				   class="btn btn-lg btn-primary hidden-print margin-bottom-5" download="invoice.csv"><?= $strings["invoice_export"]; ?> <i
 						class="fa fa-file-text-o"></i></A>
 
 				<a class="btn btn-lg green hidden-print margin-bottom-5" style="display: none">

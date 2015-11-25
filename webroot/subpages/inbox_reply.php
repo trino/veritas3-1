@@ -1,6 +1,6 @@
 <form class="inbox-compose form-horizontal" id="fileupload" action="#" method="POST" enctype="multipart/form-data">
 	<div class="inbox-compose-btn">
-		<button class="btn blue"><i class="fa fa-check"></i>Send</button>
+		<button class="btn btn-primary"><i class="fa fa-check"></i>Send</button>
 		<button class="btn">Discard</button>
 		<button class="btn">Draft</button>
 	</div>
@@ -59,7 +59,7 @@
 	</div>
 	<div class="inbox-compose-attachment">
 		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-		<span class="btn green fileinput-button">
+		<span class="btn btn-primary fileinput-button">
 		<i class="fa fa-plus"></i>
 		<span>
 		Add files... </span>
@@ -121,7 +121,7 @@
 {% } %}
 	</script>
 	<div class="inbox-compose-btn">
-		<button class="btn blue"><i class="fa fa-check"></i>Send</button>
+		<button class="btn btn-primary"><i class="fa fa-check"></i>Send</button>
 		<button class="btn">Discard</button>
 		<button class="btn">Draft</button>
 	</div>

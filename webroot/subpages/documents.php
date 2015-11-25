@@ -59,7 +59,7 @@
     						</div>
 
     					       <a class="more" href="<?php echo $this->request->webroot;?>documents/type/<?php echo ($d->id);?>">
-    						View more <i class="m-icon-swapright m-icon-white"></i>
+    						View more
     						</a>
 
 

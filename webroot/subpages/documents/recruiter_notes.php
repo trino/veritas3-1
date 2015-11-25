@@ -21,7 +21,7 @@
     <div class="">
         <input type="hidden" id="rid" value="0"  />
         <textarea id="recruiter_notes" placeholder="<?= $strings["forms_addnotes"]; ?>..." rows="2" class="form-control"></textarea>
-        <a href="javascript:void(0);" class="btn btn-success" id="add_recruiter" style="float:right;margin:5px 0;" ><?= $strings["forms_submit"]; ?></a>
+        <a href="javascript:void(0);" class="btn btn-primary" id="add_recruiter" style="float:right;margin:5px 0;" ><?= $strings["forms_submit"]; ?></a>
 
     </div>
     <div class="">

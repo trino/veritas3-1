@@ -36,7 +36,7 @@ $strings = CacheTranslations($language, $controller  . "_%",$settings);
 				<div class="col-md-2">
 					<ul class="inbox-nav margin-bottom-10">
 						<li class="compose-btn">
-							<a href="<?=$this->request->webroot;?>tasks/add?date=<?= $this->request['pass'][0]; ?>" id="event_add" data-title="Add Task" class="btn green">
+							<a href="<?=$this->request->webroot;?>tasks/add?date=<?= $this->request['pass'][0]; ?>" id="event_add" data-title="Add Task" class="btn btn-primary">
 							<i class="fa fa-edit"></i> <?= $strings["tasks_addtask"] ?> </a>
 						</li>
 						<li class="inbox active">
@@ -54,7 +54,7 @@ $strings = CacheTranslations($language, $controller  . "_%",$settings);
 							<div class="input-group input-medium">
 								<input type="text" class="form-control" placeholder="Search">
 								<span class="input-group-btn">
-								<button type="submit" class="btn green"><i class="fa fa-search"></i></button>
+								<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 								</span>
 							</div>
 						</form>-->

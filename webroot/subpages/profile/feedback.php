@@ -50,7 +50,7 @@
                     <td><?php echo $k+1;?></td>
                     <td><?php echo $form;?></td>
                     <td><?php echo $f->created;?></td>
-                    <td><a href="<?php echo $this->request->webroot;?>application/<?php echo $a.'?p_id='.$id.'&form_id='.$f->id;?>" class="btn btn-info editptype" id="editptype_1" target="_blank">View</a></td>
+                    <td><a href="<?php echo $this->request->webroot;?>application/<?php echo $a.'?p_id='.$id.'&form_id='.$f->id;?>" class="btn btn-primary editptype" id="editptype_1" target="_blank">View</a></td>
                 </tr>
                 <?php }?>
                 

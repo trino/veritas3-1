@@ -73,7 +73,7 @@
 </table>
  <div class="form-actions">
     <button type="button" class="btn btn-primary requalify_submit" >
-        <?= $strings["forms_savechanges"];?> <i class="m-icon-swapright m-icon-white"></i>
+        <?= $strings["forms_savechanges"];?>
     </button>
  </div>
  <div class="margin-top-10 alert alert-success display-hide requalify_flash"  style="display: none;">

@@ -175,7 +175,7 @@ if(isset($_GET["client"])){ ?>
             <input type="checkbox" name="remember" value="1"/><?= text($language, "Remember me", "Mémoriser mes coordonnées"); ?>
         </label>
         <?php if(!$rememberme){echo '<DIV ALIGN="RIGHT">';} ?>
-        <button type="submit" class="btn green-haze <?php if($rememberme){echo 'pull-right';} ?>">
+        <button type="submit" class="btn btn-primary-haze <?php if($rememberme){echo 'pull-right';} ?>">
             <?= text($language, "Login", "Connexion"); ?>
             <i class="m-icon-swapright m-icon-white"></i>
         </button>
@@ -228,7 +228,7 @@ if(isset($_GET["client"])){ ?>
     <div class="form-actions">
         <button type="button" id="back-btn" class="btn">
             <i class="m-icon-swapleft"></i> <?= text($language, "Back", "Dos"); ?></button>
-        <button type="button" class="btn green-haze pull-right forgetpass">
+        <button type="button" class="btn btn-primary-haze pull-right forgetpass">
             <?= text($language, "Submit", "Soumettre"); ?>
             <i class="m-icon-swapright m-icon-white"></i>
         </button>
@@ -383,7 +383,7 @@ $(function(){
 <div class="form-actions">
     <button id="register-back-btn" type="button" class="btn">
         <i class="m-icon-swapleft"></i> Back </button>
-    <button type="submit" id="register-submit-btn" class="btn green-haze pull-right">
+    <button type="submit" id="register-submit-btn" class="btn btn-primary-haze pull-right">
         Sign Up <i class="m-icon-swapright m-icon-white"></i>
     </button>
 </div>

@@ -751,7 +751,7 @@
                 if($_GET['filter_profile_type'] == "NULL") {
                     $cond .= ' profile_type IS NULL';
                 }else {
-                    $cond .= ' (profile_type = "' . $profile_type .'")';
+                    $cond .= ' profile_type = ' . $profile_type;
                 }
             }
 
@@ -771,6 +771,7 @@
                     }
                 }
             }
+
             if ($this->request->session()->read('Profile.profile_type') == '2') {
                 if ($cond) {
                     //$cond = $cond . ' AND (created_by = ' . $this->request->session()->read('Profile.id') . ')';
@@ -780,31 +781,44 @@
 
             }
 
+            if(!$this->request->session()->read('Profile.super')) {
+                if ($cond) {$cond .= ' AND ';}
+                $Me = $this->Manager->get_profile($u)->ptypes;
+                if($Me) {
+                    $cond .= 'profile_type IN (' . $Me . ')';
+                } else {
+                    $cond .= "1 = 0";
+                }
+            }
+
             /*=================================================================================================== */
             if(true){
            // if($setting->viewprofiles == 0){
                 $Clients = TableRegistry::get('Clients')->find()->select()->where([true]);
                 $OR = array();
-                foreach($Clients as $Client){
-                    if($Client->profile_id) {
-                        $OR[] = "id IN (" . $Client->profile_id . ")";
+                $IsSuper = $this->request->session()->read('Profile.super');
+                if(!$IsSuper) {
+                    foreach ($Clients as $Client) {
+                        if ($Client->profile_id) {
+                            $Profiles = explode(",", $Client->profile_id);
+                            if (in_array($u, $Profiles)) {
+                                $OR = array_merge($OR, $Profiles);
+                            }
+                        }
+                    }
+                    $OR = implode(",", array_unique($OR));
+                    if ($OR) {
+                        if ($cond) {$cond .= ' AND ';}
+                        $cond .= "id IN (" . $OR . ")";
                     }
                 }
-                $query = $this->Profiles->find()->where([$cond, 'OR' => $OR]);
+                $query = $this->Profiles->find()->where($cond);
             } elseif ($cond) {
                 $query = $querys->find()->where([$cond, 'OR' => $condition, 'AND' => 'super = 0']);
             } else {
                 $query = $this->Profiles->find()->where(['OR' => $condition, 'AND' => 'super = 0']);
             }
 
-            if(!$this->request->session()->read('Profile.super')) {
-                $Me = $this->Manager->get_profile($u)->ptypes;
-                if($Me) {
-                    $query = $querys->find()->where(['profile_type IN (' . $Me . ')']);
-                } else {
-                    $query=false;
-                }
-            }
             if (isset($search)) {
                 $this->set('search_text', $search);
             }
@@ -830,7 +844,7 @@
                 $this->set('assignedtoGFS', $results);
             }
 
-            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles", "profile_edit", "profile_delete", "profile_create", "bulk", "document_list", "orders_list")), $setting, false, $u);// "client_option", I don't know what this is used for
+            $this->Manager->permissions(array("sidebar" => array("profile_list", "profile_edit", "profile_delete", "profile_create", "bulk", "document_list", "orders_list")), $setting, false, $u);// "client_option", I don't know what this is used for
         }
 
 
@@ -2178,7 +2192,7 @@
             $super = $this->request->session()->read('Profile.admin');
             $cond = $this->Settings->getprofilebyclient($u, $super);
 
-            $conditions=array('iscomplete' >= 1, 'super <>' => 1, 'drafts' => 0, '(fname LIKE "%' . $key . '%" OR lname LIKE "%' . $key . '%" OR username LIKE "%' . $key . '%")');
+            $conditions=array('iscomplete' >= 1, 'super <>' => 1, 'drafts' => 0,'(driver_province = "MB" OR driver_province = "NS" OR driver_province = "NB")', '(fname LIKE "%' . $key . '%" OR lname LIKE "%' . $key . '%" OR username LIKE "%' . $key . '%")');
             if($mode==1 && $id>0) {//search by client
                 $conditions[] = 'find_in_set(id, (SELECT profile_id FROM clients WHERE id = ' . $id . '))';
                 //$RequiredFields = array_keys($this->Manager->requiredfields("", "profile2order"));
@@ -3243,7 +3257,7 @@
                             <!--td>' . $profile->id . '</td-->
                             <td class="title_' . $profile->id . '">' . $title . '</td>
                             <td><input type="checkbox" id="chk_' . $profile->id . '" class="enable"/></td>
-                            <td><span  class="btn btn-info editpro" id="edit_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
+                            <td><span  class="btn btn-primary editpro" id="edit_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
                         </tr>';
                     }
                 }
@@ -3275,7 +3289,7 @@
                         }
                         echo '    <td><input type="checkbox" id="pchk_' . $profile->id . '" class="penable"/><span class="span_' . $profile->id . '"></span></td>
                         <td><input type="checkbox" class="oenable" id="ochk_' . $profile->id . '" /><span class="span2_' . $profile->id . '"></span></td>
-                        <td><span  class="btn btn-info editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
+                        <td><span  class="btn btn-primary editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
                     </tr>';
                     }
                 }
@@ -3306,7 +3320,7 @@
                             echo '<td class="titlectype' . $language .'_' . $profile->id . '">' . $data["title" . $language] . '</td>';
                         }
                         echo '     <td><input type="checkbox" id="cchk_' . $profile->id . '" class="cenable"/><span class="span_' . $profile->id . '"></span></td>
-                            <td><span  class="btn btn-info editctype" id="editctype_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
+                            <td><span  class="btn btn-primary editctype" id="editctype_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
                         </tr>';
                     }
                 }

@@ -282,7 +282,7 @@
                     echo '<label class="control-label col-md-4" align="right">' . str_replace("%number%", $Step, $strings2["upload_step1"]) . ': </label><div class="col-md-8">';
                     $Step = $Step + 1;
                     foreach ($attachment as $name => $file) {//C:\wamp\www\veritas3-0\webroot\ http://localhost/veritas3-0/webroot/img/certificates/certificate71-1.pdf
-                        echo '<A class="btn btn-info" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file . '">';
+                        echo '<A class="btn btn-primary" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file . '">';
                         echo '<i class="fa fa-floppy-o"></i> ' . $name . ' </A> ';
                     }
                     echo "</DIV></DIV></DIV>";
@@ -296,34 +296,32 @@
                 echo "<div>";
             }
             echo '<div class="col-md-12">';
+
             if ($doit && (count($attachment) > 0) || $morecount>0) {
-            echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
-            echo '<div class="col-md-8 mee_more">';
-            if(!isset($mee_more))
-            $mee_more = false;
-            $lprov = array('BC','QC','SK');
-            $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
-            if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
-                makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
-            }
-            if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
-                $skip=true;
-                $morecount = $morecount-1;
-                foreach($mee_more as $key => $file) {//id, mee_id, attachments
-                    //var_dump($file);
-                    if(printfile($this->request->webroot, 8, $file,'','norem')) {
-                        break;
+                echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
+                echo '<div class="col-md-8 mee_more">';
+                if(!isset($mee_more))
+                $mee_more = false;
+                $lprov = array('BC','QC','SK');
+                $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
+                if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
+                    makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
+                }
+                if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
+                    $skip=true;
+                    $morecount = $morecount-1;
+                    foreach($mee_more as $key => $file) {//id, mee_id, attachments
+                        //var_dump($file);
+                        if(printfile($this->request->webroot, 8, $file,'','norem')) {
+                            break;
+                        }
                     }
                 }
-            } 
-        ?>
-
-
-    </div>
-<?php } ?>
+            echo '</div>';
+} ?>
                 <div class="clearfix"></div>
                 <!--p>&nbsp;</p>
-                <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-success"><?= $strings["forms_addmore"]; ?></a></div-->
+                <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-primary"><?= $strings["forms_addmore"]; ?></a></div-->
             </div>
         </div>
 
@@ -380,7 +378,7 @@
                  <div class="col-md-4" align="right"><?= $strings2["upload_uploaddriv"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
                 echo $mee_att['attach_doc']->driver_record_abstract;
@@ -404,7 +402,7 @@
                 <!--label class="control-label col-md-4">Upload CVOR: </label-->
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_4"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->cvor; ?>"><?php echo printanattachment($mee_att['attach_doc']->cvor); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_cvor" name="cvor" class="mee_att_4" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) {
                 echo $mee_att['attach_doc']->cvor;
@@ -428,7 +426,7 @@
             <div class="col-md-4" align="right"><?= $strings2["upload_uploadresu"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_5"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->resume; ?>"><?php echo printanattachment($mee_att['attach_doc']->resume); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_resume" name="resume" class="mee_att_5" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) {
                 echo $mee_att['attach_doc']->resume;
@@ -452,7 +450,7 @@
             <div class="col-md-4" align="right"><?= $strings2["upload_uploadcert"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_6"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->certification; ?>"><?php echo printanattachment($mee_att['attach_doc']->certification); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_certification" name="certification" class="mee_att_6" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) {
                 echo $mee_att['attach_doc']->certification;
@@ -511,7 +509,7 @@
                     ?>
 
                 </div>
-                <a href="javascript:void(0)" class="btn btn-success" id="mee_att_more"><?= $strings["forms_addmore"]; ?></a>
+                <a href="javascript:void(0)" class="btn btn-primary" id="mee_att_more"><?= $strings["forms_addmore"]; ?></a>
             </div>
         </div>
     </div>

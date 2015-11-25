@@ -28,7 +28,7 @@ echo "<SCRIPT LANGUAGE='JavaScript'>var Language = '" . $language . "';</SCRIPT>
 						<a href="#"><?= $strings["index_calendar"];?></a>
 					</li>
 				</ul>
-                <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"];?></a>
+                <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"];?></a>
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
@@ -63,8 +63,8 @@ echo "<SCRIPT LANGUAGE='JavaScript'>var Language = '" . $language . "';</SCRIPT>
 
 <?php
 if ($this->request->session()->read('Profile.super') && $this->request->session()->read('debug')) {
-       echo '<br><a style="margin-top: 10px;" class="btn btn-warning" href="' . $this->request->webroot . 'profiles/cron/true">Run the CRON ' . $this->request->session()->read('timediff') . '</A>';
-       echo '<br><a style="margin-top: 10px;" class="btn btn-warning" href="' . $this->request->webroot . 'profiles/cron?testemail">Send test email</A>';
+       echo '<br><a style="margin-top: 10px;" class="btn btn-primary" href="' . $this->request->webroot . 'profiles/cron/true">Run the CRON ' . $this->request->session()->read('timediff') . '</A>';
+       echo '<br><a style="margin-top: 10px;" class="btn btn-primary" href="' . $this->request->webroot . 'profiles/cron?testemail">Send test email</A>';
 }
 ?>
 

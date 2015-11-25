@@ -70,7 +70,7 @@ if (isset($question)) {$question = clean($question,1);}
                 <a href="">Edit Question</a>
             </li>
         </ul>
-        <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+        <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
         <?php if ($canedit && isset($question)) {
             echo '<a href="' . $this->request->webroot . 'training/editquestion?new=true&action=delete&QuestionID=' . $_GET["QuestionID"] . '&quizid=' . $_GET["quizid"] . '" onclick="return confirm(' . "'Are you sure you want to delete this question?'" . ');" class="floatright btn btn-danger btnspc">Delete</a>';
             $QuizID="&quizid=" . isset($quiz);
@@ -140,12 +140,12 @@ if (isset($question)) {$question = clean($question,1);}
 
         <div class="col-md-2">
             <div class="form-group">
-                <button type="submit" class="btn blue"><i class="fa fa-check"></i> Save Changes</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
-                <A href="#" class="btn btn-info" onclick="truefalse();">True/False</A>
+                <A href="#" class="btn btn-primary" onclick="truefalse();">True/False</A>
             </div>
         </div>
     </form>

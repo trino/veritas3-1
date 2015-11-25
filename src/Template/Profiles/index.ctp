@@ -91,7 +91,7 @@
         </li>
     </ul>
 
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"] ?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"] ?></a>
 
     <?php
         if ($sidebar->profile_create == 1) {
@@ -242,7 +242,7 @@
                                 }
 
                                 $URLStart = '<a href="' . $this->request->webroot;
-                                $URLEnd = '" class="' . btnclass("btn-info", "blue-soft") . '">';//$strings["profiles_viewdocuments"]
+                                $URLEnd = '" class="' . btnclass("btn-primary", "blue-soft") . '">';//$strings["profiles_viewdocuments"]
                                 if(isset($profiles)){
                                 foreach ($profiles as $profile){
                                     if ($row_color_class == "even") {
@@ -320,7 +320,7 @@
                                             <?php
 
                                                 if ($sidebar->profile_list == '1' && !isset($_GET["draft"]) && ($super || $profile->profile_type > 0)) {
-                                                    echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => btnclass("btn-info", "blue-soft"),  "style"=>"margin-bottom: 0 !important;"]);
+                                                    echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => btnclass("btn-primary", "blue-soft"),  "style"=>"margin-bottom: 0 !important;"]);
                                                 }
 
                                                 $checker = $this->requestAction('/settings/check_edit_permission/' . $this->request->session()->read('Profile.id') . '/' . $profile->id . "/" . $profile->created_by);
@@ -336,7 +336,7 @@
 
                                                 if ($sidebar->orders_list == '1' && $profile->profile_type > 0) {
                                                     //        echo '<a href="' . $this->request->webroot  . 'orders/orderslist/?uploaded_for=' . $profile->id . '"';
-                                                    //      echo ' class="' . btnclass("btn-info", "blue-soft") . '">' . $strings["profiles_vieworders"] . '</a>';
+                                                    //      echo ' class="' . btnclass("btn-primary", "blue-soft") . '">' . $strings["profiles_vieworders"] . '</a>';
                                                 }
 
                                                 if ($sidebar->profile_delete == '1') {

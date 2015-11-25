@@ -56,10 +56,10 @@
             <a href=""><?= $title; ?></a>
         </li>
     </ul>
-    <!--a href="javascript:window.print();" class="floatright btn btn-info">Print</a-->
+    <!--a href="javascript:window.print();" class="floatright btn btn-primary">Print</a-->
     <?php
         if (isset($disabled) || isset($_GET['view'])) { ?>
-            <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+            <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
         <?php }
 
         if (isset($client) && $sidebar->client_delete == '1' && $param != 'add') { ?>
@@ -72,16 +72,16 @@
         } else if (isset($client) && $param == 'edit') {
             ?>
             <a href="<?= $this->request->webroot; ?>clients/edit/<?= $client->id; ?>?view"
-               class='floatright btn btn-info btnspc'><?= $strings["dashboard_view"]; ?></a>
+               class='floatright btn btn-primary btnspc'><?= $strings["dashboard_view"]; ?></a>
             <?php
             if($this->request->session()->read('debug')){
-                echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+                echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
             }
 
         }
 
         if($sidebar->profile_list) {
-            echo '<A HREF="' . $this->request->webroot . 'profiles/index?filter_by_client=' . $id . '" class="floatright btn btnspc btn-info">' . $strings["index_listprofile"] . '</A>';
+            echo '<A HREF="' . $this->request->webroot . 'profiles/index?filter_by_client=' . $id . '" class="floatright btn btnspc btn-primary">' . $strings["index_listprofile"] . '</A>';
         }
         echo "</div>";
     ?>
@@ -100,7 +100,7 @@
                                for="exampleInputEmail22"><?= $strings["clients_addeditimage"]; ?></label>
 
                         <div class="input-icon">
-                            <a class="btn btn-xs btn-success" href="javascript:void(0)" id="clientimg">
+                            <a class="btn btn-xs btn-primary" href="javascript:void(0)" id="clientimg">
                                 <i class="fa fa-image"></i>
                                 <?= $strings["clients_addeditimage"]; ?>
                             </a>
@@ -552,7 +552,7 @@
 
 
                                                             <div class="form-group col-md-12">
-                                                                <a href="javascript:void(0)" class="btn btn-info"
+                                                                <a href="javascript:void(0)" class="btn btn-primary"
                                                                    id="addMoredoc">
                                                                     <?= $strings["forms_addmore"]; ?>
                                                                 </a>
@@ -577,7 +577,7 @@
                                                                     <button type="submit" class="btn btn-primary"
                                                                             id="save_client_p1"><?= $strings["forms_savechanges"]; ?>
                                                                     </button>
-                                                                    <!--button type="submit" class="btn btn-info" onclick="$('#client_drafts').val('1',function(){$('#save_client_p1').click();});">Save As Draft</button-->
+                                                                    <!--button type="submit" class="btn btn-primary" onclick="$('#client_drafts').val('1',function(){$('#save_client_p1').click();});">Save As Draft</button-->
                                                                 </div>
                                                             </div>
 

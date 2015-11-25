@@ -1187,7 +1187,7 @@
 							 Widget settings form goes here
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
 							<button type="button" class="btn default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -1589,7 +1589,7 @@
 											<div class="input-group" style="text-align:left">
 												<input type="text" class="form-control" name="username1" id="username1_input">
 												<span class="input-group-btn">
-												<a href="javascript:;" class="btn green" id="username1_checker">
+												<a href="javascript:;" class="btn btn-primary" id="username1_checker">
 												<i class="fa fa-check"></i> Check </a>
 												</span>
 											</div>
@@ -1703,7 +1703,7 @@
 								<div class="form-actions">
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
@@ -1824,7 +1824,7 @@
 								<div class="form-actions">
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
@@ -1939,7 +1939,7 @@
 								<div class="form-actions">
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
@@ -2038,7 +2038,7 @@
 									<div class="form-actions">
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9">
-												<button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+												<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 												<button type="button" class="btn default">Cancel</button>
 											</div>
 										</div>
@@ -2409,7 +2409,7 @@
 								<div class="form-actions">
 									<div class="row">
 										<div class="col-md-offset-3 col-md-9">
-											<button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+											<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Submit</button>
 											<button type="button" class="btn default">Cancel</button>
 										</div>
 									</div>
@@ -2696,7 +2696,7 @@
 									<div class="input-group">
 										<input type="text" class="form-control" placeholder="Type a message here...">
 										<div class="input-group-btn">
-											<button type="button" class="btn blue"><i class="icon-paper-clip"></i></button>
+											<button type="button" class="btn btn-primary"><i class="icon-paper-clip"></i></button>
 										</div>
 									</div>
 								</div>
@@ -3067,7 +3067,7 @@
 								</li>
 							</ul>
 							<div class="inner-content">
-								<button class="btn btn-success"><i class="icon-settings"></i> Save Changes</button>
+								<button class="btn btn-primary"><i class="icon-settings"></i> Save Changes</button>
 							</div>
 						</div>
 					</div>

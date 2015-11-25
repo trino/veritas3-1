@@ -33,9 +33,9 @@
                     <div class="clearfix text-right margin-top-20">
                         <button type="button" class="btn default">View</button>
                         <button type="button" class="btn yellow">Edit</button>
-                        <button type="button" class="btn green">Upload</button>
+                        <button type="button" class="btn btn-primary">Upload</button>
                         <button type="button" class="btn red">Delete</button>
-                        <button type="button" class="btn blue">Project Board</button>
+                        <button type="button" class="btn btn-primary">Project Board</button>
                         <button type="button" class="btn purple">Deployment</button>
                     </div>
 

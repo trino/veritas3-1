@@ -31,6 +31,8 @@
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("documents_%", "forms_%", "clients_addeditimage", "infoorder_selectclient"), $settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
+    $stringsbackup = $strings;//array("forms_save" => $strings["forms_save"], "forms_savedraft" => $strings["forms_savedraft"]);
+
     if($language == "Debug") { $Trans = " [Trans]";} else { $Trans = ""; }
     $title = $strings["index_" . strtolower($action) . "document"];
     printCSS($this);
@@ -59,7 +61,7 @@
             echo ' <a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }
         if($Debug && ($action=="Edit" || $action=="Create")){
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         }
 
         $opposite = "edit"; $url="add";
@@ -71,7 +73,7 @@
                 $sep = '&';
             }
         }
-        if (isset($this->request->params['pass'][1])&& !isset($_GET['order_id'])) { echo '<a href="../../' . $url . '/' . $ClientID . "/" . $id1 . $id2 .$sep. 'type='.$_GET['type'].'" class="floatright btn btn-info btnspc">' . $strings["dashboard_" . $opposite] . '</a>'; }
+        if (isset($this->request->params['pass'][1])&& !isset($_GET['order_id'])) { echo '<a href="../../' . $url . '/' . $ClientID . "/" . $id1 . $id2 .$sep. 'type='.$_GET['type'].'" class="floatright btn btn-primary btnspc">' . $strings["dashboard_" . $opposite] . '</a>'; }
 
 
         function makeportlet($did, $color="", $Title=""){
@@ -101,8 +103,8 @@
     ?>
 
 
-    <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
-    <a href="" class="floatright btn btn-info">Add to Task List</a-->
+    <!--a href="" class="floatright btn btn-primary">Re-Qualify</a>
+    <a href="" class="floatright btn btn-primary">Add to Task List</a-->
 
 </div>
 
@@ -515,27 +517,19 @@
                             <div class="col-md-offset-3 col-md-9 btndocs" <?php if(!isset($_GET['type'])){?>style="display: none;"<?php }?>>
 
 
-                                <a href="javascript:void(0)" class="btn green cont buttons" id="button1"><?= $strings["forms_save"]; ?></a>
+                                <a href="javascript:void(0)" class="btn btn-primary cont buttons" id="button1"><?= $stringsbackup["forms_save"]; ?></a>
 
                                 <?php
-                                    if(!isset($_GET['order_id']))
-                                    {
-                                        ?>
-
-                                        <a href="javascript:;" id="button1" title="draft" class="btn blue cont buttons">
-                                            <?= $strings["forms_savedraft"]; ?> <i class="m-icon-swapright m-icon-white"></i>
-                                        </a>
-                                        <?php
+                                    if(!isset($_GET['order_id'])) {
+                                        echo '<a href="javascript:;" id="button1" title="draft" class="btn btn-primary cont buttons">';
+                                        echo $stringsbackup["forms_savedraft"] . '</a>';
                                     }
                                 ?>
                                 <div class="margin-top-10 alert alert-success display-hide flashDoc" style="display: none;">
                                     <button class="close" data-close="alert"></button>
-                                    <?php echo ucfirst($settings->document); ?> <?= $strings["forms_uploaded"]; ?>
+                                    <?= ucfirst($settings->document) . $stringsbackup["forms_uploaded"]; ?>
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -1815,7 +1809,7 @@
         
         $('#addfiles').click(function () {
             //alert("ssss");
-            $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-success">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();"><?= addslashes($strings["dashboard_delete"]); ?></a><br/></div>');
+            $('#doc').append('<div style="padding-top:10px;"><a href="#" class="btn btn-primary">Browse</a> <a href="javascript:void(0);" class="btn btn-danger" onclick="$(this).parent().remove();"><?= addslashes($strings["dashboard_delete"]); ?></a><br/></div>');
         });
         $('.nohide').show();
     });

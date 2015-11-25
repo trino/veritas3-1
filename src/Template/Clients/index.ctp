@@ -20,7 +20,7 @@ $strings = CacheTranslations($language, $this->request->params['controller'] . "
 					</li>
 				</ul>
 
-			<a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+			<a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
         <?php  if ($sidebar->client_create == 1) {  ?>
              <a href="<?php echo $this->request->webroot; ?>clients/add" class="floatright btn btn-primary btnspc">

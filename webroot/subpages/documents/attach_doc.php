@@ -31,7 +31,7 @@
             </div>
             <div class="form-group col-md-12">
                 <div class="col-md-12">
-                    <a href="javascript:void(0)" class="btn btn-info addMoredoc" onclick="addmoredoc('<?php echo $addmoreid;?>');">
+                    <a href="javascript:void(0)" class="btn btn-primary addMoredoc" onclick="addmoredoc('<?php echo $addmoreid;?>');">
                         Add More
                     </a>
                 </div>

@@ -123,7 +123,7 @@ function validatespecialrules(){
                         if (!getinputvalue("meeattach_id1") && !getinputvalue("meeattach_id2")){return MissingID;}
                     }
                     if (Rule == "BC" || Rule == "QC" || Rule == "SK"){
-                        if(!getinputvalue("mee_attach_7")){return MissingAbstract;}
+                        if(isvisible("mee_attach_7") && !getinputvalue("mee_attach_7")){return MissingAbstract;}
                     }
                 }
                 break;
@@ -132,9 +132,11 @@ function validatespecialrules(){
     return false;
 }
 
-function isvisible(element){
-    element = document.getElementById(element);
-    return element.offsetWidth > 0 || element.offsetHeight > 0;
+function isvisible(elementName){
+    var element = document.getElementById(elementName);
+    if(element) {
+        return element.offsetWidth > 0 || element.offsetHeight > 0;
+    }
 }
 
 function radiovalue(Name){
@@ -224,6 +226,21 @@ function getinputvalue(element){
             break;
     }
     return value;
+}
+
+function findindex(element){
+    var Name = element.getAttribute("name");
+    var elements = document.getElementsByName(Name);
+    for(var i=0; i<elements.length; i++){
+        if (elements[i] == element){
+            return i;
+        }
+    }
+    return -1;
+}
+function getindex(Name, Index){
+    var elements = document.getElementsByName(Name);
+    return elements[Index];
 }
 
 function checktags(TabID, tagtype){//use tagtype = "single" to get a single element with the ID = TabID
@@ -421,7 +438,7 @@ function autofill2(Type){
         autofill2("select");
         autofill2("textarea");
     } else {
-        var inputs, index, element, value, name, temp
+        var inputs, index, element, value, name, temp;
         inputs = document.getElementsByTagName(Type);
         for (index = 0; index < inputs.length; ++index) {
             element = inputs[index];
@@ -477,6 +494,13 @@ function autofill2(Type){
                         if(name.indexOf("expiry")>-1){
                             StartYear = Now+1;
                             EndYear = Now+20;
+                        } else if (name.indexOf("_end")>-1) {
+                            temp = findindex(element);
+                            name = name.replace("_end", "_start");
+                            value = getindex(name, temp);
+                            value = getinputvalue(value);
+                            StartYear = parseInt(value.substring(6, value.length)) + 1;
+                            EndYear = StartYear + 25;
                         }
                         value = "10/04/" + getRandomInt(StartYear,EndYear);
                         break;
