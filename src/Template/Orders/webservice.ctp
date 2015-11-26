@@ -1,7 +1,7 @@
 <?php
     $driverinfo2 = $driverinfo;
 
-    if (true) {
+    if (false) {
 
         $user_id234 = $this->Session->read('Profile.isb_id');
         if (isset($user_id234) && $user_id234 != "") {
@@ -138,10 +138,13 @@
 
                 if (isset($ins_id)) {
                 } else {
+                    echo "error1";die();
                     $ins_id = 0;
                 }
                 if (isset($ebs_id)) {
                 } else {
+                    echo "error2";die();
+
                     $ebs_id = 0;
                 }
 
