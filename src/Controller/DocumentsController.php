@@ -83,7 +83,7 @@ class DocumentsController extends AppController{
         }
 
         if (isset($_GET['searchdoc']) && $_GET['searchdoc']) {
-            $cond = $this->AppendSQL($cond, '(documents.uploaded_for IN (SELECT id FROM profiles WHERE LOWER(username) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(fname) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(lname) LIKE "%' . $_GET['searchdoc'] . '%") OR documents.user_id IN (SELECT id FROM profiles WHERE LOWER(username) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(fname) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(lname) LIKE "%' . $_GET['searchdoc'] . '%") OR title LIKE "%' . $_GET['searchdoc'] . '%" OR document_type LIKE "%' . $_GET['searchdoc'] . '%" OR description LIKE "%' . $_GET['searchdoc'] . '%")');
+            $cond = $this->AppendSQL($cond, '(Documents.uploaded_for IN (SELECT id FROM profiles WHERE LOWER(username) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(fname) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(lname) LIKE "%' . $_GET['searchdoc'] . '%") OR Documents.user_id IN (SELECT id FROM profiles WHERE LOWER(username) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(fname) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(lname) LIKE "%' . $_GET['searchdoc'] . '%") OR title LIKE "%' . $_GET['searchdoc'] . '%" OR document_type LIKE "%' . $_GET['searchdoc'] . '%" OR description LIKE "%' . $_GET['searchdoc'] . '%")');
         }
 
         if (!$this->request->session()->read('Profile.admin')){
