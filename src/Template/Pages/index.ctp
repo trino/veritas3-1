@@ -33,36 +33,29 @@ if ($sidebar->training == 1 && $sidebar->client_list == 0) {
 
 
 <?php
-    if(!$this->request->session()->read('Profile.super'))
-    {
+    if(!$this->request->session()->read('Profile.super')) {
         $logomain = $this->requestAction('/clients/getLogo');
         if($logomain){
-            ?>
-            <div class="mainlogo col-md-4" style="text-align: right;padding:0;">
-                <?php
-                    //var_dump($logomain)
-                    if(isset($logomain['client']) && $logomain['client'])
-                    {
-                        ?>
-                        <img src="<?php echo $this->request->webroot;?>img/jobs/<?php echo $logomain['client'];?>" height="50px;" />
-                    <?php
+            echo '<div class="mainlogo col-md-4" style="text-align: right;padding:0;">';
+            $Image = false;
+            if(isset($logomain['setting'])) {
+                $Image = 'clients/' . $logomain['setting'];
+            }
 
-                    }
-                    else
-                    {
-                        if(isset($logomain['setting']))
-                        {
-                            ?>
-                            <img src="<?php echo $this->request->webroot;?>img/clients/<?php echo $logomain['setting'];?>" height="50px;" />
-                        <?php
+            if(isset($logomain['client']) && $logomain['client']) {
+                $FILE = 'jobs/' . $logomain['client'];
+                if(file_exists(getcwd() . "/" . $FILE)){
+                    $Image = $FILE;
+                }
+            }
 
-                        }
-                    }
-                ?>
-            </div>
-            
-        <?php
-        }}
+            if($Image){
+                echo '<img src="' . $this->request->webroot . 'img/' . $Image . '" height="50px;" />';
+            }
+
+            echo '</div>';
+        }
+    }
 ?>
 <div class="clearfix"></div>
 

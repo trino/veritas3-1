@@ -145,8 +145,11 @@
                                     $isISB = (isset($sidebar) && $sidebar->client_option == 0);
                                     $fieldname = getFieldname("title", $language);
                                     $doApplicant = true;
+
+                                    $EnabledTypes = explode(",", $Manager->get_profile($u)->ptypes);
+
                                     foreach ($ptypes as $ProfileType) {
-                                        if ($ProfileType->enable) {//id title enable ISB
+                                        if ($ProfileType->enable && in_array($ProfileType->id, $EnabledTypes) ) {//id title enable ISB
                                             $doit = $ProfileType->ISB == 0;
                                             if ($isISB) {
                                                 $doit = $ProfileType->ISB == 1;
