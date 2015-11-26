@@ -419,9 +419,9 @@
 </div>
 
 <script>
-    jQuery(document).ready(function () {
-        document.getElementById("nojavascript").setAttribute("style", "display: none;");
+    document.getElementById("nojavascript").setAttribute("style", "display: none;");
 
+    jQuery(document).ready(function () {
         Metronic.init(); // init metronic core componets
         Layout.init(); // init layout
         QuickSidebar.init(); // init quick sidebar
