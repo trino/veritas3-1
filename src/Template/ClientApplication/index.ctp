@@ -13,6 +13,10 @@
         $i = 0;
         foreach($client as $c) {
             $i++;
+            if(!$c->slug){
+                $c->slug = strtolower(str_replace(" ", "_", trim($c->company_name)));
+                $Manager->update_database("clients", "id", $c->id, array("slug" => $c->slug));
+            }
             echo '<a class="listclient" href="' . $this->request->webroot . 'clientApplication/apply/' . $c->slug . '" style="display: block;">';
             echo '<LABEL CLASS="SPACER">' . $i . '</LABEL>' . strtoupper($c->company_name) . '</a>';
         }
