@@ -16,7 +16,7 @@
     if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 
     $intable = true;
-    $cols = 12;
+    $cols = 10;
     $_this = $this;
     function getcheckboxes($name, $amount) {
         $tempstr = "";
@@ -167,7 +167,7 @@
                 $color=""; //color is disabled for now
 
                 $offset = "";//' col-xs-offset-2';
-                echo '<div class="col-xs-' . $cols . $offset . '">';
+                echo '<div class="col-xs-' . $cols . $offset . '" style="margin:0 auto;">';
 
                 echo '<div class="pricing' . $color . ' hover-effect">';
                 echo '<div class="pricing' . $color . '-head pricing-head-active">';
