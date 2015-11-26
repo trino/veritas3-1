@@ -49,7 +49,7 @@
     copy2globals($strings, array("forms_browse", "dashboard_delete"));
     $strings2 = CacheTranslations($language, array("upload_%"), $settings, False);
     copy2globals($strings2, array("upload_none"));
-    if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
+    if(isset($dx)){ echo '<h3 style="text-align:center;">' . $dx->title . '</h3>'; }
 ?>
 <form id="form_tab15">
     <input type="hidden" class="document_type" name="document_type" value="<?php if(isset($dx))echo $dx->title;?>"/>

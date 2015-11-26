@@ -38,7 +38,7 @@ function makerow($profile, $Fields){
         echo '<div class="clearfix"></div>';
     }
 }
-    if(isset($dx)){ echo '<p style="font-size: 20px;font-weight: bold;">' . $dx->title . '</p>'; }
+    if(isset($dx)){ echo '<h3 style="text-align:center;">' . $dx->title . '</h3>'; }
 ?>
 <form id="form_tab<?= $dx->id;?>" action="<?= $this->request->webroot;?>documents/application_employment/<?= $cid .'/' .$did;?>" method="post">
         <input type="hidden" class="document_type" name="document_type" value="<?php echo $dx->title;?>"/>

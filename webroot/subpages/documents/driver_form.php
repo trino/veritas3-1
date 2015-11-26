@@ -1,5 +1,5 @@
 <?php $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_attachfile", "file_download"), $settings, False); ?>
-<p style="font-weight: bold;">Create Driver</p>
+<h3 style="text-align:center">Create Driver</h3>
 <div class="row">
 <div class="form-group row col-md-12 splitcols" ID="GNDN">
     

@@ -21,7 +21,7 @@
 
 <div id="toremove" class="toremove">
 <div class="clearfix"></div>
-<hr />
+
 
     <?php if (isset($_GET["references"])){
         echo '<H2><translate>verifs_referencenum</translate>: ' . ($_GET["references"]+1) . '</H2><P>';
@@ -218,10 +218,11 @@
             <a href="javascript:void(0);" class="btn red no-print" id="delete"><translate>dashboard_delete</translate></a>
         </div>
     <?php } ?>
-  </div>
-
-<script> translate();
+    <script> translate();
 <?php if (isset($_GET["references"])) { ?>
 
 <?php } ?>
 </script>
+<hr />
+  </div>
+
