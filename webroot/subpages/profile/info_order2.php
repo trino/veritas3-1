@@ -167,7 +167,8 @@
                 $color=""; //color is disabled for now
 
                 $offset = "";//' col-xs-offset-2';
-                echo '<div class="col-xs-' . $cols . $offset . '" style="margin:0 auto;">';
+                
+                echo '<div class="col-xs-1"></div><div class="col-xs-' . $cols . $offset . '" style="margin:0 auto;">';
 
                 echo '<div class="pricing' . $color . ' hover-effect">';
                 echo '<div class="pricing' . $color . '-head pricing-head-active">';
