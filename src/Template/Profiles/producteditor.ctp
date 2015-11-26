@@ -169,10 +169,6 @@
         return $Default;
     }
 
-    function iif($Value, $True, $False){
-        if($Value){return $True;}
-        return $False;
-    }
 
     function makeselect($is_disabled=false, $Name=""){
         if($Name){

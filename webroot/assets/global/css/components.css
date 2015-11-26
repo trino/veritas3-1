@@ -1143,6 +1143,25 @@ Dropdown Menu Badges
     border-radius: 0 !important;
 }
 
+
+::-webkit-file-upload-button {
+    color: white;
+    background-color: #578ebe;
+    border-color: #357ebd;
+
+    border-width: 0;
+    padding: 7px 14px;
+    font-size: 14px;
+    outline: none !important;
+    background-image: none !important;
+    filter: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+
 /***
 Customized Bootstrap Buttons
 ***/
