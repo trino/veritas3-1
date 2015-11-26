@@ -1442,8 +1442,9 @@
             }
 
             if (isset($_GET['searchdoc']) && $_GET['searchdoc']) {
+                $_GET['searchdoc'] = strtolower($_GET['searchdoc']);                
                 //$cond = $this->AppendSQL($cond, '(orders.title LIKE "%' . $_GET['searchdoc'] . '%" OR orders.description LIKE "%' . $_GET['searchdoc'] . '%")');
-                $cond = $this->AppendSQL($cond, '(orders.user_id IN (SELECT id FROM profiles WHERE username LIKE "%' . $_GET['searchdoc'] . '%" OR fname LIKE "%' . $_GET['searchdoc'] . '%" OR lname LIKE "%' . $_GET['searchdoc'] . '%") OR orders.id IN (SELECT order_id FROM footprint WHERE fullname LIKE "%' . $_GET['searchdoc'] . '%") OR orders.client_id IN (SELECT id FROM clients WHERE company_name LIKE "%' . $_GET['searchdoc'] . '%"))');
+                $cond = $this->AppendSQL($cond, '(orders.user_id IN (SELECT id FROM profiles WHERE LOWER(username) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(fname) LIKE "%' . $_GET['searchdoc'] . '%" OR LOWER(lname) LIKE "%' . $_GET['searchdoc'] . '%") OR orders.id IN (SELECT order_id FROM footprint WHERE LOWER(fullname) LIKE "%' . $_GET['searchdoc'] . '%") OR orders.client_id IN (SELECT id FROM clients WHERE LOWER(company_name) LIKE "%' . $_GET['searchdoc'] . '%"))');
 
             }
 

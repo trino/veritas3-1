@@ -1492,7 +1492,7 @@ class DocumentComponent extends Component{
         }
         
         function getUser($user_id){
-            $query = TableRegistry::get('Profiles');
+            
             $query = $query->find()->where(['id' => $user_id]);
             $q = $query->first();
             return $q;
@@ -1501,10 +1501,27 @@ class DocumentComponent extends Component{
 
         function getAllUser($sortby = "fname"){
             $query = TableRegistry::get('Profiles');
+            $controller = $this->_registry->getController();
+            $id = $controller->request->session()->read('Profile.id');
+            $query2 = TableRegistry::get('clients');
+            $q2 = $query2->find()->where(['profile_id LIKE "'.$id.',%" OR profile_id LIKE "%,'.$id.',%" OR profile_id LIKE "%,'.$id.'"']);
+            $profile_ids = '0';
+            if($q2)
+            {
+                foreach($q2 as $c)
+                {
+                    
+                    $profile_ids = $profile_ids.','.$c->profile_id;
+                }
+                $profile_ids = str_replace(',,',',',$profile_ids);
+                $profile_ids = str_replace(',,',',',$profile_ids);
+                $profile_ids = str_replace(',,',',',$profile_ids);
+            }
+            
             //$query = $query->find();
             //$q = $query->find()->where(['profile_type !=' => '5'])->all();
             //$order = $orders->find()->order(['orders.id' => 'DESC'])->where(['draft' => 0, $cond])->all();
-            $q = $query->find()->order([$sortby => 'ASC'])->all();
+            $q = $query->find()->where(['id IN ('.$profile_ids.')'])->order([$sortby => 'ASC'])->all();
             //$this->response->body($q);
             return $q;
             die();
