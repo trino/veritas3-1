@@ -172,9 +172,11 @@
             <div class="form-group col-md-6">
                 <?php include('canvas/consent_signature_driver2.php'); ?>
             </div>
+            <?php if($this->request->params['action']!='apply'){?>
             <div class="form-group col-md-6">
                 <?php include('canvas/consent_signature_witness2.php'); ?>
             </div>
+            <?php }?>
         </div>
 
         <div class="clearfix"></div>
@@ -401,9 +403,11 @@
                 <input type="hidden" class="form-control" name="authorize_signature" />
                 <?php include('canvas/consent_signature_driver.php'); ?>
             </div>
+            <?php if($this->request->params['action']!='apply'){?>
             <div class="form-group col-md-6">
                 <?php include('canvas/consent_signature_witness.php'); ?>
             </div>
+            <?php }?>
             <div class="clearfix"></div>
 
             <?php if($this->request->params['controller']!='Documents' && $this->request->params['controller']!='ClientApplication'){?>
@@ -483,7 +487,7 @@
                     <div class="col-md-3">
                     </div>
                     <div class="col-md-9">
-                        <a href="javascript:void(0);" class="btn btn-success moremore" id="add_more_consent_doc"><?= $strings["forms_addmore"]; ?></a>
+                        <a href="javascript:void(0);" class="btn btn-primary moremore" id="add_more_consent_doc"><?= $strings["forms_addmore"]; ?></a>
                     </div>
                 </div>
            

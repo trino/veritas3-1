@@ -48,18 +48,18 @@
     <div class="page-toolbar">
 
     </div>
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
     <?php
-        if ($sidebar->orders_list == 1 && !isset($_GET["draft"])) {
+        /*if ($sidebar->orders_list == 1 && !isset($_GET["draft"])) {
             ?>
             <a href="<?php echo $this->request->webroot; ?>orders/orderslist?draft"
-               class="floatright btn btn-warning btnspc">
+               class="floatright btn btn-primary btnspc">
                 <?= $strings["index_orderdrafts"]; ?></a>
         <?php } elseif (isset($_GET["draft"])) { ?>
-            <a href="<?php echo $this->request->webroot; ?>orders/orderslist" class="floatright btn btn-warning btnspc">
+            <a href="<?php echo $this->request->webroot; ?>orders/orderslist" class="floatright btn btn-primary btnspc">
                 <?= $strings["orders_all"];?></a>
-        <?php }
+        <?php }*/
 
 
     if ($sidebar->orders_create == 1  && false){
@@ -97,6 +97,12 @@
                     <div class="btn-set pull-right">
 
                         <form action="<?php echo $this->request->webroot; ?>orders/orderslist" method="get">
+                        <select onchange="window.location = $(this).val();" class="form-control input-inline">
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist"><?= $strings["documents_select"]; ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_orderdrafts"]); ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?pending" <?php if(isset($_GET['pending'])){?>selected="selected"<?php }?>><?= ucfirst($strings["documents_pending"]); ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist?complete" <?php if(isset($_GET['complete'])){?>selected="selected"<?php }?>><?= ucfirst($strings["documents_complete"]); ?></option>
+                        </select>
                             <?php
                             if (isset($_GET['draft'])) {
                                 echo '<input type="hidden" name="draft"/>';
@@ -209,6 +215,8 @@
                                     if ($order->user_id) {
                                         $uploaded_by = getIterator($profiles, "id", $order->user_id);
                                     }
+                                    elseif($order->user_id=='0')
+                                        $uploaded_by = "N/A";
                                     if ($order->uploaded_for) {
                                         $uploaded_for = getIterator($profiles, "id", $order->uploaded_for);
                                     }
@@ -289,10 +297,23 @@
 
                                         </td>
 
-                                        <td class="v-center"><?php if (isset($uploaded_by)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);?></td>
+                                        <td class="v-center"><?php
+                                            if (isset($uploaded_by)&& $uploaded_by!= "N/A") {
+                                                echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->user_id . '" target="_blank">' . formatname($uploaded_by);
+                                            }
+                                            elseif($uploaded_by=='N/A')
+                                                echo $uploaded_by;
+                                             else {
+                                                echo $strings["dashboard_deletedprofile"];
+                                            }
+                                            ?></td>
 
                                         <td class="v-center">
-                                            <?php if (isset($uploaded_for)) echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>" ?>
+                                            <?php if (isset($uploaded_for) && $uploaded_for) {
+                                                echo '<a href="' . $this->request->webroot . 'profiles/view/' . $order->uploaded_for . '" target="_blank">' .formatname($uploaded_for) . "</a>";
+                                            } else {
+                                                echo $strings["dashboard_deletedprofile"];
+                                            }?>
                                         </td>
 
                                         <td class="v-center"><?php
@@ -345,14 +366,14 @@
 
                                             <?php if ($sidebar->orders_requalify == '1' && $order->draft == '0') {
                                                 ?>
-                                                <!--a class="clearfix btn btn-warning" href="<?php echo $this->request->webroot; ?>documents/productSelection?driver=<?php echo $order->uploaded_for; ?>"/>Re-qualify</a-->
+                                                <!--a class="clearfix btn btn-primary" href="<?php echo $this->request->webroot; ?>documents/productSelection?driver=<?php echo $order->uploaded_for; ?>"/>Re-qualify</a-->
                                             <?php
                                             }
 
                                             if (!isset($_GET['draft']) && is_object($order->profile) && ($order->draft == 0)) {
                                                 ?>
                                                 <a href="<?php echo $this->request->webroot; ?>profiles/view/<?php echo $order->profile->id ?>?getprofilescore=1"
-                                                   class="<?= btnclass("btn-info", "blue-soft") ?>" style="margin-bottom: 0 !important;"><?= $strings["orders_scorecard"]; ?></a>
+                                                   class="<?= btnclass("btn-primary", "blue-soft") ?>" style="margin-bottom: 0 !important;"><?= $strings["orders_scorecard"]; ?></a>
                                             <?php
                                             }
 
@@ -364,7 +385,7 @@
 
 
 
-                                          //if (!isset($_GET['draft'])) echo $this->Html->link(__('Score Card'), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-success']);
+                                          //if (!isset($_GET['draft'])) echo $this->Html->link(__('Score Card'), ['controller' => 'orders', 'action' => 'viewReport', $order->client_id, $order->id], ['class' => 'btn btn-primary']);
                                             ?>
                                         </td>
 

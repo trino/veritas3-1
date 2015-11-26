@@ -3,51 +3,58 @@
     doc_id = '<?=$did?>';
     profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
     <?php if($did) { ?>
-        showforms('company_pre_screen_question.php');
-        showforms('driver_application.php');
-        showforms('driver_evaluation_form.php');
-        showforms('document_tab_3.php');
+    showforms('company_pre_screen_question.php');
+    showforms('driver_application.php');
+    showforms('driver_evaluation_form.php');
+    showforms('document_tab_3.php');
     <?php } ?>
     var readTOS = '<?= addslashes($strings["forms_pleaseconfirm"]); ?>';
     var giveSIG = '<?= addslashes($strings["forms_signplease"]); ?>';
     var fillALL = '<?= addslashes($strings["forms_fillall"]); ?>';
 
-    jQuery.fn.copystyle = function(source){
+    jQuery.fn.copystyle = function (source) {
         var dom = $(source).get(0);
         var style;
         var dest = {};
-        if(window.getComputedStyle){
-            var camelize = function(a,b){
+        if (window.getComputedStyle) {
+            var camelize = function (a, b) {
                 return b.toUpperCase();
             };
             style = window.getComputedStyle(dom, null);
-            for(var i = 0, l = style.length; i < l; i++){
+            for (var i = 0, l = style.length; i < l; i++) {
                 var prop = style[i];
                 var camel = prop.replace(/\-([a-z])/g, camelize);
                 var val = style.getPropertyValue(prop);
                 dest[camel] = val;
-            };
+            }
+            ;
             return this.css(dest);
-        };
-        if(style = dom.currentStyle){
-            for(var prop in style){
+        }
+        ;
+        if (style = dom.currentStyle) {
+            for (var prop in style) {
                 dest[prop] = style[prop];
-            };
+            }
+            ;
             return this.css(dest);
-        };
-        if(style = dom.style){
-            for(var prop in style){
-                if(typeof style[prop] != 'function'){
+        }
+        ;
+        if (style = dom.style) {
+            for (var prop in style) {
+                if (typeof style[prop] != 'function') {
                     dest[prop] = style[prop];
-                };
-            };
-        };
+                }
+                ;
+            }
+            ;
+        }
+        ;
         return this.css(dest);
     };
 
-    var realStyle = function(_elem, _style) {
+    var realStyle = function (_elem, _style) {
         var computedStyle;
-        if ( typeof _elem.currentStyle != 'undefined' ) {
+        if (typeof _elem.currentStyle != 'undefined') {
             computedStyle = _elem.currentStyle;
         } else {
             computedStyle = document.defaultView.getComputedStyle(_elem, null);
@@ -56,118 +63,111 @@
         return _style ? computedStyle[_style] : computedStyle;
     };
 
-    var copyComputedStyle = function(src, dest) {
+    var copyComputedStyle = function (src, dest) {
         var s = realStyle(src);
         dest.style = new Array();
-        for ( var i in s ) {// Do not use `hasOwnProperty`, nothing will get copied
-            if ( typeof i == "string" && i != "cssText" && !/\d/.test(i) ) {// The try is for setter only properties
+        for (var i in s) {// Do not use `hasOwnProperty`, nothing will get copied
+            if (typeof i == "string" && i != "cssText" && !/\d/.test(i)) {// The try is for setter only properties
                 try {
                     dest.style[i] = s[i];
                     // `fontSize` comes before `font` If `font` is empty, `fontSize` gets
                     // overwritten.  So make sure to reset this property. (hackyhackhack)
                     // Other properties may need similar treatment
-                    if ( i == "font" ) {
+                    if (i == "font") {
                         dest.style.fontSize = s.fontSize;
                     }
-                } catch (e) {}
+                } catch (e) {
+                }
             }
         }
     };
 
     function getJsonFields(driverid) {
         $.ajax({
-           url:'<?php echo $this->request->webroot;?>clientApplication/getJsonFields/'+driverid,
-           success:function(res)
-           {
-            res = JSON.parse(res);
-            $('#tab0 input,#tab0 textarea').each(function(){
-                
-                if($(this).attr('name'))
-                if(res[$(this).attr('name').replace('[]','')])
-                {
-                    <?php if($this->request->action!='add' && $this->request->action!='apply'){?>if($(this).val() == '')<?php }?>
-                    $(this).val(res[$(this).attr('name').replace('[]','')]);
-                }
-             });
-           } 
+            url: '<?php echo $this->request->webroot;?>clientApplication/getJsonFields/' + driverid,
+            success: function (res) {
+                res = JSON.parse(res);
+                $('#tab0 input,#tab0 textarea').each(function () {
+
+                    if ($(this).attr('name'))
+                        if (res[$(this).attr('name').replace('[]', '')]) {
+                            <?php if($this->request->action!='add' && $this->request->action!='apply'){?>if ($(this).val() == '')<?php }?>
+                                $(this).val(res[$(this).attr('name').replace('[]', '')]);
+                        }
+                });
+            }
         });
     }
 
-    function getJsonPrevious(driverid,sub_id) {
+    function getJsonPrevious(driverid, sub_id) {
         $.ajax({
-           url:'<?php echo $this->request->webroot;?>clientApplication/getJsonPrevious/'+driverid+'/'+sub_id,
-           success:function(res)
-           {
-            if(res){
-            
-            res = JSON.parse(res);
-           
-             $('.subform_'+sub_id+' input:not([type=image],[type=button],[type=submit],[type=checkbox],[type=radio]),.subform_'+sub_id+' textarea').each(function(){
-          
-                if(res[$(this).attr('name').replace('[]','')])
-                {
-                    <?php if($this->request->action!='add'){?>if($(this).val() == '')<?php }?>
-                    $(this).val(res[$(this).attr('name').replace('[]','')]);
-                }
-             });
-             $('.subform_'+sub_id+' select').each(function(){
-                
-                if(res[$(this).attr('name').replace('[]','')])
-                {
-                    $this = $(this);
-                    if($this.val() == ''){
-                    $this.find('option').each(function(){
-                        
-                       if($(this).attr('value') == res[$this.attr('name').replace('[]','')]) 
-                       {
-                        $(this).attr('selected','selected');
-                       }
+            url: '<?php echo $this->request->webroot;?>clientApplication/getJsonPrevious/' + driverid + '/' + sub_id,
+            success: function (res) {
+                if (res) {
+
+                    res = JSON.parse(res);
+
+                    $('.subform_' + sub_id + ' input:not([type=image],[type=button],[type=submit],[type=checkbox],[type=radio]),.subform_' + sub_id + ' textarea').each(function () {
+
+                        if (res[$(this).attr('name').replace('[]', '')]) {
+                            <?php if($this->request->action!='add'){?>if ($(this).val() == '')<?php }?>
+                                $(this).val(res[$(this).attr('name').replace('[]', '')]);
+                        }
                     });
-                    }
-                    
-                }
-             });
-             
-             $('.subform_'+sub_id+' radio').each(function(){
-                
-                if(res[$(this).attr('name').replace('[]','')])
-                {
-                   
-                    if($(this).val() == res[$(this).attr('name').replace('[]','')]){
-                    $(this).attr('checked','checked');
-                    }
-                    
-                }
-             });
-             
-             $('.subform_'+sub_id+' checkbox').each(function(){
-                
-                if(res[$(this).attr('name').replace('[]','')])
-                {
-                   
-                    if($(this).val() == res[$(this).attr('name').replace('[]','')]){
-                    $(this).attr('checked','checked');
-                    }
-                    
-                }
-             });
-             } else {
+                    $('.subform_' + sub_id + ' select').each(function () {
+
+                        if (res[$(this).attr('name').replace('[]', '')]) {
+                            $this = $(this);
+                            if ($this.val() == '') {
+                                $this.find('option').each(function () {
+
+                                    if ($(this).attr('value') == res[$this.attr('name').replace('[]', '')]) {
+                                        $(this).attr('selected', 'selected');
+                                    }
+                                });
+                            }
+
+                        }
+                    });
+
+                    $('.subform_' + sub_id + ' radio').each(function () {
+
+                        if (res[$(this).attr('name').replace('[]', '')]) {
+
+                            if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                                $(this).attr('checked', 'checked');
+                            }
+
+                        }
+                    });
+
+                    $('.subform_' + sub_id + ' checkbox').each(function () {
+
+                        if (res[$(this).attr('name').replace('[]', '')]) {
+
+                            if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                                $(this).attr('checked', 'checked');
+                            }
+
+                        }
+                    });
+                } else {
                     getJsonFields(driverid);
-             }
-           } 
+                }
+            }
         });
     }
-$(function(){
-    <?php
-    if($this->request->params['action'] == 'addorder')  {
-        if(isset($arr_sd) && $arr_sd){
-            foreach($arr_sd as $asd){
-                  ?>
-                  getJsonPrevious(profile_id,<?php echo $asd;?>); //Need to have a parent class subform_[sub_id] in parent div of particular form
-                  <?php
-            }
-        }
-        ?>
+    $(function () {
+        <?php
+        if($this->request->params['action'] == 'addorder')  {
+            if(isset($arr_sd) && $arr_sd){
+                foreach($arr_sd as $asd){
+                      ?>
+        getJsonPrevious(profile_id, <?php echo $asd;?>); //Need to have a parent class subform_[sub_id] in parent div of particular form
+        <?php
+  }
+}
+?>
         getJsonFields('<?php echo $_GET['driver']?>');
         <?php
     }
@@ -175,595 +175,622 @@ $(function(){
     if($this->request->params['action']=='vieworder'){
         
         ?>
-        $('#tab0 a:not(.forview)').each(function(){
-           $(this).hide(); 
+        $('#tab0 a:not(.forview)').each(function () {
+            $(this).hide();
         });
-        $('#tab0 .nohide').each(function(){
-           $(this).show(); 
+        $('#tab0 .nohide').each(function () {
+            $(this).show();
         });
-        $('input').each(function(){
-           $(this).attr('disabled','disabled'); 
+        $('input').each(function () {
+            $(this).attr('disabled', 'disabled');
         });
-        $('select').each(function(){
-           $(this).attr('disabled','disabled'); 
+        $('select').each(function () {
+            $(this).attr('disabled', 'disabled');
         });
-        $('textarea').each(function(){
-           $(this).attr('disabled','disabled'); 
+        $('textarea').each(function () {
+            $(this).attr('disabled', 'disabled');
         });
         <?php
     } 
     ?>
-    var did = '<?php if(isset($did))echo $did;else echo '0';?>';
-    var checker = 0;
-    
-   function save_driver(par,webroot) {
-        <?php if($this->request->controller == 'ClientApplication'){?>
-            var driver_id = $('#user_id').val();
-        <?php }else {?>
-            var driver_id = '';
-        <?php }?>
-        $('.overlay-wrapper').show();
-       var fields = par.find('input').serialize();
-        var fields = fields+'&'+par.find('select').serialize()+'&driver_id='+driver_id;
-         $.ajax({
-            url:webroot+'clientApplication/saveDriver/<?php if(isset($_GET['driver']))echo $_GET['driver'];?>',
-            data:fields,
-            type:'post',
-            success:function(res){
-                //console.log(responseText);
-               
-                $('#user_id').val(res);
-                getJsonFields(res);
-                $('.counter').text(Number($('.counter').text())+1);
-                $('.overlay-wrapper').hide();
-                
-                
-            }
-        });
-    
-    }
- 
-   $('.notonclient').each(function(){
-    $(this).removeClass('required');
-   })
-    $(".datepicker").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '1970:2030',
-        dateFormat: 'mm/dd/yy'
-    });
+        var did = '<?php if(isset($did))echo $did;else echo '0';?>';
+        var checker = 0;
 
-    $('.links a:nth-child(5), .links p').css({'display':'none'});
-   $('.steps input').change(function(){
-    $(this).parent().find('.error').html('');
-   }); 
-   $('.buttonprev').click(function(){
-        var par = $(this).closest('.steps');
-        var draft = 0;
-        checker = 0;
-        var ch = '';
-        var doc_id = par.find('.sub_docs_id').val();
-        var sid = doc_id;
-        
-        par.hide();
+        function save_driver(par, webroot) {
+            <?php if($this->request->controller == 'ClientApplication'){?>
+            var driver_id = $('#user_id').val();
+            <?php }else {?>
+            var driver_id = '';
+            <?php }?>
+            $('.overlay-wrapper').show();
+            var fields = par.find('input').serialize();
+            var fields = fields + '&' + par.find('select').serialize() + '&driver_id=' + driver_id;
+            $.ajax({
+                url: webroot + 'clientApplication/saveDriver/<?php if(isset($_GET['driver']))echo $_GET['driver'];?>',
+                data: fields,
+                type: 'post',
+                success: function (res) {
+                    //console.log(responseText);
+
+                    $('#user_id').val(res);
+                    getJsonFields(res);
+                    $('.counter').text(Number($('.counter').text()) + 1);
+                    $('.overlay-wrapper').hide();
+
+
+                }
+            });
+
+        }
+
+        $('.notonclient').each(function () {
+            $(this).removeClass('required');
+        })
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1970:2030',
+            dateFormat: 'yy-mm-dd'
+        });
+
+        $('.links a:nth-child(5), .links p').css({'display': 'none'});
+        $('.steps input').change(function () {
+            $(this).parent().find('.error').html('');
+        });
+        $('.buttonprev').click(function () {
+            var par = $(this).closest('.steps');
+            var draft = 0;
+            checker = 0;
+            var ch = '';
+            var doc_id = par.find('.sub_docs_id').val();
+            var sid = doc_id;
+
+            par.hide();
             par.removeClass('active');
-            var id = par.find('.buttonprev').attr('id').replace('buttonprev','');
+            var id = par.find('.buttonprev').attr('id').replace('buttonprev', '');
             var type = par.find('input[name="document_type"]').val();
             var cl = par.find('.sub_docs_id').val();
-            
-                  id = parseInt(id);
-            $('#step'+id).show();
-            $('#step'+id).addClass('active');
+
+            id = parseInt(id);
+            $('#step' + id).show();
+            $('#step' + id).addClass('active');
             <?php
             if($this->request->params['action']=='apply')
             {
                 ?>
-                $('.counter').text(Number($('.counter').text())-1);
-                <?php
-            }
-            ?>
-            
-   });
-   $('.buttons').click(function(){
-    var par = $(this).closest('.steps');
-    <?php
-        if($this->request->params['action'] == 'vieworder'){
-            ?>
-            
-                par.hide();
-                
-                par.removeClass('active');
-                var id = par.find('.buttons').attr('id').replace('button','');
-                id = parseInt(id)+1;
-                $('#step'+id).show();
-                $('#step'+id).addClass('active');
-                    
-                
+            $('.counter').text(Number($('.counter').text()) - 1);
+            <?php
+        }
+        ?>
+
+        });
+        $('.buttons').click(function () {
+            var par = $(this).closest('.steps');
+            <?php
+                if($this->request->params['action'] == 'vieworder'){
+                    ?>
+
+            par.hide();
+
+            par.removeClass('active');
+            var id = par.find('.buttons').attr('id').replace('button', '');
+            id = parseInt(id) + 1;
+            $('#step' + id).show();
+            $('#step' + id).addClass('active');
+
+
             <?php
             }
             else
             {
        ?>
-        
-        var draft = 1;
-        
-        var redir = 0;
-        if($(this).attr('id').replace('save','') != $(this).attr('id')){
-        if($('#step5 .touched').val() == '1')
-        {
-            save_signature('1');
-        }    
-        draft = 0;
-        redir = 1;
-        }
-        else{
-        draft = 1;
-        if($(this).attr('id').replace('draft','') != $(this).attr('id'))
-        redir=1;
-        }
-        <?php if($this->request->controller=='Documents'){?>
-        if ($(this).attr('title') == 'draft') {
-            draft = 1;
-        } else {
-            draft = 0;
-        }
 
-        <?php }?>
-         <?php if($this->request->controller=='ClientApplication'){?>
-            did = 0;
-            draft=0;
-        <?php }?>
+            var draft = 1;
 
-        checker = 0;
-        var ch = '';
-        var doc_id = par.find('.sub_docs_id').val();
-        var sid = doc_id;
-        var isvalid = checkalltags("tab0");
-        
-        if(!isvalid)
-        {
-            return false;
-        }
-        else
-        {
-            if(doc_id == 18) {
-                if (par.find('#sig8 .touched').val() != '1' && par.find('#sig8 .touched_edit8').val() != '1') {
-                    par.find('#sig8').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    //alert(giveSIG);
-                    $('html,body').animate({
-                            scrollTop: $('#sig8').offset().top},
-                        'slow');
-                    $(this).removeAttr('disabled');
-                    $('.overlay-wrapper').hide();
-                    return false;
+            var redir = 0;
+            if ($(this).attr('id').replace('save', '') != $(this).attr('id')) {
+                if ($('#step5 .touched').val() == '1') {
+                    save_signature('1');
                 }
+                draft = 0;
+                redir = 1;
             }
-            if(doc_id == 4)
+            else {
+                draft = 1;
+                if ($(this).attr('id').replace('draft', '') != $(this).attr('id'))
+                    redir = 1;
+            }
+            <?php if($this->request->controller=='Documents'){?>
+            if ($(this).attr('title') == 'draft') {
+                draft = 1;
+            } else {
+                draft = 0;
+            }
+
+            <?php }?>
+            <?php if($this->request->controller=='ClientApplication'){?>
+            did = 0;
+            draft = 0;
+            <?php }?>
+
+            checker = 0;
+            var ch = '';
+            var doc_id = par.find('.sub_docs_id').val();
+            var sid = doc_id;
+            var isvalid = false;
+            isvalid = checkalltags("tab0");
+            
+            if(sid == 'c1')
             {
-                var er = 0;
-                if($('#sig2 .touched').val()!='1' && $('#sig2 .touched_edit2').val()!='1') {
-                    par.find('#sig2').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig2').offset().top},
-                        'slow');
-                    er = 2;
-                }
-                else
-                if($('#sig4 .touched').val()!='1' && $('#sig4 .touched_edit4').val()!='1') {
-                    par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig4').offset().top},
-                        'slow');
-                    er = 2;
-                } else if($('#sig1 .touched').val()!='1' && $('#sig1 .touched_edit1').val()!='1') {
-                    par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig1').offset().top},
-                        'slow');
-                    er = 2;
-                } else if($('#sig3 .touched').val()!='1' && $('#sig3 .touched_edit3').val()!='1') {
-                    par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">'+giveSIG+'</span>');
-                    $('html,body').animate({
-                            scrollTop: $('#sig3').offset().top},
-                        'slow');
-                    er = 2;
-                }
                 
-                 if(er==2){
+                if ($('.conf .touched').val() == '0' && $('.conf .touched_edit').val() == '0'){
+                $('.pleaseprovide').show();
+                
+                $('html,body').animate({
+                        scrollTop: $('.pleaseprovide').offset().top
+                    },
+                    'slow');
+                    $('.overlay-wrapper').hide();
+                    isvalid = false;
+                    }
+            }
+            
+            
+            
+
+            if (!isvalid) {
+                return false;
+            }
+            else {
+                if (doc_id == 18) {
+                    if (par.find('#sig8 .touched').val() != '1' && par.find('#sig8 .touched_edit8').val() != '1') {
+                        par.find('#sig8').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
+                        //alert(giveSIG);
+                        $('html,body').animate({
+                                scrollTop: $('#sig8').offset().top
+                            },
+                            'slow');
+                        $(this).removeAttr('disabled');
                         $('.overlay-wrapper').hide();
                         return false;
                     }
-            }
+                }
+                if (doc_id == 4) {
+                    var er = 0;
+                    if ($('#sig2 .touched').val() != '1' && $('#sig2 .touched_edit2').val() != '1') {
+                        par.find('#sig2').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
+                        $('html,body').animate({
+                                scrollTop: $('#sig2').offset().top
+                            },
+                            'slow');
+                        er = 2;
+                    }
+                    else if ($('#sig4 .touched').val() != '1' && $('#sig4 .touched_edit4').val() != '1') {
+                        par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
+                        $('html,body').animate({
+                                scrollTop: $('#sig4').offset().top
+                            },
+                            'slow');
+                        er = 2;
+                    } else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1') {
+                        par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
+                        $('html,body').animate({
+                                scrollTop: $('#sig1').offset().top
+                            },
+                            'slow');
+                        er = 2;
+                    } else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1') {
+                        par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
+                        $('html,body').animate({
+                                scrollTop: $('#sig3').offset().top
+                            },
+                            'slow');
+                        er = 2;
+                    }
 
-            par.find(".required:not('label')").each(function(){
-            //alert($(this).attr('class'));
-            if($(this).val() == '')
-            {
-                checker = 1;
-                $(this).parent().find('.error').html('This field is required');
-                $(this).focus();
-                $('html,body').animate({ scrollTop: $(this).offset().top}, 'slow');
-                return false;
-                
-            }
-            else{
-                if($(this).attr('role')=='email' && $(this).val()!='')
-                {
-                    var em = $(this).val();
-                    if(em.replace('@','') == em || em.replace('.','') == em)
-                    {
-                        checker = 1;
-                        $(this).parent().find('.error').html('Invalid Email');
-                        $(this).focus();
-                        $('html,body').animate({ scrollTop: $(this).offset().top}, 'slow');
+                    if (er == 2) {
+                        $('.overlay-wrapper').hide();
                         return false;
                     }
                 }
-            }
-        });
-        
-       
-            if(checker == 0){
-                <?php if($this->request->controller!= "Documents"){?>
-                par.hide();
-                <?php }?>
-                par.removeClass('active');
-                var id = par.find('.buttons').attr('id').replace('button','');
-                var type = par.find('input[name="document_type"]').val();
-                var cl = par.find('.sub_docs_id').val();
-                if(type=='driver_form')
-                {
-                     save_driver(par,'<?php echo $this->request->webroot;?>');
-                      id = parseInt(id)+1;
-                $('#step'+id).show();
-                $('#step'+id).addClass('active');
-                    
-                }
-                else
-                {
-                    
-                   <?php if($this->request->controller=='Documents')
-                        {?>
-                          var uploaded_for1 = $('#selecting_driver').val();
-                          var user_id = '<?php echo $this->request->session()->read('Profile.id');?>';  
-                   <?php }else{?>
-                            var uploaded_for1 = $('#user_id').val();
-                            var user_id = uploaded_for1
-                    <?php }?> 
-                     var data = {
-                        uploaded_for: uploaded_for1,
-                        type: type,
-                        sub_doc_id: sid,
-                        user_id: user_id,
-                        <?php
-                        if($this->request->params['action']=='addorder')
-                        {
-                            ?>
+
+                par.find(".required:not('label')").each(function () {
+                    //alert($(this).attr('class'));
+                    if ($(this).val() == '') {
+                        checker = 1;
+                        $(this).parent().find('.error').html('This field is required');
+                        $(this).focus();
+                        $('html,body').animate({scrollTop: $(this).offset().top}, 'slow');
+                        return false;
+
+                    }
+                    else {
+                        if ($(this).attr('role') == 'email' && $(this).val() != '') {
+                            var em = $(this).val();
+                            if (em.replace('@', '') == em || em.replace('.', '') == em) {
+                                checker = 1;
+                                $(this).parent().find('.error').html('Invalid Email');
+                                $(this).focus();
+                                $('html,body').animate({scrollTop: $(this).offset().top}, 'slow');
+                                return false;
+                            }
+                        }
+                    }
+                });
+
+
+                if (checker == 0) {
+                    <?php if($this->request->controller!= "Documents"){?>
+                    par.hide();
+                    <?php }?>
+                    par.removeClass('active');
+                    var id = par.find('.buttons').attr('id').replace('button', '');
+                    var type = par.find('input[name="document_type"]').val();
+                    var cl = par.find('.sub_docs_id').val();
+                    if (type == 'driver_form') {
+                        save_driver(par, '<?php echo $this->request->webroot;?>');
+                        id = parseInt(id) + 1;
+                        $('#step' + id).show();
+                        $('#step' + id).addClass('active');
+
+                    }
+                    else {
+
+                        <?php if($this->request->controller=='Documents')
+                             {?>
+                        var uploaded_for1 = $('#selecting_driver').val();
+                        var user_id = '<?php echo $this->request->session()->read('Profile.id');?>';
+                        <?php }else{?>
+                        var uploaded_for1 = $('#user_id').val();
+                        var user_id = uploaded_for1
+                        <?php }?>
+                        var data = {
+                            uploaded_for: uploaded_for1,
+                            type: type,
+                            sub_doc_id: sid,
+                            user_id: user_id,
+                            <?php
+                            if($this->request->params['action']=='addorder')
+                            {
+                                ?>
                             division: $('#division').val()
                             <?php
                         }
                         ?>
-                        //division: $('#division').val(),
-                        //attach_doc: attach_docs
-                    };
-                    if(sid =='18')
-                    {
-                       $('.overlay-wrapper').show();
-                        if($('#sig8').find('.touched').val()=='1'){
-                           
-                            $.when(save_signature('8')).done(function(d1){
-                                $('#gfs_signature').val(d1);
-                                var order_id = did,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
-                                var param = $('#form_tab18').serialize();
-                                 $.ajax({
-                                    url: url,
-                                    data: param,
-                                    type: 'POST',
-                                    success: function (res) {
-                                         <?php if($this->request->controller=='Documents')
-                                        {?>
+                            //division: $('#division').val(),
+                            //attach_doc: attach_docs
+                        };
+                        if (sid == '18') {
+                            $('.overlay-wrapper').show();
+                            if ($('#sig8').find('.touched').val() == '1') {
+
+                                $.when(save_signature('8')).done(function (d1) {
+                                    $('#gfs_signature').val(d1);
+                                    var order_id = did,
+                                        cid = '<?php echo $cid;?>',
+                                        url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/' + cid + '/' + order_id + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id=' + user_id + '&uploaded_for=' + uploaded_for1;
+                                    var param = $('#form_tab18').serialize();
+                                    $.ajax({
+                                        url: url,
+                                        data: param,
+                                        type: 'POST',
+                                        success: function (res) {
+                                            <?php if($this->request->controller=='Documents')
+                                           {?>
                                             window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                     <?php }else{?>
-                                            $('.counter').text(Number($('.counter').text())+1);
+                                            <?php }else{?>
+                                            $('.counter').text(Number($('.counter').text()) + 1);
                                             $('.overlay-wrapper').hide();
-                                     <?php }?>
-                                     id = parseInt(id)+1;
-                                    $('#step'+id).show();
-                                    $('#step'+id).addClass('active');
-                                         }
-        
-        
-                                });
-                            });
-                           }
-                           else
-                           {
-                            
-                                var order_id = did,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/'+ cid +'/'+ order_id + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id='+user_id+'&uploaded_for='+uploaded_for1;
-                                var param = $('#form_tab18').serialize();
-                                 $.ajax({
-                                    url: url,
-                                    data: param,
-                                    type: 'POST',
-                                    success: function (res) {
-                                         <?php if($this->request->controller=='Documents')
-                                        {?>
-                                            window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                     <?php }else{?>
-                                            $('.counter').text(Number($('.counter').text())+1);
-                                            $('.overlay-wrapper').hide();
-                                     <?php }?>
-                                     id = parseInt(id)+1;
-                                    $('#step'+id).show();
-                                    $('#step'+id).addClass('active');
-                                         }
-        
-        
-                                });
-                           } 
-    
-                        }
-                    else
-                    $.ajax({
-                        //data:'uploaded_for='+$('#uploaded_for').val(),
-                        data: data,
-                        type: 'post',
-                        beforeSend: function(){$('.overlay-wrapper').show();},
-                        url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/'+did+'/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft+'&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
-                        success: function (res) {
-                            $('#did').val(res);
-                            did = res;
-                            
-                            if (sid == "1") {
-                                var forms = $(".tab-pane.active").prev('.tab-pane').find(':input'),
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/savePrescreening<?php if($this->request->params['action']!='addorder'){?>/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?><?php }?>',
-                                    order_id = res,
-                                    cid = '<?php echo $cid;?>';
-                                savePrescreen(url, order_id, cid, draft,redir);
-        
-                            } else if (sid == "2") {
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverApp/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
-                                savedDriverApp(url, order_id, cid,draft,redir);
-                            } else if (sid == "3") {
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
-                                savedDriverEvaluation(url, order_id, cid,draft,redir);
-                            } else if (sid == "4") {
-                                save_signature('3');
-                                save_signature('4');
-                                save_signature('5');
-                                save_signature('6');
-                                    var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> +'/?document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
-                                    setTimeout(function(){
-                                    savedMeeOrder(url, order_id, cid, type,draft,redir);}, 1000);
-                               
-        
-                            }
-                            else if (sid == "9") {
-        
-                                //alert(type);
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/saveEmployment/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?>+'/?user_id='+user_id + '&document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
-                                saveEmployment(url, order_id, cid, type,draft,redir);
-                            }
-                            else if (sid == "10") {
-        
-                                //alert(type);
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?>+'/?user_id='+user_id + '&document=' + type + '&draft=' + draft+'<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
-                                saveEducation(url, order_id, cid, type,draft,redir);
-                            }
-                            else if (sid == "6") {
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>feedbacks/add/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
-                                var param = $('#form_tab6').serialize()<?php if($this->request->params['action'] == 'addorder'){?>+'&order_id='+order_id<?php }?>;
-                                $.ajax({
-                                    url: url,
-                                    data: param,
-                                    type: 'POST',
-                                    <?php if($this->request->params['action']!='addorder'){?>
-                                    success: function (res) {
-                                        if (res == 'OK'){
-                                           <?php if($this->request->controller=='Documents')
-                                            {?>
-                                                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                         <?php }else{
-                                            
-                                            ?>
-                                                $('.counter').text(Number($('.counter').text())+1);
-                                                $('.overlay-wrapper').hide();
-                                         <?php }?>
-                                        }
-                                    }
-                                    <?php  }?>
-                                });
-        
-                            }
-                            else if (sid == "5") {
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>feedbacks/addsurvey/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
-                                var param = $('#form_tab5').serialize()<?php if($this->request->params['action'] == 'addorder'){?>+'&order_id='+order_id<?php }?>;
-                                $.ajax({
-                                    url: url,
-                                    data: param,
-                                    type: 'POST',
-                                    
-                                    success: function (res) {
-                                        if (res == 'OK'){
-                                           <?php if($this->request->controller=='Documents')
-                                            {?>
-                                                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                         <?php }else{?>
-                                                $('.counter').text(Number($('.counter').text())+1);
-                                                $('.overlay-wrapper').hide();
-                                         <?php }?>
-                                        }
-                                    }
-                                    
-                                });
-        
-                            }
-                            else if (sid == "7") {
-                                var act = $('#form_tab7').attr('action');
-        
-                                $('#form_tab7').attr('action', function (i, val) {
-                                    return val + '?draft=' + draft;
-                                });
-                                $('#form_tab7').submit();
-        
-        
-                            }
-                            else if (sid == "8") {
-                                var act = $('#form_tab8').attr('action');
-        
-                                $('#form_tab8').attr('action', function (i, val) {
-                                    return val + '?draft=' + draft;
-                                });
-        
-                                $('#form_tab8').submit();
-        
-        
-                            }
-                            else if(sid == '11')
-                            {
-                                var act = $('#form_tab11').attr('action');
-        
-                                $('#form_tab11').attr('action', function (i, val) {
-                                    return val + '?draft=' + draft;
-                                });
-        
-                                $('#form_tab11').submit();
-        
-                            }
-                            else if (sid == "15") {
-                                //alert('test');return;
-                                var order_id = res,
-                                    cid = '<?php echo $cid;?>',
-                                    url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?>+'&order_id=<?php echo $_GET['order_id'];?>'<?php }}else{?> + '?draft='+draft<?php }?>;
-                                var param = $('#form_tab15').serialize();
-                                $.ajax({
-                                    url: url,
-                                    data: param,
-                                    type: 'POST',
-                                    
-                                    success: function (res) {
-                                        <?php if($this->request->params['action']!='addorder'){?>
-                                        <?php if($this->request->controller=='Documents')
-                                            {?>
-                                                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                                         <?php }else{?>
-                                                $('.counter').text(Number($('.counter').text())+1);
-                                                $('.overlay-wrapper').hide();
-                                         <?php }?>
-                                          <?php }
-                                         else{
-                                            ?>
-                                            $('.counter').text(Number($('.counter').text())+1);
-                                            $('.overlay-wrapper').hide();
-                                            <?php
-                                         }
-                                         ?>
-                                         }
-                                        
-        
-        
-                                });
-        
-                            }
-                           
-                            else
-                            if(sid == 'c1'){
-                                save_recruiter_info(res);
-                            }
-                            else{
-                               <?php 
-                                 if(isset($doc))
-                                    foreach($doc as $dx)
-                                        {
-                                            if($dx->id >11)
+                                            <?php }
+                                            if($this->request->params['action'] == 'addorder')
                                             {
+                                                ?>
+                                                if (redir == 1) {
+                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                                                }
+                                                <?php
+                                            }
                                             ?>
-                                if(type == "<?php echo addslashes($dx->title);?>")
-                                {
-                                    var act = $('#form_tab<?php echo $dx->id;?>').attr('action');
-        
-                                    $('#form_tab<?php echo $dx->id;?>').attr('action', function (i, val) {
-                                        return val + '?draft=' + draft;
-                                    });
-        
-                                    $('#form_tab<?php echo $dx->id;?>').submit();
-                                }
-        
-                                <?php       }
+                                            id = parseInt(id) + 1;
+                                            $('#step' + id).show();
+                                            $('#step' + id).addClass('active');
                                         }
-                                ?>
-        
+
+
+                                    });
+                                });
                             }
-                             id = parseInt(id)+1;
-                $('#step'+id).show();
-                $('#step'+id).addClass('active');
+                            else {
+
+                                var order_id = did,
+                                    cid = '<?php echo $cid;?>',
+                                    url = '<?php echo $this->request->webroot;?>clientApplication/application_employment/' + cid + '/' + order_id + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>&user_id=' + user_id + '&uploaded_for=' + uploaded_for1;
+                                var param = $('#form_tab18').serialize();
+                                $.ajax({
+                                    url: url,
+                                    data: param,
+                                    type: 'POST',
+                                    success: function (res) {
+                                        <?php if($this->request->controller=='Documents')
+                                       {?>
+                                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                        <?php }else{?>
+                                        $('.counter').text(Number($('.counter').text()) + 1);
+                                        $('.overlay-wrapper').hide();
+                                        <?php }?>
+                                        id = parseInt(id) + 1;
+                                        $('#step' + id).show();
+                                        $('#step' + id).addClass('active');
+                                    }
+
+
+                                });
+                            }
+
                         }
-                    });
+                        else
+                            $.ajax({
+                                //data:'uploaded_for='+$('#uploaded_for').val(),
+                                data: data,
+                                type: 'post',
+                                beforeSend: function () {
+                                    $('.overlay-wrapper').show();
+                                    <?php if($this->request->params['action'] == 'addorder'){?>if ($('.conf .touched').val() == '1')save_signature('1');
+                                    <?php }?>
+                                },
+                                url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/' + did + '/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft + '&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
+                                success: function (res) {
+                                    $('#did').val(res);
+                                    did = res;
+
+                                    if (sid == "1") {
+                                        var forms = $(".tab-pane.active").prev('.tab-pane').find(':input'),
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/savePrescreening<?php if($this->request->params['action']!='addorder'){?>/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?><?php }?>',
+                                            order_id = res,
+                                            cid = '<?php echo $cid;?>';
+                                        savePrescreen(url, order_id, cid, draft, redir);
+
+                                    } else if (sid == "2") {
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverApp/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                        savedDriverApp(url, order_id, cid, draft, redir);
+                                    } else if (sid == "3") {
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                        savedDriverEvaluation(url, order_id, cid, draft, redir);
+                                    } else if (sid == "4") {
+                                        save_signature('3');
+                                        save_signature('4');
+                                        save_signature('5');
+                                        save_signature('6');
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
+                                        setTimeout(function () {
+                                            savedMeeOrder(url, order_id, cid, type, draft, redir);
+                                        }, 1000);
+
+
+                                    }
+                                    else if (sid == "9") {
+
+                                        //alert(type);
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/saveEmployment/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?user_id=' + user_id + '&document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                        saveEmployment(url, order_id, cid, type, draft, redir);
+                                    }
+                                    else if (sid == "10") {
+
+                                        //alert(type);
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/saveEducation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?user_id=' + user_id + '&document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
+                                        saveEducation(url, order_id, cid, type, draft, redir);
+                                    }
+                                    else if (sid == "6") {
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>feedbacks/add/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
+                                        var param = $('#form_tab6').serialize()<?php if($this->request->params['action'] == 'addorder'){?> + '&order_id=' + order_id<?php }?>;
+                                        $.ajax({
+                                            url: url,
+                                            data: param,
+                                            type: 'POST',
+                                            <?php if($this->request->params['action']!='addorder'){?>
+                                            success: function (res) {
+                                                if (res == 'OK') {
+                                                    <?php if($this->request->controller=='Documents')
+                                                     {?>
+                                                    window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                                    <?php }else{
+
+                                                       ?>
+                                                    $('.counter').text(Number($('.counter').text()) + 1);
+                                                    $('.overlay-wrapper').hide();
+                                                    <?php }?>
+                                                }
+                                            }
+                                            <?php  }?>
+                                        });
+
+                                    }
+                                    else if (sid == "5") {
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>feedbacks/addsurvey/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php }?>;
+                                        var param = $('#form_tab5').serialize()<?php if($this->request->params['action'] == 'addorder'){?> + '&order_id=' + order_id<?php }?>;
+                                        $.ajax({
+                                            url: url,
+                                            data: param,
+                                            type: 'POST',
+
+                                            success: function (res) {
+                                                if (res == 'OK') {
+                                                    <?php if($this->request->controller=='Documents')
+                                                     {?>
+                                                    window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                                    <?php }else{?>
+                                                    $('.counter').text(Number($('.counter').text()) + 1);
+                                                    $('.overlay-wrapper').hide();
+                                                    <?php }?>
+                                                }
+                                            }
+
+                                        });
+
+                                    }
+                                    else if (sid == "7") {
+                                        var act = $('#form_tab7').attr('action');
+
+                                        $('#form_tab7').attr('action', function (i, val) {
+                                            return val + '?draft=' + draft;
+                                        });
+                                        $('#form_tab7').submit();
+
+
+                                    }
+                                    else if (sid == "8") {
+                                        var act = $('#form_tab8').attr('action');
+
+                                        $('#form_tab8').attr('action', function (i, val) {
+                                            return val + '?draft=' + draft;
+                                        });
+
+                                        $('#form_tab8').submit();
+
+
+                                    }
+                                    else if (sid == '11') {
+                                        var act = $('#form_tab11').attr('action');
+
+                                        $('#form_tab11').attr('action', function (i, val) {
+                                            return val + '?draft=' + draft;
+                                        });
+
+                                        $('#form_tab11').submit();
+
+                                    }
+                                    else if (sid == "15") {
+                                        //alert('test');return;
+                                        var order_id = res,
+                                            cid = '<?php echo $cid;?>',
+                                            url = '<?php echo $this->request->webroot;?>clientApplication/mee_attach/' + order_id + '/' + cid<?php if($this->request->params['action'] != 'addorder'){?> + '/?document=' + type + '&draft=' + draft<?php if(isset($_GET['order_id'])){?> + '&order_id=<?php echo $_GET['order_id'];?>'<?php }}else{?> + '?draft=' + draft<?php }?>;
+                                        var param = $('#form_tab15').serialize();
+                                        $.ajax({
+                                            url: url,
+                                            data: param,
+                                            type: 'POST',
+
+                                            success: function (res) {
+                                                <?php if($this->request->params['action']!='addorder'){?>
+                                                <?php if($this->request->controller=='Documents')
+                                                    {?>
+                                                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                                                <?php }else{
+                                                    
+                                                    ?>
+                                                $('.counter').text(Number($('.counter').text()) + 1);
+                                                $('.overlay-wrapper').hide();
+                                                <?php }?>
+                                                <?php }
+                                               else{
+                                                
+                                                  ?>
+                                                  if (redir == 1) {
+                                                        window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                                                    }
+                                                $('.counter').text(Number($('.counter').text()) + 1);
+                                                $('.overlay-wrapper').hide();
+                                                <?php
+                                             }
+                                             ?>
+                                            }
+
+
+                                        });
+
+                                    }
+
+                                    else if (sid == 'c1') {
+                                        // if(save_signature('1')){
+                                        save_recruiter_info(res);
+                                    }
+                                    else {
+                                        <?php
+                                          if(isset($doc))
+                                             foreach($doc as $dx)
+                                                 {
+                                                     if($dx->id >11)
+                                                     {
+                                                     ?>
+                                        if (type == "<?php echo addslashes($dx->title);?>") {
+                                            var act = $('#form_tab<?php echo $dx->id;?>').attr('action');
+
+                                            $('#form_tab<?php echo $dx->id;?>').attr('action', function (i, val) {
+                                                return val + '?draft=' + draft;
+                                            });
+
+                                            $('#form_tab<?php echo $dx->id;?>').submit();
+                                        }
+
+                                        <?php       }
+                                                }
+                                        ?>
+
+                                    }
+                                    id = parseInt(id) + 1;
+                                    $('#step' + id).show();
+                                    $('#step' + id).addClass('active');
+                                }
+                            });
+                    }
+
+
                 }
-               
-               
-                
             }
-        }
-        <?php }?>
-   });
-    
-});
+            <?php }?>
+        });
+
+    });
     function save_signature(numb) {
         var d = $.Deferred();
-        $("#test"+numb).data("jqScribble").save(function(imageData)
-        {
+        $("#test" + numb).data("jqScribble").save(function (imageData) {
             //alert($('#signature_company_witness2').parent().find('.touched').val());
             //if((numb=='1' && $('#recruiter_signature').parent().find('.touched').val()==1) || (numb=='3' && $('#criminal_signature_applicant').parent().find('.touched').val()==1) || (numb=='4' && $('#signature_company_witness').parent().find('.touched').val()==1) || (numb=='5' && $('#criminal_signature_applicant2').parent().find('.touched').val()==1) || (numb=='6' && $('#signature_company_witness2').parent().find('.touched').val()==1) || (numb=='8' && $('#gfs_signature').parent().find('.touched').val()==1)){
-                $.post('<?php echo $this->request->webroot; ?>canvas/image_save.php', {imagedata: imageData}, function(response) {
-                    d.resolve(response);
-                    if(numb=='1') {
-                        $('#recruiter_signature').val(response);
-                    }
-                    if(numb=='3') {
-                        $('#criminal_signature_applicant').val(response);
-                    }
-                    if(numb=='4') {
-                        $('#signature_company_witness').val(response);
-                    }
-                    if(numb=='5') {
-                        $('#criminal_signature_applicant2').val(response);
-                    }
-                    if(numb=='6') {
-                        $('#signature_company_witness2').val(response);
-                    }
-                    if(numb=='8') {
-                        $('#gfs_signature').val(response);
-                        
-                    }
-                    $('.saved'+numb).html('Saved');
-                });
-            //}
+            $.post('<?php echo $this->request->webroot; ?>canvas/image_save.php', {imagedata: imageData}, function (response) {
+                d.resolve(response);
+                if (numb == '1') {
+                    $('#recruiter_signature').val(response);
 
+                }
+                if (numb == '3') {
+                    $('#criminal_signature_applicant').val(response);
+                }
+                if (numb == '4') {
+                    $('#signature_company_witness').val(response);
+                }
+                if (numb == '5') {
+                    $('#criminal_signature_applicant2').val(response);
+                }
+                if (numb == '6') {
+                    $('#signature_company_witness2').val(response);
+                }
+                if (numb == '8') {
+                    $('#gfs_signature').val(response);
+
+                }
+                $('.saved' + numb).html('Saved');
+            });
+            //}
 
 
         });
         return d.promise();
     }
-function savePrescreen(url, order_id, cid,draft,redir) {
+    function savePrescreen(url, order_id, cid, draft, redir) {
 
         inputs = $('#form_tab1').serialize();
 
@@ -780,20 +807,20 @@ function savePrescreen(url, order_id, cid,draft,redir) {
             data: param,
             type: 'POST',
             success: function (res) {
-                 <?php if($this->request->controller=='Documents')
-                    {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{?>
-                
-                        $('.counter').text(Number($('.counter').text())+1);
-                        $('.overlay-wrapper').hide();
-                 <?php }?>
-                    
+                <?php if($this->request->controller=='Documents')
+                   {?>
+                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                <?php }else{?>
+
+                $('.counter').text(Number($('.counter').text()) + 1);
+                $('.overlay-wrapper').hide();
+                <?php }?>
+
             }
         });
     }
 
-    function savedDriverApp(url, order_id, cid,draft,redir) {
+    function savedDriverApp(url, order_id, cid, draft, redir) {
         var param = $('#form_tab2').serialize();
         $('#form_tab2 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -804,17 +831,17 @@ function savePrescreen(url, order_id, cid,draft,redir) {
             data: param,
             type: 'POST',
             success: function (res) {
-               <?php if($this->request->controller=='Documents')
-                    {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{?>
-                 $('.counter').text(Number($('.counter').text())+1);
-                        $('.overlay-wrapper').hide();
-                 <?php }?>
+                <?php if($this->request->controller=='Documents')
+                     {?>
+                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                <?php }else{?>
+                $('.counter').text(Number($('.counter').text()) + 1);
+                $('.overlay-wrapper').hide();
+                <?php }?>
             }
         });
     }
-    function savedDriverEvaluation(url, order_id, cid,draft,redir) {
+    function savedDriverEvaluation(url, order_id, cid, draft, redir) {
         var param = $('#form_tab3').serialize();
         $('#form_tab3 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -826,54 +853,54 @@ function savePrescreen(url, order_id, cid,draft,redir) {
             success: function (res) {
                 <?php if($this->request->controller=='Documents')
                     {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{?>
-                        $('.counter').text(Number($('.counter').text())+1);
-                        $('.overlay-wrapper').hide();
-                 <?php }?>
+                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                <?php }else{?>
+                $('.counter').text(Number($('.counter').text()) + 1);
+                $('.overlay-wrapper').hide();
+                <?php }?>
             }
         });
     }
 
-    function savedMeeOrder(url, order_id, cid, type,draft,redir) {
+    function savedMeeOrder(url, order_id, cid, type, draft, redir) {
         var param = $('#form_consent').serialize();
         $('#form_consent :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
         });
-        
+
         $.ajax({
             url: url,
             data: param,
             type: 'POST',
             success: function (res) {
-                 <?php if($this->request->controller=='Documents')
-                    {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{
-                    if($this->request->params['action']=='addorder'){?>
-                        
-                        $.ajax({
-                                    url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
-                                    success:function()
-                                    {
-                                        $('.counter').text(Number($('.counter').text())+1);
-                                        $('.overlay-wrapper').hide();
-                                    }
-                                });
-                
-                
-                
-                
-                        <?php }else{?>
-                        $('.counter').text(Number($('.counter').text())+1);
+                <?php if($this->request->controller=='Documents')
+                   {?>
+                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                <?php }else{
+                   if($this->request->params['action']=='addorder'){?>
+
+                $.ajax({
+                    url: '<?php echo $this->request->webroot;?>orders/createPdf/' + $('#did').val(),
+                    success: function () {
+                        if (redir == 1) {
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                        }
+                        $('.counter').text(Number($('.counter').text()) + 1);
                         $('.overlay-wrapper').hide();
-                 <?php }
-                 }?>
+                    }
+                });
+
+
+                <?php }else{?>
+                $('.counter').text(Number($('.counter').text()) + 1);
+                $('.overlay-wrapper').hide();
+                <?php }
+                }?>
             }
         });
     }
 
-    function saveEmployment(url, order_id, cid, type,draft,redir) {
+    function saveEmployment(url, order_id, cid, type, draft, redir) {
 
         var fields = $('#form_employment').serialize();
         $(':disabled[name]', '#form_employment').each(function () {
@@ -885,34 +912,37 @@ function savePrescreen(url, order_id, cid,draft,redir) {
             data: param,
             type: 'POST',
             success: function (rea) {
-                 <?php if($this->request->controller=='Documents')
-                    {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{
-                    if($this->request->params['action'] == 'addorder')
-                    {
-                        ?>
-                        $.ajax({
-                            url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
-                            success: function () {
-                                 $('.counter').text(Number($('.counter').text())+1);
-                                 $('.overlay-wrapper').hide();
-                            }
-                        });
-                        <?php
-                    }
-                    else{
-                    ?>
-                    
-                     $('.counter').text(Number($('.counter').text())+1);
+                <?php if($this->request->controller=='Documents')
+                   {?>
+                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                <?php }else{
+                   if($this->request->params['action'] == 'addorder')
+                   {
+                       ?>
+                $.ajax({
+                    url: '<?php echo $this->request->webroot;?>orders/createPdfEmployment/' + $('#did').val(),
+                    success: function () {
+                        if (redir == 1) {
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                        }
+                        $('.counter').text(Number($('.counter').text()) + 1);
                         $('.overlay-wrapper').hide();
-                 <?php }}?>
-                
+                    }
+                });
+                <?php
+            }
+            else{
+            ?>
+
+                $('.counter').text(Number($('.counter').text()) + 1);
+                $('.overlay-wrapper').hide();
+                <?php }}?>
+
             }
         });
     }
 
-    function saveEducation(url, order_id, cid, type,draft,redir) {
+    function saveEducation(url, order_id, cid, type, draft, redir) {
         //alert('test2');
         //$('#loading5').show();
         var fields = $('#form_education').serialize();
@@ -925,34 +955,33 @@ function savePrescreen(url, order_id, cid,draft,redir) {
             data: param,
             type: 'POST',
             success: function (res) {
-                 <?php if($this->request->controller=='Documents')
-                    {?>
-                        window.location = '<?php echo $this->request->webroot?>documents/index?flash';
-                 <?php }else{
-                    if($this->request->params['action']=='addorder')
-                    {
-                        ?>
-                        $.ajax({
-                            url: '<?php echo $this->request->webroot;?>orders/createPdfEducation/' + $('#did').val(),
-                            success: function () {
-                                if(redir == 1 )
-                                {
-                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                                }
-                                 $('.counter').text(Number($('.counter').text())+1);
-                                $('.overlay-wrapper').hide();
-                            }
-                        });
-                        <?php
-                    }else{
-                    ?>
-                    $('.counter').text(Number($('.counter').text())+1);
+                <?php if($this->request->controller=='Documents')
+                   {?>
+                window.location = '<?php echo $this->request->webroot?>documents/index?flash';
+                <?php }else{
+                   if($this->request->params['action']=='addorder')
+                   {
+                       ?>
+                $.ajax({
+                    url: '<?php echo $this->request->webroot;?>orders/createPdfEducation/' + $('#did').val(),
+                    success: function () {
+                        if (redir == 1) {
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                        }
+                        $('.counter').text(Number($('.counter').text()) + 1);
                         $('.overlay-wrapper').hide();
-                 <?php }}?>
+                    }
+                });
+                <?php
+            }else{
+            ?>
+                $('.counter').text(Number($('.counter').text()) + 1);
+                $('.overlay-wrapper').hide();
+                <?php }}?>
             }
         });
     }
-function fileUpload(ID) {
+    function fileUpload(ID) {
         // e.preventDefault();
 
         var $type = $(".active").find("input[name='document_type']").val(),
@@ -994,9 +1023,8 @@ function fileUpload(ID) {
 
         });
     }
-    
-    function showforms(form_type)
-    {
+
+    function showforms(form_type) {
         //alert(form_type);
         if (form_type != "") {
             //$('.subform').load('<?php echo $this->request->webroot;?>documents/subpages/' + form_type);
@@ -1250,7 +1278,8 @@ function fileUpload(ID) {
                                         }
 
                                     });
-                                }}
+                                }
+                            }
                         });
                     }
 
@@ -1639,7 +1668,7 @@ function fileUpload(ID) {
                     if (res) {
 
                         $('#form_consent').find(':input').each(function () {
-                            if($(this).attr('class')!='touched' && $(this).attr('class')!='touched_edit3' && $(this).attr('class')!='touched_edit1' && $(this).attr('class')!='touched_edit2' && $(this).attr('class')!='touched_edit4'){
+                            if ($(this).attr('class') != 'touched' && $(this).attr('class') != 'touched_edit3' && $(this).attr('class') != 'touched_edit1' && $(this).attr('class') != 'touched_edit2' && $(this).attr('class') != 'touched_edit4') {
                                 var $name = $(this).attr('name');
 
                                 //alert(doc_id + " " + $name + " " + res[$name]);
@@ -1687,46 +1716,47 @@ function fileUpload(ID) {
         else
             $('.subform').html("");
     }
-    function save_recruiter_info(oid)
-    {
+
+
+    function save_recruiter_info(oid) {
         var data = {
-                       
-                        
-                            //division: $('#division').val(),
-                            conf_recruiter_name: $('#conf_recruiter_name').val(),
-                            conf_driver_name: $('#conf_driver_name').val(),
-                            conf_date: $('#conf_date').val(),
-                            recruiter_signature: $('#recruiter_signature').val(),
-                            
-                    };
-                    if($('#recruiter_signature').val() != ''){
-        $.ajax({
-            url:'<?php echo $this->request->webroot;?>orders/saveRecruiterInfo/'+oid,
-            data:data,
-            type:'post',
-            success:function(){
-                $.ajax({
-                    url: '<?php echo $this->request->webroot;?>orders/webservice/<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>/<?php if(isset($_GET['forms']))echo $_GET['forms']; ?>/' +  $('#user_id').val() +'/' +  $('#did').val(),
-                    success:function(msg){
+
+            //division: $('#division').val(),
+            conf_recruiter_name: $('#conf_recruiter_name').val(),
+            conf_driver_name: $('#conf_driver_name').val(),
+            conf_date: $('#conf_date').val(),
+            recruiter_signature: $('#recruiter_signature').val(),
+
+        };
+        if ($('#recruiter_signature').val() != '') {
+            $.ajax({
+                url: '<?php echo $this->request->webroot;?>orders/saveRecruiterInfo/' + oid,
+                data: data,
+                type: 'post',
+                success: function () {
+                    $.ajax({
+                        url: '<?php echo $this->request->webroot;?>orders/webservice/<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>/<?php if(isset($_GET['forms']))echo $_GET['forms']; ?>/' + $('#user_id').val() + '/' + $('#did').val(),
+                        success: function (msg) {
                             //alert("Order saved: " + msg);
-                     window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                    },
-                    error:function(){
-                        window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
-                    }
-                });
-                
-            }
-        });
+                              window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                        },
+                        error: function () {
+                              window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash';
+                        }
+                    });
+
+                }
+            });
         }
-        else{
+        else {
             $('.overlay-wrapper').hide();
             $('.confirmationbl').addClass('active');
             $('.confirmationbl').show();
             $('.pleaseprovide').show();
             $('html,body').animate({
-                            scrollTop: $('.pleaseprovide').offset().top},
-                        'slow');
+                    scrollTop: $('.pleaseprovide').offset().top
+                },
+                'slow');
         }
     }
 

@@ -177,7 +177,7 @@
     </ul>
     <?php
         if (isset($disabled)) { ?>
-            <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+            <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
         <?php } ?>
 </div>
 
@@ -208,7 +208,7 @@
                     <div class="form-group">
                     <label class="sr-only" for="exampleInputEmail22">Add/Edit Image</label>
                     <div class="input-icon">
-                    <a class="btn btn-xs  btn-success" href="javascript:void(0)" id="clientimg">
+                    <a class="btn btn-xs  btn-primary" href="javascript:void(0)" id="clientimg">
                     <i class="fa fa-image"></i>
                       Add/Edit Image
                     </a>

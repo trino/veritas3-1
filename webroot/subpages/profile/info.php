@@ -99,15 +99,7 @@ loadreasons($param, $strings, true);
 
                         <div class="row">
                             <input type="hidden" name="created_by" value="<?php echo $this->request->session()->read('Profile.id') ?>"/>
-                            <?php if(isset($p)){?>
-                            <div class="col-md-6 hired_date"  style='display:<?php if($p->is_hired=='0')echo "none";?>;' >
-                                <div class="form-group">
-                                    <label class="control-label"><?= $strings["forms_hireddate"]; ?>:</label>
-                                    <input type="text" name="hired_date" value="<?php if(isset($p))echo $p->hired_date;?>" disabled="disabled" class="form-control date_hired"/>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <?php }  ?>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label"><?= $strings["profiles_profiletype"]; ?>:</label>
@@ -498,7 +490,7 @@ loadreasons($param, $strings, true);
                             </div>
 
 
-                            <div class="col-md-4">
+                            <!--div class="col-md-4">
                                 <div class="form-group">
 
                                     <label class="control-label"><?= $strings["forms_gender"]; ?>: </label>
@@ -513,7 +505,7 @@ loadreasons($param, $strings, true);
                                         printoption($strings["forms_female"], $gender, "Female");
                                         ?></SELECT>
                                 </div>
-                            </div>
+                            </div-->
 
 
 
@@ -757,20 +749,11 @@ loadreasons($param, $strings, true);
                                 <div class=""
                                      id="subtab_2_4" style="padding: 10px;">
                                      
-                                     <label class="control-label">Assign to client: </label>
+                                     <label class="control-label"><?= $strings["profiles_assigntoclient"]; ?>:</label>
                         
-                                    <?php if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
-                                        //&& $this->request->session()->read("Profile.id")==$id
-                                        ?>
-                        
-                                        <!--
-                                        <div class="portlet box">
-                                            <div class="portlet-title" style="background: #CCC;">
-                                                <div class="caption">Assign to client</div>
-                                            </div>
-                                            <div class="portlet-body">
-                                            -->
-                                         <?php if($this->request->params['action']!='view'){
+                                    <?php
+                                        if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
+                                            if($this->request->params['action']!='view'){
                                             ?>
                                           
                                         <div class="input-group">
@@ -786,17 +769,27 @@ loadreasons($param, $strings, true);
                                             ?> style="border-top: 1px solid #e5e5e5;"<?php }?>>
                                             <table class="table" id="clientTable" style="border: 1px solid #e5e5e5;border-top:none;">
                                                 <?php
-                        
+                                                    $IsAdmin = $Manager->read("admin") || $Manager->read("super");
+
+                                                    $CheckID = $id;
+                                                    if(!$CheckID){
+                                                        $CheckID=$userID;
+                                                    }
                                                     $clients = $this->requestAction('/clients/getAllClient/');
                                                     $AssignedTo = array();
                                                     $clientcount=0;
                                                     foreach ($clients as $client) {
                                                         $pro_ids = explode(",", $client->profile_id);
-                                                        if (in_array($id, $pro_ids)){
+                                                        if (in_array($CheckID, $pro_ids)){
                                                             $AssignedTo[] = $client->id;
                                                             $clientcount++;
                                                         }
                                                     }
+
+                                                    if(!$id && count($AssignedTo)>1){
+                                                        $AssignedTo = array();
+                                                    }
+
                                                     $cidss = implode(",", $AssignedTo);
                                                     $count = 0;
                                                     if ($clients) {
@@ -820,7 +813,7 @@ loadreasons($param, $strings, true);
                                                                         class="addclientz" name="client_idss[]" <?php if ($isassigned) {
                                                                         echo "checked";
                                                                     } ?>  <?php echo $is_disabled;
-                                                                     if(!$isassigned && $clientcount >0 && !$profile->admin && !$profile->super){
+                                                                     if(!$isassigned && $clientcount >0 && !$IsAdmin){
                                                                          echo " disabled";
                                                                      }
                                                                     ?> />
@@ -913,7 +906,7 @@ loadreasons($param, $strings, true);
 
                                    <div class="form-group col-md-12">
 
-                                       <a href="javascript:void(0)" class="btn btn-info" id="addMoredoc">
+                                       <a href="javascript:void(0)" class="btn btn-primary" id="addMoredoc">
                                            Add More
                                        </a>
                                    </div>-->
@@ -927,7 +920,7 @@ loadreasons($param, $strings, true);
                                     </a>
                                     <?php }
                                     ?>
-                                    <!--button class="btn btn-info"
+                                    <!--button class="btn btn-primary"
                                             onclick="$('#profile_drafts').val('1'); $('#save_clientz').attr('novalidate','novalidate');$('#hiddensub').click();">
                                         Save As Draft
                                     </button-->
@@ -1291,6 +1284,24 @@ loadreasons($param, $strings, true);
 
                         $('#retype_password').removeAttr('required');
                         <?php if($canedit){ echo "$('.email_rec').show();"; } ?>
+
+
+                        $('input,textarea,select').each(function(){
+
+                
+                            var attr = $(this).attr('required');
+                            
+                            // For some browsers, `attr` is undefined; for others,
+                            // `attr` is false.  Check for both.
+                            if (typeof attr !== typeof undefined && attr !== false) {
+                                $(this).parent().find('label').addClass('required');
+                            }
+                            else
+                            {
+                                $(this).parent().find('label').removeClass('required');
+                            }
+                            
+                        });
 
                                     });
 

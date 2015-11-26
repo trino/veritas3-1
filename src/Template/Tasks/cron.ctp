@@ -16,7 +16,7 @@
     }
 
     function profiletypes($ProfileTypes, $Name, $Type){
-        echo '<SELECT NAME="' . $Name . '">';
+        echo '<SELECT class="profile_types" NAME="' . $Name . '">';
         foreach($ProfileTypes as $ProfileType){
             echo '<OPTION VALUE="' . $ProfileType->id . '"';
             if ($Type==$ProfileType->id){ echo ' SELECTED';}
@@ -92,24 +92,15 @@
     CRON
 </h3>
 <div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="<?= $this->request->webroot . '">' . $strings["dashboard_dashboard"] ?></a>
-						<i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="">CRON</a>
-        </li>
-    </ul>
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
-    <a class="floatright btn btn-warning btnspc" href="<?= $this->request->webroot; ?>profiles/cron/true">Run the CRON </a>
+    
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
+    <a class="floatright btn btn-primary btnspc" href="<?= $this->request->webroot; ?>profiles/cron/true">Run the CRON </a>
     <?php if($Showname){
-        echo '<a class="floatright btn btn-danger btnspc" href="' . $this->request->webroot . 'tasks/cron">Go Back</a>';
+        echo '<a class="floatright btn btn-primary btnspc" href="' . $this->request->webroot . 'tasks/cron">Go Back</a>';
     } ?>
 </div>
 
-<FORM METHOD="post">
+<FORM METHOD="post" action="<?php echo $this->request->webroot;?>tasks/cron">
     <div class="row">
         <div class="col-md-12">
             <div class="portlet box grey-salsa">
@@ -155,13 +146,27 @@
                                             echo '<TD><INPUT TYPE="checkbox" name="requalify[' . $Client->id . ']" value="1" ONCHANGE="change();"';
                                             if($Client->requalify){echo ' CHECKED';}
                                             echo ' STYLE="width: 100%;"></TD>';
+                                            //echo "<td>".$Client->requalify_frequency."</td>";
                                             echo '<TD><SELECT ID="freq' . $Client->id . '" NAME="requalify_frequency[' . $Client->id . ']" STYLE="width: 100%;">';
+                                            
                                             foreach($Frequencies as $Frequency => $Date){
                                                 echo '<OPTION VALUE="' . $Frequency . '"';
-                                                if ($Frequency==$Client->requalify_frequency){ echo ' SELECTED';}
+                                                if ($Frequency == $Client->requalify_frequency){ echo ' SELECTED';}
                                                 echo '>' . $Frequency .  pluralize($Frequency, ' Month') . '</OPTION>';
                                             }
-                                            echo '</SELECT></TD><TD><LABEL><INPUT TYPE="CHECKBOX" value="1" id="check_when' . $Client->id . '" ONCLICK="when(' . $Client->id . ');" NAME="requalify_re[' . $Client->id . ']"';
+                                            echo '</SELECT></TD>';
+                                            ?>
+                                            <td><input type="radio" name="requalify_re[<?php echo $Client->id;?>]" value="1" <?php if($Client->requalify_re){ echo " CHECKED";}?> onclick="$('#span_when<?php echo $Client->id;?>').hide();"/>Hired Date OR 
+                                                <input type="radio" name="requalify_re[<?php echo $Client->id;?>]"<?php if($Client->requalify_re=='0'){ echo " CHECKED";}?> id="check_when<?php echo $Client->id;?>" onclick="$('#span_when<?php echo $Client->id;?>').show();" value="0" />Anniversary
+                                                <span id="span_when<?php echo $Client->id;?>" style="<?php if($Client->requalify_re){ echo ' display: none;';}?>">
+                                                    <br /><input type="text" name="requalify_date[<?php echo $Client->id;?>]" ID="text_when<?php echo $Client->id;?>"
+                                                    class="datepicker date-picker" value="<?php echo $Client->requalify_date;?>"  STYLE="width: 90%;">
+                                                </span>
+                                            <td>
+                                            <?php
+                                           /*
+                                            echo
+                                              '<TD><LABEL><INPUT TYPE="radio" value="1" id="check_when' . $Client->id . '" ONCLICK="when(' . $Client->id . ');" NAME="requalify_re[' . $Client->id . ']"';
                                                 echo ' TITLE="Click to toggle between the anniversary of their hired date or specify a date yourself"';
                                                 if($Client->requalify_re){ echo " CHECKED";}
                                                 echo '>&nbsp;<SPAN ID="span_when' . $Client->id . '"';
@@ -170,12 +175,12 @@
                                                 echo '>Anniversary</SPAN></LABEL><INPUT TYPE="TEXT" NAME="requalify_date[' . $Client->id . ']" ID="text_when' . $Client->id;
                                                 echo '" class="datepicker date-picker" value="' .  $Client->requalify_date . '" ONCHANGE="change();" STYLE="width: 90%;';
                                                 if($Client->requalify_re){ echo ' display: none;';}
-                                            echo '"></TD><TD>';
+                                            echo '"></TD><TD>';*/
                                             printproducts($Client->id, $Client->requalify_product, $products, array(1, 14, 72), $language);
                                             echo '</TD><TD align="RIGHT">';
                                             $Count = iterator_count($Users);
                                             if($Count) {
-                                                echo '<A HREF="?clientid=' . $Client->id . '">' . $Count . '/' . count(explode(",", $Client->profile_id)) . '</A>';
+                                                echo '<A HREF="?clientid=' . $Client->id . '&all_cron">' . $Count . '/' . count(explode(",", $Client->profile_id)) . '</A>';
                                             } else {
                                                 echo "0/" . count(explode(",", $Client->profile_id));
                                             }
@@ -190,7 +195,7 @@
                         <div class="row">
                             <div class="col-md-12" align="right">
                                 <button type="submit" class="btn btn-primary" onclick="Changed = false;">
-                                    Save Changes <i class="m-icon-swapright m-icon-white"></i>
+                                    Save Changes
                                 </button>
                             </div>
                         </div>
@@ -223,7 +228,7 @@
 
                     <div class="form-body">
                         <div class="table-scrollable">
-                            <TD COLSPAN="7" style="padding-right: 10px;"><table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer" style="margin-bottom: 5px; margin-left: 3px;"><thead><TR><TH>ID</TH><TH>Name</TH><TH>Profile Type</TH><TH title="Expiry date is not blank, and is after yesterday">Expiry Date >= ' . $Today . '</TH><TH title="Is hired">IH</TH><TH>Hired Date</TH><TH>Auto-Change</TH></TR><TBODY>';
+                            <TD COLSPAN="7" style="padding-right: 10px;"><table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer" style="margin-bottom: 5px; margin-left: 3px;"><thead><TR><TH>ID</TH><TH>Name</TH><TH>Profile Type</TH><TH title="Expiry date is not blank, and is after yesterday">Expiry Date >= ' . $Today . '</TH><TH title="Is hired">IH</TH><TH>Hired Date</TH><TH>Auto-Change</TH><TH>Action</TH></TR><TBODY>';
 
         $Users = $Profiles[$_GET["clientid"]];
         foreach($Users as $Profile){
@@ -236,20 +241,20 @@
             echo '<TD>' . checkmark($Profile->expiry_date && $Profile->expiry_date >= $Today);
 
             echo ' <INPUT ONCHANGE="change();" TYPE="TEXT" NAME="profiles[expiry_date][' . $Profile->id . ']" VALUE="';
-            echo $Profile->expiry_date . '" class="datepicker date-picker">';
+            echo $Profile->expiry_date . '" class="datepicker date-picker expiry_date">';
 
             echo '</TD>' . $CRLF;
-            echo '<TD><INPUT ONCHANGE="change();" TYPE="CHECKBOX" NAME="profiles[is_hired][' . $Profile->id . ']" VALUE="1"  STYLE="width: 100%;"';
+            echo '<TD><INPUT class="is_hired" ONCHANGE="change();" TYPE="CHECKBOX" NAME="profiles[is_hired][' . $Profile->id . ']" VALUE="1"  STYLE="width: 100%;"';
             if($Profile->is_hired){ echo " CHECKED";}
             echo '></TD>' . $CRLF;
 
             echo '<TD><INPUT ONCHANGE="change();" TYPE="TEXT" ID="hireddate' . $Profile->id . '" NAME="profiles[hired_date][' . $Profile->id . ']" VALUE="';
-            echo $Profile->hired_date . '" class="datepicker date-picker"></TD><TD>';
+            echo $Profile->hired_date . '" class="datepicker date-picker hired_date"></TD><TD>';
             foreach($Frequencies as $Frequency => $Date){
-                echo '<INPUT TYPE="BUTTON" CLASS="btn-xs btn btn-info btnspc" VALUE="-' . $Frequency . pluralize($Frequency, " Month") . '" ';
+                echo '<INPUT TYPE="BUTTON" CLASS="btn-xs btn btn-primary btnspc" VALUE="-' . $Frequency . pluralize($Frequency, " Month") . '" ';
                 echo 'ONCLICK="changehired(' . $Profile->id . ', ' . $Frequency . ", '" . $Date . "'" . ');">';
             }
-            echo '</TD></TR>';
+            echo '</TD><td><a href="javascript:void(0)" class="btn btn-primary saveDriverInfo" id="save_id_'.$Profile->id.'">Save</a></td></td></TR>';
         }
         echo '</TBODY></TABLE></div></div></div></div>';
     } ?>
@@ -291,6 +296,15 @@
             element.style.display = 'none';
         }
     }
+
+    $(function () {
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1980:2020',
+            dateFormat: 'yy-mm-dd'
+        });
+    });
 </SCRIPT>
 <?php
     include('subpages/profile/requalify.php');
@@ -333,8 +347,8 @@
 
                 <div class="form-body">
                     <div class="table-scrollable" align="center">
-                        <TABLE width="100%"><TR><TD style="width: 1200px;">
-                        <TABLE border="1"><TR>
+                        <table width="100%"><tr><td >
+                            <table border="1" width="100%"><tr>
                         <?php
                             $EventList = array();
                             for($Temp = 0; $Temp < $Months; $Temp++){
@@ -427,7 +441,7 @@
                                             }
                                 echo '</TR></TBODY></TABLE>';
                             }
-echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-color: white; border: none; overflow-y: auto;">';
+/*echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-color: white; border: none; overflow-y: auto;">';
                                 foreach($EventList as $Date => $Event){
                                     echo $Date . "\r\n";
                                     foreach($Event as $Client => $Data){
@@ -438,11 +452,41 @@ echo '</TD><TD><textarea disabled style="width:100%; height:100%; background-col
                                     }
                                     echo "\r\nProducts:\t" . $EventData["Products"] .  "\r\n\r\n";
                                 }
-                            ?></textarea>
-                        </TD></TR></TABLE>
+                                echo "</textarea>";
+                            */?>
+                        </td></tr></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+$(function(){
+    $('.saveDriverInfo').click(function(){
+       $(this).html('Saving..');
+       var profile_type = $(this).parent().parent().find('.profile_types').val();
+       //alert(profile_type);
+       var expiry_date = $(this).parent().parent().find('.expiry_date').val();
+       //alert(expiry_date);
+       if($(this).parent().parent().find('.is_hired').is(':checked'))
+       var is_hired = 1;
+       else
+       var is_hired = 0;
+       //alert(is_hired);
+       var hired_date = $(this).parent().parent().find('.hired_date').val();
+       //alert(hired_date);
+       var id = $(this).attr('id').replace('save_id_','');
+       
+       $.ajax({
+        url:'<?php echo $this->request->webroot;?>tasks/saveDriverInfo/'+id,
+        type:'post',
+        data:'profile_type='+profile_type+'&expiry_date='+expiry_date+'&is_hired='+is_hired+'&hired_date='+hired_date,
+        success:function(){
+            alert('Saved successfully');
+            
+        }
+       });
+    });
+})
+</script>

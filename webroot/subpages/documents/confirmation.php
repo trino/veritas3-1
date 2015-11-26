@@ -78,7 +78,7 @@
 
         <div class="col-md-12">
             <input type="text" class="form-control" name="conf_driver_name" id="conf_driver_name"
-                   value="<?php echo $dri;?>"/>
+                   value="<?php echo $dri;?>" readonly=""/>
         </div>
 
 
@@ -161,7 +161,7 @@
 </div>
 
 
-<div class="row col-md-12">
+<div class="row col-md-12 conf_block">
     <div class="form-group">
 
         <label class="control-label col-md-12"><?= $strings2["forms_signplease"]; ?>:</label>

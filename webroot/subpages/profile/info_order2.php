@@ -1,6 +1,13 @@
+<STYLE>
+    .profile_client{
+        margin-top: 8px !important;
+    }
+</STYLE>
+
 <?php
     $debug=$this->request->session()->read('debug');
-    if($debug) {echo "<span style ='color:red;'>subpages/profile/info_order2.php #INC???</span>";}
+    if($debug) {//echo "<span style ='color:red;'>subpages/profile/info_order2.php #INC???</span>";
+    }
     include_once('subpages/api.php');
     $settings = $Manager->get_settings();
     $language = $this->request->session()->read('Profile.language');
@@ -9,7 +16,7 @@
     if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 
     $intable = true;
-    $cols = 8;
+    $cols = 12;
     $_this = $this;
     function getcheckboxes($name, $amount) {
         $tempstr = "";
@@ -61,7 +68,10 @@
     $GLOBALS['pType'] = $this->requestAction('/profiles/getProfileTypes');// ['','Admin','Recruiter','External','Safety','Driver','Contact'];
     $GLOBALS['settings'] = $Manager->get_settings();
     $GLOBALS['counting'] = $counting;
+?>
 
+
+<?php
     function makeBulk($strings, $Manager){
     //    $contact = $GLOBALS['contact'];
         $pType = $GLOBALS['pType'];
@@ -71,13 +81,12 @@
             $profiles = $GLOBALS['profiles'];
         }
 
-    //  echo '<div class="col-xs-4">';
+
 ?>
-<STYLE>
-    .profile_client{
-        margin-top: 8px !important;
-    }
-</STYLE>
+
+
+
+
     <div class="clearfix"></div>
 <div class="scrolldiv" style="margin-bottom: 15px; overflow-y: auto; width: auto; height: auto;" ID="bulkform">
     <input type="text" id="searchProfile" onkeyup="searchProfile()" class="form-control" placeholder="<?= $strings["infoorder_searchprofiles"]; ?>"/>
@@ -88,7 +97,11 @@
         </tr-->
         </thead>
         <tbody id="profileTable">
+
+
+
         <?php
+
             $i = 0;
             if($counting==1) {
                 $fulllist = "";
@@ -127,10 +140,12 @@
             function print1profile($index, $profile, $profiletype, $Manager, $strings){//$index = $i
                 $Disabled = "";
                 $ALERT="infoorder_complete";
+                /*
                 if(!$profile->is_complete){// || $Manager->requiredfields($profile, "profile2order")){
                     $Disabled = " DISABLED";
                     $ALERT="infoorder_incomplete";
                 }
+                */
                 echo '<tr><td class="v-center"><span' . $Disabled . '><LABEL><input class="profile_client" type="checkbox" id="p_' . $index . '" name="p_' . $profile->id . '"' . $Disabled .
                 ' onchange="addProfile(' . $profile->id . ');"
                 value="' . $profile->id . '"/></span>
@@ -151,7 +166,7 @@
                 if (strlen($color)>0){ $color = "-" . $color;}
                 $color=""; //color is disabled for now
 
-                $offset = ' col-xs-offset-2';
+                $offset = "";//' col-xs-offset-2';
                 echo '<div class="col-xs-' . $cols . $offset . '">';
 
                 echo '<div class="pricing' . $color . ' hover-effect">';
@@ -219,15 +234,15 @@
                 switch ($index) {
                     case 1:
                         if (!$inforequired) {
-                            echo '<a href="javascript:void(0);" id="qua_btn" class="btn btn-danger  btn-lg placenow">' . $strings["infoorder_continue"] . ' <i class="m-icon-swapright m-icon-white"></i></a>';
+                            echo '<a href="javascript:void(0);" id="qua_btn" class="btn btn-primary  btn-lg placenow">' . $strings["infoorder_continue"] . ' </a>';
                         }
                         break;
                     case 2: ?>
-                        <a href="javascript:void(0);" class="btn btn-info" onclick="$('.alacarte').show(200);$('.placenow').attr('disabled','');">A La Carte<i class="m-icon-swapright m-icon-white"></i></a>
+                        <a href="javascript:void(0);" class="btn btn-primary" onclick="$('.alacarte').show(200);$('.placenow').attr('disabled','');">A La Carte</a>
                         <?php
                         break;
                     case 5:
-                        echo '<a class=" btn btn-danger btn-lg  button-next proceed" id="cart_btn" href="javascript:void(0)">';
+                        echo '<a class=" btn btn-primary btn-lg  button-next proceed" id="cart_btn" href="javascript:void(0)">';
                         echo $strings["infoorder_continue"] . ' <i class="m-icon-swapright m-icon-white"></i></a>';
                         break;
                 }
@@ -250,6 +265,10 @@
 
             $dodiv = true;?>
 
+
+
+
+
         <script type="text/javascript">
             function reload(value) {
                 var container = document.getElementById("selecting_driver");
@@ -258,14 +277,19 @@
                 //this should set the select dropdown to "Create a Driver"
             }
         </script>
+
+
+
         <STYLE>
             body{
                 overflow-x: hidden;
                 overflow-y: scroll;
             }
         </STYLE>
-        <?php
 
+
+
+        <?php
             if ($counting > 1) { ?>
                 <select id="selecting_client" class="form-control input-<?= $size ?> select2me"
                 onoldchange="reload(-1);"
@@ -311,10 +335,17 @@
         } ?>
 </div>
 
+
+
+
 <?php if ($intable) {
     echo '<div class="row" style="margin-top: 15px;margin-bottom: 15px;">';
 } ?>
-<?php if(!isset($_GET['profiles'])){?>
+
+
+<?php if(!isset($_GET['profiles']))
+{
+?>
 <div class="form-group ">
 
     <?php
@@ -349,12 +380,14 @@
             $ALERT= "infoorder_complete";
             $driver_id = $dr->id;
             echo '<option value="' . $dr->id . '"';
+            /*
             if(!$dr->is_complete){// || $Manager->requiredfields($dr, "profile2order")){
                 echo " DISABLED";
                 $ALERT= "infoorder_incomplete";
             }
+            */
             if ($dr->id == $driver || $counting == 1 && $driver != '0'){ echo 'selected="selected"'; }
-            echo '>' . $strings[$ALERT] . " " . formatname($dr) .  'test</option>';
+            echo '>' . $strings[$ALERT] . " " . formatname($dr) .  '</option>';
         }
         ?>
     </select>
@@ -390,6 +423,25 @@
         }
     ?>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
     AtLeastOneProduct = '<?= addslashes($strings["infoorder_atleastone"]); ?>';
@@ -509,7 +561,7 @@
 
 
                             //setTimeout(function(){
-                              //  window.location = '<?php echo $this->request->webroot;?>';
+                          //     window.location = '<?php echo $this->request->webroot;?>';
                             //},10000);
 
 
@@ -632,6 +684,11 @@
         });
     });
 </script>
+
+
+
+
+
 <SCRIPT>
     var UpdatesEnabled = true;
 

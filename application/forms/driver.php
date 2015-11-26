@@ -1,4 +1,14 @@
-<?php $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_attachfile", "file_download"), $settings, False); ?>
+<?php
+    $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_attachfile", "file_download"), $settings, False);
+    function isrequired($Field, $Both = True){
+        $Fields = array ("fname" => "forms_firstname", "lname" => "forms_lastname", "profile_type" => "profiles_profiletype", "gender" => "forms_gender",  "driver_province" => "forms_provinceissued", "street" => "forms_address", "city" => "forms_city", "province" => "forms_provincestate", "postal" => "forms_postalcode", "country" => "forms_country", "dob" => "forms_dateofbirth", "driver_license_no" => "forms_driverslicense");
+        if (isset($Fields[$Field])){
+            if($Both) {return ' required" required';}
+            return ' required"';
+        }
+        if($Both) {return '"';}
+    }
+?>
 <div class="form-group row col-md-12 splitcols" ID="GNDN">
     <input type="hidden" name="MAX_FILE_SIZE" value="6553600" title="50 megabytes" />
     <div class="col-md-4"><label class="control-label required">Your Username: </label>
@@ -10,70 +20,70 @@
     <!--div class="col-md-4"><label class="control-label"><?= $strings["forms_retypepassword"]; ?>: </label>
         <input type="text" class="form-control required" required name="password2" />
     </div-->
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_firstname"]; ?>: </label>
-        <input type="text" class="form-control required" required name="fname" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("fname", false); ?>"><?= $strings["forms_firstname"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("fname"); ?> name="fname" />
     </div>
-    <div class="col-md-4"><label class="control-label"><?= $strings["forms_middlename"]; ?>: </label>
-        <input type="text" class="form-control" name="mname" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("mname", false); ?>"><?= $strings["forms_middlename"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("mname"); ?> name="mname" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_lastname"]; ?>: </label>
-        <input type="text" class="form-control required" required name="lname" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("lname", false); ?>"><?= $strings["forms_lastname"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("lname"); ?> name="lname" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_gender"]; ?>: </label>
-        <SELECT class="form-control required" required name="gender" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("gender", false); ?>"><?= $strings["forms_gender"]; ?>: </label>
+        <SELECT class="form-control<?= isrequired("gender"); ?> name="gender" />
             <OPTION>Male</OPTION>
             <OPTION>Female</OPTION>
         </SELECT>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_title"]; ?>: </label>
-        <SELECT class="form-control required" required name="title" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("title", false); ?>"><?= $strings["forms_title"]; ?>: </label>
+        <SELECT class="form-control<?= isrequired("title"); ?> name="title" />
             <OPTION>Mr.</OPTION>
             <OPTION>Ms.</OPTION>
             <OPTION>Mrs.</OPTION>
         </SELECT>
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_email"]; ?>: </label>
-        <input type="text" class="form-control required" required name="email" role="email" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("email", false); ?>"><?= $strings["forms_email"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("email"); ?> name="email" role="email" />
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_placeofbirth"]; ?>: </label>
-        <input type="text" class="form-control required" required name="placeofbirth" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("placeofbirth", false); ?>"><?= $strings["forms_placeofbirth"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("placeofbirth"); ?> name="placeofbirth" />
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_sin"]; ?>: </label>
-        <input type="text" class="form-control required" required name="sin" role="sin" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("sin", false); ?>"><?= $strings["forms_sin"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("sin"); ?> name="sin" role="sin" />
     </div>
 
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_phone"]; ?>: </label>
-        <input type="text" class="form-control required" required name="phone" role="phone" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("phone", false); ?>"><?= $strings["forms_phone"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("phone"); ?> name="phone" role="phone" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_address"]; ?>: </label>
-        <input type="text" class="form-control required" required name="street" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("street", false); ?>"><?= $strings["forms_address"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("street"); ?> name="street" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_city"]; ?>: </label>
-        <input type="text" class="form-control required" required name="city" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("city", false); ?>"><?= $strings["forms_city"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("city"); ?> name="city" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_provincestate"]; ?>: </label>
-        <?php provinces("province", "",  true); ?>
+    <div class="col-md-4"><label class="control-label<?= isrequired("province", false); ?>"><?= $strings["forms_provincestate"]; ?>: </label>
+        <?php provinces("province", "",  isrequired("province", false)); ?>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_postalcode"]; ?>: </label>
-        <input type="text" class="form-control required" required name="postal" role="postalcode" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("postalcode", false); ?>"><?= $strings["forms_postalcode"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("postalcode"); ?> name="postal" role="postalcode" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_country"]; ?>: </label>
-        <input type="text" class="form-control required" required name="country" value="Canada"/>
+    <div class="col-md-4"><label class="control-label<?= isrequired("country", false); ?>"><?= $strings["forms_country"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("country"); ?> name="country" value="Canada"/>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_dateofbirth"]; ?>: </label>
-        <input type="text" class="form-control datepicker date-picker required" required name="dob" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("dob", false); ?>"><?= $strings["forms_dateofbirth"]; ?>: </label>
+        <input type="text" class="form-control datepicker date-picker<?= isrequired("dob"); ?> name="dob" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_driverslicense"]; ?>: </label>
-        <input type="text" class="form-control required" required name="driver_license_no" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("driver_license_no", false); ?>"><?= $strings["forms_driverslicense"]; ?>: </label>
+        <input type="text" class="form-control<?= isrequired("driver_license_no"); ?> name="driver_license_no" />
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_provinceissued"]; ?>: </label>
-        <?php provinces("driver_province", "", true); ?>
+    <div class="col-md-4"><label class="control-label<?= isrequired("driver_province", false); ?>"><?= $strings["forms_provinceissued"]; ?>: </label>
+        <?php provinces("driver_province", "", isrequired("driver_province", false)); ?>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_expirydate"]; ?>: </label>
-        <input type="text" class="form-control datepicker date-picker required" required name="expiry_date" />
+    <div class="col-md-4"><label class="control-label<?= isrequired("expiry_date", false); ?>"><?= $strings["forms_expirydate"]; ?>: </label>
+        <input type="text" class="form-control datepicker date-picker<?= isrequired("expiry_date"); ?> name="expiry_date" />
     </div>
     <div class="col-md-4"><label class="control-label required">Client: </label>
         <SELECT class="form-control required" name="clientid" />
@@ -102,7 +112,7 @@
                             $Index=0;
                         }
                         $Products[] = $Data["number"];
-                        echo '<TD><LABEL><INPUT TYPE="CHECKBOX" ONCLICK="product(' . $Data["number"] . ');" ID="CHK' . $Data["number"] . '" CHECKED>' . $Data["title"] .  '</LABEL></TD>';
+                        echo '<TD><LABEL TITLE="' . $Data["number"] . '"><INPUT TYPE="CHECKBOX" ONCLICK="product(' . $Data["number"] . ');" ID="CHK' . $Data["number"] . '" CHECKED>' . $Data["title"] .  '</LABEL></TD>';
                         $Index++;
                     }
                     $Products = implode(",", $Products);
@@ -130,6 +140,12 @@
     <div class="col-md-4"><label class="control-label required">Upload Driver ID file: </label>
         <INPUT TYPE="file" name="driverphotoFILE" class="form-control" title="Will over-write 'Base64-encoded Driver ID file'" />
     </div>
+    <div class="col-md-4" style="display: none"><label class="control-label">Base64-encoded Driver ID file 2: </label>
+        <TEXTAREA NAME="driverphoto2BASE" class="form-control" title="Leave 'Upload Driver ID file' blank"></TEXTAREA>
+    </DIV>
+    <div class="col-md-4"><label class="control-label">Upload Driver ID file 2: </label>
+        <INPUT TYPE="file" name="driverphoto2FILE" class="form-control" title="Will over-write 'Base64-encoded Driver ID file'" />
+    </div>
 
     <div class="col-md-4" style="display: none"><label class="control-label required">Base64-encoded signature file: </label>
         <TEXTAREA NAME="signatureBASE" class="form-control" title="Leave 'Upload signature file' blank"></TEXTAREA>
@@ -141,7 +157,7 @@
     <div class="col-md-4" style="display: none"><label class="control-label required">Base64-encoded Consent form file: </label>
         <TEXTAREA NAME="consentBASE" class="form-control" title="Leave 'Upload Consent form file' blank"></TEXTAREA>
     </DIV>
-    <div class="col-md-4"><label class="control-label required">Upload Consent form file: </label>
+    <div class="col-md-4"><label ID="consentform" class="control-label required">Upload Consent form file: </label>
         <INPUT TYPE="file" name="consentFILE" class="form-control" title="Will over-write  'Base64-encoded Consent form file'" />
     </div>
 </div>
@@ -149,10 +165,10 @@
 <div class="form-group row">
     <label class="control-label col-md-4">Add a form:</label>
     <div class="col-md-8">
-        <INPUT TYPE="BUTTON" CLASS="btn btn-info btn-xs" onclick="addform(9);" value="Letter of Experience">&nbsp;&nbsp;
-        <INPUT TYPE="BUTTON" CLASS="btn btn-info btn-xs" onclick="addform(10);" value="Education Verification">&nbsp;&nbsp;
-        <INPUT TYPE="BUTTON" CLASS="btn btn-warning btn-xs" onclick="autofill('');" value="Auto-fill forms">&nbsp;&nbsp;
-        <A HREF="assets/consentform.pdf" download="consentform.pdf" CLASS="btn btn-warning btn-xs">Consent Form PDF</A>
+        <INPUT TYPE="BUTTON" CLASS="btn btn-primary btn-xs" onclick="addform(9);" value="Letter of Experience">&nbsp;&nbsp;
+        <INPUT TYPE="BUTTON" CLASS="btn btn-primary btn-xs" onclick="addform(10);" value="Education Verification">&nbsp;&nbsp;
+        <INPUT TYPE="BUTTON" CLASS="btn btn-primary btn-xs" onclick="autofill('');" value="Auto-fill forms">&nbsp;&nbsp;
+        <A HREF="assets/consentform.pdf" download="consentform.pdf" CLASS="btn btn-primary btn-xs">Consent Form PDF</A>
     </div>
 </div>
 <SCRIPT LANGUAGE="JavaScript">
@@ -230,7 +246,7 @@
             changeMonth: true,
             changeYear: true,
             yearRange: '1980:2020',
-            dateFormat: 'mm/dd/yy'
+            dateFormat: 'yy-mm-dd'
         });
 
         FormID++;
@@ -270,7 +286,7 @@
                     case "date":
                         Class = Class + " datepicker";
                         CurrentData[1] = "text";
-                        placeholder = "mm/dd/yyyy"
+                        placeholder = "yy-mm-dd"
                         break;
                     case "email":case "phone":
                         Role = CurrentData[1];
@@ -332,6 +348,24 @@
             addID("forms", ID);
         } else {
             removeID("forms", ID);
+        }
+        if(ID == 1603){
+            addclass("consentform", "required", element.checked);
+        }
+    }
+
+    function addclass(element, theclass, status){
+        var element = document.getElementById(element);
+        if(status) {
+            if (element.classList) {
+                element.classList.add(theclass);
+            } else {
+                element.className += ' ' + className;
+            }
+        } else if (element.classList) {
+            element.classList.remove(theclass);
+        } else {
+            element.className = element.className.replace(theclass, '');
         }
     }
 

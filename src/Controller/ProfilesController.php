@@ -152,7 +152,8 @@
                 }
             }
 
-            $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+            //$cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+            $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1'])->all();
             $this->set('requalify',$cron);
             $maxdate = $cron->max('cron_date');
             $p_type = "";
@@ -171,8 +172,6 @@
             $client_crons = TableRegistry::get('client_crons');
             foreach ($clients as $c) {
                 $frequency = $c->requalify_frequency;
-
-
                 $epired_profile ="";
                 $escape_id = $client_crons->find('all')->where(['client_id'=>$c->id,'orders_sent'=>'1','cron_date'=>$today]);
                 $escape_ids = '';
@@ -187,26 +186,51 @@
                 }
 
                 $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today])->order('created_by');
+                //debug($profile);
                 $temp = '';
                 foreach ($profile as $p) {
                     if ($c->requalify_re == '0') {
                         $date = $c->requalify_date;
-                        if(strtotime($date)<= strtotime($today)) {
+                        //old
+                        /*if(strtotime($date)<= strtotime($today)) {
                             $date = $this->getnextdate($date,$frequency);
                             if($this->checkcron($c->id, $date, $p->id)) {
                                 $date = $this->getnextdate($date, $frequency);
                             }
+                        }*/
+                        if(strtotime($date)<= strtotime($today)) {
+                       
+                        if($this->checkcron($c->id, $date, $p->id)) {
+                            $date = $this->getnextdate($date, $frequency);
+                            if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
                         }
+                        elseif(strtotime($date)== strtotime($today))
+                        {
+                            //$date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                           //die(); 
+                        }
+                        else
+                        {
+                            $date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                        }
+                    }
 
 
                     }
                     //if($p->profile_type=='5'|| $p->profile_type=='7'|| $p->profile_type=='8'){
                         if ($c->requalify_re == '1') {
                             $date = $p->hired_date;
-                            if(strtotime($date) <= strtotime($today)) {
+                            $date = $this->getnextdate($date, $frequency,$c->id,$p->id);
+                            //old
+                            /*if(strtotime($date) <= strtotime($today)) {
                                 if(strtotime($date) == strtotime($today)) {
                                     if($this->checkcron($c->id, $date, $p->id)) {
-                                        $date = $this->getnextdate($date, $frequency);
+                                        $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
                                     }
                                 } else {
                                     $date =  $this->getnextdate($date,$frequency);
@@ -218,9 +242,35 @@
                                 }
                             } else {
                                 if (strtotime($date) == strtotime($today)) {
-                                    $date = $this->getnextdate($date, $frequency);
+                                    $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
                                 }
                             }
+                            
+                            //new
+                               if(strtotime($date) < strtotime($today)) {
+                                if(strtotime($date) == strtotime($today)) {
+                                    if($this->checkcron($c->id, $date, $p->id)) {
+                                        $date = $this->getnextdate($date, $frequency);
+                                    }
+                                } else {
+                                    $date =  $this->getnextdate($date,$frequency);
+                                    if(strtotime($date) == strtotime($today)) {
+                                        if ($this->checkcron($c->id, $date, $p->id)) {
+                                            $date = $this->getnextdate($date, $frequency);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if ($this->checkcron($c->id, $date, $p->id)) {
+                                            $date = $this->getnextdate($date, $frequency);
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (strtotime($date) == strtotime($today)) {
+                                    $date = $this->getnextdate($date, $frequency);
+                                }
+                            }*/
                         }
 
                         $n_req['cron_date']= $date;
@@ -277,13 +327,21 @@
             return $cnt;
         }
 
-        function getnextdate($date, $frequency) {
-            $today = date('Y-m-d');
-            $nxt_date = date('Y-m-d', strtotime($date)+($frequency*24*60*60*30));
+        function getnextdate($date, $frequency, $cid=0 , $pid=0) {
+            $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
+            $days = $frequency*30;
+            $d = "+".$days." days";
+            $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+            
             if (strtotime($nxt_date) < strtotime($today)) {
-                $d = $this->getnextdate($nxt_date, $frequency);
+                $d = $this->getnextdate($nxt_date, $frequency, $cid, $pid);
             } else {
-                $d = $nxt_date;
+                if ($this->checkcron($cid, $nxt_date, $pid))
+                {
+                    $d = $this->getnextdate($nxt_date, $frequency);
+                }
+                else
+                    $d = $nxt_date;
             }
             return $d;
         }
@@ -675,7 +733,7 @@
                 $searchs = strtolower($search);
             }
 
-            if (isset($_GET['filter_profile_type'])) {
+            if (isset($_GET['filter_profile_type'])&& $_GET['filter_profile_type']!="") {
                 $profile_type = $_GET['filter_profile_type'];
             }
             if (isset($_GET['filter_by_client'])) {
@@ -688,12 +746,12 @@
                 $cond .= ' (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
             }
 
-            if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type']!='') {
+            if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type'] > -1 && $_GET['filter_profile_type']!='') {
                 if ($cond){ $cond.= ' AND'; }
                 if($_GET['filter_profile_type'] == "NULL") {
                     $cond .= ' profile_type IS NULL';
                 }else {
-                    $cond .= ' (profile_type = "' . $profile_type .'")';
+                    $cond .= ' profile_type = ' . $profile_type;
                 }
             }
 
@@ -713,6 +771,7 @@
                     }
                 }
             }
+
             if ($this->request->session()->read('Profile.profile_type') == '2') {
                 if ($cond) {
                     //$cond = $cond . ' AND (created_by = ' . $this->request->session()->read('Profile.id') . ')';
@@ -722,30 +781,44 @@
 
             }
 
+            if(!$this->request->session()->read('Profile.super')) {
+                if ($cond) {$cond .= ' AND ';}
+                $Me = $this->Manager->get_profile($u)->ptypes;
+                if($Me) {
+                    $cond .= 'profile_type IN (' . $Me . ')';
+                } else {
+                    $cond .= "1 = 0";
+                }
+            }
+
             /*=================================================================================================== */
-            if($setting->viewprofiles == 0){
-                $Clients = TableRegistry::get('Clients')->find()->select()->where(['visibleprofiles' => 1]);
+            if(true){
+           // if($setting->viewprofiles == 0){
+                $Clients = TableRegistry::get('Clients')->find()->select()->where([true]);
                 $OR = array();
-                foreach($Clients as $Client){
-                    if($Client->profile_id) {
-                        $OR[] = "id IN (" . $Client->profile_id . ")";
+                $IsSuper = $this->request->session()->read('Profile.super');
+                if(!$IsSuper) {
+                    foreach ($Clients as $Client) {
+                        if ($Client->profile_id) {
+                            $Profiles = explode(",", $Client->profile_id);
+                            if (in_array($u, $Profiles)) {
+                                $OR = array_merge($OR, $Profiles);
+                            }
+                        }
+                    }
+                    $OR = implode(",", array_unique($OR));
+                    if ($OR) {
+                        if ($cond) {$cond .= ' AND ';}
+                        $cond .= "id IN (" . $OR . ")";
                     }
                 }
-                $query = $this->Profiles->find()->where([$cond, 'OR' => $OR]);
+                $query = $this->Profiles->find()->where($cond);
             } elseif ($cond) {
                 $query = $querys->find()->where([$cond, 'OR' => $condition, 'AND' => 'super = 0']);
             } else {
                 $query = $this->Profiles->find()->where(['OR' => $condition, 'AND' => 'super = 0']);
             }
-
-            if(!$this->request->session()->read('Profile.super')) {
-                $Me = $this->Manager->get_profile($u)->ptypes;
-                if($Me) {
-                    $query = $querys->find()->where(['profile_type IN (' . $Me . ')']);
-                } else {
-                    $query=false;
-                }
-            }
+            //debug($query);die();
             if (isset($search)) {
                 $this->set('search_text', $search);
             }
@@ -771,7 +844,7 @@
                 $this->set('assignedtoGFS', $results);
             }
 
-            $this->Manager->permissions(array("sidebar" => array("profile_list", "viewprofiles", "profile_edit", "profile_delete", "profile_create", "bulk", "document_list", "orders_list")), $setting, false, $u);// "client_option", I don't know what this is used for
+            $this->Manager->permissions(array("sidebar" => array("profile_list", "profile_edit", "profile_delete", "profile_create", "bulk", "document_list", "orders_list")), $setting, false, $u);// "client_option", I don't know what this is used for
         }
 
 
@@ -799,7 +872,7 @@
                 $this->set('uid', $id);
                 $this->set('doc_comp', $this->Document);
                 $setting = $this->Settings->get_permission($userid);
-
+/*
                 if ($setting->profile_list == 0 || ($userid != $id && $setting->viewprofiles ==0)) {
                     $ClientID = $this->Manager->find_client($id, false);
                     $visibleprofiles = false;
@@ -816,10 +889,10 @@
 
                     if(!$visibleprofiles) {
                         //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => $place)) . ' (006)');
-                        return $this->redirect("/");
+                     //   return $this->redirect("/");
                     }
                 }
-
+*/
                 $docs = TableRegistry::get('profile_docs');
                 $query = $docs->find();
                 $client_docs = $query->select()->where(['profile_id' => $id])->all();
@@ -900,6 +973,8 @@
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
 
             if ($setting->profile_create == 0 && !$this->request->session()->read('Profile.super')) {
+
+
                 $this->Flash->error($this->Trans->getpermissions("004", "profile_create"));
                 //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "add")) . ' (004)');
                 return $this->redirect("/");
@@ -1579,7 +1654,11 @@
             $checker = $this->Settings->check_edit_permission($userid, $id, $aa->created_by);
 
             $setting = $this->Settings->get_permission($userid);
-            if (($setting->profile_edit == 0 || $setting->viewprofiles ==0) && $id != $userid) {
+            if (($setting->profile_edit == 0) && $id != $userid) {
+
+              //  var_dump($setting);die();
+
+
                 $this->Flash->error($this->Trans->getpermissions("004", array("profile_edit", "viewprofiles")));
                 //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "edit")) . ' (000)');
                 return $this->redirect("/");
@@ -2534,7 +2613,7 @@
 /////////////////////////////////////////////////////////////////////////////////////process order
         function cron($debugging = false) {//////////////////////////////////send out emails
             $path = $this->Document->getUrl();
-
+            $this->layout = 'blank';
             $setting = TableRegistry::get('settings')->find()->first();
             $q = TableRegistry::get('events');
             $que = $q->find();
@@ -2546,7 +2625,7 @@
             //VAR_Dump($query);die();
 
             $Emails = 1;
-            echo '<TABLE BORDER="1" cellspacing="0"><THEAD><TR><TH>ID</TH><TH>TITLE</TH><TH>NOTES</TH></TR></THEAD>';
+            echo '<TABLE BORDER="1" cellspacing="0" id="crontable"><THEAD><TR><TH>ID</TH><TH>TITLE</TH><TH>NOTES</TH></TR></THEAD>';
             if($debugging){echo '<TR><TH COLSPAN="3">Debugging mode is on</TH></TR>';}
             echo '<TR><TH COLSPAN="3">Task events before now (' . $datetime . ')</TH></TR>';
             if (isset($_GET["testemail"])) {
@@ -2780,8 +2859,11 @@
             if (isset($_GET["testemail"]) || $debugging) {
                 $email = "/" . $this->request->session()->read('Profile.email');
             }
+            //echo '<script src="'.$this->request->webroot.'"assets/global/plugins/jquery.min.js"></script>';
             echo '<TR><TH COLSPAN="3">Clients</TH></TR>';
-            echo $this->requestAction("clients/cron" . $email);
+            
+            $this->set('email',$email);
+            //$this->requestAction("rapid/cron" . $email);
 
             echo '</TABLE>';
 
@@ -2789,7 +2871,7 @@
                 echo '<BR><span style="border: 2px solid #000000;padding:3px;" onclick="document.getElementById(' . "'royslog'" . ").style.display = ''" . '"><STRONG>Click to see the contents of the log file</STRONG></span>';
                 echo '<BR><SPAN ID="royslog" style="display: none;">' . str_replace("\r\n", "<BR>", file_get_contents ("royslog.txt")) . '</SPAN>';
             }
-            die();
+            
         }
 
         function ajax_cron($type, $profile_id ) {
@@ -3175,7 +3257,7 @@
                             <!--td>' . $profile->id . '</td-->
                             <td class="title_' . $profile->id . '">' . $title . '</td>
                             <td><input type="checkbox" id="chk_' . $profile->id . '" class="enable"/></td>
-                            <td><span  class="btn btn-info editpro" id="edit_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
+                            <td><span  class="btn btn-primary editpro" id="edit_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
                         </tr>';
                     }
                 }
@@ -3207,7 +3289,7 @@
                         }
                         echo '    <td><input type="checkbox" id="pchk_' . $profile->id . '" class="penable"/><span class="span_' . $profile->id . '"></span></td>
                         <td><input type="checkbox" class="oenable" id="ochk_' . $profile->id . '" /><span class="span2_' . $profile->id . '"></span></td>
-                        <td><span  class="btn btn-info editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
+                        <td><span  class="btn btn-primary editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
                     </tr>';
                     }
                 }
@@ -3238,7 +3320,7 @@
                             echo '<td class="titlectype' . $language .'_' . $profile->id . '">' . $data["title" . $language] . '</td>';
                         }
                         echo '     <td><input type="checkbox" id="cchk_' . $profile->id . '" class="cenable"/><span class="span_' . $profile->id . '"></span></td>
-                            <td><span  class="btn btn-info editctype" id="editctype_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
+                            <td><span  class="btn btn-primary editctype" id="editctype_' . $profile->id . '">' . $this->Trans->getString("dashboard_edit") . '</span></td>
                         </tr>';
                     }
                 }

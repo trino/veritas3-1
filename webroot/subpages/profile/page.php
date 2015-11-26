@@ -54,7 +54,7 @@ function makepage($webroot, $tabIndex, $name, $cms, $active){
     <div class="form-actions" style="margin-left: -10px;margin-right: -10px;">
         <div class="row" align="right">
             <div class="col-md-offset-2 col-md-10">
-                <button type="submit"   class="btn blue"  >
+                <button type="submit"   class="btn btn-primary"  >
                     Save Changes
                 </button>
                 <button type="button" class="btn default" style="margin-right: 8px;">Cancel
@@ -67,7 +67,7 @@ function makepage($webroot, $tabIndex, $name, $cms, $active){
 <!-- END FORM-->';
     return "";
 }
-//<button type="submit"   class="btn blue" onclick="savepage(' . "'" . $name . "'" . ');" >
+//<button type="submit"   class="btn btn-primary" onclick="savepage(' . "'" . $name . "'" . ');" >
 $pages = array(11 => "product_example", 6 => "help",  7 => "privacy_code", 8 => "version_log",  4 => "terms", 5 => "faq");
 
 echo '<ul class="nav nav-tabs nav-justified">';

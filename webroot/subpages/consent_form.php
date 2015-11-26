@@ -1,8 +1,9 @@
  <?php
- if($this->request->session()->read('debug'))
-        echo "<span style ='color:red;'>consent_form.php #INC156</span>";
+     if($this->request->session()->read('debug')) {
+         echo "<span style ='color:red;'>consent_form.php #INC156</span>";
+     }
+     if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }
  ?>
- <?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
 <div class="portlet box blue ">
 	<div class="portlet-title">
 		<div class="caption">
@@ -193,7 +194,7 @@
     				</div>
                     <label class="control-label col-md-3">Date of Birth : </label>
                     <div class="col-md-3">
-    					<input type="text" class="form-control" placeholder="YYYY/MM/DD"/>
+    					<input type="text" class="form-control" placeholder="YYYY-MM-DD"/>
     				</div>
                 </div>
                 
@@ -328,7 +329,7 @@
                         <div class="col-md-3">
                         </div>
                         <div class="col-md-9">
-                            <a href="javascript:void(0);" class="btn btn-success" id="add_more_consent_doc">Add More</a>
+                            <a href="javascript:void(0);" class="btn btn-primary" id="add_more_consent_doc">Add More</a>
                         </div>
                       </div>
                 

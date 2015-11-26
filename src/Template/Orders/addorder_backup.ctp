@@ -170,8 +170,8 @@ printCSS($this);
     if (isset($disabled)) { ?>
         <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 
-        <!--a href="" class="floatright btn btn-success">Re-Qualify</a>
-        <a href="" class="floatright btn btn-info">Add to Task List</a-->
+        <!--a href="" class="floatright btn btn-primary">Re-Qualify</a>
+        <a href="" class="floatright btn btn-primary">Add to Task List</a-->
     <?php }
 
     echo '</div>';
@@ -365,13 +365,13 @@ printCSS($this);
                                     </a>
 
                                     <input type="hidden" id="skip" value="0"/>
-                                    <a href="javascript:;" class="btn blue button-next cont"
+                                    <a href="javascript:;" class="btn btn-primary button-next cont"
                                        onclick="$('#skip').val('0');">
-                                        <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
+                                        <?= $strings["addorder_savecontinue"]; ?>
                                     </a>
 
 
-                                    <a href="javascript:window.print();" class="btn btn-info button-submit"
+                                    <a href="javascript:window.print();" class="btn btn-primary button-submit"
                                        onclick="$('#skip').val('0');"><?= $strings["dashboard_print"]; ?></a>
                                 </div>
                             </div>
@@ -506,11 +506,11 @@ printCSS($this);
                                             Save as draft <i class="m-icon-swapdown m-icon-white"></i>
                                         </a>-->
 
-                                <a href="javascript:;" class="btn blue button-next cont" onclick="$('#skip').val('0');">
-                                    <?= $strings["addorder_savecontinue"]; ?> <i class="m-icon-swapright m-icon-white"></i>
+                                <a href="javascript:;" class="btn btn-primary button-next cont" onclick="$('#skip').val('0');">
+                                    <?= $strings["addorder_savecontinue"]; ?>
                                 </a>
 
-                                <a href="javascript:window.print();" class="btn btn-info button-submit"><?= $strings["dashboard_print"]; ?></a>
+                                <a href="javascript:window.print();" class="btn btn-primary button-submit"><?= $strings["dashboard_print"]; ?></a>
                             </div>
                         </div>
                     </div>
@@ -1352,7 +1352,7 @@ printCSS($this);
         $('.tab-content button').hide();
         $('.tab-content a').hide();
         $('.nav a').show();
-        $('.cont').html('<?= addslashes($strings["addorder_next"]); ?> <i class="m-icon-swapright m-icon-white"></i>');
+        $('.cont').html('<?= addslashes($strings["addorder_next"]); ?>');
         $('.cont').parent().find('.red').remove();
         $('.cont').each(function () {
             $(this).attr('id', 'nextview');

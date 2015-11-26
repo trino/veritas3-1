@@ -3656,7 +3656,7 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
                                                     <div class="col-md-4">
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <a href="javascript:void(0);" class="btn btn-success" id="add_more_driver_doc"><?= $strings["forms_addmore"]; ?></a>
+                                                        <a href="javascript:void(0);" class="btn btn-primary" id="add_more_driver_doc"><?= $strings["forms_addmore"]; ?></a>
                                                     </div>
                                                   </div>
                                                   </div>

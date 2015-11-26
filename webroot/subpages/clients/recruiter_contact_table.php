@@ -16,18 +16,22 @@
     <a href="<?php echo $this->request->webroot;?>profiles/add" class="btn btn-primary btnspc" style="float: right;"><?= $strings["infoorder_addprofile"]; ?></a>
 </div>
 <div class="clearfix"></div>
-<div class="scrolldiv" style="margin-bottom: 15px;">
+<div class="scrolldiv" style="margin-bottom: 15px; height: 100%;">
 
     <input type="text" id="searchProfile" onkeyup="searchProfile()" class="form-control" placeholder="<?= $strings["infoorder_searchprofiles"]; ?>"/>
     <table class="table table-striped table-bordered table-advance table-hover recruiters">
         <thead>
         <tr>
-            <th colspan="2"><?= $strings["infoorder_addprofile"]; ?></th>
+            <th colspan="3"><?= $strings["infoorder_addprofile"]; ?></th>
         </tr>
         </thead>
         <tbody id="profileTable">
+            <TR>
         <?php
+            echo $Class='<TD WIDTH="33%" class="nopadorborder"><TABLE class="table table-striped table-bordered table-hover recruiters nopadorborder">';
+            $Entries = ceil($profiles->count() / 3);
             $i = 0;
+            $Entry = 0;
             foreach ($profiles as $r) {
                 //echo $r->username;continue;
                 //if ($i % 2 == 0) {
@@ -55,8 +59,14 @@
                     </tr>
                 <?php
                 $i++;
+                $Entry++;
+                if($Entry==$Entries && $i<$profiles->count()){
+                    $Entry=0;
+                    echo '</TABLE></TD>' . $Class;
+                }
             }
         ?>
+            </TABLE></TD></TR>
         </tbody>
     </table>
 </div>
@@ -217,7 +227,7 @@
             $.ajax({url: url,success:function(){$('.'+nameId).html(msg);}});
         });
         $('.scrolldiv').slimScroll({
-            height: '250px'
+            height: '500px'
         });
     });
 </script>

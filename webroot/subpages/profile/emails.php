@@ -123,7 +123,7 @@ foreach($emails as $Key => $Data){
     <CENTER>WARNING: Emails can only be edited by the primary translator, or the changes will be overwritten when the strings table gets updated next</CENTER>
     <button class="btn btn-danger" id="delete" onclick="deletekey(lastkey);">Delete</button>
     <button class="btn btn-primary" id="save" onclick="saveall(lastkey);">Save</button>
-    <button class="btn btn-info" id="send" onclick="sendtest(lastkey);" title="This will not substitute any variables">Send to yourself</button>
+    <button class="btn btn-primary" id="send" onclick="sendtest(lastkey);" title="This will not substitute any variables">Send to yourself</button>
 </TD>
 </TFOOT></TABLE>
 <script>

@@ -20,12 +20,77 @@ class TasksController extends AppController {
 	public function index() {
 
 	}
+     function requalify($cid){
+            $p = '';
+            foreach($_POST['requalify_product'] as $k=>$r) {
+                if($k+1==count($_POST['requalify_product'])) {
+                    $p .= $r;
+                }else {
+                    $p .= $r . ",";
+                }
+            }
+            if(!isset($_POST['requalify'])) {
+                $_POST['requalify'] = 0;
+            }
+            if(!isset($_POST['requalify_re'])) {
+                $_POST['requalify_re'] = 0;
+            }
+            $_POST['requalify_product'] = $p;
+            $id = $_POST['id'];
+            $cleint = TableRegistry::get('clients');
 
-    public function cron($Duration = "+2 years"){
-        if($_POST){
-            $this->Flash->success("Data has been saved");
+            $RunCron = isset($_POST["runcron"]) && $_POST["runcron"];
+            unset($_POST["runcron"]);
+
+            $query = $cleint->query();
+                        $query->update()
+                            ->set($_POST)
+                            ->where(['id' => $id])
+                            ->execute();
+            
         }
-
+    public function cron($Duration = "+2 years"){
+        $this->layout = 'blank';
+        if($_POST){
+            //var_dump($_POST);die();
+            $allclients = TableRegistry::get('clients')->find()->all();
+            $cleint = TableRegistry::get('clients');
+            $this->Flash->success("Data has been saved");
+            foreach($allclients as $cid)
+            {
+                $id = $cid->id;
+                if(isset($_POST['requalify'][$id]))
+                    $update_requalify['requalify']= 1;
+                else
+                    $update_requalify['requalify']= 0;
+                if(isset($_POST['requalify_re'][$id]))
+                    $update_requalify['requalify_re'] = $_POST['requalify_re'][$id];
+                else
+                    $update_requalify['requalify_re'] = 0;
+                if(isset($_POST['requalify_product'][$id]))
+                    $update_requalify['requalify_product'] = implode(',',array_keys($_POST['requalify_product'][$id]));
+                else
+                    $update_requalify['requalify_product'] = '';
+                if(isset($_POST['requalify_date'][$id])&& $_POST['requalify_re'][$id]=='0')
+                    $update_requalify['requalify_date'] = $_POST['requalify_date'][$id];
+                else
+                    $update_requalify['requalify_date'] = '';
+                if(isset($_POST['requalify_frequency'][$id]))
+                    $update_requalify['requalify_frequency'] = $_POST['requalify_frequency'][$id];
+                else
+                    $update_requalify['requalify_frequency'] = 0;
+                $query = $cleint->query();
+                        $query->update()
+                            ->set($update_requalify)
+                            ->where(['id' => $id])
+                            ->execute();
+                unset($update_requalify);
+                
+            }
+             return $this->redirect('/profiles/settings?all_cron');
+            //var_dump($_POST['requalify']);die();
+        }
+        
         //////////////////copied from profile controller
         $today = date('Y-m-d');
         $EndTime = date('Y-m-d', strtotime($Duration, strtotime($today)));
@@ -33,7 +98,8 @@ class TasksController extends AppController {
         $this->set('EndTime', $EndTime);
         $this->set('Duration', $Duration);
 
-        $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+        //$cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1','manual'=>'0'])->all();
+        $cron = TableRegistry::get('client_crons')->find()->where(['orders_sent'=>'1'])->all();
         $this->set('requalify',$cron);
         $p_type = "";
         $clients = TableRegistry::get('clients')->find('all')->where(['requalify' => '1','requalify_product <> ""']);
@@ -54,20 +120,53 @@ class TasksController extends AppController {
             foreach($escape_id as $ei) {
                 $escape_ids .= $ei->profile_id.",";
             }
-
-            $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today]);
+            //with expiry date
+            //$profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1','expiry_date <> ""','expiry_date >='=>$today]);
+            //without expiry date
+            $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1']);
+          
+                //debug($profile);die();
             foreach ($profile as $p) {
                 if ($c->requalify_re == '0') {
-                    $date = $c->requalify_date;
-                    if(strtotime($date)<= strtotime($today)) {
-                        $date = $this->getnextdate($date,$frequency);
+                     $date = $c->requalify_date;
+                   
+                    if(strtotime($date)==strtotime($today)){
+                      
+                         if($this->checkcron($c->id, $date, $p->id))
+                         {
+                            
+                            $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                         }
+                    }      
+                    else
+                        $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                    /*if(strtotime($date)<= strtotime($today)) {
+                       
                         if($this->checkcron($c->id, $date, $p->id)) {
                             $date = $this->getnextdate($date, $frequency);
+                            if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
                         }
-                    }
+                        elseif(strtotime($date)== strtotime($today))
+                        {
+                            //$date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                           //die(); 
+                        }
+                        else
+                        {
+                            $date = $this->getnextdate($date, $frequency);
+                             if($this->checkcron($c->id, $date, $p->id))
+                                $date = $this->getnextdate($date, $frequency);
+                        }
+                    }*/
+                   
                 } else {
-                    $date = $p->hired_date;
-                    if(strtotime($date) <= strtotime($today)) {
+                    
+                     $date = $p->hired_date;
+                     $date = $this->getnextdate($date, $frequency, $c->id, $p->id);
+                    /*if(strtotime($date) < strtotime($today)) {
                         if(strtotime($date) == strtotime($today)) {
                             if($this->checkcron($c->id, $date, $p->id)) {
                                 $date = $this->getnextdate($date, $frequency);
@@ -84,7 +183,7 @@ class TasksController extends AppController {
                         if (strtotime($date) == strtotime($today)) {
                             $date = $this->getnextdate($date, $frequency);
                         }
-                    }
+                    }*/
                 }
 
                 $n_req['cron_date']=    $date;
@@ -105,6 +204,7 @@ class TasksController extends AppController {
 
             }
         }
+        //var_dump($reqs);die();
         $this->sksort($reqs,'cron_date',true);
         $this->set('new_req',$reqs);
     }
@@ -140,21 +240,46 @@ class TasksController extends AppController {
     }
 
     function checkcron($cid,$date,$pid) {
+        
         $client_crons = TableRegistry::get('client_crons');
         $cnt = $client_crons->find('all')->where(['client_id'=>$cid,'orders_sent'=>'1','cron_date'=>$date,'profile_id'=>$pid])->count();
+        //debug($client_crons->find('all')->where(['client_id'=>$cid,'orders_sent'=>'1','cron_date'=>$date,'profile_id'=>$pid]));
+        //die($cnt);
         return $cnt;
     }
-
+    function getnextdate($date, $frequency, $cid=0 , $pid=0) {
+            $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
+            $days = $frequency*30;
+            $d = "+".$days." days";
+            $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+            
+            if (strtotime($nxt_date) < strtotime($today)) {
+                $d = $this->getnextdate($nxt_date, $frequency, $cid, $pid);
+            } else {
+                if ($this->checkcron($cid, $nxt_date, $pid))
+                {
+                    $d = $this->getnextdate($nxt_date, $frequency, $cid, $pid);
+                }
+                else
+                    $d = $nxt_date;
+            }
+            return $d;
+        }
+    /*
     function getnextdate($date, $frequency) {
+        //echo $date."<br/>";
         $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
-        $nxt_date = date('Y-m-d', strtotime($date)+($frequency*24*60*60*30));
+        $days = $frequency*30;
+        $d = "+".$days." days";
+        $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+       
         if (strtotime($nxt_date) < strtotime($today)) {
             $d = $this->getnextdate($nxt_date, $frequency);
         } else {
             $d = $nxt_date;
         }
         return $d;
-    }
+    }*/
 
 
     function timezone(){
@@ -289,5 +414,16 @@ class TasksController extends AppController {
         if ($hours>0) { $hours = "+" . $hours;}
         $newdate->modify($hours . " hours");
         return $newdate->format('Y-m-d H:i:s');
+    }
+    function saveDriverInfo($id)
+    {
+        $cleint = TableRegistry::get('profiles');
+
+            $query = $cleint->query();
+                        $query->update()
+                            ->set($_POST)
+                            ->where(['id' => $id])
+                            ->execute();
+                            die();
     }
 }

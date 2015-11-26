@@ -25,7 +25,7 @@
             <i class="fa fa-angle-down"></i>
         </div-->
     </div>
-    <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 </div>
 
 <?php
@@ -134,7 +134,7 @@
         $QuestionID = $QuizID . ':' . $Index;
         echo '<div class="state">' . $answered . '</div><div class="grade">Marked out of ' . $markedOutOf . '</div>';
         if($picture){
-            echo '<IMG SRC="' . $webroot . 'assets/global/' . $picture . '" style="max-width: 270px;">';
+            echo '<IMG SRC="' . $webroot . 'img/training/' . $picture . '" style="max-width: 138px;">';
         }
     }
 
@@ -199,7 +199,7 @@
                 //   echo $this->request->webroot; die();
           //      $link232 = $this->request->webroot . 'training/certificate?quizid=' . $_GET['quizid'] . '&userid=' . $user->id;
                 $Path = 'certificate?quizid=' . $_GET['quizid'] . '&userid=' . $user->id;
-                echo '<CENTER><a class=" btn btn-danger" href="' . $Path . '">Click here to view the certificate</A></CENTER>';
+                echo '<CENTER><a class=" btn btn-primary" href="' . $Path . '">Click here to view the certificate</A></CENTER>';
 
             }
             echo '</div></div>';
@@ -232,7 +232,7 @@
     if (is_object($answer)) {
         //PrintResults($results, $user);
     } else {
-        echo '<DIV align="center"><button type="submit" class="btn blue" style="margin-bottom: 15px;" onclick="return confirm(' . "'Are you sure you are done?'" . ');"><i class="fa fa-check"></i> Save</button></DIV>';
+        echo '<DIV align="center"><button type="submit" class="btn btn-primary" style="margin-bottom: 15px;" onclick="return confirm(' . "'Are you sure you are done?'" . ');"><i class="fa fa-check"></i> Save</button></DIV>';
     }
     echo "</form>";
     //}

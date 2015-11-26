@@ -80,8 +80,11 @@ class LoginController extends AppController{
                 }
                 //$this->redirect($this->referer());
 
-                if(isset($_GET['url'])) {
-                    $this->redirect(urldecode($_GET['url']));
+                if(isset($_POST['url']) && $_POST['url']) {
+                    $URL=$_POST['url'];
+                    echo '<SCRIPT>window.location = "' . $URL . '";</SCRIPT>';die();
+                    $URL=$this->converttoredirect($URL, LOGIN);
+                    $this->redirect($URL);
                 }else {
                     $this->redirect('/pages');
                 }
@@ -98,6 +101,43 @@ class LoginController extends AppController{
             }
         }else {
            // die();
+        }
+    }
+
+    function converttoredirect($URL, $BaseURL){
+        if(is_array($URL)){//return to url
+            $Del = "?";
+            $BaseURL = $BaseURL . $URL["controller"] . '/' . $URL["action"];
+            foreach($URL["?"] as $Key => $Value){
+                $BaseURL .= $Del;
+                if(is_numeric($Key)){
+                    $BaseURL .= $Value;
+                } else {
+                    $BaseURL .= $Key . "=" . $Value;
+                }
+                $Del = "&";
+            }
+        } else {//turn to URL
+            if (strtolower($this->Manager->left($URL, strlen($BaseURL))) == $BaseURL) {
+                $URL = $this->Manager->right($URL, strlen($URL) - strlen($BaseURL));
+            }
+            if (strpos($URL, "?") !== false) {
+                $URL = explode("/", $URL);
+                $REDIR = array('controller' => $URL[0], "action" => "", "?" => array());
+                $URL = explode("?", $URL[1]);
+                $REDIR["action"] = $URL[0];
+                $URL = explode("&", $URL[1]);
+                foreach ($URL as $GET) {
+                    if (strpos($GET, "=") === false) {
+                        $REDIR["?"][] = $GET;
+                    } else {
+                        $GET = explode("=", $GET);
+                        $REDIR["?"][$GET[0]] = $GET[1];
+                    }
+                }
+                return $REDIR;
+            }
+            return "/" . $URL;
         }
     }
 } 

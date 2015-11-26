@@ -53,7 +53,7 @@
                                     <div class="form-group col-md-6">
 										<label class="col-md-6 control-label">Date : </label>
 										<div class="col-md-6">
-											<input type="text" class="form-control" placeholder="(MM/DD/YYYY)">
+											<input type="text" class="form-control" placeholder="(YYYY-MM-DD)">
 										</div>
 									</div>
                                     <div class="form-group col-md-6">
@@ -374,7 +374,7 @@
                                         <div class="col-md-3">
                                         </div>
                                         <div class="col-md-9">
-                                            <a href="javascript:void(0);" class="add_attach btn btn-success">Add More</a>
+                                            <a href="javascript:void(0);" class="add_attach btn btn-primary">Add More</a>
                                         </div>
                                       </div>
                             <div class="clearfix"></div>

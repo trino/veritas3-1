@@ -158,7 +158,7 @@ JSinclude($this, array($Dir . "min.js", $Dir . "resize.min.js", $Dir . "pie.min.
 					</li>
                     
 				</ul>
-                <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+                <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 			</div>
 
 <div class="row" style="display:none;">
@@ -183,6 +183,12 @@ JSinclude($this, array($Dir . "min.js", $Dir . "resize.min.js", $Dir . "pie.min.
 
 <script>
 jQuery(document).ready(function() {
+	$(".datepicker").datepicker({
+		changeMonth: true,
+		changeYear: true,
+		yearRange: '1980:2020',
+		dateFormat: 'yy-mm-dd'
+	});
 
 	ChartsFlotcharts.init();
 	ChartsFlotcharts.initCharts();
@@ -278,11 +284,11 @@ jQuery(document).ready(function() {
 									<div class="chat-form"> <form action="<?php echo $this->request->webroot; ?>documents/analytics" method="get">
 										<div class="row">
 											<div class="col-md-11" align="right" style="margin-right:0;padding-right:0">
-												<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+												<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
 													<span class="input-group-addon"><?= $strings["analytics_start"]; ?></span>
-													<input type="text" class="form-control" name="from" value="<?php echo $enddate; ?>" style="min-width: 100px;">
+													<input type="text" class="form-control datepicker date-picker" name="from" value="<?php echo $enddate; ?>" style="min-width: 100px;">
 													<span class="input-group-addon"><?= $strings["analytics_finish"]; ?></span>
-													<input type="text" class="form-control" name="to" title="<?= $strings["analytics_leaveblank"] ?>" value="<?php echo get2("to", date("Y-m-d")); ?>" style="min-width: 100px;">
+													<input type="text" class="form-control datepicker date-picker" name="to" title="<?= $strings["analytics_leaveblank"] ?>" value="<?php echo get2("to", date("Y-m-d")); ?>" style="min-width: 100px;">
                                                     <!--button type="submit" class="btn btn-primary" style="float">Search</button-->
 
 												</div>

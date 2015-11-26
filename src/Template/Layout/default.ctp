@@ -306,13 +306,11 @@
         <?php
             $productlist = TableRegistry::get('product_types')->find('all');
             include('subpages/sidebar.php');
+            echo '<div class="page-content-wrapper"><div class="page-content">';
+                    echo $this->Flash->render();
+                    echo $this->fetch('content');
+                    //debug($permissions);
         ?>
-
-        <div class="page-content-wrapper">
-
-            <div class="page-content">
-                <?= $this->Flash->render() ?>
-                <?= $this->fetch('content') ?>
             </div>
         </div>
 
@@ -322,7 +320,7 @@
 
         <!-- END QUICK SIDEBAR -->
     </div>
-    <?php if ($settings->box == '1'){ ?></div><?php } ?>
+    <?php if ($settings->box == '1'){ echo '</div>'; } ?>
 
 <!-- BEGIN FOOTER -->
 <div class="page-footer">

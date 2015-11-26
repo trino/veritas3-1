@@ -36,18 +36,19 @@
         </li>
     </ul>
 
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?=$strings["dashboard_print"];?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?=$strings["dashboard_print"];?></a>
     <?php if ($sidebar->document_create == 1) { ?>
         <a href="<?php echo $this->request->webroot; ?>documents/add" class="floatright btn btn-primary btnspc">
             <?= $strings["index_createdocument"]; ?></a>
     <?php }
+    /*        
         if (isset($_GET["draft"])) { ?>
-            <a href="<?php echo $this->request->webroot; ?>documents/index" class="floatright btn btn-info btnspc">
+            <a href="<?php echo $this->request->webroot; ?>documents/index" class="floatright btn btn-primary btnspc">
                 <?=$strings["index_listdocuments"];?></a>
         <?php } else { ?>
-            <a href="<?php echo $this->request->webroot; ?>documents/index?draft" class="floatright btn btn-info btnspc">
+            <a href="<?php echo $this->request->webroot; ?>documents/index?draft" class="floatright btn btn-primary btnspc">
                 <?=$strings["dashboard_drafts"];?></a>
-        <?php } ?>
+        <?php }*/ ?>
 
 </div>
 
@@ -72,6 +73,10 @@
 
 
                         <form action="<?= $this->request->webroot; ?>documents/index" method="get">
+                        <select onchange="window.location = $(this).val();" class="form-control input-inline">
+                        <option value="<?= $this->request->webroot; ?>documents/index" <?php if(!isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_listdocuments"]); ?></option>
+                        <option value="<?= $this->request->webroot; ?>documents/index?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_orderdrafts"]); ?></option></option>
+                        </select>                                                
                             <?php
                                 if (isset($_GET['draft'])) { echo '<input type="hidden" name="draft"/>'; }
                                 $type = $doc_comp->getDocType($this->request->session()->read('Profile.id'));
@@ -311,23 +316,23 @@
 
                     echo '<td class="v-center">';
                     $docname = h($docs->document_type) . " #: " . $this->Number->format($docs->id);
-                    if (isset($uploaded_by->username)) {
+                    if (is_object($uploaded_by)) {
                         $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->user_id . '" target="_blank">' . formatname($uploaded_by);
                         $docname .= ", " . $strings["documents_submittedby"] . " " . formatname($uploaded_by);
                     } else {
-                        $user = $strings["documents_none"];
+                        $user = $strings["dashboard_deletedprofile"];
                     }
                     echo $user . '</td>';
 
                     if ($settings->mee == "MEE") {
                         echo '<td class="v-center">';
-                        if (isset($uploaded_for->username)) {
+                        if (is_object($uploaded_for)) {
                             $user = '<a href="' . $this->request->webroot . 'profiles/view/' . $docs->uploaded_for . '" target="_blank">' . formatname($uploaded_for);
                             if (!is_object($uploaded_by) || $uploaded_for->id <> $uploaded_by->id) {
                                 $docname .= ", " . $strings["documents_submittedfor"] . " " . formatname($uploaded_for);
                             }
                         } else {
-                            $user = $strings["documents_none"];
+                            $user = $strings["dashboard_deletedprofile"];
                         }
                         echo $user . '</td>';
                     }
@@ -375,7 +380,7 @@
                     }
                     echo '<span class="label label-sm ' . $Color . '" style="padding:4px;">' . $Label . '</span></td></tr>';
 
-                    //<!--TR><TD colspan="8"><!php print_r($docs); !></TD></TR-->
+                    $st_query = '';
                     } ?>
                     </tbody>
                     </table>
@@ -387,7 +392,12 @@
                 <div class="row">
                     <div class="col-md-12" align="right">
 
-
+                        <?php
+                        if(isset($_GET['doc_type']))
+                        {
+                            $st_query = $st_query.'?doc_type='.$_GET['doc_type'];
+                        }
+                        ?>
                         <div id="sample_2_paginate" class="dataTables_paginate paging_simple_numbers"
                              style="margin-top:-10px;">
 

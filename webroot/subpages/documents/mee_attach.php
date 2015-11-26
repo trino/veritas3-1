@@ -37,9 +37,9 @@
     //if driver's province is BC, QC or SK: mee_attach_7 is required
 
     $Step = 1;
-
+    $Debug = $this->request->session()->read('debug') || isset($_GET["debug"]);
     if($this->request->params['controller']!='ClientApplication'){
-        if ($this->request->session()->read('debug')) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
+        if ($Debug) {echo "<span style ='color:red;'>subpages/documents/mee_attach.php #INC203</span>";}
     }
      if(isset($_GET['order_id'])) {
          $dii = $_GET['order_id'];
@@ -58,12 +58,45 @@
     <div class="clearfix"></div>
 
     <?php
-        if(!isset($DriverProvince)){$DriverProvince="";}
-        echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" isform="';
-        if(isset($_GET["forms"])) {
-            echo in_array("1603", explode(",", $_GET["forms"]));
+        if($action == "View" && $controller == "documents") {
+            $data = getdocumentinfo($did);
+            $DriverProvince =$data->reciever->driver_province;
         }
-        echo '">';
+        if(!isset($DriverProvince)){$DriverProvince="";}
+
+        if (!isset($mee_att)) {$mee_att = array();}
+        if (!isset($forms)){$forms = "";}
+        if (isset($_GET["forms"])) {$forms = explode(",", $_GET["forms"]);}
+        $attachment = array();//Files are in: C:\wamp\www\veritas3-0\webroot\img\pdfs
+
+        if (is_array($forms)) {
+            if (in_array("1", $forms)) {//                  Name         Filename
+                if ($DriverProvince == "QC") {
+                    $attachment["Quebec MVR Consent"] = "1.QC.pdf";
+                }
+            }
+            if (in_array("14", $forms)) {
+                if ($DriverProvince == "SK") {
+                    $attachment["Saskatchewan Abstract Consent"] = "14.SK.pdf";
+                }
+                if ($DriverProvince == "BC") {
+                    $attachment["British Columbia Abstract Consent"] = "14.BC.pdf";
+                }
+            }
+        }
+
+
+        echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" forms="' . implode(",", $forms) . '">';
+        if($Debug){
+            $Is1603 = in_array(1603, $forms);
+            $Yes = "<B>Yes</B>"; $No = "<B>No</B>";
+            echo '<HR><H1>Rules for attachments:</H1>';
+            echo "If 1603 is one of the forms selected, require 1 piece of ID: " . iif($Is1603, $Yes, $No);
+            echo "<BR>Driver's LICENSE ISSUED province: <B>" . $DriverProvince . "</B> - Forms: <B>" . implode(", ", $forms) . '</B>';
+            echo "<BR>QC and Form 1 is selected: " . iif(in_array("1", $forms) && $DriverProvince == "QC", $Yes, $No);
+            echo "<BR>SK <B>or</B> BC and Form 14 is selected: " . iif(in_array("14", $forms) && ($DriverProvince == "SK" || $DriverProvince == "BC"), $Yes, $No);
+        }
+
         $skip=false;
         function alert($Text){
             echo "<SCRIPT>alert('" . $Text . "');</SCRIPT>";
@@ -80,11 +113,6 @@
 
         $action = ucfirst($param);
 
-        if($action == "View" && $controller == "documents") {
-            $data = getdocumentinfo($did);
-            $DriverProvince =$data->reciever->driver_province;
-        }
-
         function makeBrowseButton($ID, $Display, $Remove = true, $text="", $Required = false){
             if(!$Display){$Display=' style="display: none;"';} else{ $Display="";}
             echo '<div' . $Display . '><span><a style="margin-bottom:5px;" href="javascript:void(0)" class="btn btn-primary additional" id="mee_att_' . $ID . '">';
@@ -95,27 +123,6 @@
             echo '<span class="uploaded"></span></span><input type="hidden" name="mee_attachments[]" class="mee_att_' . $ID . '" ID="mee_attach_' . $ID . '"';
             //if($Required){ echo " REQUIRED";}
             echo '/> ' . $text . '</div>';
-        }
-
-        if (!isset($mee_att)) {$mee_att = array();}
-        if (!isset($forms)){$forms = "";}
-        if(!isset($DriverProvince)){$DriverProvince = "";}
-        if (isset($_GET["forms"])) {$forms = explode(",", $_GET["forms"]);}
-        $attachment = array();//Files are in: C:\wamp\www\veritas3-0\webroot\img\pdfs
-        if (is_array($forms)) {
-            if (in_array("1", $forms)) {//                  Name         Filename
-                if ($DriverProvince == "QC") {
-                    $attachment["Quebec MVR Consent"] = "1.QC.pdf";
-                }
-            }
-            if (in_array("14", $forms)) {
-                if ($DriverProvince == "SK") {
-                    $attachment["Saskatchewan Abstract Consent"] = "14.SK.pdf";
-                }
-                if ($DriverProvince == "BC") {
-                    $attachment["British Columbia Abstract Consent"] = "14.BC.pdf";
-                }
-            }
         }
 
         function nodocs($docsprinted){
@@ -282,7 +289,7 @@
                     echo '<label class="control-label col-md-4" align="right">' . str_replace("%number%", $Step, $strings2["upload_step1"]) . ': </label><div class="col-md-8">';
                     $Step = $Step + 1;
                     foreach ($attachment as $name => $file) {//C:\wamp\www\veritas3-0\webroot\ http://localhost/veritas3-0/webroot/img/certificates/certificate71-1.pdf
-                        echo '<A class="btn btn-info" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file . '">';
+                        echo '<A class="btn btn-primary" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file . '">';
                         echo '<i class="fa fa-floppy-o"></i> ' . $name . ' </A> ';
                     }
                     echo "</DIV></DIV></DIV>";
@@ -296,34 +303,33 @@
                 echo "<div>";
             }
             echo '<div class="col-md-12">';
+
             if ($doit && (count($attachment) > 0) || $morecount>0) {
-            echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
-            echo '<div class="col-md-8 mee_more">';
-            if(!isset($mee_more))
-            $mee_more = false;
-            $lprov = array('BC','QC','SK');
-            $get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
-            if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
-                makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
-            }
-            if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
-                $skip=true;
-                $morecount = $morecount-1;
-                foreach($mee_more as $key => $file) {//id, mee_id, attachments
-                    //var_dump($file);
-                    if(printfile($this->request->webroot, 8, $file,'','norem')) {
-                        break;
+                echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
+                echo '<div class="col-md-8 mee_more">';
+                if(!isset($mee_more))
+                $mee_more = false;
+                $lprov = array('BC','QC','SK');
+                //$get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
+                $get_prov = $DriverProvince;
+                if(($this->request->params['action'] == 'addorder' || $this->request->params['action'] == 'add') && !$mee_more && in_array($get_prov,$lprov)) {
+                    makeBrowseButton(7, true, false, '<FONT COLOR="RED">* ' . $strings2["upload_required"] . '</FONT>', true);
+                }
+                if($did  && in_array($get_prov,$lprov) && is_iterable($mee_more)){
+                    $skip=true;
+                    $morecount = $morecount-1;
+                    foreach($mee_more as $key => $file) {//id, mee_id, attachments
+                        //var_dump($file);
+                        if(printfile($this->request->webroot, 8, $file,'','norem')) {
+                            break;
+                        }
                     }
                 }
-            } 
-        ?>
-
-
-    </div>
-<?php } ?>
+            echo '</div>';
+} ?>
                 <div class="clearfix"></div>
                 <!--p>&nbsp;</p>
-                <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-success"><?= $strings["forms_addmore"]; ?></a></div-->
+                <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-primary"><?= $strings["forms_addmore"]; ?></a></div-->
             </div>
         </div>
 
@@ -380,7 +386,7 @@
                  <div class="col-md-4" align="right"><?= $strings2["upload_uploaddriv"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
                 echo $mee_att['attach_doc']->driver_record_abstract;
@@ -404,7 +410,7 @@
                 <!--label class="control-label col-md-4">Upload CVOR: </label-->
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_4"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->cvor; ?>"><?php echo printanattachment($mee_att['attach_doc']->cvor); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_cvor" name="cvor" class="mee_att_4" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->cvor) {
                 echo $mee_att['attach_doc']->cvor;
@@ -428,7 +434,7 @@
             <div class="col-md-4" align="right"><?= $strings2["upload_uploadresu"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_5"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->resume; ?>"><?php echo printanattachment($mee_att['attach_doc']->resume); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_resume" name="resume" class="mee_att_5" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->resume) {
                 echo $mee_att['attach_doc']->resume;
@@ -452,7 +458,7 @@
             <div class="col-md-4" align="right"><?= $strings2["upload_uploadcert"]; ?>: </div>
                 <div class="col-md-8">
                     <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_6"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) { ?>
-                <a class="dl"
+                <a class="dl nohide forview"
                    href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->certification; ?>"><?php echo printanattachment($mee_att['attach_doc']->certification); ?></a><?php } ?></span></span>
                     <input type="hidden" id="meeattach_certification" name="certification" class="mee_att_6" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->certification) {
                 echo $mee_att['attach_doc']->certification;
@@ -511,7 +517,7 @@
                     ?>
 
                 </div>
-                <a href="javascript:void(0)" class="btn btn-success" id="mee_att_more"><?= $strings["forms_addmore"]; ?></a>
+                <a href="javascript:void(0)" class="btn btn-primary" id="mee_att_more"><?= $strings["forms_addmore"]; ?></a>
             </div>
         </div>
     </div>

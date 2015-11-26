@@ -372,13 +372,13 @@ if($sidebar->orders){
                                         <?= $strings["index_addtasks"]; ?></a>
                                 </li>
                             <?php }
-                                if ($this->request->session()->read('Profile.super')) { ?>
+                                /*if ($this->request->session()->read('Profile.super')) { ?>
                                     <li <?php echo ($this->request['controller'] == 'Tasks' && $this->request['action'] == 'cron') ? 'class="active"' : ''; ?>>
                                         <a href="<?php echo $this->request->webroot; ?>tasks/cron">
                                             <i class="fa fa-clock-o"></i>
                                             CRON</a>
                                     </li>
-                                <?php } ?>
+                                <?php }*/ ?>
                         </ul>
                     </li>
                 <?php }
@@ -393,9 +393,7 @@ if($sidebar->orders){
                     </li>
                 <?php }
 
-                if (DATABASE == "ttsao") {
-                    //echo '<DIV ALIGN="CENTER">In patnership with<BR><IMG SRC="' . $this->request->webroot . 'img/ttsao.png" STYLE="max-height: 100px;"></DIV>';
-                }
+                
 
 
             ?>

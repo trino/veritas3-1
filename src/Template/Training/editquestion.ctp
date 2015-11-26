@@ -33,6 +33,17 @@ function clean($data, $datatype=0){
     return $data;
 }
 
+function getextension($path, $value=PATHINFO_EXTENSION){
+    return strtolower(pathinfo($path, $value));
+}
+function printoption2($value, $selected="", $option = "", $dir="") {
+    $tempstr = "";
+    if(!$option){$option=$value;}
+    if ($option == $selected or $value == $selected) {$tempstr = " selected";}
+    if($dir){$tempstr.=' class="selectbg" style="background-image: url(' .$dir . "/" . $value . ');"';}
+    echo '<OPTION VALUE="' . $value . '"' . $tempstr . ">" . $option . "</OPTION>";
+}
+
 if (isset($question)) {$question = clean($question,1);}
 
 ?>
@@ -59,7 +70,7 @@ if (isset($question)) {$question = clean($question,1);}
                 <a href="">Edit Question</a>
             </li>
         </ul>
-        <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+        <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
         <?php if ($canedit && isset($question)) {
             echo '<a href="' . $this->request->webroot . 'training/editquestion?new=true&action=delete&QuestionID=' . $_GET["QuestionID"] . '&quizid=' . $_GET["quizid"] . '" onclick="return confirm(' . "'Are you sure you want to delete this question?'" . ');" class="floatright btn btn-danger btnspc">Delete</a>';
             $QuizID="&quizid=" . isset($quiz);
@@ -80,7 +91,23 @@ if (isset($question)) {$question = clean($question,1);}
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label">Image :</label>
-                <input name="Picture" onchange="changed=true;" class="form-control required" value="<?php if (isset($question)) { echo $question->Picture; } ?>" />
+                <SELECT NAME="Picture" ID="image" onchange="changed=true;" class="form-control" SELECTED="<?php if (isset($question)) { echo $question->Picture; } ?>">
+                    <OPTION VALUE="">No image</OPTION>
+                    <?php
+                    //<!--input name="image" id="image" class="form-control" value="<?php if (isset($quiz)) { echo $quiz->image; } else {echo "training.png";} " /-->
+                    $dir = getcwd() . "/img/training";
+                    if(is_dir($dir)) {
+                        $images = scandir($dir);
+                        foreach ($images as $image) {
+                            $ext = getextension($image);
+                            if ($ext == "gif" || $ext == "png") {
+                                printoption2($image, $question->Picture, "", $this->request->webroot . "img/training");
+                            }
+                        }
+                    }
+                    ?>
+                </SELECT>
+                <!--input name="Picture" onchange="changed=true;" class="form-control required" value="<?php if (isset($question)) { echo $question->Picture; } ?>" /-->
             </div>
         </div>
 
@@ -113,12 +140,12 @@ if (isset($question)) {$question = clean($question,1);}
 
         <div class="col-md-2">
             <div class="form-group">
-                <button type="submit" class="btn blue"><i class="fa fa-check"></i> Save Changes</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>
             </div>
         </div>
         <div class="col-md-2">
             <div class="form-group">
-                <A href="#" class="btn btn-info" onclick="truefalse();">True/False</A>
+                <A href="#" class="btn btn-primary" onclick="truefalse();">True/False</A>
             </div>
         </div>
     </form>

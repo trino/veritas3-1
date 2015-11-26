@@ -439,7 +439,11 @@ function implode2($Array, $SmallGlue, $BigGlue){
 function debug($Iterator, $DoStacktrace = true){
     if($DoStacktrace) {
         $Backtrace = debug_string_backtrace();
-        echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '();</B> ';
+        if(isset( $Backtrace["file"]) && isset($Backtrace["function"]) ) {
+            echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '();</B> ';
+        } else {
+            echo '<B>UNKNOWN FILE (line ' . $Backtrace["line"] . ') From function: UNKNOWN FUNCTION();</B> ';
+        }
     }
 
     if(is_array($Iterator)){

@@ -73,7 +73,7 @@ if(isset($isdisabled)) {$disabled = "disabled='disabled'";}
 				</ul>
                 <?php
                 if (isset($event)) {
-                    echo '<a href="javascript:window.print();" class="floatright btn btn-info">' . $strings["dashboard_print"] . '</a>';
+                    echo '<a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
                 }?>
 
 			</div>

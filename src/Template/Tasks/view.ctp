@@ -30,7 +30,7 @@
 									</div>
 									<div class="actions">
 										<div class="btn-group">
-											<a class="btn green-haze btn-circle btn-sm todo-projects-config" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+											<a class="btn btn-primary-haze btn-circle btn-sm todo-projects-config" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 											<i class="icon-settings"></i> &nbsp; <i class="fa fa-angle-down"></i>
 											</a>
 											<ul class="dropdown-menu pull-right">
@@ -112,7 +112,7 @@
 									</div>
 									<div class="actions">
 										<div class="btn-group">
-											<a class="btn green-haze btn-circle btn-sm" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+											<a class="btn btn-primary-haze btn-circle btn-sm" href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 											MANAGE <i class="fa fa-angle-down"></i>
 											</a>
 											<ul class="dropdown-menu pull-right">

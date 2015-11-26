@@ -20,7 +20,7 @@
 						<i class="fa fa-angle-down"></i>
 					</div>
 				</div>
-                <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+                <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 			</div>
 
 
@@ -98,7 +98,7 @@
                                 <td><?= h($feedback->title) ?></td>
                                 <td class="actions">
 
-                                    <?php  if($sidebar->document_list=='1'){ echo $this->Html->link(__('View'), ['action' => 'view', $feedback->id], ['class' => 'btn btn-info']);} ?>
+                                    <?php  if($sidebar->document_list=='1'){ echo $this->Html->link(__('View'), ['action' => 'view', $feedback->id], ['class' => 'btn btn-primary']);} ?>
                                     <?php  if($sidebar->document_edit=='1'){ echo $this->Html->link(__('Edit'), ['action' => 'edit', $feedback->id], ['class' => 'btn btn-primary']);} ?>
                                     <?php  if($sidebar->document_delete=='1'){ echo $this->Form->postLink(__('Delete'), ['action' => 'delete', $feedback->id], ['class' => 'btn btn-danger'], ['confirm' => __('Are you sure you want to delete # {0}?', $feedback->id)]);} ?>
 

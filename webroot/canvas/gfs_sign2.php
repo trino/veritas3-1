@@ -57,7 +57,7 @@ $_GET['num']=1002;?>
            value="<?php if (isset($consent_detail) && $consent_detail->signature_company_witness2) { ?>1<?php } else { ?>0<?php } ?>"/>
     <label class="control-label"><?= $strings2["consent_sigwitness"]; ?></label><br>
     <?php if(!isset($_GET['form_id'])){?>
-    <p style="margin-top:8px;">Please Sign in within the border.</p>
+    <p style="margin-top:8px;"><?= $strings2["consent_withinborder"]; ?></p>
     <div style="border: 15px solid silver;border-radius: 5px;">
             <canvas id="test<?php echo $_GET['num'];?>" style=""></canvas>
             </div>

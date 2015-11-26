@@ -1,6 +1,7 @@
  <?php
- if($this->request->session()->read('debug'))
-        echo "<span style ='color:red;'>document.php #INC157</span>";
+     if($this->request->session()->read('debug')) {
+         echo "<span style ='color:red;'>document.php #INC157</span>";
+     }
  ?>
 
 <div class="row">
@@ -58,7 +59,7 @@
     						</div>
 
     					       <a class="more" href="<?php echo $this->request->webroot;?>documents/type/<?php echo ($d->id);?>">
-    						View more <i class="m-icon-swapright m-icon-white"></i>
+    						View more
     						</a>
 
 

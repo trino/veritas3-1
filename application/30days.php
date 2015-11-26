@@ -87,13 +87,13 @@
  					<label for="hire" class="control-label col-md-2">Hire Date:</label>
  					<div class="col-md-4 form-group">
                      <div class="input-icon">
-                     <input type="text" class="form-control datepicker" name="h_date" placeholder="MM/DD/YYYY" value="<?php if(isset($form) && isset($_GET['form_id']))echo $form['h_date'];?>"></div>
+                     <input type="text" class="form-control datepicker" name="h_date" placeholder="YYYY-MM-DD" value="<?php if(isset($form) && isset($_GET['form_id']))echo $form['h_date'];?>"></div>
  				</div>
                 </div>
  				<div class="review">
  					<label for="review" class="control-label col-md-2">Review Date:</label>
  					<div class="col-md-4 form-group">
-                      <div class="input-icon"><input type="text" class="form-control datepicker" name="r_date" placeholder="MM/DD/YYYY" value="<?php if(isset($form) && isset($_GET['form_id']))echo $form['r_date'];?>"></div>
+                      <div class="input-icon"><input type="text" class="form-control datepicker" name="r_date" placeholder="YYYY-MM-DD" value="<?php if(isset($form) && isset($_GET['form_id']))echo $form['r_date'];?>"></div>
  				</div>
                 </div>
  			</div>
@@ -579,6 +579,6 @@
     })
     
     </script>
-    <?php initdatepicker("mm/dd/yy"); ?>
+    <?php initdatepicker("yy-mm-dd"); ?>
  	</body>
  	</html>

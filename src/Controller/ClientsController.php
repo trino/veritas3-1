@@ -75,7 +75,7 @@
                 $arr = explode('.', $_FILES['myfile']['name']);
                 $ext = end($arr);
                 $rand = rand(100000, 999999) . '_' . rand(100000, 999999) . '.' . $ext;
-                $allowed = array('jpg', 'jpeg', 'png', 'bmp', 'gif', 'pdf', 'doc', 'docx', 'csv', 'xlsx', 'xls');
+                $allowed = array('jpg', 'jpeg', 'png', 'bmp', 'gif', 'pdf', 'doc', 'docx', 'csv', 'xlsx', 'xls', 'txt');
                 $check = strtolower($ext);
                 if (in_array($check, $allowed)) {
                     move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/img/jobs/' . $rand);
@@ -1583,7 +1583,7 @@
                 }else {
                     $escape_ids = '0';
                 }
-                $profile = TableRegistry::get('profiles')->find('all')->where(['id IN('.$c->profile_id.')','id NOT IN ('.$escape_ids.')','requalify'=>'1', 'profile_type IN('.$p_types.')','expiry_date<>""','expiry_date >='=>$today]);
+                $profile = TableRegistry::get('profiles')->find('all')->where(['id IN('.$c->profile_id.')','id NOT IN ('.$escape_ids.')', 'is_hired' => '1','requalify'=>'1', 'profile_type IN('.$p_types.')','expiry_date<>""','expiry_date >='=>$today]);
                 foreach($profile as $p) {
                     if($c->requalify_re == '1') {
                          $date = $p->hired_date;

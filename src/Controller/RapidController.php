@@ -167,7 +167,9 @@
             return $cnt;
         }
 
-        function cron() {
+        function cron($IsDebug = false) {
+            if(isset($_GET['blank']))
+            $this->layout = 'blank';
             $today = date('Y-m-d');
             $msg = "";
             $clients = TableRegistry::get('clients')->find('all')->where(['requalify' => '1', 'requalify_product <> ""']);
@@ -233,30 +235,37 @@
                     }
                     //echo $p->expiry_date."<br/>" ;
                     //echo strtotime($p->expiry_date)."<br/>".time();
-                    if (($p->profile_type == '5' || $p->profile_type == '7' || $p->profile_type == '8')) {
+                    //if (($p->profile_type == '5' || $p->profile_type == '7' || $p->profile_type == '8')) {
                         //echo $p->id."</br>";
                         //echo $p->created_by;
-                        if (strtotime($p->expiry_date) < strtotime($today)) {
+
+                        
+                        //Test for expired profile
+                        /*if (strtotime($p->expiry_date) < strtotime($today)) {
                             $epired_profile .= $p->username . ",";
 
                         } else {
+                        */
+
+                    if(true){
 
                             if ($c->requalify_re == '1') {
+                               
                                 $date = $p->hired_date;
                                 if (strtotime($date) <= strtotime($today)) {
 
-                                    //$date =  $this->getnextdate($date,$frequency); 
                                     if (strtotime($date) == strtotime($today)) {
+                                        $date =$this->getnextdate($date, $frequency);
                                         if ($this->checkcron($c->id, $date, $p->id)) {
                                             $date = $this->getnextdate($date, $frequency);
                                         }
                                     } else {
                                         $date = $this->getnextdate($date, $frequency);
-                                        if (strtotime($date) == strtotime($today)) {
+                                       
                                             if ($this->checkcron($c->id, $date, $p->id)) {
                                                 $date = $this->getnextdate($date, $frequency);
                                             }
-                                        }
+                                        
                                     }
                                 } else {
                                     continue;
@@ -292,7 +301,7 @@
                                 }
 
                             }
-                        }
+                        //} //for else condition
                     }
                 }
                 //die();
@@ -302,22 +311,26 @@
                 $i = 0;
                 $username = substr($pronames[$i], 0, strlen($pronames[$i]) - 1);
                 $mesg = "Selected Forms:" . $new_form . "<br/>";
-                $mesg .= "Profile(s): '" . substr($pronames[$i], 0, strlen($pronames[$i]) - 1) . "' have been re-qualified on " . $today . " for client: " . $c->company_name . ".<br /><br />Click <a href='" . LOGIN . "'>here</a> to login to view the reports.<br /><br />Regards,<br />The MEE Team";
-                $footer = "";
-                //echo $epired_profile; die();
-                if ($epired_profile != "") {
-                    $mesg .= "<br/>Expired Profiles:" . $epired_profile;
+                $new_form=trim(substr($pronames[$i], 0, strlen($pronames[$i]) - 1));
+                if($new_form) {
+                    $mesg .= "Profile(s): '" . $new_form . "' have been re-qualified on " . $today . " for client: " . $c->company_name . ".<br /><br />Click <a href='" . LOGIN . "'>here</a> to login to view the reports.<br /><br />Regards,<br />The MEE Team";
+                    $footer = "";
+                    //echo $epired_profile; die();
+                    //expired profile test
+                    /*if ($epired_profile != "") {
+                        $mesg .= "<br/>Expired Profiles:" . $epired_profile;
+                    }*/
+                    if ($IsDebug)
+                        foreach ($em as $e) {
+                            $this->Mailer->handleevent("requalification", array("email" => $e, "company_name" => $c->company_name, "username" => $username, "expired" => $epired_profile));
+                            //$this->Mailer->sendEmail("", $e, "Driver Re-qualified (" . $c->company_name . ")", $mesg);
+
+
+                            $emails .= $e . ",";
+                            $i++;
+                        }
+                    unset($em);
                 }
-
-                foreach ($em as $e) {
-
-                    // $this->Mailer->handleevent("requalification", array("email" => $e, "company_name" => $c->company_name, "username" => $username, "expired" => $epired_profile));
-                    //$this->Mailer->sendEmail("", $e, "Driver Re-qualified (" . $c->company_name . ")", $mesg);
-
-                    $emails .= $e . ",";
-                    $i++;
-                }
-                unset($em);
                 $epired_profile = "";
                 $p_newname = '';
                 foreach ($pronames as $p) {
@@ -400,14 +413,17 @@
         }
 
         function getnextdate($date, $frequency) {
-            $today = date('Y-m-d');
-            $nxt_date = date('Y-m-d', strtotime($date) + $frequency * 30 * 24 * 60 * 60);
-            if (strtotime($nxt_date) < strtotime($today)) {
-                $d = $this->getnextdate($nxt_date, $frequency);
-            } else {
-                $d = $nxt_date;
-            }
-            return $d;
+            $today = date('Y-m-d');//                              24 hours * 60 minutes * 60 seconds * 30 days
+            $days = $frequency*30;
+            $d = "+".$days." days";
+            $nxt_date = date('Y-m-d',strtotime(date('Y-m-d',  strtotime($date)).$d));
+           
+                if (strtotime($nxt_date) < strtotime($today)) {
+                    $d = $this->getnextdate($nxt_date, $frequency);
+                } else {
+                    $d = $nxt_date;
+                }
+                return $d;
         }
 
         function getcronProfiles($c_profile) {
@@ -840,10 +856,13 @@
                 die();
             }
 
-            $Formdata = $this->Manager->validate_data($GETPOST, array("gender" => ["Male", "Female"], "title" => ["Mr.", "Mrs.", "Ms."], "email" => "email", "phone" => "phone", "postal" => "postalcode", "province" => "province", "driver_province" => "province", "clientid" => "number", "driverphotoBASE" => "base64file", "forms" => "csv", 'signatureBASE' => "base64file", 'consentBASE' => "base64file", "dob" => "date"));
+            $Formdata = $this->Manager->validate_data($GETPOST, array("gender" => ["Male", "Female"], "title" => ["Mr.", "Mrs.", "Ms."], "email" => "email", "phone" => "phone", "postal" => "postalcode", "province" => "province", "driver_province" => "province", "clientid" => "number", "driverphotoBASE" => "base64file", "driverphoto2BASE" => "base64file", "forms" => "csv", 'signatureBASE' => "base64file", 'consentBASE' => "base64file", "dob" => "date"));
             //$Required = array("clientid", "forms", "ordertype", "driverphotoBASE", "consentBASE", "fname", "lname", "gender", "email", "driver_province", "title", "placeofbirth", "sin", "phone", "street", "city", "province", "postalcode", "country", "dob", "driver_license_no", "expiry_date");
-            $Required = array("clientid", "forms", "ordertype", "email", "phone", "driver_province", "driverphotoBASE", "consentBASE", "expiry_date", "placeofbirth");
+            $Required = array("clientid", "forms", "ordertype", "email", "phone", "driver_province", "driverphotoBASE", "expiry_date", "placeofbirth");
             $this->requiredfields($GETPOST, $Required);//required field validation
+            if(in_array(1603, explode(",", $GETPOST["forms"]))){
+                $this->requiredfields($GETPOST, array("consentBASE"));//required field validation
+            }
             if (!is_array($Formdata)) {
                 $this->status(False, $Formdata);
             }
@@ -947,7 +966,16 @@
 
             //attachments
             $this->handleattachments($GETPOST, "signatureBASE", 'webroot/canvas', 4, array("criminal_signature_applicant2", "criminal_signature_applicant"), $Super, $ClientID, $OrderID, $Driver);//signature (consent form)
-            $Formdata = $this->handleattachments($GETPOST, "driverphotoBASE", 'webroot/attachments', 15, "id_piece1", $Super, $ClientID, $OrderID, $Driver);//Photo ID (Upload ID)
+
+            if(!isset($GETPOST["driverphotoBASE"]) || !$GETPOST["driverphotoBASE"]){
+                if(isset($GETPOST["driverphoto2BASE"]) && $GETPOST["driverphoto2BASE"]){
+                    $GETPOST["driverphotoBASE"] = $GETPOST["driverphoto2BASE"];
+                    unset($GETPOST["driverphoto2BASE"]);
+                }
+            }
+
+            $Formdata = $this->handleattachments($GETPOST, "driverphotoBASE", 'webroot/attachments', 15, "id_piece1", $Super, $ClientID, $OrderID, $Driver);//Photo ID (Upload ID) 1
+            $this->handleattachments($GETPOST, "driverphoto2BASE", 'webroot/attachments', 15, "id_piece2", $Super, $ClientID, $OrderID, $Driver, $Formdata);//Photo ID (Upload ID) 2
             if (!$Formdata) {
                 $Formdata = $this->Document->constructsubdoc(array(), 15, $Super->id, $ClientID, $OrderID, true, $Driver);
             }
@@ -989,9 +1017,15 @@
             $this->Status(True, $OrderID, "OrderID");
         }
 
-        function handleattachments($GETPOST, $Name, $Path, $SubDocID, $Field, $Super, $ClientID, $OrderID, $Driver) {
+        function handleattachments($GETPOST, $Name, $Path, $SubDocID, $Field, $Super, $ClientID, $OrderID, $Driver, $ExistingFormData = false) {
             //constructsubdoc($data, $formID, $userID, $clientID, $orderid=0, $retData = false
-            if (isset($GETPOST[$Name]) && strpos($GETPOST[$Name], "data:image/") !== false && strpos($GETPOST[$Name], ";base64,") !== false) {
+            if(is_array($Name)){
+                $Index=0;
+                foreach($Name as $Filename){
+                    $ExistingFormData = handleattachments($GETPOST, $Filename, $Path, $SubDocID, $Field[$Index], $Super, $ClientID, $OrderID, $Driver, $ExistingFormData);
+                    $Index++;
+                }
+            } else if (isset($GETPOST[$Name]) && strpos($GETPOST[$Name], "data:image/") !== false && strpos($GETPOST[$Name], ";base64,") !== false) {
                 $GETPOST[$Name] = str_replace("data:image/tmp;base64,", "data:image/png;base64,", $GETPOST[$Name]);
                 $Filename = $this->Manager->unbase_64_file($GETPOST[$Name], $Path);
                 if ($SubDocID > 0) {
@@ -1003,13 +1037,18 @@
                     } else {
                         $Data[$Field] = $Filename;
                     }
-                    return $this->Document->constructsubdoc($Data, $SubDocID, $Super->id, $ClientID, $OrderID, true, $Driver);//MEE Attach (Upload ID)
+                    if($ExistingFormData){
+                        $Table = $this->Manager->get_entry("subdocuments", $SubDocID)->table_name;
+                        $this->Manager->update_database($Table, "id", $ExistingFormData["subdocid"], $Data);
+                    } else {
+                        return $this->Document->constructsubdoc($Data, $SubDocID, $Super->id, $ClientID, $OrderID, true, $Driver);//MEE Attach (Upload ID)
+                    }
                 } else if ($SubDocID == -15) {//mee_attachments, Field is the MEE_ID
                     $Data = array("mee_id" => $Field, "attachments" => $Filename);
                     return $this->Manager->new_entry("mee_attachments_more", "id", $Data);
                 }
             }
-            return false;
+            return $ExistingFormData;
         }
 
         function copyarray($SRC, $Cells) {

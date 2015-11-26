@@ -26,7 +26,7 @@ $strings = CacheTranslations($language, "aggregate_%",$settings);//,$registry);
         </li>
 
     </ul>
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"]; ?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 </div>
 
 <div class="portlet box blue">

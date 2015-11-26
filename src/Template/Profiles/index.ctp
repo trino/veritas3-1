@@ -10,6 +10,12 @@
         $Trans = "";
     }
     $super = $this->request->session()->read('Profile.super');
+  $st_query = '';
+  if(isset($_GET['filter_profile_type']))
+                        {
+                            $st_query = $st_query.'?filter_profile_type='.$_GET['filter_profile_type'];
+                        }
+                        
 ?>
 
 <style>
@@ -85,7 +91,7 @@
         </li>
     </ul>
 
-    <a href="javascript:window.print();" class="floatright btn btn-info"><?= $strings["dashboard_print"] ?></a>
+    <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"] ?></a>
 
     <?php
         if ($sidebar->profile_create == 1) {
@@ -214,7 +220,7 @@
                                 <th><?= $this->Paginator->sort('id', "ID") ?></th>
                                 <th style="width:7px;"><?= $this->Paginator->sort('image', $strings["profiles_image"]) ?></th>
                                 <!--th><?= $this->Paginator->sort('username', $strings["profiles_username"]) ?></th-->
-                                <th><a href="#"><?= $strings["profiles_certified"]; ?></a></th>
+                                <!--th><a href="#"><?= $strings["profiles_certified"]; ?></a></th-->
                                 <!--th><?= $this->Paginator->sort('email') ?></th-->
                                 <th><?= $this->Paginator->sort('fname', $strings["profiles_name"]) ?></th>
                                 <th><?= $this->Paginator->sort('profile_type', $strings["profiles_profiletype"]) ?></th>
@@ -236,7 +242,7 @@
                                 }
 
                                 $URLStart = '<a href="' . $this->request->webroot;
-                                $URLEnd = '" class="' . btnclass("btn-info", "blue-soft") . '">';//$strings["profiles_viewdocuments"]
+                                $URLEnd = '" class="' . btnclass("btn-primary", "blue-soft") . '">';//$strings["profiles_viewdocuments"]
                                 if(isset($profiles)){
                                 foreach ($profiles as $profile){
                                     if ($row_color_class == "even") {
@@ -265,7 +271,7 @@
                                             ?>
 
                                         </td>
-                                        <td class="actions v-center" align="center" valign="middle">
+                                        <!--td class="actions v-center" align="center" valign="middle">
                                             <?php if ($sidebar->bulk == '1' && ($profile->profile_type == 5 || $profile->profile_type == 7 || $profile->profile_type == 8 || $profile->profile_type == 11)) {
                                                 echo '<!--input type="checkbox" class="form-control bulk_user" value="' . $profile->id . '" id="checkbox_id_' . $profile->id . '" -->';
                                             }
@@ -285,7 +291,7 @@
                                                  src="<? echo $this->request->webroot . 'img/mee-logo.png'; ?>"
                                                  class="img-responsive" alt=""/>
                                             <?}?>
-                                        </td>
+                                        </td-->
 
                                         <td class="v-center"><?= formatname($profile) ?></td>
 
@@ -314,7 +320,7 @@
                                             <?php
 
                                                 if ($sidebar->profile_list == '1' && !isset($_GET["draft"]) && ($super || $profile->profile_type > 0)) {
-                                                    echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => btnclass("btn-info", "blue-soft"),  "style"=>"margin-bottom: 0 !important;"]);
+                                                    echo $this->Html->link(__($strings["dashboard_view"]), ['action' => 'view', $profile->id], ['class' => btnclass("btn-primary", "blue-soft"),  "style"=>"margin-bottom: 0 !important;"]);
                                                 }
 
                                                 $checker = $this->requestAction('/settings/check_edit_permission/' . $this->request->session()->read('Profile.id') . '/' . $profile->id . "/" . $profile->created_by);
@@ -330,7 +336,7 @@
 
                                                 if ($sidebar->orders_list == '1' && $profile->profile_type > 0) {
                                                     //        echo '<a href="' . $this->request->webroot  . 'orders/orderslist/?uploaded_for=' . $profile->id . '"';
-                                                    //      echo ' class="' . btnclass("btn-info", "blue-soft") . '">' . $strings["profiles_vieworders"] . '</a>';
+                                                    //      echo ' class="' . btnclass("btn-primary", "blue-soft") . '">' . $strings["profiles_vieworders"] . '</a>';
                                                 }
 
                                                 if ($sidebar->profile_delete == '1') {

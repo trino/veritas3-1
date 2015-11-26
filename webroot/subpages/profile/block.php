@@ -337,7 +337,11 @@
                                             Receive Email (on create order)
                                         </label>
 
-
+                                        <label class="uniform-inline">
+                                            <input <?php echo $is_disabled ?> type="checkbox" name="side[clientapp_emails]"
+                                                                              value="1" <?php if (isset($sidebar) && $sidebar->clientapp_emails == 1) echo "checked"; ?> />
+                                            Receive Email (on client application completion)
+                                        </label>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12 nopad martop yesno">
@@ -360,7 +364,7 @@
                         <tr>
                             <td colspan="2" style="background: #f7f7f7;">&nbsp;</td>
                         </tr>
-                        <tr>
+                        <!--tr>
                             <td class="vtop"> Invoice</td>
                             <td>
                                 <label class="uniform-inline">
@@ -374,7 +378,7 @@
                                                                       value="0" <?php if (isset($sidebar) && $sidebar->invoice == 0) echo "checked"; ?>/>
                                     No </label>
                             </td>
-                        </tr>
+                        </tr-->
 
                         <tr>
                             <td class="vtop">

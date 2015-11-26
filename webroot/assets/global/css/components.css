@@ -2,6 +2,13 @@
  METRONIC SQUARE STYLE COMPONENTS
 *********************************/
 
+.nopadorborder{
+    padding: 0 !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    margin-bottom: 0px !important;
+}
+
 .select2me{
     min-width: 150px !important;
 }
@@ -12230,4 +12237,4 @@ Transparent Button
 }
 
 
-.form .form-actions .btn-set select {max-width:150px !important;margin-left: 10px;}
+.form .form-actions .btn-set select {max-width:200px !important;margin-left: 10px;}

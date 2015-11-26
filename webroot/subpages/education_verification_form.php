@@ -12,7 +12,7 @@
     <table class="table table-striped">
 
                 <tr><td colspan="2">Name<input type="text" class="form-control" /></td></tr>
-                <tr><td>ID #:<input type="text" class="form-control"/></td><td>Date of Birth:<input type="text" class="form-control" placeholder="MM/DD/YYYY"/></td></tr>
+                <tr><td>ID #:<input type="text" class="form-control"/></td><td>Date of Birth:<input type="text" class="form-control" placeholder="YYYY-MM-DD"/></td></tr>
                 <tr><td>Total Claims in Past 3 Years:<input type="text" class="form-control"/></td><td>Current Education:<input type="text" class="form-control"/></td></tr>
      </table>
 </div>
@@ -83,7 +83,7 @@
 <div id="more_edu"></div>
 <div id="add_more_edu">
     <p>&nbsp;</p>
-    <a href="javascript:void(0);" class="btn green add_more_edu">Add More</a>
+    <a href="javascript:void(0);" class="btn btn-primary add_more_edu">Add More</a>
 </div>
 <div class="form-group col-md-12">
     <label class="control-label col-md-3">Attach Files : </label>
@@ -101,7 +101,7 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-9">
-        <a href="javascript:void(0);" class="btn btn-success" id="add_more_edu_doc">Add More</a>
+        <a href="javascript:void(0);" class="btn btn-primary" id="add_more_edu_doc">Add More</a>
     </div>
     </div>
 

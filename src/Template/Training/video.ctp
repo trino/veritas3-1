@@ -14,7 +14,7 @@
             <a href="">Video Player</a>
         </li>
     </ul>
-    <a href="javascript:window.close();" class="floatright btn btn-info">Back</a>
+    <a href="javascript:window.close();" class="floatright btn btn-primary">Back</a>
 </div>
 <?php if (isset($_GET["url"])){ ?>
 <P>Please be patient, it may take a few minutes to load.</P>

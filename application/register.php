@@ -328,7 +328,7 @@
         <div class="clearfix"></div>
 
         <div class="col-md-12">
-            <a href="javascript:void(0);" class="btn green-haze pull-right" onclick="return check_username();">
+            <a href="javascript:void(0);" class="btn btn-primary-haze pull-right" onclick="return check_username();">
                 Submit <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
@@ -417,7 +417,7 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRange: '1980:2020',
-                dateFormat: 'mm/dd/yy'
+                dateFormat: 'yy-mm-dd'
             });
         });
     </script>

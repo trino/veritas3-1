@@ -76,12 +76,12 @@
         <div class="form-group row">
             <label class="control-label col-md-3 required"><?= $strings2["verifs_employment"]; ?>:</label>
             <div class="col-md-3">
-                <input type="<?= $datetype; ?>" class="form-control datepicker required" required name="employment_start_date[]" placeholder="mm/dd/yyyy"/>
+                <input type="<?= $datetype; ?>" class="form-control datepicker required" required name="employment_start_date[]" placeholder="yyyy-mm-dd"/>
             </div>
 
             <label class="control-label col-md-3 required"><?= $strings2["verifs_employment2"]; ?>:</label>
             <div class="col-md-3">
-                <input type="<?= $datetype; ?>" class="form-control datepicker required" required name="employment_end_date[]" placeholder="mm/dd/yyyy"/>
+                <input type="<?= $datetype; ?>" class="form-control datepicker required" required name="employment_end_date[]" placeholder="yyyy-mm-dd"/>
             </div>
         </div>
         <div class="form-group row">
@@ -95,7 +95,7 @@
             <label class="control-label col-md-3"><?= $strings2["verifs_dateclaims"]; ?>:</label>
 
             <div class="col-md-3">
-                <input type="<?= $datetype; ?>" class="form-control datepicker" name="claims_recovery_date[]" placeholder="mm/dd/yyyy"/>
+                <input type="<?= $datetype; ?>" class="form-control datepicker" name="claims_recovery_date[]" placeholder="yyyy-mm-dd"/>
             </div>
         </div>
 
@@ -122,7 +122,7 @@
             <label class="control-label col-md-3"><?= $strings2["verifs_date"]; ?>:</label>
 
             <div class="col-md-3">
-                <input type="<?= $datetype; ?>" class="form-control" name="signature_datetime[]" placeholder="mm/dd/yyyy" disabled value="<?= date("m/d/Y"); ?>"/>
+                <input type="<?= $datetype; ?>" class="form-control" name="signature_datetime[]" placeholder="mm/dd/yyyy" disabled value="<?= date("Y-m-d"); ?>"/>
             </div>
         </div>
         <div class="form-group row">
@@ -157,7 +157,7 @@
         <input type="hidden" name="count_past_emp" id="count_past_emp" value="<?php if (isset($sub3['emp'])) {
             echo count($sub3['emp']);
         } else { echo '1'; }?>">
-        <a href="javascript:void(0);" class="btn green no-print" onclick="add_more();"><?= $strings["forms_addmore"]; ?></a>
+        <a href="javascript:void(0);" class="btn btn-primary no-print" onclick="add_more();"><?= $strings["forms_addmore"]; ?></a>
     </div>
 
 <script>

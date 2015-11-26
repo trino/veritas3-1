@@ -29,6 +29,10 @@
             display: none;
         }
     }
+
+    .nowrap{
+        white-space: nowrap;
+    }
 </style>
 
 <?php
@@ -126,7 +130,7 @@
                             <div class="page-toolbar">
 
                             </div>
-                            <a href="javascript:window.print();" class="floatright btn btn-info">Print</a>
+                            <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
                             <?php if ($canedit) {
                                 echo '<a href="training/edit" class="floatright btn btn-primary btnspc">Create</a>';
                             } ?>
@@ -157,7 +161,7 @@
                                     echo '</font>';
                                     if ($score >= 80 && $results["hascert"]) {
                                         $Path = 'training/certificate?quizid=' . $_GET['quizid'] . '&userid=' . $user->id;
-                                        echo '<CENTER><a class=" btn btn-danger" href="' . $Path . '">Click here to view the certificate</A></CENTER>';
+                                        echo '<CENTER><a class=" btn btn-primary" href="' . $Path . '">Click here to view the certificate</A></CENTER>';
                                     }
                                     //echo '</div></div>';
                                     echo "</div>";
@@ -202,6 +206,7 @@
                                             $attachments = explode(",", $quiz->Attachments);
                                             $attachmentJS = "";
                                             $id = 0;
+                                            $Index = 0;
                                             $checked = "";
                                             if ($hasusertakenquiz) {
                                                 $checked = " checked";
@@ -227,12 +232,17 @@
                                                         $download .= ' download="' . basename($attachment) . '" TITLE="Internet Explorer users need to right-click, then click Save Target As"';
                                                     }
 
-                                                    echo '<input type="checkbox" name="chk' . $id . '" id="chk' . $id . '" disabled' . $checked . '></input>' . ($id + 1) . ' <a href="' . $attachment . $download . ' class="btn btn-xs btn-warning chk' . $id . '" onclick="return check(';
+                                                    echo '<input type="checkbox" name="chk' . $id . '" id="chk' . $id . '" disabled' . $checked . '></input>' . ($id + 1) . ' <a href="' . $attachment . $download . ' class="btn btn-xs btn-primary chk' . $id . '" onclick="return check(';
                                                     echo "'chk" . $id . "', '" . $attachment . $Q . ');" title="Please follow these steps in sequential order before you can take the quiz"' . $checked . '>' . $name . '</a>';
                                                     $id += 1;
+                                                    $Index += 1;
+                                                    if($Index == 3){
+                                                        $Index = 0;
+                                                        echo '<BR>';
+                                                    }
                                                 }
                                             }
-                                            echo '<input type="checkbox" id="quiz" disabled' . $checked . '><a class="btn btn-xs btn-info" href="training/quiz?quizid=' . $quiz->ID . '" onclick="return checkboxes();">Quiz</a></input>';
+                                            echo '<input type="checkbox" id="quiz" disabled' . $checked . '><a class="btn btn-xs btn-primary" href="training/quiz?quizid=' . $quiz->ID . '" onclick="return checkboxes();">Quiz</a></input>';
                                             echo '</div>';
                                             if ($canedit) {
                                                 printeditbuttons($quiz->ID, $canedit);
@@ -250,13 +260,13 @@
                                 $cols=12;
                                 if (isset($_GET["quizid"])) { $cols = 5; }
                                 echo '<div class="col-md-' . $cols . '" align="right">';
-                                //echo '<a href="training/enroll?quizid=' . $quiz->ID . '" class="btn btn-warning btnspc"">Enroll</a>';
-                                //echo '<a class="btn btn-info btnspc" href="training/quiz?quizid=' . $quiz->ID . '">View</a>';
-                                echo '<a class="btn btn-info btn-xs btnspc" href="training?quizid=' . $QuizID . '">View</a>';
+                                //echo '<a href="training/enroll?quizid=' . $quiz->ID . '" class="btn btn-primary btnspc"">Enroll</a>';
+                                //echo '<a class="btn btn-primary btnspc" href="training/quiz?quizid=' . $quiz->ID . '">View</a>';
+                                echo '<a class="btn btn-primary btn-xs btnspc" href="training?quizid=' . $QuizID . '">View</a>';
                                 if ($canedit) {
-                                    echo '<a class="btn btn-info btn-xs btnspc" href="training/quiz?quizid=' . $QuizID . '">Preview Quiz</a>';
-                                    echo '<a href="training/enroll?quizid=' . $QuizID . '" class="btn btnspc btn-xs btn-warning">Enroll</a>';
-                                    echo '<A href="training/users?quizid=' . $QuizID . '" class="btn btnspc btn-xs btn-info">Results</A>';
+                                    echo '<a class="btn btn-primary btn-xs btnspc" href="training/quiz?quizid=' . $QuizID . '">Preview Quiz</a>';
+                                    echo '<a href="training/enroll?quizid=' . $QuizID . '" class="btn btnspc btn-xs btn-primary">Enroll</a>';
+                                    echo '<A href="training/users?quizid=' . $QuizID . '" class="btn btnspc btn-xs btn-primary">Results</A>';
                                     echo '<a href="training/edit?quizid=' . $QuizID . '" class="btn btn-primary btn-xs btnspc">Edit</a>';
                                     echo '<a href="training?action=delete&quizid=' . $QuizID . '" onclick="return confirm(' . "'Are you sure you want to delete this quiz?'" . ');" class="btn btn-xs btn-danger">Delete</a>';
                                 }

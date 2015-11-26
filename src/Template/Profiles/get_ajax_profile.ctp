@@ -28,12 +28,13 @@ switch ($mode){
 }
 
 function printtdline($Text){
-    echo "<TR><TD>" . $Text . "</TD></TR>";
+    echo "<TR><TD COLSPAN=3>" . $Text . "</TD></TR>";
 }
 
 $Fields = array ("fname" => "forms_firstname", "email" => "forms_email", "lname" => "forms_lastname", "profile_type" => "profiles_profiletype", "gender" => "forms_gender",  "driver_province" => "forms_provinceissued", "title" => "forms_title", "placeofbirth" => "forms_placeofbirth", "sin" => "forms_sin", "phone" => "forms_phone", "street" => "forms_address", "city" => "forms_city", "province" => "forms_provincestate", "postal" => "forms_postalcode", "country" => "forms_country", "dob" => "forms_dateofbirth", "driver_license_no" => "forms_driverslicense", "expiry_date" => "forms_expirydate");
 
 function hasallfields($r, $Fields){
+    return true;
     if($r->is_complete){
         return true;
     }
@@ -48,6 +49,10 @@ if(iterator_count($profiles)==0){
     printtdline(getstring("infoorder_nonefound", $language));
 } else {
     printtdline(getstring("infoorder_disabled", $language));
+    $Entries = ceil($profiles->count() / 3);
+    $Entry = 0;
+    $Table = '<TD WIDTH="33%" class="nopadorborder"><TABLE class="table table-striped table-bordered table-hover recruiters nopadorborder">';
+    echo '<TR>' . $Table;
     foreach ($profiles as $r) {
         $DOIT = true;
         $username = "[NO NAME]";
@@ -74,7 +79,7 @@ if(iterator_count($profiles)==0){
         }
 
         if ($DOIT) {
-            echo '<tr><td><span><input id="p_' . $i . '" name="p_' . $r->id . '" class="profile_client" onchange="';
+            echo '<tr><td nowrap><span><input id="p_' . $i . '" name="p_' . $r->id . '" class="profile_client" onchange="';
             $checked = "";
             if ($mode == 0) {
                 echo "if($(this).is(':checked')){assignProfile($(this).val(),'" . $cid . "','yes');}else{assignProfile($(this).val(),'" . $cid . "','no');}";
@@ -92,17 +97,22 @@ if(iterator_count($profiles)==0){
             echo '</span></label><span class="msg_' . $r->id . '"></span></td></tr>';
             $i++;
         }
+
+        $Entry++;
+        if($Entry == $Entries && $i < $profiles->count()){
+            $Entry=0;
+            echo '</TABLE></TD>' . $Table;
+        }
     }
 }
-
+    echo '</TD></TR></TABLE>';
     if ($mode == 1) {
         if ($i > 1) {
             $fulllist = "'" . $fulllist . "'";
-            echo '<TR><TD><SPAN><INPUT TYPE="CHECKBOX" ID="selectall" ONCHANGE="selectall(' . $fulllist . ');"></SPAN> <SPAN><LABEL FOR="selectall">Select All</LABEL></SPAN></TD></TR>';
+            echo '<TR><TD COLSPAN="3"><SPAN><INPUT TYPE="CHECKBOX" ID="selectall" ONCHANGE="selectall(' . $fulllist . ');"></SPAN> <SPAN><LABEL FOR="selectall">Select All</LABEL></SPAN></TD></TR>';
         }
     }
 ?>
-
 <script>
     function assignProfile(profile,client,status) {
         if(status=='yes') {

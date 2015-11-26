@@ -131,7 +131,7 @@ th.rotate > div > span {
                         PrintProvinces($ID, $provincelist, $provinces, $subdocuments);
                         echo '<td style="white-space: nowrap;">';
                         if ($product->id >= 9) { ?>
-                            <a href="javascript:;" class="btn btn-xs btn-info editpro" id="edit_<?php echo $product->id;?>">Edit</a>
+                            <a href="javascript:;" class="btn btn-xs btn-primary editpro" id="edit_<?php echo $product->id;?>">Edit</a>
                             <a class="btn btn-xs btn-danger" id="delete_<?php echo $product->id;?>" onclick="deleteproduct(<?= $row . ", " . $product->id . ", '" . $product->title ?>');">Delete</a>
                         <?php } ?>
                         </td>

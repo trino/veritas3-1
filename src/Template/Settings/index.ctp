@@ -11,7 +11,7 @@
 							 Widget settings form goes here
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn blue">Save changes</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
 							<button type="button" class="btn default" data-dismiss="modal">Close</button>
 						</div>
 					</div>
