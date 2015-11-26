@@ -768,7 +768,7 @@ class ManagerComponent extends Component {
 
     function iterator_to_array($entries, $PrimaryKey="", $Key="", $GetProperties=false, $Reverse = false){
         $data = array();
-        if(is_iterable($entries)) {
+        if($this->is_iterable($entries)) {
             foreach ($entries as $item) {
                 if ($Key) {
                     //if (is_object($item)){
@@ -797,6 +797,12 @@ class ManagerComponent extends Component {
         }
         return array();
     }
+
+
+    function is_iterable($var) {
+        return (is_array($var) || $var instanceof Traversable);
+    }
+
 
     function enum_anything($Table, $Key, $Value){
         return TableRegistry::get($Table)->find('all')->where([$Key=>$Value]);
