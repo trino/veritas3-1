@@ -1,36 +1,28 @@
 <?php
-$settings = $Manager->get_settings();
-$sidebar = $Manager->loadpermissions($Me, "sidebar");
-$debug=$this->request->session()->read('debug');
-include_once('subpages/api.php');
-$language = $this->request->session()->read('Profile.language');
-$strings = CacheTranslations($language, array("clients_%", "index_%"),$settings);
-if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
-if ($sidebar->training == 1 && $sidebar->client_list == 0) {
-    header("Location: " . $this->request->webroot . "training");
-    die();
-}
+    $settings = $Manager->get_settings();
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
+    $debug=$this->request->session()->read('debug');
+    include_once('subpages/api.php');
+    $language = $this->request->session()->read('Profile.language');
+    $strings = CacheTranslations($language, array("clients_%", "index_%"),$settings);
+    if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
+    if ($sidebar->training == 1 && $sidebar->client_list == 0) {
+        header("Location: " . $this->request->webroot . "training");
+        die();
+    }
 ?>
-
-
 
 <script type="text/javascript" src="<?= $this->request->webroot;?>js/datetime.js"></script>
 <body onLoad="ajaxpage('schedules/timezone');">
 
 <div class="col-md-8" style="padding: 0;">
-<h3 class="page-title">
-    <?php
-        echo $strings["dashboard_dashboard2"];
-        if($settings->mee == 'MEE'){ echo " <small>" . $strings["index_qualify"] . "</small>"; }
-    ?>
-
-</h3>
+    <h3 class="page-title">
+        <?php
+            echo $strings["dashboard_dashboard2"];
+            if($settings->mee == 'MEE'){ echo " <small>" . $strings["index_qualify"] . "</small>"; }
+        ?>
+    </h3>
 </div>
-
-
-
-
-
 
 <?php
     if(!$this->request->session()->read('Profile.super')) {
@@ -59,57 +51,34 @@ if ($sidebar->training == 1 && $sidebar->client_list == 0) {
 ?>
 <div class="clearfix"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
             <a href="<?php echo $this->request->webroot . '">' . $strings["dashboard_dashboard"]; ?></a>
-
         </li>
-
     </ul>
 </div>
 
-
-<div class="clearfix"></div>
-
-<?php include('subpages/home_topblocks.php'); ?>
-
-
-<? if ($settings->mee !="AFIMAC SMI"){ ?>
-    <div class="clearfix"></div>
-    <?php include('subpages/home_blocks.php'); ?>
-<?}?>
 <div class="clearfix"></div>
 
 <?php
-if(!$hideclient){
-    include('subpages/clients/listing.php');
-}
-echo '<div class="clearfix"></div>';
+    include('subpages/home_topblocks.php');
+    if ($settings->mee !="AFIMAC SMI"){
+        echo '<div class="clearfix"></div>';
+        include('subpages/home_blocks.php');
+    }
+    echo '<div class="clearfix"></div>';
+    if(!$hideclient){
+        include('subpages/clients/listing.php');
+    }
+    echo '<div class="clearfix"></div>';
+
+    if($sidebar->recent ==1){
+        include('subpages/recent_activities.php');
+        echo '<div class="clearfix"></div>';
+    }
 ?>
-
-
-<?php if($sidebar->recent ==1){?>
-<?php include('subpages/recent_activities.php'); ?>
-<div class="clearfix"></div>
-<?php }?>
-
-
 
 <style>
 @media print {
