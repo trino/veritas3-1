@@ -197,8 +197,6 @@
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
     <div class="page-header-inner <?php if ($settings->box == '1') echo "container"; ?>">
-
-
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="<?= $this->request->webroot; ?>"><img src="<?php
@@ -222,19 +220,6 @@
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-
-                  <ul class="dropdown-menu">
-                    <li class="external">
-                        <h3>You have <span class="bold">0 New</span> Messages</h3>
-                        <a href="#">view all</a>
-                    </li>
-                    <li>
-                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-
-                        </ul>
-                    </li>
-                </ul>
-              
                 <?php $c = $this->requestAction('profiles/getuser');
 
                     if ($c) {
@@ -299,13 +284,13 @@
     </script>
 
     <div class="page-container <?= $screenwidth ?>">
-        <DIV ID="nojavascript" align="CENTER">
-            <H1><STRONG>Javascript is required to use this page, please enable it</STRONG></H1>
-        </DIV>
         <?php
             $productlist = TableRegistry::get('product_types')->find('all');
             include('subpages/sidebar.php');
             echo '<div class="page-content-wrapper"><div class="page-content">';
+
+        echo '<DIV ID="nojavascript" align="CENTER"><H1><STRONG>Javascript is required to use this page, please enable it</STRONG></H1></DIV>';
+
                     echo $this->Flash->render();
                     echo $this->fetch('content');
                     //debug($permissions);

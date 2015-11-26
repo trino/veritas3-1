@@ -101,7 +101,7 @@ $strings = CacheTranslations($language, "aggregate_%",$settings);//,$registry);
              }
              ?> 
 <!-- BEGIN FORM-->
-<form  id="form_tab8" method="post" action="/veritas3-0/documents/audits/1/15" class="form-horizontal">
+<form  id="form_tab8" method="post" action="<?= $this->request->webroot; ?>documents/audits/1/15" class="form-horizontal">
 
 
     <table class="table-condensed table-striped table-bordered table-hover dataTable no-footer">

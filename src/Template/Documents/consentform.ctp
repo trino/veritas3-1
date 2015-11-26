@@ -185,8 +185,8 @@
                             <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 
-                            <script src="/veritas3-0/canvas/jquery.jqscribble.js" type="text/javascript"></script>
-                            <script src="/veritas3-0/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jquery.jqscribble.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
 
                             <style>
                                 .links a {
@@ -237,8 +237,8 @@
                             <meta name="apple-mobile-web-app-capable" content="yes">
                             <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-                            <script src="/veritas3-0/canvas/jquery.jqscribble.js" type="text/javascript"></script>
-                            <script src="/veritas3-0/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jquery.jqscribble.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
 
                             <style>
                                 .links a {
@@ -513,8 +513,8 @@
                             <meta name="viewport" content="width=device-width;initial-scale=1.0;maximum-scale=1.0;user-scalable=0;">
                             <meta name="apple-mobile-web-app-capable" content="yes">
                             <meta name="apple-mobile-web-app-status-bar-style" content="black">
-                            <script src="/veritas3-0/canvas/jquery.jqscribble.js" type="text/javascript"></script>
-                            <script src="/veritas3-0/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jquery.jqscribble.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
                             <style>
                                 .links a {
                                     padding: 3px 10px;
@@ -561,8 +561,8 @@
                             <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 
-                            <script src="/veritas3-0/canvas/jquery.jqscribble.js" type="text/javascript"></script>
-                            <script src="/veritas3-0/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jquery.jqscribble.js" type="text/javascript"></script>
+                            <script src="/veritas3-1/canvas/jqscribble.extrabrushes.js" type="text/javascript"></script>
 
                             <style>
                                 .links a {
