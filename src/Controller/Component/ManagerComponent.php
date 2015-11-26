@@ -768,31 +768,34 @@ class ManagerComponent extends Component {
 
     function iterator_to_array($entries, $PrimaryKey="", $Key="", $GetProperties=false, $Reverse = false){
         $data = array();
-        foreach($entries as $item){
-            if($Key) {
-                //if (is_object($item)){
+        if(is_iterable($entries)) {
+            foreach ($entries as $item) {
+                if ($Key) {
+                    //if (is_object($item)){
                     $data[$item->$PrimaryKey] = $item->$Key;
-                //} else if (is_array($item)){
-                //    $data[$item->$PrimaryKey] = $item[$Key];
-                //}
-            } else {
-                if($GetProperties){
-                    $value = $this->getProtectedValue($item, "_properties");
+                    //} else if (is_array($item)){
+                    //    $data[$item->$PrimaryKey] = $item[$Key];
+                    //}
                 } else {
-                    $value = $item;
-                }
-                if($PrimaryKey){
-                    $ID = $value[$PrimaryKey];
-                    unset($value[$PrimaryKey]);
-                    $data[$ID] = $value;
-                } else {
-                    $data[] = $value;
+                    if ($GetProperties) {
+                        $value = $this->getProtectedValue($item, "_properties");
+                    } else {
+                        $value = $item;
+                    }
+                    if ($PrimaryKey) {
+                        $ID = $value[$PrimaryKey];
+                        unset($value[$PrimaryKey]);
+                        $data[$ID] = $value;
+                    } else {
+                        $data[] = $value;
+                    }
                 }
             }
+            if($PrimaryKey){$PrimaryKey=true;}
+            if($Reverse){return array_reverse($data, $PrimaryKey);}
+            return $data;
         }
-        if($PrimaryKey){$PrimaryKey=true;}
-        if($Reverse){return array_reverse($data, $PrimaryKey);}
-        return $data;
+        return array();
     }
 
     function enum_anything($Table, $Key, $Value){
