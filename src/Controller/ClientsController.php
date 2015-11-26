@@ -813,10 +813,13 @@
             $sub = TableRegistry::get('client_sub_order');
             $query = $sub->find();
             if($type=="") {
-                $q = $query->select()->where(['client_id' => $id, 'sub_id IN (SELECT id FROM subdocuments WHERE display = 1 AND orders = 1)', 'sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE display_order = 1 AND client_id = ' . $id . ')', 'sub_id IN (SELECT subdoc_id FROM profilessubdocument WHERE profile_id = ' . $this->request->session()->read('Profile.id') . ' AND (display = 3 OR display = 2))'])->order(['display_order' => 'ASC']);
+                $QUERY = ['client_id' => $id, 'sub_id IN (SELECT id FROM subdocuments WHERE display = 1 AND orders = 1)', 'sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE display_order = 1 AND client_id = ' . $id . ')', 'sub_id IN (SELECT subdoc_id FROM profilessubdocument WHERE profile_id = ' . $this->request->session()->read('Profile.id') . ' AND (display = 3 OR display = 2))'];
             }elseif($type =='document') {
-                $q = $query->select()->where(['client_id' => $id, 'sub_id IN (SELECT id FROM subdocuments WHERE display = 1 )', 'sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE display = 1 AND client_id = ' . $id . ')', 'sub_id IN (SELECT subdoc_id FROM profilessubdocument WHERE profile_id = ' . $this->request->session()->read('Profile.id') . ' AND (display = 3 OR display = 2))'])->order(['display_order' => 'ASC']);
+                $QUERY = ['client_id' => $id, 'sub_id IN (SELECT id FROM subdocuments WHERE display = 1 )', 'sub_id IN (SELECT subdoc_id FROM clientssubdocument WHERE display = 1 AND client_id = ' . $id . ')', 'sub_id IN (SELECT subdoc_id FROM profilessubdocument WHERE profile_id = ' . $this->request->session()->read('Profile.id') . ' AND (display = 3 OR display = 2))'];
             }
+
+            $q = $query->select()->where($QUERY)->order(['display_order' => 'ASC']);
+
             if($getTitle){
                 $q2=array();
                 foreach($q as $document){
@@ -872,86 +875,29 @@
             //var_dump($_POST);die();
             $user['client_id'] = $id;
             $display = $_POST; //defining new variable for system base below upcoming foreach
+            $subp = TableRegistry::get('clientssubdocument');
             //for user base
             foreach ($_POST as $k => $v) {
                 if ($k == 'clientC') {
                     foreach ($_POST[$k] as $k2 => $v2) {
-                        $subp = TableRegistry::get('clientssubdocument');
-                        $query = $subp->find();
-                        $query->select()
-                            ->where(['client_id' => $id, 'subdoc_id' => $k2]);
-                        $check = $query->first();
+                        $check = $subp->find()->select()->where(['client_id' => $id, 'subdoc_id' => $k2])->first();
+                        if (!$v2) {$v2 = 0;}
 
-                        if ($v2 == '1') {
-                            if ($check) {
-                                $query2 = $subp->query();
-                                $query2->update()
-                                    ->set(['display' => $v2])
-                                    ->where(['client_id' => $id, 'subdoc_id' => $k2])
-                                    ->execute();
-                            } else {
-                                $query2 = $subp->query();
-                                $query2->insert(['client_id', 'subdoc_id', 'display'])
-                                    ->values(['client_id' => $id, 'subdoc_id' => $k2, 'display' => $v2])
-                                    ->execute();
-                            }
+                        if ($check) {
+                            $this->Manager->update_database("clientssubdocument", "id", $check->id, array ('display' => $v2));
                         } else {
-                            if ($check) {
-                                $query2 = $subp->query();
-                                $query2->update()
-                                    ->set(['display' => 0])
-                                    ->where(['subdoc_id' => $k2, 'client_id' => $id])
-                                    ->execute();
-                            } else {
-                                $query2 = $subp->query();
-                                $query2->insert(['client_id', 'subdoc_id', 'display'])
-                                    ->values(['client_id' => $id, 'subdoc_id' => $k2, 'display' => 0])
-                                    ->execute();
-                            }
+                            $this->Manager->new_entry("clientssubdocument", "id", ['client_id' => $id, 'subdoc_id' => $k2, 'display' => $v2]);
                         }
-
                     }
-                }
-                if ($k == 'clientO') {
+                } else if ($k == 'clientO') {
                     foreach ($_POST[$k] as $k2 => $v2) {
-                        //echo $id.'_'.$k2.'_'.$v2.'<br/>';
-                        $subp = TableRegistry::get('clientssubdocument');
-                        $query = $subp->find();
-                        $query->select()
-                            ->where(['client_id' => $id, 'subdoc_id' => $k2]);
-                        $check = $query->first();
-
-                        if ($v2 == '1') {
-
-                            if ($check) {
-
-                                $query2 = $subp->query();
-                                $query2->update()
-                                    ->set(['display_order' => $v2])
-                                    ->where(['client_id' => $id, 'subdoc_id' => $k2])
-                                    ->execute();
-                            } else {
-
-                                $query2 = $subp->query();
-                                $query2->insert(['client_id', 'subdoc_id', 'display_order'])
-                                    ->values(['client_id' => $id, 'subdoc_id' => $k2, 'display_order' => $v2])
-                                    ->execute();
-                            }
+                        $check = $subp->find()->select()->where(['client_id' => $id, 'subdoc_id' => $k2])->first();
+                        if (!$v2) {$v2 = 0;}
+                        if ($check) {
+                            $this->Manager->update_database("clientssubdocument", "id", $check->id, array ('display_order' => $v2));
                         } else {
-                            if ($check) {
-                                $query2 = $subp->query();
-                                $query2->update()
-                                    ->set(['display_order' => 0])
-                                    ->where(['subdoc_id' => $k2, 'client_id' => $id])
-                                    ->execute();
-                            } else {
-                                $query2 = $subp->query();
-                                $query2->insert(['client_id', 'subdoc_id', 'display_order'])
-                                    ->values(['client_id' => $id, 'subdoc_id' => $k2, 'display_order' => 0])
-                                    ->execute();
-                            }
+                            $this->Manager->new_entry("clientssubdocument", "id", ['client_id' => $id, 'subdoc_id' => $k2, 'display_order' => $v2]);
                         }
-
                     }
                 }
             }

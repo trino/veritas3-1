@@ -49,14 +49,14 @@
                         ?>
                         <td class="">
                             <label class="uniform-inline">
-                                <input <?php echo $is_disabled ?>
+                                <input <?php echo $is_disabled ?> class="fororder"
                                     type="radio"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="1" <?php if ($csubdoc['display'] == 1) { ?> checked="checked" <?php } ?> />
                                 <?= $strings["dashboard_affirmative"]; ?>
                             </label>
                             <label class="uniform-inline">
-                                <input <?php echo $is_disabled ?>
+                                <input <?php echo $is_disabled ?> class="fororder"
                                     type="radio"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="0" <?php if ($csubdoc['display'] == 0) { ?> checked="checked" <?php } ?> />
@@ -96,14 +96,14 @@
 
                             <label class="uniform-inline">
                                 <input <?php echo $is_disabled ?>
-                                    type="radio"
+                                    type="radio" class="fororder"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="1" <?php if ($csubdoc['display'] == 1) { ?> checked="checked" <?php } ?> />
                                 <?= $strings["dashboard_affirmative"]; ?>
                             </label>
                             <label class="uniform-inline">
                                 <input <?php echo $is_disabled ?>
-                                    type="radio"
+                                    type="radio" class="fororder"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="0" <?php if ($csubdoc['display'] == 0) { ?> checked="checked" <?php } ?> />
                                 <?= $strings["dashboard_negative"]; ?>
