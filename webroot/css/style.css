@@ -462,12 +462,15 @@ orange Pricing table
 
 .select2-result-label:hover, .pricing table td:hover  {
   background: #36d7ac;
-  color: #fff;
    	transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;
+}
+
+#bulkform .table.table-striped.table-bordered.table-hover.recruiters.nopadorborder span:first-child {
+  margin-right: 10px;
 }
 
 
