@@ -4,7 +4,7 @@ include_once('subpages/api.php');
 $settings = $Manager->get_settings();
 $language = $this->request->session()->read('Profile.language');
 $controller =  $this->request->params['controller'];
-$strings = CacheTranslations($language, array($controller  . "_%", "month_long%", "forms_%"),$settings);
+$strings = CacheTranslations($language, array($controller  . "_%", "month_long%", "forms_%", "month_notvalid"),$settings);
 //if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 ?>
 
@@ -89,7 +89,7 @@ if(isset($isdisabled)) {$disabled = "disabled='disabled'";}
 					<div class="input-icon">
 						<i class="fa fa-calendar"></i>
                         <input type="hidden" name="offset" value="<?= $offset ?>">
-						<input type="text" name="date" <?php echo $disabled;?> class="form-control todo-taskbody-due date form_datetime" placeholder="Due Date..." value="<?php
+						<input type="text" name="date" <?php echo $disabled;?> id="datetime" class="form-control todo-taskbody-due date form_datetime" placeholder="Due Date..." value="<?php
                         if(isset($event)) {
                             echo offsettime2(date('d F Y H:i',strtotime($event->date)), 0, $strings);
                         } else {
@@ -134,7 +134,7 @@ if(isset($isdisabled)) {$disabled = "disabled='disabled'";}
                 <?php if (isset($event)){
                     echo '<a href="../delete/' . $event->id . '" class="btn btn-sm btn-danger delUrl" onclick="return confirm(' . "'" . $strings["tasks_confirmdelete"] . "');" . '">' . $strings["dashboard_delete"] . '</a>';
                 } ?>
-				<button class="btn btn-sm green-haze" type="submit" name="submit"><?= $strings["forms_savechanges"]; ?></button>
+				<button class="btn btn-sm green-haze" type="submit" onclick="return isvaliddate();" name="submit"><?= $strings["forms_savechanges"]; ?></button>
 			</div>
             <?php }?>
 		</div>
@@ -146,3 +146,37 @@ if(isset($isdisabled)) {$disabled = "disabled='disabled'";}
 <style>
     .table-condensed td:hover{cursor:pointer; }
 </style>
+<SCRIPT>
+    function isvaliddate(){
+        var Months = [<?php
+            for($I = 1; $I <= 12; $I++){
+                $Month = $I;
+                if($Month<10){
+                    $Month = "0" . $Month;
+                }
+                echo '"' . $strings["month_long" . $Month] . '"';
+                if($I<12){
+                    echo ", ";
+                }
+            }
+        ?>];
+
+        var Date = document.getElementById("datetime").value;
+        Date = Date.split(" ");
+        if(Date.length == 5 && Months.indexOf( Date[1] )  ){
+            if(isnumeric(Date[0]) && isnumeric(Date[2]) && Date[3] == "-"){
+                Date = Date[4].split(":");
+                if(Date.length == 2 && isnumeric(Date[0]) && isnumeric(Date[1])){
+                    return true;
+                }
+            }
+        }
+        Date = document.getElementById("datetime").value;
+        var Text = '<?= addslashes($strings["month_notvalid"]); ?>';
+        alert( Text.replace("%date%", Date));
+        return false;
+    }
+    function isnumeric(Value){
+        return !isNaN(Value);
+    }
+</SCRIPT>

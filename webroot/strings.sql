@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2015 at 03:22 PM
+-- Generation Time: Nov 26, 2015 at 08:29 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=842 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=843 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1448389452', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1448461330', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -854,7 +854,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (838, 'index_nondrafts', 'Submitted orders', 'Les ordres présentés'),
 (839, 'documents_select', 'Select an option', 'Choisir une option'),
 (840, 'consent_withinborder', 'Please sign within the border.', 'S''il vous plaît signer dans la frontière.'),
-(841, 'profiles_assigntoclient', 'Assign to %Client%', 'Attribuer à %client%');
+(841, 'profiles_assigntoclient', 'Assign to %Client%', 'Attribuer à %client%'),
+(842, 'month_notvalid', '''%date%'' is not a valid date', '''%date%'' est pas une date valide');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
