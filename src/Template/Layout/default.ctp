@@ -217,9 +217,7 @@
         </div>
         <!-- END LOGO -->
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
-           data-target=".navbar-collapse">
-        </a>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
         <!-- END RESPONSIVE MENU TOGGLER -->
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
@@ -295,14 +293,15 @@
             screenHeight = window.screen.height;
 
         if (screenHeight > 1500) {
-
             <?php $screenwidth = "col-md-12"; ?>
         }
 
     </script>
 
     <div class="page-container <?= $screenwidth ?>">
-
+        <DIV ID="nojavascript" align="CENTER">
+            <H1><STRONG>Javascript is required to use this page, please enable it</STRONG></H1>
+        </DIV>
         <?php
             $productlist = TableRegistry::get('product_types')->find('all');
             include('subpages/sidebar.php');
@@ -435,8 +434,8 @@
 </div>
 
 <script>
-
     jQuery(document).ready(function () {
+        document.getElementById("nojavascript").setAttribute("style", "display: none;");
 
         Metronic.init(); // init metronic core componets
         Layout.init(); // init layout
