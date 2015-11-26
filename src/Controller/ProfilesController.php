@@ -2621,7 +2621,7 @@
             $datetime = date('Y-m-d H:i:s');
             $conditions = array('(date <= "' . $datetime . '")');
             if(!$debugging){$conditions['sent'] = 0;}
-            $query = $que->select()->where($conditions)->limit(200);
+            $query = $que->select()->where($conditions)->limit(2500);
             //VAR_Dump($query);die();
 
             $Emails = 1;
