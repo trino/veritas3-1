@@ -74,4 +74,4 @@ function pending($name, $value, $checked = true){
         </div>
     </div>
 </div>
-</Form>
+</form>
