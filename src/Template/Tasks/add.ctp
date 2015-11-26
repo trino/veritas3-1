@@ -8,6 +8,7 @@ $strings = CacheTranslations($language, array($controller  . "_%", "month_long%"
 //if($debug && $language == "Debug"){ $Trans = " [Translated]"; } else {$Trans = "";}
 ?>
 
+<script type="text/javascript" src="<?= $this->request->webroot;?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="<?= $this->request->webroot;?>js/datetime.js"></script>
 <body onLoad="ajaxpage('timezone');">
 
