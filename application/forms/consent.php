@@ -72,7 +72,7 @@ if($newsigmethod){include("signature.php");}
 
 
     <div class="form-group row col-md-12">
-     <center>  <h3 class="col-md-12"><?= $strings2["consent_release"]; ?></h3></center>
+     <center>  <p class="col-md-12" style="font-weight: bold;"><?= $strings2["consent_release"]; ?></p></center>
     </div>
     <div class="gndn">
         <div class="form-group row col-md-12 splitcols">

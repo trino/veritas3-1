@@ -46,7 +46,7 @@ if (isset($consent_detail)){
     <label class="control-label"><?= $strings2["consent_sigwitness"]; ?></label><br>
     <?php if ($this->request->params['action'] != 'vieworder' && $this->request->params['action'] != 'view') { ?>
     <p style="margin-top:8px;"><?= $strings2["consent_withinborder"]; ?></p>
-        <div style="border: 15px solid silver;border-radius: 5px;">
+        <div style="border: 15px solid #dadada;border-radius: 5px;">
             <canvas id="test6" style=""></canvas>
         </div>
     <?php } ?>

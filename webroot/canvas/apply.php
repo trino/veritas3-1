@@ -60,7 +60,7 @@ $_GET['num']=100;?>
             <input type="hidden" name="gfs_signature" id="recruiter_signature"
                value="<?php if (isset($application_for_employment_gfs->recruiter_signature) && $application_for_employment_gfs->gfs_signature) echo $application_for_employment_gfs->gfs_signature; ?>"/>
             <?php if(!isset($_GET['form_id'])){?>
-            <div style="border: 15px solid silver;border-radius: 5px;">
+            <div style="border: 15px solid #dadada;border-radius: 5px;">
             <canvas id="test<?php echo $_GET['num'];?>" style=""></canvas>
             </div>
             <?php }?>

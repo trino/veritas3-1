@@ -337,9 +337,9 @@
                             if($Title) {
                                 echo '<A TITLE="' . $strings["permissions_requiredto"] . ": " . $Title . '" ONCLICK="alert(this.getAttribute(' . "'title'" . '));" STYLE="color:';
                                 if ($permissions[$Table . "_actual"]->$permission) {
-                                    echo 'GREEN" CLASS="shadow">' . $Yes;
+                                    echo '#c9dae9" CLASS="shadow">' . $Yes;
                                 } else {
-                                    echo 'RED" CLASS="shadow">' . $No;
+                                    echo 'grey" CLASS="shadow">' . $No;
                                 }
                                 echo '</A>';
                             }
