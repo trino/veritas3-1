@@ -29,8 +29,8 @@
         <input type="text" class="form-control required" required name="lname" <?php if (isset($p->lname)) { ?> value="<?php echo $p->lname; ?>" <?php }?> />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_gender"]; ?>: </label>
-        <select class="form-control required" required name="gender" />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_gender"]; ?>: </label>
+        <select class="form-control" name="gender" />
             <option value="Male" <?php if (isset($p->gender) && $p->gender=='Male') { ?>selected="selected"<?php }?>>Male</option>
             <option value="Female" <?php if (isset($p->gender) && $p->gender=='Female') { ?>selected="selected"<?php }?>>Female</option>
             <span class="error"></span>
@@ -64,33 +64,33 @@
         <input type="text" class="form-control" name="phone" role="phone" <?php if (isset($p->phone)) { ?> value="<?php echo $p->phone; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_address"]; ?>: </label>
-        <input type="text" class="form-control required" required name="street" <?php if (isset($p->street)) { ?> value="<?php echo $p->street; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_address"]; ?>: </label>
+        <input type="text" class="form-control" name="street" <?php if (isset($p->street)) { ?> value="<?php echo $p->street; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_city"]; ?>: </label>
-        <input type="text" class="form-control required" required name="city" <?php if (isset($p->city)) { ?> value="<?php echo $p->city; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_city"]; ?>: </label>
+        <input type="text" class="form-control required" name="city" <?php if (isset($p->city)) { ?> value="<?php echo $p->city; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_provincestate"]; ?>: </label>
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_provincestate"]; ?>: </label>
         <?php
                                             if (isset($p->province))
-                                                provinces("province", $p->province, 'required');
+                                                provinces("province", $p->province, '');
                                             else
-                                                provinces("province", "", 'required');
+                                                provinces("province", "", '');
                                         ?>
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_postalcode"]; ?>: </label>
-        <input type="text" class="form-control required" required name="postal" role="postalcode" <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_postalcode"]; ?>: </label>
+        <input type="text" class="form-control" name="postal" role="postalcode" <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_country"]; ?>: </label>
-        <input type="text" class="form-control required" required name="country" value="Canada" <?php if (isset($p->country)) { ?> value="<?php echo $p->country; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_country"]; ?>: </label>
+        <input type="text" class="form-control" name="country" value="Canada" <?php if (isset($p->country)) { ?> value="<?php echo $p->country; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_dateofbirth"]; ?>: </label>
-        <input type="text" class="form-control dp required" required name="dob" <?php if (isset($p->dob)) { ?> value="<?php echo $p->dob; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label"><?= $strings["forms_dateofbirth"]; ?>: </label>
+        <input type="text" class="form-control dp" name="dob" <?php if (isset($p->dob)) { ?> value="<?php echo $p->dob; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_driverslicense"]; ?>: </label>
