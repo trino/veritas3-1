@@ -1007,6 +1007,19 @@ loadreasons($param, $strings, true);
             $('.driver_province').removeAttr('required');
             $('.expiry_date').removeAttr('required');
         }
+        $('input,textarea,select').each(function(){
+           
+
+        var attr = $(this).attr('required');
+        
+        // For some browsers, `attr` is undefined; for others,
+        // `attr` is false.  Check for both.
+        if (typeof attr !== typeof undefined && attr !== false) {
+            $(this).parent().find('label').addClass('required');
+        }
+        
+ 
+        });
     }
     $(function(){
         
