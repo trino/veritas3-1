@@ -1029,7 +1029,7 @@
         if (form_type != "") {
             //$('.subform').load('<?php echo $this->request->webroot;?>documents/subpages/' + form_type);
 
-            var url = '<?php echo $this->request->webroot;?>orders/getOrderData/<?php echo $cid;?>/' + doc_id + '/' + profile_id,
+            var url = '<?php echo $this->request->webroot;?>orders/getOrderData/<?php echo $cid;?>/' + <?php if(isset($document->order_id) && $document->order_id){echo $document->order_id;}else{?>doc_id<?php }?> + '/' + profile_id,
                 param = {form_type: form_type};
             $.getJSON(url, param, function (res) {
                 if (form_type == "company_pre_screen_question.php") {

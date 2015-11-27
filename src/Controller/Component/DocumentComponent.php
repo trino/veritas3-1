@@ -762,6 +762,7 @@ class DocumentComponent extends Component{
         }
         public function savedDriverEvaluation($document_id = 0, $cid = 0)
         {
+            //var_dump($_POST);
             // echo "<pre>";print_r($_POST);die;
             $controller = $this->_registry->getController();
             $roadTest = TableRegistry::get('road_test');
@@ -830,6 +831,7 @@ class DocumentComponent extends Component{
                 }
 
             }
+            var_dump($arr);
 
             $save = $roadTest->newEntity($arr);
             if ($roadTest->save($save)) {
