@@ -248,6 +248,8 @@
                                 $URLEnd = '" class="' . btnclass("btn-primary", "blue-soft") . '">';//$strings["profiles_viewdocuments"]
                                 if(isset($profiles)){
                                 foreach ($profiles as $profile){
+                                    if($profile->super == 1)
+                                    continue;
                                     if ($row_color_class == "even") {
                                         $row_color_class = "odd";
                                     } else {

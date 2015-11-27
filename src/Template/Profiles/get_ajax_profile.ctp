@@ -74,7 +74,10 @@ if(iterator_count($profiles)==0){
             $profiletype = " (Draft)";
         }
         if ($mode == 1) {
+            if($r->profile_type)
             $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
+            else 
+            $DOIT = false;
             if($DOIT){ $DOIT = hasallfields($r, $Fields); }
         }
 

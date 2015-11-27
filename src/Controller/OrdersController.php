@@ -918,7 +918,7 @@
                 $this->set('forms', $_POST['forms']);
                 $this->set('bulk', 'bulk');
                 $this->set('driverinfo', $driverinfo);
-             //   $this->Flash->success($this->Trans->getString("flash_bulkorder"));
+                $this->Flash->success($this->Trans->getString("flash_bulkorder"));
 
             } else {
                 $driverinfo[0] = $model->find()->where(['id' => $drivers])->first();
