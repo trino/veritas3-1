@@ -373,7 +373,7 @@
                                                             <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                             <hr />
                                                             <?php if($this->request->params['action'] == 'addorder'){?>
-                                                            <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary grey"><?= $strings["forms_savedraft"]; ?></a>
+                                                            <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="btn btn-primary grey draft"><?= $strings["forms_savedraft"]; ?></a>
                                                             <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                             <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a> 
                                                             <?php }?>
@@ -394,7 +394,7 @@
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
                                                 <?php if($this->request->params['action'] == 'addorder'){?>
-                                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary grey"><?= $strings["forms_savedraft"]; ?></a>
+                                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="btn btn-primary grey draft"><?= $strings["forms_savedraft"]; ?></a>
                                                 <?php }?>
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                 

@@ -1761,3 +1761,4 @@
     }
 
 </script>
+<style>a.draft{margin-right:25px;}</style>
