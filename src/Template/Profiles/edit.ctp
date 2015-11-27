@@ -294,20 +294,22 @@
                                         $Missing = array();
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
-                                        if (true){ //$profile->is_complete && !$MissingData) {
+                                        if (true) { //$profile->is_complete && !$MissingData) {
                                             //driver, owner driver, owner operator, sales, employee
-                                            echo '<label class="uniform-inline" style="margin-bottom:10px;">';
+                                            echo '<label class="uniform-inline" style="">';
                                             echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
                                             if ($p->is_hired == '1') {
                                                 echo " checked";
                                             }
-                                            echo '/> ' . $strings["profiles_washired"] . ' <span class="hired_msg"></span></label>';
+                                            echo '/> ' . $strings["profiles_washired"] . ' <p class="hired_msg"></p></label>';
 
-                             if(isset($profile)){?>
-                                <div class="hired_date"  style='display:<?php if($profile->is_hired=='0')echo "none";?>;' >
-                                        <?= $strings["forms_hireddate"] . ': ' . $profile->hired_date; ?>
-                                </div>
-                            <?php }
+                                            if (isset($profile)) {
+                                                ?>
+                                                <div class="hired_date"
+                                                     style='display:<?php if ($profile->is_hired == '0') echo "none"; ?>;'>
+                                                    <?= $strings["forms_hireddate"] . ': ' . $profile->hired_date; ?>
+                                                </div>
+                                            <?php }
 
                                             echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
                                         <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
@@ -700,21 +702,20 @@
 </script>
 <script>
     $(function () {
-        $('input,textarea,select').each(function(){
+        $('input,textarea,select').each(function () {
 
 
             var attr = $(this).attr('required');
-            
+
             // For some browsers, `attr` is undefined; for others,
             // `attr` is false.  Check for both.
             if (typeof attr !== typeof undefined && attr !== false) {
                 $(this).parent().find('label').addClass('required');
             }
-            else
-            {
+            else {
                 $(this).parent().find('label').removeClass('required');
             }
-            
+
         })
 
         $('.checkhiredriver').click(function () {
