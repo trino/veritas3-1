@@ -521,3 +521,7 @@ body.login .content {
   text-align: center;
   width: 120px;
 }
+
+.steps #draft1 {
+  margin-right: 10px;
+}

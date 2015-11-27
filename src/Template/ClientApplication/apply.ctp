@@ -42,18 +42,13 @@
         $string = $strings["forms_steps"];
         $string = str_replace("%step%", '<span class="counters counter">' . $CurrentStep . '</span>', $string);
         $string = str_replace("%total%", $doc_count+2, $string);
-        return '<strong style="float:right;margin-left:20px;"><p>' . $string . '</p></strong><IMG SRC="' . $Image . '" STYLE="max-height: 50px;margin-top:-15px;float:right;">';
+        return '<strong><p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align:center;>' . $string . '</p></strong><IMG SRC="' . $Image . '" STYLE="max-height: 50px;margin-top:-42px;float:right;">';
     }
 ?>
 <div id="tab0">
-    <h2 style="float: left;">Application for <?= $client->company_name;?></h2>
+    <h2 style="">Application for <?= $client->company_name;?></h2>
     <input type="hidden" id="user_id" value=""/>
-    <div class="step_counters" style="float: right;
-    text-transform: uppercase;
-    font-size: 15px;
-    margin-top: 28px;
-    margin-right: 45px;
-    text-align: center !important;">
+    <div class="step_counters">
         <?= printsteps($strings, 1, $subd->count(), $Image); ?>
     </div>
     <div class="clearfix"></div>
