@@ -61,21 +61,21 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
 
 
                        <div class="form-group col-md-12">
-                            <label class="control-label col-md-3 required"><?= $strings["forms_companyname"]; ?>: </label>
+                            <label class="control-label col-md-3"><?= $strings["forms_companyname"]; ?>: </label>
                             <div class="col-md-9">
-                            <input type="text" class="form-control required" name="company_name[]" required value="<?php echo $emp->company_name;?>"  />
+                            <input type="text" class="form-control" name="company_name[]" value="<?php echo $emp->company_name;?>"  />
                             </div>
                         </div>
 
                         <div class="form-group col-md-12">
-                            <label class="control-label col-md-3 required"><?= $strings["forms_address"]; ?>: </label>
+                            <label class="control-label col-md-3"><?= $strings["forms_address"]; ?>: </label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control required" required name="address[]" value="<?php echo $emp->address;?>" />
+                                <input type="text" class="form-control" name="address[]" value="<?php echo $emp->address;?>" />
                             </div>
 
-                            <label class="control-label col-md-3 required"><?= $strings["forms_city"]; ?>: </label>
+                            <label class="control-label col-md-3"><?= $strings["forms_city"]; ?>: </label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control required" required name="city[]" value="<?php echo $emp->city;?>" />
+                                <input type="text" class="form-control" name="city[]" value="<?php echo $emp->city;?>" />
                             </div>
                         </div>
 
@@ -347,41 +347,41 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                    ?>
 
                     <div class="form-group row">
-                        <label class="control-label col-md-3 required"><?= $strings["forms_companyname"]; ?>:</label>
+                        <label class="control-label col-md-3"><?= $strings["forms_companyname"]; ?>:</label>
                         <div class=" col-md-9">
-                            <input type="text" class="form-control required" required name="company_name[]" />
+                            <input type="text" class="form-control" name="company_name[]" />
                         </div>
                     </div>
 
                                 <div class="form-group row">
-                                    <label class="control-label col-md-3 required"><?= $strings["forms_address"]; ?>:</label>
+                                    <label class="control-label col-md-3"><?= $strings["forms_address"]; ?>:</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control required" required name="address[]" />
+                                        <input type="text" class="form-control" name="address[]" />
                                     </div>
-                                    <label class="control-label col-md-3 required"><?= $strings["forms_city"]; ?>:</label>
+                                    <label class="control-label col-md-3"><?= $strings["forms_city"]; ?>:</label>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control required" required name="city[]" />
+                                        <input type="text" class="form-control" name="city[]" />
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                <label class="control-label col-md-3 required"><?= $strings["forms_provincestate"]; ?>:</label>
+                                <label class="control-label col-md-3"><?= $strings["forms_provincestate"]; ?>:</label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control required" required name="state_province[]" />
+                                    <input type="text" class="form-control" name="state_province[]" />
                                 </div>
-                                <label class="control-label col-md-3 required"><?= $strings["forms_country"]; ?>:</label>
+                                <label class="control-label col-md-3"><?= $strings["forms_country"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control required" required name="country[]" />
+                                <input type="text" class="form-control" name="country[]" />
                                 </div>
                                 </div>
                                 <div class="form-group row">
-                                <label class="control-label col-md-3 required"><?= $strings2["verifs_supername"]; ?>:</label>
+                                <label class="control-label col-md-3"><?= $strings2["verifs_supername"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control required" required name="supervisor_name[]"/>
+                                <input type="text" class="form-control" name="supervisor_name[]"/>
                                 </div>
-                               <label class="control-label col-md-3 required"><?= $strings["forms_phone"]; ?>:</label>
+                               <label class="control-label col-md-3"><?= $strings["forms_phone"]; ?>:</label>
                                <div class="col-md-3">
-                               <input type="text" class="form-control required" required role="phone" name="supervisor_phone[]"/>
+                               <input type="text" class="form-control" role="phone" name="supervisor_phone[]"/>
                                </div>
                                </div>
 
@@ -397,13 +397,13 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                                </div>
 
                                <div class="form-group row">
-                                <label class="control-label col-md-3 required"><?= $strings2["verifs_employment"]; ?>:</label>
+                                <label class="control-label col-md-3"><?= $strings2["verifs_employment"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control date-picker datepicker required" required name="employment_start_date[]"/>
+                                <input type="text" class="form-control date-picker datepicker" name="employment_start_date[]"/>
                                 </div>
-                                <label class="control-label col-md-3 required"><?= $strings2["verifs_employment2"]; ?>:</label>
+                                <label class="control-label col-md-3"><?= $strings2["verifs_employment2"]; ?>:</label>
                                 <div class="col-md-3">
-                                <input type="text" class="form-control date-picker datepicker required" required name="employment_end_date[]"/>
+                                <input type="text" class="form-control date-picker datepicker" name="employment_end_date[]"/>
                                 </div>
                                 </div>
                                 <div class="form-group row">

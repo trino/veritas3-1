@@ -538,7 +538,7 @@ loadreasons($param, $strings, true);
                                                 $currentday = substr($p->dob, -2);
                                             }
 
-                                            echo '<INPUT TYPE="TEXT" CLASS="form-control req_driver date-picker" ID="DOB" value="' . $currentdate . '" onchange="refreshdob();">';
+                                            echo '<INPUT TYPE="TEXT" CLASS="form-control date-picker" ID="DOB" value="' . $currentdate . '" onchange="refreshdob();">';
                                             echo '<INPUT TYPE="HIDDEN" ID="doby" NAME="doby" ' . $is_disabled . '>';
                                             echo '<INPUT TYPE="HIDDEN" ID="dobm" NAME="dobm" ' . $is_disabled . '>';
                                             echo '<INPUT TYPE="HIDDEN" ID="dobd" name="dobd" ' . $is_disabled . '>';
@@ -569,7 +569,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?> name="street" type="text"
                                                                           placeholder="<?= $strings["forms_address"]; ?>"
-                                                                          class="form-control" req_driver <?php if (isset($p->street)) { ?>
+                                                                          class="form-control" <?php if (isset($p->street)) { ?>
                                             value="<?php echo $p->street; ?>" <?php } ?>/>
                                     </div>
                                 </div>
@@ -578,7 +578,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?> name="city" type="text"
                                                                           placeholder="<?= $strings["forms_city"]; ?>"
-                                                                          class="form-control" req_driver <?php if (isset($p->city)) { ?>
+                                                                          class="form-control" <?php if (isset($p->city)) { ?>
                                             value="<?php echo $p->city; ?>" <?php } ?>/>
                                     </div>
                                 </div>
@@ -615,7 +615,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?>  type="text"
                                                                            placeholder="<?= $strings["forms_postalcode"]; ?> (M5V2X2)"
-                                                                           class="form-control" req_driver
+                                                                           class="form-control"
                                                                            name="postal" role='postalcode'  <?php if (isset($p->postal)) { ?>
                                             value="<?php echo $p->postal; ?>" <?php } ?>/>
                                     </div>
@@ -625,7 +625,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?>  type="text"
                                                                            placeholder="<?= $strings["forms_country"]; ?>" value="Canada"
-                                                                           class="form-control" req_driver
+                                                                           class="form-control"
                                                                            name="country" <?php if (isset($p->country)) { ?>
                                             value="<?php echo $p->country; ?>" <?php } ?>/>
                                     </div>
