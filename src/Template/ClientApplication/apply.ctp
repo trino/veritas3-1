@@ -42,7 +42,8 @@
         $string = $strings["forms_steps"];
         $string = str_replace("%step%", '<span class="counters counter">' . $CurrentStep . '</span>', $string);
         $string = str_replace("%total%", $doc_count+2, $string);
-        return '<strong><p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align:center;>' . $string . '</p></strong><IMG SRC="' . $Image . '" STYLE="max-height: 50px;margin-top:-42px;float:right;">';
+        $string = '<strong><p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align:center;">' . $string . '</p></strong><IMG SRC="' . $Image . '" STYLE="max-height: 50px;margin-top:-42px;float:right;">';
+        return $string;
     }
 ?>
 <div id="tab0">
