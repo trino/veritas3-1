@@ -132,20 +132,27 @@
                     alert(sub_id);
                     $('.subform_' + sub_id + ' input[type="radio"]').each(function () {
                         //alert($(this).attr('name'));
+                        
 
                         if (res[$(this).attr('name').replace('[]', '')]) {
 
-                            if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                            if (res[$(this).attr('name').replace('[]', '')] == $(this).attr('value')) {
                                 
                                 $(this).click();
                                 $(this).attr('checked', 'checked');
                                 $(this).parent().addClass('checked');
                             }
+                            else
+                            {
+                              //$(this).click();
+                                $(this).removeAttr('checked');
+                                $(this).parent().removeClass('checked');
+                            }
 
                         }
                     });
 
-                    $('.subform_' + sub_id + ' input[type="checckbox"]').each(function () {
+                    $('.subform_' + sub_id + ' input[type="checkbox"]').each(function () {
                         //alert($(this).attr('name'));
                         if (res[$(this).attr('name').replace('[]', '')]) {
 
