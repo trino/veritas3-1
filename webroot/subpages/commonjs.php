@@ -273,7 +273,7 @@
             par.hide();
 
             par.removeClass('active');
-            var id = par.find('.buttons').attr('id').replace('button', '');
+            var id = par.find('.buttons').attr('id').replace('button', '').replace('draft', '');
             id = parseInt(id) + 1;
             $('#step' + id).show();
             $('#step' + id).addClass('active');
@@ -424,7 +424,7 @@
                     par.hide();
                     <?php }?>
                     par.removeClass('active');
-                    var id = par.find('.buttons').attr('id').replace('button', '');
+                    var id = par.find('.buttons').attr('id').replace('button', '').replace('draft', '');
                     var type = par.find('input[name="document_type"]').val();
                     var cl = par.find('.sub_docs_id').val();
                     if (type == 'driver_form') {
