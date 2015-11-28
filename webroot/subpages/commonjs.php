@@ -129,24 +129,31 @@
 
                         }
                     });
-
-                    $('.subform_' + sub_id + ' radio').each(function () {
+                    alert(sub_id);
+                    $('.subform_' + sub_id + ' input[type="radio"]').each(function () {
+                        //alert($(this).attr('name'));
 
                         if (res[$(this).attr('name').replace('[]', '')]) {
 
                             if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                                
+                                $(this).click();
                                 $(this).attr('checked', 'checked');
+                                $(this).parent().addClass('checked');
                             }
 
                         }
                     });
 
-                    $('.subform_' + sub_id + ' checkbox').each(function () {
-
+                    $('.subform_' + sub_id + ' input[type="checckbox"]').each(function () {
+                        //alert($(this).attr('name'));
                         if (res[$(this).attr('name').replace('[]', '')]) {
 
                             if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                                
+                                $(this).click();
                                 $(this).attr('checked', 'checked');
+                                $(this).parent().addClass('checked');
                             }
 
                         }
@@ -365,6 +372,7 @@
                             'slow');
                         er = 2;
                     }
+                    <?php if($this->request->params['action']!='apply'){?>
                     else if ($('#sig4 .touched').val() != '1' && $('#sig4 .touched_edit4').val() != '1') {
                         par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
@@ -372,14 +380,15 @@
                             },
                             'slow');
                         er = 2;
-                    } else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1') {
+                    }<?php }?> else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1') {
                         par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
                                 scrollTop: $('#sig1').offset().top
                             },
                             'slow');
                         er = 2;
-                    } else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1') {
+                    }
+                    <?php if($this->request->params['action']!='apply'){?> else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1') {
                         par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
                                 scrollTop: $('#sig3').offset().top
@@ -387,7 +396,7 @@
                             'slow');
                         er = 2;
                     }
-
+                    <?php }?>
                     if (er == 2) {
                         $('.overlay-wrapper').hide();
                         return false;
@@ -756,6 +765,12 @@
 
     });
     function save_signature(numb) {
+        var act = '<?php echo $this->request->params['action'];?>';
+        if(act == 'apply' && (numb=='4' || numb=='6'))
+        {
+            
+        }
+        else{
         var d = $.Deferred();
         $("#test" + numb).data("jqScribble").save(function (imageData) {
             //alert($('#signature_company_witness2').parent().find('.touched').val());
@@ -788,7 +803,7 @@
 
 
         });
-        return d.promise();
+        return d.promise();}
     }
     function savePrescreen(url, order_id, cid, draft, redir) {
 
