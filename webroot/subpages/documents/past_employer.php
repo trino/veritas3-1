@@ -1,6 +1,6 @@
 <?php
     $include = realpath(getcwd() . "\..\api.php");
-    $required = "required";
+    $required = "";
     if(isset($_GET["notrequired"])){$required="";}
 
     include_once($include);
