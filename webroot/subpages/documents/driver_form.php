@@ -2,7 +2,7 @@
 <h3 style="float: left;">Create Driver</h3>
 <div class="row">
 <div class="form-group row col-md-12 splitcols" ID="GNDN">
-    
+
     <input type="hidden" name="document_type" value="driver_form" />
     <input type="hidden" name="client_id" value="<?php if(isset($cid))echo $cid;?>" />
     <?php if($this->request->controller !='ClientApplication' && $this->request->controller !='Orders'){?>
@@ -69,7 +69,7 @@
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label"><?= $strings["forms_city"]; ?>: </label>
-        <input type="text" class="form-control required" name="city" <?php if (isset($p->city)) { ?> value="<?php echo $p->city; ?>" <?php }?>  />
+        <input type="text" class="form-control" name="city" <?php if (isset($p->city)) { ?> value="<?php echo $p->city; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label"><?= $strings["forms_provincestate"]; ?>: </label>
@@ -110,18 +110,18 @@
         <input type="text" class="form-control dp" name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
-    
 
-    
-    
 
-    
+
+
+
+
 </div>
 </div>
 <div class="clearfix"></div>
 <script>
 $(function(){
-   $('.dp').datepicker(); 
+   $('.dp').datepicker();
 });
 </script>
 

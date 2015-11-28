@@ -40,8 +40,8 @@
             </div>
 
 
-            <div class="col-md-4 margin-bottom-10"><label class="control-label required"><?= $strings["forms_dateofbirth"]; ?>: </label>
-                <input type="text" class="form-control date-picker datepicker  required" placeholder="<?= $strings["forms_dateformat"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->birth_date;?>"
+            <div class="col-md-4 margin-bottom-10"><label class="control-label "><?= $strings["forms_dateofbirth"]; ?>: </label>
+                <input type="text" class="form-control date-picker datepicker  " placeholder="<?= $strings["forms_dateformat"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->birth_date;?>"
                        name="birth_date"/>
                        <span class="error"></span>
             </div>

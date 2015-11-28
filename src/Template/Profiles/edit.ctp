@@ -218,7 +218,7 @@
         }
 
         if ($this->request->session()->read('debug') && ($param == "edit" || $param == "add")) {
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
         }
     ?>
 </div>
@@ -295,14 +295,22 @@
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
                                         if (true) { //$profile->is_complete && !$MissingData) {
+
+                                            echo '<label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
+                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
+                                            if ($p->requalify == '1') {
+                                                echo " checked";
+                                            }
+                                            echo '> ' . $strings["clients_enablerequalify"] . '<span class="req_msg"></span></label>';
+
                                             //driver, owner driver, owner operator, sales, employee
                                             echo '<label class="uniform-inline" style="">';
+
                                             echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
                                             if ($p->is_hired == '1') {
                                                 echo " checked";
                                             }
                                             echo '/> ' . $strings["profiles_washired"] . ' <p class="hired_msg"></p></label>';
-
                                             if (isset($profile)) {
                                                 ?>
                                                 <div class="hired_date"
@@ -311,12 +319,8 @@
                                                 </div>
                                             <?php }
 
-                                            echo '<br><label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
-                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
-                                            if ($p->requalify == '1') {
-                                                echo " checked";
-                                            }
-                                            echo '> ' . $strings["clients_enablerequalify"] . '<span class="req_msg"></span></label>';
+
+
                                         }
 
                                         if (!$profile->iscomplete || $MissingData) {

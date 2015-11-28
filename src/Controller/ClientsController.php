@@ -11,7 +11,7 @@
     class ClientsController extends AppController {
 
         public $paginate = [
-            'limit' => 10,
+            'limit' => 20,
             'order' => ['id' => 'desc']
         ];
 

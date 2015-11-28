@@ -10,7 +10,7 @@ class JobsController extends AppController {
 
 
     public $paginate = [
-            'limit' => 10,
+            'limit' => 20,
             
         ];
      public function initialize() {

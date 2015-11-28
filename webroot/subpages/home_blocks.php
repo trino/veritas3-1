@@ -47,7 +47,7 @@
                     $title = ucfirst($d->$fieldname . $Trans);
                     $titles[strtolower(trim($title))] = 1;//what purpose does this have?
                     ?>
-                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" <?php if(isset($_GET['doc'])){?>style="display:none;"<?php }?>>
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6" <?php if(isset($_GET['doc'])){?>style="display:none;"<?php }?>>
 
                             <div class="dashboard-stat <?php if(isset($getColor->color)) echo $getColor->color; else echo $class[$i]; ?>">
                                 <div class="whiteCorner"></div>

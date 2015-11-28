@@ -9,7 +9,7 @@ use Cake\Controller\Controller;
 class UsersController extends AppController {
 
     public $paginate = [
-            'limit' => 10,
+            'limit' => 20,
         ];
 
      public function initialize() {

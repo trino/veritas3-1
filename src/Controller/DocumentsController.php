@@ -27,7 +27,7 @@ class DocumentsController extends AppController{
     }
 
     public $paginate = [
-        'limit' => 10,
+        'limit' => 20,
         'order' => ['id' => 'DESC'],
     ];
 

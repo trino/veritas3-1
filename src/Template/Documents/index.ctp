@@ -65,7 +65,7 @@
         <div class="portlet box yellow-casablanca ">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fa fa-copy"></i>
                     <?= $strings["index_listdocuments"]; ?>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                                     }
                                 }
 
-                                echo '</select><select class="form-control input-inline select2me" name="submitted_by_id"><option value="">' . $strings["documents_submittedby"] . '</option>';
+                                echo '</select><select class="form-control select2me" name="submitted_by_id"><option value="">' . $strings["documents_submittedby"] . '</option>';
 
                                 $users = $doc_comp->getAllUser();
                                 foreach ($users as $u) {

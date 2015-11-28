@@ -203,7 +203,7 @@ loadreasons($param, $strings, true);
                                     <label class="control-label">ISB ID: </label>
                                     <input <?php echo $is_disabled ?>
                                         name="isb_id" type="text"
-                                        placeholder="" 
+                                        placeholder=""
                                         class="form-control isb_id" <?php if (isset($p->isb_id)) { ?> value="<?php echo $p->isb_id; ?>" <?php }
                                     if (isset($p->isb_id) && !$this->request->session()->read('Profile.super')) {
                                         ?>
@@ -722,40 +722,40 @@ loadreasons($param, $strings, true);
                                             value="<?php echo $p->sin; ?>" <?php } ?> />
                                     </div>
                                 </div>
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
                                 <div class="clearfix"></div>
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                    
-                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <div class=""
                                      id="subtab_2_4" style="padding: 10px;">
-                                     
+
                                      <label class="control-label"><?= $strings["profiles_assigntoclient"]; ?>:</label>
-                        
+
                                     <?php
                                         if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
                                             if($this->request->params['action']!='view'){
                                             ?>
-                                          
+
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                             <i class="fa fa-search"></i>
@@ -765,8 +765,8 @@ loadreasons($param, $strings, true);
                                         </div>
                                         <?php
                                          }?>
-                                        <div class="<?php if($this->request->params['action']!='view')echo 'scrolldiv';?>" <?php if($this->request->params['action']=='view'){
-                                            ?> style="border-top: 1px solid #e5e5e5;"<?php }?>>
+                                        <div class="<?php if($this->request->params['action']!='view')echo '';?>" <?php if($this->request->params['action']=='view'){
+                                            ?> style="border-top: 1px solid #e5e5e5;max-height:30px !important;min-height:30px !important;height: 30px !important;"<?php }?>>
                                             <table class="table" id="clientTable" style="border: 1px solid #e5e5e5;border-top:none;">
                                                 <?php
                                                     $IsAdmin = $Manager->read("admin") || $Manager->read("super");
@@ -803,7 +803,7 @@ loadreasons($param, $strings, true);
                                                                 }
                                                             }
                                                             ?>
-                        
+
                                                             <tr>
                                                                 <td width="1" <?php if($b==1){?>style="border-top:none;"<?php }?>>
                                                                     <input
@@ -820,29 +820,29 @@ loadreasons($param, $strings, true);
                                                                 </td><td width="50" align="center" <?php if($b==1){?>style="border-top:none;"<?php }?>> <img height="32" src="<?=
                                                                     clientimage( $this->request->webroot, $settings, $o);
                                                                     ?>"></td><td <?php if($b==1){?>style="border-top:none;"<?php }?>>
-                        
+
                                                                     <label
                                                                         for="c_<?= $count ?>"><?php echo $o->company_name; ?></label><span
                                                                         class="msg_<?php echo $o->id; ?>"></span></td>
                                                             </tr>
-                        
+
                                                             <?php
                                                             $count += 1;
                                                         }
                                                     }
                                                 ?>
-                        
+
                                             </table>
                                         </div>
                                         <div class="clearfix"></div>
-                        
+
                                         <!-- </div>
                                      </div>-->
                                     <?php }?>
                                     <div class="margin-top-10 alert alert-success display-hide clientadd_flash"
                                          style="display: none;">
                                         <button class="close" data-close="alert"></button>
-                        
+
                                     </div>
                                     <input type="hidden" class="cids" name="cids" value="<?php if(isset($cidss))echo $cidss;?>" />
                                 </div>
@@ -976,7 +976,7 @@ loadreasons($param, $strings, true);
             $('.driver_license_no').attr('required','');
             $('.driver_province').attr('required','');
             $('.expiry_date').attr('required','');
-            
+
             $('.isb_id').removeAttr('required');
             $('.username').removeAttr('required');
             $('.password').removeAttr('required');
@@ -991,44 +991,44 @@ loadreasons($param, $strings, true);
             $('.username').attr('required','');
             $('.password').attr('required','');
             $('.email').attr('required','');
-            
+
             $('.driver_license_no').removeAttr('required');
             $('.driver_province').removeAttr('required');
             $('.expiry_date').removeAttr('required');
-            
+
         }
         else
         {
             $('.fname').attr('required','');
             $('.lname').attr('required','');
             $('.email').attr('required','');
-            
+
             $('.driver_license_no').removeAttr('required');
             $('.driver_province').removeAttr('required');
             $('.expiry_date').removeAttr('required');
         }
         $('input,textarea,select').each(function(){
-           
+
 
         var attr = $(this).attr('required');
-        
+
         // For some browsers, `attr` is undefined; for others,
         // `attr` is false.  Check for both.
         if (typeof attr !== typeof undefined && attr !== false) {
             $(this).parent().find('label').addClass('required');
         }
-        
- 
+
+
         });
     }
     $(function(){
-        
+
         $('.addclientz').live('change',function(){
-            
+
            if($(this).is(':checked'))
            var chci = 1;
            else
-           var chci = 0; 
+           var chci = 0;
            var cids = $('.cids').val();
            if(cids == '')
            {
@@ -1036,7 +1036,7 @@ loadreasons($param, $strings, true);
                 cids = $(this).val();
            }
            else{
-               if(chci==1) 
+               if(chci==1)
                cids = cids+','+$(this).val();
                else{
                cids_arr = cids.split(',');
@@ -1050,7 +1050,7 @@ loadreasons($param, $strings, true);
                     cids = cids+','+cids_arr[i];
                     }
                    }
-               } 
+               }
            }
            $('.cids').val(cids);
         });
@@ -1152,44 +1152,44 @@ loadreasons($param, $strings, true);
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '9' || $(this).val() == '12') {
                                                     $('.hideusername').hide();
                                                 }
-                                                
+
 
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8' || $(this).val() == '9' || $(this).val() == '12'){
                                                     $('.driver_license').show();
                                                     if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
-                                                        
+
                                                         $('#driver_div').show();
                                                     } else {
                                                         $('#driver_div').hide();
-                                                        
-                                                        
-                                                        
+
+
+
                                                     }
-                                                    
+
                                                 } else{
                                                     $('.driver_license').hide();
                                                     $('#driver_div').hide();
-                                                    
+
                                                 }
                                                 $('#isb_id').hide();
 
-                                        
+
                                         } else {
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
                                             });
                                             $('#driver_div').hide();
                                             $('#isb_id').hide();
-                                            
+
                                             <?php
                                                 if(isset($p->password) && $p->password){
-                                                    
+
                                                 } else{
                                                     ?>
                                                     if (profile_type == '1' || profile_type == '2'){
-                                                        
+
                                                         $('.admin_rec').show();
-                                                        
+
                                                     }
                                                     <?php
                                                 }
@@ -1199,15 +1199,15 @@ loadreasons($param, $strings, true);
                                         var profile_type = $(this).val();
                                         if (profile_type == '1' || profile_type == '2') {
                                             $('#isb_id').show();
-                                            
+
                                             $('.admin_rec').show();
                                             $('.driver_license').hide();
                                         } else {
                                              $('.admin_rec').hide();
                                         }
-                                        
 
-                        
+
+
                         <?php if($canedit){ echo "$('.email_rec').show();"; } ?>
 
 
@@ -1221,18 +1221,18 @@ loadreasons($param, $strings, true);
                                     }
                                     if (!isNaN(parseFloat(mem_type)) && isFinite(mem_type)) {
                                         if (mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type == '9' || mem_type == '12') {
-                                            
+
                                             if(mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type=='9' || mem_type=='12'){
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
                                                     $('#driver_div').show();
-                                                    
+
                                                 } else {
                                                     $('#driver_div').hide();
-                                                    
+
                                                 }
                                             }
                                             $('#isb_id').hide();
-                                            
+
 
                                         }  else {
                                             $('.nav-tabs li:not(.active)').each(function () {
@@ -1240,16 +1240,16 @@ loadreasons($param, $strings, true);
                                             });
                                             $('#driver_div').hide();
                                             $('#isb_id').hide();
-                                            
+
 
 
                                         if (mem_type == '1' || mem_type == '2') {
                                             $('#isb_id').show();
                                         }
                                     }
-                                                                       
+
                                     }
-                                    
+
         });
 
 
