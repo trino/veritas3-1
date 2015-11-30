@@ -1026,7 +1026,7 @@
                     }
 
                     if(isset($_POST["ClientID"]) && $_POST["ClientID"]) {
-                        $this->assigntoclient($profile->id, $_POST["ClientID"]);
+                        $this->Manager->assign_profile_to_client($profile->id, $_POST["ClientID"]);
                     }
                     $this->Flash->success($this->Trans->getString("flash_profilecreated"));
                     return $this->redirect(['action' => 'edit', $profile->id]);
@@ -1044,21 +1044,6 @@
             foreach($SubDocs as $SubDoc){
                 $this->Manager->new_entry("profilessubdocument", "id", array("profile_id" => $To, "subdoc_id" => $SubDoc->subdoc_id, "display" => $SubDoc->display, "Topblock"  => $SubDoc->display));
             }
-        }
-
-        function assigntoclient($ProfileID, $ClientID, $Add = true){
-            $Client = $this->Manager->get_client($ClientID);
-            $Profiles = explode(",", $Client->profile_id);
-            $Key = array_search($ProfileID, $Profiles);
-            if($Add){
-                if ($Key === false){
-                    $Profiles[] = $ProfileID;
-                }
-            } else if($Key !== false){
-                unset($Profiles[$Key]);
-            }
-            $Profiles = implode(",", $Profiles);
-            $this->Manager->update_database("clients", "id", $ClientID, array("profile_id" => $Profiles));
         }
 
         function checkusername($profile, $post){//updates username of $profile->id
@@ -1754,46 +1739,9 @@
             
             
         }
+
         function addprofile($add,$client_id,$user_id){
-            $settings = $this->Settings->get_settings();
-
-            $query = TableRegistry::get('clients');
-            $q = $query->find()->where(['id' => $client_id])->first();
-            $profile_id = $q->profile_id;
-            $pros = explode(",", $profile_id);
-            $flash = "";
-            $p_ids = "";
-            if ($add == '1') {
-                array_push($pros, $user_id);
-                $pro_id = array_unique($pros);
-                $flash = $this->Trans->getString("flash_assignedtoclient");
-            } else {
-                $pro_id = array_diff($pros, array($user_id));
-                $flash = $this->Trans->getString("flash_removedfromclient");
-                //array_pop($pros,$_POST['user_id']);
-            }
-
-            foreach ($pro_id as $k => $p) {
-                if (count($pro_id) == $k + 1) {
-                    $p_ids .= $p;
-                }else {
-                    $p_ids .= $p . ",";
-                }
-            }
-            $p_ids = str_replace(',', ' ', $p_ids);
-            $p_ids = trim($p_ids);
-            $p_ids = str_replace(' ', ',', $p_ids);
-            $p_ids = str_replace(',,', ',', $p_ids);
-            $p_ids = str_replace(',,', ',', $p_ids);
-            if ($query->query()->update()->set(['profile_id' => $p_ids])
-                ->where(['id' => $client_id])
-                ->execute()
-            ) {
-                //echo $flash;
-            }else {
-                //echo $this->Trans->getString("flash_clientfail");
-            }
-            //echo $p_ids;
+            $this->Manager->assign_profile_to_client($user_id, $client_id, $add == '1');
             return true;
         }
 

@@ -780,11 +780,13 @@ loadreasons($param, $strings, true);
                                                     $clients = $this->requestAction('/clients/getAllClient/');
                                                     $AssignedTo = array();
                                                     $clientcount=0;
-                                                    foreach ($clients as $client) {
-                                                        $pro_ids = explode(",", $client->profile_id);
-                                                        if (in_array($CheckID, $pro_ids)){
-                                                            $AssignedTo[] = $client->id;
-                                                            $clientcount++;
+                                                    if($param != "add") {
+                                                        foreach ($clients as $client) {
+                                                            $pro_ids = explode(",", $client->profile_id);
+                                                            if (in_array($CheckID, $pro_ids)) {
+                                                                $AssignedTo[] = $client->id;
+                                                                $clientcount++;
+                                                            }
                                                         }
                                                     }
 

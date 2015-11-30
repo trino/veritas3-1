@@ -622,9 +622,17 @@ class ManagerComponent extends Component {
         return $this->get_entry("clients", $ClientID, "slug");
     }
 
-    function assign_profile_to_client($ProfileID, $ClientID){
+    function assign_profile_to_client($ProfileID, $ClientID, $Add = true){
         $Client = $this->get_entry('clients', $ClientID, "id");
-        $Profiles = $this->appendstring($Client->profile_id, $ProfileID);
+        if($Add) {
+            $Profiles = $this->appendstring($Client->profile_id, $ProfileID);
+        } else {
+            $Profiles = explode(",", $Client->profile_id);
+            $Client = array_search($ProfileID, $Profiles);
+            if($Client === false){return;}
+            unset($Profiles[$Client]);
+        }
+        $Profiles = implode(",",array_unique(explode(",", $Profiles)));
         $this->update_database("clients", "id", $ClientID, array("profile_id" => $Profiles));
     }
 
