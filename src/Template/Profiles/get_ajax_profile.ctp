@@ -53,7 +53,7 @@ if(iterator_count($profiles)==0){
     $Table = '<TD WIDTH="33%" class="nopadorborder"><TABLE class="table table-striped table-bordered table-hover recruiters nopadorborder">';
     echo '<TR>' . $Table;
     foreach ($profiles as $r) {
-        $DOIT = true;
+        $DOIT = $r->is_complete;
         $username = "[NO NAME]";
         $profiletype = "";
         if (strlen(trim($r->username) > 0)) {
