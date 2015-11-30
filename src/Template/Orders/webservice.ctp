@@ -1,6 +1,25 @@
 <?php
     $driverinfo2 = $driverinfo;
 
+    function save_webservice_ids($Manager, $orderid, $ins_id, $ebs_id) {
+        $arr = array('ins_id' => $ins_id, 'ebs_id' => $ebs_id);
+        $Manager->update_database('orders', "id", $orderid, $arr);
+    }
+
+    function save_pdi($Manager, $orderid, $id, $pdi) {
+        if (in_array($pdi, array("ins_79", "ins_1", "ins_14", "ins_77", "ins_78", "ebs_1603", "ebs_1627", "ebs_1650", "ins_72", "ins_31", "ins_32"))) {
+            $arr = array($pdi => $id);
+            $Manager->update_database('orders', "id", $orderid, $arr);
+        }
+    }
+
+    function writing_complete($Manager, $orderid = false) {
+        if (!$orderid) {
+            $orderid = $Manager->enum_table("orders", "id", "DESC")->first()->id;//just get the latest order
+        }
+        $Manager->update_database('orders', "id", $orderid, array('complete_writing' => 1));
+    }
+
     if (false) {
 
         $user_id234 = $this->Session->read('Profile.isb_id');
@@ -151,7 +170,7 @@
                 $ins_id = substr($ins_id, 0, 36);
                 $ebs_id = substr($ebs_id, 0, 36);
 
-                $this->requestAction('orders/save_webservice_ids/' . $driverinfo->order_id . '/' . $ins_id . '/' . $ebs_id);
+                save_webservice_ids($Manager, $driverinfo->order_id, $ins_id, $ebs_id);
             }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +187,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_79 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_79 . '/ins_79');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_79, 'ins_79');
                 $DataIneed[79] = $pdi_79;
             }
 
@@ -186,7 +205,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_32 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_32 . '/ins_32');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_32, 'ins_32');
                 $DataIneed[32] = $pdi_32;
             }
 
@@ -204,7 +223,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_31 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_31 . '/ins_31');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_31, 'ins_31');
                 $DataIneed[31] = $pdi_31;
             }
 
@@ -222,7 +241,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_1 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_1 . '/ins_1');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_1, 'ins_1');
                 $DataIneed[1] = $pdi_1;
             }
 
@@ -240,7 +259,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_14 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_14 . '/ins_14');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_14, 'ins_14');
                 $DataIneed[14] = $pdi_14;
             }
 
@@ -258,7 +277,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_72 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_72 . '/ins_72');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_72 . 'ins_72');
                 $DataIneed[72] = $pdi_72;
             }
 
@@ -276,7 +295,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_77 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_77 . '/ins_77');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_77, 'ins_77');
                 $DataIneed[77] = $pdi_77;
             }
 
@@ -294,7 +313,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_78 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_78 . '/ins_78');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_78, 'ins_78');
                 $DataIneed[78] = $pdi_78;
             }
 
@@ -313,7 +332,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_1650 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_1650 . '/ebs_1650');
+                save_pdi($Manager, $driverinfo->order_id , $pdi_1650 , 'ebs_1650');
                 $DataIneed[1650] = $pdi_1650;
             }
 
@@ -330,7 +349,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_1627 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_1627 . '/ebs_1627');
+                save_pdi($Manager, $driverinfo->order_id , $pdi_1627 , 'ebs_1627');
                 $DataIneed[1627] = $pdi_1627;
             }
 
@@ -348,7 +367,7 @@
                     $r = explode(']', $r[1]);
                 }
                 $pdi_1603 = $r[0];
-                $this->requestAction('orders/save_pdi/' . $driverinfo->order_id . '/' . $pdi_1603 . '/ebs_1603');
+                save_pdi($Manager, $driverinfo->order_id, $pdi_1603 , 'ebs_1603');
                 $DataIneed[1603] = $pdi_1603;
             }
 
@@ -393,7 +412,7 @@
                     $DataIneed[1650] = $pdi_1650;
                 }
             }
-            $this->requestAction('orders/writing_complete/' . $driverinfo->order_id);
+            writing_complete($driverinfo->order_id);
 
         }
 
