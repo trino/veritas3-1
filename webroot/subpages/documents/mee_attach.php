@@ -1,37 +1,4 @@
 <?php
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-    // This file is never to be touched again.
-
     //rules:
     //if $_GET["forms"] contains 1603: either meeattach_id1 or meeattach_id2 are required
     //if driver's province is BC, QC or SK: mee_attach_7 is required
@@ -68,6 +35,10 @@
         if (!isset($forms)){$forms = "";}
         if (isset($_GET["forms"])) {$forms = explode(",", $_GET["forms"]);}
         $attachment = array();//Files are in: C:\wamp\www\veritas3-0\webroot\img\pdfs
+        if(!$forms && isset($_GET["order_id"])) {
+            $order = $Manager->get_entry("orders", $_GET["order_id"]);
+            $forms = explode(",", $order->forms);
+        }
 
         if (is_array($forms)) {
             if (in_array("1", $forms)) {//                  Name         Filename
@@ -85,16 +56,18 @@
             }
         }
 
-
-        echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" forms="' . implode(",", $forms) . '">';
-        if($Debug){
-            $Is1603 = in_array(1603, $forms);
-            $Yes = "<B>Yes</B>"; $No = "<B>No</B>";
-            echo '<HR><H1>Rules for attachments:</H1>';
-            echo "If 1603 is one of the forms selected, require 1 piece of ID: " . iif($Is1603, $Yes, $No);
-            echo "<BR>Driver's LICENSE ISSUED province: <B>" . $DriverProvince . "</B> - Forms: <B>" . implode(", ", $forms) . '</B>';
-            echo "<BR>QC and Form 1 is selected: " . iif(in_array("1", $forms) && $DriverProvince == "QC", $Yes, $No);
-            echo "<BR>SK <B>or</B> BC and Form 14 is selected: " . iif(in_array("14", $forms) && ($DriverProvince == "SK" || $DriverProvince == "BC"), $Yes, $No);
+        if($forms) {
+            echo '<INPUT TYPE="hidden" ID="specialrule" value="meeattach" driverprovince="' . $DriverProvince . '" forms="' . implode(",", $forms) . '">';
+            if ($Debug) {
+                $Is1603 = in_array(1603, $forms);
+                $Yes = "<B>Yes</B>";
+                $No = "<B>No</B>";
+                echo '<HR><H1>Rules for attachments:</H1>';
+                echo "If 1603 is one of the forms selected, require 1 piece of ID: " . iif($Is1603, $Yes, $No);
+                echo "<BR>Driver's LICENSE ISSUED province: <B>" . $DriverProvince . "</B> - Forms: <B>" . implode(", ", $forms) . '</B>';
+                echo "<BR>QC and Form 1 is selected: " . iif(in_array("1", $forms) && $DriverProvince == "QC", $Yes, $No);
+                echo "<BR>SK <B>or</B> BC and Form 14 is selected: " . iif(in_array("14", $forms) && ($DriverProvince == "SK" || $DriverProvince == "BC"), $Yes, $No);
+            }
         }
 
         $skip=false;
