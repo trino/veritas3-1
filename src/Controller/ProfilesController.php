@@ -1413,17 +1413,14 @@
                     //var_dump($this->request->data); die();//echo $_POST['admin'];die();
                     $profile = $this->Profiles->patchEntity($profile, $this->request->data);
                     if ($this->Profiles->save($profile)) {
-                        if(isset($_POST['cids']) && $_POST['cids'])
-                        {
+                        if(isset($_POST['cids']) && $_POST['cids']) {
                             $_POST['client_idss'] = explode(',',$_POST['cids']);
                             $cquery = TableRegistry::get('Clients');
                             $cq = $cquery->find();
-                            foreach($cq as $ccq)
-                            {
+                            foreach($cq as $ccq) {
                                 $this->addprofile(0,$ccq->id,$profile->id);
                             }
-                            foreach($_POST['client_idss'] as $cid)
-                            {
+                            foreach($_POST['client_idss'] as $cid) {
                                 $this->addprofile(1,$cid,$profile->id);
                             }
                         }

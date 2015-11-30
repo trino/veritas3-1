@@ -626,13 +626,14 @@ class ManagerComponent extends Component {
         $Client = $this->get_entry('clients', $ClientID, "id");
         if($Add) {
             $Profiles = $this->appendstring($Client->profile_id, $ProfileID);
+            $Profiles = implode(",",array_unique(explode(",", $Profiles)));
         } else {
             $Profiles = explode(",", $Client->profile_id);
             $Client = array_search($ProfileID, $Profiles);
             if($Client === false){return;}
             unset($Profiles[$Client]);
+            $Profiles = implode(",",$Profiles );
         }
-        $Profiles = implode(",",array_unique(explode(",", $Profiles)));
         $this->update_database("clients", "id", $ClientID, array("profile_id" => $Profiles));
     }
 
