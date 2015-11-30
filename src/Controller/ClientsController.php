@@ -575,12 +575,41 @@
                     if(strtolower($_POST["status"]) == "true"){$Status=1;}
                     $this->Manager->update_database("clients", "id", $_POST["clientid"], array("visibleprofiles" => $Status));
                     break;
+                case "notify":
+                    echo $this->notify($_POST["profile"]);
+                    break;
                 default:
                     echo $_POST["Type"] . " is not a handled AJAX type (ClientsController - HandleAJAX)";
             }
             $this->layout = 'ajax';
             $this->render(false);
             return true;
+        }
+
+        function notify($UserID, $ProfileType = 2){//recruiter
+            $AssignedClients = $this->Manager->find_client($UserID, false);
+            if($AssignedClients) {
+                if (!is_array($AssignedClients)) {$AssignedClients = array($AssignedClients);}
+                $Clients = $this->Manager->enum_all('clients', array("id IN(" . implode(",", $AssignedClients) . ")"));
+                $Emails = array();
+                foreach ($Clients as $Client) {
+                    if($Client->profile_id) {
+                        $Profiles = $this->Manager->enum_all("profiles", array("profile_type IN (" . $ProfileType . ")", "id IN (" . $Client->profile_id . ")"));
+                        foreach($Profiles as $Profile){
+                            if($Profile->email){
+                                $Emails[] = $Profile->email;
+                            }
+                        }
+                    }
+                }
+                $Emails = array_unique($Emails);
+                if($Emails){
+                    $Path = LOGIN . 'profiles/view/' . $UserID;
+                    $Profile = $this->Manager->get_profile($UserID);
+                    $Profile = $Profile->fname . " " . $Profile->mname . " " . $Profile->lname . ' (' . $Profile->username . ')';
+                    $this->Manager->handleevent("notify", array("email" => $Emails, "name" => $Profile, "path" => $Path));
+                }
+            }
         }
 
         public function updatetable($table, $primarykey, $keyvalue, $fieldname, $fieldvalue){

@@ -769,8 +769,10 @@ loadreasons($param, $strings, true);
                                             ?> style="border-top: 1px solid #e5e5e5;max-height:30px !important;min-height:30px !important;height: 30px !important;"<?php }?>>
                                             <table class="table" id="clientTable" style="border: 1px solid #e5e5e5;border-top:none;">
                                                 <?php
-                                                    $IsAdmin = $Manager->read("admin") || $Manager->read("super");
-
+                                                    $IsAdmin = false;
+                                                    if(isset($Profile)) {
+                                                        $IsAdmin = $Profile->super || $Profile->admin;// $Manager->read("admin") || $Manager->read("super");
+                                                    }
                                                     $CheckID = $id;
                                                     if(!$CheckID){
                                                         $CheckID=$userID;

@@ -1150,6 +1150,7 @@
                     $('#save_display').click();
                     //alert(res); return false;
                     $('.res').text(res);
+                    $('#notify').show();
                     $('.flash').show();
                     $('.flash').fadeOut(7000);
                     $('#save_blocks').text(' Save Changes ');
@@ -1171,6 +1172,7 @@
                 success: function (res) {
                     $('.res').text(res);
                     $('.flash').show();
+                    $('#notify').show();
                     $('.flash').fadeOut(7000);
                     $('#save_home').text(' Save Changes ');
                     $('.overlay-wrapper').hide();

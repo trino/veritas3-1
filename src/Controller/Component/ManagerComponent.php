@@ -121,9 +121,9 @@ class ManagerComponent extends Component {
                 $Data[] = $client->id;
             }
             return $Data;
-        }
-        else
+        } else {
             return 0;
+        }
     }
     public function is_assigned_to_client($UserID, $ClientID){
         if(is_array($ClientID)){

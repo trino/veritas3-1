@@ -382,6 +382,14 @@
                                             echo $strings["flash_cantorder6"];
                                         }
                                     }
+
+                                    $Class = "display:none;";
+                                    if (isset($_SERVER['HTTP_REFERER'])){
+                                        if( strpos($_SERVER['HTTP_REFERER'], 'profiles/edit/' . $profile->id ) !== false ){
+                                            $Class = "";
+                                        }
+                                    }
+                                    echo '<br><button onclick="notify();" ID="notify" class="blue-stripe btn floatleft blue" style="margin-top:2px;width:100%;' . $Class . '">' . $strings["profiles_notify"] . '</button>';
                                 }
 
                                 //if (isset($client_docs)) {
@@ -833,6 +841,18 @@
             }
         });
         return false;
+    }
+
+    function notify(){
+        $.ajax({
+            url: "<?php echo $this->request->webroot;?>clients/quickcontact",
+            type: 'post',
+            data: 'Type=notify&profile=<?= $uid; ?>',
+            success: function (msg) {
+                if(msg){alert(msg);}
+                $("#notify").hide();
+            }
+        })
     }
 </SCRIPT>
 
