@@ -1005,17 +1005,14 @@
                 if ($profiles->save($profile)) {
                     //var_dump($_POST);
                     $this->checkusername($profile->id, $_POST);
-                    if(isset($_POST['cids']) && $_POST['cids'])
-                    {
+                    if(isset($_POST['cids']) && $_POST['cids']) {
                         $_POST['client_idss'] = explode(',',$_POST['cids']);
                         $cquery = TableRegistry::get('Clients');
                         $cq = $cquery->find();
-                        foreach($cq as $ccq)
-                        {
+                        foreach($cq as $ccq) {
                             $this->addprofile(0,$ccq->id,$profile->id);
                         }
-                        foreach($_POST['client_idss'] as $cid)
-                        {
+                        foreach($_POST['client_idss'] as $cid) {
                             $this->addprofile(1,$cid,$profile->id);
                         }
                     }
@@ -1057,10 +1054,8 @@
                 if ($Key === false){
                     $Profiles[] = $ProfileID;
                 }
-            } else {
-                if($Key !== false){
-                    unset($Profiles[$Key]);
-                }
+            } else if($Key !== false){
+                unset($Profiles[$Key]);
             }
             $Profiles = implode(",", $Profiles);
             $this->Manager->update_database("clients", "id", $ClientID, array("profile_id" => $Profiles));
@@ -1979,13 +1974,8 @@
             }
             $blocks = TableRegistry::get('blocks');
             $s = $blocks->find()->where(['user_id' => $user_id])->count();
-            //echo $s;die();
             if ($user_id != 0 && $s != 0) {
-                $query = $blocks->query();
-                $query->update()
-                    ->set($block)
-                    ->where(['user_id' => $user_id])
-                    ->execute();
+                $this->Manager->update_database('blocks', 'user_id', $user_id, $block);
             } else {
                 $article = $blocks->newEntity($_POST['block']);
                 $blocks->save($article);

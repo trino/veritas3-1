@@ -60,7 +60,7 @@
         <!--hr /-->
         <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary"><?= $strings["dashboard_next"]; ?></a>
         <?php if($this->request->session()->read('debug')){
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         } ?>
     </div>
     <?php
@@ -78,7 +78,7 @@
             <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-primary"><?= $strings["dashboard_previous"]; ?></a>
             <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["dashboard_next"]; ?></a>
             <?php if($this->request->session()->read('debug')){
-                echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A> ';
+                echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A> ';
                 echo 'Included: subpages/documents/' . $includedoc;
             }
             echo '</div>';

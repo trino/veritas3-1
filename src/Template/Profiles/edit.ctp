@@ -218,7 +218,7 @@
         }
 
         if ($this->request->session()->read('debug') && ($param == "edit" || $param == "add")) {
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         }
     ?>
 </div>

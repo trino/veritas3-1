@@ -6,6 +6,7 @@
 
     if(!isset($sidebar->user_id) || ($sidebar && $sidebar->user_id <> $uid)) {
         $sidebar = $Manager->loadpermissions($uid, "sidebar");
+        $block = $Manager->loadpermissions($uid, "blocks");
     }
 ?>
 
@@ -646,9 +647,9 @@
 
                     <?php
                         function addentry($Name, $Value, $Key, $ID, $is_disabled){
-                            echo '<tr><TD>' . $Name . '</TD><TD><label class="uniform-inline"><input ' . $is_disabled . ' type="radio" name="' . $ID . '" value="1" ';
+                            echo '<tr><TD>' . $Name . '</TD><TD><label class="uniform-inline"><input ' . $is_disabled . ' type="radio" name="' . $ID . '" value="1"';
                             if (isset($Value->$Key) && $Value->$Key == 1) echo "checked";
-                            echo '/> Yes </label><label class="uniform-inline"><input ' . $is_disabled . ' type="radio" name="' . $ID . '" value="0" ';
+                            echo '/> Yes </label><label class="uniform-inline"><input ' . $is_disabled . ' type="radio" name="' . $ID . '" value="0"';
                             if (isset($Value->$Key) && $Value->$Key == 0) echo "checked";
                             echo '/> No </label></td></tr>';
                         }
@@ -665,7 +666,7 @@
                             echo '<TR><TD COLSPAN="2" style="background: #f7f7f7;">&nbsp;</TD></TR>';
                         }
                         function makeradio($is_disabled, $name, $value, $checked, $Label, $Type = "radio"){
-                            echo '<label class="uniform-inline"><input ' . $is_disabled . 'type="' . $Type . '" name="' . $name . '" value="' . $value . '" ';
+                            echo '<label class="uniform-inline"><input ' . $is_disabled . 'type="' . $Type . '" name="' . $name . '" value="' . $value . '"';
                             if ($checked) {echo "checked";}
                             echo '/> ' . $Label . '</label> ';
                         }
@@ -1168,7 +1169,6 @@
                 data: str,
                 type: 'post',
                 success: function (res) {
-                    //alert(res);
                     $('.res').text(res);
                     $('.flash').show();
                     $('.flash').fadeOut(7000);
@@ -1186,6 +1186,7 @@
                 data: str,
                 type: 'post',
                 success: function (res) {
+                    alert(res);
                     $('.flash').show();
                     $('.flash').fadeOut(7000);
                     $('#save_display').text(' Save Changes ');
