@@ -381,11 +381,11 @@
                     echo "" . get_mee_results_binary($order->bright_planet_html_binary,$title_pr->$Fieldname);
                 }
 
-                echo '</td></tr>';
+                echo '</td><TD></TD></tr>';
                 $duplicate_log = "";
             }
 
-            echo '<TR><TD colspan="3"><H4 style="margin-left: -7px;"><span class="caption-subject bold font-blue-hoki uppercase"> ';
+            echo '<TR><TD colspan="4"><H4 style="margin-left: -7px;"><span class="caption-subject bold font-blue-hoki uppercase"> ';
             echo $strings2["score_docs"] . '</span></H4><div class="clearfix"></div></TD></TR>';
 
             $line = "even";
@@ -407,7 +407,7 @@
                 }
             }
             if (!$docfind) {
-                echo '<tr><td colspan="3">' . $strings2["score_none"] . '</td></tr>';
+                echo '<tr><td colspan="4">' . $strings2["score_none"] . '</td></tr>';
             }
 /*
             $Education = array("School" => "Scott Park Driving School", "Program Name" => "A-Z Drivers 123", "Graduation Date" => "10/10/2015", "Grade" => "99/100", "Transcript" => "ABC Trucking AZ Driver License October 2015 85 Transcript");
@@ -432,7 +432,7 @@
             }
           //  listfiles($files, "attachments/", "", false, 3);
 
-            echo '<TR><TD colspan="3"></TD></TR></tbody></table></div><div class="clearfix"></div></div></div><!-- END PORTLET --></div></div><!-- END PORTLET --></div></div></div>';
+            echo '<TR><TD colspan="4"></TD></TR></tbody></table></div><div class="clearfix"></div></div></div><!-- END PORTLET --></div></div><!-- END PORTLET --></div></div></div>';
         }
     }
 
@@ -443,7 +443,7 @@
 
     function maketable($Name, $Entries, $Delimeter = ""){
         if(count($Entries) && is_array($Entries)) {
-            echo '<TR><TD colspan="3"><H4 style="margin-left: -7px;"><span class="caption-subject bold font-blue-hoki uppercase"> ' . $Name . '</span></H4>';
+            echo '<TR><TD colspan="4"><H4 style="margin-left: -7px;"><span class="caption-subject bold font-blue-hoki uppercase"> ' . $Name . '</span></H4>';
             echo '<div class="clearfix"></div></TD></TR>';
             foreach ($Entries as $Name => $Value) {
                 if(is_numeric($Name)){
