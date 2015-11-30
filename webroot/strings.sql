@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2015 at 05:48 PM
+-- Generation Time: Nov 26, 2015 at 08:29 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=848 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=843 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1448568450', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1448461330', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -91,7 +91,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (53, 'index_listprofiles', 'List %Profile%s', 'Liste des %profile%s'),
 (54, 'index_createprofile', 'Create %Profile%', 'Créer un %profile%'),
 (55, 'index_listorders', 'List Orders', 'Afficher les Commandes'),
-(56, 'index_listdocuments', 'All %Document%s', 'Afficher les %document%s'),
+(56, 'index_listdocuments', 'List %Document%s', 'Afficher les %document%s'),
 (57, 'index_orderdrafts', 'Order Drafts', 'Brouillons des Commandes'),
 (58, 'index_createdocument', 'Create %Document%', 'Créer un %document%'),
 (59, 'index_documentdrafts', '%Document% Drafts', 'Brouillons de %document%s'),
@@ -172,7 +172,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (136, 'documents_status', 'Status', 'État'),
 (137, 'documents_search', 'Search %Document%s', 'Rechercher des %document%s'),
 (138, 'documents_noresults', 'No %Document%s found', 'Aucun %document% trouvé'),
-(139, 'documents_draft', 'Draft', 'Avant-projet'),
+(139, 'documents_draft', 'draft', 'Avant-projet'),
 (140, 'documents_saved', 'saved', 'Sauvé'),
 (141, 'documents_pending', 'pending', 'En attendant'),
 (142, 'documents_complete', 'complete', 'Complet'),
@@ -577,16 +577,16 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (547, 'addorder_notified', 'You will be notified once it\\''s processed.', 'Vous serez averti une fois qu\\''il est traité.'),
 (548, 'upload_none', 'No attachments', 'Pas de pièces jointes'),
 (549, 'forms_selectone', 'Please select at least one option', 'S''il vous plaît sélectionner au moins une option'),
-(550, 'forms_signplease', 'Please provide your signature to confirm', 'S''il vous plaît fournir votre signature pour confirmer.'),
+(550, 'forms_signplease', 'Please provide your signature to confirm.', 'S''il vous plaît fournir votre signature pour confirmer.'),
 (551, 'forms_missingid', 'Missing the required piece of ID', 'Manquer la pièce d''identité requise'),
 (552, 'forms_missingabstract', 'Missing the abstract consent form', 'Manque le formulaire de consentement abstraite'),
 (553, 'forms_pleaseconfirm', 'Please confirm that you have read the conditions.', 'S''il vous plaît confirmer que vous avez lu les conditions.'),
 (554, 'forms_fillall', 'Please fill out all the required fields.', 'S''il vous plaît remplir tous les champs obligatoires.'),
-(555, 'forms_savesig', 'Please save the signature before you proceed', 'S''il vous plaît enregistrer la signature avant de poursuivre.'),
+(555, 'forms_savesig', 'Please save the signature before you proceed.', 'S''il vous plaît enregistrer la signature avant de poursuivre.'),
 (556, 'forms_datetime', 'Date/Time', 'Date/Heure'),
 (557, 'forms_clear', 'Clear', 'Effacer'),
 (558, 'forms_nosig', 'No signature supplied', 'Pas de signature fourni'),
-(560, 'confirm_confirm', 'Order: %name% Confirmation', 'MEE Ordre: %name% Confirmation'),
+(560, 'confirm_confirm', 'MEE Order: %name% Confirmation', 'MEE Ordre: %name% Confirmation'),
 (561, 'upload_required', 'Required', 'Requis'),
 (562, 'forms_signhere', 'Please sign here then click save before proceeding', 'S''il vous plaît signer ici puis cliquez sur enregistrer avant de continuer'),
 (563, 'consent_consent', 'Consent Form', 'Formulaire de consentement'),
@@ -812,10 +812,10 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (795, 'flash_cantorder3', 'Click here to edit their %profile%', 'Cliquez ici pour modifier leur %profile%'),
 (796, 'flash_cantorder4', 'Permissions data is missing. Edit this %profile%''s permissions to restore them', 'Autorisations données est manquant. Modifier ce %profile%''s de autorisations pour les restaurer'),
 (797, 'flash_cantorder5', 'You cannot place orders', 'Vous ne pouvez pas placer des commandes'),
-(798, 'flash_cantorder6', 'You can''t place orders for this %profile% type', 'Ce type de %profile% ne peut pas avoir les commandes passées pour eux'),
+(798, 'flash_cantorder6', 'This %profile% type cannot have orders placed for them', 'Ce type de %profile% ne peut pas avoir les commandes passées pour eux'),
 (799, 'infoorder_incomplete', '&#9746;', '<SPAN TITLE="INCOMPLETE">&#9746;</SPAN>'),
 (800, 'infoorder_complete', '&#9745;', '&#9745;'),
-(801, 'permissions_used', 'Enabled Permissions', 'Permission utilisés'),
+(801, 'permissions_used', 'Permissions used', 'Permission utilisés'),
 (802, 'permissions_clientlist', 'index_listclients', 'index_listclients'),
 (803, 'permissions_requiredto', 'Required to', 'Nécessaire pour'),
 (804, 'permissions_profilelist', 'index_listprofile', 'index_listprofile'),
@@ -840,7 +840,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (823, 'forms_steps', 'Step %step% of %total%', 'Étape %step% sur %total%'),
 (824, 'forms_paradox', 'end date. It must be after the start date', 'date de fin. Il doit être postérieure à la date de début'),
 (825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier'),
-(826, 'clientapplication_done', '<center><H3>Thank you.</h3>Your application has been submitted. We will be in touch shortly.</center> ', '<h3><center>Merci.</h3></center> Votre demande a été soumise. Nous serons en contact très prochainement.'),
+(826, 'clientapplication_done', '<center><H3>Thank you.</h3></center> Your application has been submitted. We will be in touch shortly.', '<h3><center>Merci.</h3></center> Votre demande a été soumise. Nous serons en contact très prochainement.'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
 (828, 'email_application_message', 'Doc ID: %document% Client ID: %client%   A new application for employment has been submitted. <A HREF="%path%">Please click here to view the profile, thank you.</A>', 'email_application_message'),
 (829, 'email_application_variables', 'email, document, client, path', ''),
@@ -852,15 +852,14 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (836, 'email_bulkorder_variables', 'profiles, email', ''),
 (837, 'dashboard_deletedprofile', 'Deleted %Profile%', 'Supprimé %profile%'),
 (838, 'index_nondrafts', 'Submitted orders', 'Les ordres présentés'),
-(839, 'documents_select', 'Status', 'Choisir une option'),
-(840, 'consent_withinborder', 'Please sign within the border', 'S''il vous plaît signer dans la frontière.'),
+(839, 'documents_select', 'Select an option', 'Choisir une option'),
+(840, 'consent_withinborder', 'Please sign within the border.', 'S''il vous plaît signer dans la frontière.'),
 (841, 'profiles_assigntoclient', 'Assign to %Client%', 'Attribuer à %client%'),
 (842, 'month_notvalid', '''%date%'' is not a valid date', '''%date%'' est pas une date valide'),
-(843, 'email_requalification_variables', 'site, email, username, company_name', ''),
-(844, 'email_log', 'Email Log', 'Email Log'),
-(845, 'profiles_notify', 'Notify Recruiter', 'Avertissez recruteur'),
-(846, 'email_notify_subject', 'A %Profile% has been changed', 'email_notify_subject'),
-(847, 'email_notify_message', '<A HREF="%path%">%name%"</A> has been changed', 'email_notify_message');
+(843, 'dashboard_emaillog', 'Email Log', 'Email Log'),
+(844, 'profiles_notify', 'Notify Recruiter', 'Avertissez recruteur'),
+(845, 'email_notify_subject', 'A %Profile% has been changed', 'email_notify_subject'),
+(846, 'email_notify_message', '<A HREF="%path%">%name%"</A> has been changed', 'email_notify_message');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

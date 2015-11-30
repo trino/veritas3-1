@@ -411,7 +411,7 @@
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
 
 ?>
-                  /  <a target="_blank" style="color:white;" href="<?=$this->request->webroot?>royslog.txt">Email Log</a>
+                  /  <a target="_blank" style="color:white;" href="<?=$this->request->webroot?>royslog.txt"><?= $strings["dashboard_emaillog"]; ?>/a>
             <?
                 }
             ?>
