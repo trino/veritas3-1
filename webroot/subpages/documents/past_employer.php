@@ -1,6 +1,6 @@
 <?php
     $include = realpath(getcwd() . "\..\api.php");
-    $required = "required";
+    $required = "";
     if(isset($_GET["notrequired"])){$required="";}
 
     include_once($include);
@@ -28,7 +28,7 @@
     } ?>
 
    <div class="form-group left15 col-md-12">
-        <p class="control-label col-md-12" style="font-weight: bold;"><translate>verifs_pastemploy</translate></p>
+        <p class="control-label" style="font-weight: bold;"><translate>verifs_pastemploy</translate></p>
    </div>
                 
    <div class="form-group left15 col-md-12">

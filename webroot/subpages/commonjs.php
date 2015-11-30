@@ -129,24 +129,38 @@
 
                         }
                     });
-
-                    $('.subform_' + sub_id + ' radio').each(function () {
+                    alert(sub_id);
+                    $('.subform_' + sub_id + ' input[type="radio"]').each(function () {
+                        //alert($(this).attr('name'));
+                        
 
                         if (res[$(this).attr('name').replace('[]', '')]) {
 
-                            if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                            if (res[$(this).attr('name').replace('[]', '')] == $(this).attr('value')) {
+                                
+                                $(this).click();
                                 $(this).attr('checked', 'checked');
+                                $(this).parent().addClass('checked');
+                            }
+                            else
+                            {
+                              //$(this).click();
+                                $(this).removeAttr('checked');
+                                $(this).parent().removeClass('checked');
                             }
 
                         }
                     });
 
-                    $('.subform_' + sub_id + ' checkbox').each(function () {
-
+                    $('.subform_' + sub_id + ' input[type="checkbox"]').each(function () {
+                        //alert($(this).attr('name'));
                         if (res[$(this).attr('name').replace('[]', '')]) {
 
                             if ($(this).val() == res[$(this).attr('name').replace('[]', '')]) {
+                                
+                                $(this).click();
                                 $(this).attr('checked', 'checked');
+                                $(this).parent().addClass('checked');
                             }
 
                         }
@@ -273,7 +287,7 @@
             par.hide();
 
             par.removeClass('active');
-            var id = par.find('.buttons').attr('id').replace('button', '');
+            var id = par.find('.buttons').attr('id').replace('button', '').replace('draft', '');
             id = parseInt(id) + 1;
             $('#step' + id).show();
             $('#step' + id).addClass('active');
@@ -365,6 +379,7 @@
                             'slow');
                         er = 2;
                     }
+                    <?php if($this->request->params['action']!='apply'){?>
                     else if ($('#sig4 .touched').val() != '1' && $('#sig4 .touched_edit4').val() != '1') {
                         par.find('#sig4').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
@@ -372,14 +387,15 @@
                             },
                             'slow');
                         er = 2;
-                    } else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1') {
+                    }<?php }?> else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1') {
                         par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
                                 scrollTop: $('#sig1').offset().top
                             },
                             'slow');
                         er = 2;
-                    } else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1') {
+                    }
+                    <?php if($this->request->params['action']!='apply'){?> else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1') {
                         par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
                                 scrollTop: $('#sig3').offset().top
@@ -387,7 +403,7 @@
                             'slow');
                         er = 2;
                     }
-
+                    <?php }?>
                     if (er == 2) {
                         $('.overlay-wrapper').hide();
                         return false;
@@ -424,7 +440,7 @@
                     par.hide();
                     <?php }?>
                     par.removeClass('active');
-                    var id = par.find('.buttons').attr('id').replace('button', '');
+                    var id = par.find('.buttons').attr('id').replace('button', '').replace('draft', '');
                     var type = par.find('input[name="document_type"]').val();
                     var cl = par.find('.sub_docs_id').val();
                     if (type == 'driver_form') {
@@ -756,6 +772,12 @@
 
     });
     function save_signature(numb) {
+        var act = '<?php echo $this->request->params['action'];?>';
+        if(act == 'apply' && (numb=='4' || numb=='6'))
+        {
+            
+        }
+        else{
         var d = $.Deferred();
         $("#test" + numb).data("jqScribble").save(function (imageData) {
             //alert($('#signature_company_witness2').parent().find('.touched').val());
@@ -788,7 +810,7 @@
 
 
         });
-        return d.promise();
+        return d.promise();}
     }
     function savePrescreen(url, order_id, cid, draft, redir) {
 
@@ -1029,7 +1051,7 @@
         if (form_type != "") {
             //$('.subform').load('<?php echo $this->request->webroot;?>documents/subpages/' + form_type);
 
-            var url = '<?php echo $this->request->webroot;?>orders/getOrderData/<?php echo $cid;?>/' + doc_id + '/' + profile_id,
+            var url = '<?php echo $this->request->webroot;?>orders/getOrderData/<?php echo $cid;?>/' + <?php if(isset($document->order_id) && $document->order_id){echo $document->order_id;}else{?>doc_id<?php }?> + '/' + profile_id,
                 param = {form_type: form_type};
             $.getJSON(url, param, function (res) {
                 if (form_type == "company_pre_screen_question.php") {
@@ -1761,3 +1783,4 @@
     }
 
 </script>
+<style>a.draft{margin-right:25px;}</style>

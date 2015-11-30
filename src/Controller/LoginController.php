@@ -83,6 +83,9 @@ class LoginController extends AppController{
                 if(isset($_POST['url']) && $_POST['url']) {
                     $URL=$_POST['url'];
                     echo '<SCRIPT>window.location = "' . $URL . '";</SCRIPT>';die();
+
+                    debug($URL);die();
+
                     $URL=$this->converttoredirect($URL, LOGIN);
                     $this->redirect($URL);
                 }else {

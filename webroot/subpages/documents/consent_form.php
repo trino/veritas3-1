@@ -8,10 +8,10 @@
     //includejavascript($strings);
     $strings2 = CacheTranslations($language, array("consent_%", "file_attachfile", "tasks_date", "profiles_name"), $settings, False);
 ?>
-<?php if(isset($dx)){ echo '<h3 style="text-align:center;">' . $dx->title . '</h3>'; }?>
+<?php if(isset($dx)){ echo '<h3 style="">' . $dx->title . '</h3>'; }?>
 <form id="form_consent">
     <div class="form-group row">
-        <h4 class="col-md-12" style="font-weight: bold;"><?= $strings2["consent_release"]; ?></h4>
+        <p class="col-md-12" style="font-weight: bold;"><?= $strings2["consent_release"]; ?></p>
     </div>
     <div class="gndn">
         <div class="form-group row">
@@ -40,8 +40,8 @@
             </div>
 
 
-            <div class="col-md-4 margin-bottom-10"><label class="control-label required"><?= $strings["forms_dateofbirth"]; ?>: </label>
-                <input type="text" class="form-control date-picker datepicker  required" placeholder="<?= $strings["forms_dateformat"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->birth_date;?>"
+            <div class="col-md-4 margin-bottom-10"><label class="control-label "><?= $strings["forms_dateofbirth"]; ?>: </label>
+                <input type="text" class="form-control date-picker datepicker  " placeholder="<?= $strings["forms_dateformat"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->birth_date;?>"
                        name="birth_date"/>
                        <span class="error"></span>
             </div>

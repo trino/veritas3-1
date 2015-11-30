@@ -56,7 +56,7 @@
 	<input type="hidden" class="touched" value="0" />
 	<input type="hidden" class="touched_edit" value="<?php if(isset($modal) && $modal->recruiter_signature){ echo 1;} else{ echo 0; }?>" />
 	<?php if($this->request->params['action'] != 'vieworder' && $this->request->params['action'] != 'view'){
-		echo '<div style="border: 15px solid silver;border-radius: 5px;width:480px;"><canvas id="test' . $_GET['num'] . '"></canvas></div>';
+		echo '<div style="border: 15px solid #dadada;border-radius: 5px;width:480px;"><canvas id="test' . $_GET['num'] . '"></canvas></div>';
 	}?>
     <div style="display: none;color:red;margin:5px 0 10px 0;" class="pleaseprovide">Please provide your signature</div>
 	<div class="links" style="margin-top: 5px;">

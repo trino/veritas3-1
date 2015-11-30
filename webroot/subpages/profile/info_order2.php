@@ -562,7 +562,7 @@
 
 
                             //setTimeout(function(){
-                          //     window.location = '<?php echo $this->request->webroot;?>';
+                              window.location = '<?php echo $this->request->webroot;?>';
                             //},10000);
 
 

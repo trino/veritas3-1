@@ -186,7 +186,7 @@
         <?php }
         $param = $this->request->params['action'];
         if($Debug && $param != "vieworder"){
-            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-warning">' . $strings["dashboard_autofill"] . '</A>';
         }
         echo '</div>';
 
@@ -300,7 +300,7 @@
                                                 $string = $strings["forms_steps"];
                                                 $string = str_replace("%step%", '<span class="counters">' . $CurrentStep . '</span>', $string);
                                                 $string = str_replace("%total%", $doc_count+2, $string);
-                                                return '<strong style="display: block;"><p style="background: #f7f7f7;padding:5px 10px 5px 10px;color: #888;font-weight:400;background:#f4f4f4;width:120px;text-align: center;margin:0 auto">' . $string . '</p></strong>';
+                                                return '<strong style="display: block;"><p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align: center;margin:0 auto">' . $string . '</p></strong>';
                                             }
 
                                             $tab = 'tab-pane';
@@ -372,10 +372,10 @@
 
                                                             <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                             <hr />
-                                                            <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
-                                                            <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a>
                                                             <?php if($this->request->params['action'] == 'addorder'){?>
-                                                                <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_savedraft"]; ?></a>
+                                                            <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary grey draft"><?= $strings["forms_savedraft"]; ?></a>
+                                                            <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
+                                                            <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a> 
                                                             <?php }?>
                                                         </div>
 
@@ -393,11 +393,14 @@
                                                 <?= printsteps($strings, $doc_count+2, $doc_count); ?>
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
-                                                <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                 <?php if($this->request->params['action'] == 'addorder'){?>
-                                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_savedraft"]; ?></a>
-                                                    <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_save"] ?></a>
+                                                    <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="btn btn-primary grey draft"><?= $strings["forms_savedraft"]; ?></a>
                                                 <?php }?>
+                                                <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
+                                                
+                                                 <?php if($this->request->params['action'] == 'addorder'){?>
+                                                    <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_save"] ?></a>
+                                                 <?php }?>
 
                                             </div>
                                             <?php

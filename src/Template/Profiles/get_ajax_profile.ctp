@@ -13,7 +13,7 @@ function getstring($String, $language){//no variable processing
 
 $debug=$this->request->session()->read('debug');
 if($debug) {
-    echo "<TR><TD><span style ='color:red;'>profiles/get_ajax_profile.ctp #INC???</span></TD></TR>";
+  //  echo "<TR><TD><span style ='color:red;'>profiles/get_ajax_profile.ctp #INC???</span></TD></TR>";
 }
 
 $i=0;
@@ -74,7 +74,10 @@ if(iterator_count($profiles)==0){
             $profiletype = " (Draft)";
         }
         if ($mode == 1) {
+            if($r->profile_type)
             $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
+            else 
+            $DOIT = false;
             if($DOIT){ $DOIT = hasallfields($r, $Fields); }
         }
 

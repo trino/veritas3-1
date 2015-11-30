@@ -56,9 +56,9 @@ function printoption2($value, $selected = "", $option){
 
 function printoptions($name, $valuearray, $selected = "", $optionarray, $isdisabled = "", $isrequired = false){
     if ($name == 'profile_type') {
-        echo '<SELECT ' . $isdisabled . ' name="' . $name . '" class="form-control member_type req_driver"';
+        echo '<SELECT ' . $isdisabled . ' name="' . $name . '" class="form-control member_type "';
     } else {
-        echo '<SELECT ' . $isdisabled . ' name="' . $name . '" class="form-control req_driver"';
+        echo '<SELECT ' . $isdisabled . ' name="' . $name . '" class="form-control '.$name.'"';
     }
     echo '>';
 
@@ -118,7 +118,7 @@ loadreasons($param, $strings, true);
                                             name="<?php if (!isset($p)) {
                                                 echo 'profile_type';
                                             } ?>" <?php if ((isset($id) && $this->request->session()->read('Profile.id') == $id)/* || ($this->request->session()->read('Profile.profile_type') == '2')*/) echo "disabled='disabled'"; ?>
-                                            class="form-control member_type" required='required'
+                                            class="form-control member_type"
                                             onchange="$('#nProfileType').val($(this).val());">
                                             <option value=""><?= $strings["forms_select"]; ?></option>
 
@@ -177,7 +177,7 @@ loadreasons($param, $strings, true);
                                             name="<?php if (!isset($p)) {
                                                 echo 'profile_type';
                                             } ?>" <?php if ((isset($id) && $userID == $id)/* || ($this->request->session()->read('Profile.profile_type') == '2')*/) echo "disabled='disabled'"; ?>
-                                            class="form-control member_type" required='required'
+                                            class="form-control member_type"
                                             onchange="$('#nProfileType').val($(this).val());">
 
                                             <option selected=""
@@ -203,8 +203,8 @@ loadreasons($param, $strings, true);
                                     <label class="control-label">ISB ID: </label>
                                     <input <?php echo $is_disabled ?>
                                         name="isb_id" type="text"
-                                        placeholder="" oldclass="req_rec"
-                                        class="form-control" <?php if (isset($p->isb_id)) { ?> value="<?php echo $p->isb_id; ?>" <?php }
+                                        placeholder=""
+                                        class="form-control isb_id" <?php if (isset($p->isb_id)) { ?> value="<?php echo $p->isb_id; ?>" <?php }
                                     if (isset($p->isb_id) && !$this->request->session()->read('Profile.super')) {
                                         ?>
                                         disabled="disabled"
@@ -321,7 +321,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["profiles_username"]; ?>: </label>
                                         <input <?php echo $is_disabled ?> id="username_field" name="username" type="text" onkeyup="emailthecreds();"
-                                                                          class="form-control req_driver req_rec uname" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php } ?>
+                                                                          class="form-control username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php } ?>
                                             <?php
                                             if ($userID>0 && ($this->request->session()->read('Profile.super') != '1' && ($this->request->params['action'] == 'edit'))) {
                                                 echo 'disabled="disabled"';
@@ -339,8 +339,8 @@ loadreasons($param, $strings, true);
                                 <div class="form-group">
                                     <label class="control-label"><?= $strings["forms_email"]; ?>: </label>
                                     <input <?php echo $is_disabled ?> name="email" type="email" onkeyup="emailthecreds();" id="email"
-                                                                      role="email" required
-                                                                      class="form-control un email req_rec req_sales" req_driver <?php if (isset($p->email)) { ?> value="<?php echo $p->email; ?>" <?php } ?><?php if (isset($p->profile_type) && ($p->profile_type == '9' || $p->profile_type=='12')) { ?> required="required" <?php } ?>/>
+                                                                      role="email"
+                                                                      class="form-control email"  <?php if (isset($p->email)) { ?> value="<?php echo $p->email; ?>" <?php } ?><?php if (isset($p->profile_type) && ($p->profile_type == '9' || $p->profile_type=='12')) { ?> <?php } ?>/>
                             <span class="error passerror flashEmail"
                                   style="display: none;"><?= $strings["dashboard_emailexists"]; ?></span>
                                 </div>
@@ -368,13 +368,13 @@ loadreasons($param, $strings, true);
                                         <!-- <input  <?php echo $is_disabled ?> type="password" name="password" id="password" class="form-control"
                                    <?php // if (isset($p->password)){ ?><?php //echo $p->password; ?> <?php //} ?>
                                    <?php if (isset($p->password) && $p->password) {//do nothing
-                                        } else { ?>required="required"<?php } ?>  />-->
+                                        } else { ?><?php } ?>  />-->
 
 
                                         <input  <?php echo $is_disabled ?> type="password" value="" onkeyup="emailthecreds();"
                                                                            autocomplete="off"
                                                                            name="pass_word" id="password"
-                                                                           class="form-control  <?php if (!isset($p->password)) {?>req_rec<?php }?>" <?php if (isset($p->password) && $p->password) {//do nothing
+                                                                           class="form-control pass_word  <?php if (!isset($p->password)) {?><?php }?>" <?php if (isset($p->password) && $p->password) {//do nothing
                                         } ?>/>
                                     </div>
                                 </div>
@@ -385,7 +385,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["forms_retypepassword"]; ?>: </label>
                                         <input <?php echo $is_disabled ?> onkeyup="emailthecreds();"
-                                               type="password" class="form-control <?php if (!isset($p->password) || (isset($p) && $p->profile_type!= 3)) {?>req_rec<?php }?>"
+                                               type="password" class="form-control <?php if (!isset($p->password) || (isset($p) && $p->profile_type!= 3)) {?><?php }?>"
                                                id="retype_password" <?php //if (isset($p->password)) { ?> <?php // echo $p->password; ?>  <?php // } ?>/>
                             <span class="error passerror flashPass1"
                                   style="display: none;"><?= $strings["forms_passnotequal"]; ?></span>
@@ -439,7 +439,7 @@ loadreasons($param, $strings, true);
                                     <!--
                                                                         <input < php echo $is_disabled ?> name="title" type="text"
                                                                                                           placeholder="eg. Mr"
-                                                                                                          class="form-control req_driver" < php if (isset($p->title)) { ?> value="< php echo $p->title; ?>" < php } ?> /> -->
+                                                                                                          class="form-control " < php if (isset($p->title)) { ?> value="< php echo $p->title; ?>" < php } ?> /> -->
                                 </div>
                             </div>
 
@@ -450,7 +450,7 @@ loadreasons($param, $strings, true);
                                     <label class="control-label"><?= $strings["forms_firstname"]; ?>: </label>
                                     <input <?php echo $is_disabled ?> name="fname" type="text"
                                                                       placeholder=""
-                                                                      class="form-control" req_driver required <?php if (isset($p->fname)) { ?>
+                                                                      class="form-control fname" <?php if (isset($p->fname)) { ?>
                                         value="<?php echo $p->fname; ?>" <?php } ?>/>
                                 </div>
                             </div>
@@ -472,7 +472,7 @@ loadreasons($param, $strings, true);
                                     <label class="control-label"><?= $strings["forms_lastname"]; ?>: </label>
                                     <input <?php echo $is_disabled ?> name="lname" type="text"
                                                                       placeholder=""
-                                                                      class="form-control" req_driver required <?php if (isset($p->lname)) { ?>
+                                                                      class="form-control lname" <?php if (isset($p->lname)) { ?>
                                         value="<?php echo $p->lname; ?>" <?php } ?>/>
                                 </div>
                             </div>
@@ -495,7 +495,7 @@ loadreasons($param, $strings, true);
 
                                     <label class="control-label"><?= $strings["forms_gender"]; ?>: </label>
                                     <SELECT <?php echo $is_disabled ?> name="gender"
-                                                                       class="form-control" req_driver><?php
+                                                                       class="form-control" ><?php
                                         $gender = "";
                                         if (isset($p->gender)) {
                                             $gender = $p->gender;
@@ -538,7 +538,7 @@ loadreasons($param, $strings, true);
                                                 $currentday = substr($p->dob, -2);
                                             }
 
-                                            echo '<INPUT TYPE="TEXT" CLASS="form-control req_driver date-picker" ID="DOB" value="' . $currentdate . '" onchange="refreshdob();">';
+                                            echo '<INPUT TYPE="TEXT" CLASS="form-control date-picker" ID="DOB" value="' . $currentdate . '" onchange="refreshdob();">';
                                             echo '<INPUT TYPE="HIDDEN" ID="doby" NAME="doby" ' . $is_disabled . '>';
                                             echo '<INPUT TYPE="HIDDEN" ID="dobm" NAME="dobm" ' . $is_disabled . '>';
                                             echo '<INPUT TYPE="HIDDEN" ID="dobd" name="dobd" ' . $is_disabled . '>';
@@ -569,7 +569,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?> name="street" type="text"
                                                                           placeholder="<?= $strings["forms_address"]; ?>"
-                                                                          class="form-control" req_driver <?php if (isset($p->street)) { ?>
+                                                                          class="form-control" <?php if (isset($p->street)) { ?>
                                             value="<?php echo $p->street; ?>" <?php } ?>/>
                                     </div>
                                 </div>
@@ -578,7 +578,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?> name="city" type="text"
                                                                           placeholder="<?= $strings["forms_city"]; ?>"
-                                                                          class="form-control" req_driver <?php if (isset($p->city)) { ?>
+                                                                          class="form-control" <?php if (isset($p->city)) { ?>
                                             value="<?php echo $p->city; ?>" <?php } ?>/>
                                     </div>
                                 </div>
@@ -607,7 +607,7 @@ loadreasons($param, $strings, true);
                                             ?></SELECT>
                                                 <input < php echo $is_disabled ?> name="province" type="text"
                                                                                    placeholder="Province"
-                                                                                   class="form-control req_driver" < php if (isset($p->province)) { ?> value="< php echo $p->province; ?>" < php } ?>/> -->
+                                                                                   class="form-control " < php if (isset($p->province)) { ?> value="< php echo $p->province; ?>" < php } ?>/> -->
                                     </div>
                                 </div>
 
@@ -615,7 +615,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?>  type="text"
                                                                            placeholder="<?= $strings["forms_postalcode"]; ?> (M5V2X2)"
-                                                                           class="form-control" req_driver
+                                                                           class="form-control"
                                                                            name="postal" role='postalcode'  <?php if (isset($p->postal)) { ?>
                                             value="<?php echo $p->postal; ?>" <?php } ?>/>
                                     </div>
@@ -625,7 +625,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?>  type="text"
                                                                            placeholder="<?= $strings["forms_country"]; ?>" value="Canada"
-                                                                           class="form-control" req_driver
+                                                                           class="form-control"
                                                                            name="country" <?php if (isset($p->country)) { ?>
                                             value="<?php echo $p->country; ?>" <?php } ?>/>
                                     </div>
@@ -643,7 +643,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["forms_driverslicense"]; ?> #: </label>
                                         <input <?php echo $is_disabled ?> name="driver_license_no" type="text"
-                                                                          class="form-control" req_driver <?php if (isset($p->driver_license_no)) { ?>
+                                                                          class="form-control driver_license_no"  <?php if (isset($p->driver_license_no)) { ?>
                                             value="<?php echo $p->driver_license_no; ?>" <?php } ?> />
                                     </div>
                                 </div>
@@ -667,7 +667,7 @@ loadreasons($param, $strings, true);
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["forms_expirydate"]; ?>: </label>
                                         <input <?php echo $is_disabled ?> name="expiry_date" type="text"
-                                                                          class="form-control req_driver date-picker"
+                                                                          class="form-control date-picker expiry_date"
                                                                           value="<?php if (isset($p->expiry_date)) echo $p->expiry_date; ?>"/>
 
 
@@ -722,40 +722,40 @@ loadreasons($param, $strings, true);
                                             value="<?php echo $p->sin; ?>" <?php } ?> />
                                     </div>
                                 </div>
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
                                 <div class="clearfix"></div>
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                    
-                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <div class=""
                                      id="subtab_2_4" style="padding: 10px;">
-                                     
+
                                      <label class="control-label"><?= $strings["profiles_assigntoclient"]; ?>:</label>
-                        
+
                                     <?php
                                         if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
                                             if($this->request->params['action']!='view'){
                                             ?>
-                                          
+
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                             <i class="fa fa-search"></i>
@@ -765,8 +765,8 @@ loadreasons($param, $strings, true);
                                         </div>
                                         <?php
                                          }?>
-                                        <div class="<?php if($this->request->params['action']!='view')echo 'scrolldiv';?>" <?php if($this->request->params['action']=='view'){
-                                            ?> style="border-top: 1px solid #e5e5e5;"<?php }?>>
+                                        <div class="<?php if($this->request->params['action']!='view')echo '';?>" <?php if($this->request->params['action']=='view'){
+                                            ?> style="border-top: 1px solid #e5e5e5;max-height:30px !important;min-height:30px !important;height: 30px !important;"<?php }?>>
                                             <table class="table" id="clientTable" style="border: 1px solid #e5e5e5;border-top:none;">
                                                 <?php
                                                     $IsAdmin = $Manager->read("admin") || $Manager->read("super");
@@ -803,7 +803,7 @@ loadreasons($param, $strings, true);
                                                                 }
                                                             }
                                                             ?>
-                        
+
                                                             <tr>
                                                                 <td width="1" <?php if($b==1){?>style="border-top:none;"<?php }?>>
                                                                     <input
@@ -820,96 +820,32 @@ loadreasons($param, $strings, true);
                                                                 </td><td width="50" align="center" <?php if($b==1){?>style="border-top:none;"<?php }?>> <img height="32" src="<?=
                                                                     clientimage( $this->request->webroot, $settings, $o);
                                                                     ?>"></td><td <?php if($b==1){?>style="border-top:none;"<?php }?>>
-                        
+
                                                                     <label
                                                                         for="c_<?= $count ?>"><?php echo $o->company_name; ?></label><span
                                                                         class="msg_<?php echo $o->id; ?>"></span></td>
                                                             </tr>
-                        
+
                                                             <?php
                                                             $count += 1;
                                                         }
                                                     }
                                                 ?>
-                        
+
                                             </table>
                                         </div>
                                         <div class="clearfix"></div>
-                        
+
                                         <!-- </div>
                                      </div>-->
                                     <?php }?>
                                     <div class="margin-top-10 alert alert-success display-hide clientadd_flash"
                                          style="display: none;">
                                         <button class="close" data-close="alert"></button>
-                        
+
                                     </div>
                                     <input type="hidden" class="cids" name="cids" value="<?php if(isset($cidss))echo $cidss;?>" />
                                 </div>
-                                
-                                
-
-                              
-
-                
-                                <!--div class="col-md-12">
-                                    <div class="form-group">
-                                        <h3 class="block">Automatic Survey Email: </h3></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Don't Send: </label>
-                                        <input <?php echo $is_disabled ?> name="automatic_email" type="radio"
-                                                                          class="form-control" <?php if (isset($p->automatic_email) && $p->automatic_email=='0') { ?>
-                                            checked="checked" <?php } ?> value="0" />
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Send after 30 days: </label>
-                                        <input <?php echo $is_disabled ?> name="automatic_email" type="radio"
-                                                                          class="form-control" <?php if (isset($p->automatic_email) && $p->automatic_email=='30') { ?>
-                                            checked="checked" <?php } ?> value="30" />
-                                    </div>
-                                </div>
-
-
-                               <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">Send after 60 days: </label>
-                                        <input <?php echo $is_disabled ?> name="automatic_email" type="radio"
-                                                                          class="form-control" <?php if (isset($p->automatic_email) && $p->automatic_email=='60') { ?>
-                                            checked="checked" <?php } ?> value="60" />
-                                    </div>
-                                </div-->
-
-                                <?php
-                                //if (!isset($disabled)) {
-                                ?>
-                                <!--<div class="form-group col-md-12">
-
-                                   <div class="docMore col-md-12" data-count="1">
-                                   <div class="">
-                                       <div style="display:block;">
-                                           <a href="javascript:void(0)" id="addMore1" class="btn btn-primary" >Browse</a>
-                                            <input type="hidden" name="profile_doc[]" value="" class="addMore1_doc moredocs"/>
-                                            <a href="javascript:void(0);" class ="btn btn-danger img_delete" id="delete_addMore1" title ="" style="display: none;">Delete</a>
-                                            <span></span>
-
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-
-
-                                   <div class="form-group col-md-12">
-
-                                       <a href="javascript:void(0)" class="btn btn-primary" id="addMoredoc">
-                                           Add More
-                                       </a>
-                                   </div>-->
 
 
                                 <div class="col-md-12" align="right">
@@ -949,9 +885,6 @@ loadreasons($param, $strings, true);
             var client_id = $('.client_profile_id').val();
             if($('.member_type').val()=='1'||$('.member_type').val()=='2') {
                 var un = $('.uname').val();
-            } else if($('.member_type').val()!='5' && $('.member_type').val()=='7' && $('.member_type').val()=='8'){
-                //var un = $('.uname').val('xxx123145aafgxxxfasfsdgdfhdfh');
-                $('.req_driver').removeAttr('required');
             }
             var un = $('.uname').val();
 
@@ -1034,15 +967,68 @@ loadreasons($param, $strings, true);
     //I break for bad code
 </SCRIPT>
 <SCRIPT>
+    function make_required(type)
+    {
+        if(type == '5' || type == '7' || type == '8')
+        {
+            $('.fname').attr('required','');
+            $('.lname').attr('required','');
+            $('.driver_license_no').attr('required','');
+            $('.driver_province').attr('required','');
+            $('.expiry_date').attr('required','');
 
+            $('.isb_id').removeAttr('required');
+            $('.username').removeAttr('required');
+            $('.password').removeAttr('required');
+            $('.email').removeAttr('required');
+        }
+        else
+        if(type == '1' || type=='2')
+        {
+            $('.fname').attr('required','');
+            $('.lname').attr('required','');
+            $('.isb_id').attr('required','');
+            $('.username').attr('required','');
+            $('.password').attr('required','');
+            $('.email').attr('required','');
+
+            $('.driver_license_no').removeAttr('required');
+            $('.driver_province').removeAttr('required');
+            $('.expiry_date').removeAttr('required');
+
+        }
+        else
+        {
+            $('.fname').attr('required','');
+            $('.lname').attr('required','');
+            $('.email').attr('required','');
+
+            $('.driver_license_no').removeAttr('required');
+            $('.driver_province').removeAttr('required');
+            $('.expiry_date').removeAttr('required');
+        }
+        $('input,textarea,select').each(function(){
+
+
+        var attr = $(this).attr('required');
+
+        // For some browsers, `attr` is undefined; for others,
+        // `attr` is false.  Check for both.
+        if (typeof attr !== typeof undefined && attr !== false) {
+            $(this).parent().find('label').addClass('required');
+        }
+
+
+        });
+    }
     $(function(){
-        
+
         $('.addclientz').live('change',function(){
-            
+
            if($(this).is(':checked'))
            var chci = 1;
            else
-           var chci = 0; 
+           var chci = 0;
            var cids = $('.cids').val();
            if(cids == '')
            {
@@ -1050,7 +1036,7 @@ loadreasons($param, $strings, true);
                 cids = $(this).val();
            }
            else{
-               if(chci==1) 
+               if(chci==1)
                cids = cids+','+$(this).val();
                else{
                cids_arr = cids.split(',');
@@ -1064,7 +1050,7 @@ loadreasons($param, $strings, true);
                     cids = cids+','+cids_arr[i];
                     }
                    }
-               } 
+               }
            }
            $('.cids').val(cids);
         });
@@ -1159,102 +1145,51 @@ loadreasons($param, $strings, true);
 
         $('.member_type').change(function () {
 
-
+            var memt = $(this).val();
+            make_required(memt);
 
                                     if ($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'|| $(this).val() == '9'|| $(this).val() == '12') {
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '9' || $(this).val() == '12') {
                                                     $('.hideusername').hide();
                                                 }
-                                                $('.req_driver').each(function () {
-                                                    $(this).prop('required', "required");
-                                                    //alert($(this).attr('name'));
-                                                });
+
 
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8' || $(this).val() == '9' || $(this).val() == '12'){
                                                     $('.driver_license').show();
                                                     if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
-                                                        $('.driver_license input').each(function(){
-                                                            $(this).attr('required','required');
-                                                        });
+
                                                         $('#driver_div').show();
                                                     } else {
                                                         $('#driver_div').hide();
-                                                        $('#driver_div select').removeAttr('required');
-                                                        $('.driver_license input').each(function(){
-                                                            $(this).removeAttr('required');
-                                                        });
-                                                        if($('.member_type').val()=='12') {
-                                                           $('.driver_license input').each(function(){
-                                                                $(this).attr('required','required');
-                                                            });
-                                                            $('.driver_license select').each(function(){
-                                                                if($(this).attr('name')=='driver_province')
-                                                                $(this).attr('required','required');
-                                                            });
-                                                        }
+
+
+
                                                     }
-                                                    //$('.placeofbirth').attr('required','required');
-                                                    //$('#driver_div select').removeAttr('required');
+
                                                 } else{
                                                     $('.driver_license').hide();
                                                     $('#driver_div').hide();
-                                                    $('#driver_div select').removeAttr('required');
-                                                    //$('.placeofbirth').removeAttr('required');
-                                                    $('.req_sales').attr('required','required');
-                                                    $('.member_type').removeAttr('required');
-                                                    $('.driver_license input').each(function(){
-                                                        $(this).removeAttr('required');
-                                                    })
-                                                    $('.driver_license select').removeAttr('required');
+
                                                 }
                                                 $('#isb_id').hide();
 
-                                                $('#password').removeProp('required');
-                                                $('#retype_password').removeProp('required');
-                                                $('.req_rec').removeProp('required');
 
-                                        if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
-                                            $('.email').attr('required','required');
-                                        } else {
-                                            $('.req_sales').attr('required','required');
-                                            $('.email').attr('required','required');
-                                            $('.member_type').removeAttr('required');
-                                            $('.driver_license input').each(function(){
-                                                $(this).removeAttr('required');
-                                            })
-                                            $('.driver_license select').removeAttr('required');
-                                            if($('.member_type').val()=='12') {
-                                                       $('.driver_license input').each(function(){
-                                                           $(this).attr('required','required');
-                                                       });
-                                                       $('.driver_license select').each(function(){
-                                                            if($(this).attr('name')=='driver_province') {
-                                                                $(this).attr('required', 'required');
-                                                            }
-                                                       });
-                                                    }
-                                            }
                                         } else {
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
                                             });
                                             $('#driver_div').hide();
                                             $('#isb_id').hide();
-                                            //$('.username_div').show();
-                                            $('.req_driver').removeProp('required');
-                                            $('.req_rec').removeProp('required');
-                                            //$('#username_field').removeAttr('disabled');
-                                            //$('.un').prop('required', "required");
+
                                             <?php
                                                 if(isset($p->password) && $p->password){
-                                                    //do nth
+
                                                 } else{
                                                     ?>
                                                     if (profile_type == '1' || profile_type == '2'){
-                                                        $('#password').prop('required', "required");
+
                                                         $('.admin_rec').show();
-                                                        //$('.hideusername').show();
-                                                        //$('#retype_password').prop('required', "required");
+
                                                     }
                                                     <?php
                                                 }
@@ -1264,163 +1199,57 @@ loadreasons($param, $strings, true);
                                         var profile_type = $(this).val();
                                         if (profile_type == '1' || profile_type == '2') {
                                             $('#isb_id').show();
-                                            $('.req_driver').removeProp('required');
-                                            //$('.un').removeProp('required');
-                                            $('.req_rec').prop('required', "required");
+
                                             $('.admin_rec').show();
                                             $('.driver_license').hide();
                                         } else {
                                              $('.admin_rec').hide();
                                         }
-                                        if($('.passwords').attr('style') == 'display: none;'|| $('.passwords').attr('style') == 'display:none;') {
-                                            $('#retype_password').removeAttr('required');
-                                            $('#password').removeAttr('required');
-                                        }
-                                        if($('.hideusername').attr('style') == 'display:none;' || $('.hideusername').attr('style') == 'display: none;') {
-                                            $('.hideusername input').each(function(){
-                                                $(this).removeAttr('required');
-                                            });
-                                        }
 
-                        $('#retype_password').removeAttr('required');
+
+
                         <?php if($canedit){ echo "$('.email_rec').show();"; } ?>
 
 
-                        $('input,textarea,select').each(function(){
 
-                
-                            var attr = $(this).attr('required');
-                            
-                            // For some browsers, `attr` is undefined; for others,
-                            // `attr` is false.  Check for both.
-                            if (typeof attr !== typeof undefined && attr !== false) {
-                                $(this).parent().find('label').addClass('required');
-                            }
-                            else
-                            {
-                                $(this).parent().find('label').removeClass('required');
-                            }
-                            
-                        });
-
-                                    });
+                                  });
 
                                     var mem_type = $('.member_type').val();
+                                    if(mem_type)
+                                    {
+                                        make_required(mem_type);
+                                    }
                                     if (!isNaN(parseFloat(mem_type)) && isFinite(mem_type)) {
                                         if (mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type == '9' || mem_type == '12') {
-                                            $('.req_driver').each(function () {
-                                                $(this).prop('required', "required");
-                                                //alert($(this).attr('name'));
-                                                //});
-                                                //$('.nav-tabs li:not(.active)').each(function () {
-                                                //  $(this).hide();
-                                            });
+
                                             if(mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type=='9' || mem_type=='12'){
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
                                                     $('#driver_div').show();
-                                                    //$('#driver_div select').attr('required','required');
-                                                    $('.driver_license input').each(function(){
-                                                        $(this).attr('required','required');
-                                                    });
+
                                                 } else {
                                                     $('#driver_div').hide();
-                                                    $('#driver_div select').removeAttr('required');
-                                                    $('.driver_license input').each(function(){
-                                                        $(this).removeAttr('required');
-                                                    });
-                                                    if($('.member_type').val()=='12'){
-                                                       $('.driver_license input').each(function(){
-                                                            if($(this).attr('name')=='driver_license_no'){
-                                                                //$(this).attr('required','required');
-                                                            }
-                                                        });
-                                                    }
+
                                                 }
-                                            } else {
-                                                $('#driver_div select').removeAttr('required');
-                                                $('.member_type').removeAttr('required');
-                                                $('.driver_license input').each(function(){
-                                                        $(this).removeAttr('required');
-                                                    })
-                                                    $('.driver_license select').removeAttr('required');
                                             }
                                             $('#isb_id').hide();
-                                            //$('.username_div').hide();
-                                            //$('.un').removeProp('required');
-                                            $('#password').removeProp('required');
-                                            $('#retype_password').removeProp('required');
-                                            //$('#username_field').attr('disabled','disabled');
-                                            $('.req_rec').removeProp('required');
-                                            if(mem_type == '5' || mem_type == '7' || mem_type == '8'){
-                                                $('.email').attr('required','required');
-                                            } else {
-                                                //$('#driver_div select').removeAttr('required');
-                                                $('.req_sales').attr('required','required');
-                                                $('.email').attr('required','required');
-                                                $('.member_type').removeAttr('required');
-                                                $('.driver_license input').each(function(){
-                                                        $(this).removeAttr('required');
-                                                    })
-                                                    $('.driver_license select').removeAttr('required');
-                                                    if($('.member_type').val()=='12')
-                                                    {
-                                                       $('.driver_license input').each(function(){
-                                                        if($(this).attr('name')=='driver_license_no'){
-                                                         //$(this).attr('required','required');
-                                                         }
-                                                        });
-                                                        $('.driver_license select').each(function(){
-                                                        if($(this).attr('name')=='driver_province')
-                                                         $(this).attr('required','required');
 
-
-                                                        });
-                                                    }
-                                            }
 
                                         }  else {
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
                                             });
                                             $('#driver_div').hide();
-                                            //$('.username_div').show();
                                             $('#isb_id').hide();
-                                            $('.req_driver').removeProp('required');
-                                            $('.req_rec').removeProp('required');
-                                            //$('#username_field').removeAttr('disabled');
-                                            //$('.un').prop('required', "required");
-                                            <?php
-                                            if(isset($p->password) && $p->password){
-                                                //do nth
-                                            }else{
-                                                ?>
-                                                if (mem_type == '1' || mem_type == '2'){
-                                                    $('#password').prop('required', "required");
-                                                    //$('#retype_password').prop('required', "required");
-                                                    }
-                                                <?php
-                                            }
-                                             ?>
+
 
 
                                         if (mem_type == '1' || mem_type == '2') {
                                             $('#isb_id').show();
-                                            $('.req_driver').removeProp('required');
-                                            //$('.un').removeProp('required');
-                                            $('.req_rec').prop('required', "required");
                                         }
                                     }
-                                    if($('.passwords').attr('style') == 'display: none;'|| $('.passwords').attr('style') == 'display:none;') {
-                                        $('#retype_password').removeAttr('required');
-                                        $('#password').removeAttr('required');
+
                                     }
-                                    if($('.hideusername').attr('style') == 'display:none;' || $('.hideusername').attr('style') == 'display: none;') {
-                                        $('.hideusername input').each(function(){
-                                            $(this).removeAttr('required');
-                                        });
-                                    }
-                                    }
-                                    $('#retype_password').removeAttr('required');
+
         });
 
 

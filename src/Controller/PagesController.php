@@ -17,7 +17,7 @@ use Cake\Network\Email\Email;
 
 class PagesController extends AppController {
     public $paginate = [
-            'limit' => 10,
+            'limit' => 20,
             'order' => ['id' => 'desc']
     ];
 

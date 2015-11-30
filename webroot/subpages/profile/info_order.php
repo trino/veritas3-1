@@ -65,7 +65,7 @@
                             <div class="clearfix"></div>
                             <input type="hidden" name="created_by"
                                    value="<?= $this->request->session()->read('Profile.id') ?>"/>
-                            
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"><?= $strings2["profiles_profiletype"]; ?>:</label>
@@ -84,7 +84,7 @@
 
                                 </div>
                             </div>
-                            
+
                             <?php if ($sidebar->client_option == 0 && $p->profile_type != 11 && $this->requestAction('clients/assignedTo/17/'.$this->request->session()->read('Profile.id'))/*&& (isset($p) && $p->profile_type == 5)*/) { ?>
                                 <?php if(isset($p) && ($p->profile_type == 5 || $p->profile_type == 7 || $p->profile_type == 8)){?>
                                 <div class="col-md-4" id="driver_div"

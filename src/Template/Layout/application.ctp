@@ -159,7 +159,7 @@
             <script src="<?php echo $this->request->webroot;?>assets/global/plugins/excanvas.min.js"></script>
             <![endif]-->
             <link href="<?php echo $this->request->webroot;?>application/assets/jquery-ui.css" rel="stylesheet" type="text/css"/>
-
+            <link href="<?php echo $this->request->webroot;?>assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 
             <script src="<?php echo $this->request->webroot;?>assets/global/plugins/jquery.min.js" type="text/javascript"></script>
             <script src="<?php echo $this->request->webroot;?>assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
@@ -182,7 +182,7 @@
             <!--script src="<?php echo $this->request->webroot;?>assets/admin/pages/scripts/login.js" type="text/javascript"></script-->
             <script type="text/javascript" src="<?php echo $this->request->webroot;?>js/ajaxupload.js"></script>
             <script type="text/javascript" src="<?php echo $this->request->webroot;?>assets/admin/pages/scripts/form-wizard.js"></script>
-            
+            <script type="text/javascript" src="<?php echo $this->request->webroot;?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
             <!-- END PAGE LEVEL SCRIPTS -->
             <script>
                 $(document).ready(function () {

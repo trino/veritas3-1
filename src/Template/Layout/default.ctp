@@ -311,7 +311,7 @@
     <?php if ($settings->box == '1'){ ?>
     <div class="container"><?php } ?>
         <div class="page-footer-inner">
-            &copy; <?php echo $settings->mee; ?> 2015 <!--a style="color:white;" href="https://isbc.ca">ISB Canada</a-->
+            &copy; <?php echo $settings->mee; ?> 2015 / <a style="color:white;" href="https://isbc.ca">ISB Canada</a>
             <?php
                 if(isset($permissions)){
                     echo '<SPAN STYLE="margin-left:5em;">' . $strings["permissions_used"] . ': ';
@@ -337,9 +337,9 @@
                             if($Title) {
                                 echo '<A TITLE="' . $strings["permissions_requiredto"] . ": " . $Title . '" ONCLICK="alert(this.getAttribute(' . "'title'" . '));" STYLE="color:';
                                 if ($permissions[$Table . "_actual"]->$permission) {
-                                    echo 'GREEN" CLASS="shadow">' . $Yes;
+                                    echo '#c9dae9" CLASS="shadow">' . $Yes;
                                 } else {
-                                    echo 'RED" CLASS="shadow">' . $No;
+                                    echo 'grey" CLASS="shadow">' . $No;
                                 }
                                 echo '</A>';
                             }
@@ -395,6 +395,7 @@
                 $isfirst = print_title($content, $this->request->webroot, "pages/view/terms", "terms", $isfirst, false, $language);
                 if ($this->request->session()->read('Profile.super') && ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['REMOTE_ADDR'] == '24.36.161.100')) {
                     $isfirst = print_title($content, $this->request->webroot, "pages/view/version_log", "version_log", $isfirst, false, $language);
+            //      $isfirst = print_title($content, $this->request->webroot, "pages/view/version_log", "email_log", $isfirst, false, $language);
 
                     $debugmode = false;
                     if (file_exists($_SERVER["DOCUMENT_ROOT"] . "debugmode.txt")){
@@ -408,6 +409,10 @@
                     $debugmode = " (" . $strings[$debugmode] . ")";
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings?toggledebug", $strings["dashboard_debug"] . $debugmode, $isfirst, True, $language);
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
+
+?>
+                  /  <a target="_blank" style="color:white;" href="<?=$this->request->webroot?>royslog.txt">Email Log</a>
+            <?
                 }
             ?>
         </div>

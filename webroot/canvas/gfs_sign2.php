@@ -58,7 +58,7 @@ $_GET['num']=1002;?>
     <label class="control-label"><?= $strings2["consent_sigwitness"]; ?></label><br>
     <?php if(!isset($_GET['form_id'])){?>
     <p style="margin-top:8px;"><?= $strings2["consent_withinborder"]; ?></p>
-    <div style="border: 15px solid silver;border-radius: 5px;">
+    <div style="border: 15px solid #dadada;border-radius: 5px;">
             <canvas id="test<?php echo $_GET['num'];?>" style=""></canvas>
             </div>
             <?php }?>
