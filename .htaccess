@@ -16,7 +16,7 @@
     RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost\veritas3-1\/ [NC]
     RewriteCond %{REQUEST_URI} !hotlink\.(png|jpg|doc|xls|pdf|html|htm|xlsx|docx|mp4|mov) [NC]
     RewriteCond %{HTTP_COOKIE} !^.*Check_login.*$ [NC]
-   # RewriteRule .*\.(png|jpg|doc|xls|pdf|html|htm|xlsx|docx|mp4|mov)$ http://localhost/veritas3-1/ [NC]
+    #RewriteRule .*\.(png|jpg|doc|xls|pdf|html|htm|xlsx|docx|mp4|mov)$ http://localhost/veritas3-1/ [NC]
     
 	RewriteRule ^(application|application)($|/) - [L]
 	RewriteCond %{REQUEST_URI} !^/(application|application/.*)$ 

@@ -129,7 +129,7 @@
 
                         }
                     });
-                    alert(sub_id);
+                    
                     $('.subform_' + sub_id + ' input[type="radio"]').each(function () {
                         //alert($(this).attr('name'));
                         
