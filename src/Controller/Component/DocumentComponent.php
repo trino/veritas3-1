@@ -95,7 +95,9 @@ class DocumentComponent extends Component{
                 }
                 $arr['recruiter_signature'] = end($sig);
                 if(!isset($_GET['draft']) || (isset($_GET['draft']) && !$_GET['draft'])){
-                    $myfile = fopen(APP."../webroot/order_submitted/Order_".date('Y_m_d_h_i_s').".txt", "w") or die("Unable to open file!");
+                    $Dir = getcwd() . "/order_submitted";
+                    if(!is_dir($Dir)){mkdir($Dir);}
+                    $myfile = fopen($Dir . "/Order_" . date('Y_m_d_h_i_s') . ".txt", "w") or die("Unable to open file!");
                     fwrite($myfile, $txtfile);
                     fclose($myfile);
                 }
