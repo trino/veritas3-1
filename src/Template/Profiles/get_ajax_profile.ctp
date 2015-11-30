@@ -2,12 +2,11 @@
 //uses profiles/getAjaxProfile
 use Cake\ORM\TableRegistry;
 $language = $this->request->session()->read('Profile.language');
+
 function getstring($String, $language){//no variable processing
     $Table = TableRegistry::get('strings')->find()->select()->where(["Name" => $String])->first();
-    if($language=="Debug"){
-        if(!$Table){$String.=" NOT FOUND";}
-        return "[" . $String . "]";
-    }
+    if(!$Table){$String.=" NOT FOUND";}
+    return "[" . $String . "]";
     return $Table->$language;
 }
 
@@ -48,9 +47,9 @@ $fulllist="";
 if(iterator_count($profiles)==0){
     printtdline(getstring("infoorder_nonefound", $language));
 } else {
-    printtdline(getstring("infoorder_disabled", $language));
+    //printtdline(getstring("infoorder_disabled", $language));
     $Entries = ceil($profiles->count() / 3);
-    $Entry = 0;
+    $Entry = 1;
     $Table = '<TD WIDTH="33%" class="nopadorborder"><TABLE class="table table-striped table-bordered table-hover recruiters nopadorborder">';
     echo '<TR>' . $Table;
     foreach ($profiles as $r) {
@@ -94,17 +93,19 @@ if(iterator_count($profiles)==0){
             if ($checked) {
                 $checked = 'checked="checked"';
             }
-            echo'" type="checkbox" ' . $checked . ' value="' . $r->id . '"/></span>';
+            echo '" type="checkbox" ' . $checked . ' value="' . $r->id . '"/></span>';
             echo '<span><label for="p_' . $i . '">' . $username;
-            if ($profiletype) {echo ' ' . $profiletype;}
+            if ($profiletype) {
+                echo ' ' . $profiletype;
+            }
             echo '</span></label><span class="msg_' . $r->id . '"></span></td></tr>';
             $i++;
-        }
 
-        $Entry++;
-        if($Entry == $Entries && $i < $profiles->count()){
-            $Entry=0;
-            echo '</TABLE></TD>' . $Table;
+            $Entry++;
+            if ($Entry == $Entries && $i < $profiles->count()) {
+                $Entry = 1;
+                echo '</TABLE></TD>' . $Table;
+            }
         }
     }
 }

@@ -652,7 +652,7 @@ class TrainingController extends AppController {
                 $this->set("ClientID", $ClientID);
             }
             $this->set("ProfileTypes", $this->Manager->enum_all("profile_types"));
-
+                        
             if (isset($_GET['filter_by_client']) && $_GET['filter_by_client']) {
                 $sub = TableRegistry::get('Clients');
                 $que = $sub->find();
