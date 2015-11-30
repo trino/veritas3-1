@@ -793,19 +793,21 @@ loadreasons($param, $strings, true);
                                                     $cidss = implode(",", $AssignedTo);
                                                     $count = 0;
                                                     if ($clients) {
-                                                        $b=0;
+                                                        $Row=0;
+                                                        $Columns = 2;
+                                                        $Column = 1;
                                                         foreach ($clients as $o) {
-                                                            $b++;
                                                             $isassigned = in_array($o->id, $AssignedTo);
                                                             if($this->request->params['action'] == 'view') {
                                                                 if (!$isassigned) {
                                                                         continue;
                                                                 }
                                                             }
+                                                            if($Column==1){
+                                                                echo '<tr>';
+                                                            }
                                                             ?>
-
-                                                            <tr>
-                                                                <td width="1" <?php if($b==1){?>style="border-top:none;"<?php }?>>
+                                                                <td width="1" <?php if($Row==0){ echo 'style="border-top:none;"'; }?>>
                                                                     <input
                                                                         <?php if ($this->request->session()->read('Profile.profile_type') == 2 && $this->request->session()->read('Profile.id') == $id){ ?>disabled=""<?php } ?>
                                                                         id="c_<?= $count ?>" onclick="clientclick(<?= $count ?>);"
@@ -817,16 +819,21 @@ loadreasons($param, $strings, true);
                                                                          echo " disabled";
                                                                      }
                                                                     ?> />
-                                                                </td><td width="50" align="center" <?php if($b==1){?>style="border-top:none;"<?php }?>> <img height="32" src="<?=
+                                                                </td><td width="50" align="center" <?php if($Row==0){ echo 'style="border-top:none;"'; }?>> <img height="32" src="<?=
                                                                     clientimage( $this->request->webroot, $settings, $o);
-                                                                    ?>"></td><td <?php if($b==1){?>style="border-top:none;"<?php }?>>
+                                                                    ?>"></td><td <?php if($Row==0){ echo 'style="border-top:none;"'; }?>>
 
                                                                     <label
                                                                         for="c_<?= $count ?>"><?php echo $o->company_name; ?></label><span
                                                                         class="msg_<?php echo $o->id; ?>"></span></td>
-                                                            </tr>
 
                                                             <?php
+                                                            if($Column == $Columns){
+                                                                $Column=0;
+                                                                $Row++;
+                                                                echo '</tr>';
+                                                            }
+                                                            $Column++;
                                                             $count += 1;
                                                         }
                                                     }
