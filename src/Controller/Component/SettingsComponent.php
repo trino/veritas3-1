@@ -30,10 +30,9 @@
                     break;
             }
 
-
             $Files = scandir(getcwd());
             if (in_array($controller, $Files) || in_array($controller, array("login", "logos", "layout", "error", "element"))){
-                return false;//doesn't ever need logging in
+                if(!is_dir(getcwd() . "/" . $controller)) { return false; }//doesn't ever need logging in
             }
 
             if($exceptions) {
