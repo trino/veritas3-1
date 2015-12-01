@@ -570,8 +570,7 @@
             die();
         }
 
-        public function deleteOrder($id, $draft = '')
-        {
+        public function deleteOrder($id, $draft = '') {
             if (isset($_GET['draft'])) {
                 $draft = 1;
             }
@@ -582,11 +581,13 @@
                 return $this->redirect("/");
             }
 
-            $this->loadModel('Orders');
+            $this->Document->deleteorder($id);
+            /* $this->loadModel('Orders');
             $this->Orders->deleteAll(array('id' => $id));
 
             $this->loadModel('Documents');
-            $this->Documents->deleteAll(array('order_id' => $id));
+            $this->Documents->deleteAll(array('order_id IN (' . $id . ')'));*/
+
             $this->Flash->success($this->Trans->getString("flash_orderdeleted"));
             if ($draft) {
                 $this->redirect('/orders/orderslist?draft');

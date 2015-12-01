@@ -409,7 +409,9 @@
                     $debugmode = " (" . $strings[$debugmode] . ")";
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings?toggledebug", $strings["dashboard_debug"] . $debugmode, $isfirst, True, $language);
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
-                    $isfirst = print_title($content, $this->request->webroot, "royslog.txt", $strings["dashboard_emaillog"], $isfirst, true, $language);
+                    if(file_exists("royslog.txt")) {
+                        $isfirst = print_title($content, $this->request->webroot, "profiles/settings?includeonly=profile/emaillog.php", $strings["dashboard_emaillog"], $isfirst, true, $language);
+                    }
                 }
             ?>
         </div>

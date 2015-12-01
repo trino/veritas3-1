@@ -2167,4 +2167,62 @@ class DocumentComponent extends Component{
         return $Order["id"];
     }
 
+    function deleteorder($ID){
+        $IDs = explode(",", $ID);
+        foreach($IDs as $ID) {
+            $Documents = $this->Manager->enum_all('documents', array("order_id" => $ID));
+            foreach($Documents as $Document){
+                $this->deletedocument($Document->id);
+            }
+            $this->Manager->delete_all('orders', array("id" => $ID));
+        }
+    }
+    function deletedocument($ID){
+        $IDs = explode(",", $ID);
+        $Tables = array('doc_attachments' => "document_id", 'consent_form_attachments' => "doc_id", 'driver_application_attachments' => "doc_id", "education_verification_attachments" => "document_id", "employment_verification_attachments" => "document_id", "mee_attachments" => "document_id", "pre_screening_attachments" => "doc_id", "road_test_attachments" => "doc_id");
+        foreach($IDs as $ID) {
+            $Document = $this->Manager->get_entry('documents', $ID);
+            if ($Document) {
+                $SubDoc = $this->Manager->get_entry('subdocuments', $Document->sub_doc_id);
+                if ($SubDoc) {
+                    if ($Document->order_id) {
+                        $this->Manager->delete_all($SubDoc->table_name, array("order_id" => $Document->order_id));
+                        foreach($Tables as $Table => $Field) {
+                            $this->deleteattachments($Table, "order_id", $Document->order_id);
+                        }
+                    } else {
+                        $this->Manager->delete_all($SubDoc->table_name, array("document_id" => $ID));
+                        foreach($Tables as $Table => $Field) {
+                            $this->deleteattachments($Table, $Field, $ID);
+                        }
+                    }
+                }
+                $this->Manager->delete_all('documents', array("id" => $ID));
+            }
+        }
+        return true;
+    }
+    function deleteattachments($Table, $Key, $Value){
+        $Documents = $this->Manager->enum_all($Table, array($Value => $Key));
+        $Dirs = array("attachments");
+        foreach($Documents as $Document) {
+            switch ($Table) {
+                case "mee_attachments":
+                    $this->deleteattachments('mee_attachments_more', "mee_id", $Document->id);
+                    break;
+            }
+            $Files = $this->Manager->properties_to_array($Document);
+            foreach($Files as $File){
+                if ($File && strpos($File, ".") !== false) {
+                    foreach($Dirs as $Dir){
+                        $Path = getcwd() . "/" . $Dir . "/" . $File;
+                        if (file_exists($Path)){
+                            unlink($Path);
+                        }
+                    }
+                }
+            }
+        }
+        $this->Manager->delete_all($Table, array($Key => $Value));
+    }
 }

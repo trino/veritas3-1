@@ -758,7 +758,8 @@ class DocumentsController extends AppController{
                 $query->select()->where(['display' => 1, 'orders' => 0])->all();
             }
 
-            if ($this->Documents->deleteAll(array('id' => $id))) {
+            //if ( $this->Documents->deleteAll(array('id IN (' . $id . ')'))) {
+            if ( $this->Document->deletedocument( $id )) {
                 $this->Flash->success($this->Trans->getString("flash_docdeleted"));
             } else {
                 $this->Flash->error($this->Trans->getString("flash_docnotdeleted"));
