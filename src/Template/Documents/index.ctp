@@ -387,7 +387,7 @@
                                 $dl_show = true;
                             }
                             if ($dl_show) {
-                                echo '<a onclick="deletedocument(' . $docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname) . "'" . ');"';
+                                echo '<a ID="delete' . $docs->id . '" onclick="deletedocument(' . $docs->id . ", '" . isset($_GET['draft']) . "', '" . addslashes3($docname) . "'" . ');"';
                                 echo 'class="' . btnclass("DELETE") . '" style="margin-bottom: 0 !important;">' . $strings["dashboard_delete"] . '</a>';
                             }
                         }
@@ -593,6 +593,8 @@
         Confirm = Confirm.replace("%name%", Name);
         if (confirm(Confirm)) {
             var URL = "<?= $this->request->webroot;?>documents/delete/" + DocID;
+            $("#delete" + DocID).fadeOut();
+            $('#row' + DocID).fadeTo( "slow" , 0.5);
             if (Draft) {
                 URL = URL + "/draft";
             }

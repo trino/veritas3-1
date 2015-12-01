@@ -2179,22 +2179,34 @@ class DocumentComponent extends Component{
     }
     function deletedocument($ID){
         $IDs = explode(",", $ID);
-        $Tables = array('doc_attachments' => "document_id", 'consent_form_attachments' => "doc_id", 'driver_application_attachments' => "doc_id", "education_verification_attachments" => "document_id", "employment_verification_attachments" => "document_id", "mee_attachments" => "document_id", "pre_screening_attachments" => "doc_id", "road_test_attachments" => "doc_id");
         foreach($IDs as $ID) {
             $Document = $this->Manager->get_entry('documents', $ID);
             if ($Document) {
                 $SubDoc = $this->Manager->get_entry('subdocuments', $Document->sub_doc_id);
                 if ($SubDoc) {
+                    $Table="";
+                    $Value = $ID;
+                    $Key = "document_id";
+                    switch($SubDoc->id){
+                        case 3:  $Table = "road_test_attachments"; $Key = "doc_id"; break;
+                        case 4:  $Table = "consent_form_attachments"; $Key = "doc_id"; break;
+                        case 9:  $Table = "employment_verification_attachments"; break;
+                        case 10: $Table = "education_verification_attachments"; break;
+                        case 15: $Table = "mee_attachments"; break;
+                    }
                     if ($Document->order_id) {
                         $this->Manager->delete_all($SubDoc->table_name, array("order_id" => $Document->order_id));
-                        foreach($Tables as $Table => $Field) {
-                            $this->deleteattachments($Table, "order_id", $Document->order_id);
-                        }
+                        $Key = "order_id";
+                        $Value = $Document->order_id;
+                        $this->deleteattachments("attachments", "order_id", $Value);
+                        $this->deleteattachments("doc_attachments", "order_id", $Value);
                     } else {
                         $this->Manager->delete_all($SubDoc->table_name, array("document_id" => $ID));
-                        foreach($Tables as $Table => $Field) {
-                            $this->deleteattachments($Table, $Field, $ID);
-                        }
+                        $this->deleteattachments("attachments", "document_id", $Value);
+                        $this->deleteattachments("doc_attachments", "document_id", $Value);
+                    }
+                    if($Table){
+                        $this->deleteattachments($Table, $Key, $Value);
                     }
                 }
                 $this->Manager->delete_all('documents', array("id" => $ID));
