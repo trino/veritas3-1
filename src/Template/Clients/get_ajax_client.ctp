@@ -42,16 +42,16 @@ if ($clients){
 }
 ?>
 </tbody>
-<script>
-	//if($(this).is(':checked'))addclientz($(this).val(),1,<?= $id;?>);else addclientz($(this).val(),0,<?= $id;?>)
+<!--script>
+	//if($(this).is(':checked'))addclientz($(this).val(),1,<?= $id;?>);else addclientz($(this).val(),0,<?= $id;?>); // code from onclick event
 	function addclientz(client_id,addclient,id) {
-			/*$.ajax({
-				type: "post",
-				data: "client_id="+client_id+"&add="+addclient+"&user_id="+id,
-				url: "<?= $this->request->webroot;?>clients/addprofile",
-				success: function(msg){
-					//alert(msg);
-				}
-			}) */
+		$.ajax({
+			type: "post",
+			data: "client_id="+client_id+"&add="+addclient+"&user_id="+id,
+			url: "<?= $this->request->webroot;?>clients/addprofile",
+			success: function(msg){
+				//alert(msg);
+			}
+		})
 	}
-</script>
+</script-->

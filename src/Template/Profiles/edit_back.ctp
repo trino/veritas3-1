@@ -460,7 +460,6 @@ function searchClient()
         data:'key='+key,
         type:'get',
         success:function(res){
-            //$('#clientTableload').("");            
             $('#clientTableload').html(res);
         }
     });

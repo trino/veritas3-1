@@ -410,9 +410,7 @@
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings?toggledebug", $strings["dashboard_debug"] . $debugmode, $isfirst, True, $language);
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
 
-?>
-                  /  <a target="_blank" style="color:white;" href="<?=$this->request->webroot?>royslog.txt"><?= $strings["dashboard_emaillog"]; ?></a>
-            <?
+                    $isfirst = print_title($content, $this->request->webroot, "royslog.txt", $strings["dashboard_emaillog"], $isfirst, true, $language);
                 }
             ?>
         </div>
