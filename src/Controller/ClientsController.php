@@ -1159,15 +1159,13 @@
             $query = TableRegistry::get('Clients');
             $q = $query->find();
             $u = $this->request->session()->read('Profile.id');
-            if ($this->request->session()->read('Profile.super'))
+            if ($this->request->session()->read('Profile.super')) {
                 $q = $q->select()->where(['company_name LIKE "%' . $key . '%"']);
-            else {
+            } else {
                 $q = $q->select()->where(['(profile_id LIKE "' . $u . ',%" OR profile_id LIKE "%,' . $u . ',%" OR profile_id LIKE "%,' . $u . '"  OR profile_id LIKE "' . $u . '" ) AND company_name LIKE "%' . $key . '%" ']);
-
             }
             $this->set('clients', $q);
             $this->set('id', $id);
-
         }
 
         function getdivision($cid){
