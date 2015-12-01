@@ -16,7 +16,7 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
 													<label class="control-label col-md-3"><?= $strings2["drivereval_drivername"]; ?>
 													</label>
 													<div class="col-md-6">
-														<input type="text" class="form-control" name="driver_name"/>
+														<input type="text" class="form-control" name="driver_name" value="<?php if(isset($deval_detail) && $deval_detail->driver_name) {echo $deval_detail->driver_name;}?>"/>
 														
 													</div>
 												</div>
@@ -24,7 +24,7 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
 													<label class="control-label col-md-3"><?= $strings["forms_driverslicense"]; ?># 
 													</label>
 													<div class="col-md-6">
-														<input type="text" placeholder="" class="form-control" name="d_l"/>
+														<input type="text" placeholder="" class="form-control" name="d_l" value="<?php if(isset($deval_detail) && $deval_detail->d_l) {echo $deval_detail->d_l;}?>" />
 														
 													</div>
 												</div>
@@ -32,7 +32,7 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
 													<label class="control-label col-md-3"><?= $strings2["tasks_date"]; ?> 
 													</label>
 													<div class="col-md-6">
-														<input type="text" placeholder="" class="form-control date-picker" name="issued_date"/>
+														<input type="text" placeholder="" class="form-control date-picker" name="issued_date" value="<?php if(isset($deval_detail) && $deval_detail->issued_date) {echo $deval_detail->issued_date;}?>" />
 														
 													</div>
 												</div>
@@ -3382,20 +3382,20 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
 
 													<div class="col-md-4">
                                                         <label class="control-label"><?= $strings2["drivereval_totalscore"]; ?> </label>
-														<input type="text" id="total_score" class="form-control" name="total_score"  <?php if(!$did){?>value="0"<?php }?>/>
+														<input type="text" id="total_score" class="form-control" name="total_score"  <?php if(!$did){?>value="0"<?php }else{?> value="<?php if(isset($deval_detail) && $deval_detail->total_score) {echo $deval_detail->total_score;}?>"<?php }?>/>
 														
 													</div>
 
 
 													<div class="col-md-4">
                                                         <label class="control-label"><?= $strings2["drivereval_autoshifta"]; ?> </label>
-														<input type="text" class="form-control" name="auto_shift"/>
+														<input type="text" class="form-control" name="auto_shift" value="<?php if(isset($deval_detail) && $deval_detail->auto_shift) {echo $deval_detail->auto_shift;}?>"/>
 														
 													</div>
 
 													<div class="col-md-4">
                                                         <label class="control-label"><?= $strings2["drivereval_manualshif"]; ?></label>
-														<input type="text" class="form-control" name="manual"/>
+														<input type="text" class="form-control" name="manual" value="<?php if(isset($deval_detail) && $deval_detail->manual) {echo $deval_detail->manual;}?>"/>
 														
 													</div>
 												</div>
@@ -3594,7 +3594,7 @@ $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "fi
 													<label class="control-label col-md-4"><?= $strings2["drivereval_comments"]; ?> 
 													</label>
 													<div class="col-md-6">
-														<textarea  placeholder="" class="form-control" name="comments" style="height:140px"></textarea>
+														<textarea  placeholder="" class="form-control" name="comments" style="height:140px"><?php if(isset($deval_detail) && $deval_detail->comments) {echo $deval_detail->comments;}?></textarea>
 														
 													</div>
 												</div>
