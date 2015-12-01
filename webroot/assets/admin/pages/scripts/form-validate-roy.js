@@ -470,7 +470,7 @@ function autofill2(Type){
                     case "hidden":
                         break;
                     case "checkbox":case "radio":
-                        value = Math.random() >= 0.5;
+                        if(Math.random() > 0.5){element.click();}
                         break;
 
                     case "file":
