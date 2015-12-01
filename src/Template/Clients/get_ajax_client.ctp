@@ -3,6 +3,7 @@
 if ($clients){
 	$Columns = 2;
 	$Column = 0;
+	$Index=0;
 	foreach ($clients as $o) {
 		$pro_ids = explode(",",$o->profile_id);
 		if($Column == 0){
@@ -24,7 +25,7 @@ if ($clients){
                 ?>">
             </TD>
 			<TD>
-				<input type="checkbox" name="client_idss[]" onclick="if($(this).is(':checked'))addclientz($(this).val(),1,<?= $id;?>);else addclientz($(this).val(),0,<?= $id;?>)" value="<?php echo $o->id; ?>" class="addclientz" <?php
+				<input type="checkbox" ID="c_<?= $Index; ?>" name="client_idss[]" onclick="clientclick(<?= $Index; ?>);" value="<?php echo $o->id; ?>" class="addclientz" <?php
 				if(in_array($id,$pro_ids)){echo "checked";}
 				echo '/>';
 				echo $o->company_name;
@@ -33,6 +34,7 @@ if ($clients){
 			$Column=0;
 			echo '</TR>';
 		}
+		$Index++;
 	}
 	if($Column == 1){
 		echo '<TD COLSPAN="2"></TD>';
@@ -41,6 +43,7 @@ if ($clients){
 ?>
 </tbody>
 <script>
+	//if($(this).is(':checked'))addclientz($(this).val(),1,<?= $id;?>);else addclientz($(this).val(),0,<?= $id;?>)
 	function addclientz(client_id,addclient,id) {
 			/*$.ajax({
 				type: "post",
