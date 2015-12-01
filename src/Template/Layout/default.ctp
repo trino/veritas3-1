@@ -409,7 +409,6 @@
                     $debugmode = " (" . $strings[$debugmode] . ")";
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings?toggledebug", $strings["dashboard_debug"] . $debugmode, $isfirst, True, $language);
                     $isfirst = print_title($content, $this->request->webroot, "profiles/settings", $strings["dashboard_settings"], $isfirst, true, $language);
-
                     $isfirst = print_title($content, $this->request->webroot, "royslog.txt", $strings["dashboard_emaillog"], $isfirst, true, $language);
                 }
             ?>
@@ -418,7 +417,7 @@
         <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>
         </div>
-        <?php if ($settings->box == '1'){ ?></div><?php } ?>
+        <?php if ($settings->box == '1'){ echo '</div>';} ?>
 </div>
 
 <script>

@@ -120,7 +120,7 @@ if (isset($quiz)){
 <div class="col-md-6">
     <div class="form-group">
         <label class="control-label">Description:</label>
-        <textarea name="Description" class="form-control" rows="10" required><?php if (isset($quiz)) { echo $quiz->Description; } ?></textarea>
+        <textarea name="Description" class="form-control" rows="10"><?php if (isset($quiz)) { echo $quiz->Description; } ?></textarea>
     </div>
 </div>
 
@@ -188,17 +188,13 @@ if (isset($quiz)){
                     <th style="width: 10px;">QID</th>
                     <th style="width: 10px;">Index</th>
                     <th>Question</th>
-                    <TH style="width: 110px;">Actions</TH>
-                    <!--TH>Answer 1</TH>
-                    <TH>Answer 2</TH>
-                    <TH>Answer 3</TH>
-                    <TH>Answer 4</TH-->
+                    <TH style="width: 130px;">Actions</TH>
                 </tr>
                 </thead>
                 <tbody>
                     <?php
                     function newQuestion($ID){
-                        echo '<TR><TD>New</TD><TD>' . $ID . '</TD><TD></TD><TD><a href="editquestion?QuestionID=' . $ID . '&new=true&quizid=' . $_GET["quizid"] . '" class="' . btnclass("EDIT") . '">Create</a></TD></TR>';
+                        echo '<TR><TD class="v-center" align="center">New</TD><TD class="v-center" align="center">' . $ID . '</TD><TD></TD><TD><a href="editquestion?QuestionID=' . $ID . '&new=true&quizid=' . $_GET["quizid"] . '" class="' . btnclass("EDIT") . '">Create</a></TD></TR>';
                     }
                     function answer($correctanswer, $id, $answer){
                         echo '<TD>';
@@ -217,9 +213,9 @@ if (isset($quiz)){
                             }
                             //if ($question->QuestionID > $index+1){ newQuestion($index+1); }
 
-                            echo '<TR><TD>' . $question->ID . '</TD>';
-                            echo '<TD>' . $question->QuestionID . '</TD>';
-                            echo '<TD class="truncate">' . $question->Question . '</TD>';// trunc($question->Question, 75, "...")
+                            echo '<TR><TD class="v-center" align="center">' . $question->ID . '</TD>';
+                            echo '<TD class="v-center" align="center">' . $question->QuestionID . '</TD>';
+                            echo '<TD class="truncate v-center">' . $question->Question . '</TD>';// trunc($question->Question, 75, "...")
 
                             if (isset($_GET["answers"])){
                                 echo "<TD>" . $question->Answer . "</TD>";

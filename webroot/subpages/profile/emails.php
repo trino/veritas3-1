@@ -205,7 +205,7 @@ foreach($emails as $Key => $Data){
                 dataType: "HTML",
                 data: "Type=deleteemail&key=" + thekey,
                 success: function (msg) {
-                    location.reload();
+                    reload();
                 },
                 error: function (msg) {
                     alert("'" + thekey + "' was not deleted");
@@ -232,18 +232,22 @@ foreach($emails as $Key => $Data){
             }
 
             $.ajax({
-                url: "<?php echo $this->request->webroot;?>profiles/products",
+                url: "<?= $this->request->webroot;?>profiles/products",
                 type: "post",
                 dataType: "HTML",
                 data: "Type=editemail&key=" + thekey,
                 success: function (msg) {
                     alert(msg);
-                    location.reload();
+                    reload();
                 },
                 error: function (msg) {
                     alert("'" + thekey + "' was not saved");
                 }
             })
         }
+    }
+
+    function reload(){
+        window.location = '<?= $this->request->webroot; ?>profiles/settings?includeonly=profile/emails.php';
     }
 </script>

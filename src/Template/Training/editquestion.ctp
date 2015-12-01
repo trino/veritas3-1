@@ -33,9 +33,6 @@ function clean($data, $datatype=0){
     return $data;
 }
 
-function getextension($path, $value=PATHINFO_EXTENSION){
-    return strtolower(pathinfo($path, $value));
-}
 function printoption2($value, $selected="", $option = "", $dir="") {
     $tempstr = "";
     if(!$option){$option=$value;}

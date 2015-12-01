@@ -111,7 +111,9 @@ class TrainingController extends AppController {
             if(isset($_GET["action"])) {
                 switch ($_GET["action"]) {
                     case "save":
-                        $this->savequestion($_POST);
+                         if ($this->savequestion($_POST) == 1){
+                             $this->redirect("/training/edit?quizid=" . $_POST["QuizID"]); //new question
+                         }
                         break;
                     case "delete":
                         $this->deletequestion($_GET["quizid"], $_GET["QuestionID"]);
@@ -258,11 +260,14 @@ class TrainingController extends AppController {
                 ->values(['Question' => $post["Question"], 'QuizID' => $post["QuizID"], 'QuestionID' => $post['QuestionID'], 'Answer' => $post['answer'], 'Choice0' => $post['Choice0'], 'Choice1' => $post['Choice1'], 'Choice2' => $post['Choice2'], 'Choice3' => $post['Choice3'], 'Choice4' => $post['Choice4'], 'Choice5' => $post['Choice5'], 'Picture' => $post['Picture']])
                 ->execute();
             $this->Flash->success('The question was created');
+            return 1;
         }else{
             $table->query()->update()->set(['Question' => $post["Question"], 'Answer' => $post['answer'], 'Choice0' => $post['Choice0'], 'Choice1' => $post['Choice1'], 'Choice2' => $post['Choice2'], 'Choice3' => $post['Choice3'], 'Choice4' => $post['Choice4'], 'Choice5' => $post['Choice5'], 'Picture' => $post['Picture']])
                 ->where(['QuizID' => $post['QuizID'], 'QuestionID' => $post['QuestionID']])->execute();
             $this->Flash->success('The question was saved');
+            return 2;
         }
+        return 0;
     }
 
     function lastQuery(){
