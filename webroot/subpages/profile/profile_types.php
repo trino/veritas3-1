@@ -14,9 +14,14 @@
         
         <a href="javascript:;" class="btn btn-primary apt" style="float: right;" onclick="$(this).hide();$('.addptype').show();">Add Profile Type</a>
         <div class="addptype" style="display: none;">
-            <span class="col-md-4"><input type="text" class="form-control"  placeholder="Title" id="titptype_0"/></span>
-            <span class="col-md-4"><input type="text" class="form-control"  placeholder="Title" id="titptypeFrench_0"/></span>
-            <span class="col-md-3"><a href="javascript:;" id="0" class="btn btn-primary saveptypes">Add</a></span>
+            <?php
+                $Last = -1;
+                foreach($languages as $language){
+                    $Title = getFieldname("titptype", $language);
+                    echo '<span class="col-md-4"><input type="text" class="form-control"  placeholder="' . getFieldname("Title", $language) . '" id="' . $Title . '_' . $Last . '"/></span>';
+                }
+            ?>
+            <span class="col-md-3"><a href="javascript:;" id="<?= $Last; ?>" class="btn btn-primary saveptypes">Add</a></span>
         </div>
     </div>
         <div class="table-scrollable">
@@ -25,9 +30,12 @@
                 class="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
                 <thead>
                 <tr >
-                    <th>Id</th>
-                    <th>Title (English)</th>
-                    <th>Title (French)</th>
+                    <th>ID</th>
+                    <?php
+                        foreach($languages as $language) {
+                            echo '<th>Title (' . $language . ')</th>';
+                        }
+                    ?>
                     <th>Enable</th>
                     <th>Can Order</th>
                     <th>Actions</th>
@@ -37,13 +45,15 @@
                 <tbody class="allpt">
                 <?php
                 $i = 1;
-                foreach($ptypes as $product)
-                {?>
-                    <tr>
-                        <td><?php echo $i;?></td>
-                        <td class="titleptype_<?= $product->id;?>"><?php echo $product->title;?></td>
-                        <td class="titleptypeFrench_<?= $product->id;?>"><?php echo $product->titleFrench;?></td>
-                        <td><input type="checkbox" <?php if($product->enable=='1'){echo "checked='checked'";}?> class="penable" id="pchk_<?= $product->id;?>" /><span class="span_<?= $product->id;?>"></span></td>
+                foreach($ptypes as $product) {
+                    echo '<tr><td>' . $product->id . '</td>';
+                    foreach($languages as $language){
+                        $Field = getFieldname("title", $language);
+                        echo '<td class="' . getFieldname("titleptype", $language) . '_' . $product->id . '">';
+                        echo $product->$Field;
+                        echo '</td>';
+                    }
+                        ?><td><input type="checkbox" <?php if($product->enable=='1'){echo "checked='checked'";}?> class="penable" id="pchk_<?= $product->id;?>" /><span class="span_<?= $product->id;?>"></span></td>
                         <!--php if($product->id != 1 && $product->id != 2 && $product->id != 5 && $product->id != 7 && $product->id != 8  && $product->id != 11) {?>-->
                         <td><input type="checkbox" <?php if($product->placesorders=='1'){echo "checked='checked'";}?> class="oenable" id="ochk_<?= $product->id;?>" /><span class="span2_<?= $product->id;?>"></span></td>
                         <td><a href="javascript:;" class="btn btn-primary editptype" id="editptype_<?php echo $product->id;?>">Edit</a></td>
@@ -62,34 +72,43 @@
 
 $(function(){
     $('.editptype').live('click', function(){
-        
+
         var id = $(this).attr('id').replace("editptype_","");
-        var va = $('.titleptype_'+id).text();
-        var vaFrench = $('.titleptypeFrench_'+id).text();
-
-        $('.titleptype_'+id).html('<input type="text" value="'+va+'" class="form-control" id="titptype_'+id+'" /><a class="btn btn-primary saveptypes" id ="ptypesave_'+id+'" >save</a> ');
-        $('.titleptypeFrench_'+id).html('<input type="text" value="'+vaFrench+'" class="form-control" id="titptypeFrench_'+id+'" /> ');
-
+        <?php
+            foreach($languages as $language){
+                $VA = getFieldname("va", $language);
+                $TitleType = getFieldname("titleptype", $language);
+                echo "var " . $VA . " = $('." . $TitleType . "_' + id).text(); \r\n";
+                echo "$('." . $TitleType . "_' + id).html('<input type=" . '"text" value="' . "' + $VA + '" .  '" class="form-control" id="';
+                echo getFieldname("titptype", $language) . "_' + id + '" . '" />';
+                if($language == "English"){
+                    echo '<a class="btn btn-primary saveptypes" id ="ptypesave_' . "' + id + '" . '" >Save</a>';
+                }
+                echo "');\r\n";
+            }
+        ?>
     });
     $('.saveptypes').live('click',function(){
         var id = $(this).attr('id').replace("ptypesave_","");
-        var title = $('#titptype_'+id).val();
-        var titleFrench = $('#titptypeFrench_'+id).val();
+        <?= getlanguages($languages, "titptype", 1); ?>
+
         $.ajax({
             url:"<?php echo $this->request->webroot;?>profiles/ptypes/"+id,
             type:"post",
             dataType:"HTML",
-            data: "title=" + title + "&titleFrench=" + titleFrench,
+            data: <?= getlanguages($languages); ?>,
             success:function(msg) {
-                if(id!=0) {
-                    $('.titleptype_' + id).html(msg);
-                    $('.titleptypeFrench_' + id).html(titleFrench);
+                if(id != <?= $Last; ?>) {
+                    <?= getlanguages($languages, "titleptype", 2); ?>
                 }else {
                     $('.allpt').append(msg);
                     $('.addptype').hide();
                     $('.apt').show();
-                    $('#titptype_0').val("");
-                    $('#titptypeFrench_0').val("");
+                    <?php
+                        foreach($languages as $language){
+                            echo "$('#" . getFieldname("titptype", $language) . "_" . $Last . "').val('');";
+                        }
+                    ?>
                 }
             }
         })

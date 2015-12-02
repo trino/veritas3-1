@@ -94,6 +94,7 @@ function getlanguages($languages, $Field = "title", $Type = 0, $Extra = "c"){
                 $Title = getFieldname("title" . $Extra . "type", $language);
                 $HTML .= "var " . getFieldname("va", $language) . " = $('." . $Title . "_' + id).text();\r\n";
                 $HTML .= "$('." . $Title . "_' + id).html('<input type=" . '"text" value="';
+                if($Extra == "p"){ $Title = "titptype";}
                 $HTML .= "' + " .  getFieldname("va", $language) . " + '" . '" class="form-control" id="' . $Title . '_' . "' + id + '" . '"' . " />";
                 if($language == "English"){
                     $HTML .= '<a class="btn btn-primary save' . $Extra . 'types" id ="' . $Extra . 'typesave_' . "' + id + '" . '" >Save</a>';

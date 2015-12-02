@@ -29,7 +29,7 @@
                 class="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
                 <thead>
                 <tr >
-                    <th>Id</th>
+                    <th>ID</th>
                     <?php
                         foreach($languages as $language) {
                             echo '<th>Title (' . $language . ')</th>';

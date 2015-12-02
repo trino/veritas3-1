@@ -3193,7 +3193,7 @@
                     $data['title' . $language] = $_POST['title' . $language];
                 }
 
-                if ($id != 0) {
+                if ($id != -1) {
                     if ($p->query()->update()->set($data)->where(['id' => $id])->execute()) {
                         echo $data['title'];
                     }
