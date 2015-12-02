@@ -11,7 +11,13 @@ if ($clients){
 		}
 		$Column++;
 		?>
-            <td width="5" align="center">
+			<TD width="5" align="center">
+				<input type="checkbox" ID="c_<?= $Index; ?>" name="client_idss[]" onclick="clientclick(<?= $Index; ?>);" value="<?php echo $o->id; ?>" class="addclientz" <?php
+					if(in_array($id,$pro_ids)){echo "checked";}
+					echo '/>';
+				?>
+			</TD>
+            <TD width="5" align="center">
                 <img height="32" src="<?php
                     echo $this->request->webroot;
                     $filename = 'img/logos/MEELogo.png';
@@ -22,19 +28,13 @@ if ($clients){
                         }
                     }
                     echo $filename;
-                ?>">
-            </TD>
-			<TD>
-				<input type="checkbox" ID="c_<?= $Index; ?>" name="client_idss[]" onclick="clientclick(<?= $Index; ?>);" value="<?php echo $o->id; ?>" class="addclientz" <?php
-				if(in_array($id,$pro_ids)){echo "checked";}
-				echo '/>';
-				echo $o->company_name;
-				echo '</td>';
-		if($Column == $Columns){
-			$Column=0;
-			echo '</TR>';
-		}
-		$Index++;
+                	echo '"></TD><TD><LABEL FOR="c_';
+				echo $Index . '">' . $o->company_name . '</LABEL></TD>';
+				if($Column == $Columns){
+					$Column=0;
+					echo '</TR>';
+				}
+			$Index++;
 	}
 	if($Column == 1){
 		echo '<TD COLSPAN="2"></TD>';
