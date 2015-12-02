@@ -103,7 +103,7 @@
             $cond = [];
             $pro_id = [];
             $clients = TableRegistry::get('clients');
-            if($cid != "") {
+            if($cid) {
                 $qs = $clients->find()->select('profile_id')->where(['id'=>$cid])->first();
                 if(count($qs)>0) {
                     $p = explode("," ,$qs->profile_id);
@@ -121,10 +121,8 @@
 
             } else {
                 if(!$super) {
-
-
-
-                    $qs = $clients->find()->select('profile_id')->where(['profile_id LIKE "'.$u.',%" OR profile_id LIKE "%,'.$u.',%" OR profile_id LIKE "%,'.$u.'" OR profile_id ="'.$u.'"'])->all();
+                    //$qs = $clients->find()->select('profile_id')->where(['profile_id LIKE "'.$u.',%" OR profile_id LIKE "%,'.$u.',%" OR profile_id LIKE "%,'.$u.'" OR profile_id ="'.$u.'"'])->all();
+                    $qs = $clients->find()->select('profile_id')->where(["FIND_IN_SET(" . $u . ", profile_id) > 0" ])->all();
                     if(count($qs)>0) {
                         foreach($qs as $q) {
                             $p = explode("," ,$q->profile_id);
@@ -156,7 +154,8 @@
             $pro_id = [];
             if(!$super) {
                 $clients = TableRegistry::get('clients');
-                $qs = $clients->find()->select('id')->where(['profile_id LIKE "'.$u.',%" OR profile_id LIKE "%,'.$u.',%" OR profile_id LIKE "%,'.$u.'" OR profile_id ="'.$u.'"'])->all();
+                //$qs = $clients->find()->select('id')->where(['profile_id LIKE "'.$u.',%" OR profile_id LIKE "%,'.$u.',%" OR profile_id LIKE "%,'.$u.'" OR profile_id ="'.$u.'"'])->all();
+                $qs = $clients->find()->select('id')->where(["FIND_IN_SET(" . $u . ", profile_id) > 0"])->all();
                 $pro_id = [];
                 $cond = [];
                 if(count($qs)>0) {
@@ -184,7 +183,8 @@
 
         function getAllClientsId($uid) {
             $clients = TableRegistry::get('clients');
-            $qs = $clients->find()->select('id')->where(['profile_id LIKE "'.$uid.',%" OR profile_id LIKE "%,'.$uid.',%" OR profile_id LIKE "%,'.$uid.'" OR profile_id ="'.$uid.'"'])->all();
+            //$qs = $clients->find()->select('id')->where(['profile_id LIKE "'.$uid.',%" OR profile_id LIKE "%,'.$uid.',%" OR profile_id LIKE "%,'.$uid.'" OR profile_id ="'.$uid.'"'])->all();
+            $qs = $clients->find()->select('id')->where(["FIND_IN_SET(" . $uid . ", profile_id) > 0" ])->all();
             $client_ids ="";
             if(count($qs)>0) {
                 foreach($qs as $k=>$q) {
@@ -201,7 +201,8 @@
         function getAllClientsname($uid) {
             $controller = $this->_registry->getController();
             $clients = TableRegistry::get('clients');
-            $qs = $clients->find()->select(['company_name','id'])->where(['profile_id LIKE "'.$uid.',%" OR profile_id LIKE "%,'.$uid.',%" OR profile_id LIKE "%,'.$uid.'" OR profile_id ="'.$uid.'"'])->all();
+            //$qs = $clients->find()->select(['company_name','id'])->where(['profile_id LIKE "'.$uid.',%" OR profile_id LIKE "%,'.$uid.',%" OR profile_id LIKE "%,'.$uid.'" OR profile_id ="'.$uid.'"'])->all();
+            $qs = $clients->find()->select(['company_name','id'])->where(["FIND_IN_SET(" . $uid . ", profile_id) > 0" ])->all();
             //debug($qs);die();
             $client_ids ="";
             if(count($qs)>0) {
@@ -221,7 +222,8 @@
         {
             $controller = $this->_registry->getController();
             $clients = TableRegistry::get('clients');
-            $qs = $clients->find()->select(['company_name','id'])->where(['profile_id LIKE "'.$uid.',%" OR profile_id LIKE "%,'.$uid.',%" OR profile_id LIKE "%,'.$uid.'" OR profile_id ="'.$uid.'"'])->all();
+            //$qs = $clients->find()->select(['company_name','id'])->where(['profile_id LIKE "'.$uid.',%" OR profile_id LIKE "%,'.$uid.',%" OR profile_id LIKE "%,'.$uid.'" OR profile_id ="'.$uid.'"'])->all();
+            $qs = $clients->find()->select(['company_name','id'])->where(["FIND_IN_SET(" . $uid . ", profile_id) > 0" ])->all();
             //debug($qs);die();
             $client_ids ="";
             if(count($qs)>0) {
@@ -398,7 +400,8 @@
             $query = TableRegistry::get('Clients');
             $q = $query->find();
             $u = trim($uid);
-            $q =$q->select()->where(['profile_id LIKE "'.$u.',%" OR profile_id LIKE "%,'.$u.',%" OR profile_id LIKE "%,'.$u.'" OR profile_id LIKE "'.$u.'" '])->count();
+            //$q =$q->select()->where(['profile_id LIKE "'.$u.',%" OR profile_id LIKE "%,'.$u.',%" OR profile_id LIKE "%,'.$u.'" OR profile_id LIKE "'.$u.'" '])->count();
+            $q =$q->select()->where(["FIND_IN_SET(" . $u . ", profile_id) > 0" ])->count();
             return $q;
         }
     }

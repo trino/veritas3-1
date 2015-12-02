@@ -25,8 +25,6 @@ class ManagerComponent extends Component {
 
         $Controller->loadComponent("Settings");
         $Controller->Settings->verifylogin($Controller,$Controller->name);
-
-        //$this->converttoredirect("http://localhost/veritas3-1/orders/productSelection?driver=0&ordertype=BUL", LOGIN);
     }
 
     function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){
@@ -109,7 +107,8 @@ class ManagerComponent extends Component {
         
         if(!$UserID){$UserID = $this->read("id");}
         if(!$UserID){return 0;}
-        $clients = TableRegistry::get("clients")->find()->select('id')->where(['profile_id LIKE "'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.'" OR profile_id ="'.$UserID.'"']);
+        //$clients = TableRegistry::get("clients")->find()->select('id')->where(['profile_id LIKE "'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.'" OR profile_id ="'.$UserID.'"']);
+        $clients = $this->enum_all("clients", "FIND_IN_SET(" . $UserID . ", profile_id) > 0" );
         if (iterator_count($clients) == 1 || $LimitToOne) {
             $clients = $clients->first();
             if($clients) {
@@ -622,8 +621,22 @@ class ManagerComponent extends Component {
         return $this->get_entry("clients", $ClientID, "slug");
     }
 
+    function get_clients_profiles($ClientID){
+        $ClientID = $this->get_client($ClientID)->profile_id;
+        if($ClientID) {
+            $ClientID = $this->cleanCSV($ClientID);
+        }
+        return $ClientID;
+    }
+    function cleanCSV($Text){
+        $Text = trim($Text, ", \t\n\r\0\x0B");
+        while (strpos($Text, ",,") !== false){
+            $Text = str_replace(',,',',',$Text);
+        }
+        return $Text;
+    }
     function assign_profile_to_client($ProfileID, $ClientID, $Add = true){
-        $Client = $this->get_entry('clients', $ClientID, "id");
+        $Client = $this->get_client($ClientID);
         if($Add) {
             $Profiles = $this->appendstring($Client->profile_id, $ProfileID);
             $Profiles = implode(",",array_unique(explode(",", $Profiles)));

@@ -99,8 +99,17 @@
 <div class="logo"></div>
 
 <div class="content">
-       <center><?php $logo = $this->requestAction('Logos/getlogo/2');?>
-            	<img src="<?php echo $this->request->webroot.'webroot/img/logos/'.$logo;?>"  style="max-width: 100%; "  /></center>
+       <center>
+            	<img src="<?php
+                    $logo = $this->requestAction('Logos/getlogo/2');
+                    echo $this->request->webroot;
+                    $File = 'img/logos/' .$logo;
+                    if(!file_exists(getcwd() . '/' . $File)){
+                        $File = "img/logos/MEELogo.png";
+                    }
+                    echo $File;
+                ?>"  style="max-width: 100%; "  />
+       </center>
         <!--<img src="http://isbmee.com/wp-content/uploads/2014/10/MEELogo1.png" alt="" style="max-width: 100%;"/>-->
 
 
@@ -176,7 +185,7 @@ if(isset($_GET["client"])){ ?>
             <input type="checkbox" name="remember" value="1"/><?= text($language, "Remember me", "Mémoriser mes coordonnées"); ?>
         </label>
         <?php if(!$rememberme){echo '<DIV ALIGN="RIGHT">';} ?>
-        <button type="submit" class="btn btn-primary-haze <?php if($rememberme){echo 'pull-right';} ?>">
+        <button type="submit" class="btn btn-primary <?php if($rememberme){echo 'pull-right';} ?>">
             <?= text($language, "Login", "Connexion"); ?>
             <i class="m-icon-swapright m-icon-white"></i>
         </button>

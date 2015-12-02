@@ -1324,7 +1324,8 @@
                 $logged_id = $this->request->session()->read('Profile.id');
                 //echo "<br/>";
                 if (!$this->request->session()->read('Profile.admin') && !$this->request->session()->read('Profile.super')) {
-                    $clients = $cmodel->find()->where(['(profile_id LIKE "' . $logged_id . ',%" OR profile_id LIKE "%,' . $logged_id . ',%" OR profile_id LIKE "%,' . $logged_id . '")']);
+                    //$clients = $cmodel->find()->where(['(profile_id LIKE "' . $logged_id . ',%" OR profile_id LIKE "%,' . $logged_id . ',%" OR profile_id LIKE "%,' . $logged_id . '")']);
+                    $clients = $cmodel->find()->where(["FIND_IN_SET(" . $logged_id . ", profile_id) > 0" ]);
                 } else {
                     $clients = $cmodel->find();
                 }

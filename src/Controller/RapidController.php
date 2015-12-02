@@ -52,28 +52,7 @@
                     if ($_POST['client_ids']) {
                         $client_id = explode(",", $_POST['client_ids']);
                         foreach ($client_id as $cid) {//asign to clients
-                            $query = TableRegistry::get('clients');
-                            $q = $query->find()->where(['id' => $cid])->first();
-                            $profile_id = $q->profile_id;
-                            $pros = explode(",", $profile_id);
-                            $profilesToEmail = array_merge($profilesToEmail, $pros);
-
-                            $p_ids = "";
-
-                            array_push($pros, $profile->id);
-                            $pro_id = array_unique($pros);
-
-                            foreach ($pro_id as $k => $p) {
-                                if (count($pro_id) == $k + 1) {
-                                    $p_ids .= $p;
-                                } else {
-                                    $p_ids .= $p . ",";
-                                }
-                            }
-
-                            $query->query()->update()->set(['profile_id' => $p_ids])
-                                ->where(['id' => $cid])
-                                ->execute();
+                            $this->Manager->assign_profile_to_client($profile->id, $cid);
                         }
                     }
 
@@ -129,8 +108,7 @@
 
         function getallrecruiters($cid) {
             $email = array();
-            $modal = TableRegistry::get('clients')->find()->where(['id' => $cid])->first();
-            $pros = $modal->profile_id;
+            $pros = $this->Manager->get_clients_profiles($cid);
             $profiles = TableRegistry::get('profiles')->find('all')->where(['id in(' . $pros . ')']);
             foreach ($profiles as $p) {
                 if ($p->profile_type == '2' && $p->email != "") {
@@ -221,8 +199,6 @@
                     $p_type .= $ty->id . ",";
                 }
                 $p_types = substr($p_type, 0, strlen($p_type) - 1);
-                $users = explode(',', $c->profile_id);
-                $rec1 = array();
 
                 $crons = TableRegistry::get('client_crons');
                 $profile = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'profile_type IN(' . $p_types . ')', 'is_hired' => '1', 'requalify' => '1'])->order('created_by');

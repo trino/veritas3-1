@@ -51,7 +51,7 @@ class DocumentComponent extends Component{
         $PTypes = $this->Manager->enum_all("profile_types", array("placesorders" => 1));
         $PTypes = array_keys($this->Manager->iterator_to_array($PTypes, "id"));
         if(!$ClientID){return $PTypes;}
-        $ClientID = $this->Manager->get_client($ClientID)->profile_id;
+        $ClientID = $this->Manager->get_clients_profiles($ClientID); //$this->Manager->get_client($ClientID)->profile_id;
         return $this->Manager->enum_all("profiles", array("id IN (" . $ClientID . ")", "profile_type IN (" . implode(",", $PTypes) . ")"));
     }
 	
@@ -193,7 +193,7 @@ class DocumentComponent extends Component{
                                 $assignedProfile = $this->getAssignedProfile($cid);
                                 //var_dump($assignedProfile);die();
                                 if($assignedProfile) {
-                                    $profile = $this->getProfilePermission($assignedProfile->profile_id, 'orders');
+                                    $profile = $this->getProfilePermission($assignedProfile, 'orders');
                                     // var_dump($profile);die();
                                     if($profile) {
                                         foreach($profile as $p) {
@@ -291,7 +291,7 @@ class DocumentComponent extends Component{
                         $client_name = $gc->company_name;
 
                         $assignedProfile = $this->getAssignedProfile($cid);
-                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile->profile_id.')','Profiles.email REGEXP "^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"'])
+                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile.')','Profiles.email REGEXP "^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"'])
                                         ->contain(['Sidebar'=> function ($q) {
                                                                         return $q
                                             ->select(['email_document', 'email_orders'])
@@ -409,7 +409,7 @@ class DocumentComponent extends Component{
                         $gc = $get_client->find()->where(['id' => $cid])->first();
                         $client_name = $gc->company_name;
                         $assignedProfile = $this->getAssignedProfile($cid);
-                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile->profile_id.')'])
+                        $profiles_all = TableRegistry::get('Profiles')->find('all')->select('id')->where(['Profiles.id IN ('.$assignedProfile.')'])
                                         ->contain(['Sidebar'=> function ($q) {
                                                                         return $q
                                             ->select(['email_document', 'email_orders'])
@@ -1505,19 +1505,17 @@ class DocumentComponent extends Component{
             $query = TableRegistry::get('Profiles');
             $controller = $this->_registry->getController();
             $id = $controller->request->session()->read('Profile.id');
+
             $query2 = TableRegistry::get('clients');
-            $q2 = $query2->find()->where(['profile_id LIKE "'.$id.',%" OR profile_id LIKE "%,'.$id.',%" OR profile_id LIKE "%,'.$id.'"']);
+            $q2 = $query2->find()->where(["FIND_IN_SET(" . $id . ", profile_id) > 0" ]);
             $profile_ids = '0';
-            if($q2)
-            {
-                foreach($q2 as $c)
-                {
-                    
-                    $profile_ids = $profile_ids.','.$c->profile_id;
+            if($q2) {
+                foreach($q2 as $c) {
+                    if($c->profile_id) {
+                        $profile_ids = $profile_ids . ',' . $c->profile_id;
+                    }
                 }
-                $profile_ids = str_replace(',,',',',$profile_ids);
-                $profile_ids = str_replace(',,',',',$profile_ids);
-                $profile_ids = str_replace(',,',',',$profile_ids);
+                $profile_ids = $this->Manager->cleanCSV($profile_ids);
             }
             
             //$query = $query->find();
@@ -1774,45 +1772,38 @@ class DocumentComponent extends Component{
                     $clients = $cmodel->find()->where(['(profile_id LIKE "' . $driver . ',%" OR profile_id LIKE "%,' . $driver . ',%" OR profile_id LIKE "%,' . $driver . '")']);
                 }
             } else {
-               $cmodel = TableRegistry::get('Clients');
-               $clients = $cmodel->find()->where(['id'=>$client]); 
+                $cmodel = TableRegistry::get('Clients');
+                $clients = $cmodel->find()->where(['id'=>$client]);
                
-               $cmodel2 = TableRegistry::get('Clients');
+                $cmodel2 = TableRegistry::get('Clients');
                 $clients2 = $cmodel2->find()->where(['id'=>$client])->first();
+                $profile_ids2 = '';
                 if($clients2) {
                     $profile_ids2 = $clients2->profile_id;
-                } else {
-                    $profile_ids2 = '';
                 }
-                if(!$profile_ids2)
-                $profile_ids2 = '9999999';
+                if(!$profile_ids2) {
+                    $profile_ids2 = '9999999';
+                }
                 $model = TableRegistry::get('Profiles');
-                
-                $profile_ids2 = str_replace(',',' ',$profile_ids2);
-                $profile_ids2 = trim($profile_ids2);
-                $profile_ids2 = str_replace(' ',',',$profile_ids2);
-                $profile_ids2 = str_replace(',,',',',$profile_ids2);
-                $profile_ids2 = str_replace(',,',',',$profile_ids2);
-                
+
+                $profile_ids2 = $this->Manager->cleanCSV($profile_ids2);
                 $q = $model->find()->where(['id IN ('.$profile_ids2.')','(profile_type = 5 OR profile_type = 7 OR profile_type = 8 OR profile_type = 11)'])->order('fname');
                 
             }
             $profile_ids = '';
             foreach($clients as $c) {
-                if($profile_ids) {
+                if($profile_ids && $c->profile_id) {
                     $profile_ids = $profile_ids.','.$c->profile_id;
                 } else {
                     $profile_ids = $c->profile_id;
                 }
             }
-            if(!$profile_ids)
-            $profile_ids = '9999999';
-            
-            $profile_ids = str_replace(',',' ',$profile_ids);
-            $profile_ids = trim($profile_ids);
-                $profile_ids = str_replace(' ',',',$profile_ids);
-                $profile_ids = str_replace(',,',',',$profile_ids);
-                $profile_ids = str_replace(',,',',',$profile_ids);
+            if(!$profile_ids) {
+                $profile_ids = '9999999';
+            }
+
+            $profile_ids = $this->Manager->cleanCSV($profile_ids);
+
             //echo $profile_ids;die();
             //echo $profile_ids.'_';die();
             if($driver==0 && $client==0) {
@@ -1962,9 +1953,7 @@ class DocumentComponent extends Component{
         }
         
         function getAssignedProfile($cid = 0){
-            $profile = TableRegistry::get('Clients');
-            $pro = $profile->find()->select('profile_id')->where(['id' => $cid])->first();
-            return $pro;
+            return $this->Manager->get_clients_profiles($cid);
         }
         
         function getProfilePermission($profile,$type){

@@ -26,14 +26,9 @@
         }
 
         function getclient_id($id) {
-            $client = TableRegistry::get('clients')->find()->where(['id' => '17'])->first();
             $q = 0;
-            if($client) {
-                $pid = $client->profile_id;
-                $pids = explode(",", $pid);
-                if (in_array($id, $pids)) {
-                    $q = '1';
-                }
+            if( $this->Manager->is_assigned_to_client($id, 17) ){
+                $q = '1';
             }
             $this->response->body($q);
             return $this->response;
@@ -212,48 +207,11 @@
         }
 
         public function assignProfile($profile, $id, $status) {
-            $querys = TableRegistry::get('Clients');
-            $query = $querys->find()->where(['id' => $id])->first();
-
             if ($status == 'yes') {
-                if ($query->profile_id == '') {
-                    $arr['profile_id'] = $profile;
-                } else {
-                    $arr['profile_id'] = $query->profile_id . ',' . $profile;
-                }
+                $this->Manager->assign_profile_to_client($profile, $id);
             } else {
-                $arr['profile_id'] = '';
-                if ($query->profile_id == '') {
-                    die();
-                } else {
-                    $array = explode(',', $query->profile_id);
-                    if ($array) {
-                        foreach ($array as $a) {
-                            if ($a == $profile) {
-                                continue;
-                            } else {
-                                if ($arr['profile_id'] == '') {
-                                    $arr['profile_id'] = $a;
-                                } else {
-                                    $arr['profile_id'] = $arr['profile_id'] . ',' . $a;
-                                }
-                            }
-                        }
-                    }
-
-                }
+                $this->Manager->assign_profile_to_client($profile, $id, false);
             }
-            $arr['profile_id'] = str_replace(',', ' ', $arr['profile_id']);
-            $arr['profile_id'] = trim($arr['profile_id']);
-            $arr['profile_id'] = str_replace(' ', ',', $arr['profile_id']);
-            $arr['profile_id'] = str_replace(',,', ',', $arr['profile_id']);
-            $arr['profile_id'] = str_replace(',,', ',', $arr['profile_id']);
-            $arr['profile_id'] = str_replace(',,', ',', $arr['profile_id']);
-            $query2 = $querys->query();
-            $query2->update()
-                ->set($arr)
-                ->where(['id' => $id])
-                ->execute();
             die();
         }
 
@@ -1054,30 +1012,11 @@
         }
 
         function getProfile($id = null){
-            $profile = TableRegistry::get('Clients');
-            $query = $profile->find()->where(['id' => $id]);
-            $q = $query->first();
-
+            $Profiles = $this->Manager->get_clients_profiles($id);
             $pro = TableRegistry::get('Profiles');
-
-            if (is_object($q)) {
-                if ($q->profile_id) {
-                    $q->profile_id = ltrim($q->profile_id, ',');
-                }
-            }
-
-            $didit = false;
-            if (is_object($q)) {
-                if ($q->profile_id) {
-                    $q->profile_id = str_replace(',,',',',$q->profile_id);
-                    $q->profile_id = str_replace(',,',',',$q->profile_id);
-                    $querys = $pro->find()->where(['id IN (' . $q->profile_id . ')']);
-                    $didit = true;
-                }
-            }
-
-            if (!$didit) {
-                $querys = array();
+            $querys = array();
+            if ($Profiles) {
+                $querys = $pro->find()->where(['id IN (' . $Profiles . ')']);
             }
             $this->response->body(($querys));
             return $this->response;
@@ -1662,13 +1601,8 @@
         $this->set('orderid',$orderid);
     }
     
-    function assignedTo($cid,$rid) {
-        $cli = TableRegistry::get('clients')->find()->where(['id'=>$cid])->first();
-        $pro = $cli->profile_id;
-        $arr = explode(',',$pro);
-        //echo $rid;
-        //var_dump($arr);
-        $check = in_array($rid,$arr);
+    function assignedTo($ClientID,$UserID) {
+        $check = $this->Manager->is_assigned_to_client($UserID, $ClientID);
         $this->response->body($check);
         return $this->response;
     }

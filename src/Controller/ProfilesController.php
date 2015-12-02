@@ -1510,27 +1510,7 @@
                         if ($post['client_ids'] != "") {
                             $client_id = explode(",", $post['client_ids']);
                             foreach ($client_id as $cid) {
-                                $query = TableRegistry::get('clients');
-                                $q = $query->find()->where(['id' => $cid])->first();
-                                $profile_id = $q->profile_id;
-                                $pros = explode(",", $profile_id);
-
-                                $p_ids = "";
-
-                                array_push($pros, $profile->id);
-                                $pro_id = array_unique($pros);
-
-                                foreach ($pro_id as $k => $p) {
-                                    if (count($pro_id) == $k + 1) {
-                                        $p_ids .= $p;
-                                    }else {
-                                        $p_ids .= $p . ",";
-                                    }
-                                }
-
-                                $query->query()->update()->set(['profile_id' => $p_ids])
-                                    ->where(['id' => $cid])
-                                    ->execute();
+                                $this->Manager->assign_profile_to_client($profile->id, $cid);
                             }
                         }
                         echo $profile->id;
@@ -2757,8 +2737,8 @@
 
 
             /* for automatic survey email */
-            $client = TableRegistry::get('clients')->find()->where(['id'=>26])->first();//hard-coded to GFS
-            $ids = $client->profile_id;
+            //$client = TableRegistry::get('clients')->find()->where(['id'=>26])->first();//hard-coded to GFS
+            $ids = $this->Manager->get_clients_profiles(26);//  $client->profile_id;
             $table = TableRegistry::get('profiles');
             $conditions = array('id IN('.$ids.")",'is_hired'=>'1', 'hired_date <>'=>'');
             if(!$debugging){$conditions['automatic_sent'] = 0;}
@@ -3636,42 +3616,15 @@
                     if ($cid != "") {
                         $client_id = array($cid);
                         foreach ($client_id as $cid) {
-                            $query = TableRegistry::get('clients');
-                            $q = $query->find()->where(['id' => $cid])->first();
-                            $profile_id = $q->profile_id;
-                            $pros = explode(",", $profile_id);
-
-                            $p_ids = "";
-
-                            array_push($pros, $profile->id);
-                            $pro_id = array_unique($pros);
-
-                            foreach ($pro_id as $k => $p) {
-                                if (count($pro_id) == $k + 1) {
-                                    $p_ids .= $p;
-                                }else {
-                                    $p_ids .= $p . ",";
-                                }
-                            }
-
-                            $query->query()->update()->set(['profile_id' => $p_ids])
-                                ->where(['id' => $cid])
-                                ->execute();
+                            $this->Manager->assign_profile_to_client($profile->id, $cid);
                         }
                     }
 
                     $this->Manager->makepermissions($profile->id, "blocks", $profile->profile_type);
                     $this->Manager->makepermissions($profile->id, "sidebar", $profile->profile_type);
                 }
-
-
-
-
             }
-
             die();
-
         }
-       
     }
 ?>
