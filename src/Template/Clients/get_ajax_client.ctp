@@ -17,7 +17,7 @@ if ($clients){
 					echo '/>';
 				?>
 			</TD>
-            <TD width="5" align="center">
+            <TD width="5" align="center"><LABEL FOR="c_<?= $Index; ?>">
                 <img height="32" src="<?php
                     echo $this->request->webroot;
                     $filename = 'img/logos/MEELogo.png';
@@ -28,7 +28,7 @@ if ($clients){
                         }
                     }
                     echo $filename;
-                	echo '"></TD><TD><LABEL FOR="c_';
+                	echo '"></LABEL></TD><TD><LABEL FOR="c_';
 				echo $Index . '">' . $o->company_name . '</LABEL></TD>';
 				if($Column == $Columns){
 					$Column=0;
@@ -37,7 +37,7 @@ if ($clients){
 			$Index++;
 	}
 	if($Column == 1){
-		echo '<TD COLSPAN="2"></TD>';
+		echo '<TD COLSPAN="3"></TD>';
 	}
 }
 ?>

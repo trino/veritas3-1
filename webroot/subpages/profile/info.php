@@ -823,9 +823,12 @@ loadreasons($param, $strings, true);
                                                                          echo " disabled";
                                                                      }
                                                                     ?> />
-                                                                </td><td width="50" align="center" <?php if($Row==0){ echo 'style="border-top:none;"'; }?>> <img height="32" src="<?=
+                                                                </td><td width="50" align="center" <?php
+                                                                        if($Row==0){ echo 'style="border-top:none;"'; }
+                                                                        echo '><label for="c_' . $count . '">';
+                                                                    ?><img height="32" src="<?=
                                                                     clientimage( $this->request->webroot, $settings, $o);
-                                                                    ?>"></td><td <?php if($Row==0){ echo 'style="border-top:none;"'; }?>>
+                                                                    ?>"></LABEL></td><td <?php if($Row==0){ echo 'style="border-top:none;"'; }?>>
 
                                                                     <label
                                                                         for="c_<?= $count ?>"><?php echo $o->company_name; ?></label><span
