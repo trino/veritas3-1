@@ -53,7 +53,7 @@
                     <span><input class="profile_client" type="checkbox" id="p_<?= $i ?>"
                                  <?php if (in_array($r->id, $profile)){ ?>checked="checked"<?php }?>
                                  value="<?= $r->id; ?>"/></span>
-                    <span><label for="p_<?= $i ?>"><?= $username; ?></label><?php if($r->profile_type!=""){ echo $profiletype;}?> </span>&nbsp;
+                    <span><label for="p_<?= $i ?>"><?= $username; ?><?php if($r->profile_type!=""){ echo $profiletype;}?></label></span>&nbsp;
                     <span class="msg_<?= $r->id; ?>"></span>
                 </td>
                     </tr>

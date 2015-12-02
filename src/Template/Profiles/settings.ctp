@@ -57,6 +57,54 @@
     include_once('subpages/api.php');
     $languages = languages();
 
+function getlanguages($languages, $Field = "title", $Type = 0, $Extra = "c"){
+    $HTML = ""; //"title=" + title + "&titleFrench="+titleFrench + "&languages=<?= $languages; ",
+    switch($Type){
+        case 0:
+            foreach($languages as $language){
+                $Title = getFieldname($Field, $language);
+                if($HTML){
+                    $HTML .=  ' + "&'. $Title . '=" + ' . $Title;
+                } else {
+                    $HTML =  '"'. $Title . '=" + ' . $Title;
+                }
+            }
+            $HTML .= ' + "&languages=' . implode(",", $languages) . '"';
+            break;
+        case 1:
+            foreach($languages as $language) {
+                $Title = getFieldname($Field, $language);
+                $HTML .= "var " . getFieldname("title", $language) . " = $('#" . $Title . "_'+id).val();\r\n";
+            }
+            break;
+        case 2:
+            foreach($languages as $language) {
+                $Title = getFieldname($Field, $language);
+                $HTML .= "$('." . $Title . "_' + id).html(" . getFieldname("title", $language) . ");\r\n";
+            }
+            break;
+        case 3:
+            foreach($languages as $language) {
+                $Title = getFieldname($Field, $language);
+                $HTML .= "$('." . $Title . "_0').html(" . getFieldname("title", $language) . ");\r\n";
+            }
+            break;
+        case 4:
+            foreach($languages as $language){
+                $Title = getFieldname("title" . $Extra . "type", $language);
+                $HTML .= "var " . getFieldname("va", $language) . " = $('." . $Title . "_' + id).text();\r\n";
+                $HTML .= "$('." . $Title . "_' + id).html('<input type=" . '"text" value="';
+                $HTML .= "' + " .  getFieldname("va", $language) . " + '" . '" class="form-control" id="' . $Title . '_' . "' + id + '" . '"' . " />";
+                if($language == "English"){
+                    $HTML .= '<a class="btn btn-primary save' . $Extra . 'types" id ="' . $Extra . 'typesave_' . "' + id + '" . '" >Save</a>';
+                }
+                $HTML .=  "'); \r\n";
+            }
+            break;
+    }
+    return $HTML;
+}
+
 function makeselect($is_disabled=false, $Name=""){
     if($Name){
         echo '<select class="form-control" ' . $is_disabled . ' id="'. $Name . '" >';
