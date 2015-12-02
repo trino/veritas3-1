@@ -1,7 +1,8 @@
 <?php
- if($this->request->session()->read('debug'))
-        echo "<span style ='color:red;'>client_types.php #INC118</span>";
- ?>
+     if($this->request->session()->read('debug')) {
+         echo "<span style ='color:red;'>client_types.php #INC118</span>";
+     }
+?>
 <div class="portlet box green-haze">
     <div class="portlet-title">
         <div class="caption">

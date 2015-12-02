@@ -148,7 +148,6 @@ if (isset($_GET["includeonly"])){
                     
                     if($this->request->session()->read('Profile.super')) {
                         activetab($activetab, array(
-                            "tab_1_13" => "Add/Edit Documents",
                             "tab_1_30" => "All Crons",
                             "tab_1_16" => "Profile Importer",
                             "tab_1_17" => "Email Editor",
@@ -171,14 +170,14 @@ if (isset($_GET["includeonly"])){
             <div class="tab-content">
                 <?php
                 if ($this->request['action'] != 'add') {
-                          if(!isset($_GET['activedisplay']) && !isset($_GET['all_cron'])) {
-                            echo '<div class="tab-pane active"  id="tab_1_5">';
-                          } else {
-                            echo '<div class="tab-pane"  id="tab_1_5">';
-                          }
-                           include('subpages/profile/logo.php');
-                            echo '</div>';
-                         ?>
+                      if(!isset($_GET['activedisplay']) && !isset($_GET['all_cron'])) {
+                        echo '<div class="tab-pane active"  id="tab_1_5">';
+                      } else {
+                        echo '<div class="tab-pane"  id="tab_1_5">';
+                      }
+                      include('subpages/profile/logo.php');
+                      echo '</div>';
+                ?>
 
 
                     <div class="tab-pane" id="tab_1_6">
@@ -219,70 +218,60 @@ if (isset($_GET["includeonly"])){
                             </div>
                            </div>*/?>
                         
-                    </div>
+                     </div>
                      <div class="tab-pane" id="tab_1_16">
                         <?php include('subpages/import.php'); ?>
-                    </div>
-                <div class="tab-pane" id="tab_1_17">
-                    <?php include('subpages/profile/emails.php'); ?>
-                </div>
-                <div class="tab-pane" id="tab_1_18">
-                    <?php include('subpages/profile/translation.php'); ?>
-                </div>
+                     </div>
+                     <div class="tab-pane" id="tab_1_17">
+                        <?php include('subpages/profile/emails.php'); ?>
+                     </div>
+                     <div class="tab-pane" id="tab_1_18">
+                        <?php include('subpages/profile/translation.php'); ?>
+                     </div>
 
                     <div class="tab-pane" id="tab_1_14">
                         <div class="tabbable tabbable-custom">
                             <ul class="nav nav-tabs">
-
                                 <li class="active">
                                     <a href="#tab_1_11" data-toggle="tab">Profile Types</a>
                                 </li>
                                 <li>
                                     <a href="#tab_1_12" data-toggle="tab">Client Types</a>
                                 </li>
+                                <li>
+                                    <a href="#tab_1_13" data-toggle="tab">Documents</a>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                  <div class="tab-pane active" id="tab_1_11">
                                     <?php include('subpages/profile/profile_types.php'); ?>
-                                </div>
+                                 </div>
                                  <div class="tab-pane" id="tab_1_12">
                                     <?php include('subpages/profile/client_types.php'); ?>
-                                </div>
+                                 </div>
+
+                                 <div class="tab-pane" id="tab_1_13">
+                                    <?php include('subpages/profile/editdocs.php'); ?>
+                                 </div>
                             </div>
-                           </div>
-                    </div>
-                     <?php
-                     if($_SERVER['SERVER_NAME'] =='localhost') {
-                     ?>
-                    <div class="tab-pane" id="tab_1_9">
-                        <a href="javascript:void(0)" class="btn btn-danger" id="cleardata" onclick="cleardata();">Clear Data</a>
-                        <a href="javascript:void(0)" class="btn btn-danger" id="scrambledata" onclick="scrambledata();">Scramble Data</a>
-                        <a href="javascript:void(0)" class="btn btn-danger" id="clearcache" onclick="clearcache();">Clear Cache</a>
-
-                        <div class="margin-top-10 alert alert-success display-hide cleardata_flash" style="display: none;">
-                            Data Successfully Cleared.
-                            <button class="close" data-close="alert"></button>
                         </div>
-                    </div>
-                    <?php
-                    }
-                    if($this->request->session()->read('Profile.super')){
-                          if(isset($_GET['activedisplay'])){
-                            echo '<div class="tab-pane active"  id="tab_1_13">';
-                          }else{
-                            echo '<div class="tab-pane"  id="tab_1_13">';
-                          }
-                          ?>
+                     </div>
 
-                            <?php include('subpages/profile/editdocs.php'); ?>
+                     <?php if($_SERVER['SERVER_NAME'] =='localhost') {?>
+                        <div class="tab-pane" id="tab_1_9">
+                            <a href="javascript:void(0)" class="btn btn-danger" id="cleardata" onclick="cleardata();">Clear Data</a>
+                            <a href="javascript:void(0)" class="btn btn-danger" id="scrambledata" onclick="scrambledata();">Scramble Data</a>
+                            <a href="javascript:void(0)" class="btn btn-danger" id="clearcache" onclick="clearcache();">Clear Cache</a>
 
-                         <?php } ?>
-
-                        </table>
-                        <?php
-                        }
-                         ?>
-                         <div class="clearfix"></div>
+                            <div class="margin-top-10 alert alert-success display-hide cleardata_flash" style="display: none;">
+                                Data Successfully Cleared.
+                                <button class="close" data-close="alert"></button>
+                            </div>
+                        </div>
+                    <?php }
+                }
+                 ?>
+                 <div class="clearfix"></div>
             </div>
         </div>
     </div>
