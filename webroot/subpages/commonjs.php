@@ -533,7 +533,15 @@
                                         <?php }else{?>
                                         $('.counter').text(Number($('.counter').text()) + 1);
                                         $('.overlay-wrapper').hide();
-                                        <?php }?>
+                                        <?php }if($this->request->params['action'] == 'addorder')
+                                            {
+                                                ?>
+                                                if (redir == 1) {
+                                                    window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                                                }
+                                                <?php
+                                            }
+                                            ?>
                                         id = parseInt(id) + 1;
                                         $('#step' + id).show();
                                         $('#step' + id).addClass('active');
@@ -864,6 +872,7 @@
         });
     }
     function savedDriverEvaluation(url, order_id, cid, draft, redir) {
+        
         var param = $('#form_tab3').serialize();
         $('#form_tab3 :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -877,6 +886,9 @@
                     {?>
                 window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                 <?php }else{?>
+                if (redir == 1) {
+                            window.location = '<?php echo $this->request->webroot;?>orders/orderslist?flash&d';
+                        }
                 $('.counter').text(Number($('.counter').text()) + 1);
                 $('.overlay-wrapper').hide();
                 <?php }?>
@@ -885,6 +897,7 @@
     }
 
     function savedMeeOrder(url, order_id, cid, type, draft, redir) {
+        
         var param = $('#form_consent').serialize();
         $('#form_consent :disabled[name]').each(function () {
             param = param + '&' + $(this).attr('name') + '=' + $(this).val();
@@ -1047,12 +1060,27 @@
     }
 
     function showforms(form_type) {
-        //alert(form_type);
+        <?php if(isset($document->order_id) && $document->order_id){?>
+            doc_id = '<?php echo $document->order_id;?>';
+            var par_doc = 0;
+            <?php }
+            else
+            {?>
+            
+                var par_doc = 1;
+                <?php
+            }
+            ?>
+        
         if (form_type != "") {
-            //$('.subform').load('<?php echo $this->request->webroot;?>documents/subpages/' + form_type);
+        
 
-            var url = '<?php echo $this->request->webroot;?>orders/getOrderData/<?php echo $cid;?>/' + <?php if(isset($document->order_id) && $document->order_id){echo $document->order_id;}else{?>doc_id<?php }?> + '/' + profile_id,
-                param = {form_type: form_type};
+            var url = '<?php echo $this->request->webroot;?>orders/getOrderData/<?php echo $cid;?>/' + doc_id + '/' + profile_id;
+            if(par_doc)
+            var param = {form_type: form_type,document:''};
+            else
+            var param = {form_type: form_type};
+                
             $.getJSON(url, param, function (res) {
                 if (form_type == "company_pre_screen_question.php") {
 
