@@ -53,9 +53,8 @@
 
             </div>
             <div align="right">
-                <a id="save_displayz" class="btn btn-primary" >Submit</a>
-                <a href="#" class="btn default">
-                    Cancel </a>
+                <a id="save_displayz" class="btn btn-primary">Save Changes</a>
+                <a href="#" class="btn default">Cancel</a>
             </div>
             <div class="clearfix"></div>
             <div class="margin-top-10 alert alert-success display-hide flash" style="display: none;">

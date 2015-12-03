@@ -1,7 +1,9 @@
 <?php
- if($this->request->session()->read('debug'))
+    if($this->request->session()->read('debug')) {
         echo "<span style ='color:red;'>subpages/profile/requalify.php #INC1181</span>";
- ?>
+    }
+    include_once("subpages/api.php");
+?>
 <div class="portlet box green-haze">
     <div class="portlet-title">
         <div class="caption">
@@ -39,7 +41,7 @@
                             <td>
                                 <a href="<?= $this->request->webroot; ?>clients/edit/<?= $d->client_id; ?>?view"><?php echo $this->requestAction('/settings/getclient/' . $d->client_id); ?></A>
                             </td>
-                            <td><?= $Profile->username; ?></td>
+                            <td><a href="<?= $this->request->webroot;?>profiles/view/<?= $Profile->id; ?>"><?= formatname($Profile); ?></a></td>
                             <td><?php echo $Profile->hired_date;?></td>
                             <td>Requalifed</td>
                             <td><?php echo ($d->manual == '1') ? 'Yes' : 'No'; ?></td>
@@ -47,16 +49,18 @@
                         <?php
                     }
                 }
+
                 foreach($new_req as $d) {
                     $fname = explode(',',$d['forms']);
                     $new_form = "";
                     foreach($fname as $n) {
-                        if($n=='1')
+                        if($n=='1') {
                             $nam = 'MVR';
-                        elseif($n=='14')
+                        } elseif($n=='14') {
                             $nam = 'CVOR';
-                        elseif($n=='72')
+                        } elseif($n=='72') {
                             $nam = 'DL';
+                        }
                         $new_form .=$nam.","; 
                         
                     }
@@ -66,7 +70,7 @@
                         <td><?php echo ++$k;?></td>
                         <td><?php echo $d['cron_date'];?></td>
                         <td><a href="<?= $this->request->webroot;?>clients/edit/<?= $d['client_id']; ?>?view"><?php echo $this->requestAction('/settings/getclient/'.$d['client_id']);?></A></td>
-                        <td><a href="<?= $this->request->webroot;?>profiles/view/<?php echo $d['profile_id'];?>"><?php echo $Profile->username;?></a></td>
+                        <td><a href="<?= $this->request->webroot;?>profiles/view/<?php echo $d['profile_id'];?>"><?= formatname($Profile);?></a></td>
                         <td><?php echo $Profile->hired_date;?></td>
                         <td><?php $status= $this->requestAction('/rapid/check_status/'.$d['cron_date'].'/'.$d['client_id'].'/'.$d['profile_id']); if($status=='0'){?>Scheduled for requalification<BR>(products: <?php echo substr($new_form,0,strlen($new_form) - 1);?>)</td>
                         
