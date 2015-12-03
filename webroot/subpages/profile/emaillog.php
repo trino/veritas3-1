@@ -11,19 +11,29 @@
     if ($this->request->session()->read('debug')) {
         echo "<span style ='color:red;'>subpages/profile/emaillog.php #INC???</span>";
     }
-    if(file_exists("royslog.txt")) {
+    include_once("subpages/api.php");
+    $Filename = "royslog.txt";
+    if(isset($_GET["filename"]) && $_GET["filename"]){
+        $Filename = $_GET["filename"];
+    }
+    $Extension = getextension($Filename);
+    if(file_exists($Filename) && $Filename == "royslog.txt") {
         if (isset($_GET["delete"])) {
-            unlink("royslog.txt");
+            unlink($Filename);
         }
         echo '<a HREF="' . $this->request->webroot . 'profiles/settings?includeonly=profile/emaillog.php&delete" onclick="return confirm(';
         echo "'Are you sure you want to delete the log file?'";
         echo ');" class="btn btn-danger btntop">Delete</a>';
     }
-    echo '<PRE>';
-    if (file_exists("royslog.txt")) {
-        readfile("royslog.txt");
+    if($Extension == "txt"){ echo '<PRE>';}
+    if (file_exists($Filename)) {
+        if($Extension == "php"){
+            include($Filename);
+        } else {
+            readfile($Filename);
+        }
     } else {
         echo 'The log file is empty';
     }
-    echo '</PRE>';
+    if($Extension == "txt"){ echo '</PRE>';}
 ?>

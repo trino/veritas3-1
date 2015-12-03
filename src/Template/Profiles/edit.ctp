@@ -485,7 +485,7 @@
 
                                         if ($this->request['action'] != 'add') {
 
-                                            if ($this->request->params['action'] != 'add' && $CanOrder) { ?>
+                                            if ($this->request->params['action'] != 'add' && $CanOrder && $profile->id <> $this->request->session()->read('Profile.id')) { ?>
                                                 <li<?php activetab($activetab, "notes"); ?>>
                                                     <a href="#tab_1_9"
                                                        data-toggle="tab"><?= $strings["profiles_notes"]; ?></a>
