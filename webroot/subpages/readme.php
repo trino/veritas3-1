@@ -106,8 +106,11 @@
 </SCRIPT>
 <?php
 	$settings = $Manager->get_settings();
+	foreach(array("client", "profile", "document") as $Key){
+		if(isset($_GET[$Key])){ $settings->$Key = $_GET[$Key];}
+	}
 	$language = "English";//only english is supported
-	$strings = CacheTranslations($language, array("clients_%", "profiles_washired", "orders_scorecard", "forms_savechanges"), $settings);
+	$strings = CacheTranslations($language, array("clients_%", "profiles_washired", "orders_scorecard", "forms_savechanges", "tasks_%"), $settings);
 	$languages = implode(", ", languages());
 	$IsSuper =  $Manager->read("super");
 
@@ -126,12 +129,27 @@
 	}
 	$strings["REPLACEME"] = "REPLACE ME";
 ?>
-<P>Clicking a section of this page will expand it to show more information about it</P>
-<P>What's visible will be dependant on the permissions of both you, and the <?= $settings->client ?>(s) you are assigned to</P>
-<P>There are 4 parts to the Veritas screen</P>
+<BR>Clicking a section of this page will expand it to show more information about it
+<BR>What's visible will be dependant on your <?= $settings->profile; ?> type, the permissions of both you and the <?= $settings->client ?>(s) you are assigned to
+<?php if($IsSuper) { echo '<BR>Since you are a super-user, you will have access to a lot more than regular users'; } ?>
+<BR>These are the parts to the Veritas screen:
+
+<TABLE WIDTH="200" STYLE="cursor: pointer;">
+	<TR><TD BGCOLOR="#2D5F8B" ALIGN="CENTER" COLSPAN="2" ONCLICK="expand('theheader');" CLASS="white">Header</TD></TR>
+	<TR HEIGHT="100">
+		<TD WIDTH="25%" ALIGN="CENTER" BGCOLOR="#4276A4" ONCLICK="expand('thesidebar');" CLASS="white">Sidebar</TD>
+		<TD WIDTH="75%" ALIGN="CENTER" ONCLICK="expand('thecontent');">
+			<TABLE WIDTH="75%" HEIGHT="10%"><TR><TD ALIGN="CENTER" BGCOLOR="#F7F7F7" STYLE="position: relative; top: -20px;" ONCLICK="expand('actionbar');"><i class="fa fa-home"></i> Action bar</TD></TR></TABLE>
+			Content
+			<TABLE WIDTH="75%" HEIGHT="10%"><TR><TD ALIGN="CENTER" BGCOLOR="#F5F5F5" STYLE="position: relative; bottom: -20px;" ONCLICK="expand('paginationbar');">Pagination bar</TD></TR></TABLE>
+		</TD>
+	</TR>
+	<TR><TD BGCOLOR="#2D5F8B" ALIGN="CENTER" COLSPAN="2" ONCLICK="expand('thefooter');" CLASS="white">Footer</TD></TR>
+</TABLE>
+
 <div id="listContainer">
   <ul id="expList">
-	<li id="theheader">The header: (along the top)
+	<li id="theheader">The header
 		<ul>
 			<li>The right side contains a dropdown menu allowing you to access <SPAN ONCLICK="expand('theheader/your-settings');"><?= $strings["dashboard_mysettings"]; ?></SPAN>, switch languages, and logout</li>
 			<LI ID="your-settings"><?= $strings["dashboard_mysettings"]; ?>
@@ -150,9 +168,10 @@
 		</ul>
 	</li>
 
-	<LI id="thefooter">The footer: (along the bottom)
+	<LI id="thefooter">The footer
 		<ul>
 			<li>Some pages will show a list of checkboxes on the left side to indicate what permissions they use (visible when you hover your mouse over the checkbox) and if you have them enabled</li>
+			<LI>Total Time is how long the page took to load</LI>
 			<li>On the right side is a list of links to various pages (<?= $titles; ?>) which can be customized in the (system) settings page</li>
 			<?php if($IsSuper) { ?>
 				<li><?= $strings["dashboard_debug"]; ?> (On/Off)
@@ -166,21 +185,21 @@
 						<LI>Logos
 							<UL>
 								<LI>You can set Primary (the top of the sidebar), Secondary (bottom of the sidebar), Login (for the login screen), and Client (shown for clients that don't set their own logo) logos.</LI>
-								<LI>Clicking an image will select it, click "Save Changes" to apply the change</LI>
+								<LI>Clicking an image will select it, click "<?= $strings["forms_savechanges"]; ?>" to apply the change</LI>
 								<LI>Click "Add new logo" or "<?= $strings["clients_addeditimage"]; ?>" to upload an image</LI>
-								<LI>Changes to the <?= $settings->client; ?> logo will be applied without needing to click "Save Changes" </LI>
+								<LI>Changes to the <?= $settings->client; ?> logo will be applied without needing to click "<?= $strings["forms_savechanges"]; ?>" </LI>
 							</UL>
 						</LI>
 						<LI id="pages">Pages
 							<UL>
 								<LI>You can customize the titles and descriptions for the <?= $titles; ?> pages for each language here</LI>
-								<LI>Click "Save Changes" to apply the change</LI>
+								<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply the change</LI>
 							</UL>
 						</LI>
 						<LI>Display
 							<UL>
 								<LI>Edit how the words: <?= $settings->client . ', ' . $settings->profile  . ', ' . $settings->document; ?> for each language appear throughout the page as well as the site name (<?= $settings->mee; ?>)</LI>
-								<LI>Click "Save Changes" to apply the change</LI>
+								<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply the change</LI>
 							</UL>
 						</LI>
 						<LI>Packages
@@ -214,7 +233,7 @@
 										<LI>Color</LI>
 										<LI>Icon</LI>
 										<LI>Product</LI>
-										<LI>Delete</LI>
+										<LI><?= $strings["dashboard_delete"]; ?></LI>
 									</UL>
 								</LI>
 								<LI>Click "Edit" to let you rename them, then "Save" to apply the changes</LI>
@@ -263,7 +282,7 @@
 												<LI>Clicking this column will show the list of all <?= $settings->profile; ?> with requalification enabled for that <?= $settings->client; ?></LI>
 											</UL>
 										</LI>
-										<LI>Click "Save Changes" to apply any changes</LI>
+										<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply any changes</LI>
 									</UL>
 								</LI>
 								<LI><?= $settings->profile; ?>s for [<?= $settings->client; ?>] with requalification enabled
@@ -445,7 +464,7 @@
 	  	<?php } ?>
 	</li>
 
-	<li id="thesidebar">The sidebar: (along the left)
+	<li id="thesidebar">The sidebar
 		<ul>
 			<LI><?= $settings->document; ?> Search...
 				<UL>
@@ -454,68 +473,97 @@
 			</LI>
 			<LI><?= $strings["dashboard_dashboard"]; ?>
 				<UL>
-					<LI>This is the main/home page that will show shortcuts (top blocks) to various sections and documents as well as a list of clients. If you do not have the appropriate permissions, you may not see this screen, and instead will be redirected to a section you do have permissions for.</LI>
+					<LI>This is the main/home page that will show shortcuts (top blocks) to various sections and documents as well as a list of clients</LI>
+					<LI>If you do not have the appropriate permissions, you may not see this screen and instead will be redirected to a section you do have permissions for</LI>
 				</UL>
 			</LI>
 			<LI>
 				<?= $settings->client; ?>
 				<UL>
-					<LI>
+					<LI ID="list-clients">
 						<?= $strings["index_listclients"]; ?>
+						<UL>
+							<LI><?= $strings["index_createclients"]; ?>
+								<UL>
+									<LI ONCLICK="expand('client-actions/edit-client');">Opens a blank <?= $settings->client; ?> information page for you to create a new <?= $settings->client; ?></LI>
+								</UL>
+							</LI>
+							<LI><?= $strings["clients_search"]; ?></LI>
+							<LI>ID</LI>
+							<LI>Logo</LI>
+							<LI>Client
+								<UL>
+									<LI>Clicking this will view the information for this <?= $settings->client; ?></LI>
+								</UL>
+							</LI>
+							<LI ID="client-actions">Actions
+								<UL>
+									<LI id="edit-client"><?= $strings["dashboard_view"]; ?>/<?= $strings["dashboard_edit"]; ?>
+										<UL>
+											<LI>Here is where you can view, create or edit a <?= $settings->client; ?></LI>
+											<LI><?= $strings["clients_addeditimage"]; ?></LI>
+											<LI><?= $strings["index_listprofile"]; ?>
+												<UL>
+													<LI>Links to the <SPAN ONCLICK="expand('thesidebar/profiles/list-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> section searching for <?= $settings->profile; ?>s assigned to this <?= $settings->client; ?></LI>
+												</UL>
+											</LI>
+											<LI><?= $strings["dashboard_edit"]; ?>/<?= $strings["dashboard_view"]; ?>
+												<UL>
+													<LI>Switch between edit and view mode</LI>
+												</UL>
+											</LI>
+											<LI><?= $strings["dashboard_delete"]; ?>
+												<UL>
+													<LI>Delete this <?= $settings->client; ?></LI>
+												</UL>
+											</LI>
+											<LI>Info
+												<UL>
+													<LI>Lets you edit the data for this <?= $settings->client; ?></LI>
+												</UL>
+											</LI>
+											<LI>Products
+												<UL>
+													<LI>Lets you enable products globally (for everyone) and locally (for this <?= $settings->client; ?>)</LI>
+													<LI>A product needs to be enabled both globally and locally for it to show up for a <?= $settings->client; ?></LI>
+													<LI>Changes are saved as you make them</LI>
+												</UL>
+											</LI>
+											<LI><?= $settings->document; ?>
+												<UL>
+													<LI>Document Yes/No</LI>
+													<LI>Orders</LI>
+													<LI>Application Process
+														<UL>
+															<LI>Sets whether or not this document shows in the clientapplication process</LI>
+														</UL>
+													</LI>
+													<LI>Display Order
+														<UL>
+															<LI>The display order can be changed only by clicking and dragging the row to a new position</LI>
+														</UL>
+													</LI>
+													<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply the changes</LI>
+												</UL>
+											</LI>
+											<LI>Assign to <?= $settings->profile; ?>
+												<UL>
+													<LI>Lets you search for <?= $settings->profile; ?>s to assign to this <?= $settings->client; ?></LI>
+													<LI>Type in the text box to search for <?= $settings->profile; ?>s with that text in them</LI>
+													<LI>Clicking a profile assigns it to the current <?= $settings->client; ?></LI>
+													<LI>Changes are saved as you make them</LI>
+												</UL>
+											</LI>
+										</UL>
+									</LI>
+									<LI><?= $strings["dashboard_delete"]; ?></LI>
+								</UL>
+							</LI>
+						</UL>
 					</LI>
 					<LI><?= $strings["index_createclients"]; ?>
 						<UL>
-							<LI><?= $strings["clients_addeditimage"]; ?></LI>
-							<LI><?= $strings["index_listprofile"]; ?>
-								<UL>
-									<LI>Links to the <SPAN ONCLICK="expand('thesidebar/profiles/list-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> section searching for <?= $settings->profile; ?>s assigned to this <?= $settings->client; ?></LI>
-								</UL>
-							</LI>
-							<LI>Edit/View
-								<UL>
-									<LI>Switch between edit and view mode</LI>
-								</UL>
-							</LI>
-							<LI>Delete
-								<UL>
-									<LI>Delete this <?= $settings->client; ?></LI>
-								</UL>
-							</LI>
-							<LI>Info
-								<UL>
-									<LI>Lets you edit the data for this <?= $settings->client; ?></LI>
-								</UL>
-							</LI>
-							<LI>Products
-								<UL>
-									<LI>Lets you enable products globally (for everyone) and locally (for this <?= $settings->client; ?>)</LI>
-									<LI>A product needs to be enabled both globally and locally for it to show up for a <?= $settings->client; ?></LI>
-									<LI>Changes are saved as you make them</LI>
-								</UL>
-							</LI>
-							<LI><?= $settings->document; ?>
-								<UL>
-									<LI>Document Yes/No</LI>
-									<LI>Orders</LI>
-									<LI>Application Process
-										<UL>
-											<LI>Sets whether or not this document shows in the clientapplication process</LI>
-										</UL>
-									</LI>
-									<LI>Display Order
-										<UL>
-											<LI>The display order can be changed only by clicking and dragging the row to a new position</LI>
-										</UL>
-									</LI>
-									<LI>Click "Save Changes" to apply the changes</LI>
-								</UL>
-							</LI>
-							<LI>Assign to <?= $settings->profile; ?>
-								<UL>
-									<LI>Lets you search for <?= $settings->profile; ?>s to assign to this <?= $settings->client; ?></LI>
-									<LI>Changes are saved as you make them</LI>
-								</UL>
-							</LI>
+							<LI ONCLICK="expand('list-clients/client-actions/edit-client');">Opens a blank <?= $settings->client; ?> information page for you to create a new <?= $settings->client; ?></LI>
 						</UL>
 					</LI>
 				</UL>
@@ -531,14 +579,14 @@
 							<LI><?= $strings["clients_enablerequalify"]; ?></LI>
 							<LI><?= $strings["profiles_washired"]; ?></LI>
 							<LI><?= $OrderTypes; ?></LI>
-							<LI>View/Edit
+							<LI><?= $strings["dashboard_view"]; ?>/<?= $strings["dashboard_edit"]; ?>
 								<UL>
-									<LI>Switch between view and edit mode</LI>
+									<LI>Switch between <?= $strings["dashboard_view"]; ?> and <?= $strings["dashboard_edit"]; ?> mode</LI>
 								</UL>
 							</LI>
-							<LI>Delete
+							<LI><?= $strings["dashboard_delete"]; ?>
 								<UL>
-									<LI>Delete this profile</LI>
+									<LI>Delete this <?= $settings->profile; ?></LI>
 								</UL>
 							</LI>
 							<?php if($IsSuper){ ?>
@@ -583,8 +631,8 @@
 													<LI>Yes/No</LI>
 													<LI>List</LI>
 													<LI>Create</LI>
-													<LI>Edit</LI>
-													<LI>Delete</LI>
+													<LI><?= $strings["dashboard_edit"]; ?></LI>
+													<LI><?= $strings["dashboard_delete"]; ?></LI>
 													<LI>Receive Email (on create <?= $settings->profile; ?>)</LI>
 													<LI><?= $ProfileTypes; ?></LI>
 												</UL>
@@ -594,8 +642,8 @@
 													<LI>Yes/No</LI>
 													<LI>List</LI>
 													<LI>Create</LI>
-													<LI>Edit</LI>
-													<LI>Delete</LI>
+													<LI><?= $strings["dashboard_edit"]; ?></LI>
+													<LI><?= $strings["dashboard_delete"]; ?></LI>
 													<LI><?= $ClientTypes; ?></LI>
 												</UL>
 											</LI>
@@ -604,8 +652,8 @@
 													<LI>Yes/No</LI>
 													<LI>List</LI>
 													<LI>Create</LI>
-													<LI>Edit</LI>
-													<LI>Delete</LI>
+													<LI><?= $strings["dashboard_edit"]; ?></LI>
+													<LI><?= $strings["dashboard_delete"]; ?></LI>
 													<LI>Receive Email (on create <?= $strings["index_orders"]; ?>)</LI>
 													<LI>Receive Email (on client application completion)</LI>
 													<LI><?= $OrderTypes; ?></LI>
@@ -616,13 +664,13 @@
 													<LI>Yes/No</LI>
 													<LI>List</LI>
 													<LI>Create</LI>
-													<LI>Edit</LI>
-													<LI>Delete</LI>
+													<LI><?= $strings["dashboard_edit"]; ?></LI>
+													<LI><?= $strings["dashboard_delete"]; ?></LI>
 													<LI>Receive Email (on create <?= $settings->document; ?>)</LI>
 													<LI><?= $DocumentTypes; ?>
 														<UL>
 															<LI>None</LI>
-															<LI>View Only</LI>
+															<LI><?= $strings["dashboard_view"]; ?> Only</LI>
 															<LI>Create Only</LI>
 															<LI>Both</LI>
 														</UL>
@@ -680,28 +728,168 @@
 			<LI>
 				<?= $strings["index_training"]; ?>
 				<UL>
-					<LI><?= $strings["index_courses"]; ?></LI>
-					<LI><?= $strings["index_quizresults"];?></LI>
+					<LI><?= $strings["index_courses"]; ?>
+						<UL>
+							<?php if($IsSuper){ ?>
+								<LI>View
+									<UL>
+										<LI>Lets you see how regular <?= $settings->profile; ?> see this page once they've selected a course</LI>
+									</UL>
+								</LI>
+								<LI>Preview
+									<UL>
+										<LI>Lets you see the questions/answers how regular <?= $settings->profile; ?> would see them</LI>
+									</UL>
+								</LI>
+								<LI id="training-enroll">Enroll
+									<UL>
+										<LI>A mini version of <SPAN ONCLICK="expand('profiles/list-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> to search for, and enroll <?= $settings->profile; ?> in a course</LI>
+										<LI>Once you enroll a <?= $settings->profile; ?>, their <?= $strings["index_training"]; ?> permission will be enabled, and they will recieve an email telling them where to take the course </LI>
+									</UL>
+								</LI>
+								<LI id="training-results">Results</LI>
+								<LI>Edit
+									<UL>
+										<LI>Delete</LI>
+										<LI>Export
+											<UL>
+												<LI>Exports the course and it's questions/answers as SQL for copying to another server/database</LI>
+											</UL>
+										</LI>
+										<LI>Quiz Name</LI>
+										<LI>Image
+											<UL>
+												<LI>Lets you pick an image from <?= getcwd() . "/img"; ?> to go next to the course</LI>
+											</UL>
+										</LI>
+										<LI>Attachments
+											<UL>
+												<LI>A comma separated value (CSV) list of attachments</LI>
+												<LI>ie: attachment1.pdf,attachment2.pdf</LI>
+												<LI>Attachments must be stored in: <?= getcwd() . "/assets/global/" ?></LI>
+												<LI>The spelling and case of the attachments must match exactly</LI>
+												<LI>The system supports MP4, PDF and DOCX files</LI>
+												<LI>To link to an MP4 file, make one of the CSV list items:</LI>
+												<LI>training/video?title=<SPAN class="red">Title of the video</SPAN>&url=<SPAN class="red">Full URL to the video</SPAN></LI>
+											</UL>
+										</LI>
+										<LI>Description</LI>
+										<LI>Pass
+											<UL>
+												<LI>What percentage is required to pass the course</LI>
+											</UL>
+										</LI>
+										<LI>Certificate
+											<UL>
+												<LI>Whether or not passing <?= $settings->profile; ?>s get a certificate</LI>
+											</UL>
+										</LI>
+										<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply your changes</LI>
+										<LI ONCLICK="expand('training-results');" CLASS="blue">Results</LI>
+										<LI ONCLICK="expand('training-enroll');" CLASS="blue">Enroll</LI>
+										<LI>Preview
+											<UL>
+												<LI>Lets you see the questions/answers how regular <?= $settings->profile; ?> would see them</LI>
+											</UL>
+										</LI>
+										<LI>Preview with answers
+											<UL>
+												<LI>Lets you see the questions/answers with the correct answer selected/LI>
+											</UL>
+										</LI>
+										<LI>Question list
+											<UL>
+												<LI>Edit
+													<UL>
+														<LI>Question</LI>
+														<LI>Image
+															<UL>
+																<LI>Lets you pick an image from <?= getcwd() . "/img/training"; ?> to go next to the question</LI>
+															</UL>
+														</LI>
+														<LI>Answers a-f</LI>
+														<LI>True/False
+															<UL>
+																<LI>A shortcut to set answer a to "True", and b to "False"</LI>
+															</UL>
+														</LI>
+														<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply your changes</LI>
+													</UL>
+												</LI>
+												<LI>Delete</LI>
+											</UL>
+										</LI>
+									</UL>
+								</LI>
+								<LI>Delete</LI>
+							<?php } else { ?>
+								<LI>A list of courses you are enrolled in</LI>
+								<LI>Clicking one will ask you to view each attachment in sequential order, then click Quiz to take the course</LI>
+								<LI>Once you are done selecting your responses, click the button at the bottom to save your choices</LI>
+								<LI>It will ask you one last time if you're sure that you are done, just to be safe</LI>
+							<?php } ?>
+						</UL>
+					</LI>
+					<?php if($IsSuper){ ?>
+						<LI><?= $strings["index_quizresults"];?>
+							<UL>
+								<LI>Shows a list of courses to choose from</LI>
+								<LI>Once a course is selected, it then shows each <?= $settings->profile; ?> enrolls in that course, a link to their <?= $settings->profile; ?>, their score, and the option to Unenroll them</LI>
+							</UL>
+						</LI>
+					<?php } ?>
 				</UL>
 			</LI>
 			<LI id="documents">
 				<?= $settings->document; ?>
 				<UL>
-					<LI id="listdocuments"><?= $strings["index_listdocuments"]; ?>
-						<UL>
-							<LI>test</LI>
-						</UL>
-					</LI>
+					<LI id="listdocuments"><?= $strings["index_listdocuments"]; ?></LI>
 					<LI><?= $strings["index_createdocument"]; ?></LI>
 				</UL>
 			</LI>
 			<LI>
 				<?= $strings["index_orders"]; ?>
 				<UL>
-					<LI><?= $strings["index_listorders"]; ?></LI>
+					<LI><?= $strings["index_listorders"]; ?>
+						<UL>
+							<LI>Search
+								<UL>
+									<LI>Select an option
+										<UL>
+											<LI>Search by the status column</LI>
+										</UL>
+									</LI>
+									<LI>Submitted By/Submitted For/<?= $settings->client; ?>
+										<UL>
+											<LI>Search by these columns</LI>
+										</UL>
+									</LI>
+									<LI>Search Orders
+										<UL>
+											<LI>Search for orders with this text in the title or type</LI>
+										</UL>
+									</LI>
+								</UL>
+							</LI>
+							<LI>ID</LI>
+							<LI>Order Type</LI>
+							<LI>Submitted By</LI>
+							<LI>Submitted For</LI>
+							<LI><?= $settings->client; ?></LI>
+							<LI>Division</LI>
+							<LI>Created</LI>
+							<LI>Actions</LI>
+							<LI>Status</LI>
+						</UL>
+					</LI>
 					<LI><?= $OrderTypes; ?>
 						<UL>
-							<LI>A list of each available PRODUCT-TYPE that you can place an order for</LI>
+							<LI>Lets you place an order of this type</LI>
+							<LI><?= $settings->client; ?></LI>
+							<LI>Division</LI>
+							<LI>Subject(s)</LI>
+							<LI>A list of packages</LI>
+							<LI>Continue</LI>
 						</UL>
 					</LI>
 				</UL>
@@ -710,27 +898,88 @@
 				<?= $strings["index_analytics"]; ?>
 				<UL>
 					<LI>Allows you to view statistics on user activity between 2 dates using the datepickers at the top right. Defaults to the last 2 weeks.</LI>
+					<LI><?= $settings->client . 's, ' . $settings->profile . 's, ' . $settings->document; ?>'s, Orders created and their type</LI>
+					<LI><?= $strings["index_training"]; ?> courses completed</LI>
 				</UL>
 			</LI>
 			<LI>
 				<?= $strings["index_tasks"]; ?>
 				<UL>
-					<LI><?= $strings["index_calendar"]; ?></LI>
-					<LI><?= $strings["index_addtasks"]; ?></LI>
+					<LI><?= $strings["index_calendar"]; ?>
+						<UL>
+							<LI ONCLICK="expand('add-task');" CLASS="blue">Add Task</LI>
+							<?php if($IsSuper){ ?>
+								<LI>Run the CRON
+									<UL>
+										<LI>Any events with a date/time before now will be triggered, but not marked as such. This is for testing purposes</LI>
+									</UL>
+								</LI>
+								<LI>Send test email</LI>
+							<?php } ?>
+							<LI>today
+								<UL>
+									<LI>Moves the calendar to today</LI>
+								</UL>
+							</LI>
+							<LI>&lt; and &gt; (top right corner)
+								<UL>
+									<LI>Moves the calendar back/ahead a month</LI>
+								</UL>
+							</LI>
+							<LI>The calendar
+								<UL>
+									<LI>Clicking a day shows a list of events for that day. Clicking an event lets you <SPAN ONCLICK="expand('add-task');">edit it</SPAN></LI>
+									<LI>Hovering your mouse over an event shows a preview on the left side, and gives you the option to delete it</LI>
+								</UL>
+							</LI>
+						</UL>
+					</LI>
+					<LI id="add-task"><?= $strings["index_addtasks"]; ?>
+						<UL>
+							<LI><?= $strings["tasks_date"]; ?>
+								<UL>
+									<LI>Clicking this opens the date/time dropdown, to make it easier/faster to properly enter a date/time</LI>
+								</UL>
+							</LI>
+							<LI><?= $strings["tasks_title"]; ?></LI>
+							<LI><?= $strings["tasks_description"]; ?></LI>
+							<LI><?= $strings["tasks_2yourself"]; ?>
+								<UL>
+									<LI>If checked, once this date/time passes an email will be sent to yourself</LI>
+								</UL>
+							</LI>
+							<LI><?= $strings["tasks_2others"]; ?>
+								<UL>
+									<LI>A comma separated value (CSV) list of email addresses to get emailed when this date/time passes</LI>
+								</UL>
+							</LI>
+							<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply the changes</LI>
+						</UL>
+					</LI>
 				</UL>
 			</LI>
 		</ul>
 	</li>
 
-	<li>The content: (the majority of the middle-right side)
+	<li ID="thecontent">The content
 	  <ul>
 		<li>This is where the page you're on will be shown</li>
 		<li>The arrow that sometimes appears at the bottom-right corner of this section will scroll you back to the top of the page</li>
+		<LI ID="actionbar">Action bar
+			<UL>
+				<LI>The bar at the top of most pages will show the name of the page you're on</LI>
+				<LI>breadcrumb navigation to go up the chain of command back to the dashboard</LI>
+				<LI>And on the right side, some buttons may be present like <?= $strings["dashboard_print"] ?> </LI>
+			</UL>
+		</LI>
+		<LI ID="paginationbar">Pagination bar
+			<UL>
+				<LI>On pages that have too many items to fit on a single page, it will be split up into multiple pages</LI>
+				<LI>This bar will let you go to the first/last page, and a few surrounding the page you're on</LI>
+			</UL>
+		</LI>
 	  </ul>
 	</li>
-
-	<LI class="white">SPACER</LI>
-
   </ul>
 </div>
 <BUTTON ONCLICK="ExpandAll();">Expand All</BUTTON>

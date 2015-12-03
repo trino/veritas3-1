@@ -412,8 +412,8 @@
                     if(file_exists("royslog.txt")) {
                         $isfirst = print_title($content, $this->request->webroot, "profiles/settings?includeonly=profile/emaillog.php", $strings["dashboard_emaillog"], $isfirst, true, $language);
                     }
-                    $isfirst = print_title($content, $this->request->webroot, "profiles/settings?includeonly=profile/emaillog.php&filename=subpages/readme.php", $strings["dashboard_readme"], $isfirst, true, $language);
                 }
+                $isfirst = print_title($content, $this->request->webroot, "profiles/settings?includeonly=profile/emaillog.php&filename=subpages/readme.php", $strings["dashboard_readme"], $isfirst, true, $language);
             ?>
         </div>
 
