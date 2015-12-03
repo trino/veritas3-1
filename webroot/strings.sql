@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2015 at 08:29 PM
+-- Generation Time: Dec 03, 2015 at 11:06 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=843 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=850 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1448461330', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1448909788', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -49,8 +49,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (8, 'analytics_title', 'MEE Analytics', 'Analytique MEE'),
 (9, 'analytics_start', 'Start', 'Début'),
 (10, 'analytics_finish', 'to', 'à'),
-(11, 'dashboard_print', 'Print', 'Imprimer'),
-(12, 'dashboard_search', 'Search', 'Recherche'),
+(11, 'dashboard_print', '<i class="fa fa-print"></i> Print', '<i class="fa fa-print"></i> Imprimer'),
+(12, 'dashboard_search', '<i class="fa fa-search"></i> Search', '<i class="fa fa-search"></i> Recherche'),
 (13, 'profiles_name', 'Name', 'Nom'),
 (14, 'profiles_username', 'Username', 'Nom d''utilisateur'),
 (15, 'profiles_assignedto', 'Assigned to', 'Assigné à'),
@@ -859,7 +859,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (843, 'dashboard_emaillog', 'Email Log', 'Email Log'),
 (844, 'profiles_notify', 'Notify Recruiter', 'Avertissez recruteur'),
 (845, 'email_notify_subject', 'A %Profile% has been changed', 'email_notify_subject'),
-(846, 'email_notify_message', '<A HREF="%path%">%name%"</A> has been changed', 'email_notify_message');
+(846, 'email_notify_message', '<A HREF="%path%">%name%"</A> has been changed', 'email_notify_message'),
+(849, 'dashboard_readme', 'Instructions', 'Des instructions');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
