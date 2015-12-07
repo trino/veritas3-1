@@ -152,7 +152,7 @@
 
 <TABLE WIDTH="200" STYLE="cursor: pointer;">
 	<TR><TD BGCOLOR="#2D5F8B" ALIGN="CENTER" COLSPAN="2" ONCLICK="expand('theheader');" CLASS="white">Header
-		<img alt="" class="img-circle" src="/veritas3-1/img/profile/default.png" style="float: right; height: 18px;display: inline;" ONCLICK="expand('your-settings');">
+		<img alt="" class="img-circle" src="<?= $this->request->webroot; ?>img/profile/default.png" style="float: right; height: 18px;display: inline;" ONCLICK="expand('your-settings');">
 	</TD></TR>
 	<TR HEIGHT="100">
 		<TD WIDTH="25%" ALIGN="CENTER" BGCOLOR="#4276A4" ONCLICK="expand('thesidebar');" CLASS="white">Sidebar</TD>
@@ -244,10 +244,16 @@
 								<LI><?= $settings->client; ?> types</LI>
 								<LI><?= $settings->document; ?>s
 									<UL>
-										<LI>Color</LI>
-										<LI>Icon</LI>
-										<LI>Product</LI>
-										<LI><?= $strings["dashboard_delete"]; ?></LI>
+										<LI>The name of this <?= $settings->document; ?> type in each language</LI>
+										<LI>Color
+											<UL><LI>What color this <?= $settings->document; ?> type shows up as in the <SPAN ONCLICK="expand('documents/listdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> page</LI></UL>
+										</LI>
+										<LI>Icon/Product
+											<UL><LI>These were used to set how the top block would appear, but are no longer used</LI></UL>
+										</LI>
+										<LI><?= $strings["dashboard_delete"]; ?>
+											<UL><LI>Delete this <?= $settings->document; ?> type</LI></UL>
+										</LI>
 									</UL>
 								</LI>
 								<LI>Click "Edit" to let you rename them, then "Save" to apply the changes</LI>
