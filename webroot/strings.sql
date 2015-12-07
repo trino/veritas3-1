@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2015 at 11:06 PM
+-- Generation Time: Dec 07, 2015 at 05:57 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1448909788', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1449180392', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -403,7 +403,6 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (367, 'forms_notedeleted', 'Note deleted successfully!', 'Remarque supprimé avec succès!'),
 (368, 'drivereval_drivername', 'Driver Name', 'Nom du pilote'),
 (369, 'file_docinfo', '%Document% Information', '%Document% d''information'),
-(370, 'orders_ordertype', 'Order Type', 'Type d''ordre'),
 (371, 'file_missingdata', 'Deleted or Missing Data', 'Supprimé, ou données manquantes'),
 (372, 'file_createdon', 'Created on', 'Créé sur'),
 (373, 'file_orderinfo', 'Order Information', 'Informations sur la commande'),
@@ -577,7 +576,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (547, 'addorder_notified', 'You will be notified once it\\''s processed.', 'Vous serez averti une fois qu\\''il est traité.'),
 (548, 'upload_none', 'No attachments', 'Pas de pièces jointes'),
 (549, 'forms_selectone', 'Please select at least one option', 'S''il vous plaît sélectionner au moins une option'),
-(550, 'forms_signplease', 'Please provide your signature to confirm.', 'S''il vous plaît fournir votre signature pour confirmer.'),
+(550, 'forms_signplease', 'Please provide your signature to confirm', 'S''il vous plaît fournir votre signature pour confirmer.'),
 (551, 'forms_missingid', 'Missing the required piece of ID', 'Manquer la pièce d''identité requise'),
 (552, 'forms_missingabstract', 'Missing the abstract consent form', 'Manque le formulaire de consentement abstraite'),
 (553, 'forms_pleaseconfirm', 'Please confirm that you have read the conditions.', 'S''il vous plaît confirmer que vous avez lu les conditions.'),

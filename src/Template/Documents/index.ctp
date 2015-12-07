@@ -157,7 +157,9 @@
                             <input class="form-control input-inline" name="searchdoc" type="search" id="searchdoc"
                                    placeholder="<?= $strings["documents_search"]; ?>"
                                    value="<?php if (isset($search_text)) echo $search_text; ?>"
-                                   aria-controls="sample_1"/>
+                                   aria-controls="sample_1"
+                                   style="display: none;"
+                                />
                             <SCRIPT>
                                 expandtofitplaceholder("searchdoc");
                                 function expandtofitplaceholder(ElementName) {
