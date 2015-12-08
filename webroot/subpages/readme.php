@@ -78,6 +78,10 @@
 		document.getElementById(Element).innerHTML = HTML;
 	}
 
+	function replaceAll(string, find, replace) {
+		return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+	}
+
 	function prepareList() {
       $('#expList').find('li:has(ul)')
       	.click( function(event) {
@@ -115,6 +119,7 @@
 				if(I == ID.length-1){
 					$(".selectedelement").removeClass("selectedelement");
 					scrollIntoView( ID[I] );
+					alert(ID[I]);
 					$("#" + ID[I] ).addClass("selectedelement");
 				}
 			}
@@ -169,18 +174,18 @@
 				ID = root + '/' + ID;
 			}
 		}
-		var HTML = '<LI ONCLICK="expand(' + "'" + ID + "'" + ');">' + innerText(element) + "\r\n" + '<UL>' + "\r\n";
+		var HTML = '<LI ONCLICK="expand(' + "'" + ID + "'" + ');">' + innerText(element) + "\r\n" + '<UL>';
 		var elements = $(element).children();
 		if(elements[0] instanceof HTMLUListElement){
 			elements = $(elements[0]).children();
 			for(var I = 0; I < elements.length; I++){
 				if(hasalist(elements[I])){
-					HTML += enumerate(elements[I], ID) + "\r\n" ;
+					HTML += enumerate(elements[I], ID);
 				}
 			}
 		}
 		element.innerHTML = arrow + element.innerHTML;
-		return HTML + '</UL></LI>' + "\r\n";
+		return HTML + '</UL></LI>';
 	}
 
 	function hasalist(element){
@@ -321,14 +326,14 @@
 								<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply the change</LI>
 							</UL>
 						</LI>
-						<LI>Packages
+						<LI>Products
 							<UL>
-								<LI>When you place an order, there is also a list of packages to choose from which determines which documents you have to fill out</LI>
-								<LI>This page lets you choose which documents are assigned to each package, or if the package is visible at all</LI>
-								<LI>On th eleft side is a list of packages, and a checkbox (EN) to indicate if it is visible</LI>
-								<LI>Clicking a package lets you Rename it, Clear (remove all documents from it) or Delete it</LI>
-								<LI>The text boxes at the bottom let you add a new package, clicking "Add" saves the change</LI>
-								<LI>The right side lets you select which <?= $settings->document; ?>s are assigned to the package based on what province the <?= $settings->profile; ?> driver's license was issued in</LI>
+								<LI>When you place an order, there is also a list of products to choose from which determines which documents you have to fill out</LI>
+								<LI>This page lets you choose which documents are assigned to each product, or if the product is visible at all</LI>
+								<LI>On th eleft side is a list of products, and a checkbox (EN) to indicate if it is visible</LI>
+								<LI>Clicking a product lets you Rename it, Clear (remove all documents from it) or Delete it</LI>
+								<LI>The text boxes at the bottom let you add a new product, clicking "Add" saves the change</LI>
+								<LI>The right side lets you select which <?= $settings->document; ?>s are assigned to the product based on what province the <?= $settings->profile; ?> driver's license was issued in</LI>
 								<LI>ALL would make the <?= $settings->document; ?>s apply to all driver's license provinces</LI>
 								<LI>All <?= $settings->document; ?>s would show all of the <?= $settings->document; ?>s for that province</LI>
 								<LI>Changes to the <?= $settings->document; ?>s are saved as you make them</LI>
@@ -523,19 +528,19 @@
 								<LI>Only a certain number of results are visible at any time, use the page buttons on the bottom right to navigate through them</LI>
 							</UL>
 						</LI>
-						<LI>Product Types
+						<LI>Package Types
 							<UL>
 								<LI>Acronym
-									<UL><LI>This acts as the ID key for the product, and is used in URLs to link to it/find it</LI></UL>
+									<UL><LI>This acts as the ID key for the Package, and is used in URLs to link to it/find it</LI></UL>
 								</LI>
 								<LI>Panel Color
-									<UL><LI>What color will show when selecting products</LI></UL>
+									<UL><LI>What color will show when selecting Packages</LI></UL>
 								</LI>
 								<LI>Button Color
 									<UL><LI>What color the buttons will show as</LI></UL>
 								</LI>
 								<LI>Checked
-									<UL><LI>If enabled, all products will be selected and the user cannot pick any packages</LI></UL>
+									<UL><LI>If enabled, all Packages will be selected and the user cannot pick any</LI></UL>
 								</LI>
 								<LI>Visible
 									<UL><LI>If disabled, it will not show in the sidebar or settings</LI></UL>
@@ -564,7 +569,7 @@
 									<UL><LI>If this is not blank, only the packages you select from the list will be shown</LI></UL>
 								</LI>
 								<LI>Product/<?= $settings->document; ?> IDs
-									<UL><LI>If Bypass is enabled: Which products will show when a topblock is clicked. Otherwise it's which forms will show when placing an order</LI></UL>
+									<UL><LI>If Bypass is enabled: Which Packages will show when a topblock is clicked. Otherwise it's which forms will show when placing an order</LI></UL>
 								</LI>
 								<LI>Show for <?= $settings->profile; ?> types
 									<UL><LI>Will only show for these <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> types</SPAN> when viewing a profile</LI></UL>

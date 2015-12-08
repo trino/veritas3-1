@@ -187,7 +187,7 @@ if (isset($_GET["includeonly"])){
                             "tab_1_5" => "Logos",
                             "tab_1_6" => "Pages",
                             "tab_1_8" => "Display",
-                            "tab_1_10" => "Packages",
+                            "tab_1_10" => "Products",
                             "tab_1_14" => "Configuration",
                         ));
                         if($_SERVER['SERVER_NAME'] =='localhost') {
@@ -204,7 +204,7 @@ if (isset($_GET["includeonly"])){
                         ));
                         ?>
                             <li>
-                                <a href="<?= $this->request->webroot; ?>profiles/producteditor">Product Types</a>
+                                <a href="<?= $this->request->webroot; ?>profiles/producteditor">Package Types</a>
                             </li>
                             <li style="display: none">
                                 <a href="<?= $this->request->webroot; ?>profiles/jsonschema">JSON Schema</a>

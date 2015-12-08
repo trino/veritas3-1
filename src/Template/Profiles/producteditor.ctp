@@ -1,5 +1,9 @@
+<?php
+    $Name = "Package";
+    $name = strtolower($Name);
+?>
 <h3 class="page-title">
-    Product Editor
+    <?= $Name; ?> Editor
 </h3>
 
 <div class="page-bar">
@@ -14,7 +18,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="" onclick="return false;">Product Editor</a>
+            <a href="" onclick="return false;"><?= $Name; ?> Editor</a>
         </li>
     </ul>
 </div>
@@ -59,7 +63,7 @@
     <tbody>
         <TR ONCLICK="productclick('');">
             <TD COLSPAN="16" ALIGN="CENTER" <?php if(!isset($_GET["Acronym"])){echo 'CLASS="selected"';}?>>
-                <A HREF="javascript:void(0)" CLASS="btn default btn-primary">Create new product type</A>
+                <A HREF="javascript:void(0)" CLASS="btn default btn-primary">Create new <?= $name; ?> type</A>
             </TD>
         </TR>
         <?php
@@ -252,13 +256,13 @@
     input("text", "Acronym", getvalue($selectedproduct, "Acronym"), isset($_GET["Acronym"]), false, true, array("MAXLENGTH" => 3));
     if(isset($_GET["Acronym"])) {input("hidden", "Acronym", getvalue($selectedproduct, "Acronym"));}
 
-    tr("Panel Color", 2, "What color will show when selecting products");
+    tr("Panel Color", 2, "What color will show when selecting " . $name . "s");
     makedropdown("", "Color", getvalue($selectedproduct, "Color"), "English", array("" => "Green", "red" => "Red", "blue" => "Blue") );
 
     tr("Button Color", 2, "What color the buttons will show as");
     makecolordropdown("ButtonColor", $colors,  getvalue($selectedproduct, "ButtonColor"));
 
-    tr("Checked", 1 , "If enabled, all products will be selected and the user cannot pick any packages");
+    tr("Checked", 1 , "If enabled, all " . $name . "s will be selected and the user cannot pick any");
     input("checkbox", "Checked", "1", False, getvalue($selectedproduct, "Checked") ==1 );
 
     tr("Visible", 1, "If disabled, it will not show in the sidebar or settings");
@@ -311,7 +315,7 @@
     tr("Show only these packages", 3, "If this is not blank, only these packages will be shown");//order_products
     input("text", "Blocked", getvalue($selectedproduct, "Blocked"));
 
-    tr("Product/Document IDs", 6, "If Bypass is enabled: Which products will show when a topblock is clicked. Otherwise it's which forms will show when placing an order");
+    tr($Name . "/Document IDs", 6, "If Bypass is enabled: Which " . $name . "s will show when a topblock is clicked. Otherwise it's which forms will show when placing an order");
     input("text", "doc_ids", getvalue($selectedproduct, "doc_ids"));
 
     tr("Show for profile types", 3, "Will only show for these profile types when viewing a profile");
@@ -367,7 +371,7 @@
 
     function addblocked3(ID){
         if(getChecked("Bypass")) {
-            alert("Bypass is not enabled, use 'Products (2)' instead");
+            alert("Bypass is not enabled, use '<?= $Name; ?>s (2)' instead");
         }else{
             if(BypassMode){clear("doc_ids");}
             var added = addID("doc_ids", ID);

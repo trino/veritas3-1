@@ -182,7 +182,7 @@
 <div class="portlet box green-haze">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-briefcase"></i>Packages
+            <i class="fa fa-briefcase"></i>Products
         </div>
     </div>
     <div class="portlet-body">
