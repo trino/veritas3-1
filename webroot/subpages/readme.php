@@ -119,6 +119,11 @@
 		$('.collapsed').removeClass('expanded');
 		$('.collapsed').children().hide('medium');
 	}
+
+	function OpenInNewTab(url) {
+		var win = window.open(url, '_blank');
+		win.focus();
+	}
 </SCRIPT>
 <?php
 	$settings = $Manager->get_settings();
@@ -1199,7 +1204,7 @@
 				<UL>
 					<LI>The ClientApplication is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn’t require logging in. The applicant just need to:</LI>
 					<OL>
-						<LI>Browse DOMAINNAME/clientApplication</LI>
+						<LI>Browse <SPAN onclick="OpenInNewTab('<?= $this->request->webroot; ?>clientApplication');"><?= $this->request->webroot; ?>clientApplication</SPAN></LI>
 						<LI>Select the <?= $settings->client; ?> that they want to submit <?= $settings->document; ?>s for</LI>
 						<LI>The <?= $settings->document; ?>s enabled for that client for ClientApplication are then listed in step wise preceded by driver form which is similar to the <SPAN ONCLICK="expand('profiles/profile');"><?= $strings["index_createprofile"]; ?></SPAN> form</LI>
 					</OL>
