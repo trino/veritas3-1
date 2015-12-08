@@ -56,6 +56,10 @@
 		color: blue;
 	}
 
+	.selectedelement{
+		border: 1px solid red;
+	}
+
 	.red{
 		color: red;
 	}
@@ -93,7 +97,9 @@
 			for(var I = 0; I < ID.length; I++){
 				expand( ID[I] );
 				if(I == ID.length-1){
+					$(".selectedelement").removeClass("selectedelement");
 					scrollIntoView( ID[I] );
+					$("#" + ID[I] ).addClass("selectedelement");
 				}
 			}
 		} else {
@@ -136,7 +142,8 @@
 	$IsSuper =  $Manager->read("super");
 
 	$titles = getfields($Manager->enum_all("contents"));
-	$ProfileTypes = getfields($Manager->enum_all("profile_types"));
+	$Ptypes=$Manager->enum_all("profile_types");
+	$ProfileTypes = getfields($Ptypes);
 	$ClientTypes  = getfields($Manager->enum_all("client_types"));
 	$DocumentTypes  = getfields($Manager->enum_all("subdocuments"));
 	$OrderTypes = getfields( $Manager->enum_all("product_types"), "Name");
@@ -148,7 +155,24 @@
 		}
 		return implode(", ", $titles);
 	}
-	$strings["REPLACEME"] = "REPLACE ME";
+
+	function transarr($strings, $ARR){
+		$Ret = array();
+		foreach($ARR as $Key => $Value){
+			if(is_numeric($Key)){
+				$Ret[] = $strings[$Value];
+			} else {
+				$Ret[] = $strings[$Key] . " " . $Value;
+			}
+		}
+		return implode(", ", $Ret);
+	}
+	function ptypes($Ptypes, $ARR){
+		foreach($ARR as $Key => $Value){
+			$ARR[$Key] = getIterator($Ptypes, "id", $Value)->title;
+		}
+		return implode(", ", $ARR);
+	}
 ?>
 <BR>Clicking a section of this page will expand it to show more information about it
 <BR>Information for a page is typically found by clicking the steps you'd take to get to that page normally
@@ -231,24 +255,24 @@
 								<LI>On th eleft side is a list of packages, and a checkbox (EN) to indicate if it is visible</LI>
 								<LI>Clicking a package lets you Rename it, Clear (remove all documents from it) or Delete it</LI>
 								<LI>The text boxes at the bottom let you add a new package, clicking "Add" saves the change</LI>
-								<LI>The right side lets you select which documents are assigned to the package based on what province the <?= $settings->profile; ?> driver's license was issued in</LI>
-								<LI>ALL would make the documents apply to all driver's license provinces</LI>
-								<LI>All Documents would show all of the documents for that province</LI>
-								<LI>Changes to the documents are saved as you make them</LI>
+								<LI>The right side lets you select which <?= $settings->document; ?>s are assigned to the package based on what province the <?= $settings->profile; ?> driver's license was issued in</LI>
+								<LI>ALL would make the <?= $settings->document; ?>s apply to all driver's license provinces</LI>
+								<LI>All <?= $settings->document; ?>s would show all of the <?= $settings->document; ?>s for that province</LI>
+								<LI>Changes to the <?= $settings->document; ?>s are saved as you make them</LI>
 							</UL>
 						</LI>
-						<LI>Configuration</LI>
+						<LI id="config">Configuration</LI>
 							<UL>
 								<LI>You can add, rename or enable/disable these:</LI>
-								<LI><?= $settings->profile; ?> types
+								<LI id="ptypes"><?= $settings->profile; ?> types
 									<UL>
-										<LI>Can Order
+										<LI id="can-order">Can Order
 											<UL><LI>Sets whether or not orders can be placed for this <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN></LI></UL>
 										</LI>
 									</UL>
 								</LI>
-								<LI><?= $settings->client; ?> types</LI>
-								<LI><?= $settings->document; ?>s
+								<LI id="ctypes"><?= $settings->client; ?> types</LI>
+								<LI id="dtypes"><?= $settings->document; ?>s
 									<UL>
 										<LI>The name of this <?= $settings->document; ?> type in each language</LI>
 										<LI>Color
@@ -848,9 +872,9 @@
 								<UL><LI>
 									<TABLE border="1" cellpadding="2" cellspacing="2">
 										<TR><TH><?= $settings->profile; ?> types</TH>		<TH>Required fields</TH></TR>
-										<TR><TD>Admin, Recruiter</TD>						<TD>ISB Id, username, email, password, first name, last name</TD></TR>
-										<TR><TD>External, Employee, Sales</TD>				<TD>Username, Email, Password, First name, Last name</TD></TR>
-										<TR><TD>Driver, Owner Operator, Owner Driver</TD>	<TD>First name, Last name, Driver License #, Province Issued, Expiry Date</TD></TR>
+										<TR><TD><?= ptypes($Ptypes, array(1,2)); ?></TD>	<TD>ISB ID, <?= transarr($strings, array("profiles_username", "forms_email", "forms_password", "forms_firstname", "forms_lastname")); ?></TD></TR>
+										<TR><TD><?= ptypes($Ptypes, array(3,9,12)); ?></TD>	<TD><?= transarr($strings, array("profiles_username", "forms_email", "forms_password", "forms_firstname", "forms_lastname")); ?></TD></TR>
+										<TR><TD><?= ptypes($Ptypes, array(5,7,8)); ?></TD>	<TD><?= transarr($strings, array("forms_firstname", "forms_lastname", "forms_driverslicense" => "#", "forms_provinceissued", "forms_expirydate")); ?></TD></TR>
 									</TABLE>
 									A <?= $settings->profile; ?> must also be assigned to a <?= $settings->client; ?> before anything can be done with the <?= $settings->profile; ?>
 									</LI></UL>
@@ -1026,7 +1050,10 @@
 								<UL><LI>Select which division of the <?= $settings->client; ?> (if applicable) the <?= $settings->document; ?> will be submitted for</LI></UL>
 							</LI>
 							<LI><?= $strings["forms_selectdriver"]; ?>
-								<UL><LI>Select which <?= $settings->profile; ?>  of the <?= $settings->client; ?> the <?= $settings->document; ?> will be submitted for</LI></UL>
+								<UL>
+									<LI>Select which <?= $settings->profile; ?> of the <?= $settings->client; ?> the <?= $settings->document; ?> will be submitted for</LI>
+									<!--LI>Only <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> types</SPAN> with "<SPAN ONCLICK="expand('thefooter/system-settings/config/ptypes/can-order');">Can Order</SPAN>" enabled will show here </LI-->
+								</UL>
 							</LI>
 							<LI><?= $strings["forms_save"]; ?>
 								<UL><LI>Save the <?= $settings->document; ?> and process it as complete</LI></UL>
@@ -1090,6 +1117,7 @@
 							<LI><?= $strings["orders_division"]; ?></LI>
 							<LI><?= $strings["infoorder_driver"]; ?>(s)
 								<UL><LI>Select which <?= $settings->profile; ?>(s) that are assigned to this <?= $settings->client; ?> that the order will be placed for</LI></UL>
+								<LI>Only <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> types</SPAN> with "<SPAN ONCLICK="expand('thefooter/system-settings/config/ptypes/can-order');">Can Order</SPAN>" enabled will show here </LI>
 							</LI>
 							<LI>A list of packages</LI>
 							<LI><?= $strings["infoorder_continue"]; ?>
