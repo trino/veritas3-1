@@ -1343,7 +1343,7 @@
 			</LI>
 			<LI ID="clientapplication">ClientApplication
 				<UL>
-					<LI>The ClientApplication is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn’t require logging in. The applicant just need to:</LI>
+					<LI>The ClientApplication is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn't require logging in. The applicant just need to:</LI>
 					<OL>
 						<LI>Browse <SPAN onclick="OpenInNewTab('<?= $this->request->webroot; ?>clientApplication');"><?= $this->request->webroot; ?>clientApplication</SPAN></LI>
 						<LI>Select the <?= $settings->client; ?> that they want to submit <?= $settings->document; ?>s for</LI>
