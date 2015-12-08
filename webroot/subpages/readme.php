@@ -60,6 +60,16 @@
 		border: 1px solid red;
 	}
 
+	li {
+		font-size: 12px;
+		padding-left: 40px !important;
+	}
+
+	ul > .header{
+		font-size: 16px;
+		color: black !important;
+	}
+
 	.red{
 		color: red;
 	}
@@ -74,6 +84,23 @@
 	}
 </style>
 <SCRIPT>
+	function addclass(element, theclass, status){
+		if(typeof element !== 'object') {
+			element = document.getElementById(element);
+		}
+		if(status) {
+			if (element.classList) {
+				element.classList.add(theclass);
+			} else {
+				element.className += ' ' + className;
+			}
+		} else if (element.classList) {
+			element.classList.remove(theclass);
+		} else {
+			element.className = element.className.replace(theclass, '');
+		}
+	}
+
 	function setInnerHTML(Element, HTML){
 		document.getElementById(Element).innerHTML = HTML;
 	}
@@ -97,10 +124,14 @@
       };
 
     $(document).ready( function() {
-	 	setInnerHTML('tableofcontents', '<UL>' + enumerate('theheader', '') + enumerate('thefooter', '') + enumerate('thesidebar', '') + enumerate('thecontent', '')+ enumerate('misc', 'misc') + '</UL>');
+	 	setInnerHTML('tableofcontents', makeTOC());
 	 	prepareList();
 		showTOC();
     });
+
+	function makeTOC(){
+		return '<UL>' + enumerate('theheader', '', 0) + enumerate('thefooter', '', 0) + enumerate('thesidebar', '', 0) + enumerate('thecontent', '', 0)+ enumerate('misc', '', 0) + '</UL>';
+	}
 
 	function showTOC(){
 		expand('tableofcontents');
@@ -155,11 +186,12 @@
 
 	var arrow = '<i class="fa fa-sort-desc"></i>';
 	var CurrentID = 0;
-	function enumerate(element, root){
+	function enumerate(element, root, level){
 		var ID = false;
 		if (!root){
 			root = element;
 			ID = element;
+			level=1;
 		}
 		if(typeof element !== 'object') {
 			var element = document.getElementById(element);
@@ -180,11 +212,14 @@
 			elements = $(elements[0]).children();
 			for(var I = 0; I < elements.length; I++){
 				if(hasalist(elements[I])){
-					HTML += enumerate(elements[I], ID);
+					HTML += enumerate(elements[I], ID, level+1);
 				}
 			}
 		}
+
+		addclass(element, 'header', true);
 		element.innerHTML = arrow + element.innerHTML;
+		//element.innerHTML = '<SPAN CLASS="header">' + arrow + element.innerHTML.replace('<ul>', '</SPAN><ul>');
 		return HTML + '</UL></LI>';
 	}
 
