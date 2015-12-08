@@ -60,8 +60,11 @@
 		border: 1px solid red;
 	}
 
-	li {
+	ul > li {
 		font-size: 12px;
+	}
+
+	.header > ul > li {
 		padding-left: 40px !important;
 	}
 
