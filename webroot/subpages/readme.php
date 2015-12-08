@@ -146,7 +146,8 @@
 	$strings["REPLACEME"] = "REPLACE ME";
 ?>
 <BR>Clicking a section of this page will expand it to show more information about it
-<BR>What's visible will be dependant on your <?= $settings->profile; ?> type, the permissions of both you and the <?= $settings->client ?>(s) you are assigned to
+<BR>Information for a page is typically found by clicking the steps you'd take to get to that page normally
+<BR>What's visible in Veritas will be dependant on your <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN>, the permissions of both you and the <?= $settings->client ?>(s) you are assigned to
 <?php if($IsSuper) { echo '<BR>Since you are a super-user, you will have access to a lot more than regular users'; } ?>
 <BR>These are the parts to the Veritas screen:
 
@@ -237,7 +238,7 @@
 								<LI><?= $settings->profile; ?> types
 									<UL>
 										<LI>Can Order
-											<UL><LI>Sets whether or not orders can be placed for this <?= $settings->profile; ?> type</LI></UL>
+											<UL><LI>Sets whether or not orders can be placed for this <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN></LI></UL>
 										</LI>
 									</UL>
 								</LI>
@@ -312,7 +313,7 @@
 										</LI>
 										<LI><?= $settings->profile; ?> type
 											<UL>
-												<LI>Lets you change the <?= $settings->profile; ?> type</LI>
+												<LI>Lets you change the <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN></LI>
 												<LI>Types with a ? cannot have orders placed for them.  Types with a ? can.</LI>
 											</UL>
 										</LI>
@@ -464,7 +465,7 @@
 									<UL><LI>If Bypass is enabled: Which products will show when a topblock is clicked. Otherwise it's which forms will show when placing an order</LI></UL>
 								</LI>
 								<LI>Show for <?= $settings->profile; ?> types
-									<UL><LI>Will only show for these profile types when viewing a profile</LI></UL>
+									<UL><LI>Will only show for these <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> types</SPAN> when viewing a profile</LI></UL>
 								</LI>
 							</UL>
 						</LI>
@@ -507,6 +508,7 @@
 								</UL>
 							</LI>
 							<LI><?= $strings["clients_search"]; ?></LI>
+							<LI>As a note, clicking any blue column label of this table will sort that table by that column</LI>
 							<LI>ID</LI>
 							<LI><?= $strings["clients_logo"]; ?></LI>
 							<LI><?= $settings->client; ?>
@@ -539,10 +541,14 @@
 											</LI>
 											<LI><?= $settings->document; ?>
 												<UL>
-													<LI>Document Yes/No</LI>
-													<LI>Orders</LI>
+													<LI>Document Yes/No
+														<UL><LI>Sets whether or not this <?= $settings->document; ?> is usable in the <?= $strings["index_createdocument"]; ?> page</LI></UL>
+													</LI>
+													<LI>Orders
+														<UL><LI>Sets whether or not this <?= $settings->document; ?> is usable in the <?= $strings["orders_create"]; ?> page</LI></UL>
+													</LI>
 													<LI>Application Process
-														<UL><LI>Sets whether or not this document shows in the clientapplication process</LI></UL>
+														<UL><LI>Sets whether or not this <?= $settings->document; ?> shows in the <SPAN ONCLICK="expand('misc/clientapplication');">ClientApplication</SPAN> process</LI></UL>
 													</LI>
 													<LI>Display Order
 														<UL><LI>The display order can be changed only by clicking and dragging the row to a new position</LI></UL>
@@ -572,6 +578,7 @@
 					</LI>
 				</UL>
 			</LI>
+
 			<LI id="profiles">
 				<?= $settings->profile; ?>s
 				<UL>
@@ -581,7 +588,7 @@
 							<LI>Search
 								<UL>
 									<LI><?= $strings["profiles_profiletype"]; ?>
-										<UL><LI>Search for <?= $settings->profile; ?>s only matching this type</LI></UL>
+										<UL><LI>Search for <?= $settings->profile; ?>s only matching this <SPAN ONCLICK="expand('misc/profile-type');">type</SPAN></LI></UL>
 									</LI>
 									<LI><?= $settings->client; ?>
 										<UL><LI>Search for <?= $settings->profile; ?>s assigned to this <?= $settings->client; ?></LI></UL>
@@ -594,6 +601,7 @@
 									</LI>
 								</UL>
 							</LI>
+							<LI>As a note, clicking any blue column label of this table will sort that table by that column</LI>
 							<LI>ID</LI>
 							<LI><?= $strings["profiles_image"]; ?></LI>
 							<LI><?= $strings["profiles_name"]; ?></LI>
@@ -646,7 +654,10 @@
 								<UL>
 									<LI>Lets you edit the data for this profile</LI>
 									<LI>Assign to <?= $settings->client; ?>
-										<UL><LI>A non-super <?= $settings->profile; ?> can only be assigned to a single <?= $settings->client; ?></LI></UL>
+										<UL>
+											<LI>Any profile is supposed to be assigned to a client, otherwise it makes no sense for creating a profile as no action can be performed for a profile without assigning it to a client. Assigning to a client can be done by selecting clients from those listed below the profile creation form. Only those clients are listed in the profile creation form which are assigned to the one who is logged in.</LI>
+											<LI>A non-super <?= $settings->profile; ?> can only be assigned to a single <?= $settings->client; ?></LI>
+										</UL>
 									</LI>
 								</UL>
 							</LI>
@@ -655,13 +666,13 @@
 									<LI>(Sidebar) Configuration
 										<UL>
 											<LI>Select All
-												<UL><LI>Checks all checkboxes automatically</LI></UL>
+												<UL><LI>Checks all checkboxes automatically, which includes the next 2 which you'll probably want to un-check in most cases</LI></UL>
 											</LI>
 											<LI>Change all existing <?= $settings->profile; ?>s of this type
-												<UL><LI>Once you click save, all <?= $settings->profile; ?>s of the same <?= $settings->profile; ?> type will have their permissions over-written with this <?= $settings->profile; ?>'s permissions</LI></UL>
+												<UL><LI>Once you click save, all <?= $settings->profile; ?>s of the same <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN> will have their permissions over-written with this <?= $settings->profile; ?>'s permissions</LI></UL>
 											</LI>
 											<LI>Change all future <?= $settings->profile; ?>s of this type
-												<UL><LI>Once you click save, all <?= $settings->profile; ?>s of the same <?= $settings->profile; ?> type you make afterwards will start with the same permissions as this <?= $settings->profile; ?>'s</LI></UL>
+												<UL><LI>Once you click save, all <?= $settings->profile; ?>s of the same <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN> you make afterwards will start with the same permissions as this <?= $settings->profile; ?>'s</LI></UL>
 											</LI>
 											<LI>Enable <?= $settings->profile; ?>
 												<UL>
@@ -684,7 +695,7 @@
 														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new <?= $settings->profile; ?> is created</LI></UL>
 													</LI>
 													<LI><?= $ProfileTypes; ?>
-														<UL><LI>This <?= $settings->profile; ?> will only be able to see and create <?= $settings->profile; ?>s only of these types</LI></UL>
+														<UL><LI>This <?= $settings->profile; ?> will only be able to see and create <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?>s only of these types</SPAN></LI></UL>
 													</LI>
 												</UL>
 											</LI>
@@ -731,7 +742,7 @@
 														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new order is created within Veritas</LI></UL>
 													</LI>
 													<LI>Receive Email (on client application completion)
-														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new order is created within the ClientApplication system (a version of Veritas that does not require logging in)</LI></UL>
+														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new order is created within the <SPAN ONCLICK="expand('misc/clientapplication');">ClientApplication</SPAN> system (a version of Veritas that does not require logging in)</LI></UL>
 													</LI>
 													<LI><?= $OrderTypes; ?>
 														<UL><LI>This <?= $settings->profile; ?> will only be able to see and create orders only of these types</LI></UL>
@@ -827,6 +838,17 @@
 							</LI>
 							<LI>Message
 								<UL><LI>Lets you send an email to this <?= $settings->profile; ?></LI></UL>
+							</LI>
+							<LI>Required fields
+								<UL><LI>
+									<TABLE border="1" cellpadding="2" cellspacing="2">
+										<TR><TH><?= $settings->profile; ?> types</TH>		<TH>Required fields</TH></TR>
+										<TR><TD>Admin, Recruiter</TD>						<TD>ISB Id, username, email, password, first name, last name</TD></TR>
+										<TR><TD>External, Employee, Sales</TD>				<TD>Username, Email, Password, First name, Last name</TD></TR>
+										<TR><TD>Driver, Owner Operator, Owner Driver</TD>	<TD>First name, Last name, Driver License #, Province Issued, Expiry Date</TD></TR>
+									</TABLE>
+									A <?= $settings->profile; ?> must also be assigned to a <?= $settings->client; ?> before anything can be done with the <?= $settings->profile; ?>
+									</LI></UL>
 							</LI>
 						</UL>
 					</LI>
@@ -946,6 +968,7 @@
 									</LI>
 								</UL>
 							</LI>
+							<LI>As a note, clicking any blue column label of this table will sort that table by that column</LI>
 							<LI>ID</LI>
 							<LI><?= $settings->document; ?>
 								<UL><LI>What type of <?= $settings->document; ?> this is</LI></UL>
@@ -1028,6 +1051,7 @@
 									</LI>
 								</UL>
 							</LI>
+							<LI>As a note, clicking any blue column label of this table will sort that table by that column</LI>
 							<LI>ID</LI>
 							<LI><?= $strings["orders_ordertype"]; ?></LI>
 							<LI><?= $strings["documents_submittedby"]; ?>
@@ -1161,6 +1185,29 @@
 		</LI>
 	  </ul>
 	</li>
+
+	<LI id="misc">Miscellaneous
+		<UL>
+			<LI id="profile-type"><?= $settings->profile; ?> type
+				<UL>
+					<LI>These are the types of <?= $settings->profile; ?>s in the system: </LI>
+					<LI><?= $ProfileTypes; ?></LI>
+					<LI>Super admin, admin & recruiter are the <?= $settings->profile; ?>s which are provided with the permissions to perform high level actions like creating <?= $settings->profile; ?>s, making orders, <?= $settings->document; ?>s, creating <?= $settings->client; ?>s etc. But still, according to system, any profile can be assigned with the permission to perform any action.	</LI>
+				</UL>
+			</LI>
+			<LI id="clientapplication">ClientApplication
+				<UL>
+					<LI>The ClientApplication is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn’t require logging in. The applicant just need to:</LI>
+					<OL>
+						<LI>Browse DOMAINNAME/clientApplication</LI>
+						<LI>Select the <?= $settings->client; ?> that they want to submit <?= $settings->document; ?>s for</LI>
+						<LI>The <?= $settings->document; ?>s enabled for that client for ClientApplication are then listed in step wise preceded by driver form which is similar to the <SPAN ONCLICK="expand('profiles/profile');"><?= $strings["index_createprofile"]; ?></SPAN> form</LI>
+					</OL>
+					<LI>Once the ClientApplication is submitted, the <?= $settings->document; ?>s submitted are listed as <?= $settings->document; ?>s in the <SPAN ONCLICK="expand('documents/listdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN>, at the same time the applicant is assigned to the <?= $settings->client; ?> they submitted the <?= $settings->document; ?> for</LI>
+				</UL>
+			</LI>
+		</UL>
+	</LI>
   </ul>
 </div>
 <BUTTON ONCLICK="ExpandAll();">Expand All</BUTTON>
