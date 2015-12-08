@@ -74,10 +74,15 @@
 	}
 </style>
 <SCRIPT>
+	function setInnerHTML(Element, HTML){
+		document.getElementById(Element).innerHTML = HTML;
+	}
+
 	function prepareList() {
       $('#expList').find('li:has(ul)')
       	.click( function(event) {
       		if (this == event.target) {
+				$(".selectedelement").removeClass("selectedelement");
       			$(this).toggleClass('expanded');
       			$(this).children('ul').toggle('medium');
       		}
@@ -87,9 +92,20 @@
       	.children('ul').hide();
       };
 
-      $(document).ready( function() {
-          prepareList();
-      });
+    $(document).ready( function() {
+	 	setInnerHTML('tableofcontents', '<UL>' + enumerate('theheader', '') + enumerate('thefooter', '') + enumerate('thesidebar', '') + enumerate('thecontent', '')+ enumerate('misc', 'misc') + '</UL>');
+	 	prepareList();
+		showTOC();
+    });
+
+	function showTOC(){
+		expand('tableofcontents');
+		$("#tableofcontents").css("top",160);
+	}
+
+	$(window).scroll(function(){
+		$("#tableofcontents").css("top",Math.max(50,160-$(this).scrollTop()));
+	});
 
 	function expand(ID){
 		if(ID.indexOf("/") > -1){
@@ -103,7 +119,7 @@
 				}
 			}
 		} else {
-			element = document.getElementById(ID);
+			var element = document.getElementById(ID);
 			if(!element.hasClass("expanded")) {
 				element.click();
 			}
@@ -124,11 +140,65 @@
 	function CollapseAll(){
 		$('.collapsed').removeClass('expanded');
 		$('.collapsed').children().hide('medium');
+		showTOC();
 	}
 
 	function OpenInNewTab(url) {
 		var win = window.open(url, '_blank');
 		win.focus();
+	}
+
+	var arrow = '<i class="fa fa-sort-desc"></i>';
+	var CurrentID = 0;
+	function enumerate(element, root){
+		var ID = false;
+		if (!root){
+			root = element;
+			ID = element;
+		}
+		if(typeof element !== 'object') {
+			var element = document.getElementById(element);
+		}
+		if(!ID){
+			if (element.hasAttribute("id")){
+				ID = root + '/' + element.getAttribute("ID");
+			} else {
+				CurrentID = CurrentID + 1;
+				ID = "listitem" + CurrentID;
+				element.setAttribute("ID", ID);
+				ID = root + '/' + ID;
+			}
+		}
+		var HTML = '<LI ONCLICK="expand(' + "'" + ID + "'" + ');">' + innerText(element) + "\r\n" + '<UL>' + "\r\n";
+		var elements = $(element).children();
+		if(elements[0] instanceof HTMLUListElement){
+			elements = $(elements[0]).children();
+			for(var I = 0; I < elements.length; I++){
+				if(hasalist(elements[I])){
+					HTML += enumerate(elements[I], ID) + "\r\n" ;
+				}
+			}
+		}
+		element.innerHTML = arrow + element.innerHTML;
+		return HTML + '</UL></LI>' + "\r\n";
+	}
+
+	function hasalist(element){
+		return element.innerHTML.indexOf("<UL") > -1 ||  element.innerHTML.indexOf("<ul") > -1;
+	}
+
+	function innerText(element){
+		if(typeof element !== 'object') {
+			var element = document.getElementById(element);
+		}
+		var text = element.innerHTML;
+		var start = text.indexOf("<");
+		if (start > -1){
+			return text.substr(0, start);
+		}
+		text = text.replace(/^\s+|\s+$/g, '');
+		return text.trim();
+		//return element.innerText || element.textContent;
 	}
 </SCRIPT>
 <?php
@@ -182,12 +252,12 @@
 
 <TABLE WIDTH="200" STYLE="cursor: pointer;">
 	<TR><TD BGCOLOR="#2D5F8B" ALIGN="CENTER" COLSPAN="2" ONCLICK="expand('theheader');" CLASS="white">Header
-		<img alt="" class="img-circle" src="<?= $this->request->webroot; ?>img/profile/default.png" style="float: right; height: 18px;display: inline;" ONCLICK="expand('your-settings');">
+		<img alt="" CLASS="img-circle" src="<?= $this->request->webroot; ?>img/profile/default.png" style="float: right; height: 18px;display: inline;" ONCLICK="expand('your-settings');">
 	</TD></TR>
 	<TR HEIGHT="100">
 		<TD WIDTH="25%" ALIGN="CENTER" BGCOLOR="#4276A4" ONCLICK="expand('thesidebar');" CLASS="white">Sidebar</TD>
 		<TD WIDTH="75%" ALIGN="CENTER" ONCLICK="expand('thecontent');">
-			<TABLE WIDTH="75%" HEIGHT="10%"><TR><TD ALIGN="CENTER" BGCOLOR="#F7F7F7" STYLE="position: relative; top: -20px;" ONCLICK="expand('actionbar');"><i class="fa fa-home"></i> Action bar</TD></TR></TABLE>
+			<TABLE WIDTH="75%" HEIGHT="10%"><TR><TD ALIGN="CENTER" BGCOLOR="#F7F7F7" STYLE="position: relative; top: -20px;" ONCLICK="expand('actionbar');"><i CLASS="fa fa-home"></i> Action bar</TD></TR></TABLE>
 			Content
 			<TABLE WIDTH="75%" HEIGHT="10%"><TR><TD ALIGN="CENTER" BGCOLOR="#F5F5F5" STYLE="position: relative; bottom: -20px;" ONCLICK="expand('paginationbar');">Pagination bar</TD></TR></TABLE>
 		</TD>
@@ -195,11 +265,14 @@
 	<TR><TD BGCOLOR="#2D5F8B" ALIGN="CENTER" COLSPAN="2" ONCLICK="expand('thefooter');" CLASS="white">Footer</TD></TR>
 </TABLE>
 
-<div id="listContainer">
-  <ul id="expList">
-	<li id="theheader">The header
-		<ul>
-			<li>The right side contains a dropdown menu allowing you to access <SPAN ONCLICK="expand('theheader/your-settings');"><?= $strings["dashboard_mysettings"]; ?></SPAN>, switch languages, and logout</li>
+<DIV ID="listContainer">
+  <UL ID="expList">
+	<LI ID="tableofcontents" style="position: fixed; right: 10px; z-index: 9999; background-color: white; max-width: 250px;">Table of Contents
+	</LI>
+
+	<LI ID="theheader">Header
+		<UL>
+			<LI>The right side contains a dropdown menu allowing you to access <SPAN ONCLICK="expand('theheader/your-settings');"><?= $strings["dashboard_mysettings"]; ?></SPAN>, switch languages, and logout</LI>
 			<LI ID="your-settings"><?= $strings["dashboard_mysettings"]; ?>
 				<UL>
 					<LI ONCLICK="expand('thesidebar/profiles/profile/profile-info');" CLASS="blue"><?= $settings->profile ?></LI>
@@ -211,22 +284,22 @@
 					<UL><LI>If you have possessed a <?= $settings->profile ?>, click this to log back in as yourself</LI></UL>
 				</LI>
 			<?php } ?>
-		</ul>
-	</li>
+		</UL>
+	</LI>
 
-	<LI id="thefooter">The footer
-		<ul>
-			<li>Some pages will show a list of checkboxes on the left side to indicate what permissions they use (visible when you hover your mouse over the checkbox) and if you have them enabled</li>
+	<LI ID="thefooter">Footer
+		<UL>
+			<LI>Some pages will show a list of checkboxes on the left side to indicate what permissions they use (visible when you hover your mouse over the checkbox) and if you have them enabled</LI>
 			<LI>Total Time is how long the page took to load</LI>
-			<li>On the right side is a list of links to various pages (<?= $titles; ?>) which can be customized in the (system) settings page</li>
+			<LI>On the right side is a list of links to various pages (<?= $titles; ?>) which can be customized in the (system) settings page</LI>
 			<?php if($IsSuper) { ?>
-				<li><?= $strings["dashboard_debug"]; ?> (On/Off)
+				<LI><?= $strings["dashboard_debug"]; ?> (On/Off)
 					<UL>
 						<LI>When <?= $strings["dashboard_debug"]; ?> is on, more information is shown about errors, and which files are being used</LI>
 						<LI>Unless you are trying to track down a problem, or are developing, this should be turned off as it shows information that could be useful to hackers</LI>
 					</UL>
 				</LI>
-				<LI id="system-settings">(System) Settings
+				<LI ID="system-settings">(System) Settings
 					<UL>
 						<LI>Logos
 							<UL>
@@ -236,7 +309,7 @@
 								<LI>Changes to the <?= $settings->client; ?> logo will be applied without needing to click "<?= $strings["forms_savechanges"]; ?>" </LI>
 							</UL>
 						</LI>
-						<LI id="pages">Pages
+						<LI ID="pages">Pages
 							<UL>
 								<LI>You can customize the titles and descriptions for the <?= $titles; ?> pages for each language here</LI>
 								<LI>Click "<?= $strings["forms_savechanges"]; ?>" to apply the change</LI>
@@ -261,22 +334,22 @@
 								<LI>Changes to the <?= $settings->document; ?>s are saved as you make them</LI>
 							</UL>
 						</LI>
-						<LI id="config">Configuration</LI>
+						<LI ID="config">Configuration
 							<UL>
 								<LI>You can add, rename or enable/disable these:</LI>
-								<LI id="ptypes"><?= $settings->profile; ?> types
+								<LI ID="ptypes"><?= $settings->profile; ?> types
 									<UL>
-										<LI id="can-order">Can Order
+										<LI ID="can-order">Can Order
 											<UL><LI>Sets whether or not orders can be placed for this <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?> type</SPAN></LI></UL>
 										</LI>
 									</UL>
 								</LI>
-								<LI id="ctypes"><?= $settings->client; ?> types</LI>
-								<LI id="dtypes"><?= $settings->document; ?>s
+								<LI ID="ctypes"><?= $settings->client; ?> types</LI>
+								<LI ID="dtypes"><?= $settings->document; ?>s
 									<UL>
 										<LI>The name of this <?= $settings->document; ?> type in each language</LI>
 										<LI>Color
-											<UL><LI>What color this <?= $settings->document; ?> type shows up as in the <SPAN ONCLICK="expand('documents/listdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> page</LI></UL>
+											<UL><LI>What color this <?= $settings->document; ?> type shows up as in the <SPAN ONCLICK="expand('documents/LIstdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> page</LI></UL>
 										</LI>
 										<LI>Icon/Product
 											<UL><LI>These were used to set how the top block would appear, but are no longer used</LI></UL>
@@ -288,7 +361,7 @@
 								</LI>
 								<LI>Click "Edit" to let you rename them, then "Save" to apply the changes</LI>
 							</UL>
-						<LI id="clear-data">Clear Data
+						<LI ID="clear-data">Clear Data
 							<UL>
 								<LI>Clear Data
 									<UL><LI>Systematically erase most data from the database, such as all <?= $settings->profile; ?>s except Supers, all orders/<?= $settings->document; ?>s, attachments</LI></UL>
@@ -296,7 +369,7 @@
 								<LI>Scramble Data
 									<UL><LI>Replaces private information (addresses, phone numbers, email addresses) with fake/garbage data</LI></UL>
 								</LI>
-								<LI id="clear-cache">Clear Cache
+								<LI ID="clear-cache">Clear Cache
 									<UL><LI>A way to clear CakePHP's (the framework this site is built off of) cache, in case a new language or column in a database was added</LI></UL>
 								</LI>
 							</UL>
@@ -405,7 +478,7 @@
 						</LI>
 						<LI>Email Editor
 							<UL>
-								<LI class="red">Warning: All changes to this section must be emailed to the head translator, or they will be deleted on the next update</LI>
+								<LI CLASS="red">Warning: All changes to this section must be emailed to the head translator, or they will be deleted on the next update</LI>
 								<LI>Rather than have a bunch of emails scattered throughout the source code, they've all been put into the database for convenience</LI>
 								<LI>This section lets you edit their Subject and Message, using variable substitution</LI>
 								<LI>The code to send emails injects only the variables, and this system substitutes them into the text</LI>
@@ -439,12 +512,12 @@
 						</LI>
 						<LI>Translation
 							<UL>
-								<LI class="red">Warning: All changes to this section must be emailed to the head translator, or they will be deleted on the next update</LI>
+								<LI CLASS="red">Warning: All changes to this section must be emailed to the head translator, or they will be deleted on the next update</LI>
 								<LI>The left side lets you make a "New Language"</LI>
 								<LI>Select which language from a list that will be searched for on the right side</LI>
 								<LI>Delete the selected language (English and French cannot be deleted)</LI>
 								<LI>Or edit a string. If the string Name is unused, it will be created. Click "Save String" to apply the change</LI>
-								<LI class="red">Do not edit any string without an <STRONG>_</STRONG> underscore in them as they are used by the system</LI>
+								<LI CLASS="red">Do not edit any string without an <STRONG>_</STRONG> underscore in them as they are used by the system</LI>
 								<LI>The right side will let you search for a string based on the string name, or the contents of the string in the language you have selected</LI>
 								<LI>Clicking a string on the right side, will let you edit it on the left side</LI>
 								<LI>Only a certain number of results are visible at any time, use the page buttons on the bottom right to navigate through them</LI>
@@ -508,15 +581,15 @@
 						<LI>If it's not empty, it also allows you to delete it</LI>
 					</UL>
 				</LI>
-			</ul>
+			</UL>
 	  	<?php } ?>
-	</li>
+	</LI>
 
-	<li id="thesidebar">The sidebar
-		<ul>
+	<LI ID="thesidebar">Sidebar
+		<UL>
 			<LI><?= $settings->document; ?> Search...
 				<UL>
-					<LI>A shortcut to <SPAN ONCLICK="expand('documents/listdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> searching for the text you specify</LI>
+					<LI>A shortcut to <SPAN ONCLICK="expand('documents/LIstdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> searching for the text you specify</LI>
 				</UL>
 			</LI>
 			<LI><?= $strings["dashboard_dashboard"]; ?>
@@ -545,12 +618,12 @@
 							</LI>
 							<LI ID="client-actions"><?= $strings["dashboard_actions"];?>
 								<UL>
-									<LI id="edit-client"><?= $strings["dashboard_view"]; ?>/<?= $strings["dashboard_edit"]; ?>
+									<LI ID="edit-client"><?= $strings["dashboard_view"]; ?>/<?= $strings["dashboard_edit"]; ?>
 										<UL>
 											<LI>Here is where you can view, create or edit a <?= $settings->client; ?></LI>
 											<LI><?= $strings["clients_addeditimage"]; ?></LI>
 											<LI><?= $strings["index_listprofile"]; ?>
-												<UL><LI>Links to the <SPAN ONCLICK="expand('thesidebar/profiles/list-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> section searching for <?= $settings->profile; ?>s assigned to this <?= $settings->client; ?></LI></UL>
+												<UL><LI>Links to the <SPAN ONCLICK="expand('thesidebar/profiles/LIst-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> section searching for <?= $settings->profile; ?>s assigned to this <?= $settings->client; ?></LI></UL>
 											</LI>
 											<LI><?= $strings["dashboard_edit"]; ?>/<?= $strings["dashboard_view"]; ?>
 												<UL><LI>Switch between edit and view mode</LI></UL>
@@ -600,7 +673,7 @@
 							</LI>
 						</UL>
 					</LI>
-					<LI id="create-client"><?= $strings["index_createclients"]; ?>
+					<LI ID="create-client"><?= $strings["index_createclients"]; ?>
 						<UL>
 							<LI ONCLICK="expand('list-clients/client-actions/edit-client');">Opens a blank <?= $settings->client; ?> information page for you to create a new <?= $settings->client; ?></LI>
 						</UL>
@@ -608,10 +681,10 @@
 				</UL>
 			</LI>
 
-			<LI id="profiles">
+			<LI ID="profiles">
 				<?= $settings->profile; ?>s
 				<UL>
-					<LI id="list-profiles"><?= $strings["index_listprofile"]; ?>
+					<LI ID="list-profiles"><?= $strings["index_listprofile"]; ?>
 						<UL>
 							<LI ONCLICK="expand('profile');" CLASS="blue"><?= $strings["index_createprofile"]; ?></LI>
 							<LI>Search
@@ -655,7 +728,7 @@
 							</LI>
 						</UL>
 					</LI>
-					<LI id="profile"><?= $strings["index_createprofile"]; ?>
+					<LI ID="profile"><?= $strings["index_createprofile"]; ?>
 						<UL>
 							<LI><?= $strings["clients_addeditimage"]; ?>
 								<UL><LI>Edit the image that shows up in the header for this <?= $settings->profile; ?>, as well as the <?= $strings["index_listprofile"]; ?> page</LI></UL>
@@ -679,7 +752,7 @@
 								</LI>
 							<?php } ?>
 							<LI><?= $strings["orders_scorecard"]; ?></LI>
-							<LI id="profile-info"><?= $settings->profile; ?>
+							<LI ID="profile-info"><?= $settings->profile; ?>
 								<UL>
 									<LI>Lets you edit the data for this profile</LI>
 									<LI>Assign to <?= $settings->client; ?>
@@ -690,7 +763,7 @@
 									</LI>
 								</UL>
 							</LI>
-							<LI id="permissions">Permissions
+							<LI ID="permissions">Permissions
 								<UL>
 									<LI>(Sidebar) Configuration
 										<UL>
@@ -784,7 +857,7 @@
 														<UL><LI>Sets whether or not the rest of the settings for this category will show</LI></UL>
 													</LI>
 													<LI>List
-														<UL><LI>Required to see and use the <SPAN ONCLICK="expand('documents/listdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> page</LI></UL>
+														<UL><LI>Required to see and use the <SPAN ONCLICK="expand('documents/LIstdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN> page</LI></UL>
 													</LI>
 													<LI>Create
 														<UL><LI>Required to create <?= $settings->document; ?>s</LI></UL>
@@ -837,21 +910,21 @@
 											<LI>Add a <?= $settings->profile; ?>
 												<UL><LI>Shortcut to the '<?= $strings["index_createprofile"]; ?>' page</LI></UL>
 											</LI>
-											<LI ONCLICK="expand('profiles/list-profiles');" CLASS="blue"><?= $strings["index_listprofile"]; ?></LI>
+											<LI ONCLICK="expand('profiles/LIst-profiles');" CLASS="blue"><?= $strings["index_listprofile"]; ?></LI>
 											<LI ONCLICK="expand('clients/client-actions/edit-client/create-client');" CLASS="blue">Add a <?= $settings->client; ?></LI>
-											<LI ONCLICK="expand('clients/list-clients');" CLASS="blue"><?= $strings["index_listclients"]; ?></LI>
+											<LI ONCLICK="expand('clients/LIst-clients');" CLASS="blue"><?= $strings["index_listclients"]; ?></LI>
 											<LI ONCLICK="expand('documents/create-document');" CLASS="blue">Submit <?= $settings->document; ?></LI>
-											<LI ONCLICK="expand('documents/listdocuments');" CLASS="blue"><?= $strings["index_listdocuments"]; ?></LI>
+											<LI ONCLICK="expand('documents/LIstdocuments');" CLASS="blue"><?= $strings["index_listdocuments"]; ?></LI>
 											<LI ONCLICK="expand('training');" CLASS="blue"><?= $strings["index_training"]; ?></LI>
 											<LI ONCLICK="expand('orders/create-order');" CLASS="blue"><?= $OrderTypes; ?></LI>
-											<LI ONCLICK="expand('orders/list-orders');" CLASS="blue"><?= $strings["index_listorders"]; ?></LI>
+											<LI ONCLICK="expand('orders/LIst-orders');" CLASS="blue"><?= $strings["index_listorders"]; ?></LI>
 											<LI ONCLICK="expand('tasks');" CLASS="blue"><?= $strings["index_tasks"]; ?></LI>
 											<LI ONCLICK="expand('tasks/add-task');" CLASS="blue"><?= $strings["index_addtasks"]; ?></LI>
 											<LI><?= $settings->document; ?>s Drafts
-												<UL><LI>Opens <SPAN ONCLICK="expand('documents/list-document');"><?= $strings["index_listdocuments"]; ?></SPAN> searching for drafts</LI></UL>
+												<UL><LI>Opens <SPAN ONCLICK="expand('documents/LIst-document');"><?= $strings["index_listdocuments"]; ?></SPAN> searching for drafts</LI></UL>
 											</LI>
 											<LI><?= $strings["index_orders"]; ?> Drafts
-												<UL><LI>Opens <SPAN ONCLICK="expand('orders/list-orders');"><?= $strings["index_listorders"]; ?></SPAN> searching for drafts</LI></UL>
+												<UL><LI>Opens <SPAN ONCLICK="expand('orders/LIst-orders');"><?= $strings["index_listorders"]; ?></SPAN> searching for drafts</LI></UL>
 											</LI>
 											<LI ONCLICK="expand('analytics');" CLASS="blue"><?= $strings["index_analytics"]; ?></LI>
 											<LI>Bulk Order</LI>
@@ -883,7 +956,7 @@
 					</LI>
 				</UL>
 			</LI>
-			<LI id="training">
+			<LI ID="training">
 				<?= $strings["index_training"]; ?>
 				<UL>
 					<LI><?= $strings["index_courses"]; ?>
@@ -895,13 +968,13 @@
 								<LI>Preview
 									<UL><LI>Lets you see the questions/answers how regular <?= $settings->profile; ?> would see them</LI></UL>
 								</LI>
-								<LI id="training-enroll">Enroll
+								<LI ID="training-enroll">Enroll
 									<UL>
-										<LI>A mini version of <SPAN ONCLICK="expand('profiles/list-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> to search for, and enroll <?= $settings->profile; ?> in a course</LI>
+										<LI>A mini version of <SPAN ONCLICK="expand('profiles/LIst-profiles');"><?= $strings["index_listprofile"]; ?></SPAN> to search for, and enroll <?= $settings->profile; ?> in a course</LI>
 										<LI>Once you enroll a <?= $settings->profile; ?>, their <?= $strings["index_training"]; ?> permission will be enabled, and they will recieve an email telling them where to take the course </LI>
 									</UL>
 								</LI>
-								<LI id="training-results">Results</LI>
+								<LI ID="training-results">Results</LI>
 								<LI>Edit
 									<UL>
 										<LI>Delete</LI>
@@ -920,7 +993,7 @@
 												<LI>The spelling and case of the attachments must match exactly</LI>
 												<LI>The system supports MP4, PDF and DOCX files</LI>
 												<LI>To link to an MP4 file, make one of the CSV list items:</LI>
-												<LI>training/video?title=<SPAN class="red">Title of the video</SPAN>&url=<SPAN class="red">Full URL to the video</SPAN></LI>
+												<LI>training/video?title=<SPAN CLASS="red">Title of the video</SPAN>&url=<SPAN CLASS="red">Full URL to the video</SPAN></LI>
 											</UL>
 										</LI>
 										<LI>Description</LI>
@@ -978,10 +1051,10 @@
 					<?php } ?>
 				</UL>
 			</LI>
-			<LI id="documents">
+			<LI ID="documents">
 				<?= $settings->document; ?>
 				<UL>
-					<LI id="listdocuments"><?= $strings["index_listdocuments"]; ?>
+					<LI ID="listdocuments"><?= $strings["index_listdocuments"]; ?>
 						<UL>
 							<LI><?= $strings["index_createdocument"]; ?>
 							<LI>Search
@@ -1016,9 +1089,9 @@
 									<LI>The date/time the document was created at</LI>
 									<LI>The color indicates how old the order is:</LI>
 									<LI>Less than 1 day</LI>
-									<LI class="green">1-2 days</LI>
-									<LI class="yellow">2-7 days</LI>
-									<LI class="red">Older than 1 week</LI>
+									<LI CLASS="green">1-2 days</LI>
+									<LI CLASS="yellow">2-7 days</LI>
+									<LI CLASS="red">Older than 1 week</LI>
 								</UL>
 							</LI>
 							<LI><?= $settings->client; ?>
@@ -1041,7 +1114,7 @@
 							</LI>
 						</UL>
 					</LI>
-					<LI id="create-document"><?= $strings["index_createdocument"]; ?>
+					<LI ID="create-document"><?= $strings["index_createdocument"]; ?>
 						<UL>
 							<LI><?= $strings["infoorder_selectclient"]; ?>
 								<UL><LI>Select which <?= $settings->client; ?> the <?= $settings->document; ?> will be submitted for</LI></UL>
@@ -1065,10 +1138,10 @@
 					</LI>
 				</UL>
 			</LI>
-			<LI id="orders">
+			<LI ID="orders">
 				<?= $strings["index_orders"]; ?>
 				<UL>
-					<LI id="list-orders"><?= $strings["index_listorders"]; ?>
+					<LI ID="list-orders"><?= $strings["index_listorders"]; ?>
 						<UL>
 							<LI>Search
 								<UL>
@@ -1101,16 +1174,16 @@
 									<LI>The date/time the order was placed at</LI>
 									<LI>The color indicates how old the order is:</LI>
 									<LI>Less than 1 day</LI>
-									<LI class="green">1-2 days</LI>
-									<LI class="yellow">2-7 days</LI>
-									<LI class="red">Older than 1 week</LI>
+									<LI CLASS="green">1-2 days</LI>
+									<LI CLASS="yellow">2-7 days</LI>
+									<LI CLASS="red">Older than 1 week</LI>
 								</UL>
 							</LI>
 							<LI><?= $strings["dashboard_actions"]; ?></LI>
 							<LI><?= $strings["documents_status"]; ?></LI>
 						</UL>
 					</LI>
-					<LI id="create-order"><?= $OrderTypes; ?>
+					<LI ID="create-order"><?= $OrderTypes; ?>
 						<UL>
 							<LI>Lets you place an order of this type</LI>
 							<LI><?= $settings->client; ?></LI>
@@ -1140,7 +1213,7 @@
 					</LI>
 				</UL>
 			</LI>
-			<LI id="analytics">
+			<LI ID="analytics">
 				<?= $strings["index_analytics"]; ?>
 				<UL>
 					<LI>Allows you to view statistics on user activity between 2 dates using the datepickers at the top right. Defaults to the last 2 weeks.</LI>
@@ -1148,7 +1221,7 @@
 					<LI><?= $strings["index_training"]; ?> courses completed</LI>
 				</UL>
 			</LI>
-			<LI id="tasks">
+			<LI ID="tasks">
 				<?= $strings["index_tasks"]; ?>
 				<UL>
 					<LI><?= $strings["index_calendar"]; ?>
@@ -1176,7 +1249,7 @@
 							</LI>
 						</UL>
 					</LI>
-					<LI id="add-task"><?= $strings["index_addtasks"]; ?>
+					<LI ID="add-task"><?= $strings["index_addtasks"]; ?>
 						<UL>
 							<LI><?= $strings["tasks_date"]; ?>
 								<UL>
@@ -1196,13 +1269,13 @@
 					</LI>
 				</UL>
 			</LI>
-		</ul>
-	</li>
+		</UL>
+	</LI>
 
-	<li ID="thecontent">The content
-	  <ul>
-		<li>This is where the page you're on will be shown</li>
-		<li>The arrow that sometimes appears at the bottom-right corner of this section will scroll you back to the top of the page</li>
+	<LI ID="thecontent">Content
+	  <UL>
+		<LI>This is where the page you're on will be shown</LI>
+		<LI>The arrow that sometimes appears at the bottom-right corner of this section will scroll you back to the top of the page</LI>
 		<LI ID="actionbar">Action bar
 			<UL>
 				<LI>The bar at the top of most pages will show the name of the page you're on</LI>
@@ -1216,19 +1289,19 @@
 				<LI>This bar will let you go to the first/last page, and a few surrounding the page you're on</LI>
 			</UL>
 		</LI>
-	  </ul>
-	</li>
+	  </UL>
+	</LI>
 
-	<LI id="misc">Miscellaneous
+	<LI ID="misc">Miscellaneous
 		<UL>
-			<LI id="profile-type"><?= $settings->profile; ?> type
+			<LI ID="profile-type"><?= $settings->profile; ?> type
 				<UL>
 					<LI>These are the types of <?= $settings->profile; ?>s in the system: </LI>
 					<LI><?= $ProfileTypes; ?></LI>
 					<LI>Super admin, admin & recruiter are the <?= $settings->profile; ?>s which are provided with the permissions to perform high level actions like creating <?= $settings->profile; ?>s, making orders, <?= $settings->document; ?>s, creating <?= $settings->client; ?>s etc. But still, according to system, any profile can be assigned with the permission to perform any action.	</LI>
 				</UL>
 			</LI>
-			<LI id="clientapplication">ClientApplication
+			<LI ID="clientapplication">ClientApplication
 				<UL>
 					<LI>The ClientApplication is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn’t require logging in. The applicant just need to:</LI>
 					<OL>
@@ -1236,12 +1309,12 @@
 						<LI>Select the <?= $settings->client; ?> that they want to submit <?= $settings->document; ?>s for</LI>
 						<LI>The <?= $settings->document; ?>s enabled for that client for ClientApplication are then listed in step wise preceded by driver form which is similar to the <SPAN ONCLICK="expand('profiles/profile');"><?= $strings["index_createprofile"]; ?></SPAN> form</LI>
 					</OL>
-					<LI>Once the ClientApplication is submitted, the <?= $settings->document; ?>s submitted are listed as <?= $settings->document; ?>s in the <SPAN ONCLICK="expand('documents/listdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN>, at the same time the applicant is assigned to the <?= $settings->client; ?> they submitted the <?= $settings->document; ?> for</LI>
+					<LI>Once the ClientApplication is submitted, the <?= $settings->document; ?>s submitted are listed as <?= $settings->document; ?>s in the <SPAN ONCLICK="expand('documents/LIstdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN>, at the same time the applicant is assigned to the <?= $settings->client; ?> they submitted the <?= $settings->document; ?> for</LI>
 				</UL>
 			</LI>
 		</UL>
 	</LI>
-  </ul>
-</div>
+  </UL>
+</DIV>
 <BUTTON ONCLICK="ExpandAll();">Expand All</BUTTON>
 <BUTTON ONCLICK="CollapseAll();">Collapse All</BUTTON>
