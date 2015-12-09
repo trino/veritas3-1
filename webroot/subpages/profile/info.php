@@ -796,14 +796,18 @@ loadreasons($param, $strings, true);
 
                                                     $cidss = implode(",", $AssignedTo);
                                                     $count = 0;
+                                                    $cl_count = 0;
                                                     if ($clients) {
                                                         $Row=0;
                                                         $Columns = 2;
                                                         $Column = 1;
+                                                        
                                                         foreach ($clients as $o) {
+                                                            $cl_count++;
                                                             $isassigned = in_array($o->id, $AssignedTo);
                                                             if($this->request->params['action'] == 'view') {
                                                                 if (!$isassigned) {
+                                                                        $cl_count--;
                                                                         continue;
                                                                 }
                                                             }
@@ -1036,6 +1040,18 @@ loadreasons($param, $strings, true);
         });
     }
     $(function(){
+        <?php
+        if(isset($cl_count) && $cl_count == 1)
+        {
+            ?>
+            $('.addclientz').click();
+            var clid = $('.addclientz').val();
+            $('.addclientz').attr('disabled','disabled');
+            $('.cids').val(clid);
+            <?php
+            
+        }
+        ?>
 
         $('.addclientz').live('change',function(){
 
