@@ -415,7 +415,7 @@ if (count($_POST) > 0) {
         default:
             if(file_exists("forms/" . $Form . '.php')){
                 include("forms/" . $Form . ".php");
-            } else if ($_SERVER['SERVER_NAME']  == "localhost") {
+            } else if ($_SERVER['SERVER_NAME']  == "localhost" || true) {
                 $doback = false;
                 $DoVeritas=true;
                 echo $strings["uniform_pleaseselect"] . ":<UL>";

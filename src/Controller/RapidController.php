@@ -905,7 +905,7 @@
 
             if (isset($GETPOST["driverid"])) {
                 $Driver = $GETPOST["driverid"];
-                $this->testuser($Driver, "id");
+                //$this->testuser($Driver, "id");
             } else {
                 //$GETPOST["email"] = "roy@trinoweb.com";//comment out when in post production!!!!!
                 if (!$this->Manager->validate_data($this->testuser($GETPOST, "email"), "email")) {
