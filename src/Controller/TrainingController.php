@@ -676,6 +676,16 @@ class TrainingController extends AppController {
             if ($this->request->session()->read('Profile.profile_type') == '2' && !$cond) {
                 $condition['created_by'] = $this->request->session()->read('Profile.id');
             }
+
+            if(isset($_GET["sitename"]) && $_GET["sitename"]){
+                if($cond){$cond .= ' AND ';}
+                $cond .= 'sitename = "' . $_GET["sitename"] . '"';
+            }
+            if(isset($_GET["asapdivision"]) && $_GET["asapdivision"]){
+                if($cond){$cond .= ' AND ';}
+                $cond .= 'asapdivision = "' . $_GET["asapdivision"] . '"';
+            }
+
             if ($cond) {
                 $query = $querys->find();
                 $query = $query->where([$cond]);
@@ -696,6 +706,20 @@ class TrainingController extends AppController {
                 $profile->isenrolled = $this->isuserenrolled($_GET["quizid"], $profile->id);
             }
             $this->set('profiles',$query);
+
+            if ($this->Manager->get_settings()->mee == "ASAP Secured Training") {
+                $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
+                $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
+            }
         }
+    }
+
+    function getdistinctfields($Table, $Field){
+        $Results = TableRegistry::get($Table)->find('all', array('fields' => $Field, 'group' =>  $Field));
+        $Ret = array();
+        foreach($Results as $Result){
+            $Ret[] = $Result->$Field;
+        }
+        return $Ret;
     }
 }

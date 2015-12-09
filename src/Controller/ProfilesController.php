@@ -757,6 +757,15 @@
                 }
             }
 
+            if(isset($_GET["sitename"]) && $_GET["sitename"]){
+                if($cond){$cond .= ' AND ';}
+                $cond .= 'sitename = "' . $_GET["sitename"] . '"';
+            }
+            if(isset($_GET["asapdivision"]) && $_GET["asapdivision"]){
+                if($cond){$cond .= ' AND ';}
+                $cond .= 'asapdivision = "' . $_GET["asapdivision"] . '"';
+            }
+
             if (isset($_GET['filter_by_client']) && $_GET['filter_by_client']) {
                 if($_GET['filter_by_client'] == -1){
                     if ($cond) {$cond .= ' AND';}
@@ -848,6 +857,10 @@
             }
 
             $this->Manager->permissions(array("sidebar" => array("profile_list", "profile_edit", "profile_delete", "profile_create", "bulk", "document_list", "orders_list")), $setting, false, $u);// "client_option", I don't know what this is used for
+            if ($this->Manager->get_settings()->mee == "ASAP Secured Training") {
+                $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
+                $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
+            }
         }
 
 
@@ -3655,6 +3668,15 @@
                 }
             }
             die();
+        }
+
+        function getdistinctfields($Table, $Field){
+            $Results = TableRegistry::get($Table)->find('all', array('fields' => $Field, 'group' =>  $Field));
+            $Ret = array();
+            foreach($Results as $Result){
+                $Ret[] = $Result->$Field;
+            }
+            return $Ret;
         }
     }
 ?>

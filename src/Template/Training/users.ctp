@@ -92,9 +92,7 @@ Users
 
 
                         if($isASAP){
-                            echo $user->Profiles["sitename"] . '</TD><TD>' . $user->Profiles["asapdivision"];
-
-                            echo '</TD><TD>';
+                            echo $user->Profiles["sitename"] . '</TD><TD>' . $user->Profiles["asapdivision"] . '</TD><TD>';
                         }
                         return true;
                     }

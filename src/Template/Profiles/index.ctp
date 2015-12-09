@@ -2,7 +2,7 @@
     include_once('subpages/api.php');
     $settings = $Manager->get_settings();
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, array("profiles_%", "documents_submitted%"), $settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
+    $strings = CacheTranslations($language, array("profiles_%", "documents_submitted%", "orders_division"), $settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
     $debug = $this->request->session()->read('debug');
     if ($language == "Debug") {
         $Trans = " [Translated]";
@@ -10,12 +10,10 @@
         $Trans = "";
     }
     $super = $this->request->session()->read('Profile.super');
-  $st_query = '';
-  if(isset($_GET['filter_profile_type']))
-                        {
-                            $st_query = $st_query.'?filter_profile_type='.$_GET['filter_profile_type'];
-                        }
-                        
+    $st_query = '';
+    if(isset($_GET['filter_profile_type'])) {
+        $st_query = $st_query.'?filter_profile_type='.$_GET['filter_profile_type'];
+    }
 ?>
 
 <style>
@@ -52,28 +50,23 @@
 
 </style>
 
-
 <?php
     //include_once ('subpages/api.php');
     $dr_cl = $doc_comp->getDriverClient(0, 0);
     $getProfileType = $this->requestAction('profiles/getProfileType/' . $this->Session->read('Profile.id'));
     $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
-    function hasget($name)
-    {
+    function hasget($name) {
         if (isset($_GET[$name])) {
             return strlen($_GET[$name]) > 0;
         }
         return false;
     }
 
+    if( $this->request->session()->read('Profile.id') =='1064'){
+        echo '<img src="' . $this->request->webroot . 'img/logos/challenger.png" style="float:right;">';
+    }
 ?>
-
-<?
-
-    if( $this->request->session()->read('Profile.id') =='1064'){ ?>
-<img src="<?php echo $this->request->webroot; ?>img/logos/challenger.png" style="float:right;">
-<?}?>
 
 <h3 class="page-title">
     <?php echo ucfirst($strings["profiles_profiles"]); ?>
@@ -83,11 +76,11 @@
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="<?php echo $this->request->webroot; ?>"><?= $strings["dashboard_dashboard"]; ?></a>
+            <a href="<?= $this->request->webroot; ?>"><?= $strings["dashboard_dashboard"]; ?></a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href=""><?php echo ucfirst($strings["profiles_profiles"]); ?></a>
+            <a href=""><?= ucfirst($strings["profiles_profiles"]); ?></a>
         </li>
     </ul>
 
@@ -97,11 +90,9 @@
         if ($sidebar->profile_create == 1) {
             echo '<a href="' . $this->request->webroot . 'profiles/add" class="floatright btn btn-primary btnspc">' . $strings["index_createprofile"] . '</a>';
         }
-    ?>
-</div>
 
+    echo '</div>';
 
-<?php
     if (isset($assignedtoGFS)) {
         $assignedtoGFS = explode(",", $assignedtoGFS);
         if (in_array($this->Session->read('Profile.id'), $assignedtoGFS)) {
@@ -112,11 +103,7 @@
 
 
 <div class="row">
-
-
     <div class="col-md-12">
-
-
         <div class="portlet box green-haze">
             <div class="portlet-title">
                 <div class="caption">
@@ -125,22 +112,17 @@
                 </div>
             </div>
 
-
             <div class="portlet-body form">
-
-
                 <div class="form-actions top chat-form" style="margin-top:0;margin-bottom:0;">
                     <div class="btn-set pull-left">
 
                     </div>
                     <div class="btn-set pull-right">
                         <form action="<?php echo $this->request->webroot; ?>profiles/index" method="get">
-                            <?php if (isset($_GET['draft'])) { ?><input type="hidden" name="draft"/><?php } ?>
-
+                            <?php if (isset($_GET['draft'])) { echo '<input type="hidden" name="draft"/>'; } ?>
 
                             <select class="form-control input-inline" style="" name="filter_profile_type">
                                 <option value=""><?= $strings["profiles_profiletype"] ?></option>
-
                                 <?php
                                     $isISB = (isset($sidebar) && $sidebar->client_option == 0);
                                     $fieldname = getFieldname("title", $language);
@@ -201,7 +183,31 @@
                                         ?>
                                     </select>
 
-                                <?php } ?>
+                                <?php }
+
+                                if(isset($sitenames)){
+                                    echo '<select class="form-control input-inline" style="" name="sitename"><OPTION VALUE="">' . $strings["profiles_sitename"] . '</OPTION>';
+                                    foreach($sitenames as $sitename){
+                                        if($sitename){
+                                            echo '<OPTION';
+                                            if(isset($_GET["sitename"]) && $_GET["sitename"] == $sitename){ echo ' SELECTED';}
+                                            echo '>' . $sitename. '</OPTION>';
+                                        }
+                                    }
+                                    echo '</SELECT>';
+
+                                    echo '<select class="form-control input-inline" style="" name="asapdivision"><OPTION VALUE="">' . $strings["orders_division"] . '</OPTION>';
+                                    foreach($asapdivisions as $asapdivision){
+                                        if($asapdivision){
+                                            echo '<OPTION';
+                                            if(isset($_GET["asapdivision"]) && $_GET["asapdivision"] == $asapdivision){ echo ' SELECTED';}
+                                            echo '>' . $asapdivision. '</OPTION>';
+                                        }
+                                    }
+                                    echo '</SELECT>';
+                                }
+
+                                ?>
 
                             <input class="form-control input-inline" type="search" name="searchprofile"
                                    placeholder="<?= $strings["profiles_searchfor"];  //;  ?>"
@@ -230,6 +236,10 @@
 
                                 <!--th><?= $this->Paginator->sort('lname', 'Last Name') ?></th-->
                                 <th><?= $strings["profiles_assignedto"] . " " . $settings->clients; ?></th>
+                                <?php if(isset($sitenames)){
+                                    echo '<th>' . $this->Paginator->sort('sitename', $strings["profiles_sitename"]) . '</th>';
+                                    echo '<th>' . $this->Paginator->sort('asapdivision', $strings["orders_division"]) . '</th>';
+                                } ?>
                                 <th><?= $strings["dashboard_actions"] ?></th>
 
                             </tr>
@@ -321,6 +331,13 @@
 
                                         <td class="v-center"><?php $clinet_name = strtolower($ProClients->getClientName($profile->id));
                                                 echo $ProClients->getAllClientsname($profile->id); ?></td>
+
+                                        <?php
+                                            if(isset($sitenames)){
+                                                echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision  . '</TD>';
+                                            }
+                                        ?>
+
                                         <td class="actions v-center util-btn-margin-bottom-5">
                                             <?php
 
