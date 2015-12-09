@@ -47,7 +47,7 @@
 
         <?php } ?>
         <div class="form-group col-md-4">
-            <label class="control-label"> <?php echo ($settings->client_option == 0) ? $strings["forms_companyname"] : $strings["forms_eventname"]; ?>
+            <label class="control-label required"> <?php echo ($settings->client_option == 0) ? $strings["forms_companyname"] : $strings["forms_eventname"]; ?>
             </label>
             <input required="required" type="text"
                    class="form-control"
