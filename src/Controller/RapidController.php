@@ -832,13 +832,26 @@
                 die();
             }
 
-            $Formdata = $this->Manager->validate_data($GETPOST, array("gender" => ["Male", "Female"], "title" => ["Mr.", "Mrs.", "Ms."], "email" => "email", "phone" => "phone", "postal" => "postalcode", "province" => "province", "driver_province" => "province", "clientid" => "number", "driverphotoBASE" => "base64file", "driverphoto2BASE" => "base64file", "forms" => "csv", 'signatureBASE' => "base64file", 'consentBASE' => "base64file", "dob" => "date"));
+
+            $Validation = array("gender" => ["Male", "Female"], "title" => ["Mr.", "Mrs.", "Ms."], "email" => "email", "phone" => "phone", "province" => "province", "driver_province" => "province", "clientid" => "number", "driverphotoBASE" => "base64file", "driverphoto2BASE" => "base64file", "forms" => "csv", 'signatureBASE' => "base64file", 'consentBASE' => "base64file", "dob" => "date");
+            switch ( strtolower(trim($GETPOST["country"]))){
+                case "canada":
+                    $Validation["postal"] = "postalcode";
+                    break;
+                case "usa":
+                    $Validation["postal"] = "zipcode";
+                    break;
+            }
+            $Formdata = $this->Manager->validate_data($GETPOST, $Validation);
+
             //$Required = array("clientid", "forms", "ordertype", "driverphotoBASE", "consentBASE", "fname", "lname", "gender", "email", "driver_province", "title", "placeofbirth", "sin", "phone", "street", "city", "province", "postalcode", "country", "dob", "driver_license_no", "expiry_date");
             $Required = array("clientid", "forms", "ordertype", "email", "phone", "driver_province", "driverphotoBASE", "expiry_date", "placeofbirth");
+
             $this->requiredfields($GETPOST, $Required);//required field validation
-            if(in_array(1603, explode(",", $GETPOST["forms"]))){
+            if (in_array(1603, explode(",", $GETPOST["forms"]))) {
                 $this->requiredfields($GETPOST, array("consentBASE"));//required field validation
             }
+
             if (!is_array($Formdata)) {
                 $this->status(False, $Formdata);
             }
@@ -888,14 +901,20 @@
                 }
             }
 
-            //construct and/or get driver
-            $ClientID = $this->get("clientid", 38);
+            $ClientID = 38;
+            if(isset($GETPOST["clientid"]) && $GETPOST["clientid"]){
+                $ClientID = $GETPOST["clientid"];
+            }
             if (!$ClientID) {
                 $this->Status(False, "Not a valid client ID");
             }
 
+            //construct and/or get driver
             $GETPOST["email"] = trim($GETPOST["email"]);
             $Profile = $this->Manager->get_entry("profiles", $GETPOST["email"], "email");
+            /* if(!$Profile && $GETPOST["driver_license_no"]){
+                $Profile = $this->Manager->get_entry("profiles", $GETPOST["driver_license_no"], "driver_license_no");
+            } */
             if($Profile){
                 $Clients = $this->Manager->find_client($Super->id, false);
                 if($this->Manager->is_assigned_to_client($Profile->id, $Clients)){
@@ -905,7 +924,6 @@
 
             if (isset($GETPOST["driverid"])) {
                 $Driver = $GETPOST["driverid"];
-                //$this->testuser($Driver, "id");
             } else {
                 //$GETPOST["email"] = "roy@trinoweb.com";//comment out when in post production!!!!!
                 if (!$this->Manager->validate_data($this->testuser($GETPOST, "email"), "email")) {
