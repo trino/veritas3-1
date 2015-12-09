@@ -1,31 +1,31 @@
 <?php
-$settings = $Manager->get_settings();
-$sidebar = $Manager->loadpermissions($Me, "sidebar");
-include_once('subpages/api.php');
+    $settings = $Manager->get_settings();
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
+    include_once('subpages/api.php');
 
-function clean($data, $datatype=0){
-    if (is_object($data)){
-        switch($datatype) {
-            case 0:
-                $data->Description = clean($data->Description);
-                $data->Name = clean($data->Name);
-                $data->Attachments = clean($data->Attachments);
-                $data->image = clean($data->image);
-                return $data;
-                break;
-            case 1:
-                $data->Question = clean($data->Question);
-                break;
+    function clean($data, $datatype=0){
+        if (is_object($data)){
+            switch($datatype) {
+                case 0:
+                    $data->Description = clean($data->Description);
+                    $data->Name = clean($data->Name);
+                    $data->Attachments = clean($data->Attachments);
+                    $data->image = clean($data->image);
+                    return $data;
+                    break;
+                case 1:
+                    $data->Question = clean($data->Question);
+                    break;
+            }
         }
+        if (substr($data,0,1)== '"' && substr($data,-1) == '"'){$data = substr($data,1, strlen($data)-2);}
+        $data = str_replace("\\r\\n", "\r\n", (trim($data))) ;
+        return $data;
     }
-    if (substr($data,0,1)== '"' && substr($data,-1) == '"'){$data = substr($data,1, strlen($data)-2);}
-    $data = str_replace("\\r\\n", "\r\n", (trim($data))) ;
-    return $data;
-}
 
-$title = "Courses";
-if (isset($_GET["quizid"])) { $title = "Course Results";}
-$isASAP = false;
+    $title = "Courses";
+    if (isset($_GET["quizid"])) { $title = "Course Results";}
+    $isASAP = false;
 ?>
 
 
@@ -89,8 +89,12 @@ Users
                         if (!is_numeric($user->Profiles['id'])) {return false;}
                         echo '<TR><TD>' . $user->Profiles['id'] . '</TD><TD>' . ucfirst($user->Profiles['fname']) . ' ' . ucfirst($user->Profiles['lname']) . '</TD><TD>';
                         echo '<A HREF="' . $webroot . 'profiles/edit/' . $user->Profiles['id'] . '">' . ucfirst($user->Profiles['username']) . '</A></TD><TD>';
+
+
                         if($isASAP){
-                            echo $user->sitename . '</TD><TD>' . $user->asapdivision . '</TD><TD>';
+                            echo $user->Profiles["sitename"] . '</TD><TD>' . $user->Profiles["asapdivision"];
+
+                            echo '</TD><TD>';
                         }
                         return true;
                     }
@@ -119,7 +123,7 @@ Users
                                 } else {
                                     echo '<font color="green">';
                                 }
-                                echo $score . '%</font>)' . '</TD><TD><A HREF="' . $this->request->webroot . 'training/quiz?quizid=' . $_GET['quizid'] . '&userid=';
+                                echo $score . '%</font>)' . '</TD><TD NOWRAP><A HREF="' . $this->request->webroot . 'training/quiz?quizid=' . $_GET['quizid'] . '&userid=';
                                 echo $user->UserID . '" class="' . btnclass("primary", "blue") . '">View Answers</A>';
                                 if ($score >= 80) {
                                     echo '<a href="' . $this->request->webroot . 'training/certificate?quizid=' . $_GET['quizid'] . '&userid=' . $user->UserID . '" class="' . btnclass("danger", "yellow") . '">Certificate</A> ';
