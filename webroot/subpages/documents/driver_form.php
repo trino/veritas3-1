@@ -106,8 +106,8 @@
         ?>
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label"><?= $strings["forms_expirydate"]; ?>: </label>
-        <input type="text" class="form-control dp" name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
+    <div class="col-md-4"><label class="control-label required"><?= $strings["forms_expirydate"]; ?>: </label>
+        <input type="text" class="form-control dp required" name="expiry_date" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
 
