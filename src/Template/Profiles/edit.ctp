@@ -389,7 +389,7 @@
                                             $Class = "";
                                         }
                                     }
-                                    echo '<br><button onclick="notify();" ID="notify" class="blue-stripe btn floatleft blue" style="margin-top:2px;width:100%;' . $Class . '">' . $strings["profiles_notify"] . '</button>';
+                                    //echo '<br><button onclick="notify();" ID="notify" class="blue-stripe btn floatleft blue" style="margin-top:2px;width:100%;' . $Class . '">' . $strings["profiles_notify"] . '</button>';
                                 }
 
                                 //if (isset($client_docs)) {

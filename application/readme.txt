@@ -107,8 +107,7 @@ If Status is true, the OrderID variable will give the Order ID number that was m
 
 PHP EXAMPLE:
 
-		function array_flatten($array)
-		{
+		function array_flatten($array){
 			if (isset($array["form"])) {
 				foreach ($array["form"] as $ID => $Data) {
 					foreach ($Data as $Key => $Value) {
@@ -121,13 +120,10 @@ PHP EXAMPLE:
 			return $array;
 		}     
 
-
-
 		//check order status, same as 
 		http://isbmee.ca/mee/rapid/placerapidorder?action=orderstatus&username=username&password=password&orderid=1141
 
-		function checkstatus()
-		{
+		function checkstatus(){
 			$data["username"] = "username";
 			$data["password"] = md5("password");
 			$data["orderid"] = 1137;
@@ -142,8 +138,7 @@ PHP EXAMPLE:
 		//place order, same as:
         echo $this->Manager->cURL('http://isbmee.ca/mee/rapid/placerapidorder', $data, "multipart/form-data");
      
-		function testorder()
-        {
+		function testorder() {
 			$data = array(
 			"username" => "", //set username and password here or place it in url (see below)
 			"password" => "",

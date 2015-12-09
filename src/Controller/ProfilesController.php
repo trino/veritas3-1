@@ -1027,6 +1027,7 @@
 
                     if(isset($_POST["ClientID"]) && $_POST["ClientID"]) {
                         $this->Manager->assign_profile_to_client($profile->id, $_POST["ClientID"]);
+                        $this->notify($profile->id, "email_profile");
                     }
                     $this->Flash->success($this->Trans->getString("flash_profilecreated"));
                     return $this->redirect(['action' => 'edit', $profile->id]);
@@ -1465,7 +1466,9 @@
             }
 
 
-
+            if(isset($profile->id)) {
+                $this->notify($profile->id, "email_profile");
+            }
             $this->refreshsession();
             die();
         }
@@ -1566,9 +1569,7 @@
         }
 
         public function edit($id = null) {
-            //var_dump($_POST);die();
-                if(isset($_POST['cids']) && $_POST['cids'])
-                {
+            if(isset($_POST['cids']) && $_POST['cids']) {
                     die('here');
                 $_POST['client_idss'] = explode(',',$_POST['cids']);
                 $cquery = TableRegistry::get('Clients');
@@ -1615,10 +1616,6 @@
 
             $setting = $this->Settings->get_permission($userid);
             if (($setting->profile_edit == 0) && $id != $userid) {
-
-              //  var_dump($setting);die();
-
-
                 $this->Flash->error($this->Trans->getpermissions("004", array("profile_edit", "viewprofiles")));
                 //$this->Flash->error($this->Trans->getString("flash_permissions", array("place" => "edit")) . ' (000)');
                 return $this->redirect("/");
@@ -1694,7 +1691,7 @@
                 }
 
                 if ($this->Profiles->save($profile)) {
-                    $this->Flash->success($this->Trans->getString("flash_profilesaved"));
+                    $this->Flash->success("TESTING ID: " . $id . " " . $this->Trans->getString("flash_profilesaved"));
                     return $this->redirect(['action' => 'index']);
                 } else {
                     $this->Flash->error($this->Trans->getString("flash_profilenotsaved"));
@@ -1713,8 +1710,6 @@
 
             $this->set('products', TableRegistry::get('product_types')->find()->where(['id <>' => 7]));
             $this->loadclients($profile->id);
-            
-            
         }
 
         function addprofile($add,$client_id,$user_id){
@@ -2923,6 +2918,41 @@
             $this->layout = "blank";
             die();
         }
+
+
+    function notify($UserID, $ProfileType = 2){//recruiter
+        $AssignedClients = $this->Manager->find_client($UserID, false);
+        if($AssignedClients) {
+            if (!is_array($AssignedClients)) {$AssignedClients = array($AssignedClients);}
+            $Clients = $this->Manager->enum_all('clients', array("id IN(" . implode(",", $AssignedClients) . ")"));
+            $Emails = array();
+            foreach ($Clients as $Client) {
+                if($Client->profile_id) {
+                    if(!is_numeric($ProfileType)){
+                        $Profiles = $this->Manager->enum_all("profiles", array("id IN (SELECT user_id FROM sidebar WHERE user_id IN (" . $Client->profile_id . ") AND " . $ProfileType . " = 1 )"));
+                    } else {
+                        $Profiles = $this->Manager->enum_all("profiles", array("profile_type IN (" . $ProfileType . ")", "id IN (" . $Client->profile_id . ")"));
+                    }
+                    foreach($Profiles as $Profile){
+                        if($Profile->email){
+                            $Emails[] = $Profile->email;
+                        }
+                    }
+                }
+            }
+            $Emails = array_unique($Emails);
+            if($Emails){
+                $Path = LOGIN . 'profiles/view/' . $UserID;
+                $Profile = $this->formatname($UserID);
+                $Editor = $this->formatname();
+                $this->Manager->handleevent("notify", array("email" => $Emails, "name" => $Profile, "path" => $Path, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $Editor));
+            }
+        }
+    }
+    function formatname($UserID = false){
+        $Profile = $this->Manager->get_profile($UserID);
+        return $Profile->fname . " " . $Profile->mname . " " . $Profile->lname . ' (' . $Profile->username . ')';
+    }
 
         function scrambledata(){
             if ($this->request->session()->read('Profile.super') == 1) {
