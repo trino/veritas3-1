@@ -297,7 +297,7 @@
                                         if (true) { //$profile->is_complete && !$MissingData) {
 
                                             echo '<label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
-                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"' . $is_disabled;
+                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"';// . $is_disabled;
                                             if ($p->requalify == '1') {
                                                 echo " checked";
                                             }
@@ -306,7 +306,7 @@
                                             //driver, owner driver, owner operator, sales, employee
                                             echo '<label class="uniform-inline" style="">';
 
-                                            echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"' . $is_disabled;
+                                            echo '<input type="checkbox" name="stat" value="1" id="' . $profile->id . '" class="checkhiredriver"';// . $is_disabled;
                                             if ($p->is_hired == '1') {
                                                 echo " checked";
                                             }
