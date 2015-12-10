@@ -47,7 +47,7 @@
     }
 ?>
 <div id="tab0">
-    <h2 style="float:left;font-weight: bold;">Application for <?= $client->company_name;?></h2>
+    <h2 style="float:left;font-weight: bold;margin-top: 0;">Application for <?= $client->company_name;?></h2>
 
     <IMG SRC="<?=$Image;?>" STYLE="max-height: 50px;float:right;">
     <div class="clearfix"></div>

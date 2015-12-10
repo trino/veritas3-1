@@ -126,7 +126,7 @@
                                     <label class="uniform-inline">
                                         <input <?php echo $is_disabled ?> type="checkbox" name="side[email_profile]"
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->email_profile == 1) echo "checked"; ?> />
-                                        Receive Email (on create/edit profile)
+                                        Receive Email (on create/delete profile)
                                     </label>
                                     <?php if($AllowOthers){?>
                                     <label class="uniform-inline">
