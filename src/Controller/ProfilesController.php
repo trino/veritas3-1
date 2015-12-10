@@ -102,6 +102,7 @@
         }
 
         public function DeleteSubdocument($id){
+            
             TableRegistry::get('subdocuments')->deleteAll(array('id' => $id));
         }
 
@@ -1275,6 +1276,7 @@
                             foreach($_POST['client_idss'] as $cid) {
                                 $this->addprofile(1,$cid,$profile->id);
                             }
+                            
                         }
                         $this->checkusername($profile,$_POST);
                         $this->loadModel('ProfileDocs');
@@ -1384,6 +1386,7 @@
                         echo "0";
                     }
                 }
+                $this->sendOutEmail($profile->id);
             } else {
                 $profile = $this->Profiles->get($add, ['contain' => []]);
                 if ($this->request->is(['patch', 'post', 'put'])) {
@@ -1747,6 +1750,7 @@
         }
 
         public function delete($id = null) {
+            $this->sendOutEmail($id,'delete');
             $check_pro_id = $this->Settings->check_pro_id($id);
             if ($check_pro_id == 1) {
                 $this->Flash->error($this->Trans->getString("flash_profilenotfound"));
@@ -3625,6 +3629,68 @@
                 }
             }
             die();
+        }
+        function sendOutEmail($id,$action="add")
+        {
+            $clients = TableRegistry::get('clients');
+            $client = $clients->find()->where(['(profile_id LIKE "'.$id.',%" OR profile_id LIKE "%,'.$id.',%" OR profile_id LIKE "%,'.$id.'" OR profile_id = "'.$id.'")']);
+            $pids = '0';
+            if($client){
+            foreach($client as $c)
+            {
+                $pids = $pids.','.$c->profile_id;
+                $pids = str_replace(',,',',',$pids);
+                $pids = str_replace(',,',',',$pids);
+                $pids = str_replace('0,','',$pids);
+            }
+            $sidebar = TableRegistry::get('sidebar')->find()->where(['user_id IN ('.$pids.') AND user_id <> 0 AND email_profile = 1']);
+            foreach($sidebar as $s)
+            {
+                $this->sendProfileEmail($id,$s->user_id,$action);
+            }
+            }
+            
+            
+        }
+        function sendProfileEmail($pid,$id,$action)
+        {
+            $q = $this->getProfileDetail($pid);   
+            if($action == 'add'){
+            $subject = "New Profile Created";    
+            $msg = "A new profile has been created to one of the clients you are assigned to. Please click <a href='".LOGIN."profiles/view/".$pid."'>here to view the profile";
+            }
+            else{
+            $msg = "A profile assigned to one of the clients you are assigned to has been deleted. The detail of the profile is listed below:<br/>
+            <br/>
+            <table style='width:50%'>
+            <tr><td>First Name</td><td>".$q->fname."</td></tr>
+            <tr><td>Middle Name</td><td>".$q->mname."</td></tr>
+            <tr><td>Last Name</td><td>".$q->lname."</td></tr>
+            <tr><td>Email</td><td>".$q->email."</td></tr>
+            <tr><td>Username</td><td>".$q->username."</td></tr>
+            </table>
+            ";
+            $subject = "Profile Deleted";
+            }
+            $q2 = $this->getProfileDetail($id);
+             
+            $to = $q2->email;
+            if($to){
+            $path = $this->Mailer->getUrl();
+            $n =  $this->Mailer->get_settings();
+            $name = $n->mee;
+            $email = new Email('default');
+            $email->from(['info@' . $path => $name])
+                ->emailFormat('html')
+                ->to(trim(str_replace(" ", "+", $to)))//$to
+                ->subject($subject)
+                ->send($msg);
+                unset($email);
+                }            
+        }
+        function getProfileDetail($id)
+        {
+            return $profile = TableRegistry::get('Profiles')->find()->where(['id'=>$id])->first();
         }
     }
 ?>
