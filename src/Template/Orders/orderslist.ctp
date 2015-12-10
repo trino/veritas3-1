@@ -98,7 +98,7 @@
 
                         <form action="<?php echo $this->request->webroot; ?>orders/orderslist" method="get">
                         <select onchange="window.location = $(this).val();" class="form-control input-inline">
-                        <option value="<?= $this->request->webroot; ?>orders/orderslist"><?= $strings["documents_select"]; ?></option>
+                        <option value="<?= $this->request->webroot; ?>orders/orderslist"><?= $strings["dashboard_selectall"]; ?></option>
                         <option value="<?= $this->request->webroot; ?>orders/orderslist?draft" <?php if(isset($_GET['draft'])){?>selected="selected"<?php }?>><?= ucfirst($strings["index_orderdrafts"]); ?></option>
                         <option value="<?= $this->request->webroot; ?>orders/orderslist?pending" <?php if(isset($_GET['pending'])){?>selected="selected"<?php }?>><?= ucfirst($strings["documents_pending"]); ?></option>
                         <option value="<?= $this->request->webroot; ?>orders/orderslist?complete" <?php if(isset($_GET['complete'])){?>selected="selected"<?php }?>><?= ucfirst($strings["documents_complete"]); ?></option>
