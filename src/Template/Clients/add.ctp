@@ -57,6 +57,9 @@
         </li>
     </ul>
     <!--a href="javascript:window.print();" class="floatright btn btn-primary">Print</a-->
+    <?php if(isset($client->slug)){?>
+    <a href="<?php echo $this->request->webroot;?>clientApplication/apply/<?php echo $client->slug;?>" class="floatright btn btn-primary" style="margin-left: 5px;">Client Application</a>
+    <?php }?>
     <?php
         if (isset($disabled) || isset($_GET['view'])) { ?>
             <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
