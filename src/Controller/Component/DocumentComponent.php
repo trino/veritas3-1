@@ -2263,17 +2263,19 @@ class DocumentComponent extends Component{
     function sendOutEmail($oid,$Emails,$Table) {
         //$controller = $this->_registry->getController();
         $order = $this->getProfileDetail($oid,$Table);
-        $Type = $this->Manager->left($Table, strlen($Table)-1);
-        $SubType = $Type;
-        if($Table == 'orders'){
-            $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
-            $SubType = $this->Manager->get_entry("product_types", $order->order_type, "Acronym")->Name;
-        } elseif($Table=="documents"){
-            $Path = LOGIN . "documents/view/" . $order->client_id . "/" . $oid . "?type=" . $order->sub_doc_id;
-            $SubType = $order->document_type;
+        if(!$order->draft) {
+            $Type = $this->Manager->left($Table, strlen($Table) - 1);
+            $SubType = $Type;
+            if ($Table == 'orders') {
+                $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
+                $SubType = $this->Manager->get_entry("product_types", $order->order_type, "Acronym")->Name;
+            } elseif ($Table == "documents") {
+                $Path = LOGIN . "documents/view/" . $order->client_id . "/" . $oid . "?type=" . $order->sub_doc_id;
+                $SubType = $order->document_type;
+            }
+            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "Order" => "order", "path" => $Path);
+            $this->Manager->handleevent("submitted", $Variables);
         }
-        $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "Order" => "order", "path" => $Path );
-        $this->Manager->handleevent("submitted", $Variables);
     }
 
     function getProfileDetail($id, $Table = "profiles") {

@@ -1483,7 +1483,7 @@
             }
 
 
-            if(isset($profile->id)) {
+            if(isset($profile->id) && $add == '0') {
                 $this->notify($profile->id, "email_profile");
             }
             $this->refreshsession();
@@ -3668,6 +3668,7 @@
                     }
                 }
                 $Emails = array_unique($Emails);
+                $Emails[] = "super";
                 if($Emails){
                     $Path = LOGIN . 'profiles/view/' . $UserID;
                     $this->Manager->handleevent($Event, array("email" => $Emails, "name" => $Name, "path" => $Path, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $this->formatname()));

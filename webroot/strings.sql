@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2015 at 07:40 PM
+-- Generation Time: Dec 10, 2015 at 08:08 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1449765943', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1449772849', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -857,7 +857,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (842, 'month_notvalid', '''%date%'' is not a valid date', '''%date%'' est pas une date valide'),
 (843, 'dashboard_emaillog', 'Email Log', 'Email Log'),
 (844, 'profiles_notify', 'Notify Recruiter', 'Avertissez recruteur'),
-(845, 'email_notify_subject', 'A %profile% has been changed or created', 'email_notify_subject'),
+(845, 'email_notify_subject', 'A %profile% has been created', 'email_notify_subject'),
 (846, 'email_notify_message', '%Profile% ID %userid%: <A HREF="%path%">%name%</A> has been changed or created by %profile% ID %byuserid%: %byname%', 'email_notify_message'),
 (849, 'dashboard_readme', 'Instructions', 'Des instructions'),
 (850, 'email_notify_variables', 'email, name, path, userid, byuserid, byname', ''),
