@@ -575,7 +575,7 @@
                     }
                 ?>
                     //
-                    var cou2 = 1;
+                    var cou2 = <?php if(isset($counter) && $counter)echo $counter;else{?>1<?php }?>; 
                     $(".add_more_edu").click(function () {
                         cou2++;
                         $('.overlay-wrapper').show();

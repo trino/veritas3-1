@@ -594,7 +594,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 echo "fileUpload('emp1');";
             }
         ?>
-      var cou = 1;  
+      var cou = <?php if(isset($counter) && $counter)echo $counter;else{?>1<?php }?>;  
       $("#add_more").click(function(){
         cou++;
         <?php if($this->request->params['controller']=='ClientApplication'){?>
