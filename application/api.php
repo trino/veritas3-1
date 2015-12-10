@@ -349,6 +349,9 @@ function printoptions($name, $valuearray, $selected = "", $optionarray, $isdisab
 }
 
 function cleanit($array){
+    foreach($array as $Key => $Value){
+        $array[$Key] = str_replace('"', "'", $Value);
+    }
     return str_replace("\r\n", "", str_replace('\"', '"', addslashes(implode('", "',$array))));
 }
 function loadstringsJS($strings){

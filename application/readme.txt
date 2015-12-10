@@ -15,13 +15,13 @@ POST data: (* denotes required fields)
   'street' 		        => string* (User's street)
   'city' 		        => string* (User's city)
   'province' 		    => string* (User's province, must be ["AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"])
-  'country' 		    => string* (User's Coutnry, Usually Canada)
-  'postal' 		        => string* (User's Postal Code)
-  'dob' 		        => string* (User's date of birth in format of 'MM/DD/YYYY')
+  'country' 		    => string* (User's Country, Usually "Canada" or "USA")
+  'postal' 		        => string* (User's Postal Code if country = "Canada", or Zip code if country = "USA", otherwise it's not validated)
+  'dob' 		        => string* (User's date of birth)
   'sin'                 => string* (User's social insurance number)
   'driver_license_no' 	=> string* (driver's license #)
   'driver_province' 	=> string* (driver's license issued province, must be ["AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"])
-  'expiry_date'         => string* (driver's license expiry date in format of 'MM/DD/YYYY')
+  'expiry_date'         => string* (driver's license expiry date)
   'clientid' 		    => number* (Client ID number)
   'driverphotoBASE' 	=> string* (Base64 encoded image of driver photo ID)
   'forms' 		        => string* (Comma delimeted list of form numbers, see the list at the bottom)
@@ -40,14 +40,14 @@ POST data: (* denotes required fields)
 				supervisor_phone                            => string
 				supervisor_email                            => string
 				supervisor_secondary_email                  => string
-				employment_start_date                       => string (date in format of 'MM/DD/YYYY')
-				employment_end_date                         => string (date in format of 'MM/DD/YYYY')
+				employment_start_date                       => string (date)
+				employment_end_date                         => string (date)
 				claims_with_employer                        => number (0=no, 1=yes)
-				claims_recovery_date                        => string (date in format of 'MM/DD/YYYY')
+				claims_recovery_date                        => string (date)
 				emploment_history_confirm_verify_use        => string
 				us_dot                                      => string
 				signature                                   => hidden/blank
-				signature_datetime                          => string (today's date in format of 'MM/DD/YYYY')
+				signature_datetime                          => string (today's date)
 				equipment_vans                              => number (0=no, 1=yes)
 				equipment_reefer                            => number (0=no, 1=yes)
 				equipment_decks                             => number (0=no, 1=yes)
@@ -65,8 +65,8 @@ POST data: (* denotes required fields)
 				supervisor_name                             => string
 				supervisor_phone                            => string
 				supervisor_email                            => string
-				education_start_date                        => string (date in format of 'MM/DD/YYYY')
-				education_end_date                          => string (date in format of 'MM/DD/YYYY')
+				education_start_date                        => string (date)
+				education_end_date                          => string (date)
 				claim_tutor                                 => number (0=no, 1=yes)
 				date_claims_occur                           => string
 				education_history_confirmed_by              => string
@@ -75,12 +75,14 @@ POST data: (* denotes required fields)
 				college                                     => number (1-4)
 				last_school_attended                        => string
 				performance_issue                           => string
-				date_time                                   => string (today's date in format of 'MM/DD/YYYY')
+				date_time                                   => string (today's date)
 				signature                                   => hidden/blank
 
   ));
 
-  
+--------------------------------------------------------------------------------------------------------------
+Date format:
+  	 'MM/DD/YYYY' or 'YYYY-MM-DD' are accepted. 'MM/DD/YYYY' will be converted to 'YYYY-MM-DD'
 --------------------------------------------------------------------------------------------------------------
   
   
@@ -107,8 +109,7 @@ If Status is true, the OrderID variable will give the Order ID number that was m
 
 PHP EXAMPLE:
 
-		function array_flatten($array)
-		{
+		function array_flatten($array){
 			if (isset($array["form"])) {
 				foreach ($array["form"] as $ID => $Data) {
 					foreach ($Data as $Key => $Value) {
@@ -121,13 +122,10 @@ PHP EXAMPLE:
 			return $array;
 		}     
 
-
-
 		//check order status, same as 
 		http://isbmee.ca/mee/rapid/placerapidorder?action=orderstatus&username=username&password=password&orderid=1141
 
-		function checkstatus()
-		{
+		function checkstatus(){
 			$data["username"] = "username";
 			$data["password"] = md5("password");
 			$data["orderid"] = 1137;
@@ -142,8 +140,7 @@ PHP EXAMPLE:
 		//place order, same as:
         echo $this->Manager->cURL('http://isbmee.ca/mee/rapid/placerapidorder', $data, "multipart/form-data");
      
-		function testorder()
-        {
+		function testorder() {
 			$data = array(
 			"username" => "", //set username and password here or place it in url (see below)
 			"password" => "",

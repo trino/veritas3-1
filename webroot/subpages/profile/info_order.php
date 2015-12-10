@@ -2,29 +2,38 @@
         border: 0px solid green;
     }</style>
 <?php
-     if($this->request->session()->read('debug')) {
-         echo "<span style ='color:red;'>subpages/profile/info_order.php #INC152</span>";
-     }
+    if ($this->request->session()->read('debug')) {
+        echo "<span style ='color:red;'>subpages/profile/info_order.php #INC152</span>";
+    }
 
     $getProfileType = $this->requestAction('profiles/getProfileType/' . $this->Session->read('Profile.id'));
     $profiletypes = $this->requestAction('profiles/getProfileTypes/' . $language);
     $sidebar = $Manager->loadpermissions($Me, "sidebar");
     $strings2 = CacheTranslations($language, array("info_%", "profiles_profiletype"), $settings, False);
 
-    function printoption($option, $selected, $value = ""){
+    function printoption($option, $selected, $value = "")
+    {
         $tempstr = "";
-        if ($option == $selected || $value == $selected) {$tempstr = " selected";}
-        if (strlen($value) > 0) {$value = " value='" . $value . "'";}
+        if ($option == $selected || $value == $selected) {
+            $tempstr = " selected";
+        }
+        if (strlen($value) > 0) {
+            $value = " value='" . $value . "'";
+        }
         echo '<option' . $value . $tempstr . ">" . $option . "</option>";
     }
 
-    function printoption2($value, $selected = "", $option){
+    function printoption2($value, $selected = "", $option)
+    {
         $tempstr = "";
-        if ($option == $selected or $value == $selected) {$tempstr = " selected";}
+        if ($option == $selected or $value == $selected) {
+            $tempstr = " selected";
+        }
         echo '<OPTION VALUE="' . $value . '"' . $tempstr . ">" . $option . "</OPTION>";
     }
 
-    function printoptions($name, $valuearray, $selected = "", $optionarray, $isdisabled = ""){
+    function printoptions($name, $valuearray, $selected = "", $optionarray, $isdisabled = "")
+    {
         echo '<SELECT ' . $isdisabled . ' name="' . $name . '" class="form-control member_type" >';
         for ($temp = 0; $temp < count($valuearray); $temp += 1) {
             printoption2($valuearray[$temp], $selected, $optionarray[$temp]);
@@ -32,9 +41,11 @@
         echo '</SELECT>';
     }
 
-    function printprovinces($name, $selected = "", $isdisabled = "disabled='disabled'"){
-        printoptions($name,getprovinces("Acronyms"), $selected, getprovinces(""), $isdisabled);
+    function printprovinces($name, $selected = "", $isdisabled = "disabled='disabled'")
+    {
+        printoptions($name, getprovinces("Acronyms"), $selected, getprovinces(""), $isdisabled);
     }
+
 ?>
 
 <div>
@@ -70,10 +81,11 @@
                                 <div class="form-group">
                                     <label class="control-label"><?= $strings2["profiles_profiletype"]; ?>:</label>
 
-                                    <select name="profile_type" class="form-control member_type required" disabled="disabled">
+                                    <select name="profile_type" class="form-control member_type required"
+                                            disabled="disabled">
                                         <?php
-                                            foreach($profiletypes as $Key => $Value){
-                                                if(!strpos($Key, ".")){
+                                            foreach ($profiletypes as $Key => $Value) {
+                                                if (!strpos($Key, ".")) {
                                                     printoption($Value, $p->profile_type, $Key);
                                                 }
                                                 //
@@ -85,90 +97,91 @@
                                 </div>
                             </div>
 
-                            <?php if ($sidebar->client_option == 0 && $p->profile_type != 11 && $this->requestAction('clients/assignedTo/17/'.$this->request->session()->read('Profile.id'))/*&& (isset($p) && $p->profile_type == 5)*/) { ?>
-                                <?php if(isset($p) && ($p->profile_type == 5 || $p->profile_type == 7 || $p->profile_type == 8)){?>
-                                <div class="col-md-4" id="driver_div"
-                                     style="">
-                                    <div class="form-group">
-                                        <label class="control-label"><?= $strings["forms_drivertype"]; ?>:</label>
-                                        <select name="driver" class="form-control select_driver">
-                                            <option value=""><?= $strings["forms_selectdrivertype"]; ?></option>
-                                            <option
-                                                value="1" <?php if (isset($p) && $p->driver == 1) echo "selected='selected'"; ?>
-                                                >BC - BC FTL AB/BC
-                                            </option>
-                                            <option value="2"
-                                                <?php if (isset($p) && $p->driver == 2) echo "selected='selected'"; ?>>
-                                                BCI5 - BC FTL I5
-                                            </option>
-                                            <option value="3"
-                                                <?php if (isset($p) && $p->driver == 3) echo "selected='selected'"; ?>>
-                                                BULK
-                                            </option>
-                                            <option value="4"
-                                                <?php if (isset($p) && $p->driver == 4) echo "selected='selected'"; ?>>
-                                                CLIMATE
-                                            </option>
-                                            <option value="5"
-                                                <?php if (isset($p) && $p->driver == 5) echo "selected='selected'"; ?>>
-                                                FTL - SINGLE DIVISION
-                                            </option>
-                                            <option value="6"
-                                                <?php if (isset($p) && $p->driver == 6) echo "selected='selected'"; ?>>
-                                                FTL - TOYOTA SINGLE HRLY
-                                            </option>
-                                            <option value="7"
-                                                <?php if (isset($p) && $p->driver == 7) echo "selected='selected'"; ?>>
-                                                FTL - TOYOTA SINGLE HWY
-                                            </option>
-                                            <option value="8"
-                                                <?php if (isset($p) && $p->driver == 8) echo "selected='selected'"; ?>>
-                                                LCV - LCV UNITS
-                                            </option>
-                                            <option value="9"
-                                                <?php if (isset($p) && $p->driver == 9) echo "selected='selected'"; ?>>
-                                                LOC - LOCAL
-                                            </option>
-                                            <option value="10"
-                                                <?php if (isset($p) && $p->driver == 10) echo "selected='selected'"; ?>>
-                                                OWNER - OPERATOR
-                                            </option>
-                                            <option value="11"
-                                                <?php if (isset($p) && $p->driver == 11) echo "selected='selected'"; ?>>
-                                                OWNER - DRIVER
-                                            </option>
-                                            <option value="12"
-                                                <?php if (isset($p) && $p->driver == 12) echo "selected='selected'"; ?>>
-                                                SCD - SPECIAL COMMODITIES
-                                            </option>
-                                            <option value="13"
-                                                <?php if (isset($p) && $p->driver == 13) echo "selected='selected'"; ?>>
-                                                SST-SANDRK- OPEN FUEL
-                                            </option>
-                                            <option value="14"
-                                                <?php if (isset($p) && $p->driver == 14) echo "selected='selected'"; ?>>
-                                                SWD-SANDRK
-                                            </option>
-                                            <option value="15"
-                                                <?php if (isset($p) && $p->driver == 15) echo "selected='selected'"; ?>>
-                                                TBL-TRANSBORDER
-                                            </option>
-                                            <option value="16"
-                                                <?php if (isset($p) && $p->driver == 16) echo "selected='selected'"; ?>>
-                                                TEM - TEAM DIVISION
-                                            </option>
-                                            <option value="17"
-                                                <?php if (isset($p) && $p->driver == 17) echo "selected='selected'"; ?>>
-                                                TEM - TOYOTA TEAM
-                                            </option>
-                                            <option value="18"
-                                                <?php if (isset($p) && $p->driver == 18) echo "selected='selected'"; ?>>
-                                                WD - Wind
-                                            </option>
-                                        </select>
+                            <?php if ($sidebar->client_option == 0 && $p->profile_type != 11 && $this->requestAction('clients/assignedTo/17/' . $this->request->session()->read('Profile.id'))/*&& (isset($p) && $p->profile_type == 5)*/) { ?>
+                                <?php if (isset($p) && ($p->profile_type == 5 || $p->profile_type == 7 || $p->profile_type == 8)) { ?>
+                                    <div class="col-md-4" id="driver_div"
+                                         style="">
+                                        <div class="form-group">
+                                            <label class="control-label"><?= $strings["forms_drivertype"]; ?>:</label>
+                                            <select name="driver" class="form-control select_driver">
+                                                <option value=""><?= $strings["forms_selectdrivertype"]; ?></option>
+                                                <option
+                                                    value="1" <?php if (isset($p) && $p->driver == 1) echo "selected='selected'"; ?>
+                                                    >BC - BC FTL AB/BC
+                                                </option>
+                                                <option value="2"
+                                                    <?php if (isset($p) && $p->driver == 2) echo "selected='selected'"; ?>>
+                                                    BCI5 - BC FTL I5
+                                                </option>
+                                                <option value="3"
+                                                    <?php if (isset($p) && $p->driver == 3) echo "selected='selected'"; ?>>
+                                                    BULK
+                                                </option>
+                                                <option value="4"
+                                                    <?php if (isset($p) && $p->driver == 4) echo "selected='selected'"; ?>>
+                                                    CLIMATE
+                                                </option>
+                                                <option value="5"
+                                                    <?php if (isset($p) && $p->driver == 5) echo "selected='selected'"; ?>>
+                                                    FTL - SINGLE DIVISION
+                                                </option>
+                                                <option value="6"
+                                                    <?php if (isset($p) && $p->driver == 6) echo "selected='selected'"; ?>>
+                                                    FTL - TOYOTA SINGLE HRLY
+                                                </option>
+                                                <option value="7"
+                                                    <?php if (isset($p) && $p->driver == 7) echo "selected='selected'"; ?>>
+                                                    FTL - TOYOTA SINGLE HWY
+                                                </option>
+                                                <option value="8"
+                                                    <?php if (isset($p) && $p->driver == 8) echo "selected='selected'"; ?>>
+                                                    LCV - LCV UNITS
+                                                </option>
+                                                <option value="9"
+                                                    <?php if (isset($p) && $p->driver == 9) echo "selected='selected'"; ?>>
+                                                    LOC - LOCAL
+                                                </option>
+                                                <option value="10"
+                                                    <?php if (isset($p) && $p->driver == 10) echo "selected='selected'"; ?>>
+                                                    OWNER - OPERATOR
+                                                </option>
+                                                <option value="11"
+                                                    <?php if (isset($p) && $p->driver == 11) echo "selected='selected'"; ?>>
+                                                    OWNER - DRIVER
+                                                </option>
+                                                <option value="12"
+                                                    <?php if (isset($p) && $p->driver == 12) echo "selected='selected'"; ?>>
+                                                    SCD - SPECIAL COMMODITIES
+                                                </option>
+                                                <option value="13"
+                                                    <?php if (isset($p) && $p->driver == 13) echo "selected='selected'"; ?>>
+                                                    SST-SANDRK- OPEN FUEL
+                                                </option>
+                                                <option value="14"
+                                                    <?php if (isset($p) && $p->driver == 14) echo "selected='selected'"; ?>>
+                                                    SWD-SANDRK
+                                                </option>
+                                                <option value="15"
+                                                    <?php if (isset($p) && $p->driver == 15) echo "selected='selected'"; ?>>
+                                                    TBL-TRANSBORDER
+                                                </option>
+                                                <option value="16"
+                                                    <?php if (isset($p) && $p->driver == 16) echo "selected='selected'"; ?>>
+                                                    TEM - TEAM DIVISION
+                                                </option>
+                                                <option value="17"
+                                                    <?php if (isset($p) && $p->driver == 17) echo "selected='selected'"; ?>>
+                                                    TEM - TOYOTA TEAM
+                                                </option>
+                                                <option value="18"
+                                                    <?php if (isset($p) && $p->driver == 18) echo "selected='selected'"; ?>>
+                                                    WD - Wind
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php }} ?>
+                                <?php }
+                            } ?>
 
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -190,9 +203,11 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <?php
-                                    $title = "";
-                                    if (isset($p->title)) {$title = $p->title;}
-                                    selecttitle($language, $strings, "title", $title, $is_disabled);//$language, $strings, $name, $title, $is_disabled
+                                        $title = "";
+                                        if (isset($p->title)) {
+                                            $title = $p->title;
+                                        }
+                                        selecttitle($language, $strings, "title", $title, $is_disabled);//$language, $strings, $name, $title, $is_disabled
                                     ?>
                                 </div>
                             </div>
@@ -269,16 +284,14 @@
                             <div class="col-md-8">
 
                                 <div class="form-group">
-                                    <label class="control-label"><?= $strings["forms_dateofbirth"]; ?>: (<?= $strings["forms_dateformat"]; ?>)</label><BR>
+                                    <label class="control-label"><?= $strings["forms_dateofbirth"]; ?>:
+                                        (<?= $strings["forms_dateformat"]; ?>)</label><BR>
 
                                     <div class="row">
 
 
                                         <div class="col-md-4 no-margin">
                                             <?php
-
-
-
 
                                                 $currentyear = "0000";
                                                 $currentmonth = 0;
@@ -290,7 +303,6 @@
                                                     $currentday = substr($p->dob, -2);
                                                 }
 
-
                                                 echo '<select class="form-control req_driver required" NAME="doby" ' . $is_disabled . '>';
 
                                                 $now = date("Y");
@@ -298,7 +310,6 @@
                                                     printoption($temp, $currentyear, $temp);
                                                 }
                                                 echo '</select></div><div class="col-md-4">';
-
 
                                                 echo '<select  class="form-control req_driver required" NAME="dobm" ' . $is_disabled . '>';
                                                 $monthnames = array("Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec");
@@ -308,7 +319,6 @@
                                                     printoption($temp, $currentmonth, $temp);
                                                 }
                                                 echo '</select></div><div class="col-md-4">';
-
 
                                                 echo '<select class="form-control req_driver required" name="dobd" ' . $is_disabled . '>';
                                                 for ($temp = 1; $temp < 32; $temp++) {
@@ -362,19 +372,25 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input <?php echo $is_disabled ?>  type="text"
-                                                                           placeholder="<?= $strings["forms_postalcode"]; ?>"
-                                                                           class="form-control req_driver required" role="postalcode"
-                                                                           name="postal"  <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php } ?>/>
+                                        <input <?php echo $is_disabled ?> type="text"
+                                                                          placeholder="<?= $strings["forms_postalcode"]; ?>"
+                                                                          class="form-control req_driver required"
+                                                                          role="postalcode"
+                                                                          name="postal" <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php } ?>/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <input <?php echo $is_disabled ?>  type="text"
-                                                                           placeholder="<?= $strings["forms_country"]; ?>"
-                                                                           class="form-control req_driver required"
-                                                                           name="country"  value="<?php if (isset($p->country)) { echo $p->country; } else {echo 'Canada';} ?>"/>
+                                        <input <?php echo $is_disabled ?> type="text"
+                                                                          placeholder="<?= $strings["forms_country"]; ?>"
+                                                                          class="form-control req_driver required"
+                                                                          name="country"
+                                                                          value="<?php if (isset($p->country)) {
+                                                                              echo $p->country;
+                                                                          } else {
+                                                                              echo 'Canada';
+                                                                          } ?>"/>
                                     </div>
                                 </div>
 
@@ -389,7 +405,8 @@
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["forms_driverslicense"]; ?> #:</label>
                                         <input <?php echo $is_disabled ?> name="driver_license_no" type="text"
-                                                                          class="form-control req_driver" <?php if (isset($p->driver_license_no)) { ?> value="<?php echo $p->driver_license_no; ?>" <?php } ?> disabled="disabled" />
+                                                                          class="form-control req_driver" <?php if (isset($p->driver_license_no)) { ?> value="<?php echo $p->driver_license_no; ?>" <?php } ?>
+                                                                          disabled="disabled"/>
                                     </div>
                                 </div>
 
@@ -401,7 +418,7 @@
                                         <?php
                                             if (isset($p->driver_province)) {
                                                 printprovinces("driver_province", $p->driver_province, $is_disabled);
-                                            }else {
+                                            } else {
                                                 printprovinces("driver_province", "", $is_disabled);
                                             }
                                         ?>
@@ -415,7 +432,8 @@
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["forms_expirydate"]; ?>:</label>
                                         <input <?php echo $is_disabled ?> name="expiry_date" type="text"
-                                                                          class="form-control date-picker" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php } ?> disabled="disabled" />
+                                                                          class="form-control date-picker" <?php if (isset($p->expiry_date)) { ?> value="<?php echo $p->expiry_date; ?>" <?php } ?>
+                                                                          disabled="disabled"/>
 
                                     </div>
                                 </div>
@@ -425,7 +443,7 @@
                                         <input type="hidden" name="doby" value="0000"/>
                                         <input type="hidden" name="dobm" value="00"/>
                                         <input type="hidden" name="dobd" value="00"/>
-                                    <?php
+                                        <?php
                                     }
                                 ?>
 

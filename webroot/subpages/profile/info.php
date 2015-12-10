@@ -747,7 +747,7 @@ loadreasons($param, $strings, true);
 
 
                                 <div class=""
-                                     id="subtab_2_4" style="padding: 10px;">
+                                     id="subtab_2_4" style="padding: 15px;">
 
                                      <label class="control-label"><?= $strings["profiles_assigntoclient"]; ?>:</label>
 

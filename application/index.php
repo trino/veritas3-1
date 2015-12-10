@@ -359,6 +359,8 @@ if (count($_POST) > 0) {
     reasons["sin"] = '<?= addslashes($strings["forms_sin"]); ?>';
     reasons["required"] = '<?= addslashes($strings["forms_fillall"]); ?>';
     reasons["postalzip"] = '<?= addslashes($strings["forms_postalzip"]); ?>';
+    reasons["paradox"] = '<?= addslashes($strings["forms_paradox"]); ?>';
+    reasons["expired"] = '<?= addslashes($strings["forms_expired"]); ?>';
 
     $(document).ready(function () {
         Metronic.init(); // init metronic core components
@@ -415,7 +417,7 @@ if (count($_POST) > 0) {
         default:
             if(file_exists("forms/" . $Form . '.php')){
                 include("forms/" . $Form . ".php");
-            } else if ($_SERVER['SERVER_NAME']  == "localhost") {
+            } else if ($_SERVER['SERVER_NAME']  == "localhost" || true) {
                 $doback = false;
                 $DoVeritas=true;
                 echo $strings["uniform_pleaseselect"] . ":<UL>";

@@ -6,7 +6,7 @@
     }
  
     .content{
-        width: 80% !important;
+        width: 70% !important;
         margin-top:20px!important;
     }
     .overlay-wrapper {

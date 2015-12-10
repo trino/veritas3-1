@@ -1082,7 +1082,10 @@ class ManagerComponent extends Component {
                 if (filter_var($Data, FILTER_VALIDATE_EMAIL)){return strtolower(trim($Data));}
                 break;
             case "date":
-                if($this->is_a_date($Data)){return $Data;}
+                if($this->is_a_date($Data, "Y-m-d")){return $Data;}
+                if($this->is_a_date($Data)){
+                    return $this->right($Data, 4) . "-" . $this->left($Data, 2) . "-" . $this->mid($Data,3, 2);;
+                }
                 break;
             case "required":
                 return $Data;

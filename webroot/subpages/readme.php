@@ -836,8 +836,8 @@
 													<LI><?= $strings["dashboard_delete"]; ?>
 														<UL><LI>Required to delete <?= $settings->profile; ?>s</LI></UL>
 													</LI>
-													<LI>Receive Email (on create <?= $settings->profile; ?>)
-														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new <?= $settings->profile; ?> is created</LI></UL>
+													<LI>Receive Email (on create/edit <?= $settings->profile; ?>)
+														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a <?= $settings->profile; ?> is created or edited</LI></UL>
 													</LI>
 													<LI><?= $ProfileTypes; ?>
 														<UL><LI>This <?= $settings->profile; ?> will only be able to see and create <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?>s only of these types</SPAN></LI></UL>

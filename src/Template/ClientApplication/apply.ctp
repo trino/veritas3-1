@@ -42,19 +42,22 @@
         $string = $strings["forms_steps"];
         $string = str_replace("%step%", '<span class="counters counter">' . $CurrentStep . '</span>', $string);
         $string = str_replace("%total%", $doc_count+2, $string);
-        $string = '<strong><p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align:center;">' . $string . '</p></strong><IMG SRC="' . $Image . '" STYLE="max-height: 50px;margin-top:-42px;float:right;">';
+        $string = '<p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align: center;">' . $string . '</p>';
         return $string;
     }
 ?>
 <div id="tab0">
-    <h2 style="">Application for <?= $client->company_name;?></h2>
+    <h2 style="float:left;font-weight: bold;margin-top: 0;">Application for <?= $client->company_name;?></h2>
+
+    <IMG SRC="<?=$Image;?>" STYLE="max-height: 50px;float:right;">
+    <div class="clearfix"></div>
     <input type="hidden" id="user_id" value=""/>
     <div class="step_counters">
         <?= printsteps($strings, 1, $subd->count(), $Image); ?>
     </div>
     <div class="clearfix"></div>
-    <!--hr /-->
-    <div class="steps" id="step0" class="active">
+
+    <div class="steps" id="step0" class="active" style="padding-top: 0;margin-top: -10px;">
         <input type="hidden" name="c_id" value="<?= $client->id;?>" />
         <?php include('subpages/documents/driver_form.php');?>
         <!--hr /-->

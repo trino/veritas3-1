@@ -1,11 +1,12 @@
 <?php
-$settings = $Manager->get_settings();
-$sidebar = $Manager->loadpermissions($Me, "sidebar");
-if (!isset($_GET["new"])) {
-    include_once('subpages/api.php');
-}
-$language = $this->request->session()->read('Profile.language');
-//$strings = CacheTranslations($language, "training_%",$settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
+    $settings = $Manager->get_settings();
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
+    if (!isset($_GET["new"])) {
+        include_once('subpages/api.php');
+    }
+    $language = $this->request->session()->read('Profile.language');
+    //$strings = CacheTranslations($language, "training_%",$settings);//,$registry);//$registry = $this->requestAction('/settings/getRegistry');
+    $isASAP = $settings->mee == "ASAP Secured Training";
 ?>
 
 
@@ -16,21 +17,21 @@ $language = $this->request->session()->read('Profile.language');
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="<?php echo $this->request->webroot; ?>">Dashboard</a>
+            <a href="<?= $this->request->webroot; ?>">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="<?php echo $this->request->webroot; ?>training">Training</a>
+            <a href="<?= $this->request->webroot; ?>training">Training</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <?php if (isset($_GET["quizid"])) { ?>
             <li>
-                <a href="<?php echo $this->request->webroot; ?>training/edit?quizid=<?= $_GET["quizid"]?>">Edit Quiz</a>
+                <a href="<?= $this->request->webroot; ?>training/edit?quizid=<?= $_GET["quizid"]?>">Edit Quiz</a>
                 <i class="fa fa-angle-right"></i>
             </li>
         <?php } ?>
         <li>
-            <a href="">Enroll <?php echo ucfirst($settings->profile); ?>s</a>
+            <a href="">Enroll <?= ucfirst($settings->profile); ?>s</a>
         </li>
     </ul>
     <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
@@ -51,7 +52,7 @@ if (isset($profiles) or isset($profile)) { ?>
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-user"></i>
-            Enroll <?php echo ucfirst($settings->profile); ?>s
+            Enroll <?= ucfirst($settings->profile); ?>s
         </div>
     </div>
 
@@ -59,9 +60,9 @@ if (isset($profiles) or isset($profile)) { ?>
     <div class="portlet-body form">
 
     <?php
-if (isset($_GET["new"])){
-    include('userenrollment.php');
-} else {
+        if (isset($_GET["new"])){
+            include('userenrollment.php');
+        } else {
     ?>
 
                 <div class="form-actions top chat-form" style="margin-top:0;margin-bottom:0;">
@@ -72,11 +73,11 @@ if (isset($_GET["new"])){
 
 
                         <form action="<?php echo $this->request->webroot; ?>training/enroll" method="get">
-                            <?php if (isset($_GET['draft'])) { ?><input type="hidden" name="draft"/><?php } ?>
+                            <?php if (isset($_GET['draft'])) { echo '<input type="hidden" name="draft"/>'; } ?>
                             <input type="hidden" name="quizid" value="<?= $_GET["quizid"]; ?>"/>
 
                             <select class="form-control input-inline" style="" name="filter_profile_type">
-                                <option value=""><?php echo ucfirst($settings->profile); ?> Type</option>
+                                <option value=""><?= ucfirst($settings->profile); ?> Type</option>
                                 <?php
                                     $Fieldname = getFieldname("title", $language);
                                     foreach($ProfileTypes as $ProfileType){
@@ -104,10 +105,32 @@ if (isset($_GET["new"])){
                                     }
                                     echo '</select><div class="prodivisions input-inline"></div>';
                                 }
+
+                                if($isASAP){
+                                    echo '<select class="form-control input-inline" style="" name="sitename"><OPTION VALUE="">Site Name</OPTION>';
+                                    foreach($sitenames as $sitename){
+                                        if($sitename){
+                                            echo '<OPTION';
+                                            if(isset($_GET["sitename"]) && $_GET["sitename"] == $sitename){ echo ' SELECTED';}
+                                            echo '>' . $sitename. '</OPTION>';
+                                        }
+                                    }
+                                    echo '</SELECT>';
+
+                                    echo '<select class="form-control input-inline" style="" name="asapdivision"><OPTION VALUE="">Division</OPTION>';
+                                        foreach($asapdivisions as $asapdivision){
+                                            if($asapdivision){
+                                                echo '<OPTION';
+                                                if(isset($_GET["asapdivision"]) && $_GET["asapdivision"] == $asapdivision){ echo ' SELECTED';}
+                                                echo '>' . $asapdivision. '</OPTION>';
+                                            }
+                                        }
+                                    echo '</SELECT>';
+                                }
                             ?>
 
                             <input class="form-control input-inline" type="search" name="searchprofile"
-                                   placeholder=" Search for <?php echo ucfirst($settings->profile); ?>"
+                                   placeholder=" Search for <?= ucfirst($settings->profile); ?>"
                                    value="<?php if (isset($search_text)) echo $search_text; ?>"
                                    aria-controls="sample_1"/>
                             <button type="submit" class="btn btn-primary input-inline">Search</button>
@@ -131,6 +154,11 @@ if (isset($_GET["new"])){
 
                                 <!--th><?= $this->Paginator->sort('lname', 'Last Name') ?></th-->
                                 <th>Assigned to <?= $settings->clients; ?></th>
+                                <?php
+                                    if ($isASAP){
+                                        echo '<TH>Site Name</TH><TH>Division</TH>';
+                                    }
+                                ?>
                                 <th>Actions</th>
 
                             </tr>
@@ -163,29 +191,21 @@ if (isset($_GET["new"])){
                                     <td><?php
                                         if ($sidebar->profile_list == '1' && !isset($_GET["draft"])) {
                                             ?>
-                                            <a href="<?php echo $this->request->webroot; ?>profiles/view/<?php echo $profile->id; ?>">
+                                            <a href="<?php echo $this->request->webroot; ?>profiles/view/<?= $profile->id; ?>">
                                                 <img style="width:40px;" src="<?= profileimage($this->request->webroot, $profile); ?>"
                                                 class="img-responsive" alt=""/>
                                             </a>
                                         <?php
                                         }
-                                        ?>
-
-                                    </td>
-                                    <td class="actions  util-btn-margin-bottom-5">
-                                        <?php if ($sidebar->profile_list == '1' && !isset($_GET["draft"])) {
-                                            ?>
-                                            <a href="<?php echo $this->request->webroot; ?>profiles/view/<?php echo $profile->id; ?>"> <?php echo ucfirst(formatname($profile)); ?> </a>
-                                        <?php
-                                        } else
+                                        echo '</td><td class="actions  util-btn-margin-bottom-5">';
+                                        if ($sidebar->profile_list == '1' && !isset($_GET["draft"])) {
+                                            echo '<a href="' . $this->request->webroot . 'profiles/view/' . $profile->id . '"> ' . ucfirst(formatname($profile)) . '</a>';
+                                        } else {
                                             echo ucfirst(formatname($profile));
-                                        ?>
-                                        <br/>
+                                        }
 
+                                        echo '<br/></td><td>';
 
-                                    </td>
-
-                                    <td><?php
                                         if (strlen($profile->profile_type) > 0) {
                                             echo h($this->requestAction("profiles/getTypeTitle/".$profile->profile_type . "/" . $language));
                                             /* if ($profile->profile_type == 5) {//is a driver
@@ -199,12 +219,15 @@ if (isset($_GET["new"])){
                                         } else {
                                             echo "Draft";
                                         }
-                                        ?></td>
-
-
-                                    <td><?php echo $ProClients->getAllClientsname($profile->id);?></td>
-                                    <td class="actions  util-btn-margin-bottom-5">
-
+                                        echo '</td><td>';
+                                        echo $ProClients->getAllClientsname($profile->id);?>
+                                        </td>
+                                        <?php
+                                            if ($isASAP){
+                                                echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision . '</TD>';
+                                            }
+                                        ?>
+                                        <td class="actions  util-btn-margin-bottom-5">
                                         <A href="enroll?quizid=<?= $_GET["quizid"] ?>&userid=<?= $profile->id; ?>" class="<?= btnclass("btn-primary", "yellow"); ?>">
                                             <?php if ($profile->isenrolled) { echo "Unenroll";} else {echo "Enroll";} ?>
                                         </A>
