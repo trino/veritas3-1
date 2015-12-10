@@ -1486,8 +1486,10 @@ class ManagerComponent extends Component {
         return $UserID;
     }
 
-    function get_settings(){
-        return $this->enum_table('Settings')->first();
+    function get_settings($AsArray = false){
+        $Data = $this->enum_table('Settings')->first();
+        if($AsArray){$Data = $this->properties_to_array($Data);}
+        return $Data;
     }
 }
 ?>

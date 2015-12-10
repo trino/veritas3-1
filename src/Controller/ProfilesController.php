@@ -1041,7 +1041,7 @@
 
                     if(isset($_POST["ClientID"]) && $_POST["ClientID"]) {
                         $this->Manager->assign_profile_to_client($profile->id, $_POST["ClientID"]);
-                        $this->notify($profile->id, "email_profile");
+                        //$this->notify($profile->id, "email_profile");
                     }
                     $this->Flash->success($this->Trans->getString("flash_profilecreated"));
                     return $this->redirect(['action' => 'edit', $profile->id]);
@@ -1257,6 +1257,7 @@
 
             //$this->Flash->success("Add: " . $add);
             if ($add == '0') {
+                $Event = "profilecreated";
                 $profile_type = $this->request->session()->read('Profile.profile_type');
                 $_POST['created'] = date('Y-m-d');
                 $username = $_POST["username"];
@@ -1400,8 +1401,8 @@
                         echo "0";
                     }
                 }
-                $this->sendOutEmail($profile->id);
             } else {
+                $Event = "profileedited";
                 $profile = $this->Profiles->get($add, ['contain' => []]);
                 if ($this->request->is(['patch', 'post', 'put'])) {
                     if (isset($_POST['pass_word']) && $_POST['pass_word'] == '') {
@@ -1758,7 +1759,8 @@
         }
 
         public function delete($id = null) {
-            $this->sendOutEmail($id,'delete');
+            $this->notify($id, "email_profile", "profiledeleted");
+
             $check_pro_id = $this->Settings->check_pro_id($id);
             if ($check_pro_id == 1) {
                 $this->Flash->error($this->Trans->getString("flash_profilenotfound"));
@@ -2937,40 +2939,6 @@
         }
 
 
-    function notify($UserID, $ProfileType = 2){//recruiter
-        $AssignedClients = $this->Manager->find_client($UserID, false);
-        if($AssignedClients) {
-            if (!is_array($AssignedClients)) {$AssignedClients = array($AssignedClients);}
-            $Clients = $this->Manager->enum_all('clients', array("id IN(" . implode(",", $AssignedClients) . ")"));
-            $Emails = array();
-            foreach ($Clients as $Client) {
-                if($Client->profile_id) {
-                    if(!is_numeric($ProfileType)){
-                        $Profiles = $this->Manager->enum_all("profiles", array("id IN (SELECT user_id FROM sidebar WHERE user_id IN (" . $Client->profile_id . ") AND " . $ProfileType . " = 1 )"));
-                    } else {
-                        $Profiles = $this->Manager->enum_all("profiles", array("profile_type IN (" . $ProfileType . ")", "id IN (" . $Client->profile_id . ")"));
-                    }
-                    foreach($Profiles as $Profile){
-                        if($Profile->email){
-                            $Emails[] = $Profile->email;
-                        }
-                    }
-                }
-            }
-            $Emails = array_unique($Emails);
-            if($Emails){
-                $Path = LOGIN . 'profiles/view/' . $UserID;
-                $Profile = $this->formatname($UserID);
-                $Editor = $this->formatname();
-                $this->Manager->handleevent("notify", array("email" => $Emails, "name" => $Profile, "path" => $Path, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $Editor));
-            }
-        }
-    }
-    function formatname($UserID = false){
-        $Profile = $this->Manager->get_profile($UserID);
-        return $Profile->fname . " " . $Profile->mname . " " . $Profile->lname . ' (' . $Profile->username . ')';
-    }
-
         function scrambledata(){
             if ($this->request->session()->read('Profile.super') == 1) {
                 $SuperEmail = $this->removeplus($this->Manager->get_entry("profiles", 1, "super")->email);
@@ -3673,68 +3641,53 @@
             }
             die();
         }
-        function sendOutEmail($id,$action="add")
-        {
-            $clients = TableRegistry::get('clients');
-            $client = $clients->find()->where(['(profile_id LIKE "'.$id.',%" OR profile_id LIKE "%,'.$id.',%" OR profile_id LIKE "%,'.$id.'" OR profile_id = "'.$id.'")']);
-            $pids = '0';
-            if($client){
-            foreach($client as $c)
-            {
-                $pids = $pids.','.$c->profile_id;
-                $pids = str_replace(',,',',',$pids);
-                $pids = str_replace(',,',',',$pids);
-                $pids = str_replace('0,','',$pids);
+
+
+        function notify($UserID, $ProfileType = 2, $Event = "notify"){//recruiter
+            if ($UserID == $this->Manager->read("id")){return false;}//don't do it for yourself
+            $AssignedClients = $this->Manager->find_client($UserID, false);
+            $Profile = $this->Manager->get_profile($UserID);
+            $Name = $this->formatname($Profile);
+
+            if($AssignedClients) {
+                if (!is_array($AssignedClients)) {$AssignedClients = array($AssignedClients);}
+                $Clients = $this->Manager->enum_all('clients', array("id IN(" . implode(",", $AssignedClients) . ")"));
+                $Emails = array();
+                foreach ($Clients as $Client) {
+                    if($Client->profile_id) {
+                        if(is_numeric($ProfileType)){
+                            $Profiles = $this->Manager->enum_all("profiles", array($Profile->profile_type . " IN (ptypes)", "profile_type IN (" . $ProfileType . ")", "id IN (" . $Client->profile_id . ")"));
+                        } else {
+                            $Profiles = $this->Manager->enum_all("profiles", array($Profile->profile_type . " IN (ptypes)", "id IN (SELECT user_id FROM sidebar WHERE user_id IN (" . $Client->profile_id . ") AND " . $ProfileType . " = 1 )"));
+                        }
+                        foreach($Profiles as $Profile){
+                            if($Profile->email){
+                                $Emails[] = $Profile->email;
+                            }
+                        }
+                    }
+                }
+                $Emails = array_unique($Emails);
+                if($Emails){
+                    $Path = LOGIN . 'profiles/view/' . $UserID;
+                    $this->Manager->handleevent($Event, array("email" => $Emails, "name" => $Name, "path" => $Path, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $this->formatname()));
+                }
             }
-            $sidebar = TableRegistry::get('sidebar')->find()->where(['user_id IN ('.$pids.') AND user_id <> 0 AND email_profile = 1']);
-            foreach($sidebar as $s)
-            {
-                $this->sendProfileEmail($id,$s->user_id,$action);
-            }
-            }
-            
-            
         }
-        function sendProfileEmail($pid,$id,$action)
-        {
-            $q = $this->getProfileDetail($pid);   
-            if($action == 'add'){
-            $subject = "New Profile Created";    
-            $msg = "A new profile has been created to one of the clients you are assigned to. Please click <a href='".LOGIN."profiles/view/".$pid."'>here</a> to view the profile";
-            }
-            else{
-            $msg = "A profile assigned to one of the clients you are assigned to has been deleted. The detail of the profile is listed below:<br/>
-            <br/>
-            <table style='width:50%'>
-            <tr><td>First Name</td><td>".$q->fname."</td></tr>
-            <tr><td>Middle Name</td><td>".$q->mname."</td></tr>
-            <tr><td>Last Name</td><td>".$q->lname."</td></tr>
-            <tr><td>Email</td><td>".$q->email."</td></tr>
-            <tr><td>Username</td><td>".$q->username."</td></tr>
-            </table>
-            ";
-            $subject = "Profile Deleted";
-            }
-            $q2 = $this->getProfileDetail($id);
-            if($q2){ 
-            $to = $q2->email;
-            if($to){
-            $path = $this->Mailer->getUrl();
-            $n =  $this->Mailer->get_settings();
-            $name = $n->mee;
-            $email = new Email('default');
-            $email->from(['info@' . $path => $name])
-                ->emailFormat('html')
-                ->to(trim(str_replace(" ", "+", $to)))//$to
-                ->subject($subject)
-                ->send($msg);
-                unset($email);
-                } }           
+
+        function formatname($UserID = false, $Format = "%fname% %mname% %lname% (%username%) %email%"){
+            if(!is_object($UserID)) {$UserID = $this->Manager->get_profile($UserID);}
+            return $this->formatobject($UserID, $Format);
         }
-        function getProfileDetail($id)
-        {
-            return $profile = TableRegistry::get('Profiles')->find()->where(['id'=>$id])->first();
-        }    
+
+        function formatobject($Object, $Format){
+            if(is_object($Object)){$Object = $this->Manager->properties_to_array($Object);}
+            foreach($Object as $Key => $Value){
+                $Format = str_replace( "%" . $Key . "%", $Value, $Format);
+            }
+            return $Format;
+        }
+
         function getdistinctfields($Table, $Field){
             $Results = TableRegistry::get($Table)->find('all', array('fields' => $Field, 'group' =>  $Field));
             $Ret = array();
@@ -3742,9 +3695,7 @@
                 $Ret[] = $Result->$Field;
             }
             return $Ret;
+        }
 
-        }   
-
-        
     }
 ?>

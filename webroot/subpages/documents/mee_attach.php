@@ -242,12 +242,14 @@
             $docsprinted=0;
             if (printdivrequired($action, $forms, "attachments", $DriverProvince, count($attachment))) {
             $doit = false;
+            $DoAbstract=false;
             $description = $strings2["upload_step2"];//Upload Abstract Consent Form (Above)
             $docsprinted+=1;
             echo '</DIV>';
             if ($action == "View" || $action == "Vieworder") {
                 if (count($attachment) > 0 && $morecount>0) {
                     $description="";
+                    $DoAbstract=true;
                     foreach ($attachment as $name => $file) {
                         if (strlen($description)>0){$description.=", ";}
                         $description.= $name;
@@ -279,8 +281,9 @@
             if ($doit && (count($attachment) > 0) || $morecount>0) {
                 echo '<div class="col-md-4" align="right">' . str_replace("%number%", $Step, $description) . ': </div>';
                 echo '<div class="col-md-8 mee_more">';
-                if(!isset($mee_more))
-                $mee_more = false;
+                if(!isset($mee_more)) {
+                    $mee_more = false;
+                }
                 $lprov = array('BC','QC','SK');
                 //$get_prov = $this->requestAction('/profiles/getDriverProv/'.$_GET['driver']);
                 $get_prov = $DriverProvince;
@@ -297,8 +300,21 @@
                         }
                     }
                 }
+
+                if(!$DoAbstract){ ?>
+                    <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
+                                <a class="dl nohide forview"
+                                   href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
+                    <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
+                        echo $mee_att['attach_doc']->driver_record_abstract;
+                    } ?>" />
+                    <?= printrequired($action, $forms, "driver_record_abstract", $DriverProvince, 0, $strings2["upload_required"]); ?>
+                <?php }
+
             echo '</div>';
-} ?>
+} else {
+                $DoAbstract=true;
+            } ?>
                 <div class="clearfix"></div>
                 <!--p>&nbsp;</p>
                 <div class="col-md-4">&nbsp;</div><div class="col-md-8"><a href="javascript:void(0);" id="mee_att_more" class="btn btn-primary"><?= $strings["forms_addmore"]; ?></a></div-->
@@ -351,22 +367,25 @@
             echo '<div class=""><hr></div><div class=""><strong>' . $strings2["upload_optional"] . '</strong><br><br></div>';
         }
 
-        $docsprinted=0;
-        if (printdivrequired($action, $forms, "driver_record_abstract", $DriverProvince, getattachment($mee_att, "driver_record_abstract"))) {
-            $docsprinted+=1;?>
-            <div class="col-md-12">
-                 <div class="col-md-4" align="right"><?= $strings2["upload_uploaddriv"]; ?>: </div>
-                <div class="col-md-8">
-                    <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
-                <a class="dl nohide forview"
-                   href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
-                    <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
-                echo $mee_att['attach_doc']->driver_record_abstract;
-            } ?>" />
-                    <?= printrequired($action, $forms, "driver_record_abstract", $DriverProvince, 0, $strings2["upload_required"]); ?>
+        if($DoAbstract){
+            $docsprinted=0;
+            if (printdivrequired($action, $forms, "driver_record_abstract", $DriverProvince, getattachment($mee_att, "driver_record_abstract"))) {
+                $docsprinted+=1;?>
+                <div class="col-md-12">
+                    <div class="col-md-4" align="right"><?= $strings2["upload_uploaddriv"]; ?>: </div>
+                    <div class="col-md-8">
+                        <span><a href="javascript:void(0)" class="btn btn-primary" id="mee_att_3"><?= $strings["forms_browse"]; ?></a>&nbsp;<span class="uploaded"><?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) { ?>
+                    <a class="dl nohide forview"
+                       href="<?php echo $this->request->webroot; ?>documents/download/<?php echo $mee_att['attach_doc']->driver_record_abstract; ?>"><?php echo  printanattachment($mee_att['attach_doc']->driver_record_abstract); ?></a><?php } ?></span></span>
+                        <input type="hidden" id="meeattach_abstract" name="driver_record_abstract" class="mee_att_3" value="<?php if (isset($mee_att['attach_doc']) && $mee_att['attach_doc']->driver_record_abstract) {
+                    echo $mee_att['attach_doc']->driver_record_abstract;
+                } ?>" />
+                        <?= printrequired($action, $forms, "driver_record_abstract", $DriverProvince, 0, $strings2["upload_required"]); ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
+
         <script>
         $(function(){
            fileUpload('mee_att_3');

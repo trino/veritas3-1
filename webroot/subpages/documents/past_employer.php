@@ -27,11 +27,11 @@
         echo '<H2><translate>verifs_referencenum</translate>: ' . ($_GET["references"]+1) . '</H2><P>';
     } ?>
 
-   <div class="form-group left15 col-md-12">
-        <p class="control-label" style="font-weight: bold;margin-left:15px;"><translate>verifs_pastemploy</translate> <?php if(isset($_GET['cou']))echo $_GET['cou'];?></p>
+   <div class="form-group row">
+        <p class="control-label col-md-12 onlyapply" style="font-weight: bold;"><translate>verifs_pastemploy</translate> <?php if(isset($_GET['cou']))echo $_GET['cou'];?></p>
    </div>
                 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>forms_companyname</translate>:</label>
         <div class="col-md-9">
             <input type="text" class="form-control <?= $required; ?>" <?= $required; ?> name="company_name[]"/>
@@ -39,7 +39,7 @@
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>forms_address</translate>:</label>
         <div class="col-md-3">
             <input type="text" class="form-control <?= $required; ?>" <?= $required; ?> name="address[]" />
@@ -53,7 +53,7 @@
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>forms_provincestate</translate>:</label>
         <div class="col-md-3">
             <input type="text" class="form-control <?= $required; ?>" <?= $required; ?> name="state_province[]" />
@@ -67,7 +67,7 @@
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>verifs_supername</translate>:</label>
         <div class="col-md-3">
            <input type="text" class="form-control <?= $required; ?>" <?= $required; ?> name="supervisor_name[]"/>
@@ -81,7 +81,7 @@
        </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
        <label class="control-label col-md-3"><translate>verifs_superemail</translate>:</label>
        <div class="col-md-3">
             <input type="text" role="email" class="form-control email1" name="supervisor_email[]"/>
@@ -93,7 +93,7 @@
        </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>verifs_employment</translate>:</label>
         <div class="col-md-3">
             <input type="text" class="form-control date-picker datepicker <?= $required; ?>" <?= $required; ?> name="employment_start_date[]"/>
@@ -107,7 +107,7 @@
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3"><translate>verifs_claimswith</translate>:</label>
         <div class="col-md-3">
             &nbsp;&nbsp;<input type="radio" name="claims_with_employer_<?php $rand =  rand(0,100); echo $rand; ?>[]" value="1"/>&nbsp;&nbsp;<translate>dashboard_affirmative</translate>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -119,7 +119,7 @@
          </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3"><translate>verifs_educationh</translate>:</label>
         <div class="col-md-3">
             <input type="text" class="form-control" name="emploment_history_confirm_verify_use[]"/>
@@ -138,14 +138,14 @@
         </div>
    </div-->
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3"><translate>verifs_date</translate>:</label>
         <div class="col-md-9">
             <input type="text" class="form-control date-picker datepicker" disabled name="signature_datetime[]" value="<?= date("Y-m-d"); ?>"/>
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3"><translate>verifs_equipmento</translate>: </label>
         <div class="col-md-9">
             <samp>
@@ -181,7 +181,7 @@
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group left15 row">
         <label class="control-label col-md-3"><translate>verifs_drivingexp</translate>: </label>
         <div class="col-md-9">
             <samp>

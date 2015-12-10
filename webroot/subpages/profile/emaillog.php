@@ -20,10 +20,11 @@
     if(file_exists($Filename) && $Filename == "royslog.txt") {
         if (isset($_GET["delete"])) {
             unlink($Filename);
+        } else {
+            echo '<a HREF="' . $this->request->webroot . 'profiles/settings?includeonly=profile/emaillog.php&delete" onclick="return confirm(';
+            echo "'Are you sure you want to delete the log file?'";
+            echo ');" class="btn btn-danger btntop">Delete</a>';
         }
-        echo '<a HREF="' . $this->request->webroot . 'profiles/settings?includeonly=profile/emaillog.php&delete" onclick="return confirm(';
-        echo "'Are you sure you want to delete the log file?'";
-        echo ');" class="btn btn-danger btntop">Delete</a>';
     }
     if($Extension == "txt"){ echo '<PRE>';}
     if (file_exists($Filename)) {

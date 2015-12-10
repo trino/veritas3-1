@@ -2238,6 +2238,10 @@ class DocumentComponent extends Component{
         }
         $this->Manager->delete_all($Table, array($Key => $Value));
     }
+
+
+
+
     function sendEmailForProcesses($oid,$action="order")
     {
         if($action =='order')
@@ -2302,12 +2306,12 @@ class DocumentComponent extends Component{
                 unset($email);
                 }  }
     }
-    function getOrderDetail($id)
-    {
+
+    function getOrderDetail($id) {
         return $profile = TableRegistry::get('orders')->find()->where(['id'=>$id])->first();
     }
-    function getProfileDetail($id)
-        {
-            return $profile = TableRegistry::get('Profiles')->find()->where(['id'=>$id])->first();
-        }  
+
+    function getProfileDetail($id) {
+        return $profile = TableRegistry::get('Profiles')->find()->where(['id'=>$id])->first();
+    }
 }

@@ -190,7 +190,7 @@
         }
         echo '</div>';
 
-        if($p->iscomplete){
+        if(isset($p->iscomplete) && $p->iscomplete){
             ?>
 
             <div class="row">

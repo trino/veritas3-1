@@ -418,7 +418,7 @@ orange Pricing table
     }
 }
 
-#more_div .col-md-3, #more_div .col-md-9, #more_div .col-md-6 {
+/*#more_div .col-md-3, #more_div .col-md-9, #more_div .col-md-6 {
     padding-left: 0 !important;
     padding-right: 15px !important;
 }
@@ -426,7 +426,7 @@ orange Pricing table
 #more_div .col-md-12 {
     padding-left: 0 !important;
     padding-right: 0 !important;
-}
+}*/
 
 .overlay-wrapper {
     background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
