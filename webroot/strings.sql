@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2015 at 05:57 PM
+-- Generation Time: Dec 10, 2015 at 04:37 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=850 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=855 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1449180392', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1449507443', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -857,9 +857,14 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (842, 'month_notvalid', '''%date%'' is not a valid date', '''%date%'' est pas une date valide'),
 (843, 'dashboard_emaillog', 'Email Log', 'Email Log'),
 (844, 'profiles_notify', 'Notify Recruiter', 'Avertissez recruteur'),
-(845, 'email_notify_subject', 'A %Profile% has been changed', 'email_notify_subject'),
-(846, 'email_notify_message', '<A HREF="%path%">%name%"</A> has been changed', 'email_notify_message'),
-(849, 'dashboard_readme', 'Instructions', 'Des instructions');
+(845, 'email_notify_subject', 'A %profile% has been changed or created', 'email_notify_subject'),
+(846, 'email_notify_message', '%Profile% ID %userid%: <A HREF="%path%">%name%</A> has been changed or created by %profile% ID %byuserid%: %byname%', 'email_notify_message'),
+(849, 'dashboard_readme', 'Instructions', 'Des instructions'),
+(850, 'email_notify_variables', 'email, name, path, userid, byuserid, byname', ''),
+(851, 'profiles_sitename', 'Site Name', 'Nom du site'),
+(852, 'email_profiledeleted_subject', 'A %profile% has been deleted', ''),
+(853, 'email_profiledeleted_message', '%Profile% ID %userid%: %name% has been deleted by %profile% ID %byuserid%: %byname%', ''),
+(854, 'email_profiledeleted_variables', 'email, name, path, userid, byuserid, byname', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

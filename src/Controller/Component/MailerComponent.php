@@ -6,6 +6,8 @@ use Cake\ORM\TableRegistry;
 use Cake\Network\Email\Email;
 
 class MailerComponent extends Component {
+    public $components = array('Manager');
+
     public function getString($Name){
         $table = TableRegistry::get('strings');
         return $table->find()->where(['Name'=>$Name])->first();
@@ -39,7 +41,9 @@ class MailerComponent extends Component {
         }
         if(!isset($variables["HomeURL"])){$variables["HomeURL"] = LOGIN;}
 
-        if(!isset($variables["site"])) { $variables["site"] = $this->get_settings()->mee; }
+        $Settings = $this->get_settings();
+
+        if(!isset($variables["site"])) { $variables["site"] = $Settings->mee; }
         $variables["event"] = $eventname;
         $variables["webroot"] = $variables["HomeURL"];
         $variables["created"] = date("l F j, Y - H:i:s");
@@ -60,6 +64,12 @@ class MailerComponent extends Component {
             $language = "English";
             $Subject =  $Email->$language;//$Email->English;
             $Message = $this->getString("email_" . $eventname . "_message")->$language;//$Email->French;
+
+            foreach(array("client", "document", "profile") as $String){
+                $variables[$String] = strtolower($Settings->$String);
+                $variables[ucfirst($String)] = ucfirst($Settings->$String);
+                $variables[strtoupper($String)] = strtoupper($Settings->$String);
+            }
 
             if(isset($variables["ip"])){
                 $Message .= "<BR>IP Address: " . $variables["ip"];
@@ -95,10 +105,6 @@ class MailerComponent extends Component {
         } else {
             return false;
         }
-        //"clientcreated":// "email", "company_name", "profile_type", "username", "created", "path"
-        //"orderplaced" type=("physical", "footprint", "surveillance"):// "email", "company_name", "username", "created", "path"
-        //"ordercompleted", "id","email", "path", username, company_name, type, status
-        //profilecreated", "username","email","path" , "createdby", "type", "password"
         return $variables;
     }
 
@@ -117,10 +123,7 @@ class MailerComponent extends Component {
     }
 
     function get_settings() {
-         $settings = TableRegistry::get('settings');
-         $query = $settings->find();
-         $l = $query->first();
-         return $l;
+         return TableRegistry::get('settings')->find()->first();
    }
 
     function getuserid($email){
