@@ -27,11 +27,11 @@
         echo '<H2><translate>verifs_referencenum</translate>: ' . ($_GET["references"]+1) . '</H2><P>';
     } ?>
 
-   <div class="form-group left15 col-md-12">
-        <p class="control-label" style="font-weight: bold;margin-left:15px;"><translate>verifs_pastemploy</translate> <?php if(isset($_GET['cou']))echo $_GET['cou'];?></p>
+   <div class="form-group row">
+        <p class="control-label col-md-12 onlyapply" style="font-weight: bold;"><translate>verifs_pastemploy</translate> <?php if(isset($_GET['cou']))echo $_GET['cou'];?></p>
    </div>
                 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>forms_companyname</translate>:</label>
         <div class="col-md-9">
             <input type="text" class="form-control <?= $required; ?>" <?= $required; ?> name="company_name[]"/>
@@ -39,7 +39,7 @@
         </div>
    </div>
 
-   <div class="form-group left15 col-md-12">
+   <div class="form-group row">
         <label class="control-label col-md-3 <?= $required; ?>"><translate>forms_address</translate>:</label>
         <div class="col-md-3">
             <input type="text" class="form-control <?= $required; ?>" <?= $required; ?> name="address[]" />

@@ -46,6 +46,7 @@
         return $string;
     }
 ?>
+<style>.onlyapply{margin-left:15px;}</style>
 <div id="tab0">
     <h2 style="float:left;font-weight: bold;margin-top: 0;">Application for <?= $client->company_name;?></h2>
 
@@ -99,6 +100,6 @@
 <script>
     $(function(){
         $('#more_div').css({'padding':'0'});
-        $('#more_div').addClass('row');
+        
     })
 </script>

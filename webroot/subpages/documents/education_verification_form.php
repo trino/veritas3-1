@@ -35,6 +35,7 @@
                                 }
                                 ?>
                                 <div id="toremove">
+                                
                             <?php
                             }
                             ?>
@@ -574,7 +575,7 @@
                     }
                 ?>
                     //
-                    var cou2 = 0;
+                    var cou2 = 1;
                     $(".add_more_edu").click(function () {
                         cou2++;
                         $('.overlay-wrapper').show();
