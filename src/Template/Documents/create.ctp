@@ -3,7 +3,7 @@
         <div class="col-md-6 clients_select" style="margin: 10px 0;padding:0">
 
                     <select name="clients" class="form-control select2me" data-placeholder="Select Client" id="changeclient">
-                        <option value="0">Select Client gfhgfg</option>
+                        <option value="0">Select Client</option>
                         <?php
                         $profile_id = $this->request->session()->read('Profile.id');
                         foreach ($clients as $c){

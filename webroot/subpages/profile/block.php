@@ -43,7 +43,7 @@
         <?php if ($doit){ ?>
         <div
             class="tab-pane active"
-            id="subtab_2_1" style="padding: 10px;">
+            id="subtab_2_1" style="">
             <div class="">
                 <!--h1>Modules</h1-->
 
@@ -54,13 +54,18 @@
 
                     <table class="table table-bordered table-hover">
                         <tr>
-                            <td style="width:200px;"></td>
+                            <td style="width:200px;">Copy Permissions</td>
                             <td>
                                 <label><input type="checkbox" class="slelectall" <?= $is_disabled?> id="sellall1"/> Select All</label>
                                 <label><input type="checkbox" name="changeexisting" <?= $is_disabled?> /> Change all existing profiles of this type</label>
                                 <label><input type="checkbox" name="changefuture" <?php echo $is_disabled; if($profile->master) {echo " CHECKED";} ?> /> Change all future profiles of this type</label>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td colspan="2" style="background: #f7f7f7;">&nbsp;</td>
+                        </tr>
+
                         <?php
                             if($this->request->session()->read('Profile.super')) {
                                 $CurrentMaster = $Manager->enum_all("profiles", array("master" => 1, "profile_type" => $profile->profile_type))->first();
@@ -135,7 +140,7 @@
                             </td>
                         </tr>
                         <tr class="ptypes" <?php if (isset($sidebar) && $sidebar->profile == 0) echo "style='display:none;'"; ?>>
-                            <td><p>Can Create:</p></td>
+                            <td><p>Can Create</p></td>
                             <td style="padding: 1px;">
                                 <table style="margin-bottom: 0px; margin-top: 0px;"
                                        class=" ptypeform table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
@@ -231,7 +236,7 @@
                             </td>
                         </tr>
                         <tr class="ctypes" <?php if (isset($sidebar) && $sidebar->client == 0) echo "style='display:none;'"; ?>>
-                            <td>Can Create:</td>
+                            <td>Can Create</td>
                             <td style="padding: 1px;">
                                 <table style="margin-bottom: 0px; margin-top: 0px;"
                                        class="ctypeform table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
@@ -338,11 +343,7 @@
                                             Receive Email (on create order)
                                         </label>
 
-                                        <label class="uniform-inline">
-                                            <input <?php echo $is_disabled ?> type="checkbox" name="side[clientapp_emails]"
-                                                                              value="1" <?php if (isset($sidebar) && $sidebar->clientapp_emails == 1) echo "checked"; ?> />
-                                            Receive Email (on client application completion)
-                                        </label>
+
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-md-12 nopad martop yesno">
@@ -511,6 +512,23 @@
                         <?php if (true) { ?>
 
                             <tr>
+                                <td class="vtop"> Receive Email On Application Completion</td>
+                                <td>
+                                    <label class="uniform-inline">
+
+                                        <input <?php echo $is_disabled ?> type="checkbox" name="side[clientapp_emails]"
+                                                                          value="1" <?php if (isset($sidebar) && $sidebar->clientapp_emails == 1) echo "checked"; ?> />
+                                    </label>
+
+                                </td>
+                            </tr>
+
+
+
+
+
+
+                            <tr>
                                 <td class="vtop"> Enable Tasks</td>
                                 <td>
                                     <label class="uniform-inline">
@@ -525,6 +543,19 @@
                                         No </label>
                                 </td>
                             </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <tr>
                                 <td class="vtop"> Enable Add Tasks</td>
                                 <td>
@@ -633,7 +664,7 @@
             </div>
         </div>
 
-        <div class="tab-pane" id="subtab_2_3" style="padding: 10px;">
+        <div class="tab-pane" id="subtab_2_3" style="">
 
 
             <form id="homeform">
@@ -683,7 +714,7 @@
                             }
                         }
 
-                        makehr();
+                       // makehr();
 
                         ?>
 

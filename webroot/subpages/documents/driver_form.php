@@ -1,23 +1,24 @@
 <?php $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_attachfile", "file_download"), $settings, False); ?>
-<h3 style="float: left;">Create Driver</h3>
+<h3 style="float: left;">gg77gg-Driver Info</h3>
 <div class="row">
 <div class="form-group row col-md-12 splitcols" ID="GNDN">
 
     <input type="hidden" name="document_type" value="driver_form" />
     <input type="hidden" name="client_id" value="<?php if(isset($cid))echo $cid;?>" />
     <?php if($this->request->controller !='ClientApplication' && $this->request->controller !='Orders'){?>
-    <div class="col-md-4"><label class="control-label required notonclient">Your Username: </label>
+    <div class="col-md-4"><label class="control-label required notonclient">gg77gg-Your Username: </label>
         <input type="text" class="form-control required notonclient uname"  name="username" <?php if (isset($p->username)) { ?> value="<?php echo $p->username; ?>" <?php }?> />
         <span class="error"></span>
     </div>
-    <div class="col-md-4"><label class="control-label required notonclient">Your <?= $strings["forms_password"]; ?>: </label>
+    <div class="col-md-4"><label class="control-label required notonclient">gg77gg-Your <?= $strings["forms_password"]; ?>: </label>
         <input type="password" class="form-control required notonclient"  name="password"  />
         <span class="error"></span>
     </div>
     <!--div class="col-md-4"><label class="control-label"><?= $strings["forms_retypepassword"]; ?>: </label>
         <input type="text" class="form-control required" required name="password2" />
     </div-->
-    <?php }?>
+    <?php }?><div class="clearfix"></div>
+
     <div class="col-md-4"><label class="control-label required"><?= $strings["forms_firstname"]; ?>: </label>
         <input type="text" class="form-control required" required name="fname" <?php if (isset($p->fname)) { ?> value="<?php echo $p->fname; ?>" <?php }?> />
         <span class="error"></span>

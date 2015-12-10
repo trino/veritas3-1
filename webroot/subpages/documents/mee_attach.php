@@ -209,8 +209,7 @@
         //    if ($action != "View" && $action != "Vieworder") {
 
     ?>
-    <div class="col-md-12">
-        <hr/>
+    <div class="" >
 
         <strong><?= $strings2["upload_pleaseuplo"]; ?></strong><br><br>
         <ul>
@@ -230,7 +229,7 @@
             if (isrequired($forms, "id_piece", $DriverProvince, 0)) { $mand = "upload_mandatory"; }//count($attachment) > 0 ||
             //if (printrequired($action, $forms, "id_piece", $DriverProvince, 0, $strings2["upload_required"])) { $mand = "upload_mandatory"; }//count($attachment) > 0 ||
 
-            echo '<HR></div><div class="col-md-12"><strong>' . $strings2[$mand] . '</strong></div>';
+            echo '<HR></div><div class=""><strong>' . $strings2[$mand] . '</strong></div>';
 
             //printdivrequired needs to know if there are attachments BEFORE hand
             $morecount=0;
@@ -349,7 +348,7 @@
 
         nodocs($docsprinted);
         if ($mand != "upload_optional") {
-            echo '<div class="col-md-12"><hr></div><div class="col-md-12"><strong>' . $strings2["upload_optional"] . '</strong><br><br></div>';
+            echo '<div class=""><hr></div><div class=""><strong>' . $strings2["upload_optional"] . '</strong><br><br></div>';
         }
 
         $docsprinted=0;
