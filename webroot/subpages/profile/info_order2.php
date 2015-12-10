@@ -88,9 +88,9 @@
 
 
     <div class="clearfix"></div>
-<div class="scrolldiv" style="margin-bottom: 15px; overflow-y: auto; width: auto; height: auto;" ID="bulkform">
+    <div class="scrolldiv" style="margin-bottom: 15px; overflow-y: auto; overflow-x: hidden; width: 100%; height: auto;" ID="bulkform">
     <input type="text" id="searchProfile" onkeyup="searchProfile()" class="form-control" placeholder="<?= $strings["infoorder_searchprofiles"]; ?>"/>
-    <table class="table table-striped table-bordered table-advance table-hover recruiters">
+    <table class="table table-striped table-bordered table-advance table-hover recruiters" style="max-width: 100%; table-layout:fixed; ">
         <thead>
         <!--tr>
             <th colspan="2"><?= $strings["infoorder_addprofile"]; ?></th>

@@ -1,11 +1,12 @@
 <?php
-if($this->request->params['controller']!='ClientApplication'){
- if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/driver_evaluation_form.php #INC141</span>"; }
-include_once 'subpages/filelist.php';
-if( isset($sub['de_at'])){  listfiles($sub['de_at'], "attachments/", "", false,3); }}
-$strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "file_attachfile",'forms_driverslicense'), $settings, False);
- ?>
- <?php if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>'; }?>
+    if($this->request->params['controller']!='ClientApplication'){
+        if($this->request->session()->read('debug')){ echo "<span style ='color:red;'>subpages/documents/driver_evaluation_form.php #INC141</span>"; }
+        include_once 'subpages/filelist.php';
+        if( isset($sub['de_at'])){  listfiles($sub['de_at'], "attachments/", "", false,3); }
+    }
+    $strings2 = CacheTranslations($language, array("drivereval_%", "tasks_date", "file_attachfile",'forms_driverslicense'), $settings, False);
+    if(isset($dx)){ echo '<h3>' . $dx->title . '</h3>';}
+?>
 <form id="form_tab3">
 <input class="document_type" type="hidden" name="document_type" value="<?php if(isset($dx))echo $dx->title;?>" />
 

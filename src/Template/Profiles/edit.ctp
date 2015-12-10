@@ -295,14 +295,15 @@
                                         $sidebar = $Manager->loadpermissions($Me, "sidebar");
 
                                         if (true) { //$profile->is_complete && !$MissingData) {
-
-                                            echo '<label class="uniform-inline" style="clear:both;margin-bottom: 20px;">
-                                        <input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"';// . $is_disabled;
+                                            echo '<TABLE><TR><TD width="50%" valign="top">';
+                                            echo '<label class="uniform-inline" style="clear:both;margin-bottom: 20px;">';
+                                            echo '<input type="checkbox" name="" value="1" id="' . $profile->id . '" class="checkrequalify"';// . $is_disabled;
                                             if ($p->requalify == '1') {
                                                 echo " checked";
                                             }
-                                            echo '> ' . $strings["clients_enablerequalify"] . '<span class="req_msg"></span></label>';
+                                            echo '> ' . $strings["clients_enablerequalify"] . '<BR><span class="req_msg"></span></label>';
 
+                                            echo '</TD><TD width="50%" valign="top">';
                                             //driver, owner driver, owner operator, sales, employee
                                             echo '<label class="uniform-inline" style="">';
 
@@ -310,14 +311,14 @@
                                             if ($p->is_hired == '1') {
                                                 echo " checked";
                                             }
-                                            echo '/> ' . $strings["profiles_washired"] . ' <p class="hired_msg"></p></label>';
+                                            echo '/> ' . $strings["profiles_washired"] . '<BR><span class="hired_msg"></span></label>';
+                                            echo '</TD></TR></TABLE>';
+
                                             if (isset($profile)) {
-                                                ?>
-                                                <div class="hired_date"
-                                                     style='display:<?php if ($profile->is_hired == '0') echo "none"; ?>;'>
-                                                    <?= $strings["forms_hireddate"] . ': ' . $profile->hired_date; ?>
-                                                </div>
-                                            <?php }
+                                                echo '<div class="hired_date" style="display:';
+                                                if ($profile->is_hired == '0'){ echo "none"; }
+                                                echo ';">' .  $strings["forms_hireddate"] . ': ' . $profile->hired_date . '</div>';
+                                            }
 
 
 
@@ -733,28 +734,16 @@
         $('.checkhiredriver').click(function () {
 
             var oid = $(this).attr('id');
-            var msgs = '';
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1; //January is 0!
-            var Y = today.getFullYear();
 
-            if (dd < 10) {
-                dd = '0' + dd
-            }
-
-            if (mm < 10) {
-                mm = '0' + mm
-            }
-            var tday = Y + '-' + mm + '-' + dd;
+            var tday = '<?= date('Y-m-d'); ?>';
             if ($(this).is(":checked")) {
                 var hired = 1;
                 var hired_date = tday;
                 msg = '<span class="msg" style="color:#45B6AF"> <?= addslashes($strings["forms_added"]); ?></span>';
                 $('.date_hired').val(tday);
                 $('.hired_date').show();
-            }
-            else {
+                $('.hired_date').html ('<?= $strings["forms_hireddate"]; ?>: ' + tday);
+            } else {
                 var hired = 0;
                 var hired_date = '0000-00-00';
                 msg = '<span class="msg" style="color:red"> <?= addslashes($strings["forms_removed"]); ?></span>';

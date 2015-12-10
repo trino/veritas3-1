@@ -440,7 +440,7 @@
 
 
 <script>
-    
+
 
     client_id = '<?=$cid?>',
         doc_id = '<?=$did?>';
@@ -1293,21 +1293,20 @@
         var subdocid = $('#sub_id').val();
         subdocid = parseFloat(subdocid);
         <?php
-        if(isset($_GET['type']))
-        {
-            ?>
-        <?php foreach($doc as $dx)
-            {
-                if($dx->id >11)
-                {
-                ?>
-        if(subdocid == <?php echo $dx->id;?>){
-
-            $('.addattachment<?php echo $dx->id;?>').load('<?php echo $this->request->webroot;?>documents/attach_doc/<?php echo $did."/".$view;?>', function(){
-                if($('#addMore1').length)
-                    initiate_ajax_upload1('addMore1', 'doc');
-            });
+        if(isset($_GET["driver"])){
+            echo 'getJsonPrevious($("#selecting_driver").val(),subdocid);';
         }
+
+        if(isset($_GET['type'])){
+            foreach($doc as $dx){
+                if($dx->id >11){
+                    ?>
+                    if(subdocid == <?php echo $dx->id;?>){
+                        $('.addattachment<?php echo $dx->id;?>').load('<?php echo $this->request->webroot;?>documents/attach_doc/<?php echo $did."/".$view;?>', function(){
+                            if($('#addMore1').length)
+                                initiate_ajax_upload1('addMore1', 'doc');
+                            });
+                        }
         <?php       }
                 }
         ?>
@@ -1965,11 +1964,11 @@
                 }, 200);
             },
             onComplete: function (file, response) {
-                if (doc == "doc")
+                if (doc == "doc") {
                     button.html('Browse');
-                else
+                }else {
                     button.html('<i class="fa fa-image"></i> <?= addslashes($strings["clients_addeditimage"]); ?>');
-
+                }
                 window.clearInterval(interval);
                 this.enable();
                 if (doc == "doc") {

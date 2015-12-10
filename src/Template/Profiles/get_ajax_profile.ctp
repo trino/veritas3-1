@@ -1,5 +1,6 @@
 <?php
 //uses profiles/getAjaxProfile
+$Columns = 3;
 use Cake\ORM\TableRegistry;
 $language = $this->request->session()->read('Profile.language');
 
@@ -26,8 +27,8 @@ switch ($mode){
         break;
 }
 
-function printtdline($Text){
-    echo "<TR><TD COLSPAN=3>" . $Text . "</TD></TR>";
+function printtdline($Text, $Columns){
+    echo "<TR><TD COLSPAN=" . $Columns . ">" . $Text . "</TD></TR>";
 }
 
 $Fields = array ("fname" => "forms_firstname", "email" => "forms_email", "lname" => "forms_lastname", "profile_type" => "profiles_profiletype", "gender" => "forms_gender",  "driver_province" => "forms_provinceissued", "title" => "forms_title", "placeofbirth" => "forms_placeofbirth", "sin" => "forms_sin", "phone" => "forms_phone", "street" => "forms_address", "city" => "forms_city", "province" => "forms_provincestate", "postal" => "forms_postalcode", "country" => "forms_country", "dob" => "forms_dateofbirth", "driver_license_no" => "forms_driverslicense", "expiry_date" => "forms_expirydate");
@@ -45,12 +46,16 @@ function hasallfields($r, $Fields){
 
 $fulllist="";
 if(iterator_count($profiles)==0){
-    printtdline(getstring("infoorder_nonefound", $language));
+    printtdline(getstring("infoorder_nonefound", $language), $Columns);
 } else {
     //printtdline(getstring("infoorder_disabled", $language));
-    $Entries = ceil($profiles->count() / 3);
-    $Entry = 1;
-    $Table = '<TD WIDTH="33%" class="nopadorborder"><TABLE class="table table-striped table-bordered table-hover recruiters nopadorborder">';
+    $Entries = ceil($profiles->count() / $Columns);
+    //printtdline( $profiles->count() / $Columns . " " . $Entries . " " . $profiles->count(), $Columns );
+    $Entry = 0;
+    $Width = floor(100 / $Columns);
+    $Class = ' style="white-space: nowrap; overflow-x: hidden; max-width:' . $Width . '%;"';
+
+    $Table = '<TD WIDTH="' . $Width .'%" class="nopadorborder"' . $Class . '><TABLE style="max-width:100%" class="table table-striped table-bordered table-hover recruiters nopadorborder">';
     echo '<TR>' . $Table;
     foreach ($profiles as $r) {
         $DOIT = $r->is_complete;
@@ -81,7 +86,7 @@ if(iterator_count($profiles)==0){
         }
 
         if ($DOIT) {
-            echo '<tr><td nowrap><span><input id="p_' . $i . '" name="p_' . $r->id . '" class="profile_client" onchange="';
+            echo '<tr><td nowrap' . $Class . ' title="' . $username . '"><span><input id="p_' . $i . '" name="p_' . $r->id . '" class="profile_client" onchange="';
             $checked = "";
             if ($mode == 0) {
                 echo "if($(this).is(':checked')){assignProfile($(this).val(),'" . $cid . "','yes');}else{assignProfile($(this).val(),'" . $cid . "','no');}";
@@ -103,7 +108,7 @@ if(iterator_count($profiles)==0){
 
             $Entry++;
             if ($Entry == $Entries && $i < $profiles->count()) {
-                $Entry = 1;
+                $Entry = 0;
                 echo '</TABLE></TD>' . $Table;
             }
         }
