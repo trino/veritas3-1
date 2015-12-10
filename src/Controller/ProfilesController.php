@@ -3700,7 +3700,7 @@
             $q = $this->getProfileDetail($pid);   
             if($action == 'add'){
             $subject = "New Profile Created";    
-            $msg = "A new profile has been created to one of the clients you are assigned to. Please click <a href='".LOGIN."profiles/view/".$pid."'>here to view the profile";
+            $msg = "A new profile has been created to one of the clients you are assigned to. Please click <a href='".LOGIN."profiles/view/".$pid."'>here</a> to view the profile";
             }
             else{
             $msg = "A profile assigned to one of the clients you are assigned to has been deleted. The detail of the profile is listed below:<br/>

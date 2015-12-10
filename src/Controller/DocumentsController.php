@@ -2785,5 +2785,11 @@ class DocumentsController extends AppController{
         return $this->response;
         
     }
+    public function sendEmailForProcesses($id)
+    {
+        $doc = $this->Document->sendEmailForProcesses($id,"apply");
+        die();
+    }
+    
 
 }

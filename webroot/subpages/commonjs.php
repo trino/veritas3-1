@@ -279,6 +279,7 @@
 
         });
         $('.buttons').click(function () {
+            
             var par = $(this).closest('.steps');
             <?php
                 if($this->request->params['action'] == 'vieworder'){
@@ -495,6 +496,8 @@
                                            {?>
                                             window.location = '<?php echo $this->request->webroot?>documents/index?flash';
                                             <?php }else{?>
+                                            
+                                            
                                             $('.counter').text(Number($('.counter').text()) + 1);
                                             $('.overlay-wrapper').hide();
                                             <?php }
@@ -552,9 +555,15 @@
                             }
 
                         }
-                        else
+                        else{
+                            <?php
+                                $params = $this->request->params['action'];
+                                
+                                ?>
+                                var p_ram = '<?php echo $params?>';
                             $.ajax({
                                 //data:'uploaded_for='+$('#uploaded_for').val(),
+                                
                                 data: data,
                                 type: 'post',
                                 beforeSend: function () {
@@ -562,8 +571,18 @@
                                     <?php if($this->request->params['action'] == 'addorder'){?>if ($('.conf .touched').val() == '1')save_signature('1');
                                     <?php }?>
                                 },
-                                url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/' + did + '/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft + '&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>',
+                                url: '<?php echo $this->request->webroot;?>clientApplication/savedoc/<?php echo $cid;?>/' + did + '/<?php if($this->request->params['action']!='addorder'){?>?document=' + type + '&<?php }else echo "?";?>draft=' + draft + '&order_type=<?php if(isset($_GET['order_type']))echo $_GET['order_type'];?>&forms=<?php if(isset($_GET['forms']))echo $_GET['forms'];?>&parameter='+p_ram,
                                 success: function (res) {
+                                    if(p_ram == 'apply'){
+                                    var tot_step = $('.tot_step').text().slice(-1);
+                                    tot_step = parseFloat(tot_step);
+                                    if(Number($('.counter').text()) + 1 == tot_step)
+                                    {
+                                        $.ajax({
+                                           url:'<?php echo $this->request->webroot;?>documents/sendEmailForProcesses/'+res 
+                                        });
+                                    }
+                                    }
                                     $('#did').val(res);
                                     did = res;
 
@@ -769,7 +788,7 @@
                                     $('#step' + id).show();
                                     $('#step' + id).addClass('active');
                                 }
-                            });
+                            });}
                     }
 
 

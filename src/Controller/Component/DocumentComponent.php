@@ -5,10 +5,11 @@ use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use Cake\View\Helper\SessionHelper;
+use Cake\Network\Email\Email;
     
 
 class DocumentComponent extends Component{
-    public $components = array('Manager');
+    public $components = array('Manager','Mailer');
 
 	function fixsubmittedfor(){
         $Table = TableRegistry::get("documents");
@@ -56,6 +57,7 @@ class DocumentComponent extends Component{
     }
 	
     public function savedoc($Mailer, $cid = 0, $did = 0, $emailenabled = True){
+            $parameter = $_GET['parameter'];
            $controller = $this->_registry->getController();
            $settings = TableRegistry::get('settings');
            $setting = $settings->find()->first();
@@ -170,6 +172,7 @@ class DocumentComponent extends Component{
 
                         //$did = $this->Manager->get_entry("documents", )
                         echo $order->id;
+                        $did = $order->id;
                     } else {
                         //$this->Flash->error('Client could not be saved. Please try again.');
                         //echo "e";
@@ -248,6 +251,12 @@ class DocumentComponent extends Component{
                            if (!is_dir(APP.'../webroot/orders/order_'.$did)) {
                                mkdir(APP . '../webroot/orders/order_' . $did, 0777);
                            }
+                           if($arr['draft'] == 0)
+                           {
+                                if(!isset($did))
+                                {$did = 0;}
+                                $this->sendEmailForProcesses($did,"order");
+                           }
                 }
 
             }
@@ -285,6 +294,8 @@ class DocumentComponent extends Component{
 
                     if ($docs->save($doc)) {
                         $did = $doc->id;
+                        if($parameter=='add')
+                        $this->sendEmailForProcesses($did,"document");
                         $path = $this->getUrl();
                         $get_client = TableRegistry::get('Clients');
                         $gc = $get_client->find()->where(['id' => $cid])->first();
@@ -2227,4 +2238,76 @@ class DocumentComponent extends Component{
         }
         $this->Manager->delete_all($Table, array($Key => $Value));
     }
+    function sendEmailForProcesses($oid,$action="order")
+    {
+        if($action =='order')
+        $table = 'orders';
+        else
+        $table = 'documents';
+        //echo $table;die();
+        $order = TableRegistry::get($table)->find()->where(['id'=>$oid])->first();
+        $cl_id = $order->client_id;
+        $client = TableRegistry::get('clients')->find()->where(['id'=>$cl_id])->first();
+        $profile_ids = $client->profile_id;
+        $profile_ids = str_replace(',,',',',$profile_ids);
+        $pids = str_replace(',,',',',$profile_ids);
+        $sidebar = TableRegistry::get('sidebar')->find()->where(['user_id IN ('.$pids.') AND user_id <> 0 AND email_orders = 1']);
+        foreach($sidebar as $s)
+            {
+                //if($action=='order')
+                $this->sendOutEmail($oid,$s->user_id,$action);
+               
+            }
+        
+    }
+    function sendOutEmail($oid,$user,$action)
+    {
+        $controller = $this->_registry->getController();
+            
+            if($action == 'order'){
+            $q = $this->getOrderDetail($pid);  
+            $subject = "New order submitted";    
+            $msg = "A new order has been submitted for one of the clients you are assigned to. Please click <a href='".LOGIN."orders/vieworder/".$q->client_id."/".$oid."?order_type=".$q->order_type."&forms=".$q->forms."'>here</a> to view the profile";
+            }
+            elseif($action=="document"){
+            $q = $this->getDocumentDetail($pid);
+            $msg = "A new document has been submitted for one of the clients you are assigned to. Please click <a href='".LOGIN."documents/view/".$q->client_id."/".$oid."?type=".$q->sub_doc_id."'>here</a> to view the document.<br/><br/><strong>Document Detail:</strong><br/>
+            <br/>
+            <table style='width:50%'>
+            <tr><td>Document Type</td><td>".$q->document_type."</td></tr>
+            <tr><td>Created Date</td><td>".$q->created."</td></tr>
+            
+            </table>
+            ";
+            $subject = "New Document Created";
+            }
+            else{
+                $msg = "A new application has been submitted for one of the clients you are assigned to. Please click <a href='".LOGIN."documents/index'>here</a> to view the documents.";
+            $subject = "New Application Submitted";
+            }
+            $q2 = $this->getProfileDetail($user);
+            if($q2){ 
+            $to = $q2->email;
+            //echo "<br/>";
+            if($to){
+            $path = $controller->Mailer->getUrl();
+            $n =  $controller->Mailer->get_settings();
+            $name = $n->mee;
+            $email = new Email('default');
+            $email->from(['info@' . $path => $name])
+                ->emailFormat('html')
+                ->to(trim(str_replace(" ", "+", $to)))//$to
+                ->subject($subject)
+                ->send($msg);
+                unset($email);
+                }  }
+    }
+    function getOrderDetail($id)
+    {
+        return $profile = TableRegistry::get('orders')->find()->where(['id'=>$id])->first();
+    }
+    function getProfileDetail($id)
+        {
+            return $profile = TableRegistry::get('Profiles')->find()->where(['id'=>$id])->first();
+        }  
 }

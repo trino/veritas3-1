@@ -41,7 +41,7 @@
     function printsteps($strings, $CurrentStep, $doc_count, $Image){
         $string = $strings["forms_steps"];
         $string = str_replace("%step%", '<span class="counters counter">' . $CurrentStep . '</span>', $string);
-        $string = str_replace("%total%", $doc_count+2, $string);
+        $string = "<span class='tot_step'>".str_replace("%total%", $doc_count+2, $string)."</span>";
         $string = '<p style="font-size:16px;padding:5px 10px 5px 10px;color: #888;background:#f4f4f4;width:120px;text-align: center;">' . $string . '</p>';
         return $string;
     }
