@@ -255,7 +255,7 @@ class DocumentComponent extends Component{
                            {
                                 if(!isset($did))
                                 {$did = 0;}
-                                $this->sendEmailForProcesses($did,"order");
+                                $this->sendEmailForProcesses($did,"orders");
                            }
                 }
 
@@ -295,7 +295,7 @@ class DocumentComponent extends Component{
                     if ($docs->save($doc)) {
                         $did = $doc->id;
                         if($parameter=='add')
-                        $this->sendEmailForProcesses($did,"document");
+                        $this->sendEmailForProcesses($did,"documents");
                         $path = $this->getUrl();
                         $get_client = TableRegistry::get('Clients');
                         $gc = $get_client->find()->where(['id' => $cid])->first();
@@ -2242,76 +2242,42 @@ class DocumentComponent extends Component{
 
 
 
-    function sendEmailForProcesses($oid,$action="order")
-    {
-        if($action =='order')
-        $table = 'orders';
-        else
-        $table = 'documents';
-        //echo $table;die();
-        $order = TableRegistry::get($table)->find()->where(['id'=>$oid])->first();
-        $cl_id = $order->client_id;
-        $client = TableRegistry::get('clients')->find()->where(['id'=>$cl_id])->first();
-        $profile_ids = $client->profile_id;
-        $profile_ids = str_replace(',,',',',$profile_ids);
-        $pids = str_replace(',,',',',$profile_ids);
-        $sidebar = TableRegistry::get('sidebar')->find()->where(['user_id IN ('.$pids.') AND user_id <> 0 AND email_orders = 1']);
-        foreach($sidebar as $s)
-            {
-                //if($action=='order')
-                $this->sendOutEmail($oid,$s->user_id,$action);
-               
-            }
-        
-    }
-    function sendOutEmail($oid,$user,$action)
-    {
-        $controller = $this->_registry->getController();
-            
-            if($action == 'order'){
-            $q = $this->getOrderDetail($pid);  
-            $subject = "New order submitted";    
-            $msg = "A new order has been submitted for one of the clients you are assigned to. Please click <a href='".LOGIN."orders/vieworder/".$q->client_id."/".$oid."?order_type=".$q->order_type."&forms=".$q->forms."'>here</a> to view the profile";
-            }
-            elseif($action=="document"){
-            $q = $this->getDocumentDetail($pid);
-            $msg = "A new document has been submitted for one of the clients you are assigned to. Please click <a href='".LOGIN."documents/view/".$q->client_id."/".$oid."?type=".$q->sub_doc_id."'>here</a> to view the document.<br/><br/><strong>Document Detail:</strong><br/>
-            <br/>
-            <table style='width:50%'>
-            <tr><td>Document Type</td><td>".$q->document_type."</td></tr>
-            <tr><td>Created Date</td><td>".$q->created."</td></tr>
-            
-            </table>
-            ";
-            $subject = "New Document Created";
-            }
-            else{
-                $msg = "A new application has been submitted for one of the clients you are assigned to. Please click <a href='".LOGIN."documents/index'>here</a> to view the documents.";
-            $subject = "New Application Submitted";
-            }
-            $q2 = $this->getProfileDetail($user);
-            if($q2){ 
-            $to = $q2->email;
-            //echo "<br/>";
-            if($to){
-            $path = $controller->Mailer->getUrl();
-            $n =  $controller->Mailer->get_settings();
-            $name = $n->mee;
-            $email = new Email('default');
-            $email->from(['info@' . $path => $name])
-                ->emailFormat('html')
-                ->to(trim(str_replace(" ", "+", $to)))//$to
-                ->subject($subject)
-                ->send($msg);
-                unset($email);
-                }  }
+    function sendEmailForProcesses($oid,$table="orders") {
+        $client_id = TableRegistry::get($table)->find()->where(['id'=>$oid])->first()->client_id;
+        $profile_ids = TableRegistry::get('clients')->find()->where(['id'=>$client_id])->first()->profile_id;
+        while(strpos($profile_ids, ",,") !== false){
+            $profile_ids = str_replace(',,',',',$profile_ids);
+        }
+        $sidebar = TableRegistry::get('sidebar')->find()->where(['user_id IN (' . $profile_ids . ') AND user_id <> 0 AND email_orders = 1']);
+        $profile_ids = array();
+        foreach($sidebar as $s) {
+            $profile_ids[] = $s->user_id;
+        }
+        $Profiles = TableRegistry::get('profiles')->find()->where(['id IN (' . implode(",", $profile_ids) . ')']);
+        $Emails = array();
+        foreach($Profiles as $Profile){
+            $Emails[] = $Profile->email;
+        }
+        $this->sendOutEmail($oid,$Emails,$table);
     }
 
-    function getOrderDetail($id) {
-        return $profile = TableRegistry::get('orders')->find()->where(['id'=>$id])->first();
+    function sendOutEmail($oid,$Emails,$Table) {
+        //$controller = $this->_registry->getController();
+        $order = $this->getProfileDetail($oid,$Table);
+        $Type = $this->Manager->left($Table, strlen($Table)-1);
+        $SubType = $Type;
+        if($Table == 'orders'){
+            $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
+            $SubType = $this->Manager->get_entry("product_types", $order->order_type, "ID")->Name;
+        } elseif($Table=="documents"){
+            $Path = LOGIN . "documents/view/" . $order->client_id . "/" . $oid . "?type=" . $order->sub_doc_id;
+            $SubType = $order->document_type;
+        }
+        $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "Order" => "order", "path" => $Path );
+        $this->Manager->handleevent("submitted", $Variables);
     }
 
-    function getProfileDetail($id) {
-        return $profile = TableRegistry::get('Profiles')->find()->where(['id'=>$id])->first();
+    function getProfileDetail($id, $Table = "profiles") {
+        return TableRegistry::get($Table)->find()->where(['id'=>$id])->first();
     }
 }

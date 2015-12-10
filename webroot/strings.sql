@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2015 at 05:07 PM
+-- Generation Time: Dec 10, 2015 at 05:45 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=858 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=860 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1449761992', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1449763673', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -49,8 +49,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (8, 'analytics_title', 'MEE Analytics', 'Analytique MEE'),
 (9, 'analytics_start', 'Start', 'Début'),
 (10, 'analytics_finish', 'to', 'à'),
-(11, 'dashboard_print', '<i class="fa fa-print"></i> Print', '<i class="fa fa-print"></i> Imprimer'),
-(12, 'dashboard_search', '<i class="fa fa-search"></i> Search', '<i class="fa fa-search"></i> Recherche'),
+(11, 'dashboard_print', '<i class=''fa fa-print''></i> Print', '<i class=''fa fa-print''></i> Imprimer'),
+(12, 'dashboard_search', '<i class=''fa fa-search''></i> Search', '<i class=''fa fa-search''></i> Recherche'),
 (13, 'profiles_name', 'Name', 'Nom'),
 (14, 'profiles_username', 'Username', 'Nom d''utilisateur'),
 (15, 'profiles_assignedto', 'Assigned to', 'Assigné à'),
@@ -867,7 +867,9 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (854, 'email_profiledeleted_variables', 'email, name, path, userid, byuserid, byname', ''),
 (855, 'verifs_driverinfo', 'Driver Info', 'Pilote infos'),
 (856, 'verifs_yourusername', 'Your Username', 'Ton nom d''utilisateur'),
-(857, 'verifs_yourpassword', 'Your password', 'Votre mot de passe');
+(857, 'verifs_yourpassword', 'Your password', 'Votre mot de passe'),
+(858, 'email_submitted_subject', 'New %type% submitted', 'email_submitted_subject'),
+(859, 'email_submitted_message', 'A new %type% was submitted for one of the %client%s you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
