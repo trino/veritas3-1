@@ -2241,7 +2241,7 @@ class DocumentComponent extends Component{
 
 
 
-    function sendEmailForProcesses($oid,$table="orders") {
+    function sendEmailForProcesses($oid,$table="orders", $IsClient = false) {
         $client_id = TableRegistry::get($table)->find()->where(['id'=>$oid])->first()->client_id;
         $profile_ids = TableRegistry::get('clients')->find()->where(['id'=>$client_id])->first()->profile_id;
         while(strpos($profile_ids, ",,") !== false){
@@ -2257,10 +2257,10 @@ class DocumentComponent extends Component{
         foreach($Profiles as $Profile){
             $Emails[] = $Profile->email;
         }
-        $this->sendOutEmail($oid,$Emails,$table);
+        $this->sendOutEmail($oid,$Emails,$table,$IsClient);
     }
 
-    function sendOutEmail($oid,$Emails,$Table) {
+    function sendOutEmail($oid,$Emails,$Table, $IsClient = false) {
         //$controller = $this->_registry->getController();
         $order = $this->getProfileDetail($oid,$Table);
         if(!$order->draft) {
@@ -2270,10 +2270,16 @@ class DocumentComponent extends Component{
                 $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
                 $SubType = $this->Manager->get_entry("product_types", $order->order_type, "Acronym")->Name;
             } elseif ($Table == "documents") {
-                $Path = LOGIN . "documents/view/" . $order->client_id . "/" . $oid . "?type=" . $order->sub_doc_id;
-                $SubType = $order->document_type;
+                if($IsClient){
+                    $Type = "clientapplication";
+                    $Path = LOGIN . 'profiles/view/' . $order->uploaded_for;
+                    $SubType = "%profile%";
+                } else {
+                    $Path = LOGIN . "documents/view/" . $order->client_id . "/" . $oid . "?type=" . $order->sub_doc_id;
+                    $SubType = $order->document_type;
+                }
             }
-            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "Order" => "order", "path" => $Path);
+            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "order" => "Order", "Clientapplication" => "ClientApplication", "path" => $Path);
             $this->Manager->handleevent("submitted", $Variables);
         }
     }

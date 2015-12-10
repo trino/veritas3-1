@@ -142,7 +142,7 @@ class ClientApplicationController extends AppController {
             $ProfileID = $this->Manager->get_entry("documents", $document_id)->user_id;
             $URL = LOGIN . 'profiles/view/' . $ProfileID;
             $this->Mailer->handleevent("application", array("email" => $Emails, "document" => $document_id, "client" => $cid, "path" => $URL));
-            $this->Document->sendEmailForProcesses($document_id, "documents");
+            $this->Document->sendEmailForProcesses($document_id, "documents", true);
         }
 
         $this->Document->savedMeeOrder($document_id,$cid);
