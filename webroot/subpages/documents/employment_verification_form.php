@@ -319,7 +319,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
 
                         </div>
                         <div class="clearfix"></div>
-                        
+                        <hr/>
 
 
 
