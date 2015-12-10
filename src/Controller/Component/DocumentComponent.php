@@ -2268,7 +2268,7 @@ class DocumentComponent extends Component{
         $SubType = $Type;
         if($Table == 'orders'){
             $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
-            $SubType = $this->Manager->get_entry("product_types", $order->order_type, "ID")->Name;
+            $SubType = $this->Manager->get_entry("product_types", $order->order_type, "Acronym")->Name;
         } elseif($Table=="documents"){
             $Path = LOGIN . "documents/view/" . $order->client_id . "/" . $oid . "?type=" . $order->sub_doc_id;
             $SubType = $order->document_type;
