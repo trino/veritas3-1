@@ -2,7 +2,7 @@
 if($this->request->params['controller']!='ClientApplication'){
     if($this->request->session()->read('debug'))
     {
-        echo "<span style ='color:red;'>subpages/documents/employment_verification_form.php #INC???</span>"; 
+        echo "<span style ='color:red;'>subpages/documents/employment_verification_form.php #INC???</span>";
     }
 }
 $strings2 = CacheTranslations($language, array("verifs_%", "tasks_date", "file_attachfile", "file_download"), $settings, False);
@@ -40,9 +40,9 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
 
                 <?php
                 $counter=0;
-                
+
                 if(isset($sub3['emp']) && count($sub3['emp'])){
-                    
+
                     /*if($this->request->params['controller']!='Orders'){
                     if (count($sub3['emp']) == 1 && is_object($sub3['emp'])){
                         $sub3['emp'] = array($sub3['emp']);
@@ -321,7 +321,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
 
                         </div>
                         <div class="clearfix"></div>
-                        
+
 
 
 
@@ -594,8 +594,9 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 echo "fileUpload('emp1');";
             }
         ?>
-      var cou = 1;  
+      var cou = 1;
       $("#add_more").click(function(){
+          alert('test');
         cou++;
         <?php if($this->request->params['controller']=='ClientApplication'){?>
             language = 'English';
@@ -623,7 +624,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
             });
       });
       $("#delete").live("click",function(){
-        
+
             $('.overlay-wrapper').show();
             $(this).parent().parent().remove();
             var c = $('#count_past_emp').val();
