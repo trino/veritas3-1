@@ -59,7 +59,9 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                         }
                         ?>
 
-
+                                                <div class="form-group row">
+                        <p class="control-label col-md-12" style="font-weight: bold;">Past Employment <?php echo $counter?> </p>
+                        </div>
                        <div class="form-group col-md-12">
                             <label class="control-label col-md-3"><?= $strings["forms_companyname"]; ?>: </label>
                             <div class="col-md-9">
@@ -592,14 +594,15 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
                 echo "fileUpload('emp1');";
             }
         ?>
-
+      var cou = 1;  
       $("#add_more").click(function(){
+        cou++;
         <?php if($this->request->params['controller']=='ClientApplication'){?>
             language = 'English';
         <?php }?>
             $('.overlay-wrapper').show();
             $.ajax({
-                   url:"<?php echo $this->request->webroot;?>subpages/documents/past_employer.php?language=" + language,
+                   url:"<?php echo $this->request->webroot;?>subpages/documents/past_employer.php?language=" + language+"&cou="+cou,
                    success:function(res){
                     $("#more_div").append(res);
                      <?php if($this->request->params['controller']=='ClientApplication'){?>
@@ -620,6 +623,7 @@ function ifchar($Value, $True = '&#10004;', $False = '&#10006;'){
             });
       });
       $("#delete").live("click",function(){
+        
             $('.overlay-wrapper').show();
             $(this).parent().parent().remove();
             var c = $('#count_past_emp').val();

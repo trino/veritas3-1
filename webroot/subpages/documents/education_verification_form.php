@@ -40,9 +40,8 @@
                             ?>
 
                             <div class="form-group row">
-                                <div class="col-md-9">
-                                                        </div>
-                            </div>
+                        <p class="control-label col-md-12" style="font-weight: bold;">Past Education <?php echo $counter?> </p>
+                        </div>
 
                             <div class="form-group row">
                                 <label class="control-label col-md-3">School/College Name </label>
@@ -575,10 +574,12 @@
                     }
                 ?>
                     //
+                    var cou2 = 0;
                     $(".add_more_edu").click(function () {
+                        cou2++;
                         $('.overlay-wrapper').show();
                         $.ajax({
-                            url: "<?php echo $this->request->webroot;?>subpages/documents/past_education.php",
+                            url: "<?php echo $this->request->webroot;?>subpages/documents/past_education.php?cou="+cou2,
                             success: function (res) {
                                 $("#more_edu").append(res);
 

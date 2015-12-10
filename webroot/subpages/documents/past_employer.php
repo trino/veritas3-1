@@ -28,7 +28,7 @@
     } ?>
 
    <div class="form-group left15 col-md-12">
-        <p class="control-label" style="font-weight: bold;"><translate>verifs_pastemploy</translate></p>
+        <p class="control-label" style="font-weight: bold;"><translate>verifs_pastemploy</translate> <?php if(isset($_GET['cou']))echo $_GET['cou'];?></p>
    </div>
                 
    <div class="form-group left15 col-md-12">
