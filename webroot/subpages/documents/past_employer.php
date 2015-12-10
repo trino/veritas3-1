@@ -18,7 +18,7 @@
  ?>
  
 <body onload="translate();">
-
+<hr />
 <div id="toremove" class="toremove">
 <div class="clearfix"></div>
 
@@ -223,6 +223,6 @@
 
 <?php } ?>
 </script>
-<hr />
+
   </div>
 
