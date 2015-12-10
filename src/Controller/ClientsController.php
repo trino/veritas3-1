@@ -285,6 +285,10 @@
         }
 
         public function saveClients($id = 0) {
+            if(isset($_POST['company_name'])){
+            $company_name = $_POST['company_name'];
+           $slug = strtolower($company_name);
+           $_POST['slug'] = str_replace(' ','_',$slug);}
             if (isset($_POST["image"]) && !$_POST["image"]) {
                 unset($_POST["image"]);
             }
