@@ -20,6 +20,13 @@
     if(file_exists($Filename) && $Filename == "royslog.txt") {
         if (isset($_GET["delete"])) {
             unlink($Filename);
+            echo '<SCRIPT>
+                        $( document ).ready(function() {
+                            var URL = window.location + "";
+                            URL = URL.replace("&delete", "");
+                            ChangeUrl("log file", URL);
+                        });
+                  </SCRIPT>';
         } else {
             echo '<a HREF="' . $this->request->webroot . 'profiles/settings?includeonly=profile/emaillog.php&delete" onclick="return confirm(';
             echo "'Are you sure you want to delete the log file?'";
@@ -38,3 +45,12 @@
     }
     if($Extension == "txt"){ echo '</PRE>';}
 ?>
+<SCRIPT>
+    function ChangeUrl(page, url) {
+        if (typeof (history.pushState) != "undefined") {
+            var obj = {Page: page, Url: url};
+            history.pushState(obj, obj.Page, obj.Url);
+            return true;
+        }
+    }
+</SCRIPT>

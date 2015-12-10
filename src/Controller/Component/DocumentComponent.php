@@ -251,8 +251,7 @@ class DocumentComponent extends Component{
                            if (!is_dir(APP.'../webroot/orders/order_'.$did)) {
                                mkdir(APP . '../webroot/orders/order_' . $did, 0777);
                            }
-                           if($arr['draft'] == 0)
-                           {
+                           if($arr['draft'] == 0) {
                                 if(!isset($did))
                                 {$did = 0;}
                                 $this->sendEmailForProcesses($did,"orders");

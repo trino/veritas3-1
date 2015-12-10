@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2015 at 05:45 PM
+-- Generation Time: Dec 10, 2015 at 07:40 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=860 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=861 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1449763673', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1449765943', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -839,7 +839,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (823, 'forms_steps', 'Step %step% of %total%', 'Étape %step% sur %total%'),
 (824, 'forms_paradox', 'end date. It must be after the start date', 'date de fin. Il doit être postérieure à la date de début'),
 (825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier'),
-(826, 'clientapplication_done', '<center><H3>Thank you.</h3></center> Your application has been submitted. We will be in touch shortly.', '<h3><center>Merci.</h3></center> Votre demande a été soumise. Nous serons en contact très prochainement.'),
+(826, 'clientapplication_done', '<center><H3><b>Thank you.</b><br>Your application has been submitted. We will be in touch shortly.</h3></center>', '<center><H3><b>Merci.</b><br>\n<h3><center></h3></center> Votre demande a été soumise. Nous serons en contact très prochainement.</h3></center>'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
 (828, 'email_application_message', 'Doc ID: %document% Client ID: %client%   A new application for employment has been submitted. <A HREF="%path%">Please click here to view the profile, thank you.</A>', 'email_application_message'),
 (829, 'email_application_variables', 'email, document, client, path', ''),
@@ -869,7 +869,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (856, 'verifs_yourusername', 'Your Username', 'Ton nom d''utilisateur'),
 (857, 'verifs_yourpassword', 'Your password', 'Votre mot de passe'),
 (858, 'email_submitted_subject', 'New %type% submitted', 'email_submitted_subject'),
-(859, 'email_submitted_message', 'A new %type% was submitted for one of the %client%s you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message');
+(859, 'email_submitted_message', 'A new %type% was submitted for one of the %client%s you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message'),
+(860, 'email_submitted_variables', 'email, type, subtype, Order, path', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
