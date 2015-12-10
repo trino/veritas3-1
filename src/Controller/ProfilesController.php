@@ -3716,7 +3716,7 @@
             $subject = "Profile Deleted";
             }
             $q2 = $this->getProfileDetail($id);
-             
+            if($q2){ 
             $to = $q2->email;
             if($to){
             $path = $this->Mailer->getUrl();
@@ -3729,7 +3729,7 @@
                 ->subject($subject)
                 ->send($msg);
                 unset($email);
-                }            
+                } }           
         }
         function getProfileDetail($id)
         {
