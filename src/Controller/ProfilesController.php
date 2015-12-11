@@ -1839,6 +1839,7 @@
             }
             if ($client == "") {
                 $sides = $this->getColumnNames("sidebar", "id", true);//why does this use sidebar columns instead of block?
+               
                 foreach ($sides as $s) {
                     if (!isset($_POST['side'][$s])) {
                         $side[$s] = 0;

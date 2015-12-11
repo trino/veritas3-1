@@ -57,6 +57,7 @@ class DocumentComponent extends Component{
     }
 	
     public function savedoc($Mailer, $cid = 0, $did = 0, $emailenabled = True){
+       
             $parameter = $_GET['parameter'];
            $controller = $this->_registry->getController();
            $settings = TableRegistry::get('settings');
@@ -414,6 +415,7 @@ class DocumentComponent extends Component{
                         ->set($arr)
                         ->where(['id' => $did])
                         ->execute();
+                     echo $did;                        
                         $path = $this->getUrl();
                         $get_client = TableRegistry::get('Clients');
                         $gc = $get_client->find()->where(['id' => $cid])->first();
@@ -493,7 +495,7 @@ class DocumentComponent extends Component{
                                 }
                             }
                         }*/
-                    echo $did;
+                   
                 }
 
             }
