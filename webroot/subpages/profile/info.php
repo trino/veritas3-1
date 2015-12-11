@@ -866,7 +866,7 @@ loadreasons($param, $strings, true);
                                 </div>
 
 
-                                <div class="col-md-12" align="right">
+                                <div class="form-actions" align="right">
 
                                     <?php if(!($is_disabled)){?>
                                     <a href="javascript:void(0)" class="btn btn-primary" onclick="return check_username();" id="savepro">

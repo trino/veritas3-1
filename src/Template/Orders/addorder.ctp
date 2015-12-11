@@ -319,7 +319,9 @@
                                                     <input type="hidden" name="c_id" value="<?php if($client){echo $client->id;} else { echo 0; } ?>" />
                                                     <?php include('subpages/documents/driver_form.php');?>
                                                     <hr />
+                                                    <div class="form_actions" style="background: #f5f5f5;padding: 20px 10px;">
                                                     <a href="javascript:void(0)" id="button0" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a>
+                                                    </div>
                                                 </div>
 
                                             <?php }
@@ -372,11 +374,11 @@
 
                                                             <?php include('subpages/documents/'.$this->requestAction('/clientApplication/getForm/'.$sd->sub_id));?>
                                                             <hr />
-                                                            
+                                                            <div  style="background: #f5f5f5;padding: 20px 10px;">
                                                             <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary grey draft"><?= $strings["forms_savedraft"]; ?></a>
                                                             <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                             <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary forview"><?= $strings["dashboard_next"]; ?></a> 
-                                                            
+                                                            </div>
                                                         </div>
 
 
@@ -393,13 +395,13 @@
                                                 <?= printsteps($strings, $doc_count+2, $doc_count); ?>
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
-                                                
+                                               <div class="form_actions" style="background: #f5f5f5;padding: 20px 10px;">
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                 
                                                  <?php if($this->request->params['action'] == 'addorder'){?>
                                                     <a href="javascript:void(0)" id="save<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["forms_save"] ?></a>
                                                  <?php }?>
-
+                                                </div>
                                             </div>
                                             <?php
                                             if($debugging) { debug($thedocuments);}
