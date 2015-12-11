@@ -1259,7 +1259,7 @@ class DocumentComponent extends Component{
 
                 }
             }
-            $_POST['count_more_edu']++;
+            //$_POST['count_more_edu']++;
             for ($i = 0; $i < $_POST['count_more_edu']; $i++) {
                 if (!isset($_GET['document']) || isset($_GET['order_id'])) {
                     if(!isset($_GET['order_id']))
