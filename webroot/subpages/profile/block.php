@@ -679,11 +679,12 @@
 
                     <?php
                         function addentry($Name, $Value, $Key, $ID, $is_disabled){
-                            echo '<tr><TD>' . $Name . '</TD><TD><label class="uniform-inline"><input ' . $is_disabled . ' type="radio" name="' . $ID . '" value="1"';
+                            echo '<tr><TD>' . $Name . '</TD><TD><label class="uniform-inline"><input ' . $is_disabled . ' type="checkbox" name="' . $ID . '" value="1"';
                             if (isset($Value->$Key) && $Value->$Key == 1) echo "checked";
-                            echo '/> Yes </label><label class="uniform-inline"><input ' . $is_disabled . ' type="radio" name="' . $ID . '" value="0"';
+                            echo '/>  </label><div style="display:none;" ><input ' . $is_disabled . ' type="checkbox" name="' . $ID . '" value="0"';
                             if (isset($Value->$Key) && $Value->$Key == 0) echo "checked";
-                            echo '/> No </label></td></tr>';
+                            echo ' /></div> ';
+                            echo '</td></tr>';
                         }
 
                         addentry("Add " . $settings->profile, $block, "addadriver", "block[addadriver]", $is_disabled);
@@ -702,14 +703,19 @@
                             if ($checked) {echo "checked";}
                             echo '/> ' . $Label . '</label> ';
                         }
-
+                        function makecheck($is_disabled, $name, $value, $checked, $Label, $Type = "checkbox"){
+                            echo '<div style="display:none;" ><input ' . $is_disabled . 'type="' . $Type . '" name="' . $name . '" value="' . $value . '"';
+                            if ($checked) {echo "checked";}
+                            echo ' /></div>';
+                        }  
+                        
                         if (isset($block)) {
                             foreach ($products as $product) {
                                 if ($product->Blocks_Alias) {
                                     $alias = $product->Blocks_Alias;
                                     echo '<TR><TD>' . $product->Name . '</TD><TD>';
-                                    makeradio($is_disabled, "block[" . $product->Blocks_Alias . "]", 1, $block->$alias == 1, "Yes");
-                                    makeradio($is_disabled, "block[" . $product->Blocks_Alias . "]", 0, $block->$alias == 0, "No");
+                                    makeradio($is_disabled, "block[" . $product->Blocks_Alias . "]", 1, $block->$alias == 1, "", 'checkbox');
+                                    makecheck($is_disabled, "block[" . $product->Blocks_Alias . "]", 0, $block->$alias == 0, "");
                                     echo '</TD></TR>';
                                 }
                             }
@@ -1061,25 +1067,32 @@
     $(function (){
         $('.slelectall1').click(function () {
             if ($(this).is(':checked')) {
-                $('#homeform input[type="radio"]').each(function () {
+                $('#homeform input[type="checkbox"] ').not('.slelectall1').each(function () {
                     $(this).parent().removeClass('checked');
                     if ($(this).val() == '1') {
-
                         $(this).parent().addClass('checked');
                         $(this).attr('checked', 'checked');
-                        $(this).click();
+                        //$(this).click();
+                    }
+                    else
+                    {
+                        $(this).removeAttr('checked','checked');
                     }
 
                 });
 
 
             } else {
-                $('#homeform input[type="radio"]').each(function () {
+                $('#homeform input[type="checkbox"]').each(function () {
                     $(this).parent().removeClass('checked');
                     if ($(this).val() == '0') {
                         $(this).parent().addClass('checked');
                         $(this).attr('checked', 'checked');
-                        $(this).click();
+                        //$(this).click();
+                    }
+                    else
+                    {
+                        $(this).removeAttr('checked','checked');
                     }
 
                 });

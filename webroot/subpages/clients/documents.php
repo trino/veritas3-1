@@ -50,18 +50,18 @@
                         <td class="">
                             <label class="uniform-inline">
                                 <input <?php echo $is_disabled ?> class="fororder"
-                                    type="radio"
+                                    type="checkbox"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="1" <?php if ($csubdoc['display'] == 1) { ?> checked="checked" <?php } ?> />
-                                <?= $strings["dashboard_affirmative"]; ?>
+                                <?php //$strings["dashboard_affirmative"]; ?>
                             </label>
-                            <label class="uniform-inline">
+                            <!--label class="uniform-inline">
                                 <input <?php echo $is_disabled ?> class="fororder"
                                     type="radio"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="0" <?php if ($csubdoc['display'] == 0) { ?> checked="checked" <?php } ?> />
                                 <?= $strings["dashboard_negative"]; ?>
-                            </label>
+                            </label-->
                         </td>
 
                     </tr>
@@ -96,18 +96,22 @@
 
                             <label class="uniform-inline">
                                 <input <?php echo $is_disabled ?>
-                                    type="radio" class="fororder"
+                                    type="checkbox" class="fororder"
                                     name="clientC[<?php echo $sub->id; ?>]"
-                                    value="1" <?php if ($csubdoc['display'] == 1) { ?> checked="checked" <?php } ?> />
-                                <?= $strings["dashboard_affirmative"]; ?>
+                                    value="1" <?php if ($csubdoc['display'] == 1) { ?> checked="checked" <?php } ?>
+                                    onclick="if($(this).parent().attr('class')=='checked'){$('#no<?php echo $sub->id;?>').attr('checked','checked');}else{$('#no<?php echo $sub->id;?>').removeAttr('checked');}"
+                                     />
+                                <?php // $strings["dashboard_affirmative"]; ?>
                             </label>
+                            <div style="display: none;">
                             <label class="uniform-inline">
                                 <input <?php echo $is_disabled ?>
-                                    type="radio" class="fororder"
+                                    type="checkbox" class="fororder" id="no<?php echo $sub->id;?>"
                                     name="clientC[<?php echo $sub->id; ?>]"
                                     value="0" <?php if ($csubdoc['display'] == 0) { ?> checked="checked" <?php } ?> />
-                                <?= $strings["dashboard_negative"]; ?>
+                                <?php //$strings["dashboard_negative"]; ?>
                             </label>
+                            </div>
                         </td>
                         <td>
                             <label>

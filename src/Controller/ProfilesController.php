@@ -1912,7 +1912,22 @@
             foreach ($_POST['block'] as $k => $v) {
                 $block[$k] = $v;
             }
+            
             $blocks = TableRegistry::get('blocks');
+            $filednames = ['addadriver','searchdriver','submitorder','orderhistory','schedule','schedule_add','tasks',
+                          'feedback','analytics','masterjob','user_id','submit_document','list_document','list_order',
+                          'list_client','add_client','list_profile','message','orders_draft','document_draft','ordersmee',
+                          'ordersproducts','ordersrequalify','draft_client','draft_profile','orders_intact','bulk','ordersbulk',
+                          'ordersgem','ordersgdr','orders_spf','orders_sms','orders_psa','orders_cch','orders_emp','orders_sal',
+                          'orders_gdo' ,'training' ];
+            foreach($filednames as $key)
+            {
+                if(isset($block[$key]))
+                    $block[$key] = $block[$key];
+                else 
+                    $block[$key] = 0;
+            }
+           //var_dump($block); die();
             $s = $blocks->find()->where(['user_id' => $user_id])->count();
             if ($user_id != 0 && $s != 0) {
                 $this->Manager->update_database('blocks', 'user_id', $user_id, $block);

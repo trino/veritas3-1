@@ -440,7 +440,7 @@
                     <?php } ?>
                 <div id="add_more_edu" style="padding-bottom:10px">
                     <p>&nbsp;</p>
-                    <input type="hidden" name="count_more_edu" id="count_more_edu" value="<?php if(isset($counter))echo $counter;?>">
+                    <input type="hidden" name="count_more_edu" id="count_more_edu" value="<?php if(isset($counter)&& $counter !=0)echo $counter;else echo '1';?>">
                     <a href="javascript:void(0);" class="btn btn-primary add_more_edu"><?= $strings["forms_addmore"]; ?></a>
                     <!--a href="javascript:void(0);" class="btn btn-primary moremore" ONCLICK="refresh();">REFRESH</A-->
                 </div>
