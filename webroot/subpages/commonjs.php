@@ -579,7 +579,7 @@
                                     if(Number($('.counter').text()) + 1 == tot_step)
                                     {
                                         $.ajax({
-                                           url:'<?php echo $this->request->webroot;?>documents/sendEmailForProcesses/'+res 
+                                           url:'<?php echo $this->request->webroot;?>clientApplication/sendEmailForProcesses/'+res 
                                         });
                                     }
                                     }
