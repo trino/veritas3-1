@@ -57,7 +57,12 @@ class DocumentComponent extends Component{
     }
 	
     public function savedoc($Mailer, $cid = 0, $did = 0, $emailenabled = True){
-       
+       if($_POST['doc_id']!="")
+       {
+            echo $_POST['doc_id']; die();
+       }
+       else
+       {
             $parameter = $_GET['parameter'];
            $controller = $this->_registry->getController();
            $settings = TableRegistry::get('settings');
@@ -503,7 +508,7 @@ class DocumentComponent extends Component{
             die();
             
         }
-
+        }
         function handleevent_documentcreated($Mailer, $ret, $ClientID, $DocumentID){
             $this->Manager->debugprint("doc created");
             $Profiles = $this->Manager->enum_profiles_permission($ClientID, "email_document", "email");

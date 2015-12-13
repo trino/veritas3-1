@@ -466,6 +466,7 @@
                             type: type,
                             sub_doc_id: sid,
                             user_id: user_id,
+                            doc_id: par.find('.doc_id').val(),
                             <?php
                             if($this->request->params['action']=='addorder')
                             {
@@ -582,6 +583,7 @@
                                            url:'<?php echo $this->request->webroot;?>clientApplication/sendEmailForProcesses/'+res 
                                         });
                                     }
+                                    par.find('.doc_id').val(res);
                                     }
                                     $('#did').val(res);
                                     did = res;

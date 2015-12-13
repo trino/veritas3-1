@@ -77,6 +77,7 @@
         $includedoc = $this->requestAction('/clientApplication/getForm/'.$s->sub_id);
         ?>
         <div class="steps" id="step<?php echo $jj;?>" style="display:none;">
+            <input type="hidden" class="doc_id" value=""/>
             <?php include('subpages/documents/'. $includedoc);?>
             <!--hr /-->
             <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-primary"><?= $strings["dashboard_previous"]; ?></a>
