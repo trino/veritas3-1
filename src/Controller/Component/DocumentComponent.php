@@ -23,13 +23,17 @@ class DocumentComponent extends Component{
         }
     }
 
+    function debugp($Title, $Data = false){
+        $this->Manager->debugprint($Title . ": " . var_export($Data, true));
+    }
+
     function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
         if(is_array($ClientID)){
             $Profiles = array();
             foreach($ClientID as $Client){
-                $Profiles = array_merge($Profiles, $this->enum_profiles_permission($Client, $Permission, $Key, $PermissionTable));
+                $Profiles2 = $this->enum_profiles_permission($Client, $Permission, $Key, $PermissionTable);
+                $Profiles = array_merge($Profiles, $Profiles2);
             }
-            $Profiles = array_unique($Profiles);
         } else if ($ClientID) {
             $Profiles = $this->Manager->get_client($ClientID)->profile_id;
             $Profiles = $this->Manager->enum_all($PermissionTable, array("user_id IN (" . $Profiles . ") AND " . $Permission . " = 1"));
@@ -37,8 +41,11 @@ class DocumentComponent extends Component{
             $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")"));
             if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email");}
         }
-        if(!$Profiles){return array();}
-        return $Profiles;
+        if(!isset($Profiles) || !$Profiles){
+            $Profiles = array();
+        }
+        if(!is_array($Profiles)){$Profiles = array($Profiles);}
+        return array_unique($Profiles);
     }
 
     function iterator_to_array($Objects, $Key){

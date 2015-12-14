@@ -15,13 +15,13 @@ class ManagerComponent extends Component {
         $this->Me = $this->read("id");
         $Controller->set("Me", $this->Me);
 
+        /*
         if(isset($_GET["action"])){
             switch (strtolower($_GET["action"])){
-                case "testemail":
-                    $this->handleevent("test", array("email" => "roy@trinoweb.com"));
-                    break;
+
             }
         }
+        */
 
         $Controller->loadComponent("Settings");
         $Controller->Settings->verifylogin($Controller,$Controller->name);
@@ -280,7 +280,11 @@ class ManagerComponent extends Component {
     function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
         $this->Controller->loadComponent("Document");
         $Profiles = $this->Controller->Document->enum_profiles_permission($ClientID, $Permission, $Key, $PermissionTable);
-        if ($Key) {$Profiles = $this->remove_empties($Profiles);}
+        if(!is_array($Profiles)){
+            $Profiles = array($Profiles);
+        } else if ($Key) {
+            $Profiles = $this->remove_empties($Profiles);
+        }
         return $Profiles;
     }
 

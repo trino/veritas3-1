@@ -1389,7 +1389,6 @@
                             if (isset($_POST['client_idss']) && $_POST['client_idss']) {
                                 $client_id = $_POST['client_idss'];
                                 $emails = $this->Document->enum_profiles_permission($client_id, "email_profile", "email");
-                                //$this->Manager->debugprint("Emails: " . var_export($emails,true));
                                 $emails = $this->Manager->remove_empties($emails);
                             }
                             $emails[] = "super";
@@ -2862,8 +2861,6 @@
                 $this->Mailer->handleevent("taskreminder", array("title" => $todo->title, "email" => $email, "description" => $todo->description, "dueby" => $todo->date, "domain" => getHost("isbmee.com"), "site" => $setting->mee, "path" => $path
                 ));
                 return $email . '</TD><TD>' . $name;
-            } else {
-                $this->Mailer->handleevent("test", array("email" => $email));
             }
         }
 

@@ -183,10 +183,4 @@ class PagesController extends AppController {
     function recent_more(){
         $this->layout = 'blank';
     }
-
-    function test_email(){
-        $this->Mailer->handleevent("test", array("email"=> array('reshma.alee@gmail.com','justdoit_2045@hotmail.com')));
-        die('here');
-    }
-    
 }

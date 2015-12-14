@@ -87,16 +87,12 @@
                 $settings = TableRegistry::get('settings');
                 $setting = $settings->find()->first();
                 if ($modal->save($data)) {
-                    $from = array('info@' . $path => $setting->mee);
                     $pro = TableRegistry::get('profiles')->find()->where(['id' => $_POST['profile_id']])->first();
                     $emails = $this->getallrecruiters($ClientID);
+                    $emails[] = "super";
                     $path = LOGIN . "application/" . $type . "days.php?p_id=" . $_POST['profile_id'] . "&form_id=" . $data->id;
                     $site = TableRegistry::get('settings')->find()->first()->mee;//, "site" => $site
-
-                    foreach ($emails as $e) {
-                        $this->Mailer->handleevent("surveycomplete", array("email" => $e, "username" => $pro->username, "type" => $type, "path" => $path, "site" => $site));
-                    }
-                    $this->Mailer->handleevent("surveycomplete", array("email" => "super", "username" => $pro->username, "type" => $type, "path" => $path, "site" => $site));
+                    $this->Mailer->handleevent("surveycomplete", array("email" => $emails, "username" => $pro->username, "type" => $type, "path" => $path, "site" => $site));
                     return $this->redirect('/application/' . $type . "days.php?msg=success");
                 } else
                     return $this->redirect('/application/' . $type . "days.php?msg=error");
