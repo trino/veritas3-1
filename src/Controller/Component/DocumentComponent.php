@@ -30,14 +30,14 @@ class DocumentComponent extends Component{
                 $Profiles = array_merge($Profiles, $this->enum_profiles_permission($Client, $Permission, $Key, $PermissionTable));
             }
             $Profiles = array_unique($Profiles);
-        } else {
+        } else if ($ClientID) {
             $Profiles = $this->Manager->get_client($ClientID)->profile_id;
-            $Profiles = $this->Manager->enum_all($PermissionTable, array("user_id IN (" . $Profiles . ")", $Permission => 1));
+            $Profiles = $this->Manager->enum_all($PermissionTable, array("user_id IN (" . $Profiles . ") AND " . $Permission . " = 1"));
             $Profiles = $this->iterator_to_array($Profiles, "user_id");
             $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")"));
             if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email");}
         }
-        if($Profiles){return array();}
+        if(!$Profiles){return array();}
         return $Profiles;
     }
 

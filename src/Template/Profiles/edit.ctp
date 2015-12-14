@@ -757,6 +757,9 @@
                 data: 'is_hired=' + hired + '&hired_date=' + hired_date,
                 success: function () {
                     $('.hired_msg').html(msg);
+                },
+                error: function(resp){
+                    alert(JSON.stringify(resp));
                 }
             })
         });
