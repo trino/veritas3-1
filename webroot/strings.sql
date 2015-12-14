@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2015 at 09:44 PM
+-- Generation Time: Dec 14, 2015 at 10:07 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450120301', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450125873', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -837,7 +837,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (825, 'permissions_ordersrequalify', 'Modify requalify settings', 'Modifier les paramètres de requalifier'),
 (826, 'clientapplication_done', '<center><H3><b>Thank you.</b><br>Your application has been submitted. We will be in touch shortly.</h3></center>', '<center><H3><b>Merci.</b><br>\n<h3><center></h3></center> Votre demande a été soumise. Nous serons en contact très prochainement.</h3></center>'),
 (827, 'email_application_subject', 'Application completed', 'email_application_subject'),
-(828, 'email_application_message', 'Doc ID: %document% Client ID: %client%   A new application for employment has been submitted. <A HREF="%path%">Please click here to view the profile, thank you.</A>', 'email_application_message'),
+(828, 'email_application_message', '%Document% ID: %documentid% %Client% ID: %clientid%   A new application for employment has been submitted. <A HREF="%path%">Please click here to view the profile, thank you.</A>', 'email_application_message'),
 (829, 'email_application_variables', 'email, document, client, path', ''),
 (831, 'month_short_format', '%monthshort% %day%, %year% %hour%:%minute%', 'le %day% %monthshort% %year% %hour%:%minute%'),
 (832, 'infoorder_atleastone', 'Please select at least one product', 'S''il vous plaît sélectionner au moins un produit'),

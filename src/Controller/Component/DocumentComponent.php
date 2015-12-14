@@ -23,10 +23,6 @@ class DocumentComponent extends Component{
         }
     }
 
-    function debugp($Title, $Data = false){
-        $this->Manager->debugprint($Title . ": " . var_export($Data, true));
-    }
-
     function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
         if(is_array($ClientID)){
             $Profiles = array();

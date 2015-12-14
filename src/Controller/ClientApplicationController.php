@@ -135,17 +135,23 @@ class ClientApplicationController extends AppController {
         die();
     }
 
-    public function savedMeeOrder($document_id = 0, $cid = 0){
-        if(isset($_GET["document"]) && $_GET["document"] == "Consent Form") {
-            $Emails = $this->Document->enum_profiles_permission($cid, "clientapp_emails", "email"); //$this->Document->enum_emails_canorder($cid);
-            //$Emails[] = "super";
-            $ProfileID = $this->Manager->get_entry("documents", $document_id)->user_id;
-            $URL = LOGIN . 'profiles/view/' . $ProfileID;
-            $this->Mailer->handleevent("application", array("email" => $Emails, "document" => $document_id, "client" => $cid, "path" => $URL));
-            $this->Document->sendEmailForProcesses($document_id, "documents", true);
+    public function notify($document_id, $client_id){
+        $Emails = $this->Document->enum_profiles_permission($client_id, "clientapp_emails", "email"); //$this->Document->enum_emails_canorder($cid);
+        //$Emails[] = "super";
+        $ProfileID = $this->Manager->get_entry("documents", $document_id)->user_id;
+        $URL = LOGIN . 'profiles/view/' . $ProfileID;
+        $this->Mailer->handleevent("application", array("email" => $Emails, "documentid" => $document_id, "clientid" => $client_id, "path" => $URL));
+        $this->Document->sendEmailForProcesses($document_id, "documents", true);
+    }
+
+    public function savedMeeOrder($document_id = 0, $client_id = 0){
+        //enum_all($Table, $conditions = "", $SortBy = false, $Direction = "ASC")
+        $Last = $this->Manager->enum_all("client_application_sub_order", array( "client_id" => $client_id ),  "display_order", "DESC")->first()->sub_id;
+        if(isset($_GET["document"]) && ($_GET["document"] == "Consent Form" || $Last == $document_id)) {
+           $this->notify($document_id,$client_id);
         }
 
-        $this->Document->savedMeeOrder($document_id,$cid);
+        $this->Document->savedMeeOrder($document_id,$client_id);
         die();
     }
 

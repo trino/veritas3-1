@@ -4,6 +4,7 @@
     $settings = $Manager->get_settings();
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array("clientapplication_%", "forms_%", "clients_addeditimage", "infoorder_selectclient", "documents_%"), $settings);
+    $stringsbackup = $strings;
     JSinclude($this, "assets/admin/pages/scripts/form-validate-roy.js");
     includejavascript($strings, $settings );
 
@@ -82,7 +83,9 @@
             <!--hr /-->
             <a href="javascript:void(0)" id="buttonprev<?php echo $jj-1;?>" class="buttonprev btn btn-primary"><?= $strings["dashboard_previous"]; ?></a>
             <a href="javascript:void(0)" id="button<?php echo $jj;?>" class="buttons btn btn-primary"><?= $strings["dashboard_next"]; ?></a>
-            <?php if($this->request->session()->read('debug')){
+            <?php
+            $strings=$stringsbackup;
+            if($this->request->session()->read('debug')){
                 echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A> ';
                 echo 'Included: subpages/documents/' . $includedoc;
             }
