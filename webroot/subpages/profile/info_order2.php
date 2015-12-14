@@ -678,6 +678,8 @@
                     $('.selecting_client').val($('#selecting_client').val());
                 }
             });
+
+            searchProfile()
             <?php
        }
        ?>

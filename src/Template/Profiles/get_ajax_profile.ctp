@@ -45,9 +45,13 @@ function hasallfields($r, $Fields){
 }
 
 $fulllist="";
-if(iterator_count($profiles)==0){
+$Count = iterator_count($profiles);
+if($Count==0){
     printtdline(getstring("infoorder_nonefound", $language), $Columns);
 } else {
+    if($Count < $Columns){
+        $Columns= $Count;
+    }
     //printtdline(getstring("infoorder_disabled", $language));
     $Entries = ceil($profiles->count() / $Columns);
     //printtdline( $profiles->count() / $Columns . " " . $Entries . " " . $profiles->count(), $Columns );
