@@ -82,11 +82,11 @@
         </div>
 
         <div class="form-group row  col-md-12">
-            <label class="control-label required"><?= $strings2["consent_currentadd"]; ?>: </label>
+            <label class="control-label"><?= $strings2["consent_currentadd"]; ?>: </label>
         </div>
         <div class="form-group row">
             <div class="col-md-3">
-                <input type="text" class="form-control required" placeholder="<?= $strings2["consent_streetandn"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->current_street_address;?>"
+                <input type="text" class="form-control" placeholder="<?= $strings2["consent_streetandn"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->current_street_address;?>"
                        name="current_street_address"/>
                        <span class="error"></span>
             </div>
@@ -94,7 +94,7 @@
                 <input type="text" class="form-control" placeholder="<?= $strings2["consent_apartmentu"]; ?>" name="current_apt_unit" value="<?php if (isset($consent_detail))echo $consent_detail->current_apt_unit;?>"/>
             </div>
             <div class="col-md-2">
-                <input type="text" class="form-control required" placeholder="<?= $strings["forms_city"]; ?>" name="current_city" value="<?php if (isset($consent_detail))echo $consent_detail->current_city;?>"/>
+                <input type="text" class="form-control" placeholder="<?= $strings["forms_city"]; ?>" name="current_city" value="<?php if (isset($consent_detail))echo $consent_detail->current_city;?>"/>
                 <span class="error"></span>
             </div>
             <div class="col-md-2">
@@ -104,7 +104,7 @@
                 ?>
             </div>
             <div class="col-md-3">
-                <input type="text" role="postalcode" class="form-control required" placeholder="<?= $strings["forms_postalcode"]; ?>" name="current_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->current_postal_code;?>"/>
+                <input type="text" role="postalcode" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" name="current_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->current_postal_code;?>"/>
                 <span class="error"></span>
             </div>
         </div>

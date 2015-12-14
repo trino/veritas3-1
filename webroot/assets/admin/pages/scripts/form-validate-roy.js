@@ -462,7 +462,7 @@ function autofill2(Type){
                 if (element.hasAttribute("role")) {
                     Type = element.getAttribute("role");
                 }
-                if(element.hasClass("datepicker") || element.hasClass("date-picker")){
+                if(element.hasClass("datepicker") || element.hasClass("date-picker") || element.hasClass("dp")){
                     Type = "date";
                 }
 
@@ -503,7 +503,8 @@ function autofill2(Type){
                             StartYear = parseInt(value.substring(6, value.length)) + 1;
                             EndYear = StartYear + 25;
                         }
-                        value = "10/04/" + getRandomInt(StartYear,EndYear);
+                        //value = "10/04/" + getRandomInt(StartYear,EndYear);
+                        value = getRandomInt(StartYear,EndYear) + "-10-31";
                         break;
                     case "email":
                         value = randomemail(20);
