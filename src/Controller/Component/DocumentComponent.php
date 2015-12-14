@@ -29,14 +29,24 @@ class DocumentComponent extends Component{
             foreach($ClientID as $Client){
                 $Profiles = array_merge($Profiles, $this->enum_profiles_permission($Client, $Permission, $Key, $PermissionTable));
             }
+            //$Profiles = array_unique($Profiles);
         } else {
             $Profiles = $this->Manager->get_client($ClientID)->profile_id;
             $Profiles = $this->Manager->enum_all($PermissionTable, array("user_id IN (" . $Profiles . ")", $Permission => 1));
-            $Profiles = implode(",", $this->Manager->iterator_to_array($Profiles, "id", "user_id"));
+            $Profiles = $this->iterator_to_array($Profiles, "user_id");
+
             $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")"));
-            if ($Key) {$Profiles = $this->Manager->iterator_to_array($Profiles, "id", "email");}
+            if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email");}
         }
         return $Profiles;
+    }
+
+    function iterator_to_array($Objects, $Key){
+        $IDs = array();
+        foreach($Objects as $Object){
+            $IDs[] = $Object->$Key;
+        }
+        return implode(",", $IDs);
     }
 
     function enum_emails_canorder($ClientID){
@@ -506,9 +516,9 @@ class DocumentComponent extends Component{
             }
            // return $ret;
             die();
-            
+            }
         }
-        }
+
         function handleevent_documentcreated($Mailer, $ret, $ClientID, $DocumentID){
             $this->Manager->debugprint("doc created");
             $Profiles = $this->Manager->enum_profiles_permission($ClientID, "email_document", "email");
@@ -2293,5 +2303,18 @@ class DocumentComponent extends Component{
 
     function getProfileDetail($id, $Table = "profiles") {
         return TableRegistry::get($Table)->find()->where(['id'=>$id])->first();
+    }
+
+    function formatname($UserID = false, $Format = "%fname% %mname% %lname% (%username%) %email%"){
+        if(!is_object($UserID)) {$UserID = $this->Manager->get_profile($UserID);}
+        return $this->formatobject($UserID, $Format);
+    }
+
+    function formatobject($Object, $Format){
+        if(is_object($Object)){$Object = $this->Manager->properties_to_array($Object);}
+        foreach($Object as $Key => $Value){
+            $Format = str_replace( "%" . $Key . "%", $Value, $Format);
+        }
+        return $Format;
     }
 }

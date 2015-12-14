@@ -280,7 +280,7 @@ class ManagerComponent extends Component {
     function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
         $this->Controller->loadComponent("Document");
         $Profiles = $this->Controller->Document->enum_profiles_permission($ClientID, $Permission, $Key, $PermissionTable);
-        if($Key){$Profiles = $this->remove_empties($Profiles);}
+        if ($Key) {$Profiles = $this->remove_empties($Profiles);}
         return $Profiles;
     }
 

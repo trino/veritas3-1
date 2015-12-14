@@ -128,6 +128,13 @@
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->email_profile == 1) echo "checked"; ?> />
                                         Receive Email (on create/delete profile)
                                     </label>
+
+                                    <label class="uniform-inline">
+                                        <input <?php echo $is_disabled ?> type="checkbox" name="side[email_hired]"
+                                                                          value="1" <?php if (isset($sidebar) && $sidebar->email_hired == 1) echo "checked"; ?> />
+                                        Receive Email (when profiles are hired)
+                                    </label>
+
                                     <?php if($AllowOthers){?>
                                     <label class="uniform-inline">
                                         <input <?php echo $is_disabled ?> type="checkbox" name="side[viewprofiles]"

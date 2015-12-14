@@ -1227,8 +1227,7 @@
             $this->set(compact('att'));
         }
 
-        public function viewReport($client_id, $order_id)
-        {
+        public function viewReport($client_id, $order_id) {
             $this->set('doc_comp', $this->Document);
             $orders = TableRegistry::get('orders');
             $order = $orders
@@ -1239,22 +1238,25 @@
             //  debug($order);
         }
 
-        function savedriver($oid)
-        {
+        function savedriver($UserID) {
+            //$this->Mailer->sendEmail("", "roy@trinoweb.com", "TEST", file_get_contents("FP.html"), true);
+
             $this->set('doc_comp', $this->Document);
             $arr['is_hired'] = $_POST['is_hired'];
             $arr['hired_date'] = $_POST['hired_date'];
-            $orders = TableRegistry::get('profiles');
-            $order = $orders
-                ->query()->update()
-                ->set($arr)
-                ->where(['profiles.id' => $oid])->execute();
+            $this->Manager->update_database('profiles', "id", $UserID, $arr);
 
+            if($_POST['is_hired']) {
+                $Clients = $this->Manager->find_client($UserID, false);
+                $Profiles = $this->Manager->enum_profiles_permission($Clients, "email_hired", "email");
+                $Name = $this->Document->formatname($UserID);
+                $Path = LOGIN . 'profiles/view/' . $UserID;
+                $this->Mailer->handleevent("washired", array("name" => $Name, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $this->Document->formatname(), "path" => $Path, "email" => $Profiles));
+            }
             die();
         }
 
-        function requalify($uid)
-        {
+        function requalify($uid) {
             $this->set('doc_comp', $this->Document);
             $arr['requalify'] = $_POST['requalify'];
             $orders = TableRegistry::get('profiles');
@@ -1266,58 +1268,48 @@
             die();
         }
 
-        public function saveAttachmentsPrescreen($data = NULL, $count = 0)
-        {//count is to delete all while first insertion and no delete for following insertion
-
+        public function saveAttachmentsPrescreen($data = NULL, $count = 0) {//count is to delete all while first insertion and no delete for following insertion
             $this->Document->saveAttachmentsPrescreen($data, $count);
             die();
         }
 
-        public function saveAttachmentsDriverApp($data = NULL, $count = 0)
-        {
+        public function saveAttachmentsDriverApp($data = NULL, $count = 0) {
             $this->Document->saveAttachmentsDriverApp($data, $count);
             die();
         }
 
-        public function saveAttachmentsRoadTest($data = NULL, $count = 0)
-        {
+        public function saveAttachmentsRoadTest($data = NULL, $count = 0) {
             $this->Document->saveAttachmentsRoadTest($data, $count);
             die();
         }
 
-        public function saveAttachmentsConsentForm($data = NULL, $count = 0)
-        {
+        public function saveAttachmentsConsentForm($data = NULL, $count = 0) {
             $this->Document->saveAttachmentsConsentForm($data, $count);
             die();
         }
 
-        public function saveAttachmentsEmployment($data = NULL, $count = 0)
-        {
+        public function saveAttachmentsEmployment($data = NULL, $count = 0) {
             $this->Document->saveAttachmentsEmployment($data, $count);
             die();
         }
 
-        public function saveAttachmentsEducation($data = NULL, $count = 0)
-        {
+        public function saveAttachmentsEducation($data = NULL, $count = 0) {
             $this->Document->saveAttachmentsEducation($data, $count);
             die();
         }
 
-        function getprocessed($table, $oid)
-        {
+        function getprocessed($table, $oid) {
             $model = TableRegistry::get($table);
             $q = $model->find()->where(['order_id' => $oid])->count();
             $this->response->body($q);
             return $this->response;
         }
 
-        public function drafts()
-        {
+        public function drafts() {
 
         }
 
-        function getDriverByClient($client)
-        {
+        function getDriverByClient($client) {
             //$logged_id = $this->request->session()->read('Profile.id');
             $cmodel = TableRegistry::get('Clients');
             if (!is_numeric($client)) {
@@ -1382,8 +1374,7 @@
             die();
         }
 
-        function makeprofiletypequery()
-        {
+        function makeprofiletypequery() {
             //'(SELECT placesorders FROM profile_types WHERE profile_types.id == profile_type) == 1'
             $tempstr = "";
             $ptypes = TableRegistry::get('profile_types')->find()->where(['placesorders' => 1])->all();
@@ -1397,13 +1388,11 @@
             return $tempstr . ")";
         }
 
-        function testing()
-        {
+        function testing() {
             $this->set('doc_comp', $this->Document);
         }
 
-        public function orderslist()
-        {
+        public function orderslist() {
             $userid = $this->request->session()->read('Profile.id');
 
             $this->set('doc_comp', $this->Document);
@@ -1548,16 +1537,14 @@
             $this->Manager->permissions(array("sidebar" => array("orders_list", "orders_others", "orders_create", "orders_delete", "orders_edit", "orders_requalify", "document_list"), "others" => "documents_enabled"), $setting, false, $userid);
         }
 
-        function AppendSQL($SQL, $Query)
-        {
+        function AppendSQL($SQL, $Query) {
             if ($SQL) {
                 return $SQL . " AND " . $Query;
             }
             return $Query;
         }
 
-        function getClientByDriver($driver)
-        {
+        function getClientByDriver($driver) {
             //$controller = $this->_registry->getController();
             $settings = $this->Settings->get_settings();
             $logged_id = $this->request->session()->read('Profile.id');
@@ -1586,14 +1573,12 @@
             die();
         }
 
-        public function getOrderData($cid = 0, $order_id = 0, $profile_id = 0)
-        {
+        public function getOrderData($cid = 0, $order_id = 0, $profile_id = 0) {
             $this->Document->getOrderData($cid, $order_id, $profile_id);
             die;
         }
 
-        public function getSubDocs()
-        {
+        public function getSubDocs() {
             $docs = TableRegistry::get('subdocuments');
             $doc = $docs->find()->all();
             //$do = $doc->select('all');
@@ -1602,8 +1587,7 @@
             die;
         }
 
-        public function getdocid($sub_doc_id, $order_id)
-        {
+        public function getdocid($sub_doc_id, $order_id) {
             $doc = TableRegistry::get('documents');
             $doc = $doc->find()->where(['sub_doc_id' => $sub_doc_id, 'order_id' => $order_id])->first();
             $this->response->body($doc);
@@ -1611,8 +1595,7 @@
             die;
         }
 
-        public function getProductTitle($id = '')
-        {
+        public function getProductTitle($id = '') {
             $doc = TableRegistry::get('order_products');
             $doc = $doc->find()->where(['number' => $id])->first();
             $this->response->body($doc);
@@ -1620,8 +1603,7 @@
             die;
         }
 
-        function check_driver_abstract2($id)
-        {
+        function check_driver_abstract2($id) {
             $doc = TableRegistry::get('profiles');
             $doc = $doc->find()->where(['id' => $id])->first();
             $this->response->body($doc);
@@ -1629,8 +1611,7 @@
             die;
         }
 
-        function check_cvor2($id)
-        {
+        function check_cvor2($id) {
             $doc = TableRegistry::get('profiles');
             $doc = $doc->find()->where(['id' => $id])->first();
             $this->response->body($doc);
@@ -1638,8 +1619,7 @@
             die;
         }
 
-        function check_driver_abstract($id)
-        {
+        function check_driver_abstract($id) {
             $doc = TableRegistry::get('profiles');
             $doc = $doc->find()->where(['id' => $id])->first();
             $province = $doc->driver_province;
@@ -1652,8 +1632,7 @@
             die();
         }
 
-        function check_cvor($id)
-        {
+        function check_cvor($id) {
             $doc = TableRegistry::get('profiles');
             $doc = $doc->find()->where(['id' => $id])->first();
             $province = $doc->driver_province;
@@ -1666,8 +1645,7 @@
             die();
         }
 
-        public function appendattachments($query)
-        {
+        public function appendattachments($query) {
             $IDs = array();
             foreach ($query as $document) {
                 $IDs[] = $document->id;
@@ -1680,8 +1658,7 @@
             return $query;
         }
 
-        public function hasattachments($orderid)
-        {
+        public function hasattachments($orderid) {
             $docs = TableRegistry::get('doc_attachments');
             $query = $docs->find();
             $client_docs = $query->select()->where(['order_id' => $orderid, 'attachment LIKE' => "%.%"])->first();
@@ -1691,8 +1668,7 @@
             return false;
         }
 
-        function isproductprovinceenabled($Table, $ProductID, $DocumentID, $Province)
-        {//old slow method
+        function isproductprovinceenabled($Table, $ProductID, $DocumentID, $Province) {//old slow method
             //if($Province != "ALL"){  if ($this->isproductprovinceenabled($ProductID, $DocumentID, "ALL")) { return true;}} //doubles the load time, so it was removed
             $item = $Table->find()->where(['ProductID' => $ProductID, 'FormID' => $DocumentID, "Province" => $Province])->first();
             if ($item) {
@@ -1702,8 +1678,7 @@
             }
         }
 
-        function isproductprovinceenabled2($Items, $ProductID, $DocumentID, $Province)
-        {//new fast method
+        function isproductprovinceenabled2($Items, $ProductID, $DocumentID, $Province) {//new fast method
             foreach ($Items as $Item) {
                 if ($Item->ProductID == $ProductID) {
                     if ($Item->FormID == $DocumentID || $Item->FormID == 0) {
@@ -1716,8 +1691,7 @@
             return false;
         }
 
-        public function LoadSubDocs($Forms)
-        {
+        public function LoadSubDocs($Forms) {
             $Table = TableRegistry::get('order_provinces');
             $subdocuments = TableRegistry::get('subdocuments')->find('all');//id title
             $provinces = array("AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT");//"ALL",
@@ -1751,8 +1725,7 @@
             return $return;
         }
 
-        function getProNum()
-        {
+        function getProNum() {
             $products = TableRegistry::get('order_products');
             $pro = $products->find()->where(['enable' => 1, 'id <>' => 8]);
             $prod = '';
@@ -1768,8 +1741,7 @@
             die;
         }
 
-        function getSubDetail($id)
-        {
+        function getSubDetail($id) {
             //die('here');
             $products = TableRegistry::get('subdocuments');
             $pro = $products->find()->where(['id' => $id])->first();
@@ -1778,8 +1750,7 @@
             die;
         }
 
-        public function invoice()
-        {
+        public function invoice() {
             $query = TableRegistry::get('Clients');
             $q = $query->find();
             $u = $this->request->session()->read('Profile.id');
@@ -1812,8 +1783,7 @@
             }
         }
 
-        public function checkPermisssionOrder($did, $driver)
-        {
+        public function checkPermisssionOrder($did, $driver) {
             $recruiter = $this->request->session()->read('Profile.id');
             $ord = TableRegistry::get('profilessubdocument');
             $check = $ord->find()->where(['profile_id' => $recruiter, 'subdoc_id' => $did])->first();
@@ -1823,8 +1793,7 @@
 
         }
 
-        public function checkSignature($did)
-        {
+        public function checkSignature($did) {
             $ord = TableRegistry::get('consent_form')->find()->where(['order_id' => $did])->first();
             $check = '0';
             if ($ord->criminal_signature_applicant && $ord->criminal_signature_applicant2 && $ord->signature_company_witness2 && $ord->signature_company_witness) {
@@ -1834,30 +1803,26 @@
             die;
         }
 
-        public function makeneworder($values)
-        {
+        public function makeneworder($values) {
             $table = TableRegistry::get('orders');
             $date = date('Y-m-d H:i:s');
             //$values = array();
             $table->query()->insert(array_keys($values))->values($values)->execute();
         }
 
-        public function groupdocument($docid, $orderid)
-        {
+        public function groupdocument($docid, $orderid) {
             $table = TableRegistry::get('profilessubdocument');
             $table->query()->update()->set(['order_id' => $orderid])
                 ->where(['id' => $docid])
                 ->execute();
         }
 
-        function test_order($id = '12')
-        {
+        function test_order($id = '12') {
             $this->response->file(WWW_ROOT . 'orders/order_' . $id . '/test.html', array('download' => true, 'name' => 'Test'));
             die();
         }
 
-        function saveRecruiterInfo($oid)
-        {
+        function saveRecruiterInfo($oid) {
             $table = TableRegistry::get('orders');
             $table->query()->update()->set($_POST)
                 ->where(['id' => $oid])

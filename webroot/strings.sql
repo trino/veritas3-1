@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2015 at 08:08 PM
+-- Generation Time: Dec 14, 2015 at 05:14 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=861 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=864 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1449772849', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1449774615', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -870,7 +870,10 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (857, 'verifs_yourpassword', 'Your password', 'Votre mot de passe'),
 (858, 'email_submitted_subject', 'New %type% submitted', 'email_submitted_subject'),
 (859, 'email_submitted_message', 'A new %type% was submitted for one of the %client%s you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message'),
-(860, 'email_submitted_variables', 'email, type, subtype, Order, path', '');
+(860, 'email_submitted_variables', 'email, type, subtype, order, clientapplication, path', ''),
+(861, 'email_washired_variables', 'name, userid, byuserid, byname, path, email', ''),
+(862, 'email_washired_subject', 'A %profile% was hired', 'email_washired_subject'),
+(863, 'email_washired_message', '<A HREF="%path%">%name%</A> was hired by %byname% at %created%', 'email_washired_message');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

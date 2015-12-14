@@ -821,7 +821,7 @@
 											</LI>
 											<LI>Enable <?= $settings->profile; ?>
 												<UL>
-													<LI>Yes/No
+													<LI>[Blank]
 														<UL><LI>Sets whether or not the rest of the settings for this category will show</LI></UL>
 													</LI>
 													<LI>List
@@ -836,8 +836,11 @@
 													<LI><?= $strings["dashboard_delete"]; ?>
 														<UL><LI>Required to delete <?= $settings->profile; ?>s</LI></UL>
 													</LI>
-													<LI>Receive Email (on create/edit <?= $settings->profile; ?>)
-														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a <?= $settings->profile; ?> is created or edited</LI></UL>
+													<LI>Receive Email (on create/delete <?= $settings->profile; ?>)
+														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a <?= $settings->profile; ?> is created or deleted</LI></UL>
+													</LI>
+													<LI>Receive Email (when <?= $settings->profile; ?>s are hired)
+														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a <?= $settings->profile; ?> belonging to one of the same <?= $settings->client; ?>s as this one, is hired</LI></UL>
 													</LI>
 													<LI><?= $ProfileTypes; ?>
 														<UL><LI>This <?= $settings->profile; ?> will only be able to see and create <SPAN ONCLICK="expand('misc/profile-type');"><?= $settings->profile; ?>s only of these types</SPAN></LI></UL>
@@ -846,7 +849,7 @@
 											</LI>
 											<LI>Enable <?= $settings->client; ?>
 												<UL>
-													<LI>Yes/No
+													<LI>[Blank]
 														<UL><LI>Sets whether or not the rest of the settings for this category will show</LI></UL>
 													</LI>
 													<LI>List
@@ -868,7 +871,7 @@
 											</LI>
 											<LI>Enable <?= $strings["index_orders"]; ?>
 												<UL>
-													<LI>Yes/No
+													<LI>[Blank]
 														<UL><LI>Sets whether or not the rest of the settings for this category will show</LI></UL>
 													</LI>
 													<LI>List
@@ -896,7 +899,7 @@
 											</LI>
 											<LI>Enable <?= $settings->document; ?>
 												<UL>
-													<LI>Yes/No
+													<LI>[Blank]
 														<UL><LI>Sets whether or not the rest of the settings for this category will show</LI></UL>
 													</LI>
 													<LI>List
