@@ -41,7 +41,6 @@
                 $profile = $profiles->newEntity($_POST);
 
                 $profilesToEmail = array();
-
                 if ($profiles->save($profile)) {
                     if (!$_POST['username']) {//if no username, make one
                         $profile_id = $profile->id;
@@ -52,14 +51,14 @@
                     if ($_POST['client_ids']) {
                         $client_id = explode(",", $_POST['client_ids']);
                         foreach ($client_id as $cid) {//asign to clients
-                            $this->Manager->assign_profile_to_client($profile->id, $cid);
+                            $profilesToEmail = array_merge($profilesToEmail, explode(",", $this->Manager->assign_profile_to_client($profile->id, $cid)));
                         }
                     }
 
                     $this->Manager->makepermissions($profile->id, "blocks", $profile->profile_type);
                     $this->Manager->makepermissions($profile->id, "sidebar", $profile->profile_type);
 
-                    $this->emaileveryone($profilesToEmail, $profile->id, $_POST);
+                    $this->emaileveryone(array_unique($profilesToEmail), $profile->id, $_POST);
                     return $this->redirect('/application/register.php?client=' . $_POST['client_ids'] . '&username=' . $_POST['username'] . '&userid=' . $profile->id);
                 } else {
                     return $this->redirect('/application/register.php?client=' . $_POST['client_ids'] . '&error=' . $_POST['username']);
@@ -124,11 +123,13 @@
             foreach ($profilesToEmail as $Profile) {
                 $Profile = $this->Manager->loadpermissions($Profile, "sidebar");// $this->getTableByAnyKey("sidebar", "user_id", $Profile);
                 if (is_object($Profile) && $Profile->email_profile == 1) {
-                    $emails[] = $Profile->email;
+                    $emails[] = $this->Manager->get_profile($Profile->user_id)->email;
                 }
             }
-            $path = LOGIN . "profiles/view/" . $ProfileID;
-            $this->Mailer->handleevent("profilecreated", array("username" => $_POST['username'], "email" => $emails, "path" => $path, "createdby" => "Application", "type" => "Applicant", "password" => "[Blank]", "id" => $ProfileID));
+            if($emails) {
+                $path = LOGIN . "profiles/view/" . $ProfileID;
+                $this->Mailer->handleevent("profilecreated", array("username" => $_POST['username'], "email" => $emails, "path" => $path, "createdby" => "Application", "type" => "Applicant", "password" => "[Blank]", "id" => $ProfileID));
+            }
         }
 
         public function Update1Column($Table, $PrimaryKey, $PrimaryValue, $Key, $Value) {

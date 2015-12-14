@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2015 at 05:14 PM
+-- Generation Time: Dec 14, 2015 at 08:11 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=864 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=866 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1449774615', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450120168', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -758,7 +758,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (740, 'email_newdriver_postorder_subject', 'Application for New Driver', 'email_newdriver_postorder_subject'),
 (741, 'email_newdriver_postorder_message', 'Date: %created%<BR>\n<BR>\n<BR>\nDear %customer_name%<BR>\n<BR>\n<BR>\nThank you for choosing %broker_name%, we appreciate your business. <BR>\n<BR>\n<BR>\nYour MEE request for %driver_name% has been successfully submitted.<BR>\n<BR>\n<BR>\nYour confirmation number for this MEE request is %order_id%<BR>\n<BR>\n<BR>\nWe are processing your request and will notify you of the driver’s eligibility shortly.<BR>\n<BR>\n<BR>\nRespectfully, <BR>\n<BR>\n<BR>\n%broker_name%<BR>\n%broker_email%', 'email_newdriver_postorder_message'),
 (742, 'forms_number', 'Number', 'Nombre'),
-(743, 'email_passwordreset_variables', 'username, email, password', ''),
+(743, 'email_passwordreset_variables', 'email, username, password, site', ''),
 (744, 'email_smi_profilecreated_subject', 'AFIMAC #SMI - Profile Created', 'email_smi_profilecreated_subject'),
 (745, 'email_smi_profilecreated_message', 'An account has been created for you in the AFIMAC #SMI system. You are now able to login, navigate and place orders.<BR>\n<BR>\nYour login credentials are as follows:<BR>\n<BR>\nCreated By: %createdby%<BR>\nOn: %created%<BR>\nProfile Type: %type%<BR>\nUsername: %username%<BR>\nPassword: %password%<BR>\n<BR>\n%login%<BR>\n<BR>\nRegards,<BR>\nAFIMAC #SMI', 'email_smi_profilecreated_message'),
 (746, 'email_smi_clientcreated_subject', 'AFIMAC #SMI - Client Created', 'email_smi_clientcreated_subject'),
@@ -873,7 +873,9 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (860, 'email_submitted_variables', 'email, type, subtype, order, clientapplication, path', ''),
 (861, 'email_washired_variables', 'name, userid, byuserid, byname, path, email', ''),
 (862, 'email_washired_subject', 'A %profile% was hired', 'email_washired_subject'),
-(863, 'email_washired_message', '<A HREF="%path%">%name%</A> was hired by %byname% at %created%', 'email_washired_message');
+(863, 'email_washired_message', '<A HREF="%path%">%name%</A> was hired by %byname% at %created%', 'email_washired_message'),
+(864, 'email_requalification_variables', 'site, email, username, company_name', ''),
+(865, 'clients_application', '%Client% Application', 'Application %client%');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

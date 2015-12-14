@@ -622,12 +622,15 @@ class ManagerComponent extends Component {
     }
 
     function get_clients_profiles($ClientID){
-        $ClientID = $this->get_client($ClientID)->profile_id;
         if($ClientID) {
-            $ClientID = $this->cleanCSV($ClientID);
+            $ClientID = $this->get_client($ClientID)->profile_id;
+            if ($ClientID) {
+                $ClientID = $this->cleanCSV($ClientID);
+            }
+            return $ClientID;
         }
-        return $ClientID;
     }
+
     function cleanCSV($Text){
         $Text = trim($Text, ", \t\n\r\0\x0B");
         while (strpos($Text, ",,") !== false){
@@ -635,6 +638,7 @@ class ManagerComponent extends Component {
         }
         return $Text;
     }
+
     function assign_profile_to_client($ProfileID, $ClientID, $Add = true){
         $Client = $this->get_client($ClientID);
         if($Add) {
@@ -648,6 +652,7 @@ class ManagerComponent extends Component {
             $Profiles = implode(",",$Profiles );
         }
         $this->update_database("clients", "id", $ClientID, array("profile_id" => $Profiles));
+        return $Profiles;
     }
 
 

@@ -1143,15 +1143,18 @@ loadreasons($param, $strings, true);
                 type: 'post',
                 success: function (res) {
                     res = res.replace(' ', '');
-                    //alert(res);
                     if (res != 0 && !isNaN(res)) {
                         $('#savepro').text("<?= addslashes($strings["forms_savechanges"]); ?>");
                         $('.flash').show();
                         $('.flash').fadeOut(3500);
                         window.location.href = '<?php echo $this->request->webroot;?>profiles/edit/' + res;
+                    } else {
+                        alert(res);
                     }
+                },
+                error: function (res){
+                    alert(res);
                 }
-
             });
 
             return false;

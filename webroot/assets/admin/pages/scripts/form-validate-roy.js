@@ -500,7 +500,11 @@ function autofill2(Type){
                             name = name.replace("_end", "_start");
                             value = getindex(name, temp);
                             value = getinputvalue(value);
-                            StartYear = parseInt(value.substring(6, value.length)) + 1;
+                            if(value.indexOf("/")>-1) {
+                                StartYear = parseInt(value.substring(6, value.length)) + 1;
+                            } else {
+                                StartYear = parseInt(value.substring(0, 4)) + 1;
+                            }
                             EndYear = StartYear + 25;
                         }
                         //value = "10/04/" + getRandomInt(StartYear,EndYear);

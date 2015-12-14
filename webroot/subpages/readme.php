@@ -693,7 +693,7 @@
 														<UL><LI>Sets whether or not this <?= $settings->document; ?> is usable in the <?= $strings["orders_create"]; ?> page</LI></UL>
 													</LI>
 													<LI>Application Process
-														<UL><LI>Sets whether or not this <?= $settings->document; ?> shows in the <SPAN ONCLICK="expand('misc/clientapplication');">ClientApplication</SPAN> process</LI></UL>
+														<UL><LI>Sets whether or not this <?= $settings->document; ?> shows in the <SPAN ONCLICK="expand('misc/clientapplication');"><?= $strings["clients_application"]; ?></SPAN> process</LI></UL>
 													</LI>
 													<LI>Display Order
 														<UL><LI>The display order can be changed only by clicking and dragging the row to a new position</LI></UL>
@@ -890,7 +890,7 @@
 														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new order is created within Veritas</LI></UL>
 													</LI>
 													<LI>Receive Email (on client application completion)
-														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new order is created within the <SPAN ONCLICK="expand('misc/clientapplication');">ClientApplication</SPAN> system (a version of Veritas that does not require logging in)</LI></UL>
+														<UL><LI>If enabled, this <?= $settings->profile; ?> will recieve an email when ever a new order is created within the <SPAN ONCLICK="expand('misc/clientapplication');"><?= $strings["clients_application"]; ?></SPAN> system (a version of Veritas that does not require logging in)</LI></UL>
 													</LI>
 													<LI><?= $OrderTypes; ?>
 														<UL><LI>This <?= $settings->profile; ?> will only be able to see and create orders only of these types</LI></UL>
@@ -1347,15 +1347,15 @@
 					<LI>Super admin, admin & recruiter are the <?= $settings->profile; ?>s which are provided with the permissions to perform high level actions like creating <?= $settings->profile; ?>s, making orders, <?= $settings->document; ?>s, creating <?= $settings->client; ?>s etc. But still, according to system, any profile can be assigned with the permission to perform any action.	</LI>
 				</UL>
 			</LI>
-			<LI ID="clientapplication">ClientApplication
+			<LI ID="clientapplication"><?= $strings["clients_application"]; ?>
 				<UL>
-					<LI>The ClientApplication is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn't require logging in. The applicant just need to:</LI>
+					<LI>The <?= $strings["clients_application"]; ?> is a manual system of submitting <?= $settings->document; ?>s by the applicant themselves. The system doesn't require logging in. The applicant just need to:</LI>
 					<OL>
-						<LI>Browse <SPAN onclick="OpenInNewTab('<?= $this->request->webroot; ?>clientApplication');"><?= $this->request->webroot; ?>clientApplication</SPAN></LI>
+						<LI>Browse <SPAN onclick="OpenInNewTab('<?= $this->request->webroot; ?>clientApplication');"><?= $this->request->webroot; ?><?= $strings["clients_application"]; ?></SPAN></LI>
 						<LI>Select the <?= $settings->client; ?> that they want to submit <?= $settings->document; ?>s for</LI>
-						<LI>The <?= $settings->document; ?>s enabled for that client for ClientApplication are then listed in step wise preceded by driver form which is similar to the <SPAN ONCLICK="expand('profiles/profile');"><?= $strings["index_createprofile"]; ?></SPAN> form</LI>
+						<LI>The <?= $settings->document; ?>s enabled for that client for <?= $strings["clients_application"]; ?> are then listed in step wise preceded by driver form which is similar to the <SPAN ONCLICK="expand('profiles/profile');"><?= $strings["index_createprofile"]; ?></SPAN> form</LI>
 					</OL>
-					<LI>Once the ClientApplication is submitted, the <?= $settings->document; ?>s submitted are listed as <?= $settings->document; ?>s in the <SPAN ONCLICK="expand('documents/LIstdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN>, at the same time the applicant is assigned to the <?= $settings->client; ?> they submitted the <?= $settings->document; ?> for</LI>
+					<LI>Once the <?= $strings["clients_application"]; ?> is submitted, the <?= $settings->document; ?>s submitted are listed as <?= $settings->document; ?>s in the <SPAN ONCLICK="expand('documents/LIstdocuments');"><?= $strings["index_listdocuments"]; ?></SPAN>, at the same time the applicant is assigned to the <?= $settings->client; ?> they submitted the <?= $settings->document; ?> for</LI>
 				</UL>
 			</LI>
 		</UL>

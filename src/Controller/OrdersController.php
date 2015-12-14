@@ -1109,7 +1109,7 @@
                 $order_info = $ordersTABLE->find()->where(['id' => $orderid])->first();
                 $this->set('order_info', $order_info);
 
-                /*
+
                 $order_attach = $all_attachments->find()->where(['order_id' => $orderid]);
                 $this->set('order_attach', $order_attach);
                 $this->set('subdocument', TableRegistry::get('subdocuments'));
@@ -1119,8 +1119,10 @@
                 $profile = $this->getcol("profiles", "id", $order_info->user_id);
                 $client = $this->getcol("clients", "id", $order_info->client_id);
                 $setting = TableRegistry::get('settings')->find()->first();
-                $this->set('servicearr', array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for));
-               */
+                $Data = array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for);
+                $this->Mailer->handleevent("ordercompleted", $Data);//$order_info
+                $this->set('servicearr', $Data);
+
 
                 $this->set('mailer', $this->Mailer);
                 //     $this->set('order_model', $ordersTABLE);
@@ -1130,8 +1132,6 @@
                 if ($order_type == 'BUL') {
                     $this->set('orders', $orders);
                 }
-
-                //$this->Mailer->handleevent("ordercompleted", );//$order_info
             }
 
             $this->Flash->success($this->Trans->getString("flash_bulkorder"));

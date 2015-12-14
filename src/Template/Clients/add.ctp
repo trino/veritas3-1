@@ -57,33 +57,30 @@
         </li>
     </ul>
     <!--a href="javascript:window.print();" class="floatright btn btn-primary">Print</a-->
-    <?php if(isset($client->slug)){?>
-    <a href="<?php echo $this->request->webroot;?>clientApplication/apply/<?php echo $client->slug;?>" class="floatright btn btn-primary" style="margin-left: 5px;">Client Application</a>
-    <?php }?>
-    <?php
-        if (isset($disabled) || isset($_GET['view'])) { ?>
-            <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
-        <?php }
+    <?php if(isset($client->slug)){
+        echo '<a href="' . $this->request->webroot . 'clientApplication/apply/' . $client->slug . '" class="floatright btn btn-primary" style="margin-left: 5px;">' . $strings["clients_application"] . '</a>';
+    }
+
+        if (isset($disabled) || isset($_GET['view'])) {
+            echo '<a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
+        }
 
         if (isset($client) && $sidebar->client_delete == '1' && $param != 'add') { ?>
             <a href="<?= $this->request->webroot; ?>clients/delete/<?= $client->id; ?><?= (isset($_GET['draft'])) ? "?draft" : ""; ?>"
-               onclick="return confirm('Are you sure you want to delete <?= h($client->company_name) ?>?');"
+               onclick="return confirm('<?php echo addslashes(str_replace("%name%", h($client->company_name), $strings["dashboard_confirmdelete"])); ?>');"
                class="floatright btn btn-danger btnspc"><?= $strings["dashboard_delete"]; ?></a>
         <?php }
         if (isset($client) && $sidebar->client_edit == '1' && isset($_GET['view'])) {
             echo $this->Html->link(__($strings["dashboard_edit"]), ['controller' => 'clients', 'action' => 'edit', $client->id], ['class' => 'floatright btn btn-primary btnspc']);
         } else if (isset($client) && $param == 'edit') {
-            ?>
-            <a href="<?= $this->request->webroot; ?>clients/edit/<?= $client->id; ?>?view"
-               class='floatright btn btn-primary btnspc'><?= $strings["dashboard_view"]; ?></a>
-            <?php
-            if($this->request->session()->read('debug')){
-                echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
-            }
-
+            echo '<a href="' . $this->request->webroot. 'clients/edit/' . $client->id. '?view" class="floatright btn btn-primary btnspc">' . $strings["dashboard_view"]. '</a>';
         }
 
-        if($sidebar->profile_list) {
+        if ($this->request->session()->read('debug') && ((isset($client) && $param == 'edit') || $param == "add")) {
+            echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
+        }
+
+        if($sidebar->profile_list && $id) {
             echo '<A HREF="' . $this->request->webroot . 'profiles/index?filter_by_client=' . $id . '" class="floatright btn btnspc btn-primary">' . $strings["index_listprofile"] . '</A>';
         }
         echo "</div>";
@@ -150,8 +147,7 @@
                                     </li>-->
 
                                     <li>
-                                        <a href="#tab_1_3"
-                                           data-toggle="tab"><?php echo (!isset($_GET['view'])) ? $strings["clients_assigntoprofile"] : $strings["clients_assignedto"]; ?></a>
+                                        <a href="#tab_1_3" data-toggle="tab"><?php echo (!isset($_GET['view'])) ? $strings["clients_assigntoprofile"] : $strings["clients_assignedto"]; ?></a>
                                     </li>
 
 

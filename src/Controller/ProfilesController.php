@@ -1063,12 +1063,16 @@
 
         function checkusername($profile, $post){//updates username of $profile->id
             $username = trim($post['username']);
-            if(!$username) {
-                $username = str_replace(" ", "_", TableRegistry::get('profile_types')->find()->where(['id' => $profile->profile_type])->first()->title . "_" . $profile->id);
-                $queries = TableRegistry::get('Profiles');
-                $queries->query()->update()->set(['username' => $username])
-                    ->where(['id' => $profile->id])
-                    ->execute();
+            if(!$username && is_object($profile)) {
+                $username = TableRegistry::get('profile_types')->find()->where(['id' => $profile->profile_type])->first();
+                if($username) {
+                    $username = str_replace(" ", "_", $username->title . "_" . $profile->id);
+
+                    $queries = TableRegistry::get('Profiles');
+                    $queries->query()->update()->set(['username' => $username])
+                        ->where(['id' => $profile->id])
+                        ->execute();
+                }
             }
         }
 
@@ -1382,9 +1386,11 @@
 
 
                             $emails = array();
-                            if ($_POST['client_idss']) {
+                            if (isset($_POST['client_idss']) && $_POST['client_idss']) {
                                 $client_id = $_POST['client_idss'];
-                                $emails = $this->Manager->remove_empties($this->Document->enum_profiles_permission($client_id, "email_profile", "email"));
+                                $emails = $this->Document->enum_profiles_permission($client_id, "email_profile", "email");
+                                //$this->Manager->debugprint("Emails: " . var_export($emails,true));
+                                $emails = $this->Manager->remove_empties($emails);
                             }
                             $emails[] = "super";
                             if (isset($_POST["emailcreds"]) && $_POST["emailcreds"] && strlen(trim($_POST["email"])) > 0) {

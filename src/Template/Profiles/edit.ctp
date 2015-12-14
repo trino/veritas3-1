@@ -136,7 +136,7 @@
 
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, array("profiles_%", "forms_%", "file_missingdata", "clients_addeditimage", "clients_enablerequalify", "theme_%", "month_long%", "flash_cantorder%"), $settings);
+    $strings = CacheTranslations($language, array("profiles_%", "forms_%", "file_missingdata", "clients_%", "theme_%", "month_long%", "flash_cantorder%"), $settings);
     $Trans = "";
     if ($language == "Debug") {
         $Trans = " [Trans]";
@@ -814,7 +814,7 @@
     function setinnerHTML(id, HTML) {
         document.getElementById(id).innerHTML = HTML;
     }
-    // $this->request->webroot . 'clients/quickcontact?Type=emailout&user_id=' . $profile->id
+
     function sendemails() {
         $.ajax({
             url: '<?php echo $this->request->webroot;?>clients/quickcontact',
