@@ -45,7 +45,20 @@ function hasallfields($r, $Fields){
 }
 
 $fulllist="";
-$Count = iterator_count($profiles);
+$Count = 0;//iterator_count($profiles);
+foreach ($profiles as $r) {
+    $DOIT = $r->is_complete;
+    if ($mode == 1) {
+        $DOIT = false;
+        if($r->profile_type) {
+            $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
+        }
+        if($DOIT){ $DOIT = hasallfields($r, $Fields); }
+    }
+    if($DOIT){
+        $Count++;
+    }
+}
 if($Count==0){
     printtdline(getstring("infoorder_nonefound", $language), $Columns);
 } else {
@@ -53,11 +66,11 @@ if($Count==0){
         $Columns= $Count;
     }
     //printtdline(getstring("infoorder_disabled", $language));
-    $Entries = ceil($profiles->count() / $Columns);
+    $Entries = ceil($Count / $Columns);
     //printtdline( $profiles->count() / $Columns . " " . $Entries . " " . $profiles->count(), $Columns );
     $Entry = 0;
     $Width = floor(100 / $Columns);
-    $Class = ' style="white-space: nowrap; overflow-x: hidden; max-width:' . $Width . '%;"';
+    $Class = ' style="white-space: nowrap; overflow-x: hidden; max-width:' . $Width . '%;" TITLE="entries: ' . $Count . ' entries per col: ' . $Entries . ' "';
 
     $Table = '<TD WIDTH="' . $Width .'%" class="nopadorborder"' . $Class . '><TABLE style="max-width:100%" class="table table-striped table-bordered table-hover recruiters nopadorborder">';
     echo '<TR>' . $Table;
@@ -82,10 +95,10 @@ if($Count==0){
             $profiletype = " (Draft)";
         }
         if ($mode == 1) {
-            if($r->profile_type)
-            $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
-            else 
             $DOIT = false;
+            if($r->profile_type) {
+                $DOIT = $pType[$r->profile_type . ".canorder"] == 1;
+            }
             if($DOIT){ $DOIT = hasallfields($r, $Fields); }
         }
 
