@@ -998,7 +998,7 @@
             $new_url = str_replace('src/', '', $new_url);
 
             $new_url = str_replace("src\\", "", $new_url);
-            $new_url = str_replace("/", "\\", $new_url);
+            //$new_url = str_replace("/", "\\", $new_url);
             //echo $new_url ; die();
             if (!is_dir($new_url)) {
                 mkdir($new_url, 0777);
