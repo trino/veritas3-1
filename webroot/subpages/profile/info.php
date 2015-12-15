@@ -897,6 +897,8 @@ loadreasons($param, $strings, true);
     </div>
 </div>
 <script>
+    var debug = '<?= $this->request->session()->read('debug'); ?>';
+
     function check_username() {
         //if(!checkalltags("subtab_4_1")){return false;}
         if ($('#retype_password').val() == $('#password').val()) {
@@ -1153,7 +1155,9 @@ loadreasons($param, $strings, true);
                     }
                 },
                 error: function (res){
-                    alert(res);
+                    if(debug){
+                        alert("ERROR: " + res);
+                    }
                 }
             });
 

@@ -574,7 +574,7 @@
 
 
 <script>
-
+    var debug = '<?= $debug; ?>';
 
     function initiate_ajax_upload(button_id) {
         var button = $('#' + button_id), interval;
@@ -828,8 +828,10 @@
                 setinnerHTML("removethis", res + ' <i class="fa fa-check"></i>');
                 //removeelement("removethis");//remove the button so it only can be clicked once
             },
-            failure: function (res) {
-                alert("Error: " + res);
+            error: function (res) {
+                if(debug) {
+                    alert("Error: " + res);
+                }
             }
         });
         return false;
