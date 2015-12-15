@@ -1136,7 +1136,7 @@
                 if ($size == "large" || $size == "ignore") {
                     echo '<div class="row">';
                 }
-                echo '<div class="col-xs-3 control-label" align="right" style="margin-top: 6px;">' . $this->Trans->getString("orders_division") . ' </div><div class="col-xs-6">';
+                echo '<div class="col-xs-1 control-label" align="right" style="margin-top: 6px;">' . $this->Trans->getString("orders_division") . ' </div><div class="col-xs-10">';
 
                 if ($u != 1) { //form-control input-xlarge select2me
                     echo "<select class='form-control select2me input-" . $size . "' name='division' id='divisionsel'>";

@@ -68,10 +68,7 @@
     $GLOBALS['pType'] = $this->requestAction('/profiles/getProfileTypes');// ['','Admin','Recruiter','External','Safety','Driver','Contact'];
     $GLOBALS['settings'] = $Manager->get_settings();
     $GLOBALS['counting'] = $counting;
-?>
 
-
-<?php
     function makeBulk($strings, $Manager){
     //    $contact = $GLOBALS['contact'];
         $pType = $GLOBALS['pType'];
@@ -80,7 +77,6 @@
         if($counting==1){
             $profiles = $GLOBALS['profiles'];
         }
-
 
 ?>
 
@@ -129,7 +125,7 @@
             }
             if($i>1){
                 $fulllist="'" . $fulllist . "'";
-                echo '<TR><TD><SPAN><INPUT TYPE="CHECKBOX" ID="selectall" ONCHANGE="selectall(' . $fulllist . ');"></SPAN> <SPAN><LABEL FOR="selectall">Select All</LABEL></SPAN></TD></TR>';
+                echo '<TR><TD><SPAN><INPUT TYPE="CHECKBOX" ID="selectall" ONCHANGE="selectall(' . $fulllist . ');"></SPAN> <SPAN><LABEL FOR="selectall">' . $strings["dashboard_selectall"] . '</LABEL></SPAN></TD></TR>';
             }
             echo '</tbody></table></div>';
             //echo '<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 59.6374045801527px; background: rgb(0, 0, 0);"></div>';
@@ -262,8 +258,8 @@
             }
             $size = "ignore";
 
-            echo '<div class="col-xs-3 control-label" align="right" style="margin-top: 6px;">' . $strings["settings_client"] . '</div><div class="col-xs-6">';
-
+            echo '<div class="col-xs-1 control-label" align="right" style="margin-top: 6px;">' . $strings["settings_client"] . '</div><div class="col-xs-10">';
+            //division code is in clientscontroller, divisionDropDown
             $dodiv = true;?>
 
 
@@ -350,9 +346,9 @@
 <div class="form-group ">
 
     <?php
-    echo '<div class="col-xs-3 control-label"  align="right" style="margin-top: 6px;">' . $strings["infoorder_driver"];
+    echo '<div class="col-xs-1 control-label"  align="right" style="margin-top: 6px;">' . $strings["infoorder_driver"];
     if(isset($_GET["ordertype"]) && $_GET["ordertype"] == "BUL"){ echo '(s)';}
-    echo '</div><div class="col-xs-6" ID="driverform">';
+    echo '</div><div class="col-xs-10" ID="driverform">';
     if(isset($_GET["ordertype"]) && $_GET["ordertype"] == "BUL"){
         echo '<INPUT TYPE="HIDDEN" NAME="selecting_driver" id="selecting_driver" class="form-control input-' . $size . '" VALUE="">';
         echo '<textarea NAME="drivers" id="drivers" class="form-control input-' . $size . '" VALUE="" READONLY STYLE="resize:vertical;"></textarea>';

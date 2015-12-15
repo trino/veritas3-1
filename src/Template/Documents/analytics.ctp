@@ -62,7 +62,7 @@ if (isset($_GET["days"])) {$days = $_GET["days"]; }
 if (isset($_GET["to"]) AND isset($_GET["from"])) {
 	$startdate = $_GET["to"];
 	$enddate = $_GET["from"];
-	if (getdatestamp($_GET["to"]) < getdatestamp($_GET["from"])) { 
+	if (getdatestamp($_GET["to"]) < getdatestamp($_GET["from"])) {
 		$startdate = $_GET["from"];
 		$enddate = $_GET["to"];
 	}
@@ -154,9 +154,9 @@ JSinclude($this, array($Dir . "min.js", $Dir . "resize.min.js", $Dir . "pie.min.
 					</li>
                     <li>
 						<a href="" onclick="return false;"><?= $strings["analytics_title"] ?></a>
-                        
+
 					</li>
-                    
+
 				</ul>
                 <a href="javascript:window.print();" class="floatright btn btn-primary"><?= $strings["dashboard_print"]; ?></a>
 			</div>
@@ -168,7 +168,7 @@ JSinclude($this, array($Dir . "min.js", $Dir . "resize.min.js", $Dir . "pie.min.
         		<div class="caption">
         			<i class="fa fa-gift"></i><?php echo ucfirst($settings->document);?>s Chart
         		</div>
- 
+
         	</div>
         	<div class="portlet-body">
         		<div id="chart_2" class="chart">
@@ -251,25 +251,26 @@ jQuery(document).ready(function() {
 	function bind(name, data, average, color) {
 		options = marking(average, color);
 		var placeholder = $(name);
+		if(placeholder.is(":visible")) {
+			placeholder.bind("plotselected", function (event, ranges) {
 
-		placeholder.bind("plotselected", function (event, ranges) {
+				$("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
 
-			$("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+				var zoom = $("#zoom").prop("checked");
 
-			var zoom = $("#zoom").prop("checked");
-
-			if (zoom) {
-				$.each(plot.getXAxes(), function (_, axis) {
-					var opts = axis.options;
-					opts.min = ranges.xaxis.from;
-					opts.max = ranges.xaxis.to;
-				});
-				plot.setupGrid();
-				plot.draw();
-				plot.clearSelection();
-			}
-		});
-		var plot = $.plot(placeholder, data, options);
+				if (zoom) {
+					$.each(plot.getXAxes(), function (_, axis) {
+						var opts = axis.options;
+						opts.min = ranges.xaxis.from;
+						opts.max = ranges.xaxis.to;
+					});
+					plot.setupGrid();
+					plot.draw();
+					plot.clearSelection();
+				}
+			});
+			var plot = $.plot(placeholder, data, options);
+		}
 	}
 
 
@@ -301,13 +302,13 @@ jQuery(document).ready(function() {
 											</div>
 										</div>
 									</form></div>
-									
-<?php 
+
+<?php
 function get2($name, $default ="" ){
 		if (isset($_GET[$name])) { return $_GET[$name]; }
 		return $default;
 	}
-	
+
 function todate($date, $strings){
     return $strings["month_short" . date("m", getdatestamp($date))] . date(" d", getdatestamp($date));
 	//return date("M d", getdatestamp($date));
@@ -337,7 +338,7 @@ function newchart($color, $icon, $title, $chartid, $dates, $data, $start,$end, $
 				echo '</div></div>';
 			echo '<div class="portlet-body">';
 				echo '<div class="row"><div class="col-md-8">';
-				echo '<div id="' . $chartid . '" class="chart"> </div>';
+				echo '<div id="' . $chartid . '" class="chart" style="width: 100%; height: 300px; display:block;"> </div>';
 
 
 				$didit=false;

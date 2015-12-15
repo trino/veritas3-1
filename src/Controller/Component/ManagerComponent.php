@@ -1461,6 +1461,10 @@ class ManagerComponent extends Component {
             $Data = $this->$Table;
         } else {
             $Data = $this->get_entry($Table, $UserID, "user_id");
+            if(!$Data){
+                $this->new_entry($Table, "id", array("user_id" => $UserID));
+                $Data = $this->get_entry($Table, $UserID, "user_id");
+            }
             if($UserID == $this->Me){
                 $this->$Table = $Data;
             }
