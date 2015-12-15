@@ -70,7 +70,7 @@ class DocumentComponent extends Component{
     }
 	
     public function savedoc($Mailer, $cid = 0, $did = 0, $emailenabled = True){
-       if($_POST['doc_id']!="")
+       if(isset($_POST['doc_id']) &&$_POST['doc_id']!="")
        {
             echo $_POST['doc_id']; die();
        }
