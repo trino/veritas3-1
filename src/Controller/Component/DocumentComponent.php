@@ -871,6 +871,7 @@ class DocumentComponent extends Component{
         }
 
         public function savedMeeOrder($document_id = 0, $cid = 0) {
+            
             $controller = $this->_registry->getController();
             $consentForm = TableRegistry::get('consent_form');
             
@@ -899,6 +900,7 @@ class DocumentComponent extends Component{
                 $arr['document_id'] = $document_id;
                 $arr['order_id'] = 0;
                 $doc= TableRegistry::get('documents')->find()->where(['id'=>$document_id])->first();
+               
                 $arr['user_id'] = $doc->user_id;
                 
             }
@@ -984,7 +986,7 @@ class DocumentComponent extends Component{
             $employment = TableRegistry::get('employment_verification');
             
             $arr['client_id'] = $cid;
-            $arr['user_id'] = $_GET['user_id'];
+            $arr['user_id'] = isset($_GET['user_id'])?$_GET['user_id']:0;
             
             
             if (!isset($_GET['document']) || isset($_GET['order_id'])) {

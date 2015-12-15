@@ -60,7 +60,7 @@
         if (isset($disabled)) {
             echo ' <a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }
-        if($Debug && ($action=="Edit" || $action=="Create")){
+        if($Debug && ($action=="Edit" || $action=="Create")&& $this->request->controller!='Documents'){
             echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         }
 

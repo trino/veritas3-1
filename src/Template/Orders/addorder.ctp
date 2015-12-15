@@ -396,6 +396,7 @@
                                                 <?php include('subpages/documents/confirmation.php');?>
                                                 <hr />
                                                <div class="form_actions" style="background: #f5f5f5;padding: 20px 10px;">
+                                               <a href="javascript:void(0)" id="draft<?php echo $jj;?>" class="buttons btn btn-primary grey draft"><?= $strings["forms_savedraft"]; ?></a>
                                                 <a href="javascript:void(0)" class="buttonprev btn btn-primary forview" id="buttonprev<?php echo $jj-1;?>"><?= $strings["dashboard_previous"] ?></a>
                                                 
                                                  <?php if($this->request->params['action'] == 'addorder'){?>

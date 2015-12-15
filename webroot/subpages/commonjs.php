@@ -109,7 +109,7 @@
 
                     $('.subform_' + sub_id + ' input:not([type=image],[type=button],[type=submit],[type=checkbox],[type=radio]),.subform_' + sub_id + ' textarea').each(function () {
 
-                        if (res[$(this).attr('name').replace('[]', '')]) {
+                        if (($(this).attr('name')) && res[$(this).attr('name').replace('[]', '')]) {
                             <?php if($this->request->action!='add'){?>if ($(this).val() == '')<?php }?>
                                 $(this).val(res[$(this).attr('name').replace('[]', '')]);
                         }
