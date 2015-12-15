@@ -2623,6 +2623,12 @@
                 // echo $o->id .',';
                 $complete = 1;
 
+                $DIR = getcwd() . '/orders/order_' . $o->id;//APP
+                if (!file_exists($DIR)){
+                    //$Result = cURL( LOGIN . '/orders/webservice/$order_type/$forms/$drivers/$orders/true');
+
+                }
+
                 if ($o->ins_1 && $o->ins_1_binary == null) {
                     $complete = 0;
                     echo "ins 1 not complete<br>";

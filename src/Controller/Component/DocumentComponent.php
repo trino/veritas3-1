@@ -2285,12 +2285,14 @@ class DocumentComponent extends Component{
     function sendOutEmail($oid,$Emails,$Table, $IsClient = false) {
         //$controller = $this->_registry->getController();
         $order = $this->getProfileDetail($oid,$Table);
+        $HTML="";
         if(!$order->draft) {
             $Type = $this->Manager->left($Table, strlen($Table) - 1);
             $SubType = $Type;
             if ($Table == 'orders') {
                 $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
                 $SubType = $this->Manager->get_entry("product_types", $order->order_type, "Acronym")->Name;
+                $HTML = $this->Manager->order_to_email($oid);
             } elseif ($Table == "documents") {
                 if($IsClient){
                     $Type = "clientapplication";
@@ -2301,7 +2303,7 @@ class DocumentComponent extends Component{
                     $SubType = $order->document_type;
                 }
             }
-            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "order" => "Order", "Clientapplication" => "ClientApplication", "path" => $Path);
+            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "order" => "Order", "Clientapplication" => "ClientApplication", "path" => $Path, "html" => $HTML);
             $this->Manager->handleevent("submitted", $Variables);
         }
     }

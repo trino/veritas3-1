@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2015 at 10:18 PM
+-- Generation Time: Dec 15, 2015 at 08:02 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450127257', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450188473', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -864,7 +864,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (856, 'verifs_yourusername', 'Your Username', 'Ton nom d''utilisateur'),
 (857, 'verifs_yourpassword', 'Your password', 'Votre mot de passe'),
 (858, 'email_submitted_subject', 'New %type% submitted', 'email_submitted_subject'),
-(859, 'email_submitted_message', 'A new %type% was submitted for one of the %client%s you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message'),
+(859, 'email_submitted_message', 'A new %type% was submitted for one of the clients you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n%html%\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message'),
 (860, 'email_submitted_variables', 'email, type, subtype, order, Clientapplication, path', ''),
 (861, 'email_washired_variables', 'name, userid, byuserid, byname, path, email', ''),
 (862, 'email_washired_subject', 'A %profile% was hired', 'email_washired_subject'),

@@ -882,38 +882,39 @@
             $this->set("order_type", $order_type);
 
             if ($order_type == 'BUL') {
-                if($AllowBulk) {
-                    $ord = TableRegistry::get('orders');
-                    $i = 0;
-                    $drivers = explode(",", $_POST['drivers']);
-                    foreach ($drivers as $driver) {
-                        $arr['uploaded_for'] = $driver;
-                        $arr['forms'] = $_POST['forms'];
-                        $arr['order_type'] = 'BUL';
-                        $arr['draft'] = 0;
-                        $arr['title'] = 'order_' . date('Y-m-d H:i:s');
-                        $arr['client_id'] = $_POST['client'];
-                        $arr['created'] = date('Y-m-d H:i:s');
-                        $arr['division'] = $_POST['division'];
-                        $arr['user_id'] = $this->request->session()->read('Profile.id');
 
-                        $doc = $ord->newEntity($arr);
-                        $ord->save($doc);
+                $ord = TableRegistry::get('orders');
+                $i = 0;
+                $drivers = explode(",", $_POST['drivers']);
+                foreach ($drivers as $driver) {
+                    $arr['uploaded_for'] = $driver;
+                    $arr['forms'] = $_POST['forms'];
+                    $arr['order_type'] = 'BUL';
+                    $arr['draft'] = 0;
+                    $arr['title'] = 'order_' . date('Y-m-d H:i:s');
+                    $arr['client_id'] = $_POST['client'];
+                    $arr['created'] = date('Y-m-d H:i:s');
+                    $arr['division'] = $_POST['division'];
+                    $arr['user_id'] = $this->request->session()->read('Profile.id');
 
-                        $driverinfo[$i] = $model->find()->where(['id' => $driver])->first();
-                        $driverinfo[$i]->order_id = $doc->id;
-                        $driverinfo[$i]->forms = $_POST['forms'];
-                        $driverinfo[$i]->order_type = $order_type_store;
+                    $doc = $ord->newEntity($arr);
+                    $ord->save($doc);
 
+                    $driverinfo[$i] = $model->find()->where(['id' => $driver])->first();
+                    $driverinfo[$i]->order_id = $doc->id;
+                    $driverinfo[$i]->forms = $_POST['forms'];
+                    $driverinfo[$i]->order_type = $order_type_store;
+
+                    if($AllowBulk) {
                         $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
                         if (!is_dir($DIR)) {
                             @mkdir($DIR, 0777);
                         }
-
-                        unset($doc);
-                        $i++;
                     }
+                    unset($doc);
+                    $i++;
                 }
+
 
                 $this->set('forms', $_POST['forms']);
                 $this->set('bulk', 'bulk');
