@@ -60,7 +60,7 @@
         if (isset($disabled)) {
             echo ' <a href="javascript:window.print();" class="floatright btn btn-primary">' . $strings["dashboard_print"] . '</a>';
         }
-        if($Debug && ($action=="Edit" || $action=="Create")&& $this->request->controller!='Documents'){
+        if($Debug && ($action=="Edit" || $action=="Create")){
             echo '<A ONCLICK="autofill2(false);" class="floatright btn btnspc btn-primary">' . $strings["dashboard_autofill"] . '</A>';
         }
 
@@ -456,7 +456,7 @@
         if (!doc_id || doc_id=='0') {
             var subdoc_id = '<?php echo (isset($_GET['type']))?$_GET['type']:'';?>';
             $('#selecting_driver').change(function () {
-                getJsonPrevious($(this).val(),subdoc_id)
+                //getJsonPrevious($(this).val(),subdoc_id)
                 //fillform();
             });
         }
