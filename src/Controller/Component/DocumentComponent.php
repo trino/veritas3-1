@@ -2303,7 +2303,7 @@ class DocumentComponent extends Component{
                     $SubType = $order->document_type;
                 }
             }
-            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "order" => "Order", "Clientapplication" => "ClientApplication", "path" => $Path, "html" => $HTML);
+            $Variables = array("email" => $Emails, "type" => "%" . ucfirst($Type) . "%", "subtype" => $SubType, "Order" => "Order", "Clientapplication" => "ClientApplication", "path" => $Path, "html" => $HTML);
             $this->Manager->handleevent("submitted", $Variables);
         }
     }
