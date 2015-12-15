@@ -2292,7 +2292,7 @@ class DocumentComponent extends Component{
             if ($Table == 'orders') {
                 $Path = LOGIN . "orders/vieworder/" . $order->client_id . "/" . $oid . "?order_type=" . $order->order_type . "&forms=" . $order->forms;
                 $SubType = $this->Manager->get_entry("product_types", $order->order_type, "Acronym")->Name;
-                $HTML = $this->Manager->order_to_email($oid);
+                $HTML = $this->Manager->order_to_email($oid, false, "");
             } elseif ($Table == "documents") {
                 if($IsClient){
                     $Type = "clientapplication";

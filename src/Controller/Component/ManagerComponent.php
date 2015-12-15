@@ -295,7 +295,7 @@ class ManagerComponent extends Component {
         return $Profiles;
     }
 
-    function order_to_email($OrderID, $IDs){
+    function order_to_email($OrderID, $IDs = false, $NotFound = '[ID NOT FOUND]'){
         $Order = $this->load_order($OrderID, true, true);
         $Details = array();
 
@@ -317,7 +317,7 @@ class ManagerComponent extends Component {
         //$arr_return_no = array(1 => 'ins_1', 14 => 'ins_14', 32 => 'ins_32', 72 => 'ins_72', 77 => 'ins_77', 78 => 'ins_78', 1603 => 'ebs_1603', 1627 => 'ebs_1627', 1650 => 'ebs_1650');
         foreach($Forms as $ProductNumber){
             $Product = $this->getIterator($Products, "number", $ProductNumber);
-            $ID = '<FONT COLOR="RED">[ID NOT FOUND]</FONT>';
+            $ID = '<FONT COLOR="RED">' . $NotFound . '</FONT>';
             /*if (isset($Order->Header[ $arr_return_no[$ProductNumber] ])){
                 $ID = $Order->Header[ $arr_return_no[$ProductNumber] ];
             }*/

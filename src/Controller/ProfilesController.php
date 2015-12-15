@@ -2780,7 +2780,8 @@
 
                     if ($profile1->email) {
                         // $path = $this->Mailer->make_order_path($o);
-                        $this->Mailer->handleevent("cronordercomplete", array("site" => $setting->mee, "path" => $path, "email" => array('super',$profile1->email)));
+                        $HTML = $this->Manager->order_to_email($o->id, false, "");
+                        $this->Mailer->handleevent("cronordercomplete", array("site" => $setting->mee, "path" => $path, "html" => $HTML, "email" => array('super',$profile1->email)));
                     }
                 }
                 echo '</TD></TR>';

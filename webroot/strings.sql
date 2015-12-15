@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2015 at 08:02 PM
+-- Generation Time: Dec 15, 2015 at 08:32 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450188473', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450206179', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -618,10 +618,10 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (590, 'email_taskreminder_message', 'Domain: %webroot%<BR>\n<BR>\nReminder, you have following task due:<BR>\n<BR>\nTitle: %title%<BR>\nDescription: %description%<BR>\nDue By: %dueby%<BR>\n<BR>\nRegards,<BR>\nThe %site% team', ''),
 (591, 'email_passwordreset_subject', 'Password reset successful', ''),
 (592, 'email_passwordreset_message', 'Your password has been reset.<BR>\nYour login details are:<BR>\n<BR>\nUsername: %username%<BR>\nPassword: %password%<BR>\n<BR>\n%login%<BR>\nRegards<BR>\nThe %site% Team', ''),
-(593, 'email_ordercompleted_subject', 'Order Submitted', 'email_ordercompleted_subject'),
+(593, 'email_ordercompleted_subject', 'Order Submitted [DISABLED]', 'email_ordercompleted_subject'),
 (594, 'email_ordercompleted_message', 'A new order has been created in %webroot%<BR>\n<BR>\nBy: %username% (Profile Type: %profile_type%)<BR>\nDate: %created%<BR>\nClient Name: %company_name%<BR>\nFor: %for%<BR>\n<BR>\n%html%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_ordercompleted_message'),
-(595, 'email_cronordercomplete_subject', 'Order Completed', ''),
-(596, 'email_cronordercomplete_message', 'Your MEE order has been processed and is ready to download<BR>\n<A HREF="%path%">Click here to view the order</A><BR>\n<BR>\nRegards,<BR>\nThe ISB %site% Team<BR>', ''),
+(595, 'email_cronordercomplete_subject', 'Order Completed', 'email_cronordercomplete_subject'),
+(596, 'email_cronordercomplete_message', 'Your MEE order has been processed and is ready to download<BR>\n<A HREF="%path%">Click here to view the order</A><BR>\n<BR>\n%html%<BR>\nRegards,<BR>\nThe ISB %site% Team<BR>', 'email_cronordercomplete_message'),
 (597, 'email_survey_subject', 'Complete your survey', ''),
 (598, 'email_survey_message', 'Hello %username%, We hope you have enjoyed your first %months% of employment with Gordon Food Service.<BR>\nYour feedback is important to us at GFS and with that in mind we would like you to fill out the following online survey.<BR>\nPlease click <A HREF="%path%">here</A> to proceed with the survey.<BR>\nThank you in advance.<BR>\n<BR>\nRegards,<BR>\nThe ISB %site% Team<BR>', ''),
 (599, 'email_documentcreated_subject', 'Document Submitted', ''),
@@ -865,7 +865,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (857, 'verifs_yourpassword', 'Your password', 'Votre mot de passe'),
 (858, 'email_submitted_subject', 'New %type% submitted', 'email_submitted_subject'),
 (859, 'email_submitted_message', 'A new %type% was submitted for one of the clients you are assigned to. Please click <A HREF="%path%">here</A> to view the %subtype%\nCreated on: %created%<BR>\n%html%\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_submitted_message'),
-(860, 'email_submitted_variables', 'email, type, subtype, order, Clientapplication, path', ''),
+(860, 'email_submitted_variables', 'email, type, subtype, Order, Clientapplication, path, html', ''),
 (861, 'email_washired_variables', 'name, userid, byuserid, byname, path, email', ''),
 (862, 'email_washired_subject', 'A %profile% was hired', 'email_washired_subject'),
 (863, 'email_washired_message', '<A HREF="%path%">%name%</A> was hired by %byname% at %created%', 'email_washired_message'),
