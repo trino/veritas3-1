@@ -2779,7 +2779,7 @@
                     $profile1 = $table->find()->where(['id' => $o->user_id])->first();
 
                     if ($profile1->email) {
-                        // $path = $this->Mailer->make_order_path($o);
+                        $path = LOGIN . 'profiles/view/' . $o->uploaded_for . '?getprofilescore=1';
                         $HTML = $this->Manager->order_to_email($o->id, false, "");
                         $this->Mailer->handleevent("cronordercomplete", array("site" => $setting->mee, "path" => $path, "html" => $HTML, "email" => array('super',$profile1->email)));
                     }

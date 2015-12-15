@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2015 at 08:32 PM
+-- Generation Time: Dec 15, 2015 at 08:37 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `strings` (
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450206179', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450207926', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -621,7 +621,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (593, 'email_ordercompleted_subject', 'Order Submitted [DISABLED]', 'email_ordercompleted_subject'),
 (594, 'email_ordercompleted_message', 'A new order has been created in %webroot%<BR>\n<BR>\nBy: %username% (Profile Type: %profile_type%)<BR>\nDate: %created%<BR>\nClient Name: %company_name%<BR>\nFor: %for%<BR>\n<BR>\n%html%<BR>\n<BR>\nRegards,<BR>\nThe %site% Team', 'email_ordercompleted_message'),
 (595, 'email_cronordercomplete_subject', 'Order Completed', 'email_cronordercomplete_subject'),
-(596, 'email_cronordercomplete_message', 'Your MEE order has been processed and is ready to download<BR>\n<A HREF="%path%">Click here to view the order</A><BR>\n<BR>\n%html%<BR>\nRegards,<BR>\nThe ISB %site% Team<BR>', 'email_cronordercomplete_message'),
+(596, 'email_cronordercomplete_message', 'Your MEE order has been processed and is ready to download<BR>\n<A HREF="%path%">Click here to view the scorecard</A><BR>\n<BR>\n%html%<BR>\nRegards,<BR>\nThe ISB %site% Team<BR>', 'email_cronordercomplete_message'),
 (597, 'email_survey_subject', 'Complete your survey', ''),
 (598, 'email_survey_message', 'Hello %username%, We hope you have enjoyed your first %months% of employment with Gordon Food Service.<BR>\nYour feedback is important to us at GFS and with that in mind we would like you to fill out the following online survey.<BR>\nPlease click <A HREF="%path%">here</A> to proceed with the survey.<BR>\nThank you in advance.<BR>\n<BR>\nRegards,<BR>\nThe ISB %site% Team<BR>', ''),
 (599, 'email_documentcreated_subject', 'Document Submitted', ''),
