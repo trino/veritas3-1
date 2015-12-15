@@ -409,7 +409,7 @@
                     $DataIneed[1650] = $pdi_1650;
                 }
             }
-            writing_complete($driverinfo->order_id);
+            writing_complete($Manager, $driverinfo->order_id);
 
         }
 
