@@ -717,17 +717,33 @@ loadreasons($param, $strings, true);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label"><?= $strings["forms_sin"]; ?>: </label>
-                                        <input <?php echo $is_disabled ?> name="sin" type="text" role="sin"
+                                        <input <?= $is_disabled ?> name="sin" type="text" role="sin"
                                                                           class="form-control" <?php if (isset($p->sin)) { ?>
-                                            value="<?php echo $p->sin; ?>" <?php } ?> />
+                                            value="<?= $p->sin; ?>" <?php } ?> />
                                     </div>
                                 </div>
 
+                                <?php
+                                    if(isset($sitenames)){
+                                         echo '<div class="col-md-6"><div class="form-group"><label class="control-label">Site Name: </label>';
+                                         echo '<SELECT NAME="sitename" ' . $is_disabled . ' class="form-control">';
+                                         foreach($sitenames as $sitename){
+                                             echo '<OPTION';
+                                             if($p->sitename == $sitename){echo ' SELECTED';}
+                                             echo '>' . $sitename . '</OPTION>';
+                                         }
+                                         echo '</SELECT></DIV></DIV>';
 
-
-
-
-
+                                        echo '<div class="col-md-6"><div class="form-group"><label class="control-label">ASAP Division: </label>';
+                                        echo '<SELECT NAME="asapdivision" ' . $is_disabled . ' class="form-control">';
+                                        foreach($asapdivisions as $asapdivision){
+                                            echo '<OPTION';
+                                            if($p->sitename == $sitename){echo ' SELECTED';}
+                                            echo '>' . $asapdivision . '</OPTION>';
+                                        }
+                                        echo '</SELECT></DIV></DIV>';
+                                    }
+                                ?>
                                 <div class="clearfix"></div>
 
 

@@ -1,9 +1,9 @@
 <?php
-$settings = $Manager->get_settings();
-$sidebar =$Manager->loadpermissions($Me, "sidebar");
-include_once('subpages/api.php');
-$language = $this->request->session()->read('Profile.language');
-$strings = CacheTranslations($language, $this->request->params['controller'] . "_%",$settings);
+	$settings = $Manager->get_settings();
+	$sidebar =$Manager->loadpermissions($Me, "sidebar");
+	include_once('subpages/api.php');
+	$language = $this->request->session()->read('Profile.language');
+	$strings = CacheTranslations($language, $this->request->params['controller'] . "_%",$settings);
 ?>
 <h3 class="page-title">
 			<?php echo ucfirst($strings["settings_client"]);?>s

@@ -1051,6 +1051,11 @@
             }
             $this->set(compact('profile'));
 
+            if ($this->Manager->get_settings()->mee == "ASAP Secured Training") {
+                $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
+                $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
+            }
+
             $this->render("edit");
         }
 
@@ -1280,7 +1285,7 @@
                         $_POST['admin'] = 1;
                     }
                     $_POST['dob'] = $_POST['doby'] . "-" . $_POST['dobm'] . "-" . $_POST['dobd'];
-                    if($_POST['expiry_date']!= '') {
+                    if(isset($_POST['expiry_date']) && $_POST['expiry_date']!= '') {
                         $_POST['expiry_date'] = date('Y-m-d', strtotime($_POST['expiry_date']));
                     }
                     $profile = $profiles->newEntity($_POST);
@@ -1732,6 +1737,11 @@
 
             $this->set('products', TableRegistry::get('product_types')->find()->where(['id <>' => 7]));
             $this->loadclients($profile->id);
+
+            if ($this->Manager->get_settings()->mee == "ASAP Secured Training") {
+                $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
+                $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
+            }
         }
 
         function addprofile($add,$client_id,$user_id){

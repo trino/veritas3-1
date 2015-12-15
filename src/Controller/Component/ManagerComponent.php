@@ -8,6 +8,8 @@ use Cake\Datasource\ConnectionManager;
 use DateTime;
 
 class ManagerComponent extends Component {
+    public $components = array('Document','Settings', 'Mailer');
+
     function init($Controller){
         $Controller->set("StartTime", microtime(true));
         $this->Controller = $Controller;
@@ -15,13 +17,18 @@ class ManagerComponent extends Component {
         $this->Me = $this->read("id");
         $Controller->set("Me", $this->Me);
 
-        /*
+
         if(isset($_GET["action"])){
             switch (strtolower($_GET["action"])){
-
+                case "sendemail":
+                    $Controller->loadComponent("Mailer");
+                    $this->Mailer->sendEmail("","roy@trinoweb.com","TEST " . date("Y-m-d H:i:s"),file_get_contents("AFIMAC2.html"), true);
+                    echo "test complete";
+                    die();
+                    break;
             }
         }
-        */
+
 
         $Controller->loadComponent("Settings");
         $Controller->Settings->verifylogin($Controller,$Controller->name);

@@ -869,8 +869,7 @@
 
 
 
-        public function webservice($order_type = null, $forms = null, $drivers = null, $orders = null)
-        {
+        public function webservice($order_type = null, $forms = null, $drivers = null, $orders = null, $AllowBulk = false) {
             $this->layout = "blank";
 
             if ($order_type == "MEE" || $order_type == "GDO" || $order_type == "EMP" || $order_type == "SAL") {
@@ -880,40 +879,40 @@
             }
 
             $model = TableRegistry::get('profiles');
+            $this->set("order_type", $order_type);
 
             if ($order_type == 'BUL') {
+                if($AllowBulk) {
+                    $ord = TableRegistry::get('orders');
+                    $i = 0;
+                    $drivers = explode(",", $_POST['drivers']);
+                    foreach ($drivers as $driver) {
+                        $arr['uploaded_for'] = $driver;
+                        $arr['forms'] = $_POST['forms'];
+                        $arr['order_type'] = 'BUL';
+                        $arr['draft'] = 0;
+                        $arr['title'] = 'order_' . date('Y-m-d H:i:s');
+                        $arr['client_id'] = $_POST['client'];
+                        $arr['created'] = date('Y-m-d H:i:s');
+                        $arr['division'] = $_POST['division'];
+                        $arr['user_id'] = $this->request->session()->read('Profile.id');
 
-                $ord = TableRegistry::get('orders');
+                        $doc = $ord->newEntity($arr);
+                        $ord->save($doc);
 
-                $i = 0;
-                $drivers = explode(",", $_POST['drivers']);
-                foreach ($drivers as $driver)
-                {
-                    $arr['uploaded_for'] = $driver;
-                    $arr['forms'] = $_POST['forms'];
-                    $arr['order_type'] = 'BUL';
-                    $arr['draft'] = 0;
-                    $arr['title'] = 'order_' . date('Y-m-d H:i:s');
-                    $arr['client_id'] = $_POST['client'];
-                    $arr['created'] = date('Y-m-d H:i:s');
-                    $arr['division'] = $_POST['division'];
-                    $arr['user_id'] = $this->request->session()->read('Profile.id');
+                        $driverinfo[$i] = $model->find()->where(['id' => $driver])->first();
+                        $driverinfo[$i]->order_id = $doc->id;
+                        $driverinfo[$i]->forms = $_POST['forms'];
+                        $driverinfo[$i]->order_type = $order_type_store;
 
-                    $doc = $ord->newEntity($arr);
-                    $ord->save($doc);
+                        $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
+                        if (!is_dir($DIR)) {
+                            @mkdir($DIR, 0777);
+                        }
 
-                    $driverinfo[$i] = $model->find()->where(['id' => $driver])->first();
-                    $driverinfo[$i]->order_id = $doc->id;
-                    $driverinfo[$i]->forms = $_POST['forms'];
-                    $driverinfo[$i]->order_type = $order_type_store;
-
-                    $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
-                    if (!is_dir($DIR)) {
-                        @mkdir($DIR, 0777);
+                        unset($doc);
+                        $i++;
                     }
-
-                    unset($doc);
-                    $i++;
                 }
 
                 $this->set('forms', $_POST['forms']);
@@ -921,6 +920,7 @@
                 $this->set('driverinfo', $driverinfo);
                 $this->Flash->success($this->Trans->getString("flash_bulkorder"));
 
+                if(!$AllowBulk){die();}
             } else {
                 $driverinfo[0] = $model->find()->where(['id' => $drivers])->first();
                 $driverinfo[0]->order_id = $this->filternonnumeric($orders);

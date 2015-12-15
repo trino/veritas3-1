@@ -18,10 +18,7 @@
             <div class="portlet-body form">
 
 
-                <form action="<?php echo $this->request->webroot; ?>clients/search" method="get" class="form-actions"
-                      align="right">
-
-
+                <form action="<?php echo $this->request->webroot; ?>clients/search" method="get" class="form-actions" align="right">
                     <?php if (isset($_GET['draft'])) { ?><input type="hidden" name="draft"/><?php } ?>
 
                     <input class="form-control input-inline" name="search" type="search"
