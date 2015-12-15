@@ -19,7 +19,6 @@
         }
         $Manager->update_database('orders', "id", $orderid, array('complete_writing' => 1));
     }
-
     if (false) {//this blocks the entire webservice!
 
         $user_id234 = $this->Session->read('Profile.isb_id');
@@ -114,302 +113,320 @@
 
         foreach ($driverinfo2 as $driverinfo) {
 
-            echo "<br>The time is " . date("h:i:sa");
 
-            if ($driverinfo->order_type == "MEE") {
-                $driver_order_79 = true; // only TRUE if complete mee orders  - DONT CHANGE
-            }
-            if (!(isset($driverinfo->driver_license_no) && $driverinfo->driver_license_no != "")) {
-                $driverinfo->driver_license_no = "NA";
-            }
-            if (!(isset($driverinfo->driver_province) && $driverinfo->driver_province != "")) {
-                $driverinfo->driver_province = "ON";
-            }
-            if (!(isset($driverinfo->email) && $driverinfo->email != "")) {
-                $driverinfo->email = "test@doesntexist.com";
-            }
-            if (!(isset($driverinfo->gender) && $driverinfo->gender != "")) {
-                $driverinfo->gender = "NA";
-            }
-            if (!(isset($driverinfo->mname) && $driverinfo->mname != "")) {
-                $driverinfo->mname = "NA";
-            }
-            if (!(isset($driverinfo->dob) && $driverinfo->dob != "")) {
-                $driverinfo->dob = "1900-01-01";
-            }
+
+
+
+
+
+            if (isset($bulk)) {
+
+                writing_complete($Manager, $driverinfo->order_id);
+//is_bulk write complte
+
+            }else {
+
+                echo "<br>The time is " . date("h:i:sa");
+
+                if ($driverinfo->order_type == "MEE") {
+                    $driver_order_79 = true; // only TRUE if complete mee orders  - DONT CHANGE
+                }
+                if (!(isset($driverinfo->driver_license_no) && $driverinfo->driver_license_no != "")) {
+                    $driverinfo->driver_license_no = "NA";
+                }
+                if (!(isset($driverinfo->driver_province) && $driverinfo->driver_province != "")) {
+                    $driverinfo->driver_province = "ON";
+                }
+                if (!(isset($driverinfo->email) && $driverinfo->email != "")) {
+                    $driverinfo->email = "test@doesntexist.com";
+                }
+                if (!(isset($driverinfo->gender) && $driverinfo->gender != "")) {
+                    $driverinfo->gender = "NA";
+                }
+                if (!(isset($driverinfo->mname) && $driverinfo->mname != "")) {
+                    $driverinfo->mname = "NA";
+                }
+                if (!(isset($driverinfo->dob) && $driverinfo->dob != "")) {
+                    $driverinfo->dob = "1900-01-01";
+                }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($startorder1 == true) {
+                if ($startorder1 == true) {
 
-                $soap_xml = '<?xml version="1.0" encoding="utf-8"?>
+                    $soap_xml = '<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <soap:Body><StartOrder xmlns="http://tempuri.org/"><IntPackage>' .
-                    '&lt;ProductData&gt;&lt;isb_FN&gt;' . $driverinfo->fname . '&lt;/isb_FN&gt;&lt;isb_LN&gt;' . $driverinfo->lname . '&lt;/isb_LN&gt;&lt;isb_Ref&gt;MEE&lt;/isb_Ref&gt;&lt;isb_DOL&gt;' . date("Y-m-d") . '&lt;/isb_DOL&gt;&lt;isb_Prov&gt;' . $driverinfo->driver_province . '&lt;/isb_Prov&gt;&lt;isb_UserID&gt;' . $user_id234 . '&lt;/isb_UserID&gt;&lt;/ProductData&gt;' .
-                    '</IntPackage><tp>' . $driverinfo->order_type . '</tp><prod>true</prod></StartOrder></soap:Body></soap:Envelope>';
+                        '&lt;ProductData&gt;&lt;isb_FN&gt;' . $driverinfo->fname . '&lt;/isb_FN&gt;&lt;isb_LN&gt;' . $driverinfo->lname . '&lt;/isb_LN&gt;&lt;isb_Ref&gt;MEE&lt;/isb_Ref&gt;&lt;isb_DOL&gt;' . date("Y-m-d") . '&lt;/isb_DOL&gt;&lt;isb_Prov&gt;' . $driverinfo->driver_province . '&lt;/isb_Prov&gt;&lt;isb_UserID&gt;' . $user_id234 . '&lt;/isb_UserID&gt;&lt;/ProductData&gt;' .
+                        '</IntPackage><tp>' . $driverinfo->order_type . '</tp><prod>true</prod></StartOrder></soap:Body></soap:Envelope>';
 
-                $result = $client->call('StartOrder', $soap_xml);
-                // var_dump($result);
-                $myArray = explode(',', $result['StartOrderResult']);
+                    $result = $client->call('StartOrder', $soap_xml);
+                    // var_dump($result);
+                    $myArray = explode(',', $result['StartOrderResult']);
 
-                $ins_id = substr($myArray[0], 4);
-                $ebs_id = substr($myArray[1], 4);
+                    $ins_id = substr($myArray[0], 4);
+                    $ebs_id = substr($myArray[1], 4);
 
-                if (!isset($ins_id) || !$ins_id) {
-                    echo "error1";die();
-                    $ins_id = 0;
+                    if (!isset($ins_id) || !$ins_id) {
+                        echo "error1";
+                        die();
+                        $ins_id = 0;
+                    }
+                    if (!isset($ebs_id) || !$ebs_id) {
+                        echo "error2";
+                        die();
+                        $ebs_id = 0;
+                    }
+
+                    $ins_id = substr($ins_id, 0, 36);
+                    $ebs_id = substr($ebs_id, 0, 36);
+
+                    save_webservice_ids($Manager, $driverinfo->order_id, $ins_id, $ebs_id);
                 }
-                if (!isset($ebs_id) || !$ebs_id) {
-                    echo "error2";die();
-                    $ebs_id = 0;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                if ($driver_order_79 == true) {            //this product only goes with FULL mee order, (bright planet)
+
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_USDOT_MC&gt;11&lt;/isb_USDOT_MC&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>79</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_79 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_79, 'ins_79');
+                    $DataIneed[79] = $pdi_79;
                 }
 
-                $ins_id = substr($ins_id, 0, 36);
-                $ebs_id = substr($ebs_id, 0, 36);
-
-                save_webservice_ids($Manager, $driverinfo->order_id, $ins_id, $ebs_id);
-            }
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($driver_order_79 == true) {            //this product only goes with FULL mee order, (bright planet)
+                if ($sms_ins_32 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_USDOT_MC&gt;11&lt;/isb_USDOT_MC&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>79</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_firstNameIfDiff&gt;' . $driverinfo->fname . '&lt;/isb_firstNameIfDiff&gt;&lt;isb_lastNameIfDiff&gt;' . $driverinfo->lname . '&lt;/isb_lastNameIfDiff&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_Gender&gt;' . $driverinfo->gender . '&lt;/isb_Gender&gt;&lt;isb_AppAddress_32&gt;' . $driverinfo->street . '&lt;/isb_AppAddress_32&gt;&lt;isb_AppCity_32&gt;' . $driverinfo->city . '&lt;/isb_AppCity_32&gt;&lt;isb_AppStateProv_32&gt;' . $driverinfo->province . '&lt;/isb_AppStateProv_32&gt;&lt;isb_USDOT_MC&gt;11&lt;/isb_USDOT_MC&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>32</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_32 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_32, 'ins_32');
+                    $DataIneed[32] = $pdi_32;
                 }
-                $pdi_79 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_79, 'ins_79');
-                $DataIneed[79] = $pdi_79;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($sms_ins_32 == true) {
+                if ($creditcheck_ins_31 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_firstNameIfDiff&gt;' . $driverinfo->fname . '&lt;/isb_firstNameIfDiff&gt;&lt;isb_lastNameIfDiff&gt;' . $driverinfo->lname . '&lt;/isb_lastNameIfDiff&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_Gender&gt;' . $driverinfo->gender . '&lt;/isb_Gender&gt;&lt;isb_AppAddress_32&gt;' . $driverinfo->street . '&lt;/isb_AppAddress_32&gt;&lt;isb_AppCity_32&gt;' . $driverinfo->city . '&lt;/isb_AppCity_32&gt;&lt;isb_AppStateProv_32&gt;' . $driverinfo->province . '&lt;/isb_AppStateProv_32&gt;&lt;isb_USDOT_MC&gt;11&lt;/isb_USDOT_MC&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>32</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_firstNameNotInsured&gt;' . $driverinfo->fname . '&lt;/isb_firstNameNotInsured&gt;&lt;isb_lastNameNotInsured&gt;' . $driverinfo->lname . '&lt;/isb_lastNameNotInsured&gt;&lt;isb_Gender&gt;' . $driverinfo->gender . '&lt;/isb_Gender&gt;&lt;isb_Address&gt;' . $driverinfo->street . '&lt;/isb_Address&gt;&lt;isb_City&gt;' . $driverinfo->city . '&lt;/isb_City&gt;&lt;isb_provToSearch&gt;' . $driverinfo->province . '&lt;/isb_provToSearch&gt;&lt;isb_PostalCode&gt;' . $driverinfo->postal . '&lt;/isb_PostalCode&gt;&lt;isb_USDOT_MC&gt;11&lt;/isb_USDOT_MC&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>31</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_31 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_31, 'ins_31');
+                    $DataIneed[31] = $pdi_31;
                 }
-                $pdi_32 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_32, 'ins_32');
-                $DataIneed[32] = $pdi_32;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($creditcheck_ins_31 == true) {
+                if ($mvr_driversrecordabstract_ins_1 == true) {//MVR Driver\'s Record Abstract
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_firstNameNotInsured&gt;' . $driverinfo->fname . '&lt;/isb_firstNameNotInsured&gt;&lt;isb_lastNameNotInsured&gt;' . $driverinfo->lname . '&lt;/isb_lastNameNotInsured&gt;&lt;isb_Gender&gt;' . $driverinfo->gender . '&lt;/isb_Gender&gt;&lt;isb_Address&gt;' . $driverinfo->street . '&lt;/isb_Address&gt;&lt;isb_City&gt;' . $driverinfo->city . '&lt;/isb_City&gt;&lt;isb_provToSearch&gt;' . $driverinfo->province . '&lt;/isb_provToSearch&gt;&lt;isb_PostalCode&gt;' . $driverinfo->postal . '&lt;/isb_PostalCode&gt;&lt;isb_USDOT_MC&gt;11&lt;/isb_USDOT_MC&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>31</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_aucodes&gt;AU10&lt;/isb_aucodes&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>1</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_1 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_1, 'ins_1');
+                    $DataIneed[1] = $pdi_1;
                 }
-                $pdi_31 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_31, 'ins_31');
-                $DataIneed[31] = $pdi_31;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($mvr_driversrecordabstract_ins_1 == true) {//MVR Driver\'s Record Abstract
+                if ($cvor_ins_14 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_aucodes&gt;AU10&lt;/isb_aucodes&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>1</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_aucodes14&gt;AU10&lt;/isb_aucodes14&gt;&lt;isb_CVORType&gt;Commercial Vehicle Operator Record Driver Abstract (on drivers)&lt;/isb_CVORType&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>14</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_14 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_14, 'ins_14');
+                    $DataIneed[14] = $pdi_14;
                 }
-                $pdi_1 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_1, 'ins_1');
-                $DataIneed[1] = $pdi_1;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($cvor_ins_14 == true) {
+                if ($checkdl_ins_72 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_aucodes14&gt;AU10&lt;/isb_aucodes14&gt;&lt;isb_CVORType&gt;Commercial Vehicle Operator Record Driver Abstract (on drivers)&lt;/isb_CVORType&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>14</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_typeOfOrder&gt;Single Order&lt;/isb_typeOfOrder&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_CheckDLBulk&gt;a&lt;/isb_CheckDLBulk&gt;&lt;isb_uploadBulk&gt;a&lt;/isb_uploadBulk&gt;&lt;isb_CheckDLrbl&gt;a&lt;/isb_CheckDLrbl&gt;&lt;isb_rblHaveSig&gt;I confirm that I have signed consent from the drivers licence holder to verify its status&lt;/isb_rblHaveSig&gt;&lt;isb_specialInstructions&gt;&lt;/isb_specialInstructions&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>72</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_72 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_72 . 'ins_72');
+                    $DataIneed[72] = $pdi_72;
                 }
-                $pdi_14 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_14, 'ins_14');
-                $DataIneed[14] = $pdi_14;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($checkdl_ins_72 == true) {
+                if ($preemploymentscreening_ins_77 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_typeOfOrder&gt;Single Order&lt;/isb_typeOfOrder&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_CheckDLBulk&gt;a&lt;/isb_CheckDLBulk&gt;&lt;isb_uploadBulk&gt;a&lt;/isb_uploadBulk&gt;&lt;isb_CheckDLrbl&gt;a&lt;/isb_CheckDLrbl&gt;&lt;isb_rblHaveSig&gt;I confirm that I have signed consent from the drivers licence holder to verify its status&lt;/isb_rblHaveSig&gt;&lt;isb_specialInstructions&gt;&lt;/isb_specialInstructions&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>72</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>77</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_77 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_77, 'ins_77');
+                    $DataIneed[77] = $pdi_77;
                 }
-                $pdi_72 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_72 . 'ins_72');
-                $DataIneed[72] = $pdi_72;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($preemploymentscreening_ins_77 == true) {
+                if ($transclick_ins_78 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_DriverLicence&gt;' . $driverinfo->driver_license_no . '&lt;/isb_DriverLicence&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>77</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_Email&gt;' . $driverinfo->email . '&lt;/isb_Email&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>78</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_78 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_78, 'ins_78');
+                    $DataIneed[78] = $pdi_78;
                 }
-                $pdi_77 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_77, 'ins_77');
-                $DataIneed[77] = $pdi_77;
-            }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if ($transclick_ins_78 == true) {
+                if ($education_certification_ebs_1650 == true) {
 
-                $soap_xml = $soap_header .
-                    '<UID>' . $ins_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_FirstName&gt;' . $driverinfo->fname . '&lt;/isb_FirstName&gt;&lt;isb_LastName&gt;' . $driverinfo->lname . '&lt;/isb_LastName&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_Email&gt;' . $driverinfo->email . '&lt;/isb_Email&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>78</productID><tp>INS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+                    $soap_xml = $soap_header .
 
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
-                }
-                $pdi_78 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_78, 'ins_78');
-                $DataIneed[78] = $pdi_78;
-            }
+                        '<UID>' . $ebs_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_appfirstname&gt;' . $driverinfo->fname . '&lt;/isb_appfirstname&gt;&lt;isb_appsurname&gt;' . $driverinfo->lname . '&lt;/isb_appsurname&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>1650</productID><tp>EBS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if ($education_certification_ebs_1650 == true) {
-
-                $soap_xml = $soap_header .
-
-                    '<UID>' . $ebs_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_appfirstname&gt;' . $driverinfo->fname . '&lt;/isb_appfirstname&gt;&lt;isb_appsurname&gt;' . $driverinfo->lname . '&lt;/isb_appsurname&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>1650</productID><tp>EBS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
-
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
-                }
-                $pdi_1650 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id , $pdi_1650 , 'ebs_1650');
-                $DataIneed[1650] = $pdi_1650;
-            }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if ($loe_employment_ebs_1627 == true) {
-                $soap_xml = $soap_header .
-                    '<UID>' . $ebs_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_appfirstname&gt;' . $driverinfo->fname . '&lt;/isb_appfirstname&gt;&lt;isb_appsurname&gt;' . $driverinfo->lname . '&lt;/isb_appsurname&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>1627</productID><tp>EBS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
-
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
-                }
-                $pdi_1627 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id , $pdi_1627 , 'ebs_1627');
-                $DataIneed[1627] = $pdi_1627;
-            }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if ($premium_national_ebs_1603 == true) {
-
-                $soap_xml = $soap_header .
-                    '<UID>' . $ebs_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_appothername&gt;' . $driverinfo->mname . '&lt;/isb_appothername &gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_Sex&gt;' . $driverinfo->gender . '&lt;/isb_Sex&gt;&lt;/ProductData&gt;' .
-                    '</productdetails><productID>1603</productID><tp>EBS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
-
-                $result = $client->call('ProductDetails', $soap_xml);
-                $r = explode('[', $result['ProductDetailsResult']);
-                if (isset($r[1])) {
-                    $r = explode(']', $r[1]);
-                }
-                $pdi_1603 = $r[0];
-                save_pdi($Manager, $driverinfo->order_id, $pdi_1603 , 'ebs_1603');
-                $DataIneed[1603] = $pdi_1603;
-            }
-
-//UPLOAD PDFS
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            if ($uploadbinaryconsent_1603 == true) {
-                //   $pdf_content = '';
-                //   $pdf_decoded = base64_decode($pdf_content); //if exist
-                $pdf = file_get_contents('orders/order_' . $driverinfo->order_id . '/Consent_Form.pdf');
-                if ($pdf) {
-                    $body = base64_encode($pdf);
-                    $soap_xml = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><UploadBinaryFile xmlns="http://tempuri.org/">' . '<UID>' . $ebs_id . '</UID><PDI>' . $pdi_1603 . '</PDI><FileData>' . $body . '</FileData><productID>1603</productID><Filename>Consent_Form.pdf</Filename><FileType>ConsentForm</FileType><tp>EBS</tp><prod>true</prod></UploadBinaryFile></soap:Body></soap:Envelope>';
-                    $result = $client->call('UploadBinaryFile', $soap_xml);
-                }
-            }
-
-            if ($uploadbinaryemployment_1627 == true) {
-                //  $pdf_content = '';
-                //  $pdf_decoded = base64_decode($pdf_content); //if exist
-                $pdf = file_get_contents('orders/order_' . $driverinfo->order_id . '/Employment_Form.pdf');
-                if ($pdf) {
-                    $body = base64_encode($pdf);
-                    $soap_xml = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><UploadBinaryFile xmlns="http://tempuri.org/">' . '<UID>' . $ebs_id . '</UID><PDI>' . $pdi_1627 . '</PDI><FileData>' . $body . '</FileData><productID>1627</productID><Filename>Employment_Form.pdf</Filename><FileType>ConsentForm</FileType><tp>EBS</tp><prod>true</prod></UploadBinaryFile></soap:Body></soap:Envelope>';
-                    $result = $client->call('UploadBinaryFile', $soap_xml);
-                    $DataIneed[1627] = $pdi_1627;
-                }
-            }
-
-            if ($uploadbinaryeducation_1650 == true) {
-                //  $pdf_content = '';
-                //  $pdf_decoded = base64_decode($pdf_content); //if exist
-                $pdf = file_get_contents('orders/order_' . $driverinfo->order_id . '/Education_Form.pdf');
-                if ($pdf) {
-                    $body = base64_encode($pdf);
-                    $soap_xml = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><UploadBinaryFile xmlns="http://tempuri.org/">' . '<UID>' . $ebs_id . '</UID><PDI>' . $pdi_1650 . '</PDI><FileData>' . $body . '</FileData><productID>1650</productID><Filename>Education_Form.pdf</Filename><FileType>ConsentForm</FileType><tp>EBS</tp><prod>true</prod></UploadBinaryFile></soap:Body></soap:Envelope>';
-                    $result = $client->call('UploadBinaryFile', $soap_xml);
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_1650 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_1650, 'ebs_1650');
                     $DataIneed[1650] = $pdi_1650;
                 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                if ($loe_employment_ebs_1627 == true) {
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ebs_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_appfirstname&gt;' . $driverinfo->fname . '&lt;/isb_appfirstname&gt;&lt;isb_appsurname&gt;' . $driverinfo->lname . '&lt;/isb_appsurname&gt;&lt;isb_provToSearch&gt;' . $driverinfo->driver_province . '&lt;/isb_provToSearch&gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>1627</productID><tp>EBS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_1627 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_1627, 'ebs_1627');
+                    $DataIneed[1627] = $pdi_1627;
+                }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                if ($premium_national_ebs_1603 == true) {
+
+                    $soap_xml = $soap_header .
+                        '<UID>' . $ebs_id . '</UID><productdetails>&lt;ProductData&gt;&lt;dupe_date&gt;' . date("Y-m-d H:i") . '&lt;/dupe_date&gt;&lt;isb_appothername&gt;' . $driverinfo->mname . '&lt;/isb_appothername &gt;&lt;isb_DOB&gt;' . $driverinfo->dob . '&lt;/isb_DOB&gt;&lt;isb_Sex&gt;' . $driverinfo->gender . '&lt;/isb_Sex&gt;&lt;/ProductData&gt;' .
+                        '</productdetails><productID>1603</productID><tp>EBS</tp><prod>true</prod></ProductDetails></soap:Body></soap:Envelope>';
+
+                    $result = $client->call('ProductDetails', $soap_xml);
+                    $r = explode('[', $result['ProductDetailsResult']);
+                    if (isset($r[1])) {
+                        $r = explode(']', $r[1]);
+                    }
+                    $pdi_1603 = $r[0];
+                    save_pdi($Manager, $driverinfo->order_id, $pdi_1603, 'ebs_1603');
+                    $DataIneed[1603] = $pdi_1603;
+                }
+
+//UPLOAD PDFS
+
+                if ($uploadbinaryconsent_1603 == true) {
+                    //   $pdf_content = '';
+                    //   $pdf_decoded = base64_decode($pdf_content); //if exist
+                    $pdf = file_get_contents('orders/order_' . $driverinfo->order_id . '/Consent_Form.pdf');
+                    if ($pdf) {
+                        $body = base64_encode($pdf);
+                        $soap_xml = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><UploadBinaryFile xmlns="http://tempuri.org/">' . '<UID>' . $ebs_id . '</UID><PDI>' . $pdi_1603 . '</PDI><FileData>' . $body . '</FileData><productID>1603</productID><Filename>Consent_Form.pdf</Filename><FileType>ConsentForm</FileType><tp>EBS</tp><prod>true</prod></UploadBinaryFile></soap:Body></soap:Envelope>';
+                        $result = $client->call('UploadBinaryFile', $soap_xml);
+                    }
+                }
+
+                if ($uploadbinaryemployment_1627 == true) {
+                    //  $pdf_content = '';
+                    //  $pdf_decoded = base64_decode($pdf_content); //if exist
+                    $pdf = file_get_contents('orders/order_' . $driverinfo->order_id . '/Employment_Form.pdf');
+                    if ($pdf) {
+                        $body = base64_encode($pdf);
+                        $soap_xml = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><UploadBinaryFile xmlns="http://tempuri.org/">' . '<UID>' . $ebs_id . '</UID><PDI>' . $pdi_1627 . '</PDI><FileData>' . $body . '</FileData><productID>1627</productID><Filename>Employment_Form.pdf</Filename><FileType>ConsentForm</FileType><tp>EBS</tp><prod>true</prod></UploadBinaryFile></soap:Body></soap:Envelope>';
+                        $result = $client->call('UploadBinaryFile', $soap_xml);
+                        $DataIneed[1627] = $pdi_1627;
+                    }
+                }
+
+                if ($uploadbinaryeducation_1650 == true) {
+                    //  $pdf_content = '';
+                    //  $pdf_decoded = base64_decode($pdf_content); //if exist
+                    $pdf = file_get_contents('orders/order_' . $driverinfo->order_id . '/Education_Form.pdf');
+                    if ($pdf) {
+                        $body = base64_encode($pdf);
+                        $soap_xml = '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><UploadBinaryFile xmlns="http://tempuri.org/">' . '<UID>' . $ebs_id . '</UID><PDI>' . $pdi_1650 . '</PDI><FileData>' . $body . '</FileData><productID>1650</productID><Filename>Education_Form.pdf</Filename><FileType>ConsentForm</FileType><tp>EBS</tp><prod>true</prod></UploadBinaryFile></soap:Body></soap:Envelope>';
+                        $result = $client->call('UploadBinaryFile', $soap_xml);
+                        $DataIneed[1650] = $pdi_1650;
+                    }
+                }
+
+                writing_complete($Manager, $driverinfo->order_id);
+
             }
-            writing_complete($Manager, $driverinfo->order_id);
+
+
+
+
+
 
         }
 
