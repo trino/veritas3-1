@@ -1461,7 +1461,6 @@
                 $pro = '';
                 $p_type = '';
                 $p_name = "";
-                $emails ='';
                 $profile_type = TableRegistry::get("profile_types")->find('all')->where(['placesorders'=>1]);
                 foreach($profile_type as $ty) {
                     $p_type .= $ty->id.",";
@@ -1501,16 +1500,19 @@
                       $recruiters = TableRegistry::get('profiles')->find('all')->where(['id IN(' . $c->profile_id . ')', 'requalify' => '1', 'profile_type IN' => '2', 'email<>""']);
                       foreach ($recruiters as $emrec) {
                           array_push($rec, $emrec->email);
-                          $emails .= $emrec->email . ",";
                           $this->Mailer->sendEmail("", $emrec->email, $Subject, $msg);//sendEmail should never be used, use handlevent instead
                       }
                   }
-                  
-                  $emails = substr($emails,0,strlen($emails)-1);
+                  if($rec) {
+                      $emails = implode(", ", $rec);
+                      $msg .= "Emails Sent to:" . $emails . "<br/>";
+                  } else {
+                      $msg .= "No recruiters with requalify enabled have been assigned to this client<BR/>";
+                  }
+
                   $pro = substr($pro,0,strlen($pro)-1);
                   //$p_name = substr($p_name,0,strlen($p_name)-1);
                   //$this->bulksubmit($pro,$forms,$c->id);
-                  $msg .= "Emails Sent to:".$emails."<br/>";
                   $dri = $pro;
               
                     $drivers = explode(',',$dri);
