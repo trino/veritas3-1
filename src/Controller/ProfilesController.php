@@ -2614,14 +2614,16 @@
 
             $Table = TableRegistry::get('orders');
 
-
-            $orders = $Table->find()->where(['order_type' => "BUL", "complete" => 1]);
-            echo '<TR><TH COLSPAN="3">Bulk Orders waiting to pass to the webservice</TH></TR>';
-            foreach ($orders as $order) {
-                $DIR = getcwd() . '/orders/order_' . $order->id;//APP
-                if (!file_exists($DIR)){
-                    $Result = file_get_contents(LOGIN . '/orders/webservice/BUL/' . $order->forms . '/' . $order->uploaded_for . '/' . $order->id );
-                    echo '<TR><TD>' . $order->id . '</TD><TD COLSPAN="2">' . $Result . '</TD></TR>';
+            $Hour = date("G");
+            if($Hour >= 2 && $Hour <= 3) {//only run between 2 and 3 AM
+                $orders = $Table->find()->where(['order_type' => "BUL", "complete" => 1]);
+                echo '<TR><TH COLSPAN="3">Bulk Orders waiting to pass to the webservice</TH></TR>';
+                foreach ($orders as $order) {
+                    $DIR = getcwd() . '/orders/order_' . $order->id;//APP
+                    if (!file_exists($DIR)) {
+                        $Result = file_get_contents(LOGIN . '/orders/webservice/BUL/' . $order->forms . '/' . $order->uploaded_for . '/' . $order->id);
+                        echo '<TR><TD>' . $order->id . '</TD><TD COLSPAN="2">' . $Result . '</TD></TR>';
+                    }
                 }
             }
 
