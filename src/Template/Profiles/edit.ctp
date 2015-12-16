@@ -313,13 +313,11 @@
                                             }
                                             echo '/> ' . $strings["profiles_washired"] . '<BR><span class="hired_msg"></span></label>';
                                             echo '</TD></TR>
-                                            <tr><td colspan="2"><input type="checkbox" name="us_driving_experience" value="1" id="' . $profile->id . '" class="checkusexp"';
-                                            if(isset($p->us_driving_experience) && $p->us_driving_experience)
-                                            {
+                                            <tr><td colspan="2"><LABEL><input type="checkbox" name="us_driving_experience" value="1" id="' . $profile->id . '" class="checkusexp"';
+                                            if(isset($p->us_driving_experience) && $p->us_driving_experience) {
                                                 echo ' checked="checked"';
                                             }
-                                            echo '/> '.$strings["profiles_us_exp"].'</td></tr>
-                                            </TABLE>';
+                                            echo '/> ' . $strings["profiles_us_exp"] . '</LABEL></td></tr></TABLE>';
 
                                             if (isset($profile)) {
                                                 echo '<div class="hired_date" style="display:';
