@@ -2,7 +2,7 @@
 <script>
     client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
-    var ch_exp = 0;
+    var ch_exp = '0';
     profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
     
     <?php
@@ -28,12 +28,14 @@
             if(res=='1')
             {
                 $('.expblock').hide();
-                ch_exp = 1;
+                ch_exp = '1';
+               
             }
             else
             $('.expblock').show();
            } 
         });
+        
     }
     <?php if($did) { ?>
     showforms('company_pre_screen_question.php');
@@ -312,7 +314,7 @@
 
         });
         $('.buttons').click(function () {
-            
+             
             var par = $(this).closest('.steps');
             <?php
                 if($this->request->params['action'] == 'vieworder'){
@@ -404,6 +406,7 @@
                     }
                 }
                 if (doc_id == 4) {
+                    
                     var er = 0;
                     if ($('#sig2 .touched').val() != '1' && $('#sig2 .touched_edit2').val() != '1') {
                         par.find('#sig2').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
@@ -421,7 +424,7 @@
                             },
                             'slow');
                         er = 2;
-                    }<?php }?> else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1') {
+                    }<?php }?> else if ($('#sig1 .touched').val() != '1' && $('#sig1 .touched_edit1').val() != '1' && ch_exp!='1') {
                         par.find('#sig1').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
                                 scrollTop: $('#sig1').offset().top
@@ -429,7 +432,7 @@
                             'slow');
                         er = 2;
                     }
-                    <?php if($this->request->params['action']!='apply'){?> else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1') {
+                    <?php if($this->request->params['action']!='apply'){?> else if ($('#sig3 .touched').val() != '1' && $('#sig3 .touched_edit3').val() != '1' && ch_exp!='1') {
                         par.find('#sig3').append('<span class="error deleteme" style="position:absolute; font-size:12px; background-color: white; z-index: 1;">' + giveSIG + '</span>');
                         $('html,body').animate({
                                 scrollTop: $('#sig3').offset().top
@@ -639,7 +642,8 @@
                                             url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                                         savedDriverEvaluation(url, order_id, cid, draft, redir);
                                     } else if (sid == "4") {
-                                        if(ch_exp==0){
+                                        alert(ch_exp);
+                                        if(ch_exp=='0'){
                                         save_signature('3');
                                         save_signature('4');
                                          }
