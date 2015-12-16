@@ -603,8 +603,7 @@
             $this->set("filename", $filename);
         }
 
-        public function index()
-        {
+        public function index() {
             $this->redirect(array('controller' => 'orders', 'action' => 'orderslist'));
 
             $this->set('doc_comp', $this->Document);
@@ -630,62 +629,41 @@
             }
 
             $orders = TableRegistry::get('orders');
-            $order = $orders->find();
-            //$order = $order->order(['orders.id' => 'DESC']);
-            $order = $order->select();
+            $order = $orders->find()->select();
             $cond = '';
+
             if (!$this->request->session()->read('Profile.super')) {
                 $u = $this->request->session()->read('Profile.id');
-
                 $setting = $this->Settings->get_permission($u);
                 if ($setting->document_others == 0) {
-                    if ($cond == '') {
-                        $cond = $cond . ' user_id = ' . $u;
-                    } else {
-                        $cond = $cond . ' AND user_id = ' . $u;
-                    }
+                    $cond = $this->AppendSQL($cond, ' user_id = ' . $u);
                 }
-
             }
+
             if (isset($_GET['searchdoc']) && $_GET['searchdoc']) {
                 $cond = $cond . ' (orders.title LIKE "%' . $_GET['searchdoc'] . '%" OR orders.description LIKE "%' . $_GET['searchdoc'] . '%")';
             }
 
             if (isset($_GET['table']) && $_GET['table']) {
-                if ($cond == '') {
-                    $cond = $cond . ' orders.id IN (SELECT order_id FROM ' . $_GET['table'] . ')';
-                } else {
-                    $cond = $cond . ' AND orders.id IN (SELECT order_id FROM ' . $_GET['table'] . ')';
-                }
+                $cond = $this->AppendSQL($cond, ' orders.id IN (SELECT order_id FROM ' . $_GET['table'] . ')');
             }
+
             if (!$this->request->session()->read('Profile.admin') && $setting->orders_others == 0) {
-                if ($cond == '') {
-                    $cond = $cond . ' orders.user_id = ' . $this->request->session()->read('Profile.id');
-                } else {
-                    $cond = $cond . ' AND orders.user_id = ' . $this->request->session()->read('Profile.id');
-                }
+                $cond = $this->AppendSQL($cond, ' orders.user_id = ' . $this->request->session()->read('Profile.id'));
             }
+
             if (isset($_GET['submitted_by_id']) && $_GET['submitted_by_id']) {
-                if ($cond == '') {
-                    $cond = $cond . ' orders.user_id = ' . $_GET['submitted_by_id'];
-                } else {
-                    $cond = $cond . ' AND orders.user_id = ' . $_GET['submitted_by_id'];
-                }
+                $cond = $this->AppendSQL($cond, ' orders.user_id = ' . $_GET['submitted_by_id']);
             }
+
             if (isset($_GET['client_id']) && $_GET['client_id']) {
-                if ($cond == '') {
-                    $cond = $cond . ' orders.client_id = ' . $_GET['client_id'];
-                } else {
-                    $cond = $cond . ' AND orders.client_id = ' . $_GET['client_id'];
-                }
+                $cond = $this->AppendSQL($cond, ' orders.client_id = ' . $_GET['client_id']);
             }
+
             if (isset($_GET['division']) && $_GET['division']) {
-                if ($cond == '') {
-                    $cond = $cond . ' division = "' . $_GET['division'] . '"';
-                } else {
-                    $cond = $cond . ' AND division = "' . $_GET['division'] . '"';
-                }
+                $cond = $this->AppendSQL($cond, ' division = "' . $_GET['division'] . '"');
             }
+
             if ($cond) {
                 $order = $order->where([$cond])->contain(['Profiles']);
             } else {
@@ -707,9 +685,7 @@
 
         }
 
-        function get_orderscount($type, $c_id = "")
-        {
-
+        function get_orderscount($type, $c_id = "") {
             $u = $this->request->session()->read('Profile.id');
 
             if (!$this->request->session()->read('Profile.super')) {

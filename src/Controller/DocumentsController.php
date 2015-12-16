@@ -130,6 +130,17 @@ class DocumentsController extends AppController{
                 $this->set('userclients', $clients_id);
                 $cond = $this->AppendSQL($cond, ' client_id = ' . $clients_id);
             }
+
+            $Documents = $this->Manager->enum_all("profilessubdocument", array("profile_id" => $sess, "display > 0", "display <> 2"));
+            $DocIDs = array();
+            foreach ($Documents as $Document){
+                $DocIDs[] = $Document->subdoc_id;
+            }
+            if($DocIDs) {
+                $cond = $this->AppendSQL($cond, "sub_doc_id IN (" . implode(",", array_unique($DocIDs)) . ")");
+            } else {
+                $cond = $this->AppendSQL($cond, "1=2");
+            }
         }
 
 
