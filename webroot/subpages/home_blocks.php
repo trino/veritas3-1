@@ -2,6 +2,8 @@
      if($this->request->session()->read('debug')) {
          echo "<span style ='color:red;'>home_blocks.php #INC111</span>";
      }
+    $sidebar = $Manager->get_entry("sidebar", $Manager->read("id"), "user_id");
+    if(!$sidebar->document){return;}
 
     $doc_count = 0;
     $class = array('blue-madison','red','yellow','purple','green', 'red-intense','yellow-saffron','grey-cascade','blue-steel','blue');
