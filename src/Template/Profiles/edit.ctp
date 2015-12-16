@@ -312,7 +312,14 @@
                                                 echo " checked";
                                             }
                                             echo '/> ' . $strings["profiles_washired"] . '<BR><span class="hired_msg"></span></label>';
-                                            echo '</TD></TR></TABLE>';
+                                            echo '</TD></TR>
+                                            <tr><td colspan="2"><input type="checkbox" name="us_driving_experience" value="1" id="' . $profile->id . '" class="checkusexp"';
+                                            if(isset($p->us_driving_experience) && $p->us_driving_experience)
+                                            {
+                                                echo ' checked="checked"';
+                                            }
+                                            echo '/> '.$strings["profiles_us_exp"].'</td></tr>
+                                            </TABLE>';
 
                                             if (isset($profile)) {
                                                 echo '<div class="hired_date" style="display:';
@@ -730,7 +737,18 @@
             }
 
         })
-
+        $('.checkusexp').click(function(){
+            var uid = $(this).attr('id');
+            if($(this).is(':checked'))
+            {
+                var stat = 1;
+            }
+            else
+            var stat = 0;
+            $.ajax({
+               url:'<?php echo $this->request->webroot;?>profiles/changeExp/'+uid+'/'+stat 
+            });
+        });
         $('.checkhiredriver').click(function () {
 
             var oid = $(this).attr('id');

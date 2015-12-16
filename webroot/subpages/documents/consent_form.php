@@ -343,11 +343,13 @@
     <hr/>
 
     <div class="form-group row">
+    <div class="expblock">
         <h3 class="col-md-12">
             <?= $strings2["consent_f2"]; ?>
         </h3>
 
         <div class="gndn">
+                
             <div class="col-md-12">
                 <h4><?= $strings2["consent_f3"]; ?></h4>
             </div>
@@ -495,6 +497,9 @@
             </div>
             <?php }?>
         </div>
+        </div>
+        
+        
         </div>
 </form>
 

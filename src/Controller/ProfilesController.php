@@ -2614,19 +2614,17 @@
 
             $Table = TableRegistry::get('orders');
 
-            /*
-            $orders = $Table->find()->where(['order_type' => "BUL"]);
+
+            $orders = $Table->find()->where(['order_type' => "BUL", "complete" => 1]);
             echo '<TR><TH COLSPAN="3">Bulk Orders waiting to pass to the webservice</TH></TR>';
             foreach ($orders as $order) {
                 $DIR = getcwd() . '/orders/order_' . $order->id;//APP
                 if (!file_exists($DIR)){
-                    $Result="[NO DATA]";
-                    $data= array("drivers" => $order->uploaded_for, "forms" => $order->forms, "client" => $order->client_id, "division" => $order->division);
-                    //$Result = $this->Manager->cURL( LOGIN . '/orders/webservice/BUL/' . $order->forms . '/' . $order->uploaded_for . '/' . $order->id . '/true', $data);
+                    $Result = file_get_contents(LOGIN . '/orders/webservice/BUL/' . $order->forms . '/' . $order->uploaded_for . '/' . $order->id );
                     echo '<TR><TD>' . $order->id . '</TD><TD COLSPAN="2">' . $Result . '</TD></TR>';
                 }
             }
-            */
+
 
             $order = $Table->find()->where(['orders.draft' => 0, "orders.complete" => 0, "orders.complete_writing" => 1])->order('orders.id DESC')->limit(150);
 
@@ -3739,6 +3737,28 @@
                 $Ret[] = $Result->$Field;
             }
             return $Ret;
+        }
+        function changeExp($uid,$stat)
+        {
+            $img = TableRegistry::get('profiles');
+
+                    //echo $s;die();
+                    $query = $img->query();
+                    $query->update()
+                        ->set(['us_driving_experience'=>$stat])
+                        ->where(['id' => $uid])
+                        ->execute();
+                        die();
+        }
+        function check_exp($uid){
+            $img = TableRegistry::get('profiles')->find()->where(['id'=>$uid])->first();
+            if($img->us_driving_experience)
+            {
+                echo '0';
+            }
+            else
+            echo '1';
+            die();
         }
 
     }
