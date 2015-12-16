@@ -380,6 +380,7 @@ class ClientApplicationController extends AppController {
             $arr = array('username','email','password','fname','mname','lname','title','phone','gender','dob','placeofbirth','street','city','province','postal','driver_license_no','driver_province','expiry_date','sin');
             foreach($arr as $f)
             {
+                if($profiles)
                 $arr2[$f] = $profiles->$f;
             }            
             $fields = TableRegistry::get('driver_fields')->find()->all();
@@ -477,11 +478,11 @@ class ClientApplicationController extends AppController {
                 $return[$f] = $temp;
                 }
             }
-           
+            
             if(isset($return) && $return)
             echo json_encode($return);
             else
-            echo '';
+            echo json_encode(array());
             die(); 
         }
         public function getfullname($id = 0)

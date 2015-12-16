@@ -3703,6 +3703,8 @@
         
         
         <?php
+        if(!isset($sub['de_at']))
+        $sub['de_at'] = array();
             if(($this->request->params['action']=='addorder' || $this->request->params['action']=='add') && !count($sub['de_at'])) {
                 echo "fileUpload('road1');";
             }

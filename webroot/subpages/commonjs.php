@@ -2,6 +2,36 @@
     client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
     profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
+    
+    <?php
+    if(!isset($_GET['driver']) && isset($driver) && is_numeric($driver))
+    {
+        ?>
+        var profile_id = '<?php echo $driver?>';
+        
+        <?php
+    }
+    ?>
+    check_exp(profile_id);
+    $('#selecting_driver').change(function(){
+        profile_id = $('#selecting_driver').val();
+        check_exp(profile_id);
+    })
+    
+    function check_exp(profile_id)
+    {
+        $.ajax({
+           url:'<?php echo $this->request->webroot;?>profiles/check_exp/'+profile_id,
+           success:function(res){
+            if(res=='1')
+            {
+                $('.expblock').hide();
+            }
+            else
+            $('.expblock').show();
+           } 
+        });
+    }
     <?php if($did) { ?>
     showforms('company_pre_screen_question.php');
     showforms('driver_application.php');

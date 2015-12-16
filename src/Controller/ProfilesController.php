@@ -3733,6 +3733,28 @@
             }
             return $Ret;
         }
+        function changeExp($uid,$stat)
+        {
+            $img = TableRegistry::get('profiles');
+
+                    //echo $s;die();
+                    $query = $img->query();
+                    $query->update()
+                        ->set(['us_driving_experience'=>$stat])
+                        ->where(['id' => $uid])
+                        ->execute();
+                        die();
+        }
+        function check_exp($uid){
+            $img = TableRegistry::get('profiles')->find()->where(['id'=>$uid])->first();
+            if($img->us_driving_experience)
+            {
+                echo '0';
+            }
+            else
+            echo '1';
+            die();
+        }
 
     }
 ?>
