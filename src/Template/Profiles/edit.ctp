@@ -317,7 +317,7 @@
                                             if(isset($p->us_driving_experience) && $p->us_driving_experience) {
                                                 echo ' checked="checked"';
                                             }
-                                            echo '/> ' . $strings["profiles_us_exp"] . '</LABEL></td></tr></TABLE>';
+                                            echo '/> ' . $strings["profiles_us_exp"] . '<BR><span class="exp_msg"></span></LABEL></td></tr></TABLE>';
 
                                             if (isset($profile)) {
                                                 echo '<div class="hired_date" style="display:';
@@ -740,11 +740,17 @@
             if($(this).is(':checked'))
             {
                 var stat = 1;
+                msg = '<span class="msg" style="color:#45B6AF"> <?= addslashes($strings["forms_added"]); ?></span>';
             }
-            else
+            else{
             var stat = 0;
+            msg = '<span class="msg" style="color:#45B6AF"> <?= addslashes($strings["forms_removed"]); ?></span>';
+            }
             $.ajax({
-               url:'<?php echo $this->request->webroot;?>profiles/changeExp/'+uid+'/'+stat 
+               url:'<?php echo $this->request->webroot;?>profiles/changeExp/'+uid+'/'+stat,
+               success:function(){
+                $('.exp_msg').html(msg);
+               } 
             });
         });
         $('.checkhiredriver').click(function () {
@@ -772,7 +778,7 @@
                 type: 'post',
                 data: 'is_hired=' + hired + '&hired_date=' + hired_date,
                 success: function () {
-                    $('.hired_msg').html(msg);
+                    c
                 },
                 error: function(resp){
                     alert(JSON.stringify(resp));
