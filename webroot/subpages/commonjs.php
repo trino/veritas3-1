@@ -2,6 +2,7 @@
 <script>
     client_id = '<?=$cid?>';
     doc_id = '<?=$did?>';
+    var ch_exp = 0;
     profile_id = '<?= isset($_GET["driver"])?$_GET['driver']:'' ?>';
     
     <?php
@@ -27,6 +28,7 @@
             if(res=='1')
             {
                 $('.expblock').hide();
+                ch_exp = 1;
             }
             else
             $('.expblock').show();
@@ -637,10 +639,13 @@
                                             url = '<?php echo $this->request->webroot;?>clientApplication/savedDriverEvaluation/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php }?>;
                                         savedDriverEvaluation(url, order_id, cid, draft, redir);
                                     } else if (sid == "4") {
+                                        if(ch_exp==0){
                                         save_signature('3');
                                         save_signature('4');
+                                         }
                                         save_signature('5');
                                         save_signature('6');
+                                       
                                         var order_id = res,
                                             cid = '<?php echo $cid;?>',
                                             url = '<?php echo $this->request->webroot;?>clientApplication/savedMeeOrder/' + order_id + '/' + cid<?php if($this->request->params['action']!='addorder'){?> + '/?document=' + type + '&draft=' + draft + '<?php if(isset($_GET['order_id'])){?>&order_id=<?php echo $_GET['order_id'];}?>'<?php } ?>;
