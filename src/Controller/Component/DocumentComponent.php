@@ -23,7 +23,7 @@ class DocumentComponent extends Component{
         }
     }
 
-    function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
+    function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar", $ProfileType = false){
         if(is_array($ClientID)){
             $Profiles = array();
             foreach($ClientID as $Client){
@@ -35,7 +35,11 @@ class DocumentComponent extends Component{
             $Profiles = $this->Manager->enum_all($PermissionTable, array("user_id IN (" . $Profiles . ") AND " . $Permission . " = 1"));
             $Profiles = $this->iterator_to_array($Profiles, "user_id");
             if($Profiles) {
-                $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")"));
+                if($ProfileType){
+                    $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")", $ProfileType . " IN (ptypes)"));
+                } else {
+                    $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")"));
+                }
                 if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email");}
             }
         }

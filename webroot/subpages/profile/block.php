@@ -132,7 +132,7 @@
                                     <label class="uniform-inline">
                                         <input <?php echo $is_disabled ?> type="checkbox" name="side[email_hired]"
                                                                           value="1" <?php if (isset($sidebar) && $sidebar->email_hired == 1) echo "checked"; ?> />
-                                        Receive Email (when profiles are hired)
+                                        Receive Email (when profiles are added/removed from policy)
                                     </label>
 
                                     <?php if($AllowOthers){?>

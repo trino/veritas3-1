@@ -284,9 +284,9 @@ class ManagerComponent extends Component {
         $this->Controller->Mailer->handleevent($EventName, $Data, $Email);
     }
 
-    function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar"){
+    function enum_profiles_permission($ClientID, $Permission, $Key = "", $PermissionTable = "sidebar", $ProfileType=false){
         $this->Controller->loadComponent("Document");
-        $Profiles = $this->Controller->Document->enum_profiles_permission($ClientID, $Permission, $Key, $PermissionTable);
+        $Profiles = $this->Controller->Document->enum_profiles_permission($ClientID, $Permission, $Key, $PermissionTable, $ProfileType);
         if(!is_array($Profiles)){
             $Profiles = array($Profiles);
         } else if ($Key) {

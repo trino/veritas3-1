@@ -1241,8 +1241,9 @@
             $Event = "wasfired";
             if($_POST['is_hired']) {$Event = "washired";}
             $Clients = $this->Manager->find_client($UserID, false);
+            $ProfileType = $this->Manager->get_entry("profiles", $UserID)->profile_type;
             if($Clients) {
-                $Profiles = $this->Manager->enum_profiles_permission($Clients, "email_hired", "email");
+                $Profiles = $this->Manager->enum_profiles_permission($Clients, "email_hired", "email", "sidebar", $ProfileType);
                 $Name = $this->Document->formatname($UserID);
                 $Path = LOGIN . 'profiles/view/' . $UserID;
                 $this->Mailer->handleevent($Event, array("name" => $Name, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $this->Document->formatname(), "path" => $Path, "email" => $Profiles));
