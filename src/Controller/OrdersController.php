@@ -1262,15 +1262,14 @@
             $arr['is_hired'] = $_POST['is_hired'];
             $arr['hired_date'] = $_POST['hired_date'];
             $this->Manager->update_database('profiles', "id", $UserID, $arr);
-
-            if($_POST['is_hired']) {
-                $Clients = $this->Manager->find_client($UserID, false);
-                if($Clients) {
-                    $Profiles = $this->Manager->enum_profiles_permission($Clients, "email_hired", "email");
-                    $Name = $this->Document->formatname($UserID);
-                    $Path = LOGIN . 'profiles/view/' . $UserID;
-                    $this->Mailer->handleevent("washired", array("name" => $Name, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $this->Document->formatname(), "path" => $Path, "email" => $Profiles));
-                }
+            $Event = "wasfired";
+            if($_POST['is_hired']) {$Event = "washired";}
+            $Clients = $this->Manager->find_client($UserID, false);
+            if($Clients) {
+                $Profiles = $this->Manager->enum_profiles_permission($Clients, "email_hired", "email");
+                $Name = $this->Document->formatname($UserID);
+                $Path = LOGIN . 'profiles/view/' . $UserID;
+                $this->Mailer->handleevent($Event, array("name" => $Name, "userid" => $UserID, "byuserid" => $this->Manager->read("id"), "byname" => $this->Document->formatname(), "path" => $Path, "email" => $Profiles));
             }
             die();
         }

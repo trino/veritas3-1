@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2015 at 08:37 PM
+-- Generation Time: Dec 16, 2015 at 04:43 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=867 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=869 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450207926', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450208299', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -871,7 +871,9 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (863, 'email_washired_message', '<A HREF="%path%">%name%</A> was hired by %byname% at %created%', 'email_washired_message'),
 (864, 'email_requalification_variables', 'site, email, username, company_name', ''),
 (865, 'clients_application', '%Client% Application', 'Application %client%'),
-(866, 'email_training_failed_variables', 'email, score, username, path', '');
+(866, 'email_training_failed_variables', 'email, score, username, path', ''),
+(867, 'email_wasfired_variables', 'name, userid, byuserid, byname, path, email', ''),
+(868, 'email_wasfired_subject', 'A %profile% was un-hired', 'email_washired_subject');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
