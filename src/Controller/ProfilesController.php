@@ -2612,22 +2612,29 @@
                 $q->query()->update()->set(['sent' => 1, 'email_self' => 0])->where(['id' => $todo->id])->execute();
             }
 
-            $orders = TableRegistry::get('orders');
-            $order = $orders
-                ->find()
-                ->where(['orders.draft' => 0, "orders.complete" => 0, "orders.complete_writing" => 1])->order('orders.id DESC')->limit(150);
+            $Table = TableRegistry::get('orders');
+
+            /*
+            $orders = $Table->find()->where(['order_type' => "BUL"]);
+            echo '<TR><TH COLSPAN="3">Bulk Orders waiting to pass to the webservice</TH></TR>';
+            foreach ($orders as $order) {
+                $DIR = getcwd() . '/orders/order_' . $order->id;//APP
+                if (!file_exists($DIR)){
+                    $Result="[NO DATA]";
+                    $data= array("drivers" => $order->uploaded_for, "forms" => $order->forms, "client" => $order->client_id, "division" => $order->division);
+                    //$Result = $this->Manager->cURL( LOGIN . '/orders/webservice/BUL/' . $order->forms . '/' . $order->uploaded_for . '/' . $order->id . '/true', $data);
+                    echo '<TR><TD>' . $order->id . '</TD><TD COLSPAN="2">' . $Result . '</TD></TR>';
+                }
+            }
+            */
+
+            $order = $Table->find()->where(['orders.draft' => 0, "orders.complete" => 0, "orders.complete_writing" => 1])->order('orders.id DESC')->limit(150);
 
             echo '<TR><TH COLSPAN="3">The first 150 non-draft orders</TH></TR>';
             foreach ($order as $o) {
                 echo '<TR><TD>' . $o->id . '</TD><TD>' . $o->title . '</TD><TD>' ;
                 // echo $o->id .',';
                 $complete = 1;
-
-                $DIR = getcwd() . '/orders/order_' . $o->id;//APP
-                if (!file_exists($DIR)){
-                    //$Result = cURL( LOGIN . '/orders/webservice/$order_type/$forms/$drivers/$orders/true');
-
-                }
 
                 if ($o->ins_1 && $o->ins_1_binary == null) {
                     $complete = 0;

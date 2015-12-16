@@ -146,7 +146,7 @@
             if (isset($_GET['blank']))
                 $this->layout = 'blank';
             $today = date('Y-m-d');
-            $msg = "";
+            $msg = "RapidController Cron<BR>";
             $clients = TableRegistry::get('clients')->find('all')->where(['requalify' => '1', 'requalify_product <> ""']);
             $marr = array();
             $a = TableRegistry::get('profiles')->find()->where(['super' => '1'])->first();

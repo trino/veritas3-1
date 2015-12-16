@@ -1,5 +1,4 @@
-<?php //var_dump($arr);die();?>
-
+<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
 <script>
     $(function () {
 
@@ -15,8 +14,11 @@
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/webservice/REQ/' + forms + '/' + driv[k] + '/' + ord[k],
                     success:function(){
-                        alert('Cron ran successfully.')
+                        handlewebservice(msg, "rapid", "cron_user", true);
                         window.location="<?php echo $this->request->webroot;?>profiles/settings?all_cron";
+                    },
+                    error:function(){
+                        handlewebservice(msg, "rapid", "cron_user", false);
                     }
                 });
             }

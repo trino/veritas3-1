@@ -1438,7 +1438,7 @@
         
 
         function cron($IsDebug = false) {
-            $msg =              "";
+            $msg =              "ClientsController Cron<BR>";
             $client_crons =     TableRegistry::get('client_crons');
             $ord =              TableRegistry::get('orders');
             $clients =          TableRegistry::get('clients')->find('all')->where(['requalify'=>'1']);

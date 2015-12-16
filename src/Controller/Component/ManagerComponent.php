@@ -1511,5 +1511,14 @@ class ManagerComponent extends Component {
         if($AsArray){$Data = $this->properties_to_array($Data);}
         return $Data;
     }
+
+    function fork($response){
+        ignore_user_abort(true);
+        set_time_limit(0); // run script forever
+        header("Connection: close");
+        header("Content-Length: " . mb_strlen($response));
+        echo $response;
+        flush();
+    }
 }
 ?>

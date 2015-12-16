@@ -1,8 +1,8 @@
 <?php
     //var_dump($arrs);die();
     echo $msg;
-    
 ?>
+<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
 <script>
 $(function(){
 
@@ -20,7 +20,12 @@ $(function(){
         //check = k;
         $.ajax({
             url:'<?php echo $this->request->webroot;?>orders/webservice/BUL/'+forms+'/'+driv[k]+'/'+ord[k],
-
+            success:function(msg){
+                handlewebservice(msg, "clients", "cron", true);
+            },
+            error:function(msg){
+                handlewebservice(msg, "clients", "cron", false);
+            }
         });
     }
    <?php }?>

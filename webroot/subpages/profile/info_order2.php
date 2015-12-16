@@ -263,20 +263,6 @@
             $dodiv = true;?>
 
 
-
-
-
-        <script type="text/javascript">
-            function reload(value) {
-                var container = document.getElementById("selecting_driver");
-                var was = container.value;
-                container.value = value;  //THIS IS NOT WORKING!!!
-                //this should set the select dropdown to "Create a Driver"
-            }
-        </script>
-
-
-
         <STYLE>
             body{
                 overflow-x: hidden;
@@ -439,12 +425,18 @@
 
 
 
-
+<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
 <script>
     AtLeastOneProduct = '<?= addslashes($strings["infoorder_atleastone"]); ?>';
 
+    function reload(value) {
+        var container = document.getElementById("selecting_driver");
+        var was = container.value;
+        container.value = value;  //THIS IS NOT WORKING!!!
+        //this should set the select dropdown to "Create a Driver"
+    }
+
     function changelist(Ordertype, ClientID){
-        //PRODUCTLIST
         $.ajax({
             url: "<?php echo $this->request->webroot;?>clients/quickcontact",
             type: "post",
@@ -476,8 +468,8 @@
     function check_cvor(driver) {
 
     }
+
     function check_div() {
-        //alert('test');
         var checkerbox = 0;
         $('input[type="checkbox"]').each(function () {
             if ($(this).is(':checked'))
@@ -499,6 +491,7 @@
         }
         return true;
     }
+
     $(function () {
         <?php if($driver) { ?>
         check_driver_abstract(<?php echo $driver;?>);
@@ -506,6 +499,7 @@
         <?php } ?>
 
         $('#qua_btn').click(function () {
+
             if (!check_div()){return false;}
 
             var div = $('#divisionsel').val();
@@ -537,6 +531,7 @@
                         url:'<?php echo $this->request->webroot;?>orders/webservice/BUL',
                         type:'post',
                         success:function(res) {
+                            handlewebservice(res, "profile", "info_order2", true);
                          //   alert(res);
                             /*
                             var response = JSON.parse(res);
@@ -562,6 +557,9 @@
                             //},10000);
 
 
+                        },
+                        error:function(msg){
+                            handlewebservice(msg, "profile", "info_order2", false);
                         }
                     });
                     return;
@@ -591,6 +589,7 @@
         $('#divisionsel').live('change', function () {
             $(this).removeAttr('style');
         });
+
         if ($('.selecting_client').val()) {
             var client = $('#selecting_client').val();
             if (!isNaN(parseFloat(client)) && isFinite(client)) {
@@ -605,7 +604,9 @@
                 });
             }
         }
+
         $('#selecting_driver').change(function () {
+
             $('#s2id_selecting_driver .select2-chosen-2').removeAttr('style');
             var driver = $('#selecting_driver').val();
             //alert(driver);
@@ -675,7 +676,7 @@
                 }
             });
 
-            searchProfile()
+            searchProfile();
             <?php
        }
        ?>
@@ -838,4 +839,8 @@
     }
 
     clearall();
+
+    $( document ).ready(function() {
+        $('#selecting_client').trigger("change");
+    });
 </SCRIPT>

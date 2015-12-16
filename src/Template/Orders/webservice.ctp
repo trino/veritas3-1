@@ -156,11 +156,11 @@
                 $ebs_id = substr($myArray[1], 4);
 
                 if (!isset($ins_id) || !$ins_id) {
-                    echo "error1";die();
+                    echo "<BR>error1";die();
                     $ins_id = 0;
                 }
                 if (!isset($ebs_id) || !$ebs_id) {
-                    echo "error2";die();
+                    echo "<BR>error2";die();
                     $ebs_id = 0;
                 }
 

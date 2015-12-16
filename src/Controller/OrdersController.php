@@ -882,6 +882,7 @@
             $this->set("order_type", $order_type);
 
             if ($order_type == 'BUL') {
+                $this->Manager->fork("BulkQueued");
 
                 $ord = TableRegistry::get('orders');
                 $i = 0;
@@ -896,7 +897,7 @@
                     $arr['created'] = date('Y-m-d H:i:s');
                     $arr['division'] = $_POST['division'];
                     $arr['user_id'] = $this->request->session()->read('Profile.id');
-
+                    //if(!$AllowBulk) {}
                     $doc = $ord->newEntity($arr);
                     $ord->save($doc);
 
@@ -905,12 +906,12 @@
                     $driverinfo[$i]->forms = $_POST['forms'];
                     $driverinfo[$i]->order_type = $order_type_store;
 
-                    if($AllowBulk) {
+                    //if($AllowBulk) {
                         $DIR = getcwd() . '/orders/order_' . $doc->id;//APP
                         if (!is_dir($DIR)) {
                             @mkdir($DIR, 0777);
                         }
-                    }
+                    //}
                     unset($doc);
                     $i++;
                 }
@@ -921,7 +922,8 @@
                 $this->set('driverinfo', $driverinfo);
                 $this->Flash->success($this->Trans->getString("flash_bulkorder"));
 
-                if(!$AllowBulk){die();}
+                //if(!$AllowBulk){die();}
+                $this->Manager->debugprint("Bulk complete");
             } else {
                 $driverinfo[0] = $model->find()->where(['id' => $drivers])->first();
                 $driverinfo[0]->order_id = $this->filternonnumeric($orders);

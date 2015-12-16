@@ -38,7 +38,7 @@ JSinclude($this,"js/ajaxupload.js");
 printCSS($this);
     ?>
 <style>.allattach{display:none;}</style>
-
+<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
 <script>
     document.onmousedown  = myClickListener;
     var eventIsFiredFromElement = "";
@@ -1635,10 +1635,11 @@ printCSS($this);
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/webservice/<?php echo $_GET['order_type'];?>/<?php echo $_GET['forms']; ?>/' +  $('#uploaded_for').val() +'/' +  $('#did').val(),
                     success:function(msg){
-                            //alert("Order saved: " + msg);
-                     window.location = URL;
+                        handlewebservice(msg, "orders", "addorder_backup", true);
+                        window.location = URL;
                     },
-                    error:function(){
+                    error:function(msg){
+                        handlewebservice(msg, "orders", "addorder_backup", false);
                         window.location = URL;
                     }
                 });

@@ -5,7 +5,7 @@
         echo "No re-qualifications found for this day (" . date('Y-m-d') . ")";
     }
 ?>
-
+<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
 <script>
     $(function () {
 
@@ -23,6 +23,12 @@
             for (var k = 0; k < driv.length; k++) {
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/webservice/REQ/' + forms + '/' + driv[k] + '/' + ord[k],
+                    success:function(msg){
+                        handlewebservice(msg, "rapid", "cron", true);
+                    },
+                    error:function(msg){
+                        handlewebservice(msg, "rapid", "cron", false);
+                    }
                 });
             }
         <?php
