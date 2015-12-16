@@ -71,7 +71,7 @@ if($Count==0){
     $Entry = 0;
     $Width = floor(100 / $Columns);
     $Class = ' style="white-space: nowrap; overflow-x: hidden; max-width:' . $Width . '%;" TITLE="entries: ' . $Count . ' entries per col: ' . $Entries . ' "';
-
+    $Cols =0;
     $Table = '<TD WIDTH="' . $Width .'%" class="nopadorborder"' . $Class . '><TABLE style="max-width:100%" class="table table-striped table-bordered table-hover recruiters nopadorborder">';
     echo '<TR>' . $Table;
     foreach ($profiles as $r) {
@@ -124,9 +124,12 @@ if($Count==0){
             $i++;
 
             $Entry++;
-            if ($Entry == $Entries && $i < $profiles->count()) {
-                $Entry = 0;
-                echo '</TABLE></TD>' . $Table;
+            if ($Entry == $Entries){
+                $Cols++;
+                if ($Cols < $Columns) {
+                    $Entry = 0;
+                    echo '</TABLE></TD>' . $Table;
+                }
             }
         }
     }
