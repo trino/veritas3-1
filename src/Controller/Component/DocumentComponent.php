@@ -40,21 +40,20 @@ class DocumentComponent extends Component{
                     $Parameters[] = 'FIND_IN_SET(' . $ProfileType. ', ptypes) > 0';// $ProfileType . " IN (ptypes)";
                 }
                 $Profiles = $this->Manager->enum_all("profiles", $Parameters);
-                if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email");}
+                if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email", true);}
             }
         }
-        if(!isset($Profiles) || !$Profiles){
-            $Profiles = array();
-        }
+        if(!isset($Profiles) || !$Profiles){$Profiles = array();}
         if(!is_array($Profiles)){$Profiles = array($Profiles);}
         return array_unique($Profiles);
     }
 
-    function iterator_to_array($Objects, $Key){
+    function iterator_to_array($Objects, $Key, $AsArray = false){
         $IDs = array();
         foreach($Objects as $Object){
             $IDs[] = $Object->$Key;
         }
+        if($AsArray){return $IDs;}
         return implode(",", $IDs);
     }
 
