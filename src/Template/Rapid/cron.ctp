@@ -5,7 +5,7 @@
         echo "No re-qualifications found for this day (" . date('Y-m-d') . ")";
     }
 ?>
-<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
+<!--script src="../webroot/assets/admin/pages/scripts/webservice.js"></script-->
 <script>
     $(function () {
 

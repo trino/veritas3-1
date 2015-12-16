@@ -1,4 +1,4 @@
-<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
+<!--script src="../webroot/assets/admin/pages/scripts/webservice.js"></script-->
 <script>
     $(function(){
          $.ajax({

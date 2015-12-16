@@ -38,7 +38,7 @@ JSinclude($this,"js/ajaxupload.js");
 printCSS($this);
     ?>
 <style>.allattach{display:none;}</style>
-<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
+<!--script src="../webroot/assets/admin/pages/scripts/webservice.js"></script-->
 <script>
     document.onmousedown  = myClickListener;
     var eventIsFiredFromElement = "";

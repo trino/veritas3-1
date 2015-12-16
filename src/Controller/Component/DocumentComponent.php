@@ -35,11 +35,11 @@ class DocumentComponent extends Component{
             $Profiles = $this->Manager->enum_all($PermissionTable, array("user_id IN (" . $Profiles . ") AND " . $Permission . " = 1"));
             $Profiles = $this->iterator_to_array($Profiles, "user_id");
             if($Profiles) {
+                $Parameters = array("id IN (" . $Profiles . ")");
                 if($ProfileType){
-                    $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")", $ProfileType . " IN (ptypes)"));
-                } else {
-                    $Profiles = $this->Manager->enum_all("profiles", array("id IN (" . $Profiles . ")"));
+                    $Parameters[] = 'FIND_IN_SET(' . $ProfileType. ', ptypes) > 0';// $ProfileType . " IN (ptypes)";
                 }
+                $Profiles = $this->Manager->enum_all("profiles", $Parameters);
                 if ($Key) {$Profiles = $this->iterator_to_array($Profiles, "email");}
             }
         }

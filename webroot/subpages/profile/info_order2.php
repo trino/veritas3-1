@@ -425,7 +425,7 @@
 
 
 
-<script src="../webroot/assets/admin/pages/scripts/webservice.js"></script>
+<!--script src="../webroot/assets/admin/pages/scripts/webservice.js"></script-->
 <script>
     AtLeastOneProduct = '<?= addslashes($strings["infoorder_atleastone"]); ?>';
 
