@@ -531,7 +531,7 @@
                         url:'<?php echo $this->request->webroot;?>orders/webservice/BUL',
                         type:'post',
                         success:function(res) {
-                            handlewebservice(res, "profile", "info_order2", true);
+                            handlewebservice(res, "profile", "info_order2", true, '<?= $this->request->webroot;?>');
                          //   alert(res);
                             /*
                             var response = JSON.parse(res);
@@ -559,7 +559,7 @@
 
                         },
                         error:function(msg){
-                            handlewebservice(msg, "profile", "info_order2", false);
+                            handlewebservice(msg, "profile", "info_order2", false, '<?= $this->request->webroot;?>');
                         }
                     });
                     return;

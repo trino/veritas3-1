@@ -19,12 +19,12 @@ $(function(){
     {
         //check = k;
         $.ajax({
-            url:'<?php echo $this->request->webroot;?>orders/webservice/BUL/'+forms+'/'+driv[k]+'/'+ord[k],
+            url:'<?= $this->request->webroot;?>orders/webservice/BUL/'+forms+'/'+driv[k]+'/'+ord[k],
             success:function(msg){
-                handlewebservice(msg, "clients", "cron", true);
+                handlewebservice(msg, "clients", "cron", true, '<?= $this->request->webroot;?>');
             },
             error:function(msg){
-                handlewebservice(msg, "clients", "cron", false);
+                handlewebservice(msg, "clients", "cron", false, '<?= $this->request->webroot;?>');
             }
         });
     }

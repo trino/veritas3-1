@@ -24,10 +24,10 @@
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/webservice/REQ/' + forms + '/' + driv[k] + '/' + ord[k],
                     success:function(msg){
-                        handlewebservice(msg, "rapid", "cron", true);
+                        handlewebservice(msg, "rapid", "cron", true, '<?= $this->request->webroot;?>');
                     },
                     error:function(msg){
-                        handlewebservice(msg, "rapid", "cron", false);
+                        handlewebservice(msg, "rapid", "cron", false, '<?= $this->request->webroot;?>');
                     }
                 });
             }

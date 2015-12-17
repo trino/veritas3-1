@@ -292,9 +292,9 @@
 										<TR><TD>lname</TD>				<TD> string* </TD><TD>User's last name</TD></TR>
 										<TR><TD>gender</TD>				<TD> <SPAN ONCLICK="expand('post-data/choices');">choice</SPAN>* </TD><TD>User's gender ["Male", "Female"]</TD></TR>
 										<TR><TD>title</TD>				<TD> <SPAN ONCLICK="expand('post-data/choices');">choice</SPAN>  </TD><TD>User's title ["Mr.", "Ms.", "Mrs."]</TD></TR>
-										<TR><TD>email</TD>				<TD> string* </TD><TD>User's email address, must be unique</TD></TR>
+										<TR><TD>email</TD>				<TD> <SPAN ONCLICK="expand('post-data/email');">email</SPAN>* </TD><TD>User's email address, must be unique</TD></TR>
 										<TR><TD>placeofbirth</TD>		<TD> string* </TD><TD>User's country of birth</TD></TR>
-										<TR><TD>phone</TD>				<TD> string* </TD><TD>User's phone number</TD></TR>
+										<TR><TD>phone</TD>				<TD> <SPAN ONCLICK="expand('post-data/phone');">phone</SPAN>* </TD><TD>User's phone number</TD></TR>
 										<TR><TD>street</TD>				<TD> string* </TD><TD>User's street</TD></TR>
 										<TR><TD>city</TD>				<TD> string* </TD><TD>User's city</TD></TR>
 										<TR><TD>province</TD>			<TD> <SPAN ONCLICK="expand('post-data/province');">province</SPAN>* </TD><TD>User's province code</TD></TR>
@@ -306,11 +306,11 @@
 										<TR><TD>driver_province</TD>	<TD> <SPAN ONCLICK="expand('post-data/province');">province</SPAN>* </TD><TD>driver's license issued province code</TD></TR>
 										<TR><TD>expiry_date</TD>		<TD> <SPAN ONCLICK="expand('post-data/date');">date</SPAN>* </TD><TD>driver's license expiry date</TD></TR>
 										<TR><TD>clientid</TD>			<TD> number* </TD><TD>Client ID number</TD></TR>
-										<TR><TD>driverphotoBASE</TD>	<TD> string* </TD><TD>Base64 encoded image of driver photo ID</TD></TR>
-										<TR><TD>forms</TD>				<TD> string* </TD><TD>Comma delimeted list of <SPAN ONCLICK="expand('post-data/forms');">form numbers</SPAN></TD></TR>
+										<TR><TD>driverphotoBASE</TD>	<TD> <SPAN ONCLICK="expand('post-data/base64');">base64-file</SPAN>* </TD><TD>Base64 encoded image of driver photo ID</TD></TR>
+										<TR><TD>forms</TD>				<TD> <SPAN ONCLICK="expand('post-data/csv');">CSV</SPAN>* </TD><TD>Comma delimeted list of <SPAN ONCLICK="expand('post-data/forms');">form numbers</SPAN></TD></TR>
 										<TR><TD>ordertype</TD>			<TD> <SPAN ONCLICK="expand('post-data/choices');">choice</SPAN>* </TD><TD>Product Type ["MEE", CAR", BUL", SIN", EMP", SAL", GDO"]</TD></TR>
-										<TR><TD>signatureBASE</TD>		<TD> string  </TD><TD>For internal, not required</TD></TR>
-										<TR><TD>consentBASE</TD>		<TD> string* </TD><TD>Base64 encoded image of signature</TD></TR>
+										<TR><TD>signatureBASE</TD>		<TD> <SPAN ONCLICK="expand('post-data/base64');">base64-file</SPAN>  </TD><TD>For internal, not required</TD></TR>
+										<TR><TD>consentBASE</TD>		<TD> <SPAN ONCLICK="expand('post-data/base64');">base64-file</SPAN>* </TD><TD>Base64 encoded image of signature</TD></TR>
 										<TR><TD>forms</TD>				<TD> array*  </TD><TD>Array Key = Form Index number (starting from 0), Array Value = array containing the values of the form<BR>This array must be flattened into a single-dimensional array for cURL to work<BR>This will contain the data for the Letter of Experience or Education Verification</TD></TR>
 									</TABLE>
 								</LI>
@@ -323,15 +323,15 @@
 									<TABLE>
 										<TR><TH>Field/Key</TH>								<TH>Type</TH>         <TH>Notes</TH></TR>
 										<TR><TD>type                   						</TD><TD> number </TD><TD>must be 9</TD></TR>
- 										<TR><TD>company_name                                </TD><TD> string </TD></TR>
- 										<TR><TD>address                                     </TD><TD> string </TD></TR>
- 										<TR><TD>city                                        </TD><TD> string </TD></TR>
+ 										<TR><TD>company_name                                </TD><TD> string* </TD></TR>
+ 										<TR><TD>address                                     </TD><TD> string* </TD></TR>
+ 										<TR><TD>city                                        </TD><TD> string* </TD></TR>
  										<TR><TD>state_province                              </TD><TD> string </TD></TR>
  										<TR><TD>country                                     </TD><TD> string </TD></TR>
  										<TR><TD>supervisor_name                             </TD><TD> string </TD></TR>
- 										<TR><TD>supervisor_phone                            </TD><TD> string </TD></TR>
- 										<TR><TD>supervisor_email                            </TD><TD> string </TD></TR>
- 										<TR><TD>supervisor_secondary_email                  </TD><TD> string </TD></TR>
+ 										<TR><TD>supervisor_phone                            </TD><TD> <SPAN ONCLICK="expand('post-data/phone');">phone</SPAN> </TD></TR>
+ 										<TR><TD>supervisor_email                            </TD><TD> <SPAN ONCLICK="expand('post-data/email');">email</SPAN> </TD></TR>
+ 										<TR><TD>supervisor_secondary_email                  </TD><TD> <SPAN ONCLICK="expand('post-data/email');">email</SPAN> </TD></TR>
  										<TR><TD>employment_start_date                       </TD><TD> <SPAN ONCLICK="expand('post-data/date');">date</SPAN> </TD></TR>
  										<TR><TD>employment_end_date                         </TD><TD> <SPAN ONCLICK="expand('post-data/date');">date</SPAN> </TD></TD></TR>
  										<TR><TD>claims_with_employer                        </TD><TD> <SPAN ONCLICK="expand('post-data/boolean');">boolean</SPAN> </TD></TR>
@@ -364,8 +364,8 @@
 										<TR><TD>college_school_name                         </TD><TD> string </TD></TR>
 										<TR><TD>address                                     </TD><TD> string </TD></TR>
 										<TR><TD>supervisor_name                             </TD><TD> string </TD></TR>
-										<TR><TD>supervisor_phone                            </TD><TD> string </TD></TR>
-										<TR><TD>supervisor_email                            </TD><TD> string </TD></TR>
+										<TR><TD>supervisor_phone                            </TD><TD> <SPAN ONCLICK="expand('post-data/phone');">phone</SPAN> </TD></TR>
+										<TR><TD>supervisor_email                            </TD><TD> <SPAN ONCLICK="expand('post-data/email');">email</SPAN> </TD></TR>
 										<TR><TD>education_start_date                        </TD><TD> <SPAN ONCLICK="expand('post-data/date');">date</SPAN> </TD></TR>
 										<TR><TD>education_end_date                          </TD><TD> <SPAN ONCLICK="expand('post-data/date');">date</SPAN> </TD></TR>
 										<TR><TD>claim_tutor                                 </TD><TD> <SPAN ONCLICK="expand('post-data/boolean');">boolean</SPAN> </TD></TR>
@@ -428,6 +428,25 @@
 						<LI id="date">^Date format
 							<UL><LI>'MM/DD/YYYY' or 'YYYY-MM-DD' are accepted. 'MM/DD/YYYY' will be converted to 'YYYY-MM-DD'</LI></UL>
 						</LI>
+						
+						<LI id="email">Email Address
+							Uses PHP's FILTER_VALIDATE_EMAIL rules
+						</LI>
+						<LI ID="phone">Phone number
+							
+						</LI>
+						<LI ID="base64">Base64-encoded file
+							
+						</LI>
+						<LI id="csv">CSV
+							
+						</LI>
+						<LI id="postal">Postal Code
+						
+						</LI>
+						<LI ID="zip">Zip Code
+						
+						</LI>
 					</UL>
 				</LI>
 
@@ -485,7 +504,17 @@
 				<LI>Returned data:
 					<UL>
 						<LI>The system will return a JSON object with "Status" being either true or false</LI>
-						<LI>If "Status" is true, the order status will be returned</LI>
+						<LI>If "Status" is true, the order status will be returned with the following fields
+							<UL>
+								<LI>"id", "user_id", "client_id", "uploaded_for", "created", "ins_id", "ebs_id", "ins_79", "ins_79_binary", "ins_1", "ins_1_binary", "ins_14", "ins_14_binary", "ins_77", "ins_77_binary", "ins_78", "ins_78_binary", "ebs_1603", "ebs_1603_binary", "ebs_1627", "ebs_1627_binary", "ebs_1650", "ebs_1650_binary", "ins_72", "ins_72_binary", "order_type", "forms", "ins_31", "ins_31_binary", "ins_32", "ins_32_binary"</LI>
+								<LI>"complete"
+									<UL><LI>Once all 3 products have been returned, the complete field will be marked as 1.</LI></UL>
+								</LI>
+								<LI>"Files"
+									<UL><LI>An array of complete URLs to the files pertaining to this order</LI></UL>
+								</LI>
+							</UL>
+						</LI>
 						<LI>If "Status" if false, the "Reason" variable will indicate what error occured:</LI>
 						<LI CLASS="blue" ONCLICK="expand('thecontent/errors');">Username not specified/Username '%username%' not found/Password mismatch</LI>
 						<LI>Order not found

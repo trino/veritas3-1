@@ -14,11 +14,11 @@
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/webservice/REQ/' + forms + '/' + driv[k] + '/' + ord[k],
                     success:function(){
-                        handlewebservice(msg, "rapid", "cron_user", true);
+                        handlewebservice(msg, "rapid", "cron_user", true, '<?= $this->request->webroot;?>');
                         window.location="<?php echo $this->request->webroot;?>profiles/settings?all_cron";
                     },
                     error:function(){
-                        handlewebservice(msg, "rapid", "cron_user", false);
+                        handlewebservice(msg, "rapid", "cron_user", false, '<?= $this->request->webroot;?>');
                     }
                 });
             }

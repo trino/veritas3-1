@@ -1635,11 +1635,11 @@ printCSS($this);
                 $.ajax({
                     url: '<?php echo $this->request->webroot;?>orders/webservice/<?php echo $_GET['order_type'];?>/<?php echo $_GET['forms']; ?>/' +  $('#uploaded_for').val() +'/' +  $('#did').val(),
                     success:function(msg){
-                        handlewebservice(msg, "orders", "addorder_backup", true);
+                        handlewebservice(msg, "orders", "addorder_backup", true, '<?= $this->request->webroot;?>');
                         window.location = URL;
                     },
                     error:function(msg){
-                        handlewebservice(msg, "orders", "addorder_backup", false);
+                        handlewebservice(msg, "orders", "addorder_backup", false, '<?= $this->request->webroot;?>');
                         window.location = URL;
                     }
                 });

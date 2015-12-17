@@ -37,7 +37,7 @@ $userID = $this->Session->read('Profile.id');
 if(!$userID && isset($_GET["client"])){$userID = 0;}
 
 $canedit = $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin');
-$ShouldShow = isset($p->profile_type) && ($p->profile_type=='1' || $p->profile_type=='2');
+$ShouldShow = isset($p->profile_type) && ($p->profile_type=='1' || $p->profile_type=='2'  || $p->profile_type=='13');
 if($ShouldShow || $canedit){
     $ShouldShow = 'display:block';
     $canedit=true;

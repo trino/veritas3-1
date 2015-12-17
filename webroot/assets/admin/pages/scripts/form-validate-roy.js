@@ -547,7 +547,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function handlewebservice(msg, controller, action, status){
+function handlewebservice(msg, controller, action, status, webroot){
     if(msg.indexOf("<BR>error") > -1){
         if(msg.indexOf("<BR>error1") >-1){
             var error = "ins_id";
@@ -555,6 +555,7 @@ function handlewebservice(msg, controller, action, status){
             var error = "ebs_id";
         }
         alert(controller + "/" + action + "=" + status + "/r/nAn error occured, ID " + error + "not found");
+        window.location = webroot + 'orders/orderslist?draft';
     } else {
         //alert(controller + "/" + action + "=" + status + "/r/nMessage: " + msg);
         if (controller == "rapid" && action == "cron_user" && status) {
