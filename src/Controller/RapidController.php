@@ -656,7 +656,8 @@
             $baseURL = LOGIN . $PATH . "/";
             $basedir = str_replace("//", "/", $_SERVER['DOCUMENT_ROOT'] . $this->Manager->webroot() . $PATH);
 
-            $keys_to_copy = array("id", "user_id", "client_id", "uploaded_for", "created", "ins_id", "ebs_id", "ins_79", "ins_79_binary", "ins_1", "ins_1_binary", "ins_14", "ins_14_binary", "ins_77", "ins_77_binary", "ins_78", "ins_78_binary", "ebs_1603", "ebs_1603_binary", "ebs_1627", "ebs_1627_binary", "ebs_1650", "ebs_1650_binary", "ins_72", "ins_72_binary", "order_type", "forms", "complete", "ins_31", "ins_31_binary", "ins_32", "ins_32_binary");
+
+            $keys_to_copy = array("id", "user_id", "client_id", "uploaded_for", "created", "ins_1", "ins_1_binary", "ins_14", "ins_14_binary", "ebs_1603", "ebs_1603_binary", "order_type", "forms", "complete");
             $Entry = array_intersect_key( $this->Manager->properties_to_array($Entry), array_flip($keys_to_copy));
 
             $Files2 = array();

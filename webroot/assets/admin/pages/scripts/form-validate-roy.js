@@ -554,7 +554,7 @@ function handlewebservice(msg, controller, action, status, webroot){
         } else if (msg.indexOf("<BR>error2") >-1){
             var error = "ebs_id";
         }
-        alert(controller + "/" + action + "=" + status + "/r/nAn error occured, ID " + error + "not found");
+        //alert(controller + "/" + action + "=" + status + "/r/nAn error occured, ID " + error + "not found");
         window.location = webroot + 'orders/orderslist?draft';
     } else {
         //alert(controller + "/" + action + "=" + status + "/r/nMessage: " + msg);

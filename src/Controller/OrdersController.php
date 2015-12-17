@@ -872,7 +872,7 @@
                     $driverinfo[$i]->order_type = "BUL";
                     $DIR = getcwd() . '/orders/order_' . $orders;//APP
                     if (!is_dir($DIR)) {@mkdir($DIR, 0777);}
-                    $this->Manager->update_database("orders", "id", $orders, array("is_bulk" => 0));
+                  //  $this->Manager->update_database("orders", "id", $orders, array("is_bulk" => 0));
                 } else {
                     $drivers = explode(",", $_POST['drivers']);
                     foreach ($drivers as $driver) {
