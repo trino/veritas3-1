@@ -765,10 +765,15 @@ loadreasons($param, $strings, true);
                                 <div class=""
                                      id="subtab_2_4" style="padding: 15px;">
 
-                                     <label class="control-label"><?= $strings["profiles_assigntoclient"]; ?>:</label>
+
 
                                     <?php
-                                        if (($this->request->session()->read("Profile.super") || ($this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2))) {
+                                        if(!isset($sidebar)){
+                                            $sidebar = $Manager->loadpermissions(false, "sidebar");
+                                        }
+
+                                        if ( $this->request->session()->read("Profile.super") || $this->request->session()->read("Profile.admin") == 1 || $this->request->session()->read("Profile.profile_type") == 2 || $sidebar->profile_create) {
+                                            echo '<label class="control-label">' . $strings["profiles_assigntoclient"] . ':</label>';
                                             if($this->request->params['action']!='view'){
                                             ?>
 
