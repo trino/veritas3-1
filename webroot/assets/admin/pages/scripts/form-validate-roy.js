@@ -554,7 +554,7 @@ function handlewebservice(msg, controller, action, status){
         } else if (msg.indexOf("<BR>error2") >-1){
             var error = "ebs_id";
         }
-        alert(controller + "/" + action + "=" + status + "/r/nAn error occured, ID " + error + "not found");
+        alert("An error occured while placing your order. Please submit the order again.");
     } else {
         //alert(controller + "/" + action + "=" + status + "/r/nMessage: " + msg);
         if (controller == "rapid" && action == "cron_user" && status) {

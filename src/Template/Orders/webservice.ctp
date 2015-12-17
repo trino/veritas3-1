@@ -20,7 +20,7 @@
         $Manager->update_database('orders', "id", $orderid, array('complete_writing' => 1));
     }
 
-    if (false) {//this blocks the entire webservice!
+    if (true) {//this blocks the entire webservice!
 
         $user_id234 = $this->Session->read('Profile.isb_id');
         if (isset($user_id234) && $user_id234 != "") {
@@ -154,6 +154,7 @@
 
                 $ins_id = substr($myArray[0], 4);
                 $ebs_id = substr($myArray[1], 4);
+
 
                 if (!isset($ins_id) || !$ins_id) {
                     echo "<BR>error1";die();

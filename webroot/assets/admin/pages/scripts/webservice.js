@@ -1,4 +1,8 @@
+alert('test');
 function handlewebservice(msg, controller, action, status){
+
+
+
     if(msg.indexOf("<BR>error") > -1){
         if(msg.indexOf("<BR>error1") >-1){
             var error = "ins_id";
