@@ -1294,7 +1294,7 @@
         subdocid = parseFloat(subdocid);
         <?php
         if(isset($_GET["driver"])){
-            echo 'getJsonPrevious($("#selecting_driver").val(),subdocid);';
+            //echo 'getJsonPrevious($("#selecting_driver").val(),subdocid);';
         }
 
         if(isset($_GET['type'])){
@@ -1993,7 +1993,7 @@
         var Driver = $("#selecting_driver").val();
         var URL = '<?= $this->request->webroot;?>documents/add/<?= $cid;?>?type=' + Document;
         if(Driver){
-            URL = URL + "&driver=" + Driver;
+            //URL = URL + "&driver=" + Driver;
         }
         window.location=URL;
     }
