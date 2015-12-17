@@ -16,6 +16,8 @@
         requiredfields($requiredfields, $forms, 1650,   array("dob", "driver_province"));
         requiredfields($requiredfields, $forms, 1627,   array("dob", "driver_province"));
         requiredfields($requiredfields, $forms, 1603,   array("dob", "driver_province", "gender", "mname"));
+    } else {
+        $requiredfields = array_merge($requiredfields, array("driver_license_no", "mname", "dob", "gender", "email", "street", "province", "city", "postal"));
     }
 
     function requiredfields(&$requiredfields, $forms, $product, $fields){
