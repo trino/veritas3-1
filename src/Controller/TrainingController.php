@@ -166,7 +166,7 @@ class TrainingController extends AppController {
         return $data;
     }
     public function canedit(){
-        return  $this->request->session()->read('Profile.super') or $this->request->session()->read('Profile.admin');
+        return  $this->request->session()->read('Profile.super') or $this->request->session()->read('Profile.admin') or $this->request->session()->read('Profile.profile_type') == 13;//teacher
     }
     public function getuserid(){
         return $this->request->session()->read('Profile.id');
