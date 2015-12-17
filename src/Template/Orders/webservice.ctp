@@ -152,8 +152,9 @@
                 // var_dump($result);
                 $myArray = explode(',', $result['StartOrderResult']);
 
-                $ins_id = substr($myArray[0], 4);
-                $ebs_id = substr($myArray[1], 4);
+              //  var_dump($myArray);
+             $ins_id = substr($myArray[0], 4);
+             $ebs_id = substr($myArray[1], 4);
 
 
                 if (!isset($ins_id) || !$ins_id) {
