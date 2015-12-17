@@ -108,6 +108,10 @@
 		document.getElementById(Element).innerHTML = HTML;
 	}
 
+	function escapeRegExp(string) {
+		return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+	}
+
 	function replaceAll(string, find, replace) {
 		return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 	}
@@ -139,6 +143,9 @@
 	function showTOC(){
 		expand('tableofcontents');
 		$("#tableofcontents").css("top",160);
+		$("i").stop();
+		$("i").show();
+		$("i").removeAttr("style");
 	}
 
 	$(window).scroll(function(){
@@ -153,7 +160,6 @@
 				if(I == ID.length-1){
 					$(".selectedelement").removeClass("selectedelement");
 					scrollIntoView( ID[I] );
-					alert(ID[I]);
 					$("#" + ID[I] ).addClass("selectedelement");
 				}
 			}

@@ -924,7 +924,7 @@
             } else {
                 //$GETPOST["email"] = "roy@trinoweb.com";//comment out when in post production!!!!!
                 if (!$this->Manager->validate_data($this->testuser($GETPOST, "email"), "email")) {
-                    $this->Status(False, "Not a valid email address");
+                    $this->Status(False, "email (" . $GETPOST["email"] . ") is not a email address");
                 }
 
                 $DateOfBirth = $GETPOST["dob"];
