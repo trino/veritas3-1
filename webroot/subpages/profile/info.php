@@ -1003,24 +1003,19 @@ loadreasons($param, $strings, true);
     //I break for bad code
 </SCRIPT>
 <SCRIPT>
-    function make_required(type)
-    {
-        if(type == '5' || type == '7' || type == '8')
-        {
+    function make_required(type) {
+        if(type == '5' || type == '7' || type == '8') {
             $('.fname').attr('required','');
             $('.lname').attr('required','');
             $('.driver_license_no').attr('required','');
             $('.driver_province').attr('required','');
-            $('.expiry_date').attr('required','');
+            //$('.expiry_date').attr('required','');
 
             $('.isb_id').removeAttr('required');
             $('.username').removeAttr('required');
             $('.password').removeAttr('required');
             $('.email').removeAttr('required');
-        }
-        else
-        if(type == '1' || type=='2')
-        {
+        } else if(type == '1' || type=='2') {
             $('.fname').attr('required','');
             $('.lname').attr('required','');
             $('.isb_id').attr('required','');
@@ -1030,18 +1025,15 @@ loadreasons($param, $strings, true);
 
             $('.driver_license_no').removeAttr('required');
             $('.driver_province').removeAttr('required');
-            $('.expiry_date').removeAttr('required');
-
-        }
-        else
-        {
+            //$('.expiry_date').removeAttr('required');
+        } else {
             $('.fname').attr('required','');
             $('.lname').attr('required','');
             $('.email').attr('required','');
 
             $('.driver_license_no').removeAttr('required');
             $('.driver_province').removeAttr('required');
-            $('.expiry_date').removeAttr('required');
+            //$('.expiry_date').removeAttr('required');
         }
         $('input,textarea,select').each(function(){
 
@@ -1058,45 +1050,38 @@ loadreasons($param, $strings, true);
         });
     }
     $(function(){
-        <?php
-        if(isset($cl_count) && $cl_count == 1)
-        {
-            ?>
+        <?php if(isset($cl_count) && $cl_count == 1){ ?>
             $('.addclientz').click();
             var clid = $('.addclientz').val();
             $('.addclientz').attr('disabled','disabled');
             $('.cids').val(clid);
-            <?php
-            
-        }
-        ?>
+        <?php } ?>
 
         $('.addclientz').live('change',function(){
 
-           if($(this).is(':checked'))
-           var chci = 1;
-           else
            var chci = 0;
-           var cids = $('.cids').val();
-           if(cids == '')
-           {
-                if(chci == 1)
-                cids = $(this).val();
+           if($(this).is(':checked')) {
+               chci = 1;
            }
-           else{
-               if(chci==1)
-               cids = cids+','+$(this).val();
-               else{
-               cids_arr = cids.split(',');
-               cids = '';
-                   for(i=0;i<cids_arr.length;i++)
-                   {
-                    if(cids_arr[i]!=$(this).val()){
-                    if(cids=='')
-                    cids = cids_arr[i];
-                    else
-                    cids = cids+','+cids_arr[i];
-                    }
+           var cids = $('.cids').val();
+           if(cids == '') {
+                if(chci == 1) {
+                    cids = $(this).val();
+                }
+           } else {
+               if(chci==1) {
+                   cids = cids + ',' + $(this).val();
+               }else{
+                   cids_arr = cids.split(',');
+                   cids = '';
+                   for(i=0;i<cids_arr.length;i++) {
+                        if(cids_arr[i]!=$(this).val()){
+                            if(cids=='') {
+                                cids = cids_arr[i];
+                            }else {
+                                cids = cids + ',' + cids_arr[i];
+                            }
+                        }
                    }
                }
            }
@@ -1135,7 +1120,6 @@ loadreasons($param, $strings, true);
                     }
                 });
                 $(this).parent().parent().remove();
-
             } else {
                 return false;
             }
