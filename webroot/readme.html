@@ -432,23 +432,23 @@
 						<LI id="email">Email Address
 							<UL>
 								<LI>Uses PHP's FILTER_VALIDATE_EMAIL rules to validate the email address</LI>
-								<LI>name</LI>
+								<LI>Allows for name@domain.suffix or name+key@domain.suffix</LI>
 							</UL>
 						</LI>
 						<LI ID="phone">Phone number
-							
+							<UL><LI>A string containing at least 1 number</LI></UL>
 						</LI>
-						<LI ID="base64">Base64-encoded file
-							
+						<LI ID="base64">Base64-file
+							<UL><LI>The file encoded in Base64 format, including "data:image/[FILE EXTENSION];base64," at the beginning of it</LI></UL>
 						</LI>
 						<LI id="csv">CSV
-							
+							<UL><LI>A comma delimeted list of numbers</LI></UL>
 						</LI>
 						<LI id="postal">Postal Code
-						
+							<UL><LI>[a-ceghj-npr-tv-z][0-9][a-ceghj-npr-tv-z][0-9][a-ceghj-npr-tv-z][0-9]</LI></UL>
 						</LI>
 						<LI ID="zip">Zip Code
-						
+							<UL><LI>Allows for both the 5 or 9 digit US Zip code formats</LI></UL>
 						</LI>
 					</UL>
 				</LI>

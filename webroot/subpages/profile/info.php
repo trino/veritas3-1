@@ -36,14 +36,15 @@ $showcreds = true;
 $userID = $this->Session->read('Profile.id');
 if(!$userID && isset($_GET["client"])){$userID = 0;}
 
-$canedit = $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin');
-$ShouldShow = isset($p->profile_type) && ($p->profile_type=='1' || $p->profile_type=='2'  || $p->profile_type=='13');
+$canedit = $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin') || $this->request->session()->read('Profile.profile_type') == 13;
+$ShouldShow = isset($p->profile_type) && ($p->profile_type=='1' || $p->profile_type=='2');
 if($ShouldShow || $canedit){
     $ShouldShow = 'display:block';
     $canedit=true;
 } else {
     $ShouldShow = 'display:none';
 }
+
 $getProfileType = $this->requestAction('profiles/getProfileType/' . $userID);
 
 function printoption2($value, $selected = "", $option){
