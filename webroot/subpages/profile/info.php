@@ -177,7 +177,7 @@ loadreasons($param, $strings, true);
                                             name="<?php if (!isset($p)) {
                                                 echo 'profile_type';
                                             } ?>" <?php if ((isset($id) && $userID == $id)/* || ($this->request->session()->read('Profile.profile_type') == '2')*/) echo "disabled='disabled'"; ?>
-                                            class="form-control member_type"
+                                            class="form-control member_type required"
                                             onchange="$('#nProfileType').val($(this).val());">
 
                                             <option selected=""
@@ -1012,6 +1012,7 @@ loadreasons($param, $strings, true);
             $('.driver_license_no').attr('required','');
             $('.driver_province').attr('required','');
             $('.expiry_date').attr('required','');
+            $('.member_type').attr('required','');
 
             $('.isb_id').removeAttr('required');
             $('.username').removeAttr('required');
@@ -1027,6 +1028,7 @@ loadreasons($param, $strings, true);
             $('.username').attr('required','');
             $('.password').attr('required','');
             $('.email').attr('required','');
+            $('.member_type').attr('required','');
 
             $('.driver_license_no').removeAttr('required');
             $('.driver_province').removeAttr('required');
@@ -1038,6 +1040,7 @@ loadreasons($param, $strings, true);
             $('.fname').attr('required','');
             $('.lname').attr('required','');
             $('.email').attr('required','');
+            $('.member_type').attr('required','');
 
             $('.driver_license_no').removeAttr('required');
             $('.driver_province').removeAttr('required');
