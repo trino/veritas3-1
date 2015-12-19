@@ -162,7 +162,7 @@
                     $ins_id = 0;
                 }
                 if (!isset($ebs_id) || !$ebs_id) {
-                    echo "<BR>error2";die();
+                 //   echo "<BR>error2";die();
                     $ebs_id = 0;
                 }
 
