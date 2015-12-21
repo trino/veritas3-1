@@ -922,8 +922,17 @@
 
                 $this->set('doc_comp', $this->Document);
                 $orders = TableRegistry::get('orders');
-                $order = $orders->find()
-                    ->where(['orders.uploaded_for' => $id, 'orders.draft' => 0])->order('orders.id DESC')->contain(['Profiles', 'Clients', 'RoadTest']);
+                $Parameters = array('orders.uploaded_for' => $id, 'orders.draft' => 0);
+                if(!$this->request->session()->read('Profile.super')){
+                    $Clients = $this->Manager->find_client(false, false);
+                    if(is_array($Clients)){$Clients = implode(",", $Clients);}
+                    if($Clients) {
+                        $Parameters[] = "orders.client_id IN (" . $Clients . ")";
+                    } else {
+                        $Parameters[] = "1=2";
+                    }
+                }
+                $order = $orders->find()->where($Parameters)->order('orders.id DESC')->contain(['Profiles', 'Clients', 'RoadTest']);
 
 
                 $profile->Ptype = $this->getprofiletypeData($profile->profile_type);
