@@ -2624,7 +2624,7 @@
             $Table = TableRegistry::get('orders');
 
             $Hour = date("G");
-            if($Hour >= 2 && $Hour <= 23) {//only run between 2 and 3 AM
+            //if($Hour >= 2 && $Hour <= 23) {//only run between 2 and 3 AM
                 $orders = $Table->find()->where(['order_type' => "BUL", "is_bulk" => 1, "complete_writing" => 0]);
                 echo '<TR><TH COLSPAN="3">Bulk Orders waiting to pass to the webservice</TH></TR>';
                 foreach ($orders as $order) {
@@ -2634,7 +2634,7 @@
                         echo '<TR><TD>' . $order->id . '</TD><TD COLSPAN="2">' . $Result . '</TD></TR>';
                     //}
                 }
-            }
+            //}
 
 
             $order = $Table->find()->where(['orders.draft' => 0, "orders.complete" => 0, "orders.complete_writing" => 1])->order('orders.id DESC')->limit(150);

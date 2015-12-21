@@ -863,6 +863,7 @@
                 $ord = TableRegistry::get('orders');
                 $i = 0;
                 $AllowBulk = true;
+                /*
                 $CompleteField = "is_bulk";
                 if($orders){
                     $Order = $this->Manager->get_entry("orders", $orders);
@@ -872,8 +873,8 @@
                     $driverinfo[$i]->order_type = "BUL";
                     $DIR = getcwd() . '/orders/order_' . $orders;//APP
                     if (!is_dir($DIR)) {@mkdir($DIR, 0777);}
-                  //  $this->Manager->update_database("orders", "id", $orders, array("is_bulk" => 0));
-                } else {
+                    //$this->Manager->update_database("orders", "id", $orders, array($CompleteField => 0));
+                } else { */
                     $drivers = explode(",", $_POST['drivers']);
                     foreach ($drivers as $driver) {
                         $arr['uploaded_for'] = $driver;
@@ -885,10 +886,10 @@
                         $arr['created'] = date('Y-m-d H:i:s');
                         $arr['division'] = $_POST['division'];
                         $arr['user_id'] = $this->request->session()->read('Profile.id');
-                        if (count($drivers) > 1) {
-                            $AllowBulk = false;
-                            $arr['is_bulk'] = 1;
-                        }
+                        //if (count($drivers) > 1) {
+                        //    $AllowBulk = false;
+                        //    $arr[$CompleteField] = 1;
+                        //}
                         $doc = $ord->newEntity($arr);
                         $ord->save($doc);
 
@@ -906,7 +907,7 @@
                         unset($doc);
                         $i++;
                     }
-                }
+                //}
 
                 $this->set('forms', $_POST['forms']);
                 $this->set('bulk', 'bulk');
