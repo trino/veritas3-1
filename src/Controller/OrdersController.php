@@ -863,7 +863,7 @@
                 $ord = TableRegistry::get('orders');
                 $i = 0;
                 $AllowBulk = true;
-                /*
+
                 $CompleteField = "is_bulk";
                 if($orders){
                     $Order = $this->Manager->get_entry("orders", $orders);
@@ -874,7 +874,7 @@
                     $DIR = getcwd() . '/orders/order_' . $orders;//APP
                     if (!is_dir($DIR)) {@mkdir($DIR, 0777);}
                     //$this->Manager->update_database("orders", "id", $orders, array($CompleteField => 0));
-                } else { */
+                } else {
                     $drivers = explode(",", $_POST['drivers']);
                     foreach ($drivers as $driver) {
                         $arr['uploaded_for'] = $driver;
@@ -907,7 +907,7 @@
                         unset($doc);
                         $i++;
                     }
-                //}
+                }
 
                 $this->set('forms', $_POST['forms']);
                 $this->set('bulk', 'bulk');
