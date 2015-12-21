@@ -289,10 +289,10 @@
             include('subpages/sidebar.php');
             echo '<div class="page-content-wrapper"><div class="page-content">';
 
-        echo '<DIV ID="nojavascript" align="CENTER"><STRONG>Javascript is required to use this page, please enable it</STRONG></DIV>';
+            echo '<DIV ID="nojavascript" align="CENTER"><STRONG>' . $strings["dashboard_nojavascript"] . '</STRONG></DIV>';
 
-                    echo $this->Flash->render();
-                    echo $this->fetch('content');
+            echo $this->Flash->render();
+            echo $this->fetch('content');
                     //debug($permissions);
         ?>
             </div>

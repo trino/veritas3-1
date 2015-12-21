@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2015 at 05:34 PM
+-- Generation Time: Dec 17, 2015 at 10:37 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=871 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=872 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450280760', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450283699', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -875,7 +875,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (867, 'email_wasfired_variables', 'name, userid, byuserid, byname, path, email', ''),
 (868, 'email_wasfired_subject', 'A %profile% was un-hired', 'email_washired_subject'),
 (869, 'profiles_us_exp', 'Does this driver have US driving experience?', 'Est-ce que ce pilote nous ont l''expérience de conduite?'),
-(870, 'email_wasfired_message', '<A HREF="%path%">%name%</A> was un-hired by %byname% at %created%', 'email_washired_message');
+(870, 'email_wasfired_message', '<A HREF="%path%">%name%</A> was un-hired by %byname% at %created%', 'email_washired_message'),
+(871, 'dashboard_nojavascript', 'Javascript is required to use this page, please enable it', 'Javascript est nécessaire pour utiliser cette page, s''il vous plaît permettre');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

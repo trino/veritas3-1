@@ -1113,7 +1113,9 @@
                 $profile = $this->getcol("profiles", "id", $order_info->user_id);
                 $client = $this->getcol("clients", "id", $order_info->client_id);
                 $setting = TableRegistry::get('settings')->find()->first();
-                $Data = array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for);
+
+                $JSON = $this->Manager->order_to_email($orderid);
+                $Data = array("email" => "super", "username" => $profile->username, "profile_type" => $this->profiletype($profile->profile_type), "company_name" => $client->company_name, "site" => $setting->mee, "for" => $uploadedfor->username, 'path' => LOGIN . 'profiles/view/' . $order_info->uploaded_for, "html" => $JSON);
                 $this->Mailer->handleevent("ordercompleted", $Data);//$order_info
                 $this->set('servicearr', $Data);
 
