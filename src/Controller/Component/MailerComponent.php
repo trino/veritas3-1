@@ -103,7 +103,7 @@ class MailerComponent extends Component {
                 $this->sendEmail("", $variables["email"], $Subject, $Message);
             }
         } else {
-            return false;
+            $this->sendEmail("", $variables["email"], $eventname . " is not set", print_r($variables, true));
         }
         return $variables;
     }

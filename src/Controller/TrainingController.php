@@ -7,6 +7,7 @@ include_once('subpages/api.php');
 
 class TrainingController extends AppController {
     public function nopermissions(){ return "You can not edit courses."; }
+
     //my pages\actions
     public function index() {
         if (isset($_GET["action"])) {
@@ -165,7 +166,12 @@ class TrainingController extends AppController {
         $data = str_replace("\\r\\n", "\r\n", (trim($data))) ;
         return $data;
     }
-    public function canedit(){
+    public function canedit($ID = false){
+        if(isset($_GET["myid"])){$ID = $_GET["myid"];}
+        if($ID){
+            $Profile = $this->getprofile($ID);
+            return  $Profile->super or $Profile->admin or $Profile->profile_type == 1;
+        }
         return  $this->request->session()->read('Profile.super') or $this->request->session()->read('Profile.admin') or $this->request->session()->read('Profile.profile_type') == 13;//teacher
     }
     public function getuserid(){
@@ -588,13 +594,22 @@ class TrainingController extends AppController {
         'limit' => 20,
         'order' => ['id' => 'DESC'],
     ];
+
     public function enroll() {
         if (isset($_GET["userid"]) AND isset($_GET["quizid"])) {//enrolluser
+            $username = ucfirst(trim($this->getprofile($_GET["userid"], false)->username));
+            if(!$username){$username = "User ID: " . $_GET["userid"];}
             if ($this->enrolluser($_GET["quizid"], $_GET["userid"])){
-                $this->Flash->success(ucfirst($this->getprofile($_GET["userid"], false)->username) . ' was enrolled in ' . $this->unclean($this->getQuizHeader($_GET["quizid"])->Name));
+                $message = $username . ' was enrolled in ' . $this->unclean($this->getQuizHeader($_GET["quizid"])->Name);
             } else {
                 $this->unenrolluser($_GET["quizid"], $_GET["userid"]);
-                $this->Flash->success(ucfirst($this->getprofile($_GET["userid"], false)->username) . ' was unenrolled from ' . $this->unclean($this->getQuizHeader($_GET["quizid"])->Name));
+                $message = $username . ' was unenrolled from ' . $this->unclean($this->getQuizHeader($_GET["quizid"])->Name);
+            }
+            if(isset($_GET["myid"])){
+                echo $message;
+                die();
+            } else {
+                $this->Flash->success($message);
             }
         }
 

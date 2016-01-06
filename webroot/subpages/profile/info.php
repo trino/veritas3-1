@@ -1062,10 +1062,12 @@ loadreasons($param, $strings, true);
     }
     $(function(){
         <?php if(isset($cl_count) && $cl_count == 1){ ?>
+            /* this code does not work
             $('.addclientz').click();
             var clid = $('.addclientz').val();
             $('.addclientz').attr('disabled','disabled');
             $('.cids').val(clid);
+            */
         <?php } ?>
 
         $('.addclientz').live('change',function(){

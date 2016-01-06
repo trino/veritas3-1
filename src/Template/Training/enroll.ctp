@@ -139,6 +139,8 @@ if (isset($profiles) or isset($profile)) { ?>
                 </div>
 
                 <div class="form-body">
+                    <div id="toast" style="color: rgb(255,0,0);"></div>
+
                     <div class="table-scrollable">
 
                         <table
@@ -228,9 +230,10 @@ if (isset($profiles) or isset($profile)) { ?>
                                             }
                                         ?>
                                         <td class="actions  util-btn-margin-bottom-5">
-                                        <A href="enroll?quizid=<?= $_GET["quizid"] ?>&userid=<?= $profile->id; ?>" class="<?= btnclass("btn-primary", "yellow"); ?>">
-                                            <?php if ($profile->isenrolled) { echo "Unenroll";} else {echo "Enroll";} ?>
-                                        </A>
+
+                                        <A onclick="enroll(event, <?= $_GET["quizid"] . ', ' . $profile->id; ?>);" class="<?= btnclass("btn-primary", "yellow"); ?>"><?php
+                                            if ($profile->isenrolled) { echo "Unenroll";} else {echo "Enroll";}
+                                        ?></A>
 
                                     </td>
                                 </tr>
@@ -262,3 +265,43 @@ if (isset($profiles) or isset($profile)) { ?>
     </div>
 </div>
 <?php } ?>
+<SCRIPT>
+    function toast(Text, FadeOut){
+        $('#toast').stop();
+        $('#toast').hide();
+        if (FadeOut) {$('.toast').fadeIn(1);}
+        $('#toast').html(Text);
+        $('#toast').show();
+        if (FadeOut) {$('.toast').fadeOut(5000);}
+    }
+
+    function enroll(event, QuizID, UserID){
+        //href="enroll?quizid=<?= $_GET["quizid"] ?>&userid=<?= $profile->id; ?>"
+        var element = event.target;
+        element.setAttribute("disabled", "true");
+        var OriginalText = element.innerHTML;
+        element.innerHTML='<IMG SRC="<?= $this->request->webroot;?>webroot/assets/global/img/loading-spinner-blue.gif">';
+        $.ajax({
+            url: "<?php echo $this->request->webroot;?>training/enroll",
+            type: "get",
+            dataType: "HTML",
+            data: "myid=<?= $Me; ?>&userid=" + UserID + "&quizid=" + QuizID,
+            success: function (msg) {
+                toast(msg, true);
+                if (OriginalText == "Enroll"){
+                    element.innerHTML = "Unenroll";
+                } else {
+                    element.innerHTML = "Enroll";
+                }
+                element.removeAttribute("disabled");
+            },
+            error: function(msg){
+                toast("An error occurred.", true);
+                element.innerHTML = OriginalText;
+                element.removeAttribute("disabled");
+            }
+        })
+
+        //alert(<?= $Me; ?> + " " + QuizID + " " + UserID + " BEFORE: " + OriginalText + " AFTER: " + element.innerHTML);
+    }
+</SCRIPT>
