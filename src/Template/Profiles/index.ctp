@@ -239,6 +239,7 @@
                                 <?php if(isset($sitenames)){
                                     echo '<th>' . $this->Paginator->sort('sitename', $strings["profiles_sitename"]) . '</th>';
                                     echo '<th>' . $this->Paginator->sort('asapdivision', $strings["orders_division"]) . '</th>';
+                                    echo '<th>' . $this->Paginator->sort('province', $strings["profiles_province"]) . '</th>';
                                 } ?>
                                 <th><?= $strings["dashboard_actions"] ?></th>
 
@@ -334,7 +335,7 @@
 
                                         <?php
                                             if(isset($sitenames)){
-                                                echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision  . '</TD>';
+                                                echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision  . '</TD><TD>' . $profile->profiles_province . '</TD>';
                                             }
                                         ?>
 

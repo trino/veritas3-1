@@ -81,6 +81,9 @@ $language = $this->request->session()->read('Profile.language');
 $strings = CacheTranslations($language, array("forms_%"), $settings);
 */
 loadreasons($param, $strings, true);
+
+$PROVINCE = "";
+if (isset($p->province)) {$PROVINCE=$p->province;}
 ?>
 
 <div class="portlet-body form">
@@ -587,13 +590,7 @@ loadreasons($param, $strings, true);
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <?php
-                                        if (isset($p->province)) {
-                                            printprovinces($language, "province", $p->province, $is_disabled, false);
-                                        } else {
-                                            printprovinces($language, "province", "", $is_disabled, false);
-                                        }
-                                        ?>
+                                        <?php  printprovinces($language, "province", $PROVINCE, $is_disabled, false); ?>
 
                                         <!-- old
                                         <SELECT  < php echo $is_disabled ?> name="province" class="form-control ">< php
@@ -743,6 +740,10 @@ loadreasons($param, $strings, true);
                                             echo '>' . $asapdivision . '</OPTION>';
                                         }
                                         echo '</SELECT></DIV></DIV>';
+
+                                        echo '<div class="col-md-6"><div class="form-group"><label class="control-label">' . $strings["profiles_province"] . ': </label>';
+                                        printprovinces("English", "province", $PROVINCE, $is_disabled, false);
+                                        echo '</DIV></DIV>';
                                     }
                                 ?>
                                 <div class="clearfix"></div>
@@ -935,7 +936,6 @@ loadreasons($param, $strings, true);
                 if (!element.checked) {element.value = "";}
             }
 
-
             $.ajax({
                 url: '<?php echo $this->request->webroot;?>profiles/check_user/<?php echo $uid;?>',
                 data: 'username=' + $('.uname').val(),
@@ -973,10 +973,8 @@ loadreasons($param, $strings, true);
 
                                         return false;
                                     } else {
-
                                         $(this).attr('disabled', 'disabled');
                                         $('#hiddensub').click();
-
                                     }
                                 }
                             });
@@ -1016,10 +1014,7 @@ loadreasons($param, $strings, true);
             $('.driver_license_no').attr('required','');
             $('.driver_province').attr('required','');
             $('.member_type').attr('required','');
-
             //$('.expiry_date').attr('required','');
-
-
             $('.isb_id').removeAttr('required');
             $('.username').removeAttr('required');
             $('.password').removeAttr('required');
@@ -1047,17 +1042,13 @@ loadreasons($param, $strings, true);
             //$('.expiry_date').removeAttr('required');
         }
         $('input,textarea,select').each(function(){
+            var attr = $(this).attr('required');
 
-
-        var attr = $(this).attr('required');
-
-        // For some browsers, `attr` is undefined; for others,
-        // `attr` is false.  Check for both.
-        if (typeof attr !== typeof undefined && attr !== false) {
-            $(this).parent().find('label').addClass('required');
-        }
-
-
+            // For some browsers, `attr` is undefined; for others,
+            // `attr` is false.  Check for both.
+            if (typeof attr !== typeof undefined && attr !== false) {
+                $(this).parent().find('label').addClass('required');
+            }
         });
     }
     $(function(){
@@ -1203,27 +1194,18 @@ loadreasons($param, $strings, true);
                                                     $('.hideusername').hide();
                                                 }
 
-
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8' || $(this).val() == '9' || $(this).val() == '12'){
                                                     $('.driver_license').show();
                                                     if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
-
                                                         $('#driver_div').show();
                                                     } else {
                                                         $('#driver_div').hide();
-
-
-
                                                     }
-
                                                 } else{
                                                     $('.driver_license').hide();
                                                     $('#driver_div').hide();
-
                                                 }
                                                 $('#isb_id').hide();
-
-
                                         } else {
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
@@ -1232,14 +1214,10 @@ loadreasons($param, $strings, true);
                                             $('#isb_id').hide();
 
                                             <?php
-                                                if(isset($p->password) && $p->password){
-
-                                                } else{
+                                                if(!isset($p->password) || !$p->password){
                                                     ?>
                                                     if (profile_type == '1' || profile_type == '2'){
-
                                                         $('.admin_rec').show();
-
                                                     }
                                                     <?php
                                                 }
@@ -1259,54 +1237,34 @@ loadreasons($param, $strings, true);
 
 
                         <?php if($canedit){ echo "$('.email_rec').show();"; } ?>
-
-
-
                                   });
 
                                     var mem_type = $('.member_type').val();
-                                    if(mem_type)
-                                    {
+                                    if(mem_type) {
                                         make_required(mem_type);
                                     }
                                     if (!isNaN(parseFloat(mem_type)) && isFinite(mem_type)) {
                                         if (mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type == '9' || mem_type == '12') {
-
                                             if(mem_type == '5' || mem_type == '7' || mem_type == '8' || mem_type=='9' || mem_type=='12'){
                                                 if($(this).val() == '5' || $(this).val() == '7' || $(this).val() == '8'){
                                                     $('#driver_div').show();
-
                                                 } else {
                                                     $('#driver_div').hide();
-
                                                 }
                                             }
                                             $('#isb_id').hide();
-
-
                                         }  else {
                                             $('.nav-tabs li:not(.active)').each(function () {
                                                 $(this).show();
                                             });
                                             $('#driver_div').hide();
                                             $('#isb_id').hide();
-
-
-
                                         if (mem_type == '1' || mem_type == '2') {
                                             $('#isb_id').show();
                                         }
                                     }
-
-                                    }
-
+                                }
         });
-
-
-
-
-
-
 
 
         function initiate_ajax_upload1(button_id, doc) {
