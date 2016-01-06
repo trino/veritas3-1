@@ -380,23 +380,32 @@ class TrainingController extends AppController {
         if(method_exists($this->Mailer, "handleevent")) {
             $this->Mailer->handleevent($Event, $variables);
         } else {//fallback method
+            $this->loadComponent('Settings');
+            $settings = $this->Settings->get_settings();
+            $variables["site"] = $settings->mee;
+            foreach(array("client", "document", "profile") as $field){
+                $variables[$field] = $settings->field;
+                $variables[ucfirst($field)] = ucfirst($settings->field);
+            }
+            $subject="%site%: ";
             switch($Event){
                 case "training_failed":
-                    $subject="Course completion (Failure)";
+                    $subject.="Course completion (Failure)";
                     $message="%username% not not pass the course";
                     break;
                 case "training_passed":
-                    $subject="Course completion (Success!)";
+                    $subject.="Course completion (Success!)";
                     $message='%username% passed!<BR><A HREF="%path%">Click here to view the certificate</A><BR>Score: %score% %';
                     break;
                 case "training_enrolled":
-                    $subject="You have been enrolled in a quiz";
-                    $message='<A HREF="%path%">Click here to take the quiz</A>';
+                    $subject.="You have been enrolled in a quiz";
+                    $message='You have been enrolled in %quiz%<BR><A HREF="%path%">Click here to take the quiz</A>';
                     break;
                 default:
                     $subject = $Event . " is unhandled";
                     $message = "this event is not setup";
             }
+
 
             foreach($variables as $Key => $Value){
                 if(!is_array($Value)) {
@@ -463,6 +472,7 @@ class TrainingController extends AppController {
     public function enrolluser($QuizID, $UserID, $Enabled = True){
         $UserID = str_replace(",", "", $UserID);
         if(!$this->isuserenrolled($QuizID, $UserID)){
+            $quizname = $this->unclean($this->getQuizHeader($QuizID)->Name);
             $EnrolledBy = $this->getuserid();
             if($Enabled) {
                 $table = TableRegistry::get("training_enrollments");
@@ -473,7 +483,7 @@ class TrainingController extends AppController {
 
             $profile = $this->getprofile($UserID, false);
             $path = LOGIN .'training?quizid=' . $QuizID;
-            $this->handleevent("training_enrolled", array("email" => "$profile->email", "path" => $path));
+            $this->handleevent("training_enrolled", array("email" => "$profile->email", "path" => $path, "quiz" => $quizname));
             return true;
         }
     }
@@ -598,18 +608,20 @@ class TrainingController extends AppController {
     public function enroll() {
         if (isset($_GET["userid"]) AND isset($_GET["quizid"])) {//enrolluser
             $username = ucfirst(trim($this->getprofile($_GET["userid"], false)->username));
+            $quizname = $this->unclean($this->getQuizHeader($_GET["quizid"])->Name);
             if(!$username){$username = "User ID: " . $_GET["userid"];}
             if ($this->enrolluser($_GET["quizid"], $_GET["userid"])){
-                $message = $username . ' was enrolled in ' . $this->unclean($this->getQuizHeader($_GET["quizid"])->Name);
+                $message = $username . ' was enrolled in ' . $quizname;
             } else {
                 $this->unenrolluser($_GET["quizid"], $_GET["userid"]);
-                $message = $username . ' was unenrolled from ' . $this->unclean($this->getQuizHeader($_GET["quizid"])->Name);
+                $message = $username . ' was unenrolled from ' . $quizname;
             }
             if(isset($_GET["myid"])){
                 echo $message;
                 die();
             } else {
                 $this->Flash->success($message);
+                return $quizname;
             }
         }
 

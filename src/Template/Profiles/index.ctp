@@ -335,7 +335,7 @@
 
                                         <?php
                                             if(isset($sitenames)){
-                                                echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision  . '</TD><TD>' . $profile->profiles_province . '</TD>';
+                                                echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision  . '</TD><TD>' . $profile->province . '</TD>';
                                             }
                                         ?>
 
