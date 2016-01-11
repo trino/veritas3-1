@@ -282,7 +282,7 @@ if (isset($profiles) or isset($profile)) { ?>
         var OriginalText = element.innerHTML;
         element.innerHTML='<IMG SRC="<?= $this->request->webroot;?>webroot/assets/global/img/loading-spinner-blue.gif">';
         $.ajax({
-            url: "<?php echo $this->request->webroot;?>training/enroll",
+            url: "<?= $this->request->webroot;?>training/enroll",
             type: "get",
             dataType: "HTML",
             data: "myid=<?= $Me; ?>&userid=" + UserID + "&quizid=" + QuizID,

@@ -81,8 +81,12 @@ class TrainingController extends AppController {
                     }
 
                 }
-                $this->enumusers($_GET["quizid"]);
-                $this->set('users2', $this->enumenrolledusers($_GET["quizid"]));
+                $this->enumusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision"));
+                $this->set('users2', $this->enumenrolledusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision")));
+                if ($this->isASAPtraining()) {
+                    $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
+                    $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
+                }
             } else {
                 $this->enumquizes(true);
             }
@@ -91,6 +95,14 @@ class TrainingController extends AppController {
             {$this->redirect('/training'); }
         }
         $this->set('canedit', $this->canedit());
+    }
+
+    function isASAPtraining(){
+        return $this->Manager->get_settings()->mee == "ASAP Secured Training";
+    }
+
+    function get($Key){
+        if (isset($_GET[$Key])){ return $_GET[$Key]; }
     }
 
     public function quiz(){
@@ -290,10 +302,12 @@ class TrainingController extends AppController {
         $users =  $table->find('all', $options)->first();
         return is_object($users);
     }
-    public function enumusers($QuizID){//LEFT JOIN IS A PAIN!
+    public function enumusers($QuizID, $sitename = "", $asapdivision = ""){//LEFT JOIN IS A PAIN!
         $table = TableRegistry::get("training_answers");
         $options = array();
         $options['conditions'] = array('training_answers.QuizID =' . $QuizID); //array('QuizID' => $QuizID);
+        if($sitename){$options['conditions'][] = "profiles.sitename = '" . $sitename . "'";}
+        if($asapdivision){$options['conditions'][] = "profiles.asapdivision = '" . $asapdivision . "'";}
         $options['group'] = 'training_answers.UserID';
         $users =  $table->find('all', $options)->contain("profiles");//->where(['training_answers.QuizID = ' . $QuizID . ' or 1=1'])
         $quiz = $this->getQuiz($QuizID);
@@ -493,9 +507,12 @@ class TrainingController extends AppController {
         $table->deleteAll(array('QuizID' => $QuizID, 'UserID' => $UserID), false);
     }
 
-    public function enumenrolledusers($QuizID){
+    public function enumenrolledusers($QuizID, $sitename = "", $asapdivision = ""){
         $table = TableRegistry::get("training_enrollments");
-        $results = $table->find('all', array('conditions' => array('QuizID'=>$QuizID)))->contain("profiles");
+        $conditions = array('QuizID'=>$QuizID);
+        if($sitename){$conditions[] = "profiles.sitename = '" . $sitename . "'";}
+        if($asapdivision){$conditions[] = "profiles.asapdivision = '" . $asapdivision . "'";}
+        $results = $table->find('all', array('conditions' => $conditions))->contain("profiles");
         foreach($results as $Profile){
             $this->evaluateuser($QuizID,$Profile->UserID);
         }
@@ -587,10 +604,6 @@ class TrainingController extends AppController {
             }
         }
     }
-
-
-
-
 
 
 //API stolen from profilescontroller
@@ -734,7 +747,7 @@ class TrainingController extends AppController {
             }
             $this->set('profiles',$query);
 
-            if ($this->Manager->get_settings()->mee == "ASAP Secured Training") {
+            if ($this->isASAPtraining()) {
                 $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
                 $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
             }
