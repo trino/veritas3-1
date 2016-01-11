@@ -88,7 +88,7 @@
             function printprovinces($name, $selected, $Language = "English") {
                 $acronyms = getprovinces("Acronyms", True);
                 $provinces = getprovinces($Language, True);
-                printoptions($name, $acronyms, $selected, $provinces);
+                printoptions($name, $provinces, $selected,  $acronyms);
             }
 
             printprovinces("province", $client->province, $language);
