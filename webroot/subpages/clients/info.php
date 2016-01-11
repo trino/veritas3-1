@@ -255,7 +255,7 @@
                     <label
                         class="control-label"><?= $strings["forms_billingprovince"]; ?>
                         :</label>
-                    <?php printprovinces("province", $client->billing_province, $language); ?>
+                    <?php printprovinces("billing_province", $client->billing_province, $language); ?>
 
 
                 </div>
