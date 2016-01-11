@@ -260,11 +260,9 @@
 
                 </div>
                 <div class="form-group col-md-4">
-                    <label
-                        class="control-label"><?= $strings["forms_billingpostalcode"]; ?>
-                        :</label>
+                    <label class="control-label"><?= $strings["forms_billingpostalcode"]; ?>:</label>
                     <input type="text" class="form-control"
-                           role='postalcode'
+                           role="postalzip"
                            name="billing_postal_code"
                            value="<?php echo isset($client->billing_postal_code) ? $client->billing_postal_code : '' ?>"/>
                 </div>

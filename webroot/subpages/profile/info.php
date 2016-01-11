@@ -612,9 +612,9 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <input <?php echo $is_disabled ?>  type="text"
-                                                                           placeholder="<?= $strings["forms_postalcode"]; ?> (M5V2X2)"
+                                                                           placeholder="<?= $strings["forms_postalcode"]; ?> (M5V2X2/90210)"
                                                                            class="form-control"
-                                                                           name="postal" role='postalcode'  <?php if (isset($p->postal)) { ?>
+                                                                           name="postal" role="postalzip"  <?php if (isset($p->postal)) { ?>
                                             value="<?php echo $p->postal; ?>" <?php } ?>/>
                                     </div>
                                 </div>
