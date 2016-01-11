@@ -688,7 +688,7 @@
 
         function startsWith($haystack, $needle) {
             // search backwards starting from haystack length characters from the end
-            return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+            return $this->Manager->left($haystack, strlen($needle)) == $needle;
         }
         function AddProduct($Number, $post){//$Name, $FrenchName){
             $table = TableRegistry::get("order_products");
@@ -696,8 +696,8 @@
             if ($item) {return false;}
             $data = array("number" => $Number, "enable" => 0);
             foreach($post as $Key => $Value){
-                if($this->startsWith($Key, "title")){
-                    $data[$Key] = $Value;
+                if($this->startsWith($Key, "Name")){
+                    $data[str_replace("Name", "title", $Key)] = $Value;
                 }
             }
             $table->query()->insert(array_keys($data))->values($data)->execute();

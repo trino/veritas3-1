@@ -68,6 +68,9 @@
                         $('#newname').val("");
                         $('#newnameFrench').val("");
                     }
+                },
+                error: function(msg){
+                    alert("error");
                 }
             })
         }

@@ -263,8 +263,8 @@
                     echo '<label class="control-label col-md-4" align="right">' . str_replace("%number%", $Step, $strings2["upload_step1"]) . ': </label><div class="col-md-8">';
                     $Step = $Step + 1;
                     foreach ($attachment as $name => $file) {//C:\wamp\www\veritas3-0\webroot\ http://localhost/veritas3-0/webroot/img/certificates/certificate71-1.pdf
-                        echo '<A class="btn btn-primary" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file . '">';
-                        echo '<i class="fa fa-floppy-o"></i> ' . $name . ' </A> ';
+                        echo '<A class="btn btn-primary" DOWNLOAD="' . $name . '.pdf" HREF="' . $this->request->webroot . 'webroot/img/pdfs/' . $file;
+                        echo '" target="_blank" style="target-new: tab;"><i class="fa fa-floppy-o"></i> ' . $name . ' </A> ';
                     }
                     echo "</DIV></DIV></DIV>";
                 }
