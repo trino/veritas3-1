@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2015 at 10:37 PM
+-- Generation Time: Jan 11, 2016 at 05:22 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `strings` (
   `English` varchar(4096) NOT NULL,
   `French` varchar(4096) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=872 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=873 ;
 
 --
 -- Dumping data for table `strings`
 --
 
 INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
-(1, 'Date', '1450283699', '<-- This is used by the system to auto-update'),
+(1, 'Date', '1450709733', '<-- This is used by the system to auto-update'),
 (2, 'dashboard_affirmative', 'Yes', 'Oui'),
 (3, 'dashboard_negative', 'No', 'Non'),
 (4, 'dashboard_selectall', 'Select All', 'Tout sélectionner'),
@@ -146,7 +146,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (110, 'forms_name', 'Name', 'Nom'),
 (111, 'forms_address', 'Address', 'Adresse'),
 (112, 'forms_city', 'City', 'Ville'),
-(113, 'forms_postalcode', 'Postal Code', 'Code postal'),
+(113, 'forms_postalcode', 'Postal/Zip Code', 'Code postal/Zip'),
 (114, 'forms_phone', 'Phone Number', 'Numéro de téléphone'),
 (115, 'forms_email', 'Email Address', 'Adresse de courriel'),
 (116, 'invoice_subtotal', 'Sub-Total amount', 'Montant dous-total'),
@@ -301,7 +301,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (265, 'forms_billingaddress', 'Billing Address', 'Adresse de facturation'),
 (266, 'forms_billingcity', 'Billing City', 'Facturation ville'),
 (267, 'forms_billingprovince', 'Billing Province/State', 'Province/État de facturation'),
-(268, 'forms_billingpostalcode', 'Billing Postal Code', 'Facturation code postal'),
+(268, 'forms_billingpostalcode', 'Billing Postal/Zip Code', 'Facturation code postal/zip'),
 (269, 'forms_invoiceterms', 'Invoice Terms', 'Conditions de factures'),
 (270, 'forms_billinginstructions', 'Billing Instructions', 'Instructions de facturation'),
 (271, 'forms_individual', 'Individual', 'Individuel'),
@@ -387,7 +387,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (351, 'forms_dateofbirth', 'Date of Birth', 'Date de naissance'),
 (352, 'forms_country', 'Country', 'Pays'),
 (353, 'forms_driverslicense', 'Driver''s License', 'Permis de conduire'),
-(354, 'forms_provinceissued', 'Province issued', 'Province émis'),
+(354, 'forms_provinceissued', 'Province/State issued', 'Province/État émis'),
 (355, 'forms_expirydate', 'Expiry Date', 'Date d''expiration'),
 (356, 'forms_hearaboutus', 'Where did you hear about us?', 'Comment avez-vous entendu parler de nous?'),
 (357, 'forms_password', 'Password', 'Mot de passe'),
@@ -475,7 +475,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (446, 'drivereval_summary', 'Summary', 'Résumé'),
 (447, 'drivereval_rec4hire', 'Recommended for hire', 'Recommandé pour la location'),
 (448, 'drivereval_rec4full', 'Recommended as Full trainee', 'Recommandé comme stagiaire complet'),
-(449, 'drivereval_rec4fire', 'Recommended fire hire with trainee', 'Location de feu recommandée avec stagiaire'),
+(449, 'drivereval_rec4fire', 'Recommended for hire with trainee', 'Recommandé pour la location avec stagiaire'),
 (450, 'drivereval_comments', 'Comments', 'Commentaires'),
 (451, 'drivereval_sightsidec', 'Fails to', 'Échoue à'),
 (452, 'file_attachfile', 'Attach File', 'Pièce jointe'),
@@ -718,7 +718,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (699, 'uniform_success', 'Document saved successfully.', 'Document enregistré avec succès.'),
 (700, 'profiles_gfs', '<b>To place a MEE order on an applicant, please follow these steps:</b><BR>\nStep 1 - click on edit beside candidate name below<BR>\nStep 2 - select profile type, save<BR>\nStep 3 - place order', '<B>Pour placer un ordre de MEE sur un candidat, s''il vous plaît suivez ces étapes:</B><P>\nÉtape 1 - cliquez sur modifier à côté nom de candidat ci-dessous <BR>\nÉtape 2 - sélectionner le type de profil, sauvegarder <BR>\nÉtape 3 - passer la commander'),
 (702, 'email_taskreminder_variables', 'title, email, description, dueby, domain, site, path', ''),
-(703, 'forms_sin', 'SIN', 'SIN'),
+(703, 'forms_sin', 'SIN/SSN', 'SIN/SSN'),
 (704, 'forms_passplease', 'Please enter a password', 'S''il vous plaît entrer un mot de passe'),
 (705, 'forms_forceemail', 'Force email to', 'Force de courriel à'),
 (706, 'consent_notrequired', 'Signature of Company Witness is not required.', 'Signature de la Compagnie de témoin est pas nécessaire.'),
@@ -782,7 +782,7 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (770, 'email_sendmessage_message', '%message%<HR>This message has been sent by a user, not on behalf of %site%', ''),
 (771, 'flash_messagesent', 'Your email has been sent', 'Votre email a été envoyé'),
 (772, 'email_sendmessage_variables', 'message, from, email', ''),
-(773, 'email_training_enrolled_variables', 'email, path', ''),
+(773, 'email_training_enrolled_variables', 'email, path, quiz', ''),
 (774, 'profiles_certified', '%MEE% Certified', '%MEE% certifié'),
 (775, 'dashboard_possess', 'Possess', 'Possess'),
 (776, 'invoice_paymentdetails', 'Payment Details', 'Détails de paiement'),
@@ -876,7 +876,8 @@ INSERT INTO `strings` (`ID`, `Name`, `English`, `French`) VALUES
 (868, 'email_wasfired_subject', 'A %profile% was un-hired', 'email_washired_subject'),
 (869, 'profiles_us_exp', 'Does this driver have US driving experience?', 'Est-ce que ce pilote nous ont l''expérience de conduite?'),
 (870, 'email_wasfired_message', '<A HREF="%path%">%name%</A> was un-hired by %byname% at %created%', 'email_washired_message'),
-(871, 'dashboard_nojavascript', 'Javascript is required to use this page, please enable it', 'Javascript est nécessaire pour utiliser cette page, s''il vous plaît permettre');
+(871, 'dashboard_nojavascript', 'Javascript is required to use this page, please enable it', 'Javascript est nécessaire pour utiliser cette page, s''il vous plaît permettre'),
+(872, 'profiles_province', 'Province/État', 'Province/État');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -65,7 +65,7 @@
     <input type="text" name="state" class="form-control" value="<?php if(isset($footprint))echo $footprint->state;?>" >
   </div>
   <div class="col-md-4"><label for="Postal" class="control-label"> Postal Code: </label>
-    <input type="text" name="postal" role="postalcode" class="form-control" value="<?php if(isset($footprint))echo $footprint->postal;?>" >
+    <input type="text" name="postal" role="postalzip" class="form-control" value="<?php if(isset($footprint))echo $footprint->postal;?>" >
   </div>
   <div class="clearfix"></div>
 </div>

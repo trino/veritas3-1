@@ -104,7 +104,7 @@
                 ?>
             </div>
             <div class="col-md-3">
-                <input type="text" role="postalcode" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" name="current_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->current_postal_code;?>"/>
+                <input type="text" role="postalzip" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" name="current_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->current_postal_code;?>"/>
                 <span class="error"></span>
             </div>
         </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="col-md-3">
 
-            <input type="text" role="postalcode" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" name="previous_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->previous_postal_code;?>"/>
+            <input type="text" role="postalzip" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" name="previous_postal_code" value="<?php if (isset($consent_detail))echo $consent_detail->previous_postal_code;?>"/>
             </div>
             </div>
 
@@ -255,7 +255,7 @@
                     <?php provinces("criminal_current_province"); ?>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" role="postalcode" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->criminal_current_postal_code;?>"
+                    <input type="text" role="postalzip" class="form-control" placeholder="<?= $strings["forms_postalcode"]; ?>" value="<?php if (isset($consent_detail))echo $consent_detail->criminal_current_postal_code;?>"
                            name="criminal_current_postal_code"/>
                 </div>
             </div>

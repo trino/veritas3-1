@@ -56,7 +56,7 @@ Users
         <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 </div>
 
-<?php if($isASAP){ ?>
+<?php if($isASAP && isset($_GET["quizid"])){ ?>
     <div class="form-actions top chat-form" style="margin-top: 0px;margin-bottom: 10px;padding-bottom: 5px;padding-top: 5px;">
         <div class="btn-set pull-right">
             <form action="<?= $this->request->webroot; ?>training/users" method="get">

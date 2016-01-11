@@ -514,7 +514,7 @@ function provinces($name, $Selected = "", $Required= '', $Language = ""){
     echo '</SELECT>';
 }
 
-function getprovinces($Language = "English", $IncludeUSA = False){
+function getprovinces($Language = "English", $IncludeUSA = True){
     $Trans="";
     if($Language == ""){$Language = $GLOBALS["language"];}
     if($Language == "Debug"){

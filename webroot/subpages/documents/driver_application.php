@@ -87,7 +87,7 @@ if( isset($sub['da_at'])){ listfiles($sub['da_at'], "attachments/", "", false,3)
                     <?php provinces("state_province") ?>
 				</div>
                 <div class="col-md-2">
-					<input type="text" class="form-control" role="postalcode" placeholder="Postal Code" name="postal_code"/>
+					<input type="text" class="form-control" role="postalzip" placeholder="Postal Code" name="postal_code"/>
 				</div>
 			</div>
 
@@ -106,7 +106,7 @@ if( isset($sub['da_at'])){ listfiles($sub['da_at'], "attachments/", "", false,3)
                     <?php provinces("past3_state_provinve1") ?>
 				</div>
                 <div class="col-md-3">
-					<input type="text" class="form-control" role="postalcode" placeholder="Postal Code" name="past3_postal_code1"/>
+					<input type="text" class="form-control" role="postalzip" placeholder="Postal Code" name="past3_postal_code1"/>
 				</div>
                 <div class="col-md-3">
 					<input type="text" class="form-control" placeholder="Duration" name="past3_duration1"/>
@@ -123,7 +123,7 @@ if( isset($sub['da_at'])){ listfiles($sub['da_at'], "attachments/", "", false,3)
                     <?php provinces("past3_state_province2") ?>
 				</div>
                 <div class="col-md-3">
-					<input type="text" class="form-control" role="postalcode" placeholder="Postal Code" name="past3_postal_code2"/>
+					<input type="text" class="form-control" role="postalzip" placeholder="Postal Code" name="past3_postal_code2"/>
 				</div>
                 <div class="col-md-3">
 					<input type="text" class="form-control" placeholder="Duration" name="past3_duration2"/>

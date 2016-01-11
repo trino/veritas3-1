@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-md-3">
                 <label class="control-label"> POSTAL/ZIP CODE </label>
-                <input type="text" class="form-control" role="postalcode" name="postal" value="<?php if(isset($bc_forms)) echo $bc_forms->postal;?>"/>
+                <input type="text" class="form-control" role="postalzip" name="postal" value="<?php if(isset($bc_forms)) echo $bc_forms->postal;?>"/>
                 </div>
                 
             <div class="col-md-12">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="col-md-3">
                 <label class="control-label"> POSTAL/ZIP CODE </label>
-                <input type="text" class="form-control" role="postalcode" name="postal1" value="<?php if(isset($bc_forms)) echo $bc_forms->postal1;?>"/>
+                <input type="text" class="form-control" role="postalzip" name="postal1" value="<?php if(isset($bc_forms)) echo $bc_forms->postal1;?>"/>
                 </div>
                 <div class="clearfix"></div>
                    

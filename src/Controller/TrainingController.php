@@ -306,8 +306,8 @@ class TrainingController extends AppController {
         $table = TableRegistry::get("training_answers");
         $options = array();
         $options['conditions'] = array('training_answers.QuizID =' . $QuizID); //array('QuizID' => $QuizID);
-        if($sitename){$options['conditions'][] = "profiles.sitename = '" . $sitename . "'";}
-        if($asapdivision){$options['conditions'][] = "profiles.asapdivision = '" . $asapdivision . "'";}
+        if($sitename){$options['conditions'][] = "Profiles.sitename = '" . $sitename . "'";}
+        if($asapdivision){$options['conditions'][] = "Profiles.asapdivision = '" . $asapdivision . "'";}
         $options['group'] = 'training_answers.UserID';
         $users =  $table->find('all', $options)->contain("profiles");//->where(['training_answers.QuizID = ' . $QuizID . ' or 1=1'])
         $quiz = $this->getQuiz($QuizID);
@@ -510,8 +510,8 @@ class TrainingController extends AppController {
     public function enumenrolledusers($QuizID, $sitename = "", $asapdivision = ""){
         $table = TableRegistry::get("training_enrollments");
         $conditions = array('QuizID'=>$QuizID);
-        if($sitename){$conditions[] = "profiles.sitename = '" . $sitename . "'";}
-        if($asapdivision){$conditions[] = "profiles.asapdivision = '" . $asapdivision . "'";}
+        if($sitename){$conditions[] = "Profiles.sitename = '" . $sitename . "'";}
+        if($asapdivision){$conditions[] = "Profiles.asapdivision = '" . $asapdivision . "'";}
         $results = $table->find('all', array('conditions' => $conditions))->contain("profiles");
         foreach($results as $Profile){
             $this->evaluateuser($QuizID,$Profile->UserID);
@@ -611,7 +611,10 @@ class TrainingController extends AppController {
         parent::initialize();
         $this->loadComponent('Settings');
         $this->loadComponent('Mailer');
-        //$this->Settings->verifylogin($this, "training");
+        if(!isset($this->Manager)) {
+            $this->loadComponent('Manager');
+            $this->Manager->init($this);
+        }
     }
     public $paginate = [
         'limit' => 20,

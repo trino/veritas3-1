@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-2">
                 <label class="control-label"> Postal code </label>
-                <input type="text" role="postalcode" class="form-control" name="postal_code" value="<?php if(isset($quebec_forms)) echo $quebec_forms->postal_code;?>"/>
+                <input type="text" role="postalzip" class="form-control" name="postal_code" value="<?php if(isset($quebec_forms)) echo $quebec_forms->postal_code;?>"/>
             </div>
             <div class="col-md-2">
                 <label class="control-label"> Area code </label>
@@ -70,7 +70,7 @@
             </div>
             <div class="col-md-2">
                 <label class="control-label"> Postal code </label>
-                <input type="text" class="form-control" role="postalcode" name="postal_code1" value="<?php if(isset($quebec_forms)) echo $quebec_forms->postal_code1;?>"/>
+                <input type="text" class="form-control" role="postalzip" name="postal_code1" value="<?php if(isset($quebec_forms)) echo $quebec_forms->postal_code1;?>"/>
             </div>
             <div class="col-md-2">
                 <label class="control-label"> Area code </label>

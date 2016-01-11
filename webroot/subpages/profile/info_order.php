@@ -375,7 +375,7 @@
                                         <input <?php echo $is_disabled ?> type="text"
                                                                           placeholder="<?= $strings["forms_postalcode"]; ?>"
                                                                           class="form-control req_driver required"
-                                                                          role="postalcode"
+                                                                          role="postalzip"
                                                                           name="postal" <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php } ?>/>
                                     </div>
                                 </div>

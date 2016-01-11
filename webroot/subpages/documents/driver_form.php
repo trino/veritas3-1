@@ -120,7 +120,7 @@
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label <?= isitrequired($requiredfields, "postal"); ?>><?= $strings["forms_postalcode"]; ?>: </label>
-        <input type="text" class="form-control <?= isitrequired($requiredfields, "postal"); ?> name="postal" role="postalcode" <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php }?>  />
+        <input type="text" class="form-control <?= isitrequired($requiredfields, "postal"); ?> name="postal" role="postalzip" <?php if (isset($p->postal)) { ?> value="<?php echo $p->postal; ?>" <?php }?>  />
         <span class="error"></span>
     </div>
     <div class="col-md-4"><label class="control-label <?= isitrequired($requiredfields, "country"); ?>><?= $strings["forms_country"]; ?>: </label>

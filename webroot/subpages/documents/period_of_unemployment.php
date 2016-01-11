@@ -32,7 +32,7 @@
 					<input type="text" class="form-control" placeholder="Province"/>
 				</div>
                 <div class="col-md-3">
-					<input type="text" role="postalcode" class="form-control" placeholder="Postal Code"/>
+					<input type="text" role="postalzip" class="form-control" placeholder="Postal Code"/>
 				</div>
 			</div>
             

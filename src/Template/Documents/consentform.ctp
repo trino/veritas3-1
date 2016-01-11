@@ -116,7 +116,7 @@
                                         : </label>
                                     <input class="form-control" name="current_province">            </div>
                                 <div class="col-md-3"><label class="control-label">Postal Code: </label>
-                                    <input type="text" role="postalcode" class="form-control required" placeholder="" name="current_postal_code" value="">
+                                    <input type="text" role="postalzip" class="form-control required" placeholder="" name="current_postal_code" value="">
                                 </div>
                             </div>
 
@@ -137,7 +137,7 @@
                                     <input class="form-control" name="previous_province">            </div>
                                 <div class="col-md-3"><label class="control-label">Postal Code: </label>
 
-                                    <input type="text" role="postalcode" class="form-control" placeholder="" name="previous_postal_code" value="">
+                                    <input type="text" role="postalzip" class="form-control" placeholder="" name="previous_postal_code" value="">
                                 </div>
                             </div>
 
@@ -361,7 +361,7 @@
     text-indent: 1px;
     text-overflow: '';">                </div>
                             <div class="col-md-4"><label class="control-label">Postal Code: </label>
-                                <input type="text" role="postalcode" class="form-control" placeholder="" value="" name="criminal_current_postal_code">
+                                <input type="text" role="postalzip" class="form-control" placeholder="" value="" name="criminal_current_postal_code">
                             </div>
                         </div>
                     </div>

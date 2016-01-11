@@ -68,7 +68,7 @@
         <?php provinces("province", "",  isrequired("province", false)); ?>
     </div>
     <div class="col-md-4"><label class="control-label<?= isrequired("postalcode", false); ?>"><?= $strings["forms_postalcode"]; ?>: </label>
-        <input type="text" class="form-control<?= isrequired("postalcode"); ?> name="postal" role="postalcode" />
+        <input type="text" class="form-control<?= isrequired("postalcode"); ?> name="postal" role="postalzip" />
     </div>
     <div class="col-md-4"><label class="control-label<?= isrequired("country", false); ?>"><?= $strings["forms_country"]; ?>: </label>
         <input type="text" class="form-control<?= isrequired("country"); ?> name="country" value="Canada"/>
