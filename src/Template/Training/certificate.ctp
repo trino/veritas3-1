@@ -83,6 +83,13 @@ class MYPDF extends TCPDF {
         // set the starting point for the page content
         $this->setPageMark();
     }
+
+    function SetMaxFontWidth($Text, $MaxWidth, $Step = 1){
+        while ($this->GetStringWidth($Text) > $MaxWidth && $this->FontSizePt > 1){
+            $this->SetFontSize($this->FontSizePt - $Step);
+        }
+        return $this->FontSizePt;
+    }
 }
 
 if($quiz->hascert) {
@@ -139,7 +146,6 @@ if($quiz->hascert) {
 //Text	($x, $y, $txt, $fstroke, $fclip, $ffill, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign, $rtloff)
 
     $pdf->SetFontSize(30);
-
     $ScaleFactor = 1;
     if ($orientation == "L") {
         $ScaleFactor = "1.344262295081967";
@@ -147,8 +153,9 @@ if($quiz->hascert) {
         $pdf->Text(15, 80 * $ScaleFactor, $quiz->Name, false, false, true, 0, 0, "C");
         $pdf->SetFontSize(15);
         $pdf->Text(15, 92 * $ScaleFactor, "On this date: " . date("F d, Y", getdatestamp2($date)), false, false, true, 0, 0, "C");
-    } else {//landscape
+    } else {//portrait
         $pdf->Text(45, 116, ucfirst($user->fname) . " " . ucfirst($user->lname), false, false, true, 0, 0, "C");
+        $pdf->SetMaxFontWidth($quiz->Name, 150);
         $pdf->Text(45, 148, $quiz->Name, false, false, true, 0, 0, "C");
         $pdf->SetFontSize(15);
         $pdf->Text(45, 160.67, "On this date: " . date("F d, Y", getdatestamp2($date)), false, false, true, 0, 0, "C");

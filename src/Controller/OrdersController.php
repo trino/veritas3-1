@@ -1750,35 +1750,173 @@
         }
 
         public function invoice() {
-            $query = TableRegistry::get('Clients');
-            $q = $query->find();
-            $u = $this->request->session()->read('Profile.id');
-            if ($this->request->session()->read('Profile.super')) {
-                $q = $q->select();
-            } else {
-                $q = $q->select()->where(['profile_id LIKE "' . $u . ',%" OR profile_id LIKE "%,' . $u . ',%" OR profile_id LIKE "%,' . $u . '" OR profile_id LIKE "' . $u . '" ']);
+            if(isset($_POST["action"])){
+                switch($_POST["action"]){
+                    case "invoiced":
+                        $IDs = explode(",", $_POST["id"]);
+                        foreach($IDs as $ID){
+                            $this->Manager->update_database("orders", "id", $ID, array("invoiced" => $_POST["status"]));
+                        }
+                        //echo "Order(s):" . $_POST["id"] . "=" . $_POST["status"];
+                        break;
+                }
+                die();
             }
-            $this->set('clients', $q);
 
-            if (isset($_GET)) {
-                $cond = [];
-                if (isset($_GET['from'])) {
-                    array_push($cond, ["created >=" => $_GET['from']]);
+            $this->set('taxes', TableRegistry::get("taxes")->find('all'));
+
+            $query = TableRegistry::get('Clients');
+            $clients = $query->find()->order(["company_name" => "ASC"]);
+            if(isset($_GET['client_id']) && $_GET['client_id']){
+                $qq = $query->find()->where(['id'=>$_GET['client_id']])->first();
+                if(strtoupper($qq->country) == 'CAN') {
+                    $this->set('cou','can');
+                } else {
+                    $this->set('cou', 'us');
                 }
-                if (isset($_GET['to'])) {
-                    array_push($cond, ["created <=" => $_GET['to']]);
+            } else {
+                $this->set('cou', 'us');
+            }
+
+            $userID = $this->request->session()->read('Profile.id');
+            $language = $this->request->session()->read('Profile.language');
+            if ($this->request->session()->read('Profile.super')) {
+                $clients = $clients->select();
+            } else {
+                $clients = $clients->select()->where(['profile_id LIKE "' . $userID . ',%" OR profile_id LIKE "%,' . $userID . ',%" OR profile_id LIKE "%,' . $userID . '" OR profile_id LIKE "' . $userID . '" ']);
+            }
+            $this->set('clients', $clients);
+
+            if(isset($_GET)) {
+                $isCSV = false;
+                if (isset($_GET["csv"]) && $_GET["csv"]){
+                    $isCSV = true;
+                    if($_GET["csv"] == "clients") {
+                        $this->clientCSV($clients, $language);
+                        die();
+                    }
                 }
-                if (isset($_GET['client_id'])) {
+
+                $to = false;
+                $from = false;
+                $datetype = "completed";
+                if(isset($_GET['datetype']) && $_GET['datetype']) {
+                    $datetype = $_GET['datetype'];
+                }
+
+                $cond =[];
+
+                if(isset($_GET['client_id']) && $_GET['client_id']) {
                     array_push($cond, ["client_id" => $_GET['client_id']]);
+                } else {
+                    array_push($cond, ["client_id !=" => 1]);
+                    $this->set('clients', TableRegistry::get('clients')->find('all'));
+                }
+
+                if(isset($_GET['invoiced']) && $_GET['invoiced'] > -1){
+                    array_push($cond, ["invoiced =" => $_GET['invoiced']]);
                 }
 
                 $orders = TableRegistry::get('orders');
                 $order = $orders->find()->order(['orders.id' => 'DESC'])->where(['draft' => 0, $cond])->all();
-                $this->set('orders', $order);
+                $orders = $this->appenddocuments($order, $isCSV);
+                $this->set('orders', $orders);
+                $this->set('conditions', $cond);
 
                 $this->set('products', TableRegistry::get('product_types')->find('all'));
                 $this->set('profiles', TableRegistry::get('profiles')->find('all'));
-                $this->set('taxes', 0.13);
+                $this->set('subjects', $this->Document->getAllSubject());
+
+                if (isset($_GET["csv"]) && $_GET["csv"] == "invoice"){
+                    echo $this->makeCSV($orders);
+                    die();
+                }
+
+            }
+        }
+
+
+        public function appenddocuments($orders, $condensed = false, $language = "English"){
+            $investigations = TableRegistry::get('investigations_intake_form_benefit_claims');
+            $footprints = TableRegistry::get('footprint');
+            $profiles = TableRegistry::get('profiles');
+            $clients = TableRegistry::get('clients');
+            $products = TableRegistry::get('product_types')->find('all');
+            if($language == "English" || $language == "Debug"){$language = "";}
+            $Fieldname = "Name" . $language;
+
+            $neworders = array();
+            foreach($orders as $order){
+                $documents = array();
+                $foots = $footprints->find()->where(['order_id'=>$order->id]);
+                foreach($foots as $footprint){
+                    if ($footprint->subtype == 1) {
+                        $documents[] = "SPF";
+                    } else {
+                        $documents[] = "SMS";
+                    }
+                }
+                $foots = $investigations->find()->where(['order_id'=>$order->id])->first();
+                if($foots){
+                    $documents[] = "PSA";
+                }
+
+                $order->documents = $documents;
+                $order->user_profile = $profiles->find()->where(['id'=>$order->user_id])->first();
+                $order->client = $clients->find()->where(['id'=>$order->client_id])->first();
+
+                if($condensed){
+                    $order->user_profile = array(
+                        "name" => $order->user_profile->fname . " " . $order->user_profile->lname . " (" . $order->user_profile->username . ")",
+                        "email" => $order->user_profile->email,
+                        "phone" => $order->user_profile->phone,
+                        "address" => $order->user_profile->address . " " . $order->user_profile->street . " " . $order->user_profile->city . " " . $order->user_profile->province . " " . $order->user_profile->postal,
+                        "country" => $order->user_profile->country
+                    );
+                    $order->client = array(
+                        "name" => $order->client->company_name,
+                        "address" => $order->client->company_address . " " . $order->client->city . " " . $order->client->postal . " " . $order->client->province,
+                        "country" => $order->client->country
+                    );
+
+                    $subject =  $footprints->find()->select()->where(['order_id'=>$order->id])->first()->fullname;
+                    //$subject =  $this->getSubject($order->id);
+
+                    $neworder = array(
+                        "id" => $order->id,
+                        "item" => $order->title,
+                        "date_created" => $order->created,
+                        "date_completed" => $this->returnfirst(array($order->date_completed,$order->date_completed2,$order->date_completed3)),
+                        "description" => "TBD",
+                        "submitted_by" => $order->user_profile,
+                        "submitted_for" => $subject,
+                        "company" => $order->client,
+                        "total" => "TBD"
+                    );
+
+                    foreach($order->documents as $productype){
+                        $productype = $this->getIterator($products, "Acronym", $productype);
+                        if( $productype->Price<0) {
+                            $neworder["total"] = "TBD";
+                        } else {
+                            if (($productype->Name == "Social Media Footprint" && strrpos($order->status, "http")) || ($productype->Name == "Social Media Surveillance" && strrpos($order->status1, "http"))) {
+                                $neworder["total"] = $productype->Price;
+                            } else {
+                                $neworder["total"] = 0;
+                            }
+                        }
+                        $neworder["description"] = $productype->$Fieldname;
+                        $neworders[] = $neworder;
+                    }
+                } else {
+                    $neworders[] = $order;
+                }
+            }
+            return $neworders;
+        }
+        function returnfirst($data){
+            foreach($data as $value){
+                if($value){return $value;}
             }
         }
 

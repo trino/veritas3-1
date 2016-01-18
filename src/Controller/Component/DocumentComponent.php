@@ -75,12 +75,9 @@ class DocumentComponent extends Component{
     }
 	
     public function savedoc($Mailer, $cid = 0, $did = 0, $emailenabled = True){
-       if(isset($_POST['doc_id']) &&$_POST['doc_id']!="")
-       {
+       if(isset($_POST['doc_id']) &&$_POST['doc_id']!="") {
             echo $_POST['doc_id']; die();
-       }
-       else
-       {
+       } else {
             $parameter = $_GET['parameter'];
            $controller = $this->_registry->getController();
            $settings = TableRegistry::get('settings');
@@ -2329,4 +2326,25 @@ class DocumentComponent extends Component{
         }
         return $Format;
     }
+
+    function getAllSubject(){
+        $query = TableRegistry::get('footprint');
+        //$query = $query->find();
+        //$q = $query->find()->where(['profile_type !=' => '5'])->all();
+        $controller = $this->_registry->getController();
+        if($controller->request->session()->read('Profile.super')) {
+            $q = $query->find()->distinct(['fullname'])->order(['fullname' => 'ASC'])->all();
+        } else {
+            $pid = $controller->request->session()->read('Profile.id');
+            $clients = TableRegistry::get('clients');
+            $client = $clients->find()->where(['profile_id = "'.$pid.'" OR profile_id LIKE "'.$pid.',%" OR profile_id LIKE "%,'.$pid.',%" OR profile_id LIKE "%,'.$pid.'"'])->order('id')->first();
+            if ($client) {
+                $q = $query->find()->distinct(['fullname'])->where(['order_id IN (SELECT id FROM orders WHERE client_id = ' . $client->id . ')'])->order(['fullname' => 'ASC'])->all();
+            }
+        }
+        //$this->response->body($q);
+        return $q;
+        die();
+    }
+
 }
