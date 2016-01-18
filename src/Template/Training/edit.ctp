@@ -182,6 +182,7 @@ if (isset($quiz)){
 <div class="table-scrollable">
     <?php } ?>
 
+            <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                 <thead>
                 <tr>
                     <th style="width: 10px;">QID</th>
