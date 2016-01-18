@@ -620,44 +620,48 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                     //   include_once 'subpages/filelist.php';
                                     //   listfiles($client_docs, "img/jobs/",'profile_doc',$delete);
                                 }
-                                ?>
-                                <div class="form-group col-md-8 col-sm-8">
 
-
-                                <!--label class="control-label col-md-6"> <?= $strings["forms_hearaboutus"]; ?></label-->
-                                    <div class="">
-                                        <select name="hear" class="form-control">
-                                            <option value="Referral" <?php if(isset($p)&& $p->hear=='Referral')echo 'selected';?>><?= $strings["forms_hearaboutus"]; ?></option>
-                                            <option value="Company Website"  <?php if(isset($p)&& $p->hear=='Company Website')echo 'selected';?>><?= $strings["forms_companywebsite"]; ?></option>
-                                            <option value="Workopolis"  <?php if(isset($p)&& $p->hear=='Workopolis')echo 'selected';?>>Workopolis.com</option>
-                                            <option value="Monster"  <?php if(isset($p)&& $p->hear=='Monster')echo 'selected';?>>Monster.ca</option>
-                                            <option value="Nethire"  <?php if(isset($p)&& $p->hear=='Nethire')echo 'selected';?>>Nethireinc.com</option>
-                                            <option value="Indeed"  <?php if(isset($p)&& $p->hear=='Indeed')echo 'selected';?>>Indeed.ca</option>
-                                            <option value="Newspaper"  <?php if(isset($p)&& $p->hear=='Newspaper')echo 'selected';?>><?= $strings["forms_newspaper"]; ?></option>
-                                            <option value="Others"  <?php if(isset($p)&& $p->hear=='Others')echo 'selected';?>><?= $strings["forms_other"]; ?></option>
-
-                                        </select>
+                                if(!$isASAP) {
+                                    ?>
+                                    <div class="form-group col-md-8 col-sm-8">
+                                        <!--label class="control-label col-md-6"> <?= $strings["forms_hearaboutus"]; ?></label-->
+                                        <div class="">
+                                            <select name="hear" class="form-control">
+                                                <option value="Referral" <?php if (isset($p) && $p->hear == 'Referral') echo 'selected'; ?>><?= $strings["forms_hearaboutus"]; ?></option>
+                                                <option value="Company Website" <?php if (isset($p) && $p->hear == 'Company Website') echo 'selected'; ?>><?= $strings["forms_companywebsite"]; ?></option>
+                                                <option value="Workopolis" <?php if (isset($p) && $p->hear == 'Workopolis') echo 'selected'; ?>>Workopolis.com</option>
+                                                <option value="Monster" <?php if (isset($p) && $p->hear == 'Monster') echo 'selected'; ?>>Monster.ca</option>
+                                                <option value="Nethire" <?php if (isset($p) && $p->hear == 'Nethire') echo 'selected'; ?>>Nethireinc.com</option>
+                                                <option value="Indeed" <?php if (isset($p) && $p->hear == 'Indeed') echo 'selected'; ?>>Indeed.ca</option>
+                                                <option value="Newspaper" <?php if (isset($p) && $p->hear == 'Newspaper') echo 'selected'; ?>><?= $strings["forms_newspaper"]; ?></option>
+                                                <option value="Others" <?php if (isset($p) && $p->hear == 'Others') echo 'selected'; ?>><?= $strings["forms_other"]; ?></option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label"><?= $strings["forms_other"]; ?>: </label>
-                                        <textarea <?php echo $is_disabled ?> name="otherinfo" type="text" class="form-control"><?php if (isset($p->otherinfo)) { echo $p->otherinfo; } ?></textarea>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label"><?= $strings["forms_other"]; ?>: </label>
+                                            <textarea <?php echo $is_disabled ?> name="otherinfo" type="text"
+                                                                                 class="form-control"><?php if (isset($p->otherinfo)) {
+                                                    echo $p->otherinfo;
+                                                } ?></textarea>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label"><?= $strings["forms_sin"]; ?>: </label>
-                                        <input <?= $is_disabled ?> name="sin" type="text" role="sin"
-                                                                          class="form-control" <?php if (isset($p->sin)) { ?>
-                                            value="<?= $p->sin; ?>" <?php } ?> />
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label"><?= $strings["forms_sin"]; ?>: </label>
+                                            <input <?= $is_disabled ?> name="sin" type="text" role="sin"
+                                                                       class="form-control" <?php if (isset($p->sin)) { ?>
+                                                value="<?= $p->sin; ?>" <?php } ?> />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <?php
-                                    if(isset($sitenames)){
+                                    <?php
+                                }
+
+                                    if(false && isset($sitenames)){
                                          echo '<div class="col-md-6"><div class="form-group"><label class="control-label">Site Name: </label>';
                                          echo '<SELECT NAME="sitename" ' . $is_disabled . ' class="form-control">';
                                          foreach($sitenames as $sitename){
