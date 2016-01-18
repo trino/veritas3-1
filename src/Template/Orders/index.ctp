@@ -127,7 +127,7 @@ function formatname($profile){
                 })
                 </script>
                 <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer">
+                    <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                         <thead>
                         <tr class="sorting">
                             <th><?= $this->Paginator->sort('id'); ?></th>

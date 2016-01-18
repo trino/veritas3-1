@@ -99,7 +99,7 @@ Users
                     <div class="col-md-12">
                         <div id="toast" style="color: rgb(255,0,0);"></div>
                         <div class="table-scrollable">
-                            <table class="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
+                            <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                                 <thead>
 
                                 <?php if (isset($users)) { ?>
@@ -153,7 +153,7 @@ Users
                                                         $total += $user->profile['percent'];
                                                         $score = round($user->profile['percent'], 2);
                                                         echo $user->profile['correct'] . '/' . $user->profile['questions'] . ' (';
-                                                        if ($score < 80) {
+                                                        if ($score < $user->profile['pass']) {
                                                             echo "<font color='red'>";
                                                         } else {
                                                             echo '<font color="green">';

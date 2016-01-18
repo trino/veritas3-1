@@ -179,12 +179,15 @@ class TrainingController extends AppController {
         return $data;
     }
     public function canedit($ID = false){
+        $isASAP = $this->isASAPtraining();
         if(isset($_GET["myid"])){$ID = $_GET["myid"];}
         if($ID){
             $Profile = $this->getprofile($ID);
-            return  $Profile->super or $Profile->admin or $Profile->profile_type == 1;
+            if($isASAP && $Profile->profile_type == 12){return true;}//manager
+            return $Profile->super || $Profile->admin || $Profile->profile_type == 13;
         }
-        return  $this->request->session()->read('Profile.super') or $this->request->session()->read('Profile.admin') or $this->request->session()->read('Profile.profile_type') == 13;//teacher
+        if($isASAP && $this->request->session()->read('Profile.profile_type') == 12){return true;}
+        return  $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin') or $this->request->session()->read('Profile.profile_type') == 13;//teacher
     }
     public function getuserid(){
         return $this->request->session()->read('Profile.id');

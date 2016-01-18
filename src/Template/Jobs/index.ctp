@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-condensed">
+                    <table class="table <?= $TABLEMODE; ?>">
                     	<thead>
                     		<tr>
                     			<th><?= $this->Paginator->sort('id') ?></th>

@@ -70,10 +70,8 @@
 
 
                 <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer">
+                    <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                     	<thead>
-                        
-                        
                     		<tr>
                     			<th>Title</th>                   			
                     			<th class="actions"><?= __('Actions') ?></th>

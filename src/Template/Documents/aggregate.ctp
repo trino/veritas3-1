@@ -104,7 +104,7 @@ $strings = CacheTranslations($language, "aggregate_%",$settings);//,$registry);
 <form  id="form_tab8" method="post" action="<?= $this->request->webroot; ?>documents/audits/1/15" class="form-horizontal">
 
 
-    <table class="table-condensed table-striped table-bordered table-hover dataTable no-footer">
+    <table class="<?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
         <TR><Th>Client</Th><TD align="center"><?php echo $client->id;?></TD><TD><?php echo $client->company_name;?></TD><td><?php if($client->date_start)echo $client->date_start;else echo "No date available.";?></td></TR>
     </table>
 
@@ -303,7 +303,7 @@ if($client_docs)
     ?>
     
  <div class="addattachment8 form-group col-md-12">
-    <table class="table-condensed table-striped table-bordered table-hover dataTable no-footer">
+    <table class="<?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
 <?php
 $count=0;
 foreach ($client_docs as $k => $cd) {

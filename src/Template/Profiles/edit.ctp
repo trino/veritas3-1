@@ -136,7 +136,7 @@
 
     include_once('subpages/api.php');
     $language = $this->request->session()->read('Profile.language');
-    $strings = CacheTranslations($language, array("profiles_%", "forms_%", "file_missingdata", "clients_%", "theme_%", "month_long%", "flash_cantorder%"), $settings);
+    $strings = CacheTranslations($language, array("profiles_%", "forms_%", "file_missingdata", "clients_%", "theme_%", "month_long%", "flash_cantorder%", "training_score", "documents_na"), $settings);
     $Trans = "";
     if ($language == "Debug") {
         $Trans = " [Trans]";

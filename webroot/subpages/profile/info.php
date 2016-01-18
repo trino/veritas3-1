@@ -764,8 +764,7 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
 
 
 
-                                <div class=""
-                                     id="subtab_2_4" style="padding: 15px;">
+                                <div class="" id="subtab_2_4" style="padding: 15px;">
 
 
 
@@ -880,23 +879,48 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                         <!-- </div>
                                      </div>-->
                                     <?php }?>
-                                    <div class="margin-top-10 alert alert-success display-hide clientadd_flash"
-                                         style="display: none;">
+                                    <div class="margin-top-10 alert alert-success display-hide clientadd_flash" style="display: none;">
                                         <button class="close" data-close="alert"></button>
-
                                     </div>
                                     <input type="hidden" class="cids" name="cids" value="<?php if(isset($cidss))echo $cidss;?>" />
                                 </div>
 
+                                <?php
+                                    if(isset($userID) && $userID && $sidebar->training) {
+                                        $Courses = $Manager->enum_all("training_list");
+                                        $CoursesTaken = $Manager->enum_all("training_enrollments", array("UserID" => $userID));
+                                        if(iterator_count($CoursesTaken)){
+                                            echo '<div class="col-md-12"><TABLE class="table table-bordered table-hover"><TR><TH COLSPAN="2">' . $strings["index_courses"] . '</TH><TH>' . $strings["training_score"] . '</TH></TR>';//<TH>' . $strings["dashboard_actions"] . '</TH></TR>';
+                                            foreach($CoursesTaken as $Course){
+                                                $Quiz = getIterator($Courses, "ID", $Course->QuizID);
+                                                echo '<TR><TD width="1%"><IMG SRC="' . $this->request->webroot . 'img/' . $Quiz->image . '" style="max-height: 20px;"></TD>';
+                                                echo '<TD>' . $Quiz->Name . '</TD><TD width="15%">';
+                                                if($Course->datetaken){
+                                                    echo $Course->correct . '/' . $Course->total . ' (';
+                                                    $score = round($Course->correct / $Course->total * 100);
+                                                    if ($score < $Quiz->pass) {
+                                                        echo "<font color='red'>";
+                                                    } else {
+                                                        echo '<font color="green">';
+                                                    }
+                                                    echo $score . '%</font>)';
+                                                } else {
+                                                    echo "[" . $strings["documents_na"] . "]";
+                                                }
+                                                echo '</TD></TR>'; //<TD>Actions</TD></TR>';
+                                            }
+                                            echo '</TABLE></div><div class="clearfix"></div>';
+                                        }
+                                    }
+                                ?>
+
 
                                 <div class="form-actions" align="right">
-
                                     <?php if(!($is_disabled)){?>
                                     <a href="javascript:void(0)" class="btn btn-primary" onclick="return check_username();" id="savepro">
                                         <?= $strings["forms_savechanges"]; ?>
                                     </a>
-                                    <?php }
-                                    ?>
+                                    <?php } ?>
                                     <!--button class="btn btn-primary"
                                             onclick="$('#profile_drafts').val('1'); $('#save_clientz').attr('novalidate','novalidate');$('#hiddensub').click();">
                                         Save As Draft
@@ -905,9 +929,6 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                 </div>
 
                                 <div class="clearfix"></div>
-                                <?php //} ?>
-
-
                     </form>
 
                     <div class="clearfix"></div>

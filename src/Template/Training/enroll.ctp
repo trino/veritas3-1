@@ -143,8 +143,7 @@ if (isset($profiles) or isset($profile)) { ?>
 
                     <div class="table-scrollable">
 
-                        <table
-                            class="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
+                        <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                             <thead>
                             <tr class="sorting">
                                 <th><?= $this->Paginator->sort('id') ?></th>

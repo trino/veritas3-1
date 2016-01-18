@@ -625,7 +625,7 @@
             if($Language!="English"){$Fieldname.=$Language;}
             $provincelist = $this->enumProvinces();
             $subdocuments = TableRegistry::get('subdocuments')->find('all');//subdocument type list (id, title, display, form, table_name, orders, color_id)
-            echo '<TABLE CLASS="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">';
+            echo '<TABLE CLASS="table table-condensed table-striped table-bordered table-hover dataTable no-footer">';
             echo '<thead><TR><TH WIDTH="1%">ID</TH><TH>Document</TH>';
             foreach ($provincelist as $acronym => $fullname) {
                 echo '<th width="1%" TITLE="' . $fullname . '">' . $acronym . '</th>';

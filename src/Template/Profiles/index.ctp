@@ -222,28 +222,26 @@
                 <div class="form-body">
                     <div class="table-scrollable">
 
-                        <table
-                            class="table table-condensed  table-striped table-bordered table-hover dataTable no-footer">
+                        <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                             <thead>
-                            <tr class="sorting">
-                                <th><?= $this->Paginator->sort('id', "ID") ?></th>
-                                <th style="width:7px;"><?= $this->Paginator->sort('image', $strings["profiles_image"]) ?></th>
-                                <!--th><?= $this->Paginator->sort('username', $strings["profiles_username"]) ?></th-->
-                                <!--th><a href="#"><?= $strings["profiles_certified"]; ?></a></th-->
-                                <!--th><?= $this->Paginator->sort('email') ?></th-->
-                                <th><?= $this->Paginator->sort('fname', $strings["profiles_name"]) ?></th>
-                                <th><?= $this->Paginator->sort('profile_type', $strings["profiles_profiletype"]) ?></th>
+                                <tr class="sorting">
+                                    <th><?= $this->Paginator->sort('id', "ID") ?></th>
+                                    <th style="width:7px;"><?= $this->Paginator->sort('image', $strings["profiles_image"]) ?></th>
+                                    <!--th><?= $this->Paginator->sort('username', $strings["profiles_username"]) ?></th-->
+                                    <!--th><a href="#"><?= $strings["profiles_certified"]; ?></a></th-->
+                                    <!--th><?= $this->Paginator->sort('email') ?></th-->
+                                    <th><?= $this->Paginator->sort('fname', $strings["profiles_name"]) ?></th>
+                                    <th><?= $this->Paginator->sort('profile_type', $strings["profiles_profiletype"]) ?></th>
 
-                                <!--th><?= $this->Paginator->sort('lname', 'Last Name') ?></th-->
-                                <th><?= $strings["profiles_assignedto"] . " " . $settings->clients; ?></th>
-                                <?php if(isset($sitenames)){
-                                    echo '<th>' . $this->Paginator->sort('sitename', $strings["profiles_sitename"]) . '</th>';
-                                    echo '<th>' . $this->Paginator->sort('asapdivision', $strings["orders_division"]) . '</th>';
-                                    echo '<th>' . $this->Paginator->sort('province', $strings["profiles_province"]) . '</th>';
-                                } ?>
-                                <th><?= $strings["dashboard_actions"] ?></th>
-
-                            </tr>
+                                    <!--th><?= $this->Paginator->sort('lname', 'Last Name') ?></th-->
+                                    <th><?= $strings["profiles_assignedto"] . " " . $settings->clients; ?></th>
+                                    <?php if(isset($sitenames)){
+                                        echo '<th>' . $this->Paginator->sort('sitename', $strings["profiles_sitename"]) . '</th>';
+                                        echo '<th>' . $this->Paginator->sort('asapdivision', $strings["orders_division"]) . '</th>';
+                                        echo '<th>' . $this->Paginator->sort('province', $strings["profiles_province"]) . '</th>';
+                                    } ?>
+                                    <th><?= $strings["dashboard_actions"] ?></th>
+                                </tr>
                             </thead>
                             <tbody>
                             <?php

@@ -123,7 +123,7 @@
 
                     <div class="form-body">
                         <div class="table-scrollable">
-                            <table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer">
+                            <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                                 <thead>
                                     <tr class="sorting">
                                         <th><?= $this->Paginator->sort('id', "ID"); ?></th>
@@ -228,7 +228,7 @@
 
                     <div class="form-body">
                         <div class="table-scrollable">
-                            <TD COLSPAN="7" style="padding-right: 10px;"><table class="table table-condensed table-striped table-bordered table-hover dataTable no-footer" style="margin-bottom: 5px; margin-left: 3px;"><thead><TR><TH>ID</TH><TH>Name</TH><TH>Profile Type</TH><TH title="Expiry date is not blank, and is after yesterday">Expiry Date >= ' . $Today . '</TH><TH title="Is hired">IH</TH><TH>Hired Date</TH><TH>Auto-Change</TH><TH>Action</TH></TR><TBODY>';
+                            <TD COLSPAN="7" style="padding-right: 10px;"><table class="table ' . $TABLEMODE . ' table-striped table-bordered table-hover dataTable no-footer" style="margin-bottom: 5px; margin-left: 3px;"><thead><TR><TH>ID</TH><TH>Name</TH><TH>Profile Type</TH><TH title="Expiry date is not blank, and is after yesterday">Expiry Date >= ' . $Today . '</TH><TH title="Is hired">IH</TH><TH>Hired Date</TH><TH>Auto-Change</TH><TH>Action</TH></TR><TBODY>';
 
         $Users = $Profiles[$_GET["clientid"]];
         foreach($Users as $Profile){

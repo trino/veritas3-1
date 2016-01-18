@@ -32,6 +32,8 @@ class ManagerComponent extends Component {
 
         $Controller->loadComponent("Settings");
         $Controller->Settings->verifylogin($Controller,$Controller->name);
+
+        $Controller->set("TABLEMODE",  "table-responsive"); //table-condensed
     }
 
     function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){
