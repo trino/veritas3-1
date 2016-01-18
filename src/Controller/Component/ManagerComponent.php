@@ -34,6 +34,11 @@ class ManagerComponent extends Component {
         $Controller->Settings->verifylogin($Controller,$Controller->name);
 
         $Controller->set("TABLEMODE",  "table-responsive"); //table-condensed
+        $Controller->set("isASAP", $this->isASAPtraining());
+    }
+
+    function isASAPtraining(){
+        return $this->get_settings()->mee == "ASAP Secured Training";
     }
 
     function permissions($Permissions, $Sidebar = false, $Blocks = false, $UserID = false){

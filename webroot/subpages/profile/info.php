@@ -36,8 +36,8 @@ $showcreds = true;
 $userID = $this->Session->read('Profile.id');
 if(!$userID && isset($_GET["client"])){$userID = 0;}
 
-$canedit = $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin') || $this->request->session()->read('Profile.profile_type') == 13;
-$ShouldShow = isset($p->profile_type) && ($p->profile_type=='1' || $p->profile_type=='2');
+$canedit = $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin') || ($isASAP && $this->request->session()->read('Profile.profile_type') == 12);
+$ShouldShow = isset($p->profile_type) && ($p->profile_type=='1' || $p->profile_type=='2' || ($isASAP && $p->profile_type == 12));
 if($ShouldShow || $canedit){
     $ShouldShow = 'display:block';
     $canedit=true;
@@ -140,9 +140,8 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                                 if (isset($pts)) {
                                                     if (in_array($pt->id, $pts)) {
                                                             ?>
-                                                            <option
-                                                                value="<?php echo $pt->id; ?>" <?php if (isset($p) && $p->profile_type == $pt->id) { ?> selected="selected" <?php } ?>>
-                                                                <?php echo $pt->$fieldname . $Trans; ?>
+                                                            <option value="<?php echo $pt->id; ?>" <?php if (isset($p) && $p->profile_type == $pt->id) { ?> selected="selected" <?php } ?>>
+                                                                <?= $pt->$fieldname . $Trans; ?>
                                                             </option>
                                                         ?>
 
@@ -153,18 +152,16 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                                         //if($this->request->session()->read('Profile.super'))
                                                         //{
                                                         ?>
-                                                        <option
-                                                            value="<?php echo $pt->id; ?>" <?php if (isset($p) && $p->profile_type == 1) { ?> selected="selected" <?php } ?>>
-                                                            <?php echo $pt->$fieldname . $Trans; ?>
+                                                        <option value="<?php echo $pt->id; ?>" <?php if (isset($p) && $p->profile_type == 1) { ?> selected="selected" <?php } ?>>
+                                                            <?= $pt->$fieldname . $Trans; ?>
                                                         </option>
                                                         <?php
 
                                                         //}
                                                     } else {
                                                         ?>
-                                                        <option
-                                                            value="<?php echo $pt->id; ?>" <?php if (isset($p) && $p->profile_type == $pt->id) { ?> selected="selected" <?php } ?>>
-                                                            <?php echo $pt->$fieldname . $Trans; ?>
+                                                        <option value="<?php echo $pt->id; ?>" <?php if (isset($p) && $p->profile_type == $pt->id) { ?> selected="selected" <?php } ?>>
+                                                            <?= $pt->$fieldname . $Trans; ?>
                                                         </option>
                                                         <?php
                                                         //}
@@ -184,8 +181,9 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                             class="form-control member_type required"
                                             onchange="$('#nProfileType').val($(this).val());">
 
-                                            <option selected=""
-                                                    value="<?= $p->profile_type; ?>"><?php echo $this->requestAction('/profiles/getTypeTitle/' . $p->profile_type . "/" . $language) . $Trans ?></option>
+                                            <option selected="" value="<?= $p->profile_type; ?>">
+                                                <?= $this->requestAction('/profiles/getTypeTitle/' . $p->profile_type . "/" . $language) . $Trans ?>
+                                            </option>
 
                                         </select>
                                     <?php
@@ -236,81 +234,18 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                  style="display:<?php if ((isset($p) && $p->profile_type == 5) || ($this->request->session()->read('Profile.profile_type') == 2 && (isset($p) && $p->id != ($this->request->session()->read('Profile.id'))))) echo 'block'; else echo "none" ?>;">
                                 <div class="form-group">
                                     <label class="control-label"><?= $strings["forms_drivertype"];?>: </label>
-                                    <select  <?php echo $is_disabled ?> name="driver"
-                                                                        class="form-control select_driver">
+                                    <select  <?php echo $is_disabled ?> name="driver" class="form-control select_driver">
                                         <option value=""><?= $strings["forms_selectdrivertype"];?></option>
-                                        <option
-                                            value="1" <?php if (isset($p) && $p->driver == 1) echo "selected='selected'"; ?>
-                                            >BC - BC FTL AB/BC
-                                        </option>
-                                        <option value="2"
-                                            <?php if (isset($p) && $p->driver == 2) echo "selected='selected'"; ?>>
-                                            BCI5 - BC FTL I5
-                                        </option>
-                                        <option value="3"
-                                            <?php if (isset($p) && $p->driver == 3) echo "selected='selected'"; ?>>
-                                            BULK
-                                        </option>
-                                        <option value="4"
-                                            <?php if (isset($p) && $p->driver == 4) echo "selected='selected'"; ?>>
-                                            CLIMATE
-                                        </option>
-                                        <option value="5"
-                                            <?php if (isset($p) && $p->driver == 5) echo "selected='selected'"; ?>>
-                                            FTL - SINGLE DIVISION
-                                        </option>
-                                        <option value="6"
-                                            <?php if (isset($p) && $p->driver == 6) echo "selected='selected'"; ?>>
-                                            FTL - TOYOTA SINGLE HRLY
-                                        </option>
-                                        <option value="7"
-                                            <?php if (isset($p) && $p->driver == 7) echo "selected='selected'"; ?>>
-                                            FTL - TOYOTA SINGLE HWY
-                                        </option>
-                                        <option value="8"
-                                            <?php if (isset($p) && $p->driver == 8) echo "selected='selected'"; ?>>
-                                            LCV - LCV UNITS
-                                        </option>
-                                        <option value="9"
-                                            <?php if (isset($p) && $p->driver == 9) echo "selected='selected'"; ?>>
-                                            LOC - LOCAL
-                                        </option>
-                                        <option value="10"
-                                            <?php if (isset($p) && $p->driver == 10) echo "selected='selected'"; ?>>
-                                            OWNER - OPERATOR
-                                        </option>
-                                        <option value="11"
-                                            <?php if (isset($p) && $p->driver == 11) echo "selected='selected'"; ?>>
-                                            OWNER - DRIVER
-                                        </option>
-                                        <option value="12"
-                                            <?php if (isset($p) && $p->driver == 12) echo "selected='selected'"; ?>>
-                                            SCD - SPECIAL COMMODITIES
-                                        </option>
-                                        <option value="13"
-                                            <?php if (isset($p) && $p->driver == 13) echo "selected='selected'"; ?>>
-                                            SST-SANDRK- OPEN FUEL
-                                        </option>
-                                        <option value="14"
-                                            <?php if (isset($p) && $p->driver == 14) echo "selected='selected'"; ?>>
-                                            SWD-SANDRK
-                                        </option>
-                                        <option value="15"
-                                            <?php if (isset($p) && $p->driver == 15) echo "selected='selected'"; ?>>
-                                            TBL-TRANSBORDER
-                                        </option>
-                                        <option value="16"
-                                            <?php if (isset($p) && $p->driver == 16) echo "selected='selected'"; ?>>
-                                            TEM - TEAM DIVISION
-                                        </option>
-                                        <option value="17"
-                                            <?php if (isset($p) && $p->driver == 17) echo "selected='selected'"; ?>>
-                                            TEM - TOYOTA TEAM
-                                        </option>
-                                        <option value="18"
-                                            <?php if (isset($p) && $p->driver == 18) echo "selected='selected'"; ?>>
-                                            WD - Wind
-                                        </option>
+                                        <?php
+                                            $DriverTypes = array("", "BC - BC FTL AB/BC", "BCI5 - BC FTL I5", "BULK", "CLIMATE", "FTL - SINGLE DIVISION", "FTL - TOYOTA SINGLE HRLY", "FTL - TOYOTA SINGLE HWY", "LCV - LCV UNITS", "LOC - LOCAL", "OWNER - OPERATOR", "OWNER - DRIVER", "SCD - SPECIAL COMMODITIES", "SST-SANDRK- OPEN FUEL", "SWD-SANDRK", "TBL-TRANSBORDER", "TEM - TEAM DIVISION", "TEM - TOYOTA TEAM", "WD - Wind");
+                                            $Selected=0;
+                                            if (isset($p)){$Selected = $p->driver;}
+                                            foreach($DriverTypes as $Key => $DriverType){
+                                                if($DriverType){
+                                                    printoption($DriverType, $Selected, $Key);
+                                                }
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -886,28 +821,30 @@ if (isset($p->province)) {$PROVINCE=$p->province;}
                                 </div>
 
                                 <?php
-                                    if(isset($userID) && $userID && $sidebar->training) {
+                                    if(isset($profile) && $profile->id && $sidebar->training) {
                                         $Courses = $Manager->enum_all("training_list");
-                                        $CoursesTaken = $Manager->enum_all("training_enrollments", array("UserID" => $userID));
+                                        $CoursesTaken = $Manager->enum_all("training_enrollments", array("UserID" => $profile->id));
                                         if(iterator_count($CoursesTaken)){
                                             echo '<div class="col-md-12"><TABLE class="table table-bordered table-hover"><TR><TH COLSPAN="2">' . $strings["index_courses"] . '</TH><TH>' . $strings["training_score"] . '</TH></TR>';//<TH>' . $strings["dashboard_actions"] . '</TH></TR>';
                                             foreach($CoursesTaken as $Course){
                                                 $Quiz = getIterator($Courses, "ID", $Course->QuizID);
-                                                echo '<TR><TD width="1%"><IMG SRC="' . $this->request->webroot . 'img/' . $Quiz->image . '" style="max-height: 20px;"></TD>';
-                                                echo '<TD>' . $Quiz->Name . '</TD><TD width="15%">';
-                                                if($Course->datetaken){
-                                                    echo $Course->correct . '/' . $Course->total . ' (';
-                                                    $score = round($Course->correct / $Course->total * 100);
-                                                    if ($score < $Quiz->pass) {
-                                                        echo "<font color='red'>";
+                                                if($Quiz) {
+                                                    echo '<TR><TD width="1%"><IMG SRC="' . $this->request->webroot . 'img/' . $Quiz->image . '" style="max-height: 20px;"></TD>';
+                                                    echo '<TD>' . $Quiz->Name . '</TD><TD width="20%">';
+                                                    if ($Course->datetaken) {
+                                                        echo $Course->correct . '/' . $Course->total . ' (';
+                                                        $score = round($Course->correct / $Course->total * 100);
+                                                        if ($score < $Quiz->pass) {
+                                                            echo "<font color='red'>";
+                                                        } else {
+                                                            echo '<font color="green">';
+                                                        }
+                                                        echo $score . '%</font>)';
                                                     } else {
-                                                        echo '<font color="green">';
+                                                        echo "[" . $strings["documents_na"] . "]";
                                                     }
-                                                    echo $score . '%</font>)';
-                                                } else {
-                                                    echo "[" . $strings["documents_na"] . "]";
+                                                    echo '</TD></TR>'; //<TD>Actions</TD></TR>';
                                                 }
-                                                echo '</TD></TR>'; //<TD>Actions</TD></TR>';
                                             }
                                             echo '</TABLE></div><div class="clearfix"></div>';
                                         }

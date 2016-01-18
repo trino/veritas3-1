@@ -223,7 +223,9 @@ function getinputvalue(element){
             value = radiovalue(name);
             break;
         case "select":
-            value = element.options[element.selectedIndex].value;
+            if(element.selectedIndex > -1) {
+                value = element.options[element.selectedIndex].value;
+            }
             break;
     }
     return value;
