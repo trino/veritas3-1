@@ -183,7 +183,7 @@ class TrainingController extends AppController {
         if(isset($_GET["myid"])){$ID = $_GET["myid"];}
         if($ID){
             $Profile = $this->getprofile($ID);
-            if($isASAP && $Profile->profile_type == 12){return true;}//manager
+            if($isASAP && ($Profile->profile_type == 12 || $Profile->profile_type == 14 || $Profile->profile_type == 15)){return true;}//manager
             return $Profile->super || $Profile->admin || $Profile->profile_type == 13;
         }
         if($isASAP && $this->request->session()->read('Profile.profile_type') == 12){return true;}

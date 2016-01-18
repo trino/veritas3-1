@@ -3272,10 +3272,9 @@
                             if ($language == "English") {$language = "";}
                             echo '<td class="titleptype' . $language . '_' . $profile->id . '">' . $data['title' . $language] . '</td>';
                         }
-                        echo '    <td><input type="checkbox" id="pchk_' . $profile->id . '" class="penable"/><span class="span_' . $profile->id . '"></span></td>
+                        echo '<td><input type="checkbox" id="pchk_' . $profile->id . '" class="penable"/><span class="span_' . $profile->id . '"></span></td>
                         <td><input type="checkbox" class="oenable" id="ochk_' . $profile->id . '" /><span class="span2_' . $profile->id . '"></span></td>
-                        <td><span  class="btn btn-primary editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td>
-                    </tr>';
+                        <td><span  class="btn btn-primary editptype" id="editptype_' . $profile->id . '">' .  $this->Trans->getString("dashboard_edit") . '</span></td></tr>';
                     }
                 }
             }
