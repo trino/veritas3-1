@@ -201,7 +201,7 @@ Users
                                                 } else {
                                                     echo $quiz->image;
                                                 }
-                                                echo '"></TD><TD><A HREF="?quizid=' . $quiz->ID . '">' . $quiz->Name . "</A></TD><TD align='center'>" . $quiz->applicants . "</TD></TR>";
+                                                echo '"></TD><TD><A HREF="?quizid=' . $quiz->ID . '">' . $quiz->Name . "</A></TD><TD align='center'>" . $quiz->completed . '/' . $quiz->applicants . "</TD></TR>";
                                             }
                                         } else {
                                             echo '<TR><TD colspan="100" align="center">You can not view course results</TD></TR>';

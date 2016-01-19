@@ -183,12 +183,14 @@ class TrainingController extends AppController {
         if(isset($_GET["myid"])){$ID = $_GET["myid"];}
         if($ID){
             $Profile = $this->getprofile($ID);
-            if($isASAP && ($Profile->profile_type == 12 || $Profile->profile_type == 14 || $Profile->profile_type == 15)){return true;}//manager
-            return $Profile->super || $Profile->admin || $Profile->profile_type == 13;
+            $Profile = array("profile_type" => $Profile->profile_type, "super" => $Profile->super, "admin" => $Profile->admin);
+        } else {
+            $Profile = array("profile_type" => $this->request->session()->read('Profile.profile_type'), "super" => $this->request->session()->read('Profile.super'), "admin" => $this->request->session()->read('Profile.admin') );
         }
-        if($isASAP && $this->request->session()->read('Profile.profile_type') == 12){return true;}
-        return  $this->request->session()->read('Profile.super') || $this->request->session()->read('Profile.admin') or $this->request->session()->read('Profile.profile_type') == 13;//teacher
+        if($isASAP && ($Profile["profile_type"] == 12 || $Profile["profile_type"] == 14 || $Profile["profile_type"] == 15)){return true;}//manager
+        return $Profile["super"] || $Profile["admin"] || $Profile["profile_type"] == 13;
     }
+
     public function getuserid(){
         return $this->request->session()->read('Profile.id');
     }
@@ -197,18 +199,23 @@ class TrainingController extends AppController {
         if ($getapplicants){
                foreach($table as $quiz){
                    $quiz->applicants = $this->countapplicants($quiz->ID);
+                   $quiz->completed = $this->countcompleted($quiz->ID);
                }
         }
         $this->set('quizes',$table );
         return $table;
     }
-    public function countapplicants($quizid){
-        $table = TableRegistry::get("training_answers");
-        $users =  $table->find('all',array('conditions' => array('QuizID' => $quizid), 'group' => 'UserID'));
-        return $this->countobject($users);
+
+    public function countcompleted($quizid){
+        $table = TableRegistry::get("training_enrollments");
+        $users =  $table->find('all',array('conditions' => array('QuizID = ' . $quizid . ' AND char_length(datetaken) > 0', 'EXISTS (SELECT * FROM profiles WHERE profiles.id = training_enrollments.UserID)')));
+        return iterator_count($users);
     }
-    public function countobject($object){
-        return iterator_count($object);
+
+    public function countapplicants($quizid){
+        $table = TableRegistry::get("training_enrollments");
+        $users =  $table->find('all',array('conditions' => array('QuizID = ' . $quizid, 'EXISTS (SELECT * FROM profiles WHERE profiles.id = training_enrollments.UserID)')));
+        return iterator_count($users);
     }
 
     public function quizexists($QuizID){
