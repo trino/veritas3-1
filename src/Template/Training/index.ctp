@@ -220,7 +220,7 @@
                                                     $attachmentJS .= "document.getElementById('chk" . $id . "').checked";
                                                     $download = '" target="_blank"';
                                                     $name = strtolower(pathinfo($attachment, PATHINFO_EXTENSION));
-                                                    $Names = array("mp4" => "Video", "pdf" => "Handout", "docx" => "Handout");
+                                                    $Names = array("mp4" => "Video", "m4v" => "Video", "pdf" => "Handout", "docx" => "Handout");
                                                     if (isset($Names[$name])) {
                                                         $name = $Names[$name];
                                                     }else{
