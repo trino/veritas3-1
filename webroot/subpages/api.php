@@ -645,7 +645,7 @@ function getpost($Key, $Default = ""){
 function formatname($profile, $strings = false){
     if(is_object($profile)){
         $name = trim(ucfirst(strtolower($profile->fname)) . " " . ucfirst(strtolower($profile->lname)));
-        if ($profile->username){
+        if ($profile->username && strcmp($profile->username , $name) !== 0){
             if($name){
                 $name .= " (" . ucfirst(h($profile->username)) . ")";
             } else {

@@ -106,7 +106,7 @@ if (isset($profiles) or isset($profile)) { ?>
                                     echo '</select><div class="prodivisions input-inline"></div>';
                                 }
 
-                                if($isASAP){
+                                if(isset($sitenames)){
                                     echo '<select class="form-control input-inline" style="" name="sitename"><OPTION VALUE="">Site Name</OPTION>';
                                     foreach($sitenames as $sitename){
                                         if($sitename){
@@ -156,7 +156,7 @@ if (isset($profiles) or isset($profile)) { ?>
                                 <!--th><?= $this->Paginator->sort('lname', 'Last Name') ?></th-->
                                 <th>Assigned to <?= $settings->clients; ?></th>
                                 <?php
-                                    if ($isASAP){
+                                    if (isset($sitenames)){
                                         echo '<TH>Site Name</TH><TH>Division</TH>';
                                     }
                                 ?>
@@ -224,7 +224,7 @@ if (isset($profiles) or isset($profile)) { ?>
                                         echo $ProClients->getAllClientsname($profile->id);?>
                                         </td>
                                         <?php
-                                            if ($isASAP){
+                                            if (isset($sitenames)){
                                                 echo '<TD>' . $profile->sitename . '</TD><TD>' . $profile->asapdivision . '</TD>';
                                             }
                                         ?>

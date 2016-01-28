@@ -83,7 +83,7 @@ class TrainingController extends AppController {
                 }
                 $this->enumusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision"));
                 $this->set('users2', $this->enumenrolledusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision")));
-                if ($this->isASAPtraining()) {
+                if ($this->isASAPtraining(true)) {
                     $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
                     $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
                 }
@@ -97,7 +97,8 @@ class TrainingController extends AppController {
         $this->set('canedit', $this->canedit());
     }
 
-    function isASAPtraining(){
+    function isASAPtraining($CheckDivisions = false){
+        if($CheckDivisions){return false;}
         return $this->Manager->get_settings()->mee == "ASAP Secured Training";
     }
 
@@ -315,7 +316,8 @@ class TrainingController extends AppController {
     public function enumusers($QuizID, $sitename = "", $asapdivision = ""){//LEFT JOIN IS A PAIN!
         $table = TableRegistry::get("training_answers");
         $options = array();
-        $options['conditions'] = array('training_answers.QuizID =' . $QuizID); //array('QuizID' => $QuizID);
+        $ClientProfiles=$this->find_client_profiles();
+        $options['conditions'] = array('training_answers.QuizID =' . $QuizID, 'Profiles.id IN (' . $ClientProfiles . ')'); //array('QuizID' => $QuizID);
         if($sitename){$options['conditions'][] = "Profiles.sitename = '" . $sitename . "'";}
         if($asapdivision){$options['conditions'][] = "Profiles.asapdivision = '" . $asapdivision . "'";}
         $options['group'] = 'training_answers.UserID';
@@ -325,6 +327,7 @@ class TrainingController extends AppController {
             $score = $this->gradetest($quiz,$QuizID, $user->UserID);
             $user->profile = $score;
         }
+        $this->set('ClientProfiles',$ClientProfiles);
         $this->set('users',$users);
     }
 
@@ -631,6 +634,27 @@ class TrainingController extends AppController {
         'order' => ['id' => 'DESC'],
     ];
 
+    public function find_client_profiles($Clients = false, $UserID=false){
+        if(!$Clients){$Clients = $this->Manager->find_client($UserID, false);}
+        if(!is_array($Clients)){$Clients = array($Clients);}
+
+        $Table = TableRegistry::get('Clients');
+        $profile_ids = array();
+        foreach($Clients as $Client){
+            $Client = $Table->find()->select()->where(['id' => $Client])->first();
+            if($Client->profile_id) {
+                $profile_ids[] = $Client->profile_id;
+            }
+        }
+        $profile_ids = implode(",", $profile_ids);
+        if ($profile_ids) {
+            $profile_ids = implode(",", array_unique(explode(",", $profile_ids)));
+        } else {
+            $profile_ids = '99999999999';
+        }
+        return $profile_ids;
+    }
+
     public function enroll() {
         if (isset($_GET["userid"]) AND isset($_GET["quizid"])) {//enrolluser
             $username = ucfirst(trim($this->getprofile($_GET["userid"], false)->username));
@@ -663,7 +687,7 @@ class TrainingController extends AppController {
             $setting = $this->Settings->get_permission($this->request->session()->read('Profile.id'));
             $u = $this->request->session()->read('Profile.id');
             $this->set('ProClients', $this->Settings);
-            $super = $this->request->session()->read('Profile.super');
+            $super = $this->request->session()->read('Profile.super');// || $this->request->session()->read('Profile.admin');
             $condition = $this->Settings->getprofilebyclient($u, $super);
             if ($setting->profile_list == 0) {
                 $this->Flash->error('Sorry, you don\'t have the required permissions.');
@@ -689,43 +713,31 @@ class TrainingController extends AppController {
             $querys = TableRegistry::get('Profiles');
 
             if (isset($_GET['searchprofile']) && $_GET['searchprofile']) {
-                if ($cond == '') {
-                    $cond = $cond . ' (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
-                } else {
-                    $cond = $cond . ' AND (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
-                }
+                if ($cond){ $cond = $cond . ' AND ';}
+                $cond = $cond . ' (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
             }
 
             if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type']) {
-                if ($cond == '') {
-                    $cond = $cond . ' (profile_type = "' . $profile_type . '" OR admin = "' . $profile_type . '")';
-                } else {
-                    $cond = $cond . ' AND (profile_type = "' . $profile_type . '" OR admin = "' . $profile_type . '")';
-                }
+                if ($cond){ $cond = $cond . ' AND ';}
+                $cond = $cond . ' (profile_type = "' . $profile_type . '" OR admin = "' . $profile_type . '")';
             }
+
+            $this->set("ProfileTypes", $this->Manager->enum_all("profile_types"));
+
 
             $ClientID = $this->Manager->find_client(false, false);
             if($ClientID && !is_array($ClientID)){
                 $_GET['filter_by_client'] = $ClientID;
                 $this->set("ClientID", $ClientID);
+            } else if($ClientID && is_array($ClientID)){
+                $_GET['filter_by_client'] = $ClientID;
             }
-            $this->set("ProfileTypes", $this->Manager->enum_all("profile_types"));
-                        
+
             if (isset($_GET['filter_by_client']) && $_GET['filter_by_client']) {
-                $sub = TableRegistry::get('Clients');
-                $que = $sub->find();
-                $que->select()->where(['id' => $_GET['filter_by_client']]);
-                $q = $que->first();
-                $profile_ids = $q->profile_id;
-                if (!$profile_ids) {
-                    $profile_ids = '99999999999';
-                }
-                if ($cond == '') {
-                    $cond = $cond . ' (id IN (' . $profile_ids . '))';
-                } else {
-                    $cond = $cond . ' AND (id IN (' . $profile_ids . '))';
-                }
+                if($cond){$cond .= ' AND ';}
+                $cond = $cond . ' (id IN (' . $this->find_client_profiles($_GET['filter_by_client']) . '))';
             }
+
             if ($this->request->session()->read('Profile.profile_type') == '2' && !$cond) {
                 $condition['created_by'] = $this->request->session()->read('Profile.id');
             }
@@ -760,7 +772,7 @@ class TrainingController extends AppController {
             }
             $this->set('profiles',$query);
 
-            if ($this->isASAPtraining()) {
+            if ($this->isASAPtraining(true)) {
                 $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
                 $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
             }

@@ -56,7 +56,7 @@ Users
         <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
 </div>
 
-<?php if($isASAP && isset($_GET["quizid"])){ ?>
+<?php if(isset($sitenames) && isset($_GET["quizid"])){ ?>
     <div class="form-actions top chat-form" style="margin-top: 0px;margin-bottom: 10px;padding-bottom: 5px;padding-top: 5px;">
         <div class="btn-set pull-right">
             <form action="<?= $this->request->webroot; ?>training/users" method="get">
@@ -110,7 +110,7 @@ Users
 
                                     <?php
                                         $cols=0;
-                                        if($settings->mee == "ASAP Secured Training"){
+                                        if(isset($sitenames)){
                                             $isASAP =true;
                                             echo '<TH>Site Name</TH><TH>Division</TH>';
                                             $cols = 2;
@@ -128,7 +128,7 @@ Users
                                                 echo '<TR><TD>' . $user->Profiles['id'] . '</TD><TD>' . ucfirst($user->Profiles['fname']) . ' ' . ucfirst($user->Profiles['lname']) . '</TD><TD>';
                                                 echo '<A HREF="' . $webroot . 'profiles/edit/' . $user->Profiles['id'] . '">' . ucfirst($user->Profiles['username']) . '</A></TD><TD>';
 
-                                                if($isASAP && isset($user->Profiles["sitename"]) && isset($user->Profiles["asapdivision"])){
+                                                if(isset($sitenames) && isset($user->Profiles["sitename"]) && isset($user->Profiles["asapdivision"])){
                                                     echo $user->Profiles["sitename"] . '</TD><TD>' . $user->Profiles["asapdivision"] . '</TD><TD>';
                                                 }
                                                 return true;
@@ -171,8 +171,9 @@ Users
                                                 }
                                             }
 
+                                            $ClientProfiles = explode(",", $ClientProfiles);
                                             foreach($users2 as $user) {
-                                                if (!$user->profile) {
+                                                if (!$user->profile && in_array($user->UserID, $ClientProfiles)) {
                                                     if (printuser($user, $this->request->webroot, $isASAP)) {
                                                         echo $nottakenyet . '</TD><TD>';
                                                         echo '<A onclick="enroll(event, ' . $_GET["quizid"] . ', ' . $user->UserID . ');" class="' . btnclass("btn-primary", "yellow") . '">Unenroll</A>';

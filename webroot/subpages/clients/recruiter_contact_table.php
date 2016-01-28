@@ -84,7 +84,8 @@
                             </thead>
                             <tbody id="">
                             <?php
-                                $types = array('Driver', 'Admin', 'Recruiter', 'External', 'Safety', 'Driver', 'Contact', 'Employee', 'Guest', 'Partner');
+                                $types = $Manager->enum_all("profile_types");
+                                //array('Driver', 'Admin', 'Recruiter', 'External', 'Safety', 'Driver', 'Contact', 'Employee', 'Guest', 'Partner');
                                 $counter = 0;
                                 foreach ($getprofile as $p) {
                                     ?>
@@ -100,9 +101,10 @@
                                                     echo "[NO NAME]";
                                                 }
                                                 $profiletype = " (Draft)";
-                                                if (strlen($p->profile_type)>0 ) {
-                                                    if ($p->profile_type < count($types)) {
-                                                        $profiletype = " (" . $types[$p->profile_type] . ")";
+                                                if ($p->profile_type) {
+                                                    $profiletype = FindIterator($types, "id", $p->profile_type);
+                                                    if($profiletype){
+                                                        $profiletype = " (" . $profiletype->title . ")";
                                                     } else {
                                                         $profiletype = " (UNKNOWN)";
                                                     }
