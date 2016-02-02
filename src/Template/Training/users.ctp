@@ -3,6 +3,36 @@
     $sidebar = $Manager->loadpermissions($Me, "sidebar");
     include_once('subpages/api.php');
 
+    function array_sort($array, $key, $Ascending=true){
+        $new_array = array();
+        $sortable_array = array();
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $key) {
+                            $sortable_array[$k] = $v2;
+                        }
+                    }
+                } else {
+                    $sortable_array[$k] = $v;
+                }
+            }
+
+            if($Ascending) {
+                asort($sortable_array);
+            } else {
+                arsort($sortable_array);
+            }
+
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];
+            }
+        }
+
+        return $new_array;
+    }
+
     function clean($data, $datatype=0){
         if (is_object($data)){
             switch($datatype) {
@@ -24,8 +54,35 @@
     }
 
     $title = "Courses";
-    if (isset($_GET["quizid"])) { $title = "Course Results";}
-    $isASAP = $settings->mee == "ASAP Secured Training";
+    if (isset($_GET["quizid"])) {
+        $title = "Course Results";
+        if(isset($_GET["clientid"])){
+            $client = getIterator($clients, "id", $_GET["clientid"]);
+            if($client){
+                $title .= " for " . $client->company_name;
+            }
+        }
+    }
+    $cols=1;
+
+    function makeurl($Key, $Value, $Sort=false){
+        $GetCopy = $_GET;
+        if(isset($GetCopy[$Key]) && $GetCopy[$Key] == $Value){
+            $Sorting = "ASC";
+            if(isset($GetCopy["order"])){
+                $Sorting = $GetCopy["order"];
+            }
+            if($Sorting == "ASC"){
+                $Sorting = "DESC";
+            } else {
+                $Sorting = "ASC";
+            }
+            $GetCopy["order"] = $Sorting;
+        } else {
+            $GetCopy[$Key] = $Value;
+        }
+        return '?' . http_build_query($GetCopy);
+    }
 ?>
 
 
@@ -36,16 +93,16 @@ Users
         <ul class="page-breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="<?php echo $this->request->webroot; ?>">Dashboard</a>
+                <a href="<?= $this->request->webroot; ?>">Dashboard</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="<?php echo $this->request->webroot; ?>training">Training</a>
+                <a href="<?= $this->request->webroot; ?>training">Training</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <?php if (isset($_GET["quizid"])) { ?>
             <li>
-                <a href="<?php echo $this->request->webroot; ?>training/edit?quizid=<?= $_GET["quizid"]?>">Edit Quiz</a>
+                <a href="<?= $this->request->webroot; ?>training/edit?quizid=<?= $_GET["quizid"]?>">Edit Quiz</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <?php } ?>
@@ -54,6 +111,11 @@ Users
             </li>
         </ul>
         <a href="javascript:window.print();" class="floatright btn btn-primary">Print</a>
+        <?php
+            if(isset($_GET["quizid"]) && count($_GET) > 1) {
+                echo '<A HREF="' . $this->request->webroot . 'training/users?quizid=' . $_GET["quizid"] . '" CLASS="floatright btn btn-primary btnspc">Clear Search</A>';
+            }
+        ?>
 </div>
 
 <?php if(isset($sitenames) && isset($_GET["quizid"])){ ?>
@@ -101,36 +163,38 @@ Users
                         <div class="table-scrollable">
                             <table class="table <?= $TABLEMODE; ?> table-striped table-bordered table-hover dataTable no-footer">
                                 <thead>
-
                                 <?php if (isset($users)) { ?>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>First/Last Name</th>
-                                    <TH>Username</TH>
-
-                                    <?php
-                                        $cols=0;
-                                        if(isset($sitenames)){
-                                            $isASAP =true;
-                                            echo '<TH>Site Name</TH><TH>Division</TH>';
-                                            $cols = 2;
-                                        }
-                                    ?>
-
+                                    <th><A HREF="<?= makeurl("sortby", "id", true); ?>">ID</A></th>
+                                    <th><A HREF="<?= makeurl("sortby", "fname", true); ?>">First</A>/<A HREF="<?= makeurl("sortby", "lname", true); ?>">Last</A> Name</th>
+                                    <TH><A HREF="<?= makeurl("sortby", "username", true); ?>">Username</A></TH>
+                                    <TH><?= $settings->client; ?>(s)</TH>
                                     <TH>Score</TH>
                                     <TH>Actions</TH>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                            function printuser($user, $webroot, $isASAP){
+                                            function printuser($user, $webroot, $clients){
                                                 if (!is_numeric($user->Profiles['id'])) {return false;}
+                                                if(isset($_GET["clientid"])){
+                                                    if(!$user->Clients || !in_array($_GET["clientid"], $user->Clients)){return false;}
+                                                }
+
                                                 echo '<TR><TD>' . $user->Profiles['id'] . '</TD><TD>' . ucfirst($user->Profiles['fname']) . ' ' . ucfirst($user->Profiles['lname']) . '</TD><TD>';
                                                 echo '<A HREF="' . $webroot . 'profiles/edit/' . $user->Profiles['id'] . '">' . ucfirst($user->Profiles['username']) . '</A></TD><TD>';
-
-                                                if(isset($sitenames) && isset($user->Profiles["sitename"]) && isset($user->Profiles["asapdivision"])){
-                                                    echo $user->Profiles["sitename"] . '</TD><TD>' . $user->Profiles["asapdivision"] . '</TD><TD>';
+                                                if($user->Clients) {
+                                                    foreach ($user->Clients as $key => $client) {
+                                                        $client = getIterator($clients, "id", $client);
+                                                        if ($client) {
+                                                            $user->Clients[$key] = '<A HREF="' . makeurl("clientid", $client->id) . '">' . $client->company_name . '</A>';
+                                                        } else {
+                                                            unset($user->Clients[$key]);
+                                                        }
+                                                    }
+                                                    echo implode(", ", $user->Clients);
                                                 }
+                                                echo '</TD><TD>';
                                                 return true;
                                             }
 
@@ -144,7 +208,7 @@ Users
                                                     }
                                                 }
 
-                                                if (printuser($user, $this->request->webroot, $isASAP)) {
+                                                if (printuser($user, $this->request->webroot, $clients)) {
                                                     if (strlen($user->profile['questions']) == 0) {
                                                         echo $nottakenyet . '</TD><TD>';
                                                         echo '<A onclick="enroll(event, ' . $_GET["quizid"] . ', ' . $user->UserID . ');" class="' . btnclass("btn-primary", "yellow") . '">Unenroll</A>';
@@ -174,7 +238,7 @@ Users
                                             $ClientProfiles = explode(",", $ClientProfiles);
                                             foreach($users2 as $user) {
                                                 if (!$user->profile && in_array($user->UserID, $ClientProfiles)) {
-                                                    if (printuser($user, $this->request->webroot, $isASAP)) {
+                                                    if (printuser($user, $this->request->webroot, $clients)) {
                                                         echo $nottakenyet . '</TD><TD>';
                                                         echo '<A onclick="enroll(event, ' . $_GET["quizid"] . ', ' . $user->UserID . ');" class="' . btnclass("btn-primary", "yellow") . '">Unenroll</A>';
                                                     }

@@ -81,8 +81,14 @@ class TrainingController extends AppController {
                     }
 
                 }
-                $this->enumusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision"));
-                $this->set('users2', $this->enumenrolledusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision")));
+                $Clients = $this->Manager->find_client(false, false);
+                if(is_array($Clients)){$Clients  = implode(",", $Clients);}
+                $Clients = $this->Manager->enum_all("clients", "id IN (" . $Clients . ")");
+                $this->set("clients", $Clients);
+
+                $this->enumusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision"), $Clients);
+                $this->set('users2', $this->enumenrolledusers($_GET["quizid"], $this->get("sitename"), $this->get("asapdivision") , $Clients));
+
                 if ($this->isASAPtraining(true)) {
                     $this->set("sitenames", $this->getdistinctfields("profiles", "sitename"));
                     $this->set("asapdivisions", $this->getdistinctfields("profiles", "asapdivision"));
@@ -313,19 +319,22 @@ class TrainingController extends AppController {
         $users =  $table->find('all', $options)->first();
         return is_object($users);
     }
-    public function enumusers($QuizID, $sitename = "", $asapdivision = ""){//LEFT JOIN IS A PAIN!
+    public function enumusers($QuizID, $sitename = "", $asapdivision = "", $Clients = false){//LEFT JOIN IS A PAIN!
         $table = TableRegistry::get("training_answers");
         $options = array();
         $ClientProfiles=$this->find_client_profiles();
         $options['conditions'] = array('training_answers.QuizID =' . $QuizID, 'Profiles.id IN (' . $ClientProfiles . ')'); //array('QuizID' => $QuizID);
-        if($sitename){$options['conditions'][] = "Profiles.sitename = '" . $sitename . "'";}
-        if($asapdivision){$options['conditions'][] = "Profiles.asapdivision = '" . $asapdivision . "'";}
+        //if($sitename){$options['conditions'][] = "Profiles.sitename = '" . $sitename . "'";}
+        //if($asapdivision){$options['conditions'][] = "Profiles.asapdivision = '" . $asapdivision . "'";}
         $options['group'] = 'training_answers.UserID';
+        $options = $this->conditions($options, "training_answers");
+
         $users =  $table->find('all', $options)->contain("profiles");//->where(['training_answers.QuizID = ' . $QuizID . ' or 1=1'])
         $quiz = $this->getQuiz($QuizID);
         foreach($users as $user){
             $score = $this->gradetest($quiz,$QuizID, $user->UserID);
             $user->profile = $score;
+            if($Clients){$user->Clients = $this->find_client($user->UserID, $Clients);}
         }
         $this->set('ClientProfiles',$ClientProfiles);
         $this->set('users',$users);
@@ -520,14 +529,30 @@ class TrainingController extends AppController {
         $table->deleteAll(array('QuizID' => $QuizID, 'UserID' => $UserID), false);
     }
 
-    public function enumenrolledusers($QuizID, $sitename = "", $asapdivision = ""){
+    public function conditions($conditions, $table = ""){
+        if(isset($_GET["sortby"])){
+            if(!isset($_GET["order"])){$_GET["order"] = "ASC";}
+            if($_GET["sortby"] == "score") {
+                if ($table == "training_enrollments") {
+                    $conditions['order'] = array($table . "." . $_GET["correct"] => $_GET["order"]);
+                }
+            } else {
+                $conditions['order'] = array("Profiles." . $_GET["sortby"] => $_GET["order"]);
+            }
+        }
+        return $conditions;
+    }
+
+    public function enumenrolledusers($QuizID, $sitename = "", $asapdivision = "", $Clients = false){
         $table = TableRegistry::get("training_enrollments");
-        $conditions = array('QuizID'=>$QuizID);
-        if($sitename){$conditions[] = "Profiles.sitename = '" . $sitename . "'";}
-        if($asapdivision){$conditions[] = "Profiles.asapdivision = '" . $asapdivision . "'";}
-        $results = $table->find('all', array('conditions' => $conditions))->contain("profiles");
+        $options = array("conditions" => array('QuizID'=>$QuizID));
+        //if($sitename){$options["conditions"][] = "Profiles.sitename = '" . $sitename . "'";}
+        //if($asapdivision){$options["conditions"][] = "Profiles.asapdivision = '" . $asapdivision . "'";}
+        $options = $this->conditions($options);
+        $results = $table->find('all', $options)->contain("profiles");
         foreach($results as $Profile){
             $this->evaluateuser($QuizID,$Profile->UserID);
+            if($Clients){$Profile->Clients = $this->find_client($Profile->UserID, $Clients);}
         }
         return $results;
     }
@@ -633,6 +658,16 @@ class TrainingController extends AppController {
         'limit' => 20,
         'order' => ['id' => 'DESC'],
     ];
+
+    public function find_client($UserID, $Clients){
+        $ProfileClients = array();
+        foreach($Clients as $Client){
+            if (in_array($UserID, explode(",", $Client->profile_id))){
+                $ProfileClients[] = $Client->id;
+            }
+        }
+        return $ProfileClients;
+    }
 
     public function find_client_profiles($Clients = false, $UserID=false){
         if(!$Clients){$Clients = $this->Manager->find_client($UserID, false);}

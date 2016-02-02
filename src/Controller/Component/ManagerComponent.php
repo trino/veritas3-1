@@ -117,8 +117,7 @@ class ManagerComponent extends Component {
         return $Data["id"];
     }
 
-    public function find_client($UserID="", $LimitToOne = true){
-        
+    public function find_client($UserID="", $LimitToOne = true, $AlwaysAsArray = false){
         if(!$UserID){$UserID = $this->read("id");}
         if(!$UserID){return 0;}
         //$clients = TableRegistry::get("clients")->find()->select('id')->where(['profile_id LIKE "'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.',%" OR profile_id LIKE "%,'.$UserID.'" OR profile_id ="'.$UserID.'"']);
@@ -126,6 +125,7 @@ class ManagerComponent extends Component {
         if (iterator_count($clients) == 1 || $LimitToOne) {
             $clients = $clients->first();
             if($clients) {
+                if($AlwaysAsArray){return array($clients->id);}
                 return $clients->id;
             }
         } else if (iterator_count($clients) > 1) {
