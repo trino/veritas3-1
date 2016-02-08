@@ -672,7 +672,6 @@ class TrainingController extends AppController {
     public function find_client_profiles($Clients = false, $UserID=false){
         if(!$Clients){$Clients = $this->Manager->find_client($UserID, false);}
         if(!is_array($Clients)){$Clients = array($Clients);}
-
         $Table = TableRegistry::get('Clients');
         $profile_ids = array();
         foreach($Clients as $Client){
@@ -748,12 +747,16 @@ class TrainingController extends AppController {
             $querys = TableRegistry::get('Profiles');
 
             if (isset($_GET['searchprofile']) && $_GET['searchprofile']) {
-                if ($cond){ $cond = $cond . ' AND ';}
+                if ($cond) {
+                    $cond = $cond . ' AND ';
+                }
                 $cond = $cond . ' (LOWER(title) LIKE "%' . $searchs . '%" OR LOWER(fname) LIKE "%' . $searchs . '%" OR LOWER(lname) LIKE "%' . $searchs . '%" OR LOWER(username) LIKE "%' . $searchs . '%" OR LOWER(address) LIKE "%' . $searchs . '%")';
             }
 
             if (isset($_GET['filter_profile_type']) && $_GET['filter_profile_type']) {
-                if ($cond){ $cond = $cond . ' AND ';}
+                if ($cond) {
+                    $cond = $cond . ' AND ';
+                }
                 $cond = $cond . ' (profile_type = "' . $profile_type . '" OR admin = "' . $profile_type . '")';
             }
 
@@ -761,11 +764,13 @@ class TrainingController extends AppController {
 
 
             $ClientID = $this->Manager->find_client(false, false);
-            if($ClientID && !is_array($ClientID)){
-                $_GET['filter_by_client'] = $ClientID;
-                $this->set("ClientID", $ClientID);
-            } else if($ClientID && is_array($ClientID)){
-                $_GET['filter_by_client'] = $ClientID;
+            if (!isset($_GET['filter_by_client'])) {
+                if ($ClientID && !is_array($ClientID)) {
+                    $_GET['filter_by_client'] = $ClientID;
+                    $this->set("ClientID", $ClientID);
+                } else if ($ClientID && is_array($ClientID)) {
+                    $_GET['filter_by_client'] = $ClientID;
+                }
             }
 
             if (isset($_GET['filter_by_client']) && $_GET['filter_by_client']) {
