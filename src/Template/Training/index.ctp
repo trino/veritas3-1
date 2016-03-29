@@ -191,6 +191,12 @@
                                 if (isenrolled($enrolledquizzes, $canedit, $quiz->ID)) {
                                     if (quizheader($QuizID, $quiz->ID, $quiz->Name, $quiz->image)) {
                                         $totalquizzes += 1;
+
+                                        $start = strpos(strtolower($quiz->Description), "[message]");
+                                        if($start !== false){
+                                            $quiz->Description = substr($quiz->Description, 0, $start);
+                                        }
+
                                         echo str_replace("\r\n", "<P>", $quiz->Description);
                                         if (isset($results)) {
                                             PrintResults($results, $user);

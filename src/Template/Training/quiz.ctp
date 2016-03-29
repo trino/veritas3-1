@@ -1,5 +1,7 @@
-<?php $settings = $Manager->get_settings(); ?>
-<?php $sidebar = $Manager->loadpermissions($Me, "sidebar"); ?>
+<?php
+    $settings = $Manager->get_settings();
+    $sidebar = $Manager->loadpermissions($Me, "sidebar");
+?>
 <h3 class="page-title">
     Quiz
 </h3>
@@ -31,6 +33,20 @@
 <?php
     $question = 0;
     $QuizID = $_GET["quizid"];
+    $quiz=clean($quiz);
+    $messages = array();
+
+    $start = strpos(strtolower($quiz["Description"]), "[message]");
+    if($start !== false){
+        $quiz = explode("\r\n" , trim(substr($quiz->Description, $start+9) , "\r\n"));
+        foreach($quiz as $message){
+            $start = strpos($message, "=");
+            if($start !== false){
+                $messages[substr($message, 0, $start)] = substr($message, $start+1);
+            }
+        }
+    }
+
     function clean($data, $datatype = 0) {
         if (is_object($data)) {
             switch ($datatype) {
@@ -224,6 +240,13 @@
     $GiveAnswer = $canedit && isset($_GET["debug"]);
     foreach ($questions as $question) {
         $question = clean($question, 1);
+
+        if(isset($messages[$question->QuestionID+1])){
+            echo '<div class="row"><div class="col-md-12"><div class="portlet box blue-steel"><div class="portlet-title"><div class="caption">';
+            echo $messages[$question->QuestionID+1];
+            echo '</DIV></DIV></DIV></DIV></DIV>';
+        }
+
         $answer = usersanswer($useranswers, $question->QuestionID);
         $result = FullQuestion($QuizID, $question->Question, array($question->Choice0, $question->Choice1, $question->Choice2, $question->Choice3, $question->Choice4, $question->Choice5), $question->QuestionID, "1.00", $answer, $question->Answer, $question->Picture, $this->request->webroot, $GiveAnswer);
         //$results[$result] += 1;

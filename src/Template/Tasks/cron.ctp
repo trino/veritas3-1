@@ -9,6 +9,9 @@
     $language = $this->request->session()->read('Profile.language');
     $strings = CacheTranslations($language, array($this->request->params['controller'] . "_%", "month_long%"),$settings);
     $Showname=isset($_GET["clientid"]);
+    if($this->request->session()->read('debug')) {
+        echo "<span style ='color:red;'>template/tasks/cron.ctp</span>";
+    }
 
     $Frequencies = array();
     foreach(array(1,3,6,12) as $Frequency){
@@ -156,8 +159,9 @@
                                             }
                                             echo '</SELECT></TD>';
                                             ?>
-                                            <td><input type="radio" name="requalify_re[<?php echo $Client->id;?>]" value="1" <?php if($Client->requalify_re){ echo " CHECKED";}?> onclick="$('#span_when<?php echo $Client->id;?>').hide();"/>Hired Date
-                                                <input type="radio" name="requalify_re[<?php echo $Client->id;?>]"<?php if($Client->requalify_re=='0'){ echo " CHECKED";}?> id="check_when<?php echo $Client->id;?>" onclick="$('#span_when<?php echo $Client->id;?>').show();" value="0" />Anniversary
+                                            <td>
+                                                <LABEL><input type="radio" name="requalify_re[<?php echo $Client->id;?>]" value="1" <?php if($Client->requalify_re){ echo " CHECKED";}?> onclick="$('#span_when<?php echo $Client->id;?>').hide();"/>Hired Date</LABEL>
+                                                <LABEL><input type="radio" name="requalify_re[<?php echo $Client->id;?>]"<?php if($Client->requalify_re=='0'){ echo " CHECKED";}?> id="check_when<?php echo $Client->id;?>" onclick="$('#span_when<?php echo $Client->id;?>').show();" value="0" />Anniversary</LABEL>
                                                 <span id="span_when<?php echo $Client->id;?>" style="<?php if($Client->requalify_re){ echo ' display: none;';}?>">
                                                     <input type="text" name="requalify_date[<?php echo $Client->id;?>]" ID="text_when<?php echo $Client->id;?>"
                                                     class="datepicker date-picker" value="<?php echo $Client->requalify_date;?>"  STYLE="width:40%;">

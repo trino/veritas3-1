@@ -113,6 +113,7 @@ class TrainingController extends AppController {
     }
 
     public function quiz(){
+        $this->set('quiz', $this->getQuizHeader($_GET["quizid"]));
         $answers =  $this->getQuiz($_GET["quizid"]);
         $this->set('questions', $answers);
         if (count($_POST)>0){ $this->saveanswers($this->getuserid(), $answers, $_POST); }
