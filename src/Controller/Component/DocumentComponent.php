@@ -556,14 +556,14 @@ class DocumentComponent extends Component{
                 $arr['draft'] = $ord->draft;
 
                 
-                unset($arr['uploaded_for']);
+              //  unset($arr['uploaded_for']);
                 $arr['uploaded_for'] = $ord->uploaded_for;
-                unset($arr['user_id']);
+            //    unset($arr['user_id']);
                 $arr['user_id'] = $ord->user_id;
                 //unset($arr['client_id']);
                 $arr['client_id'] = $ord->client_id;
-                    
-                
+
+
                 $arr['created'] = $ord->created;
                 if($arr['document_type']!='Employment Verification' && $arr['document_type']!='Education Verification' && $arr['document_type']!='Consent Form'){
                     $doc = $docs->find()->where(['order_id'=>$arr['order_id'],'sub_doc_id'=>$arr['sub_doc_id']])->first();

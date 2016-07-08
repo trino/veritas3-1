@@ -18,7 +18,6 @@
 
         public function intact()
         {
-
         }
 
         public function productSelection()

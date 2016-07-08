@@ -1829,7 +1829,6 @@
             $('.subform').html("");
     }
 
-
     function save_recruiter_info(oid) {
         var data = {
 
